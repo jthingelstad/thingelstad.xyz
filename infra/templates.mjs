@@ -404,6 +404,10 @@ save(
                     Action: [
                       'lambda:GetFunction',
                       'lambda:GetFunctionConfiguration',
+                      'lambda:GetFunctionCodeSigningConfig',
+                      'lambda:GetFunctionRecursionConfig',
+                      'lambda:GetRuntimeManagementConfig',
+                      'lambda:GetFunctionScalingConfig',
                       'lambda:UpdateFunctionCode',
                       'lambda:ListTags'
                     ],

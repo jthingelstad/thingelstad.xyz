@@ -61,7 +61,9 @@ if (stack.Parameters.find((parameter) => parameter.ParameterKey === 'GuideCodeKe
   run('cloudformation', 'wait', 'change-set-create-complete', '--change-set-name', changeSet.Id);
   const proposal = aws('cloudformation', 'describe-change-set', '--change-set-name', changeSet.Id);
   assertCodeOnlyChangeSet(proposal);
-  const events = aws('cloudformation', 'describe-events', '--change-set-name', changeSet.Id).OperationEvents ?? [];
+  const events =
+    aws('cloudformation', 'describe-events', '--stack-name', stack.StackId, '--change-set-name', changeSet.Id)
+      .OperationEvents ?? [];
   if (events.some((event) => event.EventType === 'VALIDATION_ERROR' || event.ValidationStatus === 'FAILED')) {
     throw new Error('CloudFormation validation failed.');
   }
