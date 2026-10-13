@@ -394,7 +394,19 @@ save(
                   },
                   {
                     Effect: 'Allow',
-                    Action: ['lambda:GetFunction', 'lambda:GetFunctionConfiguration', 'lambda:UpdateFunctionCode'],
+                    Action: ['apigateway:GET', 'apigateway:PATCH'],
+                    Resource: sub(
+                      'arn:${AWS::Partition}:apigateway:${AWS::Region}::/apis/${ApiId}/integrations/${IntegrationId}'
+                    )
+                  },
+                  {
+                    Effect: 'Allow',
+                    Action: [
+                      'lambda:GetFunction',
+                      'lambda:GetFunctionConfiguration',
+                      'lambda:UpdateFunctionCode',
+                      'lambda:ListTags'
+                    ],
                     Resource: sub(
                       'arn:${AWS::Partition}:lambda:${AWS::Region}:${AWS::AccountId}:function:thingelstad-xyz-site-guide'
                     )
@@ -411,7 +423,9 @@ save(
       Parameters: {
         SiteBucket: { Type: 'String' },
         AssetsBucket: { Type: 'String' },
-        DistributionId: { Type: 'String' }
+        DistributionId: { Type: 'String' },
+        ApiId: { Type: 'String' },
+        IntegrationId: { Type: 'String' }
       }
     }
   )
