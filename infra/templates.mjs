@@ -335,7 +335,8 @@ save(
                 Condition: {
                   StringEquals: {
                     'token.actions.githubusercontent.com:aud': 'sts.amazonaws.com',
-                    'token.actions.githubusercontent.com:sub': 'repo:jthingelstad/thingelstad.xyz:ref:refs/heads/main'
+                    'token.actions.githubusercontent.com:sub':
+                      'repo:jthingelstad@5351/thingelstad.xyz@1417506858:ref:refs/heads/main'
                   }
                 }
               }
