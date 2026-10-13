@@ -402,6 +402,11 @@ save(
                   },
                   {
                     Effect: 'Allow',
+                    Action: 'iam:GetRole',
+                    Resource: ref('GuideRoleArn')
+                  },
+                  {
+                    Effect: 'Allow',
                     Action: ['apigateway:GET', 'apigateway:PATCH'],
                     Resource: sub(
                       'arn:${AWS::Partition}:apigateway:${AWS::Region}::/apis/${ApiId}/integrations/${IntegrationId}'
@@ -437,7 +442,8 @@ save(
         AssetsBucket: { Type: 'String' },
         DistributionId: { Type: 'String' },
         ApiId: { Type: 'String' },
-        IntegrationId: { Type: 'String' }
+        IntegrationId: { Type: 'String' },
+        GuideRoleArn: { Type: 'String' }
       }
     }
   )

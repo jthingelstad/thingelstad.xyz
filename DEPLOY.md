@@ -58,3 +58,5 @@ The Lambda ZIP normalizes timestamps and omits extra file attributes so repeated
 For rollback, revert the problematic commit on `main`. The same checks and verification apply. Delivery checks the current main revision before publishing, so stale workflow reruns cannot overwrite a newer release. To change the delivery role itself, regenerate and separately deploy `infra/generated/delivery.json` with reviewed CloudFormation validation and `CAPABILITY_IAM`.
 
 Live bootstrap calls to `DescribeEvents` were denied with stack/change-set ARN permissions despite a positive IAM simulation. Delivery grants this single read-only action with `Resource: *`, restricted to `us-east-1`; the script explicitly targets this site's stack on every query. Mutating permissions remain scoped to this application.
+
+CloudFormation resolves the guide's existing workload role ARN while updating code. Delivery therefore has `iam:GetRole` for that one runtime role, with no IAM mutation permission.
