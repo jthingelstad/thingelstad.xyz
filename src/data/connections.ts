@@ -1,6 +1,6 @@
 import { catalog } from './projects';
 
-export type Connection = { from: string; to: string; label: string; detail: string; source: string };
+export type Connection = { from: string; to: string; label: string; detail: string; source: string; kind?: 'lineage' };
 
 export const connections: Connection[] = [
   {
@@ -120,6 +120,7 @@ export const connections: Connection[] = [
     source: 'https://poapkings.com/elixir-drop/'
   },
   {
+    kind: 'lineage',
     from: 'elixir-bot',
     to: 'elixir',
     label: 'gave rise to',
@@ -128,6 +129,7 @@ export const connections: Connection[] = [
     source: 'https://github.com/jthingelstad/elixir-bot'
   },
   {
+    kind: 'lineage',
     from: 'elixir-bot',
     to: 'elixir-mcp-discord',
     label: 'was succeeded by',
@@ -135,6 +137,7 @@ export const connections: Connection[] = [
     source: 'https://github.com/jthingelstad/elixir-bot'
   },
   {
+    kind: 'lineage',
     from: 'your-version-number',
     to: 'release-notes',
     label: 'grew into',
@@ -150,6 +153,36 @@ export const connections: Connection[] = [
     source: 'https://rwbookclub.com/'
   }
 ];
+
+connections.push(
+  {
+    kind: 'lineage',
+    from: 'elixir-bot',
+    to: 'elixir-mcp-collector',
+    label: 'gave rise to',
+    detail:
+      'The original bot’s game observation work grew into a separate Collector that feeds Elixir’s recorded history.',
+    source: 'https://github.com/jthingelstad/elixir-bot'
+  },
+  {
+    kind: 'lineage',
+    from: 'elixir-bot',
+    to: 'elixir-clan',
+    label: 'gave rise to',
+    detail:
+      'The original bot’s clan management work carried forward into Elixir Clan, now a feature of the shared Elixir platform.',
+    source: 'https://github.com/jthingelstad/elixir-bot'
+  },
+  {
+    kind: 'lineage',
+    from: 'another-thing-builder',
+    to: 'wt-builder',
+    label: 'was succeeded by',
+    detail:
+      'The earlier podcast authoring application was retired when WT Builder took on Another Thing in October 2026.',
+    source: 'https://github.com/jthingelstad/wt-builder/commit/bea76c7ef4fc79a878072feebf694ce18ad217ea'
+  }
+);
 
 export function neighbors(id: string): string[] {
   return [

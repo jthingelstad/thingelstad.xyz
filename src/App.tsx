@@ -4,6 +4,9 @@ import { catalog, entryById, searchProjects } from './data/projects';
 import { Connections } from './components/Connections';
 import { ProjectDetail } from './components/ProjectDetail';
 import { Icon } from './components/Icon';
+import { History } from './components/History';
+import { historyYears } from './data/history';
+import { topicById } from './data/topics';
 import { askGuide, type GuideResult } from './lib/guide';
 
 declare global {
@@ -12,14 +15,35 @@ declare global {
   }
 }
 
-type View = 'connections' | 'index' | 'about';
-type Route = { view: View; project: string | null; focus: string };
+type View = 'connections' | 'history' | 'index' | 'about';
+type Route = {
+  view: View;
+  project: string | null;
+  focus: string;
+  layout: 'timeline' | 'map';
+  topic: string | null;
+  year: number;
+  month: number | null;
+};
 function readLocation(): Route {
   const params = new URLSearchParams(location.search);
+  const topic = topicById.get(params.get('topic') ?? '');
   return {
-    view: (['index', 'about'].includes(params.get('view') ?? '') ? params.get('view') : 'connections') as View,
+    view: (['index', 'about', 'history'].includes(params.get('view') ?? '')
+      ? params.get('view')
+      : 'connections') as View,
     project: entryById.has(params.get('project') ?? '') ? params.get('project') : null,
-    focus: entryById.has(params.get('focus') ?? '') ? params.get('focus')! : 'weekly-thing'
+    focus: entryById.has(params.get('focus') ?? '') ? params.get('focus')! : (topic?.projectIds[0] ?? 'wt-builder'),
+    layout: params.get('layout') === 'map' ? 'map' : 'timeline',
+    topic: topicById.has(params.get('topic') ?? '') ? params.get('topic') : null,
+    year: historyYears.includes(Number(params.get('year'))) ? Number(params.get('year')) : historyYears[0],
+    month:
+      params.has('month') &&
+      Number(params.get('month')) >= 1 &&
+      Number(params.get('month')) <= 12 &&
+      Number.isInteger(Number(params.get('month')))
+        ? Number(params.get('month'))
+        : null
   };
 }
 
@@ -37,7 +61,7 @@ export function App() {
 
   useEffect(() => {
     window.tinylytics?.triggerUpdate?.();
-  }, [route.view, route.project, route.focus]);
+  }, [route.view, route.project, route.focus, route.layout, route.topic, route.year, route.month]);
   useEffect(() => {
     const onPop = () => setRoute(readLocation());
     window.addEventListener('popstate', onPop);
@@ -47,14 +71,19 @@ export function App() {
     };
   }, []);
   const navigate = useCallback(
-    (view: View, project: string | null = null, focus = route.focus) => {
+    (view: View, project: string | null = null, focus = route.focus, options: Partial<Route> = {}) => {
+      const next = { ...route, view, project, focus, ...options };
       const params = new URLSearchParams();
       if (view !== 'connections') params.set('view', view);
       if (project) params.set('project', project);
-      if (focus !== 'weekly-thing') params.set('focus', focus);
+      if (focus !== 'wt-builder') params.set('focus', focus);
+      if (next.layout === 'map') params.set('layout', 'map');
+      if (next.topic) params.set('topic', next.topic);
+      if (next.year !== historyYears[0]) params.set('year', String(next.year));
+      if (next.month) params.set('month', String(next.month));
       window.history.pushState({}, '', params.size ? `?${params}` : location.pathname);
       if (view !== route.view || project !== route.project) window.scrollTo({ top: 0, behavior: 'instant' });
-      setRoute({ view, project, focus });
+      setRoute(next);
     },
     [route]
   );
@@ -113,7 +142,12 @@ export function App() {
   }
   function reset() {
     resetGuide();
-    navigate('connections', null, 'weekly-thing');
+    navigate('connections', null, 'wt-builder', {
+      layout: 'timeline',
+      topic: null,
+      year: historyYears[0],
+      month: null
+    });
   }
   const guideContent =
     thinking || error || result ? (
@@ -186,6 +220,9 @@ export function App() {
           >
             Explore
           </button>
+          <button aria-current={route.view === 'history' ? 'page' : undefined} onClick={() => navigate('history')}>
+            History
+          </button>
           <button aria-current={route.view === 'index' ? 'page' : undefined} onClick={() => navigate('index')}>
             Index
           </button>
@@ -207,11 +244,30 @@ export function App() {
           <Connections
             onOpen={open}
             selected={route.focus}
+            layout={route.layout}
+            topic={route.topic}
+            onLayout={(layout) => navigate('connections', null, route.focus, { layout })}
+            onTopic={(topic) => {
+              const members = topic ? topicById.get(topic)!.projectIds : null;
+              navigate('connections', null, members && !members.includes(route.focus) ? members[0] : route.focus, {
+                topic
+              });
+            }}
+            onHistory={(year) => navigate('history', null, route.focus, { year, month: null })}
             setSelected={select}
             onAsk={(query) => void explore(query)}
             guideContent={guideContent}
             guideActive={!!(thinking || error || result)}
             guideBusy={!!thinking}
+          />
+        ) : route.view === 'history' ? (
+          <History
+            year={route.year}
+            month={route.month}
+            topic={route.topic}
+            onFilter={(year, month) => navigate('history', null, route.focus, { year, month })}
+            onTopic={(topic) => navigate('history', null, route.focus, { topic, month: null })}
+            onSelect={select}
           />
         ) : route.view === 'index' ? (
           <section className="index-view">
