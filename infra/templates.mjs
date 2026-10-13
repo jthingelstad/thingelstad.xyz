@@ -335,7 +335,8 @@ save(
                 Condition: {
                   StringEquals: {
                     'token.actions.githubusercontent.com:aud': 'sts.amazonaws.com',
-                    'token.actions.githubusercontent.com:sub': 'repo:jthingelstad/thingelstad.xyz:ref:refs/heads/main'
+                    'token.actions.githubusercontent.com:sub':
+                      'repo:jthingelstad@5351/thingelstad.xyz@1417506858:ref:refs/heads/main'
                   }
                 }
               }
@@ -393,7 +394,19 @@ save(
                   },
                   {
                     Effect: 'Allow',
-                    Action: ['lambda:GetFunction', 'lambda:GetFunctionConfiguration', 'lambda:UpdateFunctionCode'],
+                    Action: ['apigateway:GET', 'apigateway:PATCH'],
+                    Resource: sub(
+                      'arn:${AWS::Partition}:apigateway:${AWS::Region}::/apis/${ApiId}/integrations/${IntegrationId}'
+                    )
+                  },
+                  {
+                    Effect: 'Allow',
+                    Action: [
+                      'lambda:GetFunction',
+                      'lambda:GetFunctionConfiguration',
+                      'lambda:UpdateFunctionCode',
+                      'lambda:ListTags'
+                    ],
                     Resource: sub(
                       'arn:${AWS::Partition}:lambda:${AWS::Region}:${AWS::AccountId}:function:thingelstad-xyz-site-guide'
                     )
@@ -410,7 +423,9 @@ save(
       Parameters: {
         SiteBucket: { Type: 'String' },
         AssetsBucket: { Type: 'String' },
-        DistributionId: { Type: 'String' }
+        DistributionId: { Type: 'String' },
+        ApiId: { Type: 'String' },
+        IntegrationId: { Type: 'String' }
       }
     }
   )
