@@ -407,6 +407,11 @@ save(
                   },
                   {
                     Effect: 'Allow',
+                    Action: 'apigateway:GET',
+                    Resource: sub('arn:${AWS::Partition}:apigateway:${AWS::Region}::/apis/${ApiId}')
+                  },
+                  {
+                    Effect: 'Allow',
                     Action: ['apigateway:GET', 'apigateway:PATCH'],
                     Resource: sub(
                       'arn:${AWS::Partition}:apigateway:${AWS::Region}::/apis/${ApiId}/integrations/${IntegrationId}'
