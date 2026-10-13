@@ -3,6 +3,16 @@ import { motion, useReducedMotion } from 'motion/react';
 import { connections, graphHeight, graphPositions, neighbors } from '../data/connections';
 import { catalog, entryById, projectById } from '../data/projects';
 import { Icon } from './Icon';
+import { useCompactGraph } from '../lib/useCompactGraph';
+import { TopicPicker } from './TopicPicker';
+import { topicById, topicsFor } from '../data/topics';
+import {
+  timelineLayout,
+  compactTimelineLayout,
+  historyEvents,
+  eventsForProject,
+  formatEventDate
+} from '../data/history';
 
 const startingPoints = [
   ['Writing & publishing', 'weekly-thing'],
@@ -24,6 +34,11 @@ function labelLines(title: string) {
 
 type Props = {
   onOpen: (id: string) => void;
+  layout: 'timeline' | 'map';
+  topic: string | null;
+  onLayout: (layout: 'timeline' | 'map') => void;
+  onTopic: (id: string | null) => void;
+  onHistory: (year: number) => void;
   selected: string;
   setSelected: (id: string) => void;
   onAsk: (question: string) => void;
@@ -32,7 +47,20 @@ type Props = {
   guideBusy: boolean;
 };
 
-export function Connections({ onOpen, selected, setSelected, onAsk, guideContent, guideActive, guideBusy }: Props) {
+export function Connections({
+  onOpen,
+  selected,
+  setSelected,
+  onAsk,
+  guideContent,
+  guideActive,
+  guideBusy,
+  layout,
+  topic,
+  onLayout,
+  onTopic,
+  onHistory
+}: Props) {
   const [zoom, setZoom] = useState(1);
   const [guideExpanded, setGuideExpanded] = useState(false);
   const [question, setQuestion] = useState('');
@@ -43,20 +71,34 @@ export function Connections({ onOpen, selected, setSelected, onAsk, guideContent
   const adjacent = neighbors(selected);
   const entry = entryById.get(selected)!;
   const project = projectById.get(selected);
+  const compact = useCompactGraph();
+  const timeLayout = compact ? compactTimelineLayout : timelineLayout;
+  const { bands: timelineBands, eventPositions } = timeLayout;
+  const positions = layout === 'timeline' ? timeLayout.positions : graphPositions;
+  const height = layout === 'timeline' ? timeLayout.height : graphHeight;
+  const width = layout === 'timeline' ? timeLayout.width : 1200;
+  const activeTopic = topic ? topicById.get(topic)! : null;
+  const topicMembers = activeTopic?.projectIds ?? null;
+  const hubY = positions[topicMembers?.includes(selected) ? selected : (topicMembers?.[0] ?? selected)][1] + 80;
+  const projectEvents = eventsForProject(selected);
+  const projectTopics = topicsFor(selected);
   const edges = connections.filter((edge) => edge.from === selected || edge.to === selected);
 
   useEffect(() => {
     const area = canvas.current,
       svg = area?.querySelector('svg');
     if (!area || !svg) return;
-    const scale = svg.getBoundingClientRect().width / 1200;
-    const [x, y] = graphPositions[selected];
+    const params = new URLSearchParams(location.search);
+    if (!params.has('focus') && !params.has('topic') && zoom === 1 && area.scrollTop === 0 && area.scrollLeft === 0)
+      return;
+    const scale = svg.getBoundingClientRect().width / width;
+    const [x, y] = positions[selected];
     area.scrollTo({
       left: Math.max(0, x * scale - area.clientWidth / 2),
       top: Math.max(0, y * scale - area.clientHeight / 2),
       behavior: reduced ? 'instant' : 'smooth'
     });
-  }, [selected, zoom, reduced]);
+  }, [selected, zoom, reduced, positions, width]);
   const [wasGuideActive, setWasGuideActive] = useState(guideActive);
   if (guideActive !== wasGuideActive) {
     setWasGuideActive(guideActive);
@@ -68,7 +110,7 @@ export function Connections({ onOpen, selected, setSelected, onAsk, guideContent
       <div className="map-intro">
         <div>
           <h1>Things I’ve built.</h1>
-          <p>Pick a thing. Follow a connection. See where it takes you.</p>
+          <p>Follow an interest. Trace an idea. Travel back through the things.</p>
         </div>
         <span className="collection-count">{catalog.length} things, and the threads between them.</span>
       </div>
@@ -81,8 +123,24 @@ export function Connections({ onOpen, selected, setSelected, onAsk, guideContent
           </button>
         ))}
       </div>
+      <TopicPicker selected={topic} onChange={onTopic} />
+      <div className="map-mode-row">
+        <div className="map-modes" aria-label="Graph layout">
+          <button aria-pressed={layout === 'timeline'} onClick={() => onLayout('timeline')}>
+            Through time
+          </button>
+          <button aria-pressed={layout === 'map'} onClick={() => onLayout('map')}>
+            Connections
+          </button>
+        </div>
+        <span>
+          {layout === 'timeline'
+            ? 'Latest documented activity first · scroll back in time'
+            : 'Every thing, and the threads between them'}
+        </span>
+      </div>
       <div className="graph-layout">
-        <div className="graph-stage">
+        <div className={`graph-stage${layout === 'timeline' ? ' timeline-stage' : ''}`}>
           <div className="graph-controls">
             <select aria-label="Choose a project" value={selected} onChange={(e) => setSelected(e.target.value)}>
               {catalog.map((node) => (
@@ -91,17 +149,48 @@ export function Connections({ onOpen, selected, setSelected, onAsk, guideContent
                 </option>
               ))}
             </select>
+            {layout === 'timeline' && (
+              <select
+                aria-label="Jump to year"
+                value=""
+                onChange={(event) => {
+                  const band = timelineBands.find((item) => String(item.year ?? 'undated') === event.target.value);
+                  if (band && canvas.current)
+                    canvas.current.scrollTo({
+                      top: (band.y * canvas.current.querySelector('svg')!.getBoundingClientRect().width) / width,
+                      behavior: reduced ? 'instant' : 'smooth'
+                    });
+                }}
+              >
+                <option value="" disabled>
+                  Jump to year
+                </option>
+                {timelineBands.map((band) => (
+                  <option key={band.year ?? 'undated'} value={band.year ?? 'undated'}>
+                    {band.year ?? 'Undated'}
+                  </option>
+                ))}
+              </select>
+            )}
             <button
+              className="graph-zoom-control"
               aria-label="Zoom out"
               disabled={zoom <= 0.75}
               onClick={() => setZoom((z) => Math.max(0.75, z - 0.25))}
             >
               −
             </button>
-            <button aria-label="Zoom in" disabled={zoom >= 2} onClick={() => setZoom((z) => Math.min(2, z + 0.25))}>
+            <button
+              className="graph-zoom-control"
+              aria-label="Zoom in"
+              disabled={zoom >= 2}
+              onClick={() => setZoom((z) => Math.min(2, z + 0.25))}
+            >
               +
             </button>
-            <button onClick={() => setZoom(1)}>Reset</button>
+            <button className="graph-zoom-control" onClick={() => setZoom(1)}>
+              Reset
+            </button>
           </div>
           <div
             ref={canvas}
@@ -112,7 +201,7 @@ export function Connections({ onOpen, selected, setSelected, onAsk, guideContent
               if (
                 event.pointerType !== 'mouse' ||
                 event.button !== 0 ||
-                (event.target as Element).closest('.graph-node')
+                (event.target as Element).closest('[role=button]')
               )
                 return;
               event.preventDefault();
@@ -141,40 +230,178 @@ export function Connections({ onOpen, selected, setSelected, onAsk, guideContent
           >
             <svg
               className="project-graph"
-              viewBox={`0 0 1200 ${graphHeight}`}
-              style={{ width: `${zoom * 100}%` }}
+              viewBox={`0 0 ${width} ${height}`}
+              style={{ width: `${compact && layout === 'timeline' ? 100 : zoom * 100}%` }}
               aria-label="Project relationships"
             >
-              <text className="map-region-label" x="110" y="40">
-                WRITING, TOOLS & PUBLISHING
-              </text>
-              <text className="map-region-label" x="690" y="40">
-                GAMES, AGENTS & COMMUNITIES
-              </text>
-              <text className="map-region-label" x="110" y="750">
-                MORE THINGS TO EXPLORE
-              </text>
+              <defs>
+                <marker
+                  id="lineage-arrow"
+                  viewBox="0 0 10 10"
+                  refX="9"
+                  refY="5"
+                  markerWidth="7"
+                  markerHeight="7"
+                  orient="auto-start-reverse"
+                >
+                  <path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="#3373ee" strokeWidth="1.5" />
+                </marker>
+                <marker
+                  id="lineage-arrow-muted"
+                  viewBox="0 0 10 10"
+                  refX="9"
+                  refY="5"
+                  markerWidth="7"
+                  markerHeight="7"
+                  orient="auto-start-reverse"
+                >
+                  <path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="#899bb8" strokeWidth="1.5" />
+                </marker>
+              </defs>
+              {layout === 'timeline' ? (
+                timelineBands.map((band) => (
+                  <g
+                    key={band.year ?? 'undated'}
+                    className="time-band"
+                    aria-label={band.year ? `Year ${band.year}` : 'Dates not yet established'}
+                  >
+                    <line x1="38" x2={width - 38} y1={band.y + 32} y2={band.y + 32} />
+                    <text x="38" y={band.y + 62}>
+                      {band.year ?? 'Undated'}
+                    </text>
+                    <text className="time-band-note" x="155" y={band.y + 61}>
+                      {band.year === timelineBands[0].year
+                        ? 'LATEST DOCUMENTED ACTIVITY'
+                        : band.year
+                          ? 'EARLIER CHAPTERS'
+                          : 'STORIES STILL TO DATE'}
+                    </text>
+                  </g>
+                ))
+              ) : (
+                <>
+                  <text className="map-region-label" x="110" y="40">
+                    WRITING, TOOLS & PUBLISHING
+                  </text>
+                  <text className="map-region-label" x="690" y="40">
+                    GAMES, AGENTS & COMMUNITIES
+                  </text>
+                  <text className="map-region-label" x="110" y="750">
+                    MORE THINGS TO EXPLORE
+                  </text>
+                </>
+              )}
+              {activeTopic && (
+                <g className="topic-hub">
+                  {activeTopic.projectIds.map((id) => {
+                    const point = positions[id];
+                    return (
+                      <path
+                        key={id}
+                        className="topic-thread"
+                        d={`M 65 ${hubY} Q 65 ${point[1]} ${point[0] - 20} ${point[1]}`}
+                      />
+                    );
+                  })}
+                  <g
+                    transform={`translate(65 ${hubY})`}
+                    role="button"
+                    tabIndex={0}
+                    aria-label={`Clear ${activeTopic.title} topic`}
+                    onClick={() => onTopic(null)}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        onTopic(null);
+                      }
+                    }}
+                  >
+                    <circle r="24" fill="transparent" />
+                    <rect className="topic-diamond" x="-6" y="-6" width="12" height="12" transform="rotate(45)" />
+                    <text x="16" y="4">
+                      {activeTopic.title}
+                    </text>
+                  </g>
+                </g>
+              )}
+              {layout === 'timeline' &&
+                Object.entries(eventPositions).map(([id, [x, y]]) => {
+                  const event = historyEvents.find((entry) => entry.id === id)!;
+                  const active = event.projectIds.includes(selected);
+                  const visible =
+                    !topicMembers || event.projectIds.some((projectId) => topicMembers.includes(projectId));
+                  const a = positions[selected];
+                  return (
+                    <g key={id} className={`timeline-echo${active ? ' active' : ''}`} opacity={visible ? 1 : 0.2}>
+                      {active && (
+                        <path
+                          className="life-thread"
+                          d={`M ${a[0]} ${a[1] + 20} C ${a[0] - 80} ${a[1] + 80}, ${x - 80} ${y - 80}, ${x} ${y}`}
+                        />
+                      )}
+                      <g
+                        transform={`translate(${x} ${y})`}
+                        role="button"
+                        tabIndex={0}
+                        aria-label={`Explore history: ${event.title}`}
+                        onClick={() => onHistory(Number(event.date.slice(0, 4)))}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            onHistory(Number(event.date.slice(0, 4)));
+                          }
+                        }}
+                      >
+                        <circle r="24" fill="transparent" />
+                        <circle r="5" />
+                        <text y="25" textAnchor="middle">
+                          {labelLines(event.title).map((line, index) => (
+                            <tspan key={index} x="0" dy={index ? 18 : 0}>
+                              {line}
+                            </tspan>
+                          ))}
+                        </text>
+                      </g>
+                    </g>
+                  );
+                })}
               {connections.map((edge, index) => {
-                const a = graphPositions[edge.from],
-                  b = graphPositions[edge.to];
+                const a = positions[edge.from],
+                  b = positions[edge.to];
+                const control =
+                  compact && layout === 'timeline'
+                    ? [a[0] + (edge.kind === 'lineage' ? 115 : -115), (a[1] + b[1]) / 2]
+                    : [(a[0] + b[0]) / 2, Math.min(a[1], b[1]) - 60];
+                const length = Math.hypot(b[0] - control[0], b[1] - control[1]) || 1;
+                const end = [b[0] - ((b[0] - control[0]) / length) * 20, b[1] - ((b[1] - control[1]) / length) * 20];
                 const active = edge.from === selected || edge.to === selected;
+                const visible =
+                  (!topicMembers || (topicMembers.includes(edge.from) && topicMembers.includes(edge.to))) &&
+                  (!compact || layout === 'map' || active);
                 return (
                   <motion.path
                     key={`${edge.from}:${edge.to}`}
-                    d={`M ${a[0]} ${a[1]} Q ${(a[0] + b[0]) / 2} ${Math.min(a[1], b[1]) - 15} ${b[0]} ${b[1]}`}
+                    className={edge.kind === 'lineage' ? 'lineage-edge' : 'relationship-edge'}
+                    data-from={edge.from}
+                    data-to={edge.to}
+                    aria-label={`${entryById.get(edge.from)!.title} ${edge.label} ${entryById.get(edge.to)!.title}`}
+                    d={`M ${a[0]} ${a[1]} Q ${control[0]} ${control[1]} ${end[0]} ${end[1]}`}
+                    markerEnd={
+                      edge.kind === 'lineage' ? `url(#${active ? 'lineage-arrow' : 'lineage-arrow-muted'})` : undefined
+                    }
+                    strokeDasharray={edge.kind === 'lineage' ? '6 5' : undefined}
                     fill="none"
-                    initial={reduced ? false : { pathLength: 0, opacity: 0 }}
+                    initial={reduced ? false : { opacity: 0 }}
                     animate={{
-                      pathLength: 1,
-                      stroke: active ? '#3373ee' : '#dce2eb',
+                      stroke: active ? '#3373ee' : edge.kind === 'lineage' ? '#899bb8' : '#dce2eb',
                       strokeWidth: active ? 2.5 : 1.3,
-                      opacity: active ? 1 : 0.8
+                      opacity: visible ? (active ? 1 : edge.kind === 'lineage' ? 0.65 : 0.35) : 0.06
                     }}
                     transition={{ duration: reduced ? 0 : 0.45, delay: reduced ? 0 : index * 0.008 }}
                   />
                 );
               })}
-              {Object.entries(graphPositions).map(([id, [x, y]]) => {
+              {Object.entries(positions).map(([id, [x, y]]) => {
                 const node = entryById.get(id)!;
                 const active = id === selected,
                   connected = adjacent.includes(id);
@@ -194,10 +421,13 @@ export function Connections({ onOpen, selected, setSelected, onAsk, guideContent
                         setSelected(id);
                       }
                     }}
-                    className={`graph-node${active ? ' selected' : ''}${connected ? ' connected' : ''}`}
+                    className={`graph-node${active ? ' selected' : ''}${connected ? ' connected' : ''}${topicMembers && !topicMembers.includes(id) ? ' topic-muted' : ''}`}
+                    data-project-id={id}
                   >
                     <circle className="node-hit" r="25" fill="transparent" />
-                    <circle
+                    <motion.circle
+                      animate={{ r: active ? 16 : projectById.has(id) ? 10 : 7 }}
+                      transition={{ duration: reduced ? 0 : 0.25 }}
                       className="node-ring"
                       r={active ? 16 : projectById.has(id) ? 10 : 7}
                       fill={active ? '#eaf1ff' : 'white'}
@@ -219,7 +449,9 @@ export function Connections({ onOpen, selected, setSelected, onAsk, guideContent
           </div>
           <div className="map-footnote">
             <span>Drag or scroll to explore · select a thing to follow its connections</span>
-            <span>{connections.length} documented relationships</span>
+            <span>
+              <i className="lineage-key" /> Evolution <i className="relation-key" /> Connection
+            </span>
           </div>
         </div>
         <aside className="graph-inspector">
@@ -234,6 +466,38 @@ export function Connections({ onOpen, selected, setSelected, onAsk, guideContent
               The story & the build <Icon name="arrow" size={17} />
             </button>
           </div>
+          <div className="project-topics" aria-label="Selected project topics">
+            {projectTopics.map((item) => (
+              <button
+                key={item.id}
+                aria-pressed={topic === item.id}
+                onClick={() => onTopic(topic === item.id ? null : item.id)}
+              >
+                {item.title}
+              </button>
+            ))}
+          </div>
+          <div className="project-history">
+            <h3>Through time</h3>
+            {projectEvents.length ? (
+              <>
+                {projectEvents.slice(0, 3).map((event) => (
+                  <a key={event.id} href={event.source} target="_blank" rel="noreferrer">
+                    <time dateTime={event.date}>{formatEventDate(event.date)}</time>
+                    <span>
+                      {event.title}
+                      <Icon name="external" size={11} />
+                    </span>
+                  </a>
+                ))}
+                <button className="text-link" onClick={() => onHistory(Number(projectEvents[0].date.slice(0, 4)))}>
+                  Explore the shared history <Icon name="arrow" size={13} />
+                </button>
+              </>
+            ) : (
+              <p>Its dates haven’t been established yet.</p>
+            )}
+          </div>
           <div className="connection-list">
             <h3>{edges.length ? 'Follow a thread' : 'Keep exploring'}</h3>
             {edges.length ? (
@@ -246,6 +510,7 @@ export function Connections({ onOpen, selected, setSelected, onAsk, guideContent
                       <Icon name="arrow" size={16} />
                     </button>
                     <span className="relationship-direction">
+                      {edge.kind === 'lineage' && <strong className="lineage-label">Evolution · </strong>}
                       {entryById.get(edge.from)!.title} {edge.label} {entryById.get(edge.to)!.title}
                     </span>
                     <p>{edge.detail}</p>
