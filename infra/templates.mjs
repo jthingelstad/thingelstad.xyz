@@ -382,7 +382,6 @@ save(
                       'cloudformation:DescribeChangeSet',
                       'cloudformation:ExecuteChangeSet',
                       'cloudformation:DeleteChangeSet',
-                      'cloudformation:DescribeEvents',
                       'cloudformation:ListChangeSets'
                     ],
                     Resource: [
@@ -391,6 +390,15 @@ save(
                       ),
                       sub('arn:${AWS::Partition}:cloudformation:${AWS::Region}:${AWS::AccountId}:changeSet/github-*/*')
                     ]
+                  },
+                  {
+                    // Live DescribeEvents requests currently reject scoped stack/change-set
+                    // ARNs despite an allowed IAM simulation. Limit this read-only exception
+                    // to the application region; the caller still supplies the exact stack ID.
+                    Effect: 'Allow',
+                    Action: 'cloudformation:DescribeEvents',
+                    Resource: '*',
+                    Condition: { StringEquals: { 'aws:RequestedRegion': ref('AWS::Region') } }
                   },
                   {
                     Effect: 'Allow',
