@@ -1,0 +1,20 @@
+{
+  "plugins": ["typescript", "react", "react-hooks"],
+  "categories": {
+    "correctness": "error"
+  },
+  "rules": {
+    "eqeqeq": ["error", "smart"],
+    "no-unused-vars": [
+      "error",
+      {
+        "argsIgnorePattern": "^_",
+        "varsIgnorePattern": "^_"
+      }
+    ],
+    "typescript/no-explicit-any": "error",
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "error"
+  },
+  "ignorePatterns": ["dist/**", ".build/**", "research/**", "infra/generated/**"]
+}

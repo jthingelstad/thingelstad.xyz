@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.build/
+infra/generated/
+research/
+package-lock.json
+playwright-report/
+test-results/

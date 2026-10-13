@@ -1,0 +1,394 @@
+[
+  {
+    "id": "jamie-thingelstad-blog",
+    "title": "Jamie Thingelstad blog",
+    "summary": "Blog and personal publishing",
+    "collection": "Publishing",
+    "url": "https://www.thingelstad.com/",
+    "historical": false
+  },
+  {
+    "id": "weekly-thing",
+    "title": "Weekly Thing",
+    "summary": "Newsletter and public archive",
+    "collection": "Publishing",
+    "url": "https://weekly.thingelstad.com/",
+    "historical": false
+  },
+  {
+    "id": "another-thing",
+    "title": "Another Thing",
+    "summary": "Podcast",
+    "collection": "Publishing",
+    "url": "https://another.thingelstad.com/",
+    "historical": false
+  },
+  {
+    "id": "thingy",
+    "title": "Thingy",
+    "summary": "Archive chat and discovery",
+    "collection": "Publishing",
+    "url": "https://thingy.thingelstad.com/",
+    "historical": false
+  },
+  {
+    "id": "librarian",
+    "title": "Librarian",
+    "summary": "Archive retrieval API and MCP server",
+    "collection": "Publishing",
+    "url": "https://librarian.thingelstad.com/mcp",
+    "historical": false
+  },
+  {
+    "id": "wt-builder",
+    "title": "WT Builder",
+    "summary": "Newsletter and podcast authoring application",
+    "collection": "Publishing",
+    "url": null,
+    "historical": false
+  },
+  {
+    "id": "thing-hugo",
+    "title": "Thing Hugo",
+    "summary": "Public blog theme",
+    "collection": "Publishing",
+    "url": "https://github.com/jthingelstad/thing-hugo",
+    "historical": false
+  },
+  {
+    "id": "another-thing-builder",
+    "title": "Another Thing Builder",
+    "summary": "Earlier podcast authoring application",
+    "collection": "Publishing",
+    "url": "https://github.com/jthingelstad/at-builder",
+    "historical": true
+  },
+  {
+    "id": "elixir",
+    "title": "Elixir",
+    "summary": "Clash Royale history platform and agent access",
+    "collection": "Games and communities",
+    "url": "https://elixir.poapkings.com/",
+    "historical": false
+  },
+  {
+    "id": "elixir-ladder",
+    "title": "Elixir Ladder",
+    "summary": "Ladder feature within Elixir",
+    "collection": "Games and communities",
+    "url": "https://elixir.poapkings.com/",
+    "historical": false
+  },
+  {
+    "id": "elixir-clan",
+    "title": "Elixir Clan",
+    "summary": "Clan management feature within Elixir",
+    "collection": "Games and communities",
+    "url": "https://elixir.poapkings.com/clan",
+    "historical": false
+  },
+  {
+    "id": "elixir-drop",
+    "title": "Elixir Drop",
+    "summary": "Card recognition and elixir cost training game",
+    "collection": "Games and communities",
+    "url": "https://drop.poapkings.com/",
+    "historical": false
+  },
+  {
+    "id": "poap-kings",
+    "title": "POAP KINGS",
+    "summary": "Clash Royale clan website",
+    "collection": "Games and communities",
+    "url": "https://poapkings.com/",
+    "historical": false
+  },
+  {
+    "id": "elixir-mcp-discord",
+    "title": "Elixir MCP Discord",
+    "summary": "Configurable Discord agent for clans",
+    "collection": "Games and communities",
+    "url": "https://github.com/jthingelstad/elixir-mcp-discord",
+    "historical": false
+  },
+  {
+    "id": "elixir-mcp-collector",
+    "title": "Elixir MCP Collector",
+    "summary": "Volunteer fetch worker",
+    "collection": "Games and communities",
+    "url": "https://github.com/jthingelstad/elixir-mcp-collector",
+    "historical": false
+  },
+  {
+    "id": "clash-royale-api-agent-reference",
+    "title": "Clash Royale API Agent Reference",
+    "summary": "Agent-oriented API documentation",
+    "collection": "Games and communities",
+    "url": "https://github.com/jthingelstad/cr-agent-api-docs",
+    "historical": false
+  },
+  {
+    "id": "elixir-bot",
+    "title": "Elixir Bot",
+    "summary": "Original clan agent preserved as history",
+    "collection": "Games and communities",
+    "url": "https://github.com/jthingelstad/elixir-bot",
+    "historical": true
+  },
+  {
+    "id": "r-w-book-club",
+    "title": "R/W Book Club",
+    "summary": "Reading history and club website",
+    "collection": "Games and communities",
+    "url": "https://rwbookclub.com/",
+    "historical": false
+  },
+  {
+    "id": "oliver",
+    "title": "Oliver",
+    "summary": "Book club agent and member application",
+    "collection": "Games and communities",
+    "url": null,
+    "historical": false
+  },
+  {
+    "id": "escaping-things",
+    "title": "Escaping Things",
+    "summary": "Escape room team, rooms, trips and statistics",
+    "collection": "Games and communities",
+    "url": "https://escape.thingelstad.com/",
+    "historical": false
+  },
+  {
+    "id": "planet-kubb-score",
+    "title": "Planet Kubb Score",
+    "summary": "Kubb notation, grammar, scoresheets and calculator",
+    "collection": "Games and communities",
+    "url": null,
+    "historical": false
+  },
+  {
+    "id": "your-version-number",
+    "title": "Your Version Number",
+    "summary": "Birthday and work milestones as software versions",
+    "collection": "Personal tools and making",
+    "url": "https://yourversionnumber.com/",
+    "historical": false
+  },
+  {
+    "id": "release-notes",
+    "title": "Release Notes",
+    "summary": "Daily version-number email and personal journal",
+    "collection": "Personal tools and making",
+    "url": "https://notes.yourversionnumber.com/",
+    "historical": false
+  },
+  {
+    "id": "things-4-good",
+    "title": "Things 4 Good",
+    "summary": "Family handmade-candle fundraiser",
+    "collection": "Personal tools and making",
+    "url": "https://things4good.xyz/",
+    "historical": false
+  },
+  {
+    "id": "mb",
+    "title": "mb",
+    "summary": "Micro.blog CLI and MCP tools",
+    "collection": "Developer tools and systems",
+    "url": "https://github.com/jthingelstad/mb",
+    "historical": false
+  },
+  {
+    "id": "mb-audit",
+    "title": "mb-audit",
+    "summary": "Audit a live Micro.blog site against backups",
+    "collection": "Developer tools and systems",
+    "url": "https://github.com/jthingelstad/mb-audit",
+    "historical": false
+  },
+  {
+    "id": "homebrew-mb-tap",
+    "title": "Homebrew mb tap",
+    "summary": "Homebrew distribution for mb",
+    "collection": "Developer tools and systems",
+    "url": "https://github.com/jthingelstad/homebrew-mb",
+    "historical": false
+  },
+  {
+    "id": "projects-systems-administration",
+    "title": "Projects Systems Administration",
+    "summary": "Host backups, recovery and infrastructure tooling",
+    "collection": "Developer tools and systems",
+    "url": null,
+    "historical": false
+  },
+  {
+    "id": "otto",
+    "title": "Otto",
+    "summary": "Personal OpenClaw agent workspace",
+    "collection": "Developer tools and systems",
+    "url": null,
+    "historical": false
+  },
+  {
+    "id": "open-loop",
+    "title": "Open Loop",
+    "summary": "Podcast and transcript restoration project",
+    "collection": "Historical projects",
+    "url": "https://www.thingelstad.com/projects/open-loop/",
+    "historical": true
+  },
+  {
+    "id": "road-sign-math",
+    "title": "Road Sign Math",
+    "summary": "Road-sign equation game and recovered archive",
+    "collection": "Historical projects",
+    "url": "https://www.thingelstad.com/projects/road-sign-math/",
+    "historical": true
+  },
+  {
+    "id": "planet-kubb",
+    "title": "Planet Kubb",
+    "summary": "Original Kubb community site and wiki",
+    "collection": "Historical projects",
+    "url": "https://www.thingelstad.com/projects/planet-kubb/",
+    "historical": true
+  },
+  {
+    "id": "poap2rss",
+    "title": "POAP2RSS",
+    "summary": "Existing blog portfolio entry",
+    "collection": "Historical projects",
+    "url": "https://www.poap2rss.com/",
+    "historical": true
+  },
+  {
+    "id": "612-poap-challenge",
+    "title": "612 POAP Challenge",
+    "summary": "Existing blog portfolio entry",
+    "collection": "Historical projects",
+    "url": "https://612.poapchallenge.com/",
+    "historical": true
+  },
+  {
+    "id": "charlie-brown-tree",
+    "title": "Charlie Brown Tree",
+    "summary": "Existing blog portfolio entry",
+    "collection": "Historical projects",
+    "url": "https://www.thingelstad.com/magic-pines/charlie-brown-tree/",
+    "historical": true
+  },
+  {
+    "id": "wicky-thing-candles",
+    "title": "Wicky Thing Candles",
+    "summary": "Existing blog portfolio entry",
+    "collection": "Historical projects",
+    "url": "https://www.thingelstad.com/candles/",
+    "historical": true
+  },
+  {
+    "id": "things-4-good-fall-fundraiser",
+    "title": "Things 4 Good Fall Fundraiser",
+    "summary": "Earlier fundraiser page",
+    "collection": "Historical projects",
+    "url": "https://www.thingelstad.com/projects/fall-fundraiser/",
+    "historical": true
+  },
+  {
+    "id": "wikiapiary",
+    "title": "WikiApiary",
+    "summary": "Existing portfolio entry with local archived material",
+    "collection": "Historical projects",
+    "url": "https://wikiapiary.com/wiki/Main_Page",
+    "historical": true
+  },
+  {
+    "id": "wikinosh",
+    "title": "Wikinosh",
+    "summary": "Existing blog portfolio entry",
+    "collection": "Historical projects",
+    "url": null,
+    "historical": true
+  },
+  {
+    "id": "link-blog",
+    "title": "Link Blog",
+    "summary": "Existing blog portfolio entry",
+    "collection": "Historical projects",
+    "url": "https://www.thingelstad.com/projects/link-blog/",
+    "historical": true
+  },
+  {
+    "id": "foreground",
+    "title": "Foreground",
+    "summary": "MediaWiki skin project",
+    "collection": "Historical projects",
+    "url": "https://github.com/jthingelstad/foreground",
+    "historical": true
+  },
+  {
+    "id": "filament",
+    "title": "Filament",
+    "summary": "MediaWiki project",
+    "collection": "Historical projects",
+    "url": "https://github.com/jthingelstad/filament",
+    "historical": true
+  },
+  {
+    "id": "parseurl",
+    "title": "ParseURL",
+    "summary": "MediaWiki project",
+    "collection": "Historical projects",
+    "url": "https://github.com/jthingelstad/ParseURL",
+    "historical": true
+  },
+  {
+    "id": "numbers2words",
+    "title": "Numbers2Words",
+    "summary": "MediaWiki project",
+    "collection": "Historical projects",
+    "url": "https://github.com/jthingelstad/Number2Words",
+    "historical": true
+  },
+  {
+    "id": "q2a-number-captcha",
+    "title": "q2a-number-captcha",
+    "summary": "Existing code project",
+    "collection": "Historical projects",
+    "url": "https://github.com/jthingelstad/q2a-number-captcha",
+    "historical": true
+  },
+  {
+    "id": "wikiwonders",
+    "title": "WikiWonders",
+    "summary": "Archived project material",
+    "collection": "Historical projects",
+    "url": null,
+    "historical": true
+  },
+  {
+    "id": "velotweets",
+    "title": "Velotweets",
+    "summary": "Archived Rails source project",
+    "collection": "Historical projects",
+    "url": null,
+    "historical": true
+  },
+  {
+    "id": "smaller-than-a-redwood",
+    "title": "Smaller Than a Redwood",
+    "summary": "Archived publication",
+    "collection": "Historical projects",
+    "url": null,
+    "historical": true
+  },
+  {
+    "id": "thinglesbot",
+    "title": "Thinglesbot",
+    "summary": "Archived publication",
+    "collection": "Historical projects",
+    "url": null,
+    "historical": true
+  }
+]

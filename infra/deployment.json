@@ -1,0 +1,70 @@
+{
+  "account": "999153317627",
+  "region": "us-east-1",
+  "stacks": {
+    "assets": "thingelstad-xyz-assets",
+    "certificate": "thingelstad-xyz-certificate",
+    "site": "thingelstad-xyz-site",
+    "delivery": "thingelstad-xyz-delivery"
+  },
+  "assetsBucket": "thingelstad-xyz-assets-assetsbucket-p9dnw4dc1dcv",
+  "siteBucket": "thingelstad-xyz-site-sitebucket-iqfg1dii0lwg",
+  "distributionId": "E1YVIY0XUIKR2X",
+  "cloudfrontDomain": "d34njoaumjumim.cloudfront.net",
+  "certificateArn": "arn:aws:acm:us-east-1:999153317627:certificate/15e8b7f8-91c7-433a-8618-9cbf2498baf5",
+  "guideCodeKey": "guide/3da6a0c656d4aedb7df2aa4f29faa5ef8e56f8dc7b22bdcaa39d2e153a42f152.zip",
+  "siteStackStatus": "UPDATE_COMPLETE",
+  "customDomainStatus": "LIVE",
+  "verified": {
+    "date": "2026-10-13",
+    "unitTests": 7,
+    "desktopAndPhoneBrowsing": true,
+    "runtimeIdentityHealth": true,
+    "invalidRequestRefusal": true,
+    "publicModelInvocation": false,
+    "apexHTTPS": true,
+    "wwwHTTPS": true,
+    "customDomainDesktopAndPhoneBrowsing": true,
+    "dnssecPublicValidation": true
+  },
+  "pending": [
+    "Optional: confirm apex is ALIAS in Namecheap console; public DNS returns the expected CloudFront addresses",
+    "Optional: restore former jamie TXT if retaining that ENS subdomain"
+  ],
+  "dnsProvider": "Namecheap BasicDNS",
+  "dnsVerification": {
+    "checkedAt": "2026-10-13T16:23:40Z",
+    "parentNameservers": "Namecheap BasicDNS",
+    "parentDSKeyTag": 16725,
+    "parentDSAlgorithm": 13,
+    "namecheapZoneSigned": true,
+    "namecheapWebsiteRecordsPresent": true,
+    "apexRecordTypeVerified": false,
+    "certificateValidationRecordsPresent": true,
+    "formerJamieTXTRecordPresent": false,
+    "certificateValidationRecordsResolvePublicly": true,
+    "certificateStatus": "ISSUED",
+    "publicResolvers": ["1.1.1.1", "8.8.8.8"],
+    "dnssecAuthenticatedAnswers": true
+  },
+  "distributionStatus": "Deployed",
+  "publishedUrl": "https://thingelstad.xyz/",
+  "deploymentCompletedAt": "2026-10-13T16:25:19Z",
+  "analytics": {
+    "provider": "Tinylytics",
+    "embedCode": "jyQF-tKd4sG-MEeyxvik",
+    "spa": true,
+    "published": true,
+    "verifiedAt": "2026-10-13T16:29:17Z",
+    "liveCollectorWritesDuringQA": 0,
+    "verifiedNavigation": ["initial view", "graph selection", "project detail", "browser back", "index"],
+    "verifiedHosts": ["thingelstad.xyz", "www.thingelstad.xyz"]
+  },
+  "lastClientUpdate": {
+    "reason": "Tinylytics SPA integration",
+    "javascriptAsset": "assets/index-_kRKXTWv.js",
+    "invalidationId": "I3RITOX6TSH1YVD8ZQCEUPMIOE",
+    "invalidationStatus": "Completed"
+  },
+  "deploymentRoleArn": "arn:aws:iam::999153317627:role/thingelstad-xyz-delivery-DeploymentRole-C9waPVE2ifbb"
+}

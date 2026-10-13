@@ -1,0 +1,52 @@
+{
+  "name": "thingelstad.xyz",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Things I've built. An interactive project gallery by Jamie Thingelstad.",
+  "scripts": {
+    "dev": "tsx server/index.ts",
+    "build": "npm run typecheck && vite build",
+    "start": "NODE_ENV=production tsx server/index.ts",
+    "test": "tsx --test tests/*.test.ts",
+    "check": "npm run format:check && npm run lint && npm test && npm run build",
+    "package": "npm run check && node infra/templates.mjs && node scripts/package.mjs",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "lint": "oxlint --deny-warnings && stylelint src/styles.css && knip",
+    "typecheck": "tsc --noEmit",
+    "test:browser": "playwright test",
+    "deploy": "node scripts/deploy.mjs"
+  },
+  "keywords": [],
+  "author": "Jamie Thingelstad",
+  "type": "module",
+  "dependencies": {
+    "@aws-sdk/client-bedrock-runtime": "^3.1150.0",
+    "@aws-sdk/client-dynamodb": "^3.1150.0",
+    "@aws-sdk/client-sts": "^3.1150.0",
+    "@aws-sdk/credential-providers": "^3.1150.0",
+    "@fontsource/inter": "^5.3.0",
+    "motion": "^14.1.0",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.64.0",
+    "@types/node": "^26.6.5",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.1.2",
+    "esbuild": "^0.28.2",
+    "knip": "^6.41.0",
+    "oxlint": "^1.88.0",
+    "prettier": "^3.9.10",
+    "stylelint": "^17.16.0",
+    "stylelint-config-standard": "^40.0.0",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.4"
+  },
+  "engines": {
+    "node": ">=24"
+  }
+}
