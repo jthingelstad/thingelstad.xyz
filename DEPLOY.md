@@ -56,3 +56,7 @@ The role can upload this application's static assets and guide artifacts, modify
 The Lambda ZIP normalizes timestamps and omits extra file attributes so repeated unchanged builds reuse an immutable artifact key. Delivery skips unchanged guide code. Hashed assets are uploaded before HTML and retained. CloudFront invalidation must finish; production HTML must match the built bytes, and read-only API health must pass before the job succeeds. Deployments serialize without canceling an active release.
 
 For rollback, revert the problematic commit on `main`. The same checks and verification apply. Delivery checks the current main revision before publishing, so stale workflow reruns cannot overwrite a newer release. To change the delivery role itself, regenerate and separately deploy `infra/generated/delivery.json` with reviewed CloudFormation validation and `CAPABILITY_IAM`.
+
+Live bootstrap calls to `DescribeEvents` were denied with stack/change-set ARN permissions despite a positive IAM simulation. Delivery grants this single read-only action with `Resource: *`, restricted to `us-east-1`; the script explicitly targets this site's stack on every query. Mutating permissions remain scoped to this application.
+
+CloudFormation resolves the guide's existing workload role ARN while updating code. Delivery therefore has `iam:GetRole` for that one runtime role, with no IAM mutation permission. It also has `apigateway:GET` on the existing API itself so CloudFormation can refresh its endpoint output.
