@@ -1,4 +1,8 @@
 import { test, expect } from '@playwright/test';
+import { readFileSync } from 'node:fs';
+
+const catalogSize = (JSON.parse(readFileSync('src/data/collection.json', 'utf8')) as { things: unknown[] }).things
+  .length;
 
 // Keep CI visits out of analytics and every guide question off AWS.
 test.beforeEach(async ({ page }) => {
@@ -16,7 +20,7 @@ test('browse the full graph, open a story, use Escape and retrace with Back', as
   const errors: string[] = [];
   page.on('pageerror', (error) => errors.push(error.message));
   await page.goto('/');
-  await expect(page.locator('.graph-node')).toHaveCount(49);
+  await expect(page.locator('.graph-node')).toHaveCount(catalogSize);
   const scrollport = await page.locator('.graph-scroll').boundingBox();
   const currentYear = await page.locator('.time-band').first().locator('text').first().boundingBox();
   expect(currentYear!.y).toBeGreaterThanOrEqual(scrollport!.y);
@@ -28,7 +32,7 @@ test('browse the full graph, open a story, use Escape and retrace with Back', as
   await expect(page).toHaveURL(/project=elixir/);
   await expect(page.locator('.detail-view h1')).toContainText('Elixir');
   await page.keyboard.press('Escape');
-  await expect(page.locator('.graph-node')).toHaveCount(49);
+  await expect(page.locator('.graph-node')).toHaveCount(catalogSize);
   await page.goBack();
   await expect(page.locator('.detail-view h1')).toContainText('Elixir');
   await page.goBack();
@@ -39,7 +43,7 @@ test('browse the full graph, open a story, use Escape and retrace with Back', as
 
 test('index filtering, empty results, and direct story links', async ({ page }) => {
   await page.goto('/?view=index');
-  await expect(page.locator('.index-row')).toHaveCount(49);
+  await expect(page.locator('.index-row')).toHaveCount(catalogSize);
   await page.getByLabel('Search the index').fill('Python');
   await expect(page.locator('.index-list')).toContainText('mb');
   await page.getByLabel('Search the index').fill('nonexistent xyz thing');
@@ -69,7 +73,7 @@ test('contextual guide explains privacy and gracefully handles an outage', async
   expect(payload?.contextId).toBe('elixir');
   await page.getByRole('button', { name: 'Keep browsing', exact: true }).click();
   await expect(page.locator('.guide-region')).toHaveCount(0);
-  await expect(page.locator('.graph-node')).toHaveCount(49);
+  await expect(page.locator('.graph-node')).toHaveCount(catalogSize);
 });
 
 test('keyboard graph selection and mocked AI results continue the browsing path', async ({ page }) => {
@@ -100,7 +104,7 @@ test('topics illuminate the whole graph and layout survives links and Back', asy
   await page.getByRole('button', { name: 'MediaWiki 9', exact: true }).click();
   await expect(page).toHaveURL(/topic=mediawiki/);
   await expect(page.locator('.topic-description')).toContainText('Wikis as a place to build');
-  await expect(page.locator('.graph-node')).toHaveCount(49);
+  await expect(page.locator('.graph-node')).toHaveCount(catalogSize);
   await expect(page.locator('.graph-node:not(.topic-muted)')).toHaveCount(9);
   await expect(page.getByRole('button', { name: 'Clear MediaWiki topic', exact: true })).toHaveCount(1);
   await page.getByRole('button', { name: 'Connections', exact: true }).click();
@@ -153,4 +157,25 @@ test('monthly history filters, year-only dates, source links, and project naviga
   await expect(page.locator('.selected-story h2')).toHaveText('Release Notes');
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
   expect(errors).toEqual([]);
+});
+
+test('NNXYZ has sourced GitHub metadata and dot sizing has an explicit meaning', async ({ page }) => {
+  await page.goto('/?focus=nnxyz');
+  await expect(page.locator('.selected-story h2')).toHaveText('NNXYZ');
+  await expect(page.locator('.project-sources')).toContainText('jthingelstad/nnxyz');
+  await page.getByLabel('Dot size', { exact: true }).selectOption('history');
+  await expect(page.locator('.map-sizing')).toContainText('Span between sourced events');
+  await page.getByLabel('Dot size', { exact: true }).selectOption('activity');
+  await expect(page.locator('.map-sizing')).toContainText('Complete 90-day');
+  await page.getByRole('button', { name: 'The story & the build', exact: true }).click();
+  await expect(page.locator('.detail-view h1')).toHaveText('NNXYZ');
+  await expect(page.locator('.project-sources')).toContainText('This is not a launch date');
+  await expect(page.locator('.project-sources')).toContainText('Observed');
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+});
+
+test('the public server does not expose the editor or write API', async ({ request }) => {
+  expect((await request.get('/editor')).status()).toBe(404);
+  expect((await request.get('/api/editor')).status()).toBe(404);
+  expect((await request.post('/api/editor/save', { data: {} })).status()).toBe(404);
 });

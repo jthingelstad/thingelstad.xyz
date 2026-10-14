@@ -2,6 +2,8 @@ import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { motion, useReducedMotion } from 'motion/react';
 import { connections, graphHeight, graphPositions, neighbors } from '../data/connections';
 import { catalog, entryById, projectById } from '../data/projects';
+import { ProjectSources } from './ProjectSources';
+import { nodeMeasure, nodeRadius, type NodeSizing } from '../data/sources';
 import { Icon } from './Icon';
 import { useCompactGraph } from '../lib/useCompactGraph';
 import { TopicPicker } from './TopicPicker';
@@ -62,6 +64,7 @@ export function Connections({
   onHistory
 }: Props) {
   const [zoom, setZoom] = useState(1);
+  const [sizing, setSizing] = useState<NodeSizing>('equal');
   const [guideExpanded, setGuideExpanded] = useState(false);
   const [question, setQuestion] = useState('');
   const [dragging, setDragging] = useState(false);
@@ -124,6 +127,21 @@ export function Connections({
         ))}
       </div>
       <TopicPicker selected={topic} onChange={onTopic} />
+      <div className="map-sizing">
+        <label htmlFor="node-sizing">Dot size</label>
+        <select id="node-sizing" value={sizing} onChange={(event) => setSizing(event.target.value as NodeSizing)}>
+          <option value="equal">Equal</option>
+          <option value="history">Documented history</option>
+          <option value="activity">GitHub activity</option>
+        </select>
+        <span>
+          {sizing === 'history'
+            ? 'Span between sourced events. Missing history stays the base size.'
+            : sizing === 'activity'
+              ? 'Complete 90-day GitHub observations, refreshed within 14 days. Missing or partial data stays the base size.'
+              : 'Every thing has the same weight.'}
+        </span>
+      </div>
       <div className="map-mode-row">
         <div className="map-modes" aria-label="Graph layout">
           <button aria-pressed={layout === 'timeline'} onClick={() => onLayout('timeline')}>
@@ -405,6 +423,7 @@ export function Connections({
                 const node = entryById.get(id)!;
                 const active = id === selected,
                   connected = adjacent.includes(id);
+                const radius = nodeRadius(nodeMeasure(id, sizing), sizing);
                 const color = projectById.get(id)?.color ?? '#6a798a';
                 return (
                   <g
@@ -426,10 +445,10 @@ export function Connections({
                   >
                     <circle className="node-hit" r="25" fill="transparent" />
                     <motion.circle
-                      animate={{ r: active ? 16 : projectById.has(id) ? 10 : 7 }}
+                      animate={{ r: active ? Math.max(16, radius + 3) : radius }}
                       transition={{ duration: reduced ? 0 : 0.25 }}
                       className="node-ring"
-                      r={active ? 16 : projectById.has(id) ? 10 : 7}
+                      r={active ? Math.max(16, radius + 3) : radius}
                       fill={active ? '#eaf1ff' : 'white'}
                       stroke={active || connected ? color : '#c6ccd4'}
                       strokeWidth={active ? 3 : 2}
@@ -477,6 +496,7 @@ export function Connections({
               </button>
             ))}
           </div>
+          <ProjectSources id={selected} compact />
           <div className="project-history">
             <h3>Through time</h3>
             {projectEvents.length ? (

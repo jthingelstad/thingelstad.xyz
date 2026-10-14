@@ -1,18 +1,8 @@
-import historyData from './history.json';
-import { catalog } from './projects';
+import { catalog, collection } from './projects';
 import { topicById } from './topics';
+import type { HistoryEvent } from './schema';
 
-export type HistoryEvent = {
-  id: string;
-  projectIds: string[];
-  /** YYYY, YYYY-MM, or YYYY-MM-DD. Never add precision that the source does not establish. */
-  date: string;
-  kind: 'launch' | 'milestone' | 'retirement' | 'archive' | 'development';
-  title: string;
-  summary: string;
-  source: string;
-};
-export const historyEvents = historyData as HistoryEvent[];
+export const historyEvents: HistoryEvent[] = collection.history;
 export const historyYears = [...new Set(historyEvents.map((event) => Number(event.date.slice(0, 4))))].sort(
   (a, b) => b - a
 );

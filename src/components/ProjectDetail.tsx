@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { ProjectSources } from './ProjectSources';
 import { Icon } from './Icon';
 import { entryById, projectById } from '../data/projects';
 import { neighbors } from '../data/connections';
@@ -83,6 +84,7 @@ export function ProjectDetail({
           )}
         </div>
         <aside className="detail-side">
+          <ProjectSources id={id} />
           {id === 'your-version-number' && (
             <div className="try-it">
               <span className="eyebrow">Try the idea</span>

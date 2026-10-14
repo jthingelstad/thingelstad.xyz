@@ -84,6 +84,7 @@ const server = createServer(async (req, res) => {
       }
       return;
     }
+    if (pathname === '/editor' || pathname.startsWith('/editor/')) return json(res, 404, { message: 'Not found.' });
     if (pathname.startsWith('/api/')) return json(res, 404, { message: 'Unknown endpoint.' });
     if (pathname.startsWith('/research/') || pathname.startsWith('/server/') || pathname.startsWith('/.'))
       return json(res, 404, { message: 'Not a public asset.' });

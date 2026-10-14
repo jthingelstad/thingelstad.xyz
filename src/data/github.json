@@ -1,0 +1,1039 @@
+{
+  "schemaVersion": 1,
+  "repositories": [
+    {
+      "sourceId": "github-weekly-thingelstad-com",
+      "repository": "jthingelstad/weekly.thingelstad.com",
+      "url": "https://github.com/jthingelstad/weekly.thingelstad.com",
+      "fetchedAt": "2026-10-14T12:27:48.411Z",
+      "repositoryCreatedAt": "2026-04-07T23:18:30.000Z",
+      "archived": false,
+      "description": "Public website and archive for The Weekly Thing, Jamie Thingelstad's weekend newsletter since 2017 — a render surface of the Studio publishing brain.",
+      "languages": [
+        { "name": "Nunjucks", "bytes": 121864 },
+        { "name": "CSS", "bytes": 83421 },
+        { "name": "JavaScript", "bytes": 46072 },
+        { "name": "Makefile", "bytes": 1192 }
+      ],
+      "release": null,
+      "activity": [
+        {
+          "path": null,
+          "branch": "main",
+          "since": "2026-07-16T12:27:48.411Z",
+          "until": "2026-10-14T12:27:48.411Z",
+          "count": 157,
+          "complete": true,
+          "months": [
+            { "month": "2026-07", "count": 7 },
+            { "month": "2026-08", "count": 15 },
+            { "month": "2026-09", "count": 57 },
+            { "month": "2026-10", "count": 78 }
+          ],
+          "latestCommit": {
+            "date": "2026-10-14T01:45:54.000Z",
+            "url": "https://github.com/jthingelstad/weekly.thingelstad.com/commit/7971d733bf94c617a6573fe20299c4d87f9f3dbb"
+          }
+        }
+      ]
+    },
+    {
+      "sourceId": "github-another-thingelstad-com",
+      "repository": "jthingelstad/another.thingelstad.com",
+      "url": "https://github.com/jthingelstad/another.thingelstad.com",
+      "fetchedAt": "2026-10-14T12:27:50.598Z",
+      "repositoryCreatedAt": "2026-04-09T23:16:18.000Z",
+      "archived": false,
+      "description": "Website for Another Thing, a podcast by Jamie Thingelstad — an Eleventy static site (a publishing surface of the Studio brain).",
+      "languages": [
+        { "name": "Nunjucks", "bytes": 23286 },
+        { "name": "CSS", "bytes": 18861 },
+        { "name": "JavaScript", "bytes": 16034 }
+      ],
+      "release": null,
+      "activity": [
+        {
+          "path": null,
+          "branch": "main",
+          "since": "2026-07-16T12:27:50.598Z",
+          "until": "2026-10-14T12:27:50.598Z",
+          "count": 19,
+          "complete": true,
+          "months": [
+            { "month": "2026-07", "count": 4 },
+            { "month": "2026-08", "count": 10 },
+            { "month": "2026-09", "count": 5 }
+          ],
+          "latestCommit": {
+            "date": "2026-09-26T21:03:29.000Z",
+            "url": "https://github.com/jthingelstad/another.thingelstad.com/commit/41d9e354062a14b86ea4768789f587e7dbff7ac4"
+          }
+        }
+      ]
+    },
+    {
+      "sourceId": "github-thingy-thingelstad-com",
+      "repository": "jthingelstad/thingy.thingelstad.com",
+      "url": "https://github.com/jthingelstad/thingy.thingelstad.com",
+      "fetchedAt": "2026-10-14T12:27:53.287Z",
+      "repositoryCreatedAt": "2026-06-03T23:20:15.000Z",
+      "archived": false,
+      "description": "Thingy — the standalone web home for Jamie Thingelstad's archive agent: a query surface over the Studio corpus, with a web app and a Discord bridge.",
+      "languages": [
+        { "name": "TypeScript", "bytes": 473324 },
+        { "name": "JavaScript", "bytes": 139011 },
+        { "name": "CSS", "bytes": 102610 },
+        { "name": "HTML", "bytes": 92478 }
+      ],
+      "release": null,
+      "activity": [
+        {
+          "path": null,
+          "branch": "main",
+          "since": "2026-07-16T12:27:53.287Z",
+          "until": "2026-10-14T12:27:53.287Z",
+          "count": 180,
+          "complete": true,
+          "months": [
+            { "month": "2026-07", "count": 18 },
+            { "month": "2026-08", "count": 29 },
+            { "month": "2026-09", "count": 93 },
+            { "month": "2026-10", "count": 40 }
+          ],
+          "latestCommit": {
+            "date": "2026-10-14T02:34:27.000Z",
+            "url": "https://github.com/jthingelstad/thingy.thingelstad.com/commit/75e0da76c784337bf420f0f98dfb556909b07703"
+          }
+        }
+      ]
+    },
+    {
+      "sourceId": "github-librarian-thing",
+      "repository": "jthingelstad/librarian-thing",
+      "url": "https://github.com/jthingelstad/librarian-thing",
+      "fetchedAt": "2026-10-14T12:27:55.574Z",
+      "repositoryCreatedAt": "2026-06-03T23:21:50.000Z",
+      "archived": false,
+      "description": "Studio — the brain behind Jamie Thingelstad's publishing: capture, research, the editorial source of truth, the production pipeline, and the authoring agents. Downstream surfaces (blog, newsletter, podcast, Thingy) consume what it produces.",
+      "languages": [
+        { "name": "Python", "bytes": 1321096 },
+        { "name": "TypeScript", "bytes": 958441 },
+        { "name": "JavaScript", "bytes": 658930 },
+        { "name": "Nunjucks", "bytes": 9233 },
+        { "name": "Shell", "bytes": 3340 },
+        { "name": "Makefile", "bytes": 2215 }
+      ],
+      "release": null,
+      "activity": [
+        {
+          "path": null,
+          "branch": "main",
+          "since": "2026-07-16T12:27:55.574Z",
+          "until": "2026-10-14T12:27:55.574Z",
+          "count": 300,
+          "complete": false,
+          "months": [
+            { "month": "2026-08", "count": 2 },
+            { "month": "2026-09", "count": 130 },
+            { "month": "2026-10", "count": 168 }
+          ],
+          "latestCommit": {
+            "date": "2026-10-14T02:34:26.000Z",
+            "url": "https://github.com/jthingelstad/librarian-thing/commit/8efbdc4fffbe4b7f0a261fe7924d7858086cc539"
+          }
+        }
+      ]
+    },
+    {
+      "sourceId": "github-wt-builder",
+      "repository": "jthingelstad/wt-builder",
+      "url": "https://github.com/jthingelstad/wt-builder",
+      "fetchedAt": "2026-10-14T12:27:58.343Z",
+      "repositoryCreatedAt": "2026-07-27T04:23:50.000Z",
+      "archived": false,
+      "description": "Item-first authoring and publishing application for The Weekly Thing",
+      "languages": [
+        { "name": "TypeScript", "bytes": 2267481 },
+        { "name": "CSS", "bytes": 97752 },
+        { "name": "Python", "bytes": 52549 },
+        { "name": "JavaScript", "bytes": 2464 },
+        { "name": "HTML", "bytes": 301 }
+      ],
+      "release": null,
+      "activity": [
+        {
+          "path": null,
+          "branch": "main",
+          "since": "2026-07-16T12:27:58.343Z",
+          "until": "2026-10-14T12:27:58.343Z",
+          "count": 300,
+          "complete": false,
+          "months": [
+            { "month": "2026-09", "count": 221 },
+            { "month": "2026-10", "count": 79 }
+          ],
+          "latestCommit": {
+            "date": "2026-10-13T21:18:25.000Z",
+            "url": "https://github.com/jthingelstad/wt-builder/commit/73c3e04bca37a685bad237a1935ebd50a8cd82b9"
+          }
+        }
+      ]
+    },
+    {
+      "sourceId": "github-thing-hugo",
+      "repository": "jthingelstad/thing-hugo",
+      "url": "https://github.com/jthingelstad/thing-hugo",
+      "fetchedAt": "2026-10-14T12:28:01.101Z",
+      "repositoryCreatedAt": "2026-04-20T03:24:21.000Z",
+      "archived": false,
+      "description": "",
+      "languages": [
+        { "name": "HTML", "bytes": 14820 },
+        { "name": "CSS", "bytes": 11361 }
+      ],
+      "release": null,
+      "activity": [
+        {
+          "path": null,
+          "branch": "main",
+          "since": "2026-07-16T12:28:01.101Z",
+          "until": "2026-10-14T12:28:01.101Z",
+          "count": 0,
+          "complete": true,
+          "months": [],
+          "latestCommit": {
+            "date": "2026-04-20T03:50:34.000Z",
+            "url": "https://github.com/jthingelstad/thing-hugo/commit/c31752f3efdefd788fdaa1358b5529ef498377be"
+          }
+        }
+      ]
+    },
+    {
+      "sourceId": "github-at-builder",
+      "repository": "jthingelstad/at-builder",
+      "url": "https://github.com/jthingelstad/at-builder",
+      "fetchedAt": "2026-10-14T12:28:03.593Z",
+      "repositoryCreatedAt": "2026-08-28T21:31:56.000Z",
+      "archived": true,
+      "description": "Authoring application for the Another Thing podcast",
+      "languages": [
+        { "name": "TypeScript", "bytes": 304475 },
+        { "name": "CSS", "bytes": 26494 },
+        { "name": "HTML", "bytes": 1157 }
+      ],
+      "release": null,
+      "activity": [
+        {
+          "path": null,
+          "branch": "main",
+          "since": "2026-07-16T12:28:03.593Z",
+          "until": "2026-10-14T12:28:03.593Z",
+          "count": 32,
+          "complete": true,
+          "months": [
+            { "month": "2026-08", "count": 9 },
+            { "month": "2026-09", "count": 21 },
+            { "month": "2026-10", "count": 2 }
+          ],
+          "latestCommit": {
+            "date": "2026-10-11T17:32:44.000Z",
+            "url": "https://github.com/jthingelstad/at-builder/commit/d8470e994555c4eebb17ab50447ddc5fc897d888"
+          }
+        }
+      ]
+    },
+    {
+      "sourceId": "github-elixir-mcp",
+      "repository": "jthingelstad/elixir-mcp",
+      "url": "https://github.com/jthingelstad/elixir-mcp",
+      "fetchedAt": "2026-10-14T12:28:05.193Z",
+      "repositoryCreatedAt": "2026-09-03T14:18:34.000Z",
+      "archived": false,
+      "description": "Clash Royale history recorder + remote MCP server. Unofficial; not endorsed by Supercell.",
+      "languages": [
+        { "name": "JavaScript", "bytes": 9380300 },
+        { "name": "TypeScript", "bytes": 996361 },
+        { "name": "CSS", "bytes": 169029 },
+        { "name": "Nunjucks", "bytes": 122303 },
+        { "name": "PLpgSQL", "bytes": 15998 },
+        { "name": "Shell", "bytes": 5846 },
+        { "name": "HTML", "bytes": 5417 }
+      ],
+      "release": null,
+      "activity": [
+        {
+          "path": null,
+          "branch": "main",
+          "since": "2026-07-16T12:28:05.193Z",
+          "until": "2026-10-14T12:28:05.193Z",
+          "count": 300,
+          "complete": false,
+          "months": [{ "month": "2026-10", "count": 300 }],
+          "latestCommit": {
+            "date": "2026-10-14T10:08:02.000Z",
+            "url": "https://github.com/jthingelstad/elixir-mcp/commit/8b42f1ab327eacff48e91fec675201b4cbcb8535"
+          }
+        },
+        {
+          "path": "packages/clan",
+          "branch": "main",
+          "since": "2026-07-16T12:28:05.193Z",
+          "until": "2026-10-14T12:28:05.193Z",
+          "count": 69,
+          "complete": true,
+          "months": [{ "month": "2026-10", "count": 69 }],
+          "latestCommit": {
+            "date": "2026-10-13T20:54:37.000Z",
+            "url": "https://github.com/jthingelstad/elixir-mcp/commit/a7138a92d14093ab7affe3c34fc1f4c83189fa35"
+          }
+        }
+      ]
+    },
+    {
+      "sourceId": "github-drop-poapkings-com",
+      "repository": "jthingelstad/drop.poapkings.com",
+      "url": "https://github.com/jthingelstad/drop.poapkings.com",
+      "fetchedAt": "2026-10-14T12:28:08.832Z",
+      "repositoryCreatedAt": "2026-06-13T13:16:27.000Z",
+      "archived": false,
+      "description": "Elixir Drop — a fast little game for learning Clash Royale cards and elixir costs, run by the POAP KINGS clan. A self-contained Preact/TypeScript single-page app.",
+      "languages": [
+        { "name": "TypeScript", "bytes": 2918715 },
+        { "name": "JavaScript", "bytes": 330456 },
+        { "name": "CSS", "bytes": 248678 },
+        { "name": "HTML", "bytes": 5261 },
+        { "name": "Shell", "bytes": 4044 }
+      ],
+      "release": {
+        "name": "principled-p-e-k-k-a",
+        "date": "2026-08-15T01:45:49.000Z",
+        "url": "https://github.com/jthingelstad/drop.poapkings.com/releases/tag/principled-p-e-k-k-a"
+      },
+      "activity": [
+        {
+          "path": null,
+          "branch": "main",
+          "since": "2026-07-16T12:28:08.832Z",
+          "until": "2026-10-14T12:28:08.832Z",
+          "count": 300,
+          "complete": false,
+          "months": [
+            { "month": "2026-08", "count": 208 },
+            { "month": "2026-09", "count": 69 },
+            { "month": "2026-10", "count": 23 }
+          ],
+          "latestCommit": {
+            "date": "2026-10-13T22:37:47.000Z",
+            "url": "https://github.com/jthingelstad/drop.poapkings.com/commit/aa1ce8ac81dffcb97e82942b5f8d0dbce9b67419"
+          }
+        }
+      ]
+    },
+    {
+      "sourceId": "github-poapkings-com",
+      "repository": "jthingelstad/poapkings.com",
+      "url": "https://github.com/jthingelstad/poapkings.com",
+      "fetchedAt": "2026-10-14T12:28:11.603Z",
+      "repositoryCreatedAt": "2026-02-05T04:14:14.000Z",
+      "archived": false,
+      "description": "Proof of Arena Push — the official website for the POAP KINGS Clash Royale clan (#J2RGCRVG). Eleventy static site on GitHub Pages.",
+      "languages": [
+        { "name": "JavaScript", "bytes": 115622 },
+        { "name": "Nunjucks", "bytes": 111706 },
+        { "name": "CSS", "bytes": 82917 },
+        { "name": "Shell", "bytes": 2072 }
+      ],
+      "release": null,
+      "activity": [
+        {
+          "path": null,
+          "branch": "main",
+          "since": "2026-07-16T12:28:11.603Z",
+          "until": "2026-10-14T12:28:11.603Z",
+          "count": 108,
+          "complete": true,
+          "months": [
+            { "month": "2026-07", "count": 26 },
+            { "month": "2026-08", "count": 46 },
+            { "month": "2026-09", "count": 36 }
+          ],
+          "latestCommit": {
+            "date": "2026-09-30T23:20:06.000Z",
+            "url": "https://github.com/jthingelstad/poapkings.com/commit/7f9b74f14ac8cadc539a9cd3e53929a346a8e813"
+          }
+        }
+      ]
+    },
+    {
+      "sourceId": "github-elixir-mcp-discord",
+      "repository": "jthingelstad/elixir-mcp-discord",
+      "url": "https://github.com/jthingelstad/elixir-mcp-discord",
+      "fetchedAt": "2026-10-14T12:28:14.732Z",
+      "repositoryCreatedAt": "2026-09-08T02:08:00.000Z",
+      "archived": false,
+      "description": "A Discord bot for a Clash Royale clan powered entirely by Elixir MCP. No local game database, no Clash Royale API key, no fallback - every fact comes from an MCP tool call.",
+      "languages": [
+        { "name": "JavaScript", "bytes": 944733 },
+        { "name": "Shell", "bytes": 12142 },
+        { "name": "Dockerfile", "bytes": 2328 }
+      ],
+      "release": {
+        "name": "v0.3.1",
+        "date": "2026-10-02T17:03:28.000Z",
+        "url": "https://github.com/jthingelstad/elixir-mcp-discord/releases/tag/v0.3.1"
+      },
+      "activity": [
+        {
+          "path": null,
+          "branch": "main",
+          "since": "2026-07-16T12:28:14.732Z",
+          "until": "2026-10-14T12:28:14.732Z",
+          "count": 165,
+          "complete": true,
+          "months": [
+            { "month": "2026-09", "count": 116 },
+            { "month": "2026-10", "count": 49 }
+          ],
+          "latestCommit": {
+            "date": "2026-10-12T16:20:02.000Z",
+            "url": "https://github.com/jthingelstad/elixir-mcp-discord/commit/18a8c8cd88b029d673dbfe55b510c8dab65c77d5"
+          }
+        }
+      ]
+    },
+    {
+      "sourceId": "github-elixir-mcp-collector",
+      "repository": "jthingelstad/elixir-mcp-collector",
+      "url": "https://github.com/jthingelstad/elixir-mcp-collector",
+      "fetchedAt": "2026-10-14T12:28:17.043Z",
+      "repositoryCreatedAt": "2026-09-04T16:09:29.000Z",
+      "archived": false,
+      "description": "The operator-run collector for Elixir MCP — fetches Clash Royale history (via your own IP-bound API key) so AI agents can query it. Zero-trust: no cloud access. Unofficial; not endorsed by Supercell.",
+      "languages": [
+        { "name": "Go", "bytes": 225288 },
+        { "name": "Shell", "bytes": 57986 },
+        { "name": "PowerShell", "bytes": 17513 }
+      ],
+      "release": {
+        "name": "v3.0.6",
+        "date": "2026-09-28T00:58:56.000Z",
+        "url": "https://github.com/jthingelstad/elixir-mcp-collector/releases/tag/v3.0.6"
+      },
+      "activity": [
+        {
+          "path": null,
+          "branch": "main",
+          "since": "2026-07-16T12:28:17.043Z",
+          "until": "2026-10-14T12:28:17.043Z",
+          "count": 65,
+          "complete": true,
+          "months": [{ "month": "2026-09", "count": 65 }],
+          "latestCommit": {
+            "date": "2026-09-28T00:57:12.000Z",
+            "url": "https://github.com/jthingelstad/elixir-mcp-collector/commit/d60ce8beb4c4211120edae1831f1eff6f9ab595e"
+          }
+        }
+      ]
+    },
+    {
+      "sourceId": "github-cr-agent-api-docs",
+      "repository": "jthingelstad/cr-agent-api-docs",
+      "url": "https://github.com/jthingelstad/cr-agent-api-docs",
+      "fetchedAt": "2026-10-14T12:28:19.006Z",
+      "repositoryCreatedAt": "2026-03-10T00:39:15.000Z",
+      "archived": false,
+      "description": "Agent-first reference documentation for the public Clash Royale API (api.clashroyale.com/v1) — built for LLM agents, automation workflows, and API clients.",
+      "languages": [
+        { "name": "Python", "bytes": 87352 },
+        { "name": "JavaScript", "bytes": 19846 },
+        { "name": "Shell", "bytes": 2407 }
+      ],
+      "release": null,
+      "activity": [
+        {
+          "path": null,
+          "branch": "main",
+          "since": "2026-07-16T12:28:19.006Z",
+          "until": "2026-10-14T12:28:19.006Z",
+          "count": 82,
+          "complete": true,
+          "months": [
+            { "month": "2026-07", "count": 3 },
+            { "month": "2026-08", "count": 2 },
+            { "month": "2026-09", "count": 71 },
+            { "month": "2026-10", "count": 6 }
+          ],
+          "latestCommit": {
+            "date": "2026-10-06T16:03:31.000Z",
+            "url": "https://github.com/jthingelstad/cr-agent-api-docs/commit/ab340ca82671d779a5fd82a84a5cb6cde4478f1a"
+          }
+        }
+      ]
+    },
+    {
+      "sourceId": "github-elixir-bot",
+      "repository": "jthingelstad/elixir-bot",
+      "url": "https://github.com/jthingelstad/elixir-bot",
+      "fetchedAt": "2026-10-14T12:28:20.654Z",
+      "repositoryCreatedAt": "2026-02-27T21:09:06.000Z",
+      "archived": true,
+      "description": "LLM-powered, channel-native Discord agent for the POAP KINGS Clash Royale clan — event-sourced reactive engine, scoped public/leadership memory, and GitHub-backed poapkings.com publishing.",
+      "languages": [
+        { "name": "Python", "bytes": 5427524 },
+        { "name": "Shell", "bytes": 15430 }
+      ],
+      "release": {
+        "name": "decisive-dart-goblin",
+        "date": "2026-08-03T00:26:23.000Z",
+        "url": "https://github.com/jthingelstad/elixir-bot/releases/tag/decisive-dart-goblin"
+      },
+      "activity": [
+        {
+          "path": null,
+          "branch": "main",
+          "since": "2026-07-16T12:28:20.654Z",
+          "until": "2026-10-14T12:28:20.654Z",
+          "count": 300,
+          "complete": false,
+          "months": [
+            { "month": "2026-07", "count": 58 },
+            { "month": "2026-08", "count": 190 },
+            { "month": "2026-09", "count": 52 }
+          ],
+          "latestCommit": {
+            "date": "2026-09-26T20:54:41.000Z",
+            "url": "https://github.com/jthingelstad/elixir-bot/commit/555d743ceb72a7779a6e47fab4912ae5d024e70e"
+          }
+        }
+      ]
+    },
+    {
+      "sourceId": "github-rwbookclub-com",
+      "repository": "jthingelstad/rwbookclub.com",
+      "url": "https://github.com/jthingelstad/rwbookclub.com",
+      "fetchedAt": "2026-10-14T12:28:24.403Z",
+      "repositoryCreatedAt": "2026-04-09T23:16:42.000Z",
+      "archived": false,
+      "description": "Monorepo for the R/W Book Club: the public website, the shared knowledge corpus, and Oliver — the club's Discord agent.",
+      "languages": [
+        { "name": "Python", "bytes": 1547216 },
+        { "name": "JavaScript", "bytes": 70510 },
+        { "name": "Nunjucks", "bytes": 57485 },
+        { "name": "HTML", "bytes": 52461 },
+        { "name": "CSS", "bytes": 43895 },
+        { "name": "Shell", "bytes": 16041 }
+      ],
+      "release": {
+        "name": "quiet-quicksilver",
+        "date": "2026-07-03T22:07:58.000Z",
+        "url": "https://github.com/jthingelstad/rwbookclub.com/releases/tag/quiet-quicksilver"
+      },
+      "activity": [
+        {
+          "path": null,
+          "branch": "main",
+          "since": "2026-07-16T12:28:24.403Z",
+          "until": "2026-10-14T12:28:24.403Z",
+          "count": 68,
+          "complete": true,
+          "months": [
+            { "month": "2026-07", "count": 37 },
+            { "month": "2026-08", "count": 21 },
+            { "month": "2026-09", "count": 10 }
+          ],
+          "latestCommit": {
+            "date": "2026-09-26T11:15:22.000Z",
+            "url": "https://github.com/jthingelstad/rwbookclub.com/commit/8d5be994d6df026aea2c94f17dbc60e056334c46"
+          }
+        },
+        {
+          "path": "agent",
+          "branch": "main",
+          "since": "2026-07-16T12:28:24.403Z",
+          "until": "2026-10-14T12:28:24.403Z",
+          "count": 33,
+          "complete": true,
+          "months": [
+            { "month": "2026-07", "count": 17 },
+            { "month": "2026-08", "count": 11 },
+            { "month": "2026-09", "count": 5 }
+          ],
+          "latestCommit": {
+            "date": "2026-09-26T11:15:22.000Z",
+            "url": "https://github.com/jthingelstad/rwbookclub.com/commit/8d5be994d6df026aea2c94f17dbc60e056334c46"
+          }
+        }
+      ]
+    },
+    {
+      "sourceId": "github-escape-thingelstad-com",
+      "repository": "jthingelstad/escape.thingelstad.com",
+      "url": "https://github.com/jthingelstad/escape.thingelstad.com",
+      "fetchedAt": "2026-10-14T12:28:26.710Z",
+      "repositoryCreatedAt": "2026-02-11T23:10:54.000Z",
+      "archived": false,
+      "description": "The Escaping Things escape-room team site — an Eleventy static site built from a normalized Airtable dataset (rooms played, countries, stats).",
+      "languages": [
+        { "name": "JavaScript", "bytes": 134346 },
+        { "name": "Nunjucks", "bytes": 89595 },
+        { "name": "CSS", "bytes": 53878 },
+        { "name": "Python", "bytes": 47325 },
+        { "name": "Shell", "bytes": 741 }
+      ],
+      "release": null,
+      "activity": [
+        {
+          "path": null,
+          "branch": "main",
+          "since": "2026-07-16T12:28:26.710Z",
+          "until": "2026-10-14T12:28:26.710Z",
+          "count": 33,
+          "complete": true,
+          "months": [
+            { "month": "2026-07", "count": 8 },
+            { "month": "2026-08", "count": 19 },
+            { "month": "2026-09", "count": 6 }
+          ],
+          "latestCommit": {
+            "date": "2026-09-26T21:03:05.000Z",
+            "url": "https://github.com/jthingelstad/escape.thingelstad.com/commit/e9c68d6d6d65d02f82461b10915a0fc4f9a934d1"
+          }
+        }
+      ]
+    },
+    {
+      "sourceId": "github-yourversionnumber-com",
+      "repository": "jthingelstad/yourversionnumber.com",
+      "url": "https://github.com/jthingelstad/yourversionnumber.com",
+      "fetchedAt": "2026-10-14T12:28:28.472Z",
+      "repositoryCreatedAt": "2026-05-01T05:46:33.000Z",
+      "archived": false,
+      "description": "Bookmarkable static page that shows a person's age as a v MAJOR.MINOR.PATCH version number.",
+      "languages": [
+        { "name": "CSS", "bytes": 369374 },
+        { "name": "HTML", "bytes": 118016 },
+        { "name": "JavaScript", "bytes": 101084 },
+        { "name": "Shell", "bytes": 2055 }
+      ],
+      "release": null,
+      "activity": [
+        {
+          "path": null,
+          "branch": "main",
+          "since": "2026-07-16T12:28:28.472Z",
+          "until": "2026-10-14T12:28:28.472Z",
+          "count": 65,
+          "complete": true,
+          "months": [
+            { "month": "2026-07", "count": 1 },
+            { "month": "2026-09", "count": 63 },
+            { "month": "2026-10", "count": 1 }
+          ],
+          "latestCommit": {
+            "date": "2026-10-07T10:01:36.000Z",
+            "url": "https://github.com/jthingelstad/yourversionnumber.com/commit/da1e3220158bd18126ba29e28d96461838772c53"
+          }
+        }
+      ]
+    },
+    {
+      "sourceId": "github-yvn-release-notes",
+      "repository": "jthingelstad/yvn-release-notes",
+      "url": "https://github.com/jthingelstad/yvn-release-notes",
+      "fetchedAt": "2026-10-14T12:28:30.170Z",
+      "repositoryCreatedAt": "2026-10-07T10:00:44.000Z",
+      "archived": false,
+      "description": "Release Notes: a daily version-number email from Your Version Number; replies become the day's notes",
+      "languages": [
+        { "name": "TypeScript", "bytes": 1530604 },
+        { "name": "JavaScript", "bytes": 76272 },
+        { "name": "CSS", "bytes": 26033 },
+        { "name": "Shell", "bytes": 18884 },
+        { "name": "HTML", "bytes": 1314 }
+      ],
+      "release": null,
+      "activity": [
+        {
+          "path": null,
+          "branch": "main",
+          "since": "2026-07-16T12:28:30.170Z",
+          "until": "2026-10-14T12:28:30.170Z",
+          "count": 185,
+          "complete": true,
+          "months": [{ "month": "2026-10", "count": 185 }],
+          "latestCommit": {
+            "date": "2026-10-14T03:19:17.000Z",
+            "url": "https://github.com/jthingelstad/yvn-release-notes/commit/a46bcd3fc99547c09d3d6f4ddf24fa4b18380b4a"
+          }
+        }
+      ]
+    },
+    {
+      "sourceId": "github-things4good-xyz",
+      "repository": "jthingelstad/things4good.xyz",
+      "url": "https://github.com/jthingelstad/things4good.xyz",
+      "fetchedAt": "2026-10-14T12:28:32.352Z",
+      "repositoryCreatedAt": "2026-06-04T03:37:10.000Z",
+      "archived": false,
+      "description": "Things 4 Good — a handmade candle fundraiser site. Built with Eleventy.",
+      "languages": [
+        { "name": "Nunjucks", "bytes": 68723 },
+        { "name": "CSS", "bytes": 59352 },
+        { "name": "JavaScript", "bytes": 13983 }
+      ],
+      "release": null,
+      "activity": [
+        {
+          "path": null,
+          "branch": "main",
+          "since": "2026-07-16T12:28:32.352Z",
+          "until": "2026-10-14T12:28:32.352Z",
+          "count": 7,
+          "complete": true,
+          "months": [
+            { "month": "2026-07", "count": 3 },
+            { "month": "2026-08", "count": 2 },
+            { "month": "2026-09", "count": 2 }
+          ],
+          "latestCommit": {
+            "date": "2026-09-11T22:38:09.000Z",
+            "url": "https://github.com/jthingelstad/things4good.xyz/commit/ed2ff5657d123e35c3a4923f23af6f74356d15de"
+          }
+        }
+      ]
+    },
+    {
+      "sourceId": "github-mb",
+      "repository": "jthingelstad/mb",
+      "url": "https://github.com/jthingelstad/mb",
+      "fetchedAt": "2026-10-14T12:28:33.892Z",
+      "repositoryCreatedAt": "2026-03-01T20:48:59.000Z",
+      "archived": false,
+      "description": "Micro.blog CLI and local MCP server built for agents: structured output, composable commands, reviewable writes. brew install jthingelstad/tap/mb",
+      "languages": [{ "name": "Python", "bytes": 610328 }],
+      "release": {
+        "name": "v2.2.1",
+        "date": "2026-10-05T22:22:14.000Z",
+        "url": "https://github.com/jthingelstad/mb/releases/tag/v2.2.1"
+      },
+      "activity": [
+        {
+          "path": null,
+          "branch": "main",
+          "since": "2026-07-16T12:28:33.892Z",
+          "until": "2026-10-14T12:28:33.892Z",
+          "count": 44,
+          "complete": true,
+          "months": [
+            { "month": "2026-07", "count": 6 },
+            { "month": "2026-08", "count": 1 },
+            { "month": "2026-10", "count": 37 }
+          ],
+          "latestCommit": {
+            "date": "2026-10-05T22:21:58.000Z",
+            "url": "https://github.com/jthingelstad/mb/commit/bacbb98475e1ffc983bbaf9b37acee80b9b83da0"
+          }
+        }
+      ]
+    },
+    {
+      "sourceId": "github-mb-audit",
+      "repository": "jthingelstad/mb-audit",
+      "url": "https://github.com/jthingelstad/mb-audit",
+      "fetchedAt": "2026-10-14T12:28:35.624Z",
+      "repositoryCreatedAt": "2026-05-03T00:53:21.000Z",
+      "archived": false,
+      "description": "Audit a Micro.blog site against BAR backup files: detect missing posts and broken media via Micropub API + public-site cross-check.",
+      "languages": [{ "name": "Python", "bytes": 139569 }],
+      "release": null,
+      "activity": [
+        {
+          "path": null,
+          "branch": "main",
+          "since": "2026-07-16T12:28:35.624Z",
+          "until": "2026-10-14T12:28:35.624Z",
+          "count": 6,
+          "complete": true,
+          "months": [
+            { "month": "2026-07", "count": 4 },
+            { "month": "2026-08", "count": 1 },
+            { "month": "2026-09", "count": 1 }
+          ],
+          "latestCommit": {
+            "date": "2026-09-07T13:17:40.000Z",
+            "url": "https://github.com/jthingelstad/mb-audit/commit/1d42b9bb9c3a0b950bdf78a8ba126d7fca19a7bf"
+          }
+        }
+      ]
+    },
+    {
+      "sourceId": "github-homebrew-tap",
+      "repository": "jthingelstad/homebrew-tap",
+      "url": "https://github.com/jthingelstad/homebrew-tap",
+      "fetchedAt": "2026-10-14T12:28:37.264Z",
+      "repositoryCreatedAt": "2026-10-04T20:06:48.000Z",
+      "archived": false,
+      "description": "Homebrew tap for MB, the Micro.blog CLI and MCP server",
+      "languages": [{ "name": "Ruby", "bytes": 10258 }],
+      "release": {
+        "name": "mb-2.2.1",
+        "date": "2026-10-05T22:39:10.000Z",
+        "url": "https://github.com/jthingelstad/homebrew-tap/releases/tag/mb-2.2.1"
+      },
+      "activity": [
+        {
+          "path": null,
+          "branch": "main",
+          "since": "2026-07-16T12:28:37.264Z",
+          "until": "2026-10-14T12:28:37.264Z",
+          "count": 24,
+          "complete": true,
+          "months": [{ "month": "2026-10", "count": 24 }],
+          "latestCommit": {
+            "date": "2026-10-05T22:39:07.000Z",
+            "url": "https://github.com/jthingelstad/homebrew-tap/commit/2e70b135454ceae1c58c27dbc0567bed7707a643"
+          }
+        }
+      ]
+    },
+    {
+      "sourceId": "github-poap2rss",
+      "repository": "jthingelstad/POAP2RSS",
+      "url": "https://github.com/jthingelstad/POAP2RSS",
+      "fetchedAt": "2026-10-14T12:28:38.876Z",
+      "repositoryCreatedAt": "2025-07-01T03:53:32.000Z",
+      "archived": true,
+      "description": "POAP2RSS creates a standard RSS feed for any POAP event. Drop an event ID in the URL and you have a live feed of new claims ready for any reader or automation platform. POAP2RSS makes POAPs more open, programmable, and connected to the wider web.",
+      "languages": [
+        { "name": "Python", "bytes": 31072 },
+        { "name": "CSS", "bytes": 7582 },
+        { "name": "Nunjucks", "bytes": 6438 },
+        { "name": "Shell", "bytes": 4880 },
+        { "name": "JavaScript", "bytes": 307 }
+      ],
+      "release": null,
+      "activity": [
+        {
+          "path": null,
+          "branch": "main",
+          "since": "2026-07-16T12:28:38.876Z",
+          "until": "2026-10-14T12:28:38.876Z",
+          "count": 6,
+          "complete": true,
+          "months": [{ "month": "2026-07", "count": 6 }],
+          "latestCommit": {
+            "date": "2026-07-24T16:07:21.000Z",
+            "url": "https://github.com/jthingelstad/POAP2RSS/commit/b50f2d2a8595f474263bf7e6ddd816ec88657c44"
+          }
+        }
+      ]
+    },
+    {
+      "sourceId": "github-foreground",
+      "repository": "jthingelstad/foreground",
+      "url": "https://github.com/jthingelstad/foreground",
+      "fetchedAt": "2026-10-14T12:28:40.462Z",
+      "repositoryCreatedAt": "2013-05-21T22:19:22.000Z",
+      "archived": true,
+      "description": "A MediaWiki skin that focuses on putting your content in the foreground.",
+      "languages": [
+        { "name": "CSS", "bytes": 47266 },
+        { "name": "PHP", "bytes": 11721 },
+        { "name": "JavaScript", "bytes": 761 }
+      ],
+      "release": {
+        "name": "v2.4.0",
+        "date": "2021-02-11T20:42:20.000Z",
+        "url": "https://github.com/jthingelstad/foreground/releases/tag/v2.4.0"
+      },
+      "activity": [
+        {
+          "path": null,
+          "branch": "develop",
+          "since": "2026-07-16T12:28:40.462Z",
+          "until": "2026-10-14T12:28:40.462Z",
+          "count": 0,
+          "complete": true,
+          "months": [],
+          "latestCommit": {
+            "date": "2022-07-28T10:46:13.000Z",
+            "url": "https://github.com/jthingelstad/foreground/commit/4d90744f75a7bbd1282580b74bd3a17136230210"
+          }
+        }
+      ]
+    },
+    {
+      "sourceId": "github-filament",
+      "repository": "jthingelstad/filament",
+      "url": "https://github.com/jthingelstad/filament",
+      "fetchedAt": "2026-10-14T12:28:42.947Z",
+      "repositoryCreatedAt": "2013-06-06T18:58:29.000Z",
+      "archived": true,
+      "description": "MediaWiki skin based of the Pure CSS framework.",
+      "languages": [
+        { "name": "CSS", "bytes": 37162 },
+        { "name": "PHP", "bytes": 6721 },
+        { "name": "JavaScript", "bytes": 773 }
+      ],
+      "release": null,
+      "activity": [
+        {
+          "path": null,
+          "branch": "master",
+          "since": "2026-07-16T12:28:42.947Z",
+          "until": "2026-10-14T12:28:42.947Z",
+          "count": 0,
+          "complete": true,
+          "months": [],
+          "latestCommit": {
+            "date": "2013-11-29T14:10:32.000Z",
+            "url": "https://github.com/jthingelstad/filament/commit/7964bfe3d6e530e06c9ebc1979cfb2290eb04bc9"
+          }
+        }
+      ]
+    },
+    {
+      "sourceId": "github-parseurl",
+      "repository": "jthingelstad/ParseURL",
+      "url": "https://github.com/jthingelstad/ParseURL",
+      "fetchedAt": "2026-10-14T12:28:44.444Z",
+      "repositoryCreatedAt": "2013-07-15T22:13:35.000Z",
+      "archived": true,
+      "description": "MediaWiki extension to allow easy parsing of URLs.",
+      "languages": [{ "name": "PHP", "bytes": 2067 }],
+      "release": null,
+      "activity": [
+        {
+          "path": null,
+          "branch": "master",
+          "since": "2026-07-16T12:28:44.444Z",
+          "until": "2026-10-14T12:28:44.444Z",
+          "count": 0,
+          "complete": true,
+          "months": [],
+          "latestCommit": {
+            "date": "2013-07-15T22:57:06.000Z",
+            "url": "https://github.com/jthingelstad/ParseURL/commit/167e63df3e35d7ed0568ea071d7be7d4c6f7fed3"
+          }
+        }
+      ]
+    },
+    {
+      "sourceId": "github-number2words",
+      "repository": "jthingelstad/Number2Words",
+      "url": "https://github.com/jthingelstad/Number2Words",
+      "fetchedAt": "2026-10-14T12:28:46.011Z",
+      "repositoryCreatedAt": "2011-07-20T03:27:57.000Z",
+      "archived": true,
+      "description": "MediaWiki parser extension to turn a write out a number in words.",
+      "languages": [{ "name": "PHP", "bytes": 1720 }],
+      "release": null,
+      "activity": [
+        {
+          "path": null,
+          "branch": "master",
+          "since": "2026-07-16T12:28:46.011Z",
+          "until": "2026-10-14T12:28:46.011Z",
+          "count": 0,
+          "complete": true,
+          "months": [],
+          "latestCommit": {
+            "date": "2015-11-28T20:19:50.000Z",
+            "url": "https://github.com/jthingelstad/Number2Words/commit/f41457d862e0781d563edafc1c9116b6e3d8de9d"
+          }
+        }
+      ]
+    },
+    {
+      "sourceId": "github-q2a-number-captcha",
+      "repository": "jthingelstad/q2a-number-captcha",
+      "url": "https://github.com/jthingelstad/q2a-number-captcha",
+      "fetchedAt": "2026-10-14T12:28:47.579Z",
+      "repositoryCreatedAt": "2014-11-16T01:39:31.000Z",
+      "archived": true,
+      "description": "CAPTCHA Plugin for Question2Answer that requires finding a digit in a large number.",
+      "languages": [{ "name": "PHP", "bytes": 7556 }],
+      "release": null,
+      "activity": [
+        {
+          "path": null,
+          "branch": "master",
+          "since": "2026-07-16T12:28:47.579Z",
+          "until": "2026-10-14T12:28:47.579Z",
+          "count": 0,
+          "complete": true,
+          "months": [],
+          "latestCommit": {
+            "date": "2015-11-28T20:16:07.000Z",
+            "url": "https://github.com/jthingelstad/q2a-number-captcha/commit/4fe465110e5df62a1d3b22817527b16e12a97b03"
+          }
+        }
+      ]
+    },
+    {
+      "sourceId": "github-nnxyz",
+      "repository": "jthingelstad/nnxyz",
+      "url": "https://github.com/jthingelstad/nnxyz",
+      "fetchedAt": "2026-10-14T12:28:49.192Z",
+      "repositoryCreatedAt": "2026-10-13T17:26:51.000Z",
+      "archived": false,
+      "description": "An art-first SVG gallery of nnxyz and scrimshaw, with archived brush-stroke replay and AI curation",
+      "languages": [
+        { "name": "HTML", "bytes": 5782282 },
+        { "name": "Python", "bytes": 135640 },
+        { "name": "JavaScript", "bytes": 36259 },
+        { "name": "Astro", "bytes": 20981 },
+        { "name": "CSS", "bytes": 15252 },
+        { "name": "TypeScript", "bytes": 10798 }
+      ],
+      "release": null,
+      "activity": [
+        {
+          "path": null,
+          "branch": "main",
+          "since": "2026-07-16T12:28:49.192Z",
+          "until": "2026-10-14T12:28:49.192Z",
+          "count": 3,
+          "complete": true,
+          "months": [{ "month": "2026-10", "count": 3 }],
+          "latestCommit": {
+            "date": "2026-10-13T17:48:07.000Z",
+            "url": "https://github.com/jthingelstad/nnxyz/commit/826089753b46f7f4d4ae5d994243feb73cb4c299"
+          }
+        }
+      ]
+    },
+    {
+      "sourceId": "github-clan-poapkings-com",
+      "repository": "jthingelstad/clan.poapkings.com",
+      "url": "https://github.com/jthingelstad/clan.poapkings.com",
+      "fetchedAt": "2026-10-14T12:28:51.707Z",
+      "repositoryCreatedAt": "2026-09-12T18:42:54.000Z",
+      "archived": true,
+      "description": "Moved: Elixir Clan now lives in jthingelstad/elixir-mcp as clan/ (2026-09-28), history included. Archived.",
+      "languages": [
+        { "name": "JavaScript", "bytes": 1256936 },
+        { "name": "TypeScript", "bytes": 24341 },
+        { "name": "Shell", "bytes": 2387 },
+        { "name": "HTML", "bytes": 1020 },
+        { "name": "CSS", "bytes": 856 }
+      ],
+      "release": null,
+      "activity": [
+        {
+          "path": null,
+          "branch": "main",
+          "since": "2026-07-16T12:28:51.707Z",
+          "until": "2026-10-14T12:28:51.707Z",
+          "count": 115,
+          "complete": true,
+          "months": [{ "month": "2026-09", "count": 115 }],
+          "latestCommit": {
+            "date": "2026-09-28T23:40:13.000Z",
+            "url": "https://github.com/jthingelstad/clan.poapkings.com/commit/2bb5b6052b2a3c72b5a58f3feb61a34082b8b402"
+          }
+        }
+      ]
+    }
+  ]
+}

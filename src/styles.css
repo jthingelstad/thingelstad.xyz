@@ -2640,3 +2640,96 @@ a:hover {
     display: none;
   }
 }
+
+.project-sources {
+  margin-bottom: 28px;
+}
+
+.project-sources h3 {
+  font-size: 15px;
+  margin: 0 0 15px;
+}
+
+.project-source {
+  padding: 14px 0;
+  border-top: 1px solid #e5e9ef;
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+
+.project-source > a {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: #2359a5;
+}
+
+.project-source p {
+  font-size: 12px;
+  line-height: 1.7;
+  margin: 10px 0;
+}
+
+.source-role,
+.source-observed,
+.source-status,
+.source-languages span,
+.source-activity > span {
+  display: block;
+  color: #6b778a;
+  font-size: 11px;
+  line-height: 1.6;
+  margin-top: 5px;
+}
+
+.source-status {
+  color: #72582c;
+}
+
+.source-explanation {
+  font-size: 11px;
+  color: #6b778a;
+  line-height: 1.7;
+}
+
+.sources-compact {
+  margin-top: 24px;
+}
+
+.activity-bars > div {
+  display: grid;
+  grid-template-columns: 56px 1fr 35px;
+  gap: 8px;
+  align-items: center;
+  font-size: 10px;
+  margin: 6px 0;
+}
+
+.activity-bars meter {
+  width: 100%;
+  height: 14px;
+}
+
+.map-sizing {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 14px 0;
+  font-size: 12px;
+}
+
+.map-sizing select {
+  padding: 7px 10px;
+  border: 1px solid #d6dee8;
+  border-radius: 5px;
+  background: white;
+  font: inherit;
+}
+
+.map-sizing span {
+  color: #6b778a;
+  font-size: 11px;
+  max-width: 500px;
+  line-height: 1.6;
+}

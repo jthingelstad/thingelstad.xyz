@@ -1,4 +1,19 @@
 {
-  "entry": ["server/lambda.ts", "tests/*.test.ts", "tests/browser/*.spec.ts", "scripts/*.mjs"],
-  "project": ["src/**/*.{ts,tsx}", "server/**/*.ts", "tests/**/*.ts", "scripts/*.mjs", "infra/*.mjs"]
+  "entry": [
+    "server/lambda.ts",
+    "tests/*.test.ts",
+    "tests/browser/*.spec.ts",
+    "scripts/*.mjs",
+    "scripts/*.ts",
+    "tests/editor-browser/*.spec.ts"
+  ],
+  "project": [
+    "src/**/*.{ts,tsx}",
+    "server/**/*.ts",
+    "tests/**/*.ts",
+    "scripts/*.mjs",
+    "infra/*.mjs",
+    "editor/**/*.{ts,tsx}",
+    "scripts/*.ts"
+  ]
 }
