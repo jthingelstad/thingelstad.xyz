@@ -12,7 +12,7 @@
   "distributionId": "E1YVIY0XUIKR2X",
   "cloudfrontDomain": "d34njoaumjumim.cloudfront.net",
   "certificateArn": "arn:aws:acm:us-east-1:999153317627:certificate/15e8b7f8-91c7-433a-8618-9cbf2498baf5",
-  "guideCodeKey": "guide/3da6a0c656d4aedb7df2aa4f29faa5ef8e56f8dc7b22bdcaa39d2e153a42f152.zip",
+  "guideCodeKey": "guide/109d5ecb2b1e43b5bcb743d2e7173e4817c061f2101af1c277ded2d6877df755.zip",
   "siteStackStatus": "UPDATE_COMPLETE",
   "customDomainStatus": "LIVE",
   "verified": {
@@ -66,5 +66,33 @@
     "invalidationId": "I3RITOX6TSH1YVD8ZQCEUPMIOE",
     "invalidationStatus": "Completed"
   },
-  "deploymentRoleArn": "arn:aws:iam::999153317627:role/thingelstad-xyz-delivery-DeploymentRole-C9waPVE2ifbb"
+  "deploymentRoleArn": "arn:aws:iam::999153317627:role/thingelstad-xyz-delivery-DeploymentRole-C9waPVE2ifbb",
+  "guideHosting": "lambda-web-functions",
+  "guideEndpointDomain": "91rx39qldm2ndq3z.btq.lambda-web.us-east-1.on.aws",
+  "guideEndpointArn": "arn:aws:lambda:us-east-1:999153317627:web-function/thingelstad-xyz-site-guide-web/endpoint/prod",
+  "guideRevisionId": "rev-fymnx",
+  "lastGuideMigration": {
+    "completedAt": "2026-10-14T01:48:21Z",
+    "retired": ["API Gateway HTTP API", "Lambda Event Function"],
+    "requestPerSecondThrottle": false,
+    "dailyLimit": 100,
+    "maxEnvironments": 2,
+    "maxConcurrencyPerEnvironment": 1,
+    "deadlineSeconds": 24,
+    "verified": {
+      "unitTests": 14,
+      "browserTests": 21,
+      "packagedHTTPStartup": true,
+      "cloudFormationSchemas": true,
+      "securityGuard": true,
+      "apexAndWwwRuntimeHealth": true,
+      "directUnsignedEndpointStatus": 403,
+      "getExploreRefusalStatus": 405,
+      "liveTemplatesMatchSource": true,
+      "codeOnlyChangeSet": true,
+      "qaModelInvocations": 0,
+      "qaQuotaWrites": 0,
+      "qaAnalyticsWrites": 0
+    }
+  }
 }

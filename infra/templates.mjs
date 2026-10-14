@@ -35,7 +35,34 @@ save(
   'assets',
   wrap(
     'Thingelstad.xyz deployment artifacts',
-    { AssetsBucket: bucket() },
+    {
+      AssetsBucket: bucket(),
+      AssetsPolicy: {
+        Type: 'AWS::S3::BucketPolicy',
+        Properties: {
+          Bucket: ref('AssetsBucket'),
+          PolicyDocument: {
+            Version: '2012-10-17',
+            Statement: [
+              {
+                Effect: 'Allow',
+                Principal: { Service: 'lambda.amazonaws.com' },
+                Action: ['s3:GetObject', 's3:GetObjectVersion'],
+                Resource: sub('${AssetsBucket.Arn}/guide/*'),
+                Condition: {
+                  StringEquals: { 'AWS:SourceAccount': ref('AWS::AccountId') },
+                  ArnLike: {
+                    'AWS:SourceArn': sub(
+                      'arn:${AWS::Partition}:lambda:${AWS::Region}:${AWS::AccountId}:web-function/thingelstad-xyz-site-guide-web/revision/*'
+                    )
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
     { AssetsBucket: output(ref('AssetsBucket')) }
   )
 );
@@ -120,67 +147,78 @@ save(
           ]
         }
       },
-      Guide: {
-        Type: 'AWS::Lambda::Function',
-        DependsOn: 'GuideLogs',
+      GuideWeb: {
+        Type: 'AWS::Lambda::WebFunction',
+        Properties: { FunctionName: sub('${AWS::StackName}-guide-web') }
+      },
+      GuideRevision: {
+        Type: 'AWS::Lambda::WebFunctionRevision',
+        DeletionPolicy: 'Retain',
+        UpdateReplacePolicy: 'Retain',
         Properties: {
-          FunctionName: sub('${AWS::StackName}-guide'),
-          Runtime: 'nodejs24.x',
-          Architectures: ['arm64'],
-          Handler: 'index.handler',
-          Role: get('GuideRole', 'Arn'),
-          MemorySize: 512,
-          Timeout: 28,
-          ReservedConcurrentExecutions: 2,
-          Code: { S3Bucket: ref('AssetsBucket'), S3Key: ref('GuideCodeKey') },
-          Environment: {
-            Variables: {
+          FunctionName: ref('GuideWeb'),
+          BuildConfig: {
+            CodeConfig: { S3Object: { Bucket: ref('AssetsBucket'), Key: ref('GuideCodeKey') } },
+            RuntimeConfig: { Runtime: 'nodejs24.x' }
+          },
+          ServiceConfig: {
+            ExecutionRoleArn: get('GuideRole', 'Arn'),
+            TimeoutSeconds: 28,
+            MaxConcurrencyPerEnvironment: 1,
+            TelemetryConfig: { LoggingConfig: { LogGroup: ref('GuideLogs') } },
+            EnvironmentVariables: {
               GUIDE_ROLE_NAME: ref('GuideRole'),
               ALLOWANCE_TABLE: ref('Allowance'),
               GUIDE_DAILY_LIMIT: '100',
-              ALLOWED_ORIGINS: sub(
-                'https://thingelstad.xyz,https://www.thingelstad.xyz,https://${Distribution.DomainName}'
-              )
+              ALLOWED_ORIGINS: sub('https://thingelstad.xyz,https://www.thingelstad.xyz,https://${CloudFrontDomain}')
             }
           }
         }
       },
-      Api: { Type: 'AWS::ApiGatewayV2::Api', Properties: { Name: sub('${AWS::StackName}-api'), ProtocolType: 'HTTP' } },
-      Integration: {
-        Type: 'AWS::ApiGatewayV2::Integration',
+      GuideEndpoint: {
+        Type: 'AWS::Lambda::WebFunctionEndpoint',
         Properties: {
-          ApiId: ref('Api'),
-          IntegrationType: 'AWS_PROXY',
-          IntegrationUri: get('Guide', 'Arn'),
-          PayloadFormatVersion: '2.0',
-          TimeoutInMillis: 29000
+          FunctionName: ref('GuideWeb'),
+          EndpointName: 'prod',
+          EndpointType: 'HomeRegion',
+          AuthType: 'IamAuth',
+          ScalingConfig: { MaxEnvironments: 2 },
+          RevisionWeights: [{ RevisionId: get('GuideRevision', 'RevisionId'), Weight: 100 }]
         }
       },
-      ExploreRoute: {
-        Type: 'AWS::ApiGatewayV2::Route',
-        Properties: { ApiId: ref('Api'), RouteKey: 'POST /api/explore', Target: sub('integrations/${Integration}') }
-      },
-      HealthRoute: {
-        Type: 'AWS::ApiGatewayV2::Route',
-        Properties: { ApiId: ref('Api'), RouteKey: 'GET /api/health', Target: sub('integrations/${Integration}') }
-      },
-      Stage: {
-        Type: 'AWS::ApiGatewayV2::Stage',
-        DependsOn: ['ExploreRoute', 'HealthRoute'],
+      GuidePolicy: {
+        Type: 'AWS::Lambda::ResourcePolicy',
         Properties: {
-          ApiId: ref('Api'),
-          StageName: '$default',
-          AutoDeploy: true,
-          DefaultRouteSettings: { ThrottlingBurstLimit: 4, ThrottlingRateLimit: 1 }
+          ResourceArn: get('GuideWeb', 'FunctionArn'),
+          PolicyDocument: {
+            Version: '2012-10-17',
+            Statement: [
+              {
+                Effect: 'Allow',
+                Principal: { Service: 'cloudfront.amazonaws.com' },
+                Action: 'lambda:InvokeWebFunctionEndpoint',
+                Resource: sub('${GuideWeb.FunctionArn}/endpoint/prod'),
+                Condition: {
+                  StringEquals: {
+                    'AWS:SourceArn': sub(
+                      'arn:${AWS::Partition}:cloudfront::${AWS::AccountId}:distribution/${Distribution}'
+                    )
+                  }
+                }
+              }
+            ]
+          }
         }
       },
-      ApiPermission: {
-        Type: 'AWS::Lambda::Permission',
+      GuideOriginAccess: {
+        Type: 'AWS::CloudFront::OriginAccessControl',
         Properties: {
-          Action: 'lambda:InvokeFunction',
-          FunctionName: ref('Guide'),
-          Principal: 'apigateway.amazonaws.com',
-          SourceArn: sub('arn:${AWS::Partition}:execute-api:${AWS::Region}:${AWS::AccountId}:${Api}/*/*/api/*')
+          OriginAccessControlConfig: {
+            Name: sub('${AWS::StackName}-guide-web'),
+            OriginAccessControlOriginType: 'lambda',
+            SigningBehavior: 'always-amz-auth',
+            SigningProtocol: 'sigv4'
+          }
         }
       },
       OriginAccess: {
@@ -236,7 +274,8 @@ save(
               },
               {
                 Id: 'api',
-                DomainName: sub('${Api}.execute-api.${AWS::Region}.amazonaws.com'),
+                DomainName: ref('GuideOriginDomain'),
+                OriginAccessControlId: ref('GuideOriginAccess'),
                 CustomOriginConfig: {
                   OriginProtocolPolicy: 'https-only',
                   OriginSSLProtocols: ['TLSv1.2'],
@@ -299,12 +338,19 @@ save(
       DistributionId: output(ref('Distribution')),
       CloudFrontDomain: output(get('Distribution', 'DomainName')),
       GuideRoleArn: output(get('GuideRole', 'Arn')),
-      ApiUrl: output(get('Api', 'ApiEndpoint'))
+      GuideEndpointDomain: output(get('GuideEndpoint', 'DomainName')),
+      GuideEndpointArn: output(get('GuideEndpoint', 'EndpointArn')),
+      GuideRevisionId: output(get('GuideRevision', 'RevisionId'))
     },
     {
       Parameters: {
         AssetsBucket: { Type: 'String' },
-        GuideCodeKey: { Type: 'String' },
+        GuideCodeKey: { Type: 'String', AllowedPattern: 'guide/[a-f0-9]{64}\\.zip' },
+        GuideOriginDomain: {
+          Type: 'String',
+          AllowedPattern: '[a-z0-9-]+\\.[a-z0-9-]+\\.lambda-web\\.us-east-1\\.on\\.aws'
+        },
+        CloudFrontDomain: { Type: 'String', AllowedPattern: '[a-z0-9]+\\.cloudfront\\.net' },
         CertificateArn: { Type: 'String', Default: '' }
       },
       Conditions: { CustomDomain: { 'Fn::Not': [{ 'Fn::Equals': [ref('CertificateArn'), ''] }] } }
@@ -320,6 +366,8 @@ save(
     {
       DeploymentRole: {
         Type: 'AWS::IAM::Role',
+        // The pinned cfn-lint IAM action list predates Web Functions; resource schemas and live change sets validate these actions.
+        Metadata: { 'cfn-lint': { config: { ignore_checks: ['W3037'] } } },
         Properties: {
           AssumeRolePolicyDocument: {
             Version: '2012-10-17',
@@ -407,30 +455,37 @@ save(
                   },
                   {
                     Effect: 'Allow',
-                    Action: 'apigateway:GET',
-                    Resource: sub('arn:${AWS::Partition}:apigateway:${AWS::Region}::/apis/${ApiId}')
+                    Action: 'iam:PassRole',
+                    Resource: ref('GuideRoleArn'),
+                    Condition: { StringEquals: { 'iam:PassedToService': 'lambda.amazonaws.com' } }
                   },
                   {
                     Effect: 'Allow',
-                    Action: ['apigateway:GET', 'apigateway:PATCH'],
-                    Resource: sub(
-                      'arn:${AWS::Partition}:apigateway:${AWS::Region}::/apis/${ApiId}/integrations/${IntegrationId}'
-                    )
+                    Action: ['s3:GetObjectVersion'],
+                    Resource: sub('arn:${AWS::Partition}:s3:::${AssetsBucket}/guide/*')
                   },
                   {
                     Effect: 'Allow',
                     Action: [
-                      'lambda:GetFunction',
-                      'lambda:GetFunctionConfiguration',
-                      'lambda:GetFunctionCodeSigningConfig',
-                      'lambda:GetFunctionRecursionConfig',
-                      'lambda:GetRuntimeManagementConfig',
-                      'lambda:GetFunctionScalingConfig',
-                      'lambda:UpdateFunctionCode',
+                      'lambda:GetWebFunction',
+                      'lambda:CreateWebFunctionRevision',
+                      'lambda:GetWebFunctionRevision',
                       'lambda:ListTags'
                     ],
+                    Resource: [
+                      sub(
+                        'arn:${AWS::Partition}:lambda:${AWS::Region}:${AWS::AccountId}:web-function/thingelstad-xyz-site-guide-web'
+                      ),
+                      sub(
+                        'arn:${AWS::Partition}:lambda:${AWS::Region}:${AWS::AccountId}:web-function/thingelstad-xyz-site-guide-web/revision/*'
+                      )
+                    ]
+                  },
+                  {
+                    Effect: 'Allow',
+                    Action: ['lambda:GetWebFunctionEndpoint', 'lambda:UpdateWebFunctionEndpoint'],
                     Resource: sub(
-                      'arn:${AWS::Partition}:lambda:${AWS::Region}:${AWS::AccountId}:function:thingelstad-xyz-site-guide'
+                      'arn:${AWS::Partition}:lambda:${AWS::Region}:${AWS::AccountId}:web-function/thingelstad-xyz-site-guide-web/endpoint/prod'
                     )
                   }
                 ]
@@ -446,8 +501,6 @@ save(
         SiteBucket: { Type: 'String' },
         AssetsBucket: { Type: 'String' },
         DistributionId: { Type: 'String' },
-        ApiId: { Type: 'String' },
-        IntegrationId: { Type: 'String' },
         GuideRoleArn: { Type: 'String' }
       }
     }

@@ -69,7 +69,7 @@ if (stack.Parameters.find((parameter) => parameter.ParameterKey === 'GuideCodeKe
   }
   run('cloudformation', 'execute-change-set', '--change-set-name', changeSet.Id);
   run('cloudformation', 'wait', 'stack-update-complete', '--stack-name', stackName);
-  console.log('Guide code update complete.');
+  console.log('Guide revision update complete.');
 }
 
 // Publish hashed assets first, HTML last. Keep previous assets for open tabs and rollback.
