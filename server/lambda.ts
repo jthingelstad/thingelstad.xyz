@@ -1,23 +1,9 @@
 import { DynamoDBClient, UpdateItemCommand } from '@aws-sdk/client-dynamodb';
+import { createServer } from 'node:http';
 import { curate, verifyIdentity } from './curator';
-import { validateRequest } from './validation';
-import type { GuideEvent } from '../src/lib/guide';
-
-type Event = {
-  rawPath: string;
-  headers?: Record<string, string>;
-  body?: string;
-  isBase64Encoded?: boolean;
-  requestContext: { http: { method: string } };
-};
-type Dependencies = {
-  curate: typeof curate;
-  allowance: () => Promise<boolean>;
-  verify: typeof verifyIdentity;
-  origins: () => string[];
-};
+import { createGuideHandler } from './web-handler';
 const database = new DynamoDBClient({ region: 'us-east-1', maxAttempts: 2 });
-async function allowance() {
+async function allowance(signal: AbortSignal) {
   const day = new Date().toISOString().slice(0, 10);
   try {
     await database.send(
@@ -32,7 +18,8 @@ async function allowance() {
           ':one': { N: '1' },
           ':limit': { N: process.env.GUIDE_DAILY_LIMIT ?? '100' }
         }
-      })
+      }),
+      { abortSignal: signal }
     );
     return true;
   } catch (error) {
@@ -41,62 +28,17 @@ async function allowance() {
   }
 }
 
-export function createHandler(dependencies: Dependencies) {
-  return async (event: Event) => {
-    const headers = Object.fromEntries(
-      Object.entries(event.headers ?? {}).map(([key, value]) => [key.toLowerCase(), value])
-    );
-    const json = (statusCode: number, value: unknown) => ({
-      statusCode,
-      headers: { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'no-store' },
-      body: JSON.stringify(value)
-    });
-    if (event.rawPath === '/api/health' && event.requestContext.http.method === 'GET') {
-      try {
-        await dependencies.verify(AbortSignal.timeout(5000));
-        return json(200, { ok: true, ai: 'bedrock', scope: 'public-site' });
-      } catch {
-        return json(503, { ok: false });
-      }
-    }
-    if (event.rawPath !== '/api/explore') return json(404, { message: 'Unknown endpoint.' });
-    if (event.requestContext.http.method !== 'POST') return json(405, { message: 'Use POST to ask the guide.' });
-    if (!headers.origin || !dependencies.origins().includes(headers.origin))
-      return json(403, { message: 'Use the guide from this site.' });
-    if (!headers['content-type']?.startsWith('application/json'))
-      return json(415, { message: 'The guide accepts JSON.' });
-    let body: unknown;
-    try {
-      const text = event.isBase64Encoded
-        ? Buffer.from(event.body ?? '', 'base64').toString('utf8')
-        : (event.body ?? '');
-      if (Buffer.byteLength(text) > 16384) throw new Error('The request is too large.');
-      body = JSON.parse(text);
-      validateRequest(body);
-    } catch (error) {
-      return json(400, { message: error instanceof Error ? error.message : 'Invalid question.' });
-    }
-    try {
-      if (!(await dependencies.allowance()))
-        return json(429, {
-          message: 'The guide has used today’s allowance. Come back tomorrow, or keep browsing the collection.'
-        });
-      const events: GuideEvent[] = [];
-      await dependencies.curate(body, AbortSignal.timeout(24000), (event) => events.push(event));
-      return {
-        statusCode: 200,
-        headers: { 'content-type': 'application/x-ndjson; charset=utf-8', 'cache-control': 'no-store' },
-        body: events.map((event) => JSON.stringify(event) + '\n').join('')
-      };
-    } catch (error) {
-      console.error('AI guide:', error instanceof Error ? error.name : 'UnknownError');
-      return json(503, { message: 'The AI guide could not connect just now. You can still explore every project.' });
-    }
-  };
-}
-export const handler = createHandler({
-  curate,
-  allowance,
-  verify: verifyIdentity,
-  origins: () => (process.env.ALLOWED_ORIGINS ?? '').split(',')
-});
+const server = createServer(
+  createGuideHandler({
+    curate,
+    allowance,
+    verify: verifyIdentity,
+    origins: () => (process.env.ALLOWED_ORIGINS ?? '').split(',')
+  })
+);
+const [host, port] = (process.env.AWS_LAMBDA_HTTP_ENDPOINT ?? '127.0.0.1:5174').split(':');
+if (!host || !/^\d+$/.test(port ?? '') || Number(port) < 1 || Number(port) > 65535)
+  throw new Error('Invalid guide listen address.');
+server.listen(Number(port), host);
+process.on('SIGTERM', () => server.close());
+process.on('SIGINT', () => server.close());

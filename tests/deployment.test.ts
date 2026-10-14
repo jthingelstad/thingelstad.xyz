@@ -1,74 +1,77 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-// Deployment script is JavaScript so it also runs without tsx on GitHub runners.
 import { assertCodeOnlyChangeSet } from '../scripts/deployment-safety.mjs';
 
-const proposal = {
-  Status: 'CREATE_COMPLETE',
-  ExecutionStatus: 'AVAILABLE',
-  Changes: [
+// Shape captured from a production code-only CloudFormation change set.
+const revision = {
+  LogicalResourceId: 'GuideRevision',
+  ResourceType: 'AWS::Lambda::WebFunctionRevision',
+  Action: 'Modify',
+  Replacement: 'True',
+  PolicyAction: 'ReplaceAndRetain',
+  Scope: ['Properties'],
+  Details: [
     {
-      ResourceChange: {
-        LogicalResourceId: 'Guide',
-        ResourceType: 'AWS::Lambda::Function',
-        Action: 'Modify',
-        Replacement: 'False',
-        Scope: ['Properties'],
-        Details: [{ Target: { Name: 'Code', RequiresRecreation: 'Never' } }]
-      }
+      Target: { Name: 'BuildConfig', RequiresRecreation: 'Always' },
+      ChangeSource: 'ParameterReference',
+      CausingEntity: 'GuideCodeKey'
+    },
+    {
+      Target: { Name: 'BuildConfig', RequiresRecreation: 'Always' },
+      ChangeSource: 'DirectModification',
+      Evaluation: 'Dynamic'
     }
   ]
 };
-test('delivery permits only a reviewed Lambda code update', () => {
-  assert.doesNotThrow(() => assertCodeOnlyChangeSet(proposal));
-  for (const mutation of [
-    { LogicalResourceId: 'GuideRole' },
-    { Replacement: 'True' },
-    { Action: 'Remove' },
-    { Details: [{ Target: { Name: 'Role', RequiresRecreation: 'Never' } }] },
-    { Details: [] }
-  ]) {
-    assert.throws(() =>
-      assertCodeOnlyChangeSet({
-        ...proposal,
-        Changes: [{ ResourceChange: { ...proposal.Changes[0].ResourceChange, ...mutation } }]
-      })
-    );
-  }
-  assert.throws(() => assertCodeOnlyChangeSet({ ...proposal, Changes: [] }));
-  assert.throws(() => assertCodeOnlyChangeSet({ ...proposal, Changes: [...proposal.Changes, ...proposal.Changes] }));
-});
-
-// Shape captured from the first real AWS change set: this is an indirect ARN
-// dependency, not an API routing edit. Direct edits must remain refused.
-const integration = {
-  LogicalResourceId: 'Integration',
-  ResourceType: 'AWS::ApiGatewayV2::Integration',
+const endpoint = {
+  LogicalResourceId: 'GuideEndpoint',
+  ResourceType: 'AWS::Lambda::WebFunctionEndpoint',
   Action: 'Modify',
   Replacement: 'False',
   Scope: ['Properties'],
   Details: [
     {
-      Target: { Name: 'IntegrationUri', RequiresRecreation: 'Never' },
-      Evaluation: 'Dynamic',
+      Target: { Name: 'RevisionWeights', RequiresRecreation: 'Never' },
+      Evaluation: 'Static',
       ChangeSource: 'ResourceAttribute',
-      CausingEntity: 'Guide.Arn'
+      CausingEntity: 'GuideRevision.RevisionId'
     }
   ]
 };
-test('delivery accepts only the existing integration dependency on the unchanged guide ARN', () => {
-  const changes = [...proposal.Changes, { ResourceChange: integration }];
-  assert.doesNotThrow(() => assertCodeOnlyChangeSet({ ...proposal, Changes: changes }));
-  for (const mutation of [
-    { ChangeSource: 'DirectModification' },
-    { Evaluation: 'Static' },
-    { CausingEntity: 'AnotherFunction.Arn' },
-    { Target: { Name: 'ApiId', RequiresRecreation: 'Never' } }
+const proposal = {
+  Status: 'CREATE_COMPLETE',
+  ExecutionStatus: 'AVAILABLE',
+  Changes: [revision, endpoint].map((ResourceChange) => ({ ResourceChange }))
+};
+test('delivery permits immutable guide code and its endpoint revision dependency', () => {
+  assert.doesNotThrow(() => assertCodeOnlyChangeSet(proposal));
+  for (const change of [
+    { ...revision, LogicalResourceId: 'GuideRole' },
+    { ...revision, Replacement: 'False' },
+    { ...revision, PolicyAction: 'ReplaceAndDelete' },
+    { ...revision, Details: [revision.Details[1]] },
+    { ...revision, Action: 'Remove' },
+    { ...revision, Details: [] },
+    { ...revision, Details: [{ ...revision.Details[0], CausingEntity: 'AssetsBucket' }] },
+    {
+      ...revision,
+      Details: [{ ...revision.Details[0], Target: { Name: 'ServiceConfig', RequiresRecreation: 'Always' } }]
+    },
+    { ...endpoint, Replacement: 'True' },
+    { ...endpoint, Details: [{ ...endpoint.Details[0], ChangeSource: 'DirectModification' }] },
+    { ...endpoint, Details: [{ ...endpoint.Details[0], CausingEntity: 'AnotherRevision.RevisionId' }] },
+    { ...endpoint, Details: [{ ...endpoint.Details[0], Target: { Name: 'AuthType', RequiresRecreation: 'Never' } }] }
   ]) {
-    const changed = { ...integration, Details: [{ ...integration.Details[0], ...mutation }] };
+    const other = change.LogicalResourceId === 'GuideEndpoint' ? revision : endpoint;
     assert.throws(() =>
-      assertCodeOnlyChangeSet({ ...proposal, Changes: [...proposal.Changes, { ResourceChange: changed }] })
+      assertCodeOnlyChangeSet({ ...proposal, Changes: [change, other].map((ResourceChange) => ({ ResourceChange })) })
     );
   }
-  assert.throws(() => assertCodeOnlyChangeSet({ ...proposal, Changes: [{ ResourceChange: integration }] }));
+  for (const Changes of [
+    [],
+    [proposal.Changes[0]],
+    [...proposal.Changes, proposal.Changes[0]],
+    [proposal.Changes[0], proposal.Changes[0]]
+  ])
+    assert.throws(() => assertCodeOnlyChangeSet({ ...proposal, Changes }));
 });

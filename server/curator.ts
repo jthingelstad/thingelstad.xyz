@@ -8,7 +8,7 @@ import { historyEvents } from '../src/data/history';
 import { validateGuideResult, validateRequest } from './validation';
 import type { GuideEvent } from '../src/lib/guide';
 
-const lambda = !!process.env.AWS_LAMBDA_FUNCTION_NAME;
+const lambda = !!(process.env.AWS_LAMBDA_HTTP_ENDPOINT || process.env.AWS_LAMBDA_FUNCTION_NAME);
 const config = {
   region: 'us-east-1',
   ...(lambda ? {} : { credentials: fromIni({ profile: 'cloud-engineer' }) }),
