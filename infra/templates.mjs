@@ -3,6 +3,8 @@ const ref = (name) => ({ Ref: name });
 const sub = (value) => ({ 'Fn::Sub': value });
 const get = (name, field) => ({ 'Fn::GetAtt': [name, field] });
 const yes = (a, b) => ({ 'Fn::If': ['CustomDomain', a, b] });
+// The Thingelstad family alarm topic, subscribed to the shared projects-ops-alerts queue (as thingy-web's 5xx alarm is).
+const alarmTopic = sub('arn:${AWS::Partition}:sns:us-east-1:${AWS::AccountId}:weekly-thing-librarian-alarms');
 const bucket = () => ({
   Type: 'AWS::S3::Bucket',
   DeletionPolicy: 'Retain',
@@ -108,6 +110,63 @@ save(
         UpdateReplacePolicy: 'Retain',
         Properties: { LogGroupName: sub('/aws/lambda/${AWS::StackName}-guide'), RetentionInDays: 14 }
       },
+      // Web Functions write in-Region to `<group>.local` first; without this group and grant the guide logs nothing.
+      GuideLocalLogs: {
+        Type: 'AWS::Logs::LogGroup',
+        DeletionPolicy: 'Retain',
+        UpdateReplacePolicy: 'Retain',
+        Properties: { LogGroupName: sub('/aws/lambda/${AWS::StackName}-guide.local'), RetentionInDays: 14 }
+      },
+      // The guide answers 200 before model work, so a model failure is only visible in its error log.
+      GuideFailureFilter: {
+        Type: 'AWS::Logs::MetricFilter',
+        Properties: {
+          LogGroupName: ref('GuideLogs'),
+          FilterPattern: '{ $.level = "ERROR" && $.message = "AI guide:*" && $.message != "AI guide: AbortError*" }',
+          MetricTransformations: [
+            { MetricNamespace: 'ThingelstadXyz', MetricName: 'GuideFailures', MetricValue: '1', Unit: 'Count' }
+          ]
+        }
+      },
+      GuideFailureAlarm: {
+        Type: 'AWS::CloudWatch::Alarm',
+        Properties: {
+          AlarmName: sub('${AWS::StackName}-guide-failures'),
+          AlarmDescription:
+            'The AI guide logged a model or allowance failure. Client disconnects and the 24-second deadline are not counted.',
+          Namespace: 'ThingelstadXyz',
+          MetricName: 'GuideFailures',
+          Statistic: 'Sum',
+          Period: 300,
+          EvaluationPeriods: 1,
+          Threshold: 1,
+          ComparisonOperator: 'GreaterThanOrEqualToThreshold',
+          TreatMissingData: 'notBreaching',
+          AlarmActions: [alarmTopic]
+        }
+      },
+      DistributionErrorAlarm: {
+        Type: 'AWS::CloudWatch::Alarm',
+        Properties: {
+          AlarmName: sub('${AWS::StackName}-distribution-5xx'),
+          AlarmDescription:
+            'CloudFront returned more than 5% 5xx responses for thingelstad.xyz in two of three five-minute windows.',
+          Namespace: 'AWS/CloudFront',
+          MetricName: '5xxErrorRate',
+          Dimensions: [
+            { Name: 'DistributionId', Value: ref('Distribution') },
+            { Name: 'Region', Value: 'Global' }
+          ],
+          Statistic: 'Average',
+          Period: 300,
+          EvaluationPeriods: 3,
+          DatapointsToAlarm: 2,
+          Threshold: 5,
+          ComparisonOperator: 'GreaterThanThreshold',
+          TreatMissingData: 'notBreaching',
+          AlarmActions: [alarmTopic]
+        }
+      },
       GuideRole: {
         Type: 'AWS::IAM::Role',
         Properties: {
@@ -124,7 +183,7 @@ save(
                   {
                     Effect: 'Allow',
                     Action: ['logs:CreateLogStream', 'logs:PutLogEvents'],
-                    Resource: get('GuideLogs', 'Arn')
+                    Resource: [get('GuideLogs', 'Arn'), get('GuideLocalLogs', 'Arn')]
                   },
                   { Effect: 'Allow', Action: 'dynamodb:UpdateItem', Resource: get('Allowance', 'Arn') },
                   {
