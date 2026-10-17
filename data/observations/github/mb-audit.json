@@ -2,6 +2,7 @@
   "kind": "github",
   "repository": "jthingelstad/mb-audit",
   "url": "https://github.com/jthingelstad/mb-audit",
+  "observedAt": "2026-10-17T13:32:02.761Z",
   "repositoryCreatedAt": "2026-05-03T00:53:21.000Z",
   "archived": false,
   "description": "Audit a Micro.blog site against BAR backup files: detect missing posts and broken media via Micropub API + public-site cross-check.",
@@ -11,12 +12,12 @@
     {
       "path": null,
       "branch": "main",
-      "since": "2026-07-16T12:28:35.624Z",
-      "until": "2026-10-14T12:28:35.624Z",
-      "count": 6,
+      "since": "2026-07-19T13:32:02.761Z",
+      "until": "2026-10-17T13:32:02.761Z",
+      "count": 3,
       "complete": true,
       "months": [
-        { "month": "2026-07", "count": 4 },
+        { "month": "2026-07", "count": 1 },
         { "month": "2026-08", "count": 1 },
         { "month": "2026-09", "count": 1 }
       ],
@@ -25,6 +26,5 @@
         "url": "https://github.com/jthingelstad/mb-audit/commit/1d42b9bb9c3a0b950bdf78a8ba126d7fca19a7bf"
       }
     }
-  ],
-  "observedAt": "2026-10-14T12:28:35.624Z"
+  ]
 }

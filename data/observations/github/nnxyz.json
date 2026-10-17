@@ -2,32 +2,32 @@
   "kind": "github",
   "repository": "jthingelstad/nnxyz",
   "url": "https://github.com/jthingelstad/nnxyz",
+  "observedAt": "2026-10-17T13:32:02.761Z",
   "repositoryCreatedAt": "2026-10-13T17:26:51.000Z",
   "archived": false,
   "description": "An art-first SVG gallery of nnxyz and scrimshaw, with archived brush-stroke replay and AI curation",
   "languages": [
-    { "name": "HTML", "bytes": 5782282 },
-    { "name": "Python", "bytes": 135640 },
-    { "name": "JavaScript", "bytes": 36259 },
-    { "name": "Astro", "bytes": 20981 },
-    { "name": "CSS", "bytes": 15252 },
-    { "name": "TypeScript", "bytes": 10798 }
+    { "name": "HTML", "bytes": 6368669 },
+    { "name": "Python", "bytes": 877381 },
+    { "name": "JavaScript", "bytes": 135895 },
+    { "name": "Astro", "bytes": 114343 },
+    { "name": "TypeScript", "bytes": 93697 },
+    { "name": "CSS", "bytes": 46617 }
   ],
   "release": null,
   "activity": [
     {
       "path": null,
       "branch": "main",
-      "since": "2026-07-16T12:28:49.192Z",
-      "until": "2026-10-14T12:28:49.192Z",
-      "count": 3,
+      "since": "2026-07-19T13:32:02.761Z",
+      "until": "2026-10-17T13:32:02.761Z",
+      "count": 101,
       "complete": true,
-      "months": [{ "month": "2026-10", "count": 3 }],
+      "months": [{ "month": "2026-10", "count": 101 }],
       "latestCommit": {
-        "date": "2026-10-13T17:48:07.000Z",
-        "url": "https://github.com/jthingelstad/nnxyz/commit/826089753b46f7f4d4ae5d994243feb73cb4c299"
+        "date": "2026-10-17T12:08:23.000Z",
+        "url": "https://github.com/jthingelstad/nnxyz/commit/7af31c4b78904e2ed13dbf3006cbb5ec268b4507"
       }
     }
-  ],
-  "observedAt": "2026-10-14T12:28:49.192Z"
+  ]
 }

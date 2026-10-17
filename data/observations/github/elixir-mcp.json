@@ -2,12 +2,13 @@
   "kind": "github",
   "repository": "jthingelstad/elixir-mcp",
   "url": "https://github.com/jthingelstad/elixir-mcp",
+  "observedAt": "2026-10-17T13:32:02.761Z",
   "repositoryCreatedAt": "2026-09-03T14:18:34.000Z",
   "archived": false,
   "description": "Clash Royale history recorder + remote MCP server. Unofficial; not endorsed by Supercell.",
   "languages": [
-    { "name": "JavaScript", "bytes": 9380300 },
-    { "name": "TypeScript", "bytes": 996361 },
+    { "name": "JavaScript", "bytes": 9458222 },
+    { "name": "TypeScript", "bytes": 998974 },
     { "name": "CSS", "bytes": 169029 },
     { "name": "Nunjucks", "bytes": 122303 },
     { "name": "PLpgSQL", "bytes": 15998 },
@@ -19,21 +20,21 @@
     {
       "path": null,
       "branch": "main",
-      "since": "2026-07-16T12:28:05.193Z",
-      "until": "2026-10-14T12:28:05.193Z",
+      "since": "2026-07-19T13:32:02.761Z",
+      "until": "2026-10-17T13:32:02.761Z",
       "count": 300,
       "complete": false,
       "months": [{ "month": "2026-10", "count": 300 }],
       "latestCommit": {
-        "date": "2026-10-14T10:08:02.000Z",
-        "url": "https://github.com/jthingelstad/elixir-mcp/commit/8b42f1ab327eacff48e91fec675201b4cbcb8535"
+        "date": "2026-10-16T11:58:40.000Z",
+        "url": "https://github.com/jthingelstad/elixir-mcp/commit/45eabc5f983589e52c2a0a697b6b8a3d9bc688fb"
       }
     },
     {
       "path": "packages/clan",
       "branch": "main",
-      "since": "2026-07-16T12:28:05.193Z",
-      "until": "2026-10-14T12:28:05.193Z",
+      "since": "2026-07-19T13:32:02.761Z",
+      "until": "2026-10-17T13:32:02.761Z",
       "count": 69,
       "complete": true,
       "months": [{ "month": "2026-10", "count": 69 }],
@@ -42,6 +43,5 @@
         "url": "https://github.com/jthingelstad/elixir-mcp/commit/a7138a92d14093ab7affe3c34fc1f4c83189fa35"
       }
     }
-  ],
-  "observedAt": "2026-10-14T12:28:05.193Z"
+  ]
 }
