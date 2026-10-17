@@ -1,5 +1,5 @@
 {
-  "plugins": ["typescript", "react", "react-hooks"],
+  "plugins": ["typescript"],
   "categories": {
     "correctness": "error"
   },
@@ -12,9 +12,7 @@
         "varsIgnorePattern": "^_"
       }
     ],
-    "typescript/no-explicit-any": "error",
-    "react-hooks/rules-of-hooks": "error",
-    "react-hooks/exhaustive-deps": "error"
+    "typescript/no-explicit-any": "error"
   },
-  "ignorePatterns": ["dist/**", ".build/**", "research/**", "infra/generated/**"]
+  "ignorePatterns": ["research/**", "infra/generated/**", "_site/**"]
 }

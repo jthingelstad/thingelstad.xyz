@@ -34,41 +34,6 @@ mkdirSync('infra/generated', { recursive: true });
 const save = (name, template) =>
   writeFileSync(`infra/generated/${name}.json`, JSON.stringify(template, null, 2) + '\n');
 save(
-  'assets',
-  wrap(
-    'Thingelstad.xyz deployment artifacts',
-    {
-      AssetsBucket: bucket(),
-      AssetsPolicy: {
-        Type: 'AWS::S3::BucketPolicy',
-        Properties: {
-          Bucket: ref('AssetsBucket'),
-          PolicyDocument: {
-            Version: '2012-10-17',
-            Statement: [
-              {
-                Effect: 'Allow',
-                Principal: { Service: 'lambda.amazonaws.com' },
-                Action: ['s3:GetObject', 's3:GetObjectVersion'],
-                Resource: sub('${AssetsBucket.Arn}/guide/*'),
-                Condition: {
-                  StringEquals: { 'AWS:SourceAccount': ref('AWS::AccountId') },
-                  ArnLike: {
-                    'AWS:SourceArn': sub(
-                      'arn:${AWS::Partition}:lambda:${AWS::Region}:${AWS::AccountId}:web-function/thingelstad-xyz-site-guide-web/revision/*'
-                    )
-                  }
-                }
-              }
-            ]
-          }
-        }
-      }
-    },
-    { AssetsBucket: output(ref('AssetsBucket')) }
-  )
-);
-save(
   'certificate',
   wrap(
     'Thingelstad.xyz HTTPS certificate - external DNS validation',
@@ -88,62 +53,9 @@ save(
 save(
   'site',
   wrap(
-    'Thingelstad.xyz project map and AI guide',
+    'Thingelstad.xyz static site',
     {
       SiteBucket: bucket(),
-      Allowance: {
-        Type: 'AWS::DynamoDB::Table',
-        DeletionPolicy: 'Retain',
-        UpdateReplacePolicy: 'Retain',
-        Properties: {
-          BillingMode: 'PAY_PER_REQUEST',
-          AttributeDefinitions: [{ AttributeName: 'day', AttributeType: 'S' }],
-          KeySchema: [{ AttributeName: 'day', KeyType: 'HASH' }],
-          TimeToLiveSpecification: { AttributeName: 'expiresAt', Enabled: true },
-          SSESpecification: { SSEEnabled: true }
-        }
-      },
-      GuideLogs: {
-        Type: 'AWS::Logs::LogGroup',
-        DeletionPolicy: 'Retain',
-        UpdateReplacePolicy: 'Retain',
-        Properties: { LogGroupName: sub('/aws/lambda/${AWS::StackName}-guide'), RetentionInDays: 14 }
-      },
-      // Web Functions write in-Region to `<group>.local` first; without this group and grant the guide logs nothing.
-      GuideLocalLogs: {
-        Type: 'AWS::Logs::LogGroup',
-        DeletionPolicy: 'Retain',
-        UpdateReplacePolicy: 'Retain',
-        Properties: { LogGroupName: sub('/aws/lambda/${AWS::StackName}-guide.local'), RetentionInDays: 14 }
-      },
-      // The guide answers 200 before model work, so a model failure is only visible in its error log.
-      GuideFailureFilter: {
-        Type: 'AWS::Logs::MetricFilter',
-        Properties: {
-          LogGroupName: ref('GuideLogs'),
-          FilterPattern: '{ $.level = "ERROR" && $.message = "AI guide:*" && $.message != "AI guide: AbortError*" }',
-          MetricTransformations: [
-            { MetricNamespace: 'ThingelstadXyz', MetricName: 'GuideFailures', MetricValue: '1', Unit: 'Count' }
-          ]
-        }
-      },
-      GuideFailureAlarm: {
-        Type: 'AWS::CloudWatch::Alarm',
-        Properties: {
-          AlarmName: sub('${AWS::StackName}-guide-failures'),
-          AlarmDescription:
-            'The AI guide logged a model or allowance failure. Client disconnects and the 24-second deadline are not counted.',
-          Namespace: 'ThingelstadXyz',
-          MetricName: 'GuideFailures',
-          Statistic: 'Sum',
-          Period: 300,
-          EvaluationPeriods: 1,
-          Threshold: 1,
-          ComparisonOperator: 'GreaterThanOrEqualToThreshold',
-          TreatMissingData: 'notBreaching',
-          AlarmActions: [alarmTopic]
-        }
-      },
       DistributionErrorAlarm: {
         Type: 'AWS::CloudWatch::Alarm',
         Properties: {
@@ -164,119 +76,6 @@ save(
           ComparisonOperator: 'GreaterThanThreshold',
           TreatMissingData: 'notBreaching',
           AlarmActions: [alarmTopic]
-        }
-      },
-      GuideRole: {
-        Type: 'AWS::IAM::Role',
-        Properties: {
-          AssumeRolePolicyDocument: {
-            Version: '2012-10-17',
-            Statement: [{ Effect: 'Allow', Principal: { Service: 'lambda.amazonaws.com' }, Action: 'sts:AssumeRole' }]
-          },
-          Policies: [
-            {
-              PolicyName: 'GuideRuntime',
-              PolicyDocument: {
-                Version: '2012-10-17',
-                Statement: [
-                  {
-                    Effect: 'Allow',
-                    Action: ['logs:CreateLogStream', 'logs:PutLogEvents'],
-                    Resource: [get('GuideLogs', 'Arn'), get('GuideLocalLogs', 'Arn')]
-                  },
-                  { Effect: 'Allow', Action: 'dynamodb:UpdateItem', Resource: get('Allowance', 'Arn') },
-                  {
-                    Effect: 'Allow',
-                    Action: 'bedrock:InvokeModelWithResponseStream',
-                    Resource: [
-                      sub(
-                        'arn:${AWS::Partition}:bedrock:us-east-1:${AWS::AccountId}:inference-profile/us.anthropic.claude-haiku-4-5-20251001-v1:0'
-                      ),
-                      ...['us-east-1', 'us-east-2', 'us-west-2'].map((region) =>
-                        sub(
-                          `arn:\${AWS::Partition}:bedrock:${region}::foundation-model/anthropic.claude-haiku-4-5-20251001-v1:0`
-                        )
-                      )
-                    ]
-                  }
-                ]
-              }
-            }
-          ]
-        }
-      },
-      GuideWeb: {
-        Type: 'AWS::Lambda::WebFunction',
-        Properties: { FunctionName: sub('${AWS::StackName}-guide-web') }
-      },
-      GuideRevision: {
-        Type: 'AWS::Lambda::WebFunctionRevision',
-        DeletionPolicy: 'Retain',
-        UpdateReplacePolicy: 'Retain',
-        Properties: {
-          FunctionName: ref('GuideWeb'),
-          BuildConfig: {
-            CodeConfig: { S3Object: { Bucket: ref('AssetsBucket'), Key: ref('GuideCodeKey') } },
-            RuntimeConfig: { Runtime: 'nodejs24.x' }
-          },
-          ServiceConfig: {
-            ExecutionRoleArn: get('GuideRole', 'Arn'),
-            TimeoutSeconds: 28,
-            MaxConcurrencyPerEnvironment: 1,
-            TelemetryConfig: { LoggingConfig: { LogGroup: ref('GuideLogs') } },
-            EnvironmentVariables: {
-              GUIDE_ROLE_NAME: ref('GuideRole'),
-              ALLOWANCE_TABLE: ref('Allowance'),
-              GUIDE_DAILY_LIMIT: '100',
-              ALLOWED_ORIGINS: sub('https://thingelstad.xyz,https://www.thingelstad.xyz,https://${CloudFrontDomain}')
-            }
-          }
-        }
-      },
-      GuideEndpoint: {
-        Type: 'AWS::Lambda::WebFunctionEndpoint',
-        Properties: {
-          FunctionName: ref('GuideWeb'),
-          EndpointName: 'prod',
-          EndpointType: 'HomeRegion',
-          AuthType: 'IamAuth',
-          ScalingConfig: { MaxEnvironments: 2 },
-          RevisionWeights: [{ RevisionId: get('GuideRevision', 'RevisionId'), Weight: 100 }]
-        }
-      },
-      GuidePolicy: {
-        Type: 'AWS::Lambda::ResourcePolicy',
-        Properties: {
-          ResourceArn: get('GuideWeb', 'FunctionArn'),
-          PolicyDocument: {
-            Version: '2012-10-17',
-            Statement: [
-              {
-                Effect: 'Allow',
-                Principal: { Service: 'cloudfront.amazonaws.com' },
-                Action: 'lambda:InvokeWebFunctionEndpoint',
-                Resource: sub('${GuideWeb.FunctionArn}/endpoint/prod'),
-                Condition: {
-                  StringEquals: {
-                    'AWS:SourceArn': sub(
-                      'arn:${AWS::Partition}:cloudfront::${AWS::AccountId}:distribution/${Distribution}'
-                    )
-                  }
-                }
-              }
-            ]
-          }
-        }
-      },
-      GuideOriginAccess: {
-        Type: 'AWS::CloudFront::OriginAccessControl',
-        Properties: {
-          OriginAccessControlConfig: {
-            Name: sub('${AWS::StackName}-guide-web'),
-            OriginAccessControlOriginType: 'lambda',
-            SigningBehavior: 'always-amz-auth',
-            SigningProtocol: 'sigv4'
-          }
         }
       },
       OriginAccess: {
@@ -357,16 +156,6 @@ save(
                 DomainName: get('SiteBucket', 'RegionalDomainName'),
                 OriginAccessControlId: ref('OriginAccess'),
                 S3OriginConfig: { OriginAccessIdentity: '' }
-              },
-              {
-                Id: 'api',
-                DomainName: ref('GuideOriginDomain'),
-                OriginAccessControlId: ref('GuideOriginAccess'),
-                CustomOriginConfig: {
-                  OriginProtocolPolicy: 'https-only',
-                  OriginSSLProtocols: ['TLSv1.2'],
-                  OriginReadTimeout: 30
-                }
               }
             ],
             DefaultCacheBehavior: {
@@ -383,19 +172,6 @@ save(
             CustomErrorResponses: [
               { ErrorCode: 403, ResponseCode: 404, ResponsePagePath: '/404.html', ErrorCachingMinTTL: 10 },
               { ErrorCode: 404, ResponseCode: 404, ResponsePagePath: '/404.html', ErrorCachingMinTTL: 10 }
-            ],
-            CacheBehaviors: [
-              {
-                PathPattern: '/api/*',
-                TargetOriginId: 'api',
-                ViewerProtocolPolicy: 'https-only',
-                AllowedMethods: ['GET', 'HEAD', 'OPTIONS', 'PUT', 'POST', 'PATCH', 'DELETE'],
-                CachedMethods: ['GET', 'HEAD'],
-                Compress: true,
-                CachePolicyId: '4135ea2d-6df8-44a3-9df3-4b5a84be39ad',
-                OriginRequestPolicyId: 'b689b0a8-53d0-40ab-baf2-68738e2966ac',
-                ResponseHeadersPolicyId: ref('Headers')
-              }
             ]
           }
         }
@@ -428,21 +204,10 @@ save(
     {
       SiteBucket: output(ref('SiteBucket')),
       DistributionId: output(ref('Distribution')),
-      CloudFrontDomain: output(get('Distribution', 'DomainName')),
-      GuideRoleArn: output(get('GuideRole', 'Arn')),
-      GuideEndpointDomain: output(get('GuideEndpoint', 'DomainName')),
-      GuideEndpointArn: output(get('GuideEndpoint', 'EndpointArn')),
-      GuideRevisionId: output(get('GuideRevision', 'RevisionId'))
+      CloudFrontDomain: output(get('Distribution', 'DomainName'))
     },
     {
       Parameters: {
-        AssetsBucket: { Type: 'String' },
-        GuideCodeKey: { Type: 'String', AllowedPattern: 'guide/[a-f0-9]{64}\\.zip' },
-        GuideOriginDomain: {
-          Type: 'String',
-          AllowedPattern: '[a-z0-9-]+\\.[a-z0-9-]+\\.lambda-web\\.us-east-1\\.on\\.aws'
-        },
-        CloudFrontDomain: { Type: 'String', AllowedPattern: '[a-z0-9]+\\.cloudfront\\.net' },
         CertificateArn: { Type: 'String', Default: '' }
       },
       Conditions: { CustomDomain: { 'Fn::Not': [{ 'Fn::Equals': [ref('CertificateArn'), ''] }] } }
@@ -458,8 +223,6 @@ save(
     {
       DeploymentRole: {
         Type: 'AWS::IAM::Role',
-        // The pinned cfn-lint IAM action list predates Web Functions; resource schemas and live change sets validate these actions.
-        Metadata: { 'cfn-lint': { config: { ignore_checks: ['W3037'] } } },
         Properties: {
           AssumeRolePolicyDocument: {
             Version: '2012-10-17',
@@ -491,18 +254,12 @@ save(
                   {
                     Effect: 'Allow',
                     Action: ['s3:ListBucket', 's3:GetBucketLocation'],
-                    Resource: [
-                      sub('arn:${AWS::Partition}:s3:::${SiteBucket}'),
-                      sub('arn:${AWS::Partition}:s3:::${AssetsBucket}')
-                    ]
+                    Resource: sub('arn:${AWS::Partition}:s3:::${SiteBucket}')
                   },
                   {
                     Effect: 'Allow',
                     Action: ['s3:GetObject', 's3:PutObject'],
-                    Resource: [
-                      sub('arn:${AWS::Partition}:s3:::${SiteBucket}/*'),
-                      sub('arn:${AWS::Partition}:s3:::${AssetsBucket}/guide/*')
-                    ]
+                    Resource: sub('arn:${AWS::Partition}:s3:::${SiteBucket}/*')
                   },
                   {
                     Effect: 'Allow',
@@ -514,70 +271,11 @@ save(
                     Resource: sub('arn:${AWS::Partition}:cloudfront::${AWS::AccountId}:distribution/${DistributionId}')
                   },
                   {
+                    // Read-only: the deploy refuses to publish unless the live template matches the generated one.
                     Effect: 'Allow',
-                    Action: [
-                      'cloudformation:DescribeStacks',
-                      'cloudformation:GetTemplate',
-                      'cloudformation:CreateChangeSet',
-                      'cloudformation:DescribeChangeSet',
-                      'cloudformation:ExecuteChangeSet',
-                      'cloudformation:DeleteChangeSet',
-                      'cloudformation:ListChangeSets'
-                    ],
-                    Resource: [
-                      sub(
-                        'arn:${AWS::Partition}:cloudformation:${AWS::Region}:${AWS::AccountId}:stack/thingelstad-xyz-site/*'
-                      ),
-                      sub('arn:${AWS::Partition}:cloudformation:${AWS::Region}:${AWS::AccountId}:changeSet/github-*/*')
-                    ]
-                  },
-                  {
-                    // Live DescribeEvents requests currently reject scoped stack/change-set
-                    // ARNs despite an allowed IAM simulation. Limit this read-only exception
-                    // to the application region; the caller still supplies the exact stack ID.
-                    Effect: 'Allow',
-                    Action: 'cloudformation:DescribeEvents',
-                    Resource: '*',
-                    Condition: { StringEquals: { 'aws:RequestedRegion': ref('AWS::Region') } }
-                  },
-                  {
-                    Effect: 'Allow',
-                    Action: 'iam:GetRole',
-                    Resource: ref('GuideRoleArn')
-                  },
-                  {
-                    Effect: 'Allow',
-                    Action: 'iam:PassRole',
-                    Resource: ref('GuideRoleArn'),
-                    Condition: { StringEquals: { 'iam:PassedToService': 'lambda.amazonaws.com' } }
-                  },
-                  {
-                    Effect: 'Allow',
-                    Action: ['s3:GetObjectVersion'],
-                    Resource: sub('arn:${AWS::Partition}:s3:::${AssetsBucket}/guide/*')
-                  },
-                  {
-                    Effect: 'Allow',
-                    Action: [
-                      'lambda:GetWebFunction',
-                      'lambda:CreateWebFunctionRevision',
-                      'lambda:GetWebFunctionRevision',
-                      'lambda:ListTags'
-                    ],
-                    Resource: [
-                      sub(
-                        'arn:${AWS::Partition}:lambda:${AWS::Region}:${AWS::AccountId}:web-function/thingelstad-xyz-site-guide-web'
-                      ),
-                      sub(
-                        'arn:${AWS::Partition}:lambda:${AWS::Region}:${AWS::AccountId}:web-function/thingelstad-xyz-site-guide-web/revision/*'
-                      )
-                    ]
-                  },
-                  {
-                    Effect: 'Allow',
-                    Action: ['lambda:GetWebFunctionEndpoint', 'lambda:UpdateWebFunctionEndpoint'],
+                    Action: ['cloudformation:DescribeStacks', 'cloudformation:GetTemplate'],
                     Resource: sub(
-                      'arn:${AWS::Partition}:lambda:${AWS::Region}:${AWS::AccountId}:web-function/thingelstad-xyz-site-guide-web/endpoint/prod'
+                      'arn:${AWS::Partition}:cloudformation:${AWS::Region}:${AWS::AccountId}:stack/thingelstad-xyz-site/*'
                     )
                   }
                 ]
@@ -591,9 +289,7 @@ save(
     {
       Parameters: {
         SiteBucket: { Type: 'String' },
-        AssetsBucket: { Type: 'String' },
-        DistributionId: { Type: 'String' },
-        GuideRoleArn: { Type: 'String' }
+        DistributionId: { Type: 'String' }
       }
     }
   )

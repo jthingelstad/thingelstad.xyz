@@ -4,80 +4,65 @@ The application stays in `/Users/otto/Projects/thingelstad.xyz`, separate from t
 
 ## Resources
 
-- `thingelstad-xyz-assets`: private versioned deployment-artifact bucket.
 - `thingelstad-xyz-certificate`: ACM certificate for the apex and `www`. Its initial creation waits for external DNS validation.
-- `thingelstad-xyz-site`: private versioned static bucket, CloudFront, Lambda Web Function with immutable revisions and an IAM-protected endpoint, model-specific runtime role, anonymous daily allowance table, and short-retention operational logs.
+- `thingelstad-xyz-site`: private versioned static bucket, CloudFront distribution with an Origin Access Control, a response headers policy, the directory-index CloudFront Function, and a 5xx alarm.
 - `thingelstad-xyz-delivery`: repository-scoped GitHub OIDC application delivery role.
-- Templates are generated from `infra/templates.mjs`. The certificate is separate so its external validation cannot block initial hosting deployment.
-- Each stack carries the standard tags in `infra/deployment.json` `stackTags`, and CloudFormation propagates them to the resources. Change sets that omit `Tags` keep them, so delivery leaves them alone; pass them when creating a stack. Templates set no tags of their own.
+- Templates are generated from `infra/templates.mjs` by `npm run templates` into the gitignored `infra/generated/`. The certificate is separate so its external validation cannot block hosting changes.
+- Each stack carries the standard tags in `infra/deployment.json` `stackTags`, and CloudFormation propagates them to the resources. Change sets that omit `Tags` keep them; pass them when creating a stack. Templates set no tags of their own.
+- `thingelstad-xyz-assets`, the deployment-artifact bucket for the retired guide, was removed with the guide (see below).
 
 ## Build
 
 ```sh
 npm ci
-npm run package
+npm run check
+npm run templates
 ```
 
-This runs formatting, lint, unused-code checks, TypeScript/build/tests, builds the static site into `_site/`, generates CloudFormation templates, and bundles the production HTTP guide server. Only `_site/` is uploaded as public content. The Lambda bundle includes the public catalog and guide logic; it excludes the broader `research/` inventory. `.build/guide-key.txt` gives the immutable code artifact key.
+`npm run check` runs formatting, lint, unused-code checks, TypeScript, unit tests, and the Eleventy build into `_site/`. Only `_site/` is uploaded. Nothing from `research/` is part of the build.
 
 ## Publish an update
 
-Use `cloud-engineer` in `us-east-1`. Verify STS account `999153317627` and `assumed-role/ProjectsCloudEngineer/projects-cloud-engineer` before mutation. Agents should use AWS MCP; human CLI commands below use the same profile.
+Pushing to `main` publishes (see GitHub Actions delivery below). To publish by hand, use `cloud-engineer` in `us-east-1`. Verify STS account `999153317627` and `assumed-role/ProjectsCloudEngineer/projects-cloud-engineer` before mutation. Agents use AWS MCP; human CLI commands use the same profile.
 
-1. Build and validate generated templates with cfn-lint, `infra/security.guard`, and a CloudFormation change set.
-2. Upload `.build/guide.zip` to the artifacts bucket at the key in `.build/guide-key.txt`.
-3. Create a change set against `thingelstad-xyz-site`, using `infra/generated/site.json`, `CAPABILITY_IAM`, the existing `AssetsBucket`, new `GuideCodeKey`, the existing `CloudFrontDomain` and `GuideOriginDomain`, and the existing `CertificateArn` (preserve it once enabled).
-4. Inspect the change set and `DescribeEvents` validation results; then execute and verify the stack reaches `UPDATE_COMPLETE`.
-5. Upload `_site/` in the order `scripts/publish-plan.mjs` gives: `assets/` (content-hashed stylesheet, script, and fonts) with `Cache-Control: public,max-age=31536000,immutable`, then the other files and pages with `Cache-Control: no-cache`, the front page last. Every object gets an explicit content type with charset (`.md` is `text/markdown`). Keep old assets for already-open pages and rollback; nothing is deleted.
-6. Invalidate `/*` on the stack’s distribution.
-7. Verify the front page and a thing page match the built bytes, a missing page returns 404, and `/api/health`. Health verifies the runtime AWS identity; it does not invoke the model or consume the daily allowance. Model and quota refusal paths have injectable local regression tests.
+1. Build. If `infra/templates.mjs` changed, validate the generated templates with cfn-lint, `infra/security.guard`, and a CloudFormation change set against the stack; inspect, execute, and wait for `UPDATE_COMPLETE`. Only then may the code change merge: the deploy refuses to publish while the live template differs from the generated one.
+2. Upload `_site/` in the order `scripts/publish-plan.mjs` gives: `assets/` (content-hashed stylesheet, script, and fonts) with `Cache-Control: public,max-age=31536000,immutable`, then the other files and pages with `Cache-Control: no-cache`, the front page last. Every object gets an explicit content type with charset (`.md` is `text/markdown`). Keep old assets for already-open pages and rollback; nothing is deleted.
+3. Invalidate `/*` on the stack’s distribution.
+4. Verify the front page and a thing page match the built bytes and a missing page returns 404.
 
-For site-only updates, run `npm run check`, publish `_site/` as above, invalidate `/*`, and verify the hosted result. No Lambda or CloudFormation update is needed when server and infrastructure code are unchanged. Intercept the Tinylytics collector during browser checks to keep test visits out of live analytics.
+Intercept the Tinylytics collector during browser checks to keep test visits out of live analytics.
 
 ## Directory URLs and the 404 page
 
-The site is a tree of directories, each holding an `index.html`, and S3 behind Origin Access Control does not serve directory indexes. The distribution's default behavior runs the `thingelstad-xyz-site-directory-index` CloudFront Function (cloudfront-js-2.0, viewer request): a URI ending in `/` gets `index.html` appended, a URI whose last segment has no dot is redirected (301) to its slash form, and anything with a dot passes through. The `/api/*` behavior has no function. A missing object is a 403 from S3 (CloudFront has no `ListBucket`), so both 403 and 404 are mapped to `/404.html` with a 404 status and a 10-second error cache. Both were added through the reviewed change set `cloud-engineer-directory-index-20261017` on October 17, 2026.
+The site is a tree of directories, each holding an `index.html`, and S3 behind Origin Access Control does not serve directory indexes. The distribution's default behavior runs the `thingelstad-xyz-site-directory-index` CloudFront Function (cloudfront-js-2.0, viewer request): a URI ending in `/` gets `index.html` appended, a URI whose last segment has no dot is redirected (301) to its slash form, and anything with a dot passes through. A missing object is a 403 from S3 (CloudFront has no `ListBucket`), so both 403 and 404 are mapped to `/404.html` with a 404 status and a 10-second error cache. Both were added through the reviewed change set `cloud-engineer-directory-index-20261017` on October 17, 2026.
 
 ## Connect the custom domain
 
-Add the two ACM validation CNAMEs from `DNS.md`; keep them for automatic certificate renewal. After ACM reaches `ISSUED` and the certificate stack completes, update the site stack’s `CertificateArn` to the certificate stack output. This enables both CloudFront aliases and HTTPS. The routing records in `DNS.md` are already present at Namecheap. Both HTTPS names and desktop/phone browsing passed on October 13, 2026; check `infra/deployment.json` for final deployment stabilization status.
+Add the two ACM validation CNAMEs from `DNS.md`; keep them for automatic certificate renewal. After ACM reaches `ISSUED` and the certificate stack completes, update the site stack’s `CertificateArn` to the certificate stack output. This enables both CloudFront aliases and HTTPS. The routing records in `DNS.md` are already present at Namecheap. Both HTTPS names and desktop/phone browsing passed on October 13, 2026; `infra/deployment.json` records the state.
 
-Namecheap BasicDNS supports an apex `ALIAS` to the CloudFront hostname and DNSSEC. Verify that the registrar delegates to Namecheap and the parent DS matches Namecheap's keys rather than Google's old key. Do not copy CloudFront’s current IP addresses into fixed A records. `www` uses an ordinary CNAME. DNS changes are made by Jamie. Current resource IDs and verification state are in `infra/deployment.json`.
+Namecheap BasicDNS supports an apex `ALIAS` to the CloudFront hostname and DNSSEC. Do not copy CloudFront’s current IP addresses into fixed A records. `www` uses an ordinary CNAME. DNS changes are made by Jamie. Current resource IDs and verification state are in `infra/deployment.json`.
 
-## AI operations
+## Operations
 
-The production runtime uses its Lambda role, never local profiles or user credentials. `GUIDE_DAILY_LIMIT` defaults to 100 across the whole site. Every validated attempt atomically claims one daily allowance slot before model work; failures consume that attempt too. There is no application request-per-second throttle. The Web Function endpoint allows up to two execution environments, with one concurrent request per environment; Lambda can briefly exceed the environment limit during traffic shifts or fleet maintenance. Inference output is capped at 900 tokens. The 24-second deadline covers allowance and model work within the revision’s 28-second HTTP timeout. Client disconnects abort model work.
+`thingelstad-xyz-site-distribution-5xx` alarms when CloudFront returns more than 5% 5xx in two of three five-minute windows. It publishes to `weekly-thing-librarian-alarms`, the Thingelstad family topic that feeds the shared `projects-ops-alerts` queue, as thingy-web's 5xx alarm does. There is no application runtime: the site is files in a bucket.
 
-Web Functions write logs in-Region to `<group>.local` first, so the stack keeps both `/aws/lambda/thingelstad-xyz-site-guide` and its `.local` twin (14 days) and the guide role may write to both. The guide answers 200 before model work, so a model failure is visible only in its error log: the `GuideFailures` metric (namespace `ThingelstadXyz`) counts `AI guide:` error lines other than `AbortError` (client disconnects and the 24-second deadline), and `thingelstad-xyz-site-guide-failures` alarms on one in five minutes. `thingelstad-xyz-site-distribution-5xx` alarms when CloudFront returns more than 5% 5xx in two of three five-minute windows. Both alarms publish to `weekly-thing-librarian-alarms`, the Thingelstad family topic that feeds the shared `projects-ops-alerts` queue, as thingy-web's 5xx alarm does.
-
-The guide uses the account’s existing Bedrock invocation logging policy: private request/response logs expire under a 30-day S3 lifecycle rule. The public guide explains this. Application error logs contain error names, not prompts. A change to shared Bedrock logging is an account-level operation and is not part of this deployment.
-
-Static bucket versions and immutable code artifacts support rollback: restore the previous `index.html` version and use a previous Web Function `GuideCodeKey` to create a revision from its retained HTTP-server artifact, then invalidate the HTML paths. Previous Web Function revisions and their pinned S3 object versions are retained. Never delete a referenced object version: its revision would fail. Deleting the stacks retains the buckets and allowance table. No blog deployment or source change is included.
+The site bucket is versioned, so rollback is restoring the previous object versions (or reverting the commit on `main` and letting delivery republish) and invalidating. Never delete objects; old hashed assets serve already-open pages.
 
 ## GitHub Actions delivery
 
 The `CI and deploy` workflow checks each commit with Quality, Browser, and CodeQL jobs. Only a passing push to `main` (or a manual run on `main`) reaches Deploy. Deploy checks out the same workflow commit, rebuilds from the lockfile, assumes the `thingelstad-xyz-delivery` stack's role through the account's existing GitHub OIDC provider, and runs `npm run deploy`. The role ARN is the non-secret repository variable `AWS_DEPLOY_ROLE_ARN`. Only this repository's immutable OIDC subject `repo:jthingelstad@5351/thingelstad.xyz@1417506858:ref:refs/heads/main` is trusted; PR jobs have no AWS token permission.
 
-The role can upload this application's static assets and guide artifacts, modify only this site's stack, create guide revisions using the existing workload role, update the existing endpoint, and invalidate this site's distribution. It cannot edit IAM, invoke models, invoke Lambda, write application data, or delete objects. The deploy script compares the generated site template to the live template and accepts a change set only when `GuideCodeKey` creates a replacement immutable revision and the existing endpoint changes its revision weights through that revision dependency. Changes to runtime configuration, endpoint authentication, scaling, IAM, or CloudFront remain refused. Infrastructure changes must therefore be reviewed and deployed separately through `cloud-engineer` before application delivery resumes.
+The role can list, read, and write the site bucket, create and read invalidations on this site's distribution, and read (`DescribeStacks`, `GetTemplate`) this site's stack. It cannot change CloudFormation, IAM, or CloudFront configuration, and it cannot delete objects. `scripts/deploy.mjs` checks the runtime identity, requires the stack to be in a complete state, compares the generated site template to the live template and stops if they differ, uploads in the publish-plan order, invalidates `/*`, waits for the invalidation, and verifies the front page, one thing page, and a 404 against the built bytes. Deployments serialize without canceling an active release, and delivery checks the current `main` revision before publishing, so stale workflow reruns cannot overwrite a newer release.
 
-The Lambda ZIP normalizes timestamps and omits extra file attributes so repeated unchanged builds reuse an immutable artifact key. Delivery skips unchanged guide code. Hashed assets are uploaded before HTML and retained. CloudFront invalidation must finish; production HTML must match the built bytes, and read-only API health must pass before the job succeeds. Deployments serialize without canceling an active release.
+To change the delivery role itself, regenerate `infra/generated/delivery.json`, review it with cfn-lint and a change set, and apply it with `CAPABILITY_IAM` through `cloud-engineer`.
 
-For rollback, revert the problematic commit on `main`. The same checks and verification apply. Delivery checks the current main revision before publishing, so stale workflow reruns cannot overwrite a newer release. To change the delivery role itself, regenerate and separately deploy `infra/generated/delivery.json` with reviewed CloudFormation validation and `CAPABILITY_IAM`.
+## Retiring the AI guide (October 17, 2026)
 
-Live bootstrap calls to `DescribeEvents` were denied with stack/change-set ARN permissions despite a positive IAM simulation. Delivery grants this single read-only action with `Resource: *`, restricted to `us-east-1`; the script explicitly targets this site's stack on every query. Mutating permissions remain scoped to this application.
+The guide (a Lambda Web Function calling Bedrock, a DynamoDB daily allowance table, two log groups, a failure metric and alarm, a runtime role, a resource policy, and a CloudFront origin plus `/api/*` behavior) was removed in reviewed change sets, in this order, before the code that drops it from `infra/templates.mjs` merged:
 
-CloudFormation resolves and passes the guide's existing workload role when creating each revision. Delivery has `iam:GetRole` and `iam:PassRole` for that one runtime role, restricted to the Lambda service, with no IAM mutation permission. The artifact bucket grants the Lambda service versioned reads of this guide's immutable ZIP files, restricted to this account and Web Function. CloudFront signs guide requests using OAC; the endpoint accepts only IAM-authorized requests. Its resource policy grants invocation to this site's distribution.
+1. `cloud-engineer-retire-guide-step1-20261017` on `thingelstad-xyz-site`: switched the allowance table, both log groups, and the Web Function revision from `Retain` to `Delete` policies. CloudFormation applies the policy from the last template that declared a resource, so this had to land as its own update.
+2. `cloud-engineer-retire-guide-step2-20261017` on `thingelstad-xyz-site`: the static-site template. Removes the eleven guide resources, the `api` origin, and the `/api/*` behavior; the distribution keeps its aliases, certificate, headers policy, directory-index function, and error pages. The only parameter left is `CertificateArn`.
+3. `thingelstad-xyz-assets` stack deletion. The bucket `thingelstad-xyz-assets-assetsbucket-p9dnw4dc1dcv` has `Retain` and is kept with the old guide ZIPs until Jamie decides to empty and delete it.
+4. `cloud-engineer-delivery-shrink-20261017` on `thingelstad-xyz-delivery`: the role loses the assets bucket, change-set, `DescribeEvents`, IAM, and Lambda permissions described above.
 
-The pinned cfn-lint IAM action list predates Web Functions. Only the delivery role suppresses W3037 for those actions, which are checked against the live CloudFormation resource handler schemas and change-set validation. All resource property and other IAM checks remain enabled.
-
-## Initial Web Function migration
-
-The migration uses separate reviewed change sets, outside application delivery:
-
-1. Add the restricted guide artifact bucket policy to the assets stack.
-2. Add the Web Function, revision, IAM endpoint, resource policy, and CloudFront OAC alongside the existing Event Function/API Gateway resources. Route only `/api/health` to the new backend, leaving `/api/explore` on the existing guide. Preserve the stack's current `GuideCodeKey` for the old guide during this step by replacing its Code reference with that immutable key in the temporary bootstrap template.
-3. Verify the CloudFront health route, runtime identity, and unsigned direct-endpoint rejection without model or quota writes.
-4. Once the endpoint is known, set `GuideOriginDomain` to its hostname. The bootstrap distribution uses its endpoint attribute while the final template pins that hostname. Apply the final site template: route all `/api/*` traffic to the Web Function and remove the Event Function/API Gateway resources. Preserve the bucket, table, role, logs, distribution, and certificate.
-5. Separately update the delivery role and remove its API Gateway/Event Function permissions. Verify a code-only change set against the live stack before enabling normal delivery.
-
-A pre-migration Event Function artifact cannot run as a Web Function. To roll back the migration itself, restore the previous site and delivery templates and the previous Event Function `GuideCodeKey`; routine Web Function rollback uses an HTTP-server artifact. Keep bootstrap and pre-migration templates in ignored `.build/` only. The `CloudFrontDomain` parameter uses the existing distribution hostname so allowed origins do not create a circular dependency between the revision and distribution. The `GuideOriginDomain` parameter pins the existing endpoint hostname for CloudFront; the access policy constructs the stable `prod` endpoint ARN from the Web Function ARN. This avoids indirect CloudFront and resource-policy updates on every revision rollout, keeping application delivery free of CDN configuration and access-policy mutation permissions. Changing endpoint identity requires a separately reviewed infrastructure change. Static hosting and DNS are unchanged.
+Bedrock invocation logging is an account-level setting and was not part of this retirement. The host-side editor service `com.thingelstad.collection-editor` and its Tailscale Serve mapping on port 10003 were removed from Otto the same day.

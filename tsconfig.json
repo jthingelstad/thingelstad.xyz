@@ -7,23 +7,10 @@
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "esModuleInterop": true,
-    "jsx": "react-jsx",
     "strict": true,
     "noEmit": true,
     "skipLibCheck": true,
-    "types": ["node", "vite/client"]
+    "types": ["node"]
   },
-  "include": [
-    "src",
-    "server",
-    "tests",
-    "vite.config.ts",
-    "playwright.config.ts",
-    "editor",
-    "scripts/*.ts",
-    "vite.editor.config.ts",
-    "playwright.editor.config.ts",
-    "collection",
-    "site"
-  ]
+  "include": ["tests", "playwright.config.ts", "scripts/*.ts", "collection", "site"]
 }

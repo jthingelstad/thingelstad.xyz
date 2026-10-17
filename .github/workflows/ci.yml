@@ -22,7 +22,8 @@ jobs:
       - name: Report development dependency advisories
         continue-on-error: true
         run: npm audit --audit-level=high
-      - run: npm run package
+      - run: npm run check
+      - run: npm run templates
       - name: Validate infrastructure schemas
         run: |
           pipx run --spec cfn-lint==1.57.2 cfn-lint infra/generated/*.json
@@ -40,8 +41,6 @@ jobs:
       - run: npm run site:build
       - run: npx playwright install --with-deps chromium
       - run: npm run test:browser
-      - run: npm run editor:build
-      - run: npm run test:editor
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         if: failure()
         with:
@@ -85,7 +84,8 @@ jobs:
           node-version-file: .nvmrc
           cache: npm
       - run: npm ci
-      - run: npm run package
+      - run: npm run site:build
+      - run: npm run templates
       - uses: aws-actions/configure-aws-credentials@e1253824e5c10ff9df46874f81ed3ec929e19cfd # v6.3.0
         with:
           role-to-assume: ${{ vars.AWS_DEPLOY_ROLE_ARN }}

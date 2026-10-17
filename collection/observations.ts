@@ -42,7 +42,7 @@ export async function loadObservations(root = observationsRoot): Promise<Observa
   ]);
   return [...githubFiles.map(github), ...webFiles.map(web)];
 }
-export async function formatJson(value: unknown) {
+async function formatJson(value: unknown) {
   return format(JSON.stringify(value), { parser: 'json', printWidth: 120, tabWidth: 2 });
 }
 export async function saveObservation(observation: Observation, root = observationsRoot) {
