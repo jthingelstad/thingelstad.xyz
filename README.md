@@ -1,6 +1,6 @@
 # Things I’ve built.
 
-A React application for Jamie Thingelstad’s project collection: a white project map, browsable connections, project stories, and a grounded AI guide.
+An index and archive of Jamie Thingelstad’s projects. The content tree under `content/` is the source of truth; Eleventy builds the static site from it. The earlier React application, its AI guide, and the private editor are still in the repository while the move finishes (see `docs/HANDOFF.md`).
 
 ## Run locally
 
@@ -10,6 +10,15 @@ npm run dev
 ```
 
 Open http://127.0.0.1:5173. The preview binds only to loopback. `npm run check` checks formatting, JavaScript/TypeScript and CSS lint, unused code, TypeScript, unit tests, and the production build. Use `npm run format` to apply formatting. `npx playwright install chromium` followed by `npm run test:browser` runs browser tests at desktop, tablet, and phone sizes. For the production build locally, run `npm run build` then `npm start`.
+
+## Static site
+
+```sh
+npm run site:build   # content/ and data/observations/ -> _site/
+npm run site:serve   # the same, with a local server on http://localhost:8080/
+```
+
+`site/eleventy.config.ts` and the templates in `site/` read the typed model in `collection/site.ts`, which joins the registry with the latest observation for every source. Pages: the index grouped by collection, `/things/<id>/`, `/topics/<id>/`, `/history/`, and `/timeline/`. Outputs: `feed.xml` and `feed.json` (the ledger, newest first), `llms.txt` and `llms-full.txt`, a Markdown twin of every thing at `/things/<id>.md`, `things.json` for Librarian, `robots.txt`, and `sitemap.xml`. Status comes from the registry only; activity comes from observations only. `tests/site.test.ts` checks the model and the outputs.
 
 ## Extend the collection
 

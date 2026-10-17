@@ -14,6 +14,12 @@ This note is for a local Claude Code session on a machine with GitHub CLI access
 - **Status mapping**: every `historical: true` thing became `retired`. Several are better described as `archived` (Yearly Thing style one-time projects, events, the candle fundraisers) or `dormant` (WikiApiary, which others still run). Refine by hand.
 - Removed `scripts/refresh-github.ts`; the editor’s own refresh route still exists but writes a file that the build now regenerates, so do not use it.
 
+## Done locally on 2026-10-17
+
+1. **Content review.** Statuses refined (one-time projects and events are `archived`, WikiApiary is `dormant`), sourced `started` and `ended` dates added, placeholder summaries replaced where a source supported it, four ledger events added. Flight Path's host `flightpath.poaprally.com` no longer resolves and has no Wayback capture, so it is `retired` and points at the Weekly Thing 342 essay. Proof of a Person now has `jthingelstad/poap-archive` as a source. Judgment calls for Jamie: Road Sign Math is `archived` (a rebuild is in progress locally, so `dormant` is defensible); Smaller Than a Redwood, Thinglesbot, Velotweets, Wikinosh, and WikiWonders stay `retired` with placeholder summaries; several active things still carry one-word summaries from the migration ("Podcast", "Existing code project").
+2. **Collector run.** `npm run collect` ran live against GitHub with the CLI login: 21 observations written, 16 unchanged, none failed. One design note: the 90-day window slides with the run date, so the edge month's commit count changes every week even with no new commits (`mb` went from 6 to 1 for July). Anchoring the window to month boundaries in `collection/adapters/github.ts` would keep weekly runs quiet, as DIRECTION's "weekly noise" risk asks.
+3. **Eleventy build.** `npm run site:build` writes `_site/` from `site/` and `collection/site.ts`; `npm run check` builds both sites. All pages and outputs exist. Not yet done: browser tests for the new pages (step 4), and the deploy path still publishes `dist/` (step 5). The timeline's row labels scroll away on narrow screens; a sticky label column is a possible refinement.
+
 ## Order of work
 
 1. **Review the content tree.** Open `content/things/`. Fix statuses, add `started` and `ended` dates where a source supports them, and check the four new things. Run `npm run collection:build && npm run check`.
