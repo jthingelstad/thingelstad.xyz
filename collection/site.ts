@@ -50,11 +50,23 @@ const collectionOrder = [
 type Evidence = { date: string; label: string; url: string | null };
 type SiteSource = ThingSource & { observation: Observation | null; evidence: Evidence[] };
 type InboundConnection = Connection & { from: string };
+// A small monogram "sticker" for each thing: its initials on a tinted tile, tilted a degree or two. The
+// hue and tilt come from the id, so a thing keeps its sticker from build to build.
+export type Sticker = { letters: string; hue: number; tilt: number };
+export function sticker(id: string, title: string): Sticker {
+  let hash = 7;
+  for (const char of id) hash = (hash * 31 + char.charCodeAt(0)) % 1_000_003;
+  const words = title.split(/[\s/-]+/).filter((word) => /[\p{L}\p{N}]/u.test(word));
+  const letters = (words.length > 1 ? words[0][0] + words[1][0] : title.slice(0, 2)).toUpperCase();
+  return { letters, hue: hash % 360, tilt: (hash % 7) - 3 };
+}
+
 export type SiteThing = Omit<Thing, 'sources'> & {
   page: string;
   markdown: string;
   statusLabel: string;
   statusDescription: string;
+  sticker: Sticker;
   sources: SiteSource[];
   events: HistoryEvent[];
   inbound: InboundConnection[];
@@ -198,6 +210,7 @@ export function buildSiteModel(registry: Registry, observations: Observation[], 
       markdown: `/things/${thing.id}.md`,
       statusLabel: statusLabels[thing.status],
       statusDescription: statusDescriptions[thing.status],
+      sticker: sticker(thing.id, thing.title),
       sources,
       events,
       inbound: inbound.get(thing.id) ?? [],
@@ -444,7 +457,7 @@ export function sparkline(months: MonthCount[], label: string) {
   const bars = months
     .map(({ month, count }, i) => {
       const h = count ? Math.max(2, Math.round((count / max) * (height - 2))) : 1;
-      return `<rect x="${i * 7}" y="${height - h}" width="5" height="${h}" class="${count ? 'spark-on' : 'spark-off'}"><title>${month}: ${count}</title></rect>`;
+      return `<rect x="${i * 7}" y="${height - h}" width="5" height="${h}" rx="1.5" class="${count ? 'spark-on' : 'spark-off'}"><title>${month}: ${count}</title></rect>`;
     })
     .join('');
   return `<svg class="sparkline" viewBox="0 0 ${width} ${height}" width="${width}" height="${height}" role="img" aria-label="${escapeHtml(label)}">${bars}</svg>`;

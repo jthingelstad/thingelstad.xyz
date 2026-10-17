@@ -32,7 +32,7 @@ test('the index lists every thing with its status and leads to its page', async 
   expect(await fitsViewport(page)).toBe(true);
   await page.getByRole('link', { name: 'Weekly Thing', exact: true }).first().click();
   await expect(page).toHaveURL(/\/things\/weekly-thing\/$/);
-  await expect(page.locator('h1')).toHaveText('Weekly Thing');
+  await expect(page.getByRole('heading', { level: 1 })).toHaveAccessibleName('Weekly Thing');
   await expect(page.locator('.facts')).toContainText('May 13, 2017');
   const weekly = things.find((thing) => thing.id === 'weekly-thing')!;
   await expect(page.locator('.source-list .source')).toHaveCount(weekly.sources.length);

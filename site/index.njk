@@ -3,7 +3,7 @@ layout: layout.njk
 permalink: /
 ---
 <section class="intro">
-  <h1>{{ site.title }}</h1>
+  <h1 class="title">Things I’ve <em>built</em><span class="dot">.</span></h1>
   <p class="lede">{{ site.description }}</p>
   <p class="legend">
     {% for s in site.statuses %}<span class="status status-{{ s.status }}" title="{{ s.description }}">{{ s.label }} {{ s.count }}</span> {% endfor %}
@@ -11,7 +11,7 @@ permalink: /
 </section>
 {% for collection in site.collections %}
 <section class="collection" id="{{ collection.name | slugify }}">
-  <h2>{{ collection.name }} <span class="count">{{ collection.things | length }}</span></h2>
+  <h2>{{ collection.name }} <span class="count badge">{{ collection.things | length }}</span></h2>
   <ul class="thing-list">
     {% for thing in collection.things %}{% include "thing-row.njk" %}{% endfor %}
   </ul>

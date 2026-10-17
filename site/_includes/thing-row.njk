@@ -1,4 +1,5 @@
-<li class="thing-row">
+<li class="thing-row is-{{ thing.status }}">
+  {% include "sticker.njk" %}
   <div class="thing-row-main">
     <a class="thing-title" href="{{ thing.page }}">{{ thing.title }}</a>
     <span class="status status-{{ thing.status }}" title="{{ thing.statusDescription }}">{{ thing.statusLabel }}</span>

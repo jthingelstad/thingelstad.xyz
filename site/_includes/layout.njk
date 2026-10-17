@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#ffffff" />
+    <meta name="theme-color" content="#fffcf5" />
     <meta name="description" content="{{ description or site.description }}" />
     <title>{% if title %}{{ title }} — {% endif %}{{ site.title }}</title>
     <link rel="canonical" href="{{ site.url }}{{ page.url }}" />
@@ -20,7 +20,7 @@
   <body>
     <a class="skip" href="#main">Skip to content</a>
     <header class="site-header">
-      <a class="wordmark" href="/">{{ site.title }}</a>
+      <a class="wordmark" href="/"><span class="mark" aria-hidden="true">T</span>{{ site.title }}</a>
       <nav aria-label="Site">
         <a href="/"{% if page.url == '/' %} aria-current="page"{% endif %}>Things</a>
         <a href="/topics/"{% if page.url.startsWith('/topics/') %} aria-current="page"{% endif %}>Topics</a>
