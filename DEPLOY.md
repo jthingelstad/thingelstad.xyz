@@ -62,7 +62,7 @@ The guide (a Lambda Web Function calling Bedrock, a DynamoDB daily allowance tab
 
 1. `cloud-engineer-retire-guide-step1-20261017` on `thingelstad-xyz-site`: switched the allowance table, both log groups, and the Web Function revision from `Retain` to `Delete` policies. CloudFormation applies the policy from the last template that declared a resource, so this had to land as its own update.
 2. `cloud-engineer-retire-guide-step2-20261017` on `thingelstad-xyz-site`: the static-site template. Removes the eleven guide resources, the `api` origin, and the `/api/*` behavior; the distribution keeps its aliases, certificate, headers policy, directory-index function, and error pages. The only parameter left is `CertificateArn`.
-3. `thingelstad-xyz-assets` stack deletion. The bucket `thingelstad-xyz-assets-assetsbucket-p9dnw4dc1dcv` has `Retain` and is kept with the old guide ZIPs until Jamie decides to empty and delete it.
+3. `thingelstad-xyz-assets` stack deletion. The bucket `thingelstad-xyz-assets-assetsbucket-p9dnw4dc1dcv` had `Retain`; it was emptied (12 object versions, the old guide ZIPs) and deleted on October 17, 2026 after Jamie's approval. Nothing of the guide remains in the account.
 4. `cloud-engineer-delivery-shrink-20261017` on `thingelstad-xyz-delivery`: the role loses the assets bucket, change-set, `DescribeEvents`, IAM, and Lambda permissions described above.
 
 Bedrock invocation logging is an account-level setting and was not part of this retirement. The host-side editor service `com.thingelstad.collection-editor` and its Tailscale Serve mapping on port 10003 were removed from Otto the same day.
