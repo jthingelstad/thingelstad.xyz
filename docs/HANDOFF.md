@@ -24,6 +24,7 @@ This note is for a local Claude Code session on a machine with GitHub CLI access
    PR #6 merged and deployed on 2026-10-17; the static site is live at thingelstad.xyz with the directory index and 404 working.
 6. **Design pass** (PR #7). Jamie found the first cut bland. Fraunces headings, a paper palette, filled status chips, pill navigation, and a monogram sticker per thing (`sticker()` in `collection/site.ts`). The retire step below is now step 7 in spirit; its numbering here is unchanged.
 7. **Retire** (step 6 below). The guide, its Lambda Web Function, DynamoDB table, logs, alarm, role, CloudFront origin and `/api/*` behavior, the assets stack, the React `src/`, the editor and its Playwright config, and the host service on Otto are gone. The delivery role is S3, CloudFront invalidation, and read-only CloudFormation. `DEPLOY.md` records the change sets. The assets bucket is retained with the old guide ZIPs; emptying and deleting it is Jamie's call.
+8. **Librarian** (step 7 below). librarian-thing PR #80 snapshots `things.json` into `data/things/` on its sync workflow (weekly, on demand, and on a `things-published` dispatch) and builds undated `thing` chunks into the Weekly Thing corpus, one source per thing (`thing-<id>`) plus `thing-index`. The connection from Librarian to Things I've Built is in `content/things/librarian.md`. Not done: a `things-published` dispatch from this repository's deploy workflow, and `thing` as a `source_kind` in Librarian's tool enums.
 
 ## Order of work
 
