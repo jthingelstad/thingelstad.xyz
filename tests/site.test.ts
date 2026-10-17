@@ -14,7 +14,8 @@ import {
   thingMarkdown,
   thingsJson,
   timelineSvg,
-  toInstant
+  toInstant,
+  sticker
 } from '../collection/site';
 import { splitFrontmatter } from '../collection/load';
 
@@ -124,4 +125,14 @@ test('the timeline and sparklines render without gaps in the data', () => {
   for (const row of model.timeline.rows) assert.ok(row.start <= row.end, row.thing.id);
   const line = sparkline(model.things[0].months, 'test');
   assert.equal(line.match(/<rect/g)?.length, 12);
+});
+
+test('stickers are initials on a tile whose hue and tilt follow from the id', () => {
+  assert.deepEqual(sticker('weekly-thing', 'Weekly Thing'), sticker('weekly-thing', 'Weekly Thing'));
+  assert.equal(sticker('weekly-thing', 'Weekly Thing').letters, 'WT');
+  assert.equal(sticker('elixir', 'Elixir').letters, 'EL');
+  assert.equal(sticker('612-poap-challenge', '612 POAP Challenge').letters, '6P');
+  assert.notEqual(sticker('elixir', 'Elixir').hue, sticker('elixir-bot', 'Elixir Bot').hue);
+  const { hue, tilt } = sticker('mb', 'mb');
+  assert.ok(hue >= 0 && hue < 360 && tilt >= -3 && tilt <= 3);
 });

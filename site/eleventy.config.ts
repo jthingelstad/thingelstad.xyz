@@ -32,7 +32,9 @@ export default function (eleventyConfig: EleventyConfig) {
     'site/js/timeline.js': assets.timeline.slice(1),
     'node_modules/@fontsource/inter/files/inter-latin-400-normal.woff2': 'assets/fonts/inter-latin-400-normal.woff2',
     'node_modules/@fontsource/inter/files/inter-latin-500-normal.woff2': 'assets/fonts/inter-latin-500-normal.woff2',
-    'node_modules/@fontsource/inter/files/inter-latin-600-normal.woff2': 'assets/fonts/inter-latin-600-normal.woff2'
+    'node_modules/@fontsource/inter/files/inter-latin-600-normal.woff2': 'assets/fonts/inter-latin-600-normal.woff2',
+    'node_modules/@fontsource-variable/fraunces/files/fraunces-latin-full-normal.woff2':
+      'assets/fonts/fraunces-latin-full-normal.woff2'
   });
   eleventyConfig.setLibrary('md', markdown);
   eleventyConfig.addFilter('date', (value: string) => formatDate(value));

@@ -13,7 +13,7 @@ eleventyComputed:
 <article class="thing">
   <header class="thing-header"{% if thing.story %} style="--accent: {{ thing.story.color }}"{% endif %}>
     <p class="crumbs"><a href="/">Things</a> · <a href="/#{{ thing.collection | slugify }}">{{ thing.collection }}</a></p>
-    <h1>{{ thing.title }}</h1>
+    <h1 class="with-sticker">{% include "sticker.njk" %}<span>{{ thing.title }}</span></h1>
     <p class="lede">{{ thing.summary }}</p>
     {% if thing.story %}<p class="introduction">{{ thing.story.introduction }}</p>{% endif %}
     <dl class="facts">
