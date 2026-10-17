@@ -1,0 +1,26 @@
+---
+layout: layout.njk
+permalink: /timeline/
+title: Timeline
+description: Every dated thing Jamie Thingelstad has built, by year, with its sourced events.
+---
+<section class="intro">
+  <h1>Timeline</h1>
+  <p class="lede">Each bar runs from a thing’s first dated year to its last, or to now for things still active. Dots are sourced history events. Bars are decisions; dots are evidence.</p>
+  <p class="legend">
+    {% for s in site.statuses %}<span class="status status-{{ s.status }}">{{ s.label }}</span> {% endfor %}
+    <span class="muted">· dots: launch, milestone, retirement, archive, development</span>
+  </p>
+</section>
+<div class="timeline-scroll" tabindex="0" aria-label="Timeline, scrolls sideways">
+  {{ site.timeline | timeline | safe }}
+</div>
+<div class="tooltip" role="status" aria-live="polite" hidden></div>
+{% if site.timeline.undated | length %}
+<section class="undated">
+  <h2>Not yet dated</h2>
+  <p class="muted">These things have no sourced start date or event yet.</p>
+  <p>{% for thing in site.timeline.undated %}<a class="tag" href="{{ thing.page }}">{{ thing.title }}</a> {% endfor %}</p>
+</section>
+{% endif %}
+<script src="/js/timeline.js" defer></script>

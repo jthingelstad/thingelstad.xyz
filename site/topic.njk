@@ -1,0 +1,19 @@
+---
+layout: layout.njk
+pagination:
+  data: site.topics
+  size: 1
+  alias: topic
+permalink: '{{ topic.page }}'
+eleventyComputed:
+  title: '{{ topic.title }}'
+  description: '{{ topic.description }}'
+---
+<section class="intro">
+  <p class="crumbs"><a href="/topics/">Topics</a></p>
+  <h1>{{ topic.title }}</h1>
+  <p class="lede">{{ topic.description }}</p>
+</section>
+<ul class="thing-list">
+  {% for thing in topic.things %}{% include "thing-row.njk" %}{% endfor %}
+</ul>

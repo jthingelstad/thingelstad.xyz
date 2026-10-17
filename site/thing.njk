@@ -1,0 +1,174 @@
+---
+layout: layout.njk
+pagination:
+  data: site.things
+  size: 1
+  alias: thing
+permalink: '{{ thing.page }}'
+eleventyComputed:
+  title: '{{ thing.title }}'
+  description: '{{ thing.summary }}'
+  markdownTwin: '{{ thing.markdown }}'
+---
+<article class="thing">
+  <header class="thing-header"{% if thing.story %} style="--accent: {{ thing.story.color }}"{% endif %}>
+    <p class="crumbs"><a href="/">Things</a> · <a href="/#{{ thing.collection | slugify }}">{{ thing.collection }}</a></p>
+    <h1>{{ thing.title }}</h1>
+    <p class="lede">{{ thing.summary }}</p>
+    {% if thing.story %}<p class="introduction">{{ thing.story.introduction }}</p>{% endif %}
+    <dl class="facts">
+      <dt>Status</dt>
+      <dd><span class="status status-{{ thing.status }}">{{ thing.statusLabel }}</span> <span class="muted">{{ thing.statusDescription }}</span></dd>
+      {% if thing.started or thing.ended %}
+      <dt>Dates</dt>
+      <dd>
+        {%- if thing.started %}Started {{ thing.started | date }}{% endif %}
+        {%- if thing.started and thing.ended %}. {% endif %}
+        {%- if thing.ended %}Ended {{ thing.ended | date }}{% endif -%}
+        {%- if thing.story and thing.story.started %} <span class="muted">({{ thing.story.started }})</span>{% endif -%}
+      </dd>
+      {% endif %}
+      {% if thing.url %}
+      <dt>Where</dt>
+      <dd><a href="{{ thing.url }}">{{ thing.url | replace("https://", "") }}</a></dd>
+      {% endif %}
+      {% if thing.topicList | length %}
+      <dt>Topics</dt>
+      <dd>{% for topic in thing.topicList %}<a class="tag" href="{{ topic.page }}">{{ topic.title }}</a> {% endfor %}</dd>
+      {% endif %}
+      {% if thing.latest %}
+      <dt>Latest evidence</dt>
+      <dd>{% if thing.latest.url %}<a href="{{ thing.latest.url }}">{{ thing.latest.label }}</a>{% else %}{{ thing.latest.label }}{% endif %}, {{ thing.latest.date | day }}</dd>
+      {% endif %}
+    </dl>
+  </header>
+
+  {% if thing.body | trim %}
+  <section class="story">
+    {{ thing.body | md | safe }}
+  </section>
+  {% endif %}
+
+  {% if thing.story %}
+  <section class="build">
+    {% if thing.story.engineering | length %}
+    <h2>The build</h2>
+    <ul>{% for item in thing.story.engineering %}<li>{{ item }}</li>{% endfor %}</ul>
+    {% endif %}
+    {% if thing.story.stack | length %}
+    <p class="stack">{% for item in thing.story.stack %}<span class="tag">{{ item }}</span> {% endfor %}</p>
+    {% endif %}
+    {% if thing.story.source %}
+    <p><a href="{{ thing.story.source }}">{{ thing.story.sourceLabel or "Source" }}</a></p>
+    {% endif %}
+  </section>
+  {% endif %}
+
+  {% if thing.sources | length %}
+  <section class="sources">
+    <h2>Sources and evidence</h2>
+    <p class="muted">Observed weekly from GitHub, sitemaps, and feeds. Evidence never sets a status.</p>
+    <ul class="source-list">
+      {% for source in thing.sources %}
+      <li class="source">
+        {% if source.kind == 'github' %}
+        <p class="source-head">
+          <a href="https://github.com/{{ source.repository }}{% if source.path %}/tree/HEAD/{{ source.path }}{% endif %}">{{ source.repository }}{% if source.path %}/{{ source.path }}{% endif %}</a>
+          <span class="role">{{ source.role }}</span>
+          {% if source.observation and source.observation.archived %}<span class="role">archived on GitHub</span>{% endif %}
+        </p>
+        {% if source.observation %}
+        {% set o = source.observation %}
+        {% if o.description %}<p class="source-description">{{ o.description }}</p>{% endif %}
+        <ul class="evidence">
+          <li>Repository created {{ o.repositoryCreatedAt | day }} <span class="muted">(a development record, not a launch date)</span></li>
+          {% if o.languages | length %}<li>{{ o.languages | languages }}</li>{% endif %}
+          {% if o.release %}<li>Latest release <a href="{{ o.release.url }}">{{ o.release.name }}</a>, {{ o.release.date | day }}</li>{% endif %}
+          {% for scope in o.activity %}
+          {% if (scope.path or none) == (source.path or none) %}
+          <li>
+            {% if scope.latestCommit %}Latest commit <a href="{{ scope.latestCommit.url }}">{{ scope.latestCommit.date | day }}</a>; {% endif %}
+            {{ scope.count }}{% if not scope.complete %}+{% endif %} commits on {{ scope.branch }} between {{ scope.since | day }} and {{ scope.until | day }}
+          </li>
+          {% endif %}
+          {% endfor %}
+          <li class="muted">Observed {{ o.observedAt | day }}</li>
+        </ul>
+        {% endif %}
+        {% else %}
+        <p class="source-head">
+          <a href="{{ source.url }}">{{ source.url | replace("https://", "") }}</a>
+          <span class="role">{{ source.role }}</span>
+        </p>
+        {% if source.observation %}
+        {% set o = source.observation %}
+        <ul class="evidence">
+          {% if o.feed %}
+          <li><a href="{{ o.feed.url }}">Feed</a>{% if o.feed.title %} “{{ o.feed.title }}”{% endif %}: {{ o.feed.items }} items{% if o.feed.newestPublished %}, newest {{ o.feed.newestPublished | day }}{% endif %}</li>
+          {% endif %}
+          {% if o.sitemap %}
+          <li><a href="{{ o.sitemap.url }}">Sitemap</a>: {{ o.sitemap.pages | number }} pages{% if o.sitemap.newestModified %}, newest change {{ o.sitemap.newestModified | day }}{% endif %}</li>
+          {% endif %}
+          <li class="muted">Observed {{ o.observedAt | day }}</li>
+        </ul>
+        {% endif %}
+        {% endif %}
+      </li>
+      {% endfor %}
+    </ul>
+    <p class="activity">
+      {{ thing.months | sparkline("Commits and publications in the last twelve months") | safe }}
+      <span class="muted">Commits and publications per month, last twelve months.</span>
+    </p>
+  </section>
+  {% endif %}
+
+  {% if thing.connections | length or thing.inbound | length %}
+  <section class="connections">
+    <h2>Connections</h2>
+    <ul class="connection-list">
+      {% for edge in thing.connections %}
+      {% set other = site | thing(edge.to) %}
+      <li{% if edge.kind == 'lineage' %} class="lineage"{% endif %}>
+        <p><strong>{{ thing.title }}</strong> {{ edge.label }} <a href="{{ other.page }}">{{ other.title }}</a></p>
+        <p class="muted">{{ edge.detail }} <a href="{{ edge.source }}">Source</a></p>
+      </li>
+      {% endfor %}
+      {% for edge in thing.inbound %}
+      {% set other = site | thing(edge.from) %}
+      <li{% if edge.kind == 'lineage' %} class="lineage"{% endif %}>
+        <p><a href="{{ other.page }}">{{ other.title }}</a> {{ edge.label }} <strong>{{ thing.title }}</strong></p>
+        <p class="muted">{{ edge.detail }} <a href="{{ edge.source }}">Source</a></p>
+      </li>
+      {% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+
+  {% if thing.story and thing.story.related | length %}
+  <section class="related">
+    <h2>Related</h2>
+    <p>{% for id in thing.story.related %}{% set other = site | thing(id) %}{% if other %}<a class="tag" href="{{ other.page }}">{{ other.title }}</a> {% endif %}{% endfor %}</p>
+  </section>
+  {% endif %}
+
+  {% if thing.events | length %}
+  <section class="events">
+    <h2>History</h2>
+    <ol class="event-list">
+      {% for event in thing.events %}
+      <li>
+        <time datetime="{{ event.date }}">{{ event.date | date }}</time>
+        <span class="kind kind-{{ event.kind }}">{{ event.kind }}</span>
+        <a href="/history/#{{ event.id }}"><strong>{{ event.title }}</strong></a>
+        <p>{{ event.summary }} <a href="{{ event.source }}">Source</a></p>
+      </li>
+      {% endfor %}
+    </ol>
+  </section>
+  {% endif %}
+
+  <footer class="thing-footer">
+    <p class="muted">This thing as <a href="{{ thing.markdown }}">Markdown</a> · <a href="{{ site.repository }}/blob/main/content/things/{{ thing.id }}.md">Edit the record</a></p>
+  </footer>
+</article>

@@ -1,0 +1,27 @@
+---
+layout: layout.njk
+permalink: /history/
+title: History
+description: What changed in what Jamie Thingelstad has built. Sourced events, newest first.
+---
+<section class="intro">
+  <h1>History</h1>
+  <p class="lede">What changed in what I’ve built, newest first. Every event has a public source. Dates keep the precision the source gives them; a first commit is development evidence, not a launch date.</p>
+  <p class="muted">Follow along: <a href="/feed.xml">RSS</a> · <a href="/feed.json">JSON Feed</a></p>
+</section>
+{% for bucket in site.years %}
+<section class="year" id="{{ bucket.year }}">
+  <h2>{{ bucket.year }}</h2>
+  <ol class="event-list">
+    {% for event in bucket.events %}
+    <li id="{{ event.id }}">
+      <time datetime="{{ event.date }}">{{ event.date | date }}</time>
+      <span class="kind kind-{{ event.kind }}">{{ event.kind }}</span>
+      <strong>{{ event.title }}</strong>
+      <p>{{ event.summary }} <a href="{{ event.source }}">Source</a></p>
+      <p class="muted">{% for id in event.things %}{% set other = site | thing(id) %}<a href="{{ other.page }}">{{ other.title }}</a>{% if not loop.last %}, {% endif %}{% endfor %}</p>
+    </li>
+    {% endfor %}
+  </ol>
+</section>
+{% endfor %}

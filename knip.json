@@ -5,7 +5,11 @@
     "tests/browser/*.spec.ts",
     "scripts/*.mjs",
     "scripts/*.ts",
-    "tests/editor-browser/*.spec.ts"
+    "tests/editor-browser/*.spec.ts",
+    "site/eleventy.config.ts",
+    "site/_data/*.js",
+    "site/*.11ty.js",
+    "site/js/*.js"
   ],
   "project": [
     "src/**/*.{ts,tsx}",
@@ -15,6 +19,7 @@
     "infra/*.mjs",
     "editor/**/*.{ts,tsx}",
     "scripts/*.ts",
-    "collection/**/*.ts"
+    "collection/**/*.ts",
+    "site/**/*.{ts,js}"
   ]
 }

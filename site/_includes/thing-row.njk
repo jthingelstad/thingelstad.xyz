@@ -1,0 +1,16 @@
+<li class="thing-row">
+  <div class="thing-row-main">
+    <a class="thing-title" href="{{ thing.page }}">{{ thing.title }}</a>
+    <span class="status status-{{ thing.status }}" title="{{ thing.statusDescription }}">{{ thing.statusLabel }}</span>
+    <p class="thing-summary">{{ thing.summary }}</p>
+  </div>
+  <div class="thing-row-meta">
+    <span class="dates">
+      {%- if thing.started %}{{ thing.started | date }}{% endif %}
+      {%- if thing.started and thing.ended %} – {% endif %}
+      {%- if thing.ended %}{{ thing.ended | date }}{% elif thing.started and (thing.status == 'active' or thing.status == 'dormant') %} – now{% endif -%}
+    </span>
+    {% if thing.latest %}<span class="latest">{{ thing.latest.label }} {{ thing.latest.date | day }}</span>{% endif %}
+    {{ thing.months | sparkline("Commits and publications in the last twelve months") | safe }}
+  </div>
+</li>

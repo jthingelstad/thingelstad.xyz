@@ -10,3 +10,4 @@ test-results/
 .DS_Store
 research/
 coverage/
+_site/

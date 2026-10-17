@@ -23,6 +23,7 @@
     "scripts/*.ts",
     "vite.editor.config.ts",
     "playwright.editor.config.ts",
-    "collection"
+    "collection",
+    "site"
   ]
 }
