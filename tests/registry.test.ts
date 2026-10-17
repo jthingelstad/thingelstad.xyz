@@ -1,26 +1,9 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { readFile } from 'node:fs/promises';
 import { loadRegistry, splitFrontmatter } from '../collection/load';
-import { loadObservations } from '../collection/observations';
-import { toLegacyCollection, toLegacyGitHub } from '../collection/legacy';
 import { checkReferences, thing, historyEvent, preciseDate } from '../collection/validate';
-import { validateCollection } from '../server/collection-validation';
 
 const registry = await loadRegistry();
-const observations = await loadObservations();
-
-test('the content tree is the source of truth for the committed site data', async () => {
-  const collection = JSON.parse(await readFile('src/data/collection.json', 'utf8'));
-  const github = JSON.parse(await readFile('src/data/github.json', 'utf8'));
-  assert.deepEqual(toLegacyCollection(registry), collection, 'run `npm run collection:build` and commit the result');
-  assert.deepEqual(
-    toLegacyGitHub(registry, observations),
-    github,
-    'run `npm run collection:build` and commit the result'
-  );
-  validateCollection(toLegacyCollection(registry));
-});
 
 test('the registry has things, topics, sourced history, and no private material', () => {
   assert.ok(registry.things.length >= 50);

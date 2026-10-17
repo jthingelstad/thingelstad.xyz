@@ -49,4 +49,6 @@ Sources: [Namecheap BasicDNS](https://www.namecheap.com/support/knowledgebase/ar
 - Read-only API health, refusal before quota/model invocation, and blocked private source paths pass on both domains. No public model invocation was made.
 - Apex ENS/Google verification and _ens TXT records remain present. The former jamie TXT record is absent; restore only if retaining that ENS subdomain.
 
+The guide and its `/api/*` routes were retired on October 17, 2026, so the API health and refusal checks in the snapshot no longer apply; no DNS record changed.
+
 The Google validation and www CNAME records can remain during cache expiration. The apex is served through Namecheap, so no Google ALIAS is needed. Keep the Namecheap validation CNAMEs for automatic certificate renewal.

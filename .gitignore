@@ -1,6 +1,4 @@
 node_modules/
-dist/
-.build/
 infra/generated/
 .env
 .env.*
