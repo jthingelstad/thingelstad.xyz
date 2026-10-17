@@ -1,0 +1,30 @@
+- id: agents
+  title: Agents
+  description: Software that observes, remembers, and acts. A thread from personal tools to community companions.
+- id: mediawiki
+  title: MediaWiki
+  description: 'Wikis as a place to build: communities, extensions, skins, and structured knowledge.'
+- id: semantic-mediawiki
+  title: Semantic MediaWiki
+  description: A wiki can be a database, too. Structured properties make knowledge queryable.
+- id: poap
+  title: POAP
+  description: Proof of participation, collected memories, and tools that connect tokens to the open web.
+- id: crypto
+  title: Crypto
+  description: Experiments with onchain participation and digital collectibles, through the POAP ecosystem.
+- id: mcp
+  title: MCP
+  description: Giving agents a useful interface to recorded knowledge and everyday tools.
+- id: open-web
+  title: The open web
+  description: Publishing, feeds, archives, and tools that keep information portable.
+- id: play
+  title: Play
+  description: Games, playful arithmetic, and the communities that form around them.
+- id: archives
+  title: Archives
+  description: Preserving content, collections, and the evidence behind them.
+- id: reading
+  title: Reading
+  description: Books, reading, and the ways a family or community shares them.

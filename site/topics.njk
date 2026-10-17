@@ -1,0 +1,19 @@
+---
+layout: layout.njk
+permalink: /topics/
+title: Topics
+description: Threads that run through what Jamie Thingelstad has built.
+---
+<section class="intro">
+  <h1>Topics</h1>
+  <p class="lede">Threads that run through several things. Membership is declared on each thing.</p>
+</section>
+<ul class="topic-list">
+  {% for topic in site.topics %}
+  <li>
+    <h2><a href="{{ topic.page }}">{{ topic.title }}</a> <span class="count">{{ topic.things | length }}</span></h2>
+    <p>{{ topic.description }}</p>
+    <p class="muted">{% for thing in topic.things %}<a href="{{ thing.page }}">{{ thing.title }}</a>{% if not loop.last %}, {% endif %}{% endfor %}</p>
+  </li>
+  {% endfor %}
+</ul>

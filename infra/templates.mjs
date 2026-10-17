@@ -304,6 +304,34 @@ save(
           }
         }
       },
+      // The static site is a tree of directories, each with an index.html, and S3 behind OAC does not serve
+      // directory indexes. This viewer-request function rewrites "/things/elixir/" to its index.html and
+      // sends "/things/elixir" to the slash form. Paths with a dot are files and pass through untouched.
+      DirectoryIndex: {
+        Type: 'AWS::CloudFront::Function',
+        Properties: {
+          Name: sub('${AWS::StackName}-directory-index'),
+          AutoPublish: true,
+          FunctionConfig: { Comment: 'Serve index.html for directory URLs', Runtime: 'cloudfront-js-2.0' },
+          FunctionCode: [
+            'function handler(event) {',
+            '  var request = event.request;',
+            '  var uri = request.uri;',
+            "  if (uri.endsWith('/')) {",
+            "    request.uri = uri + 'index.html';",
+            "  } else if (!uri.split('/').pop().includes('.')) {",
+            '    return {',
+            '      statusCode: 301,',
+            "      statusDescription: 'Moved Permanently',",
+            "      headers: { location: { value: uri + '/' } }",
+            '    };',
+            '  }',
+            '  return request;',
+            '}',
+            ''
+          ].join('\n')
+        }
+      },
       Distribution: {
         Type: 'AWS::CloudFront::Distribution',
         Properties: {
@@ -348,8 +376,14 @@ save(
               CachedMethods: ['GET', 'HEAD'],
               Compress: true,
               CachePolicyId: '658327ea-f89d-4fab-a63d-7e88639e58f6',
-              ResponseHeadersPolicyId: ref('Headers')
+              ResponseHeadersPolicyId: ref('Headers'),
+              FunctionAssociations: [{ EventType: 'viewer-request', FunctionARN: get('DirectoryIndex', 'FunctionARN') }]
             },
+            // A missing object is a 403 from S3 behind OAC (no ListBucket). Both become the site's 404 page.
+            CustomErrorResponses: [
+              { ErrorCode: 403, ResponseCode: 404, ResponsePagePath: '/404.html', ErrorCachingMinTTL: 10 },
+              { ErrorCode: 404, ResponseCode: 404, ResponsePagePath: '/404.html', ErrorCachingMinTTL: 10 }
+            ],
             CacheBehaviors: [
               {
                 PathPattern: '/api/*',

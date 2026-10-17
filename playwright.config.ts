@@ -18,10 +18,10 @@ export default defineConfig({
     { name: 'tablet', use: { viewport: { width: 820, height: 1180 } } },
     { name: 'phone', use: { ...devices['iPhone 13'], defaultBrowserType: 'chromium', reducedMotion: 'reduce' } }
   ],
+  // The built site, served the way CloudFront serves it. Run `npm run site:build` first.
   webServer: {
-    command: 'npm start',
-    env: { PORT: '4173' },
-    url: 'http://127.0.0.1:4173/api/health',
+    command: 'node scripts/serve-site.mjs 4173 _site',
+    url: 'http://127.0.0.1:4173/',
     reuseExistingServer: !process.env.CI,
     timeout: 30_000
   }

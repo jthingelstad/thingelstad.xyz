@@ -1,0 +1,39 @@
+{
+  "kind": "web",
+  "url": "https://weekly.thingelstad.com/",
+  "observedAt": "2026-10-17T13:15:37.976Z",
+  "sitemap": {
+    "url": "https://weekly.thingelstad.com/sitemap.xml",
+    "pages": 1134,
+    "newestModified": "2026-10-10T12:00:00.000Z",
+    "months": [
+      { "month": "2025-11", "count": 30 },
+      { "month": "2025-12", "count": 17 },
+      { "month": "2026-01", "count": 16 },
+      { "month": "2026-02", "count": 29 },
+      { "month": "2026-03", "count": 20 },
+      { "month": "2026-04", "count": 17 },
+      { "month": "2026-05", "count": 48 },
+      { "month": "2026-09", "count": 31 },
+      { "month": "2026-10", "count": 30 }
+    ],
+    "complete": true
+  },
+  "feed": {
+    "url": "https://weekly.thingelstad.com/feed.xml",
+    "title": "Weekly Thing",
+    "items": 354,
+    "newestPublished": "2026-10-10T12:00:00.000Z",
+    "months": [
+      { "month": "2025-11", "count": 4 },
+      { "month": "2025-12", "count": 2 },
+      { "month": "2026-01", "count": 2 },
+      { "month": "2026-02", "count": 3 },
+      { "month": "2026-03", "count": 2 },
+      { "month": "2026-04", "count": 2 },
+      { "month": "2026-05", "count": 4 },
+      { "month": "2026-09", "count": 2 },
+      { "month": "2026-10", "count": 2 }
+    ]
+  }
+}

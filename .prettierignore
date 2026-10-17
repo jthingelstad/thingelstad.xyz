@@ -6,3 +6,4 @@ research/
 package-lock.json
 playwright-report/
 test-results/
+_site/

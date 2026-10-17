@@ -1,0 +1,25 @@
+- id: planet-kubb-archive
+  date: 2012-07-23
+  kind: archive
+  title: Kubb, notation, and a community on the web
+  summary: Open Loop’s Kubb Fever episode links Planet Kubb Notation and Scoresheet. This dates the public record, not the original launch.
+  source: https://www.thingelstad.com/projects/open-loop/3-kubb-fever/
+  things:
+    - planet-kubb
+    - planet-kubb-score
+- id: open-loop-first
+  date: 2012-06-01
+  kind: launch
+  title: 'Open Loop: the first episode'
+  summary: The published episode archive begins with “But No Shoes.”
+  source: https://www.thingelstad.com/projects/open-loop/0-but-no-shoes/
+  things:
+    - open-loop
+- id: wikiapiary-origin
+  date: '2012'
+  kind: launch
+  title: A wiki to track other wikis
+  summary: WikiApiary begins as a holiday-break project, built with MediaWiki and Semantic MediaWiki.
+  source: https://www.thingelstad.com/2013/12/22/one-year-for.html
+  things:
+    - wikiapiary

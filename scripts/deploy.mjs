@@ -1,9 +1,10 @@
 import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
-import { readFileSync, readdirSync } from 'node:fs';
+import { readFileSync } from 'node:fs';
 import { isDeepStrictEqual } from 'node:util';
 import { setTimeout as delay } from 'node:timers/promises';
 import { assertCodeOnlyChangeSet } from './deployment-safety.mjs';
+import { cacheControlFor, contentTypeFor, publishOrder } from './publish-plan.mjs';
 
 // AWS CLI runs only on the authenticated GitHub runner. Local agent deployments use AWS MCP.
 const deployment = JSON.parse(readFileSync('infra/deployment.json', 'utf8'));
@@ -72,48 +73,34 @@ if (stack.Parameters.find((parameter) => parameter.ParameterKey === 'GuideCodeKe
   console.log('Guide revision update complete.');
 }
 
-// Publish hashed assets first, HTML last. Keep previous assets for open tabs and rollback.
-run(
-  's3',
-  'sync',
-  'dist/assets/',
-  `s3://${deployment.siteBucket}/assets/`,
-  '--cache-control',
-  'public,max-age=31536000,immutable',
-  '--only-show-errors'
-);
-for (const entry of readdirSync('dist', { withFileTypes: true })) {
-  if (entry.isFile() && entry.name !== 'index.html') {
-    run(
-      's3',
-      'cp',
-      `dist/${entry.name}`,
-      `s3://${deployment.siteBucket}/${entry.name}`,
-      '--cache-control',
-      'no-cache',
-      '--only-show-errors'
-    );
-  }
+// Publish the built site: content-addressed assets first, then files, then pages, the front page last.
+// Nothing is deleted. Previous assets stay for open tabs and for rollback by restoring an object version.
+const siteRoot = '_site';
+const keys = publishOrder(siteRoot);
+if (!keys.includes('index.html') || !keys.includes('404.html') || !keys.includes('things.json')) {
+  throw new Error('The site build is incomplete.');
 }
-run(
-  's3',
-  'cp',
-  'dist/index.html',
-  `s3://${deployment.siteBucket}/index.html`,
-  '--cache-control',
-  'no-cache',
-  '--content-type',
-  'text/html; charset=utf-8',
-  '--only-show-errors'
-);
+for (const key of keys) {
+  run(
+    's3',
+    'cp',
+    `${siteRoot}/${key}`,
+    `s3://${deployment.siteBucket}/${key}`,
+    '--cache-control',
+    cacheControlFor(key),
+    '--content-type',
+    contentTypeFor(key),
+    '--only-show-errors'
+  );
+}
+console.log(`Uploaded ${keys.length} files.`);
 const invalidation = aws(
   'cloudfront',
   'create-invalidation',
   '--distribution-id',
   deployment.distributionId,
   '--paths',
-  '/',
-  '/index.html'
+  '/*'
 );
 run(
   'cloudfront',
@@ -124,20 +111,28 @@ run(
   '--id',
   invalidation.Invalidation.Id
 );
-const expectedHash = createHash('sha256').update(readFileSync('dist/index.html')).digest('hex');
+const sha256 = (bytes) => createHash('sha256').update(bytes).digest('hex');
+const published = async (path) => {
+  const response = await fetch(new URL(path, deployment.publishedUrl), { signal: AbortSignal.timeout(15_000) });
+  return { ok: response.ok, hash: sha256(Buffer.from(await response.arrayBuffer())) };
+};
+// The front page and one page below the root, which also proves the directory-index rewrite is live.
+const checks = ['index.html', keys.find((key) => /^things\/[^/]+\/index\.html$/.test(key))].map((key) => ({
+  key,
+  path: '/' + key.replace(/index\.html$/, ''),
+  hash: sha256(readFileSync(`${siteRoot}/${key}`))
+}));
 let verified = false;
-for (let attempt = 0; attempt < 6; attempt++) {
-  const response = await fetch(deployment.publishedUrl, { signal: AbortSignal.timeout(15_000) });
-  const actualHash = createHash('sha256')
-    .update(Buffer.from(await response.arrayBuffer()))
-    .digest('hex');
-  if (response.ok && actualHash === expectedHash) {
-    verified = true;
-    break;
-  }
-  await delay(5000);
+for (let attempt = 0; attempt < 6 && !verified; attempt++) {
+  const results = await Promise.all(checks.map((check) => published(check.path)));
+  verified = results.every((result, i) => result.ok && result.hash === checks[i].hash);
+  if (!verified) await delay(5000);
 }
-if (!verified) throw new Error('Published HTML does not match this build.');
+if (!verified) throw new Error('Published pages do not match this build.');
+const missing = await fetch(new URL('/things/not-a-thing/', deployment.publishedUrl), {
+  signal: AbortSignal.timeout(15_000)
+});
+if (missing.status !== 404) throw new Error(`Expected 404 for a missing page, got ${missing.status}.`);
 const health = await fetch(new URL('/api/health', deployment.publishedUrl), { signal: AbortSignal.timeout(15_000) });
 if (!health.ok || !(await health.json()).ok) throw new Error('Production guide health failed.');
 console.log(`Verified ${process.env.GITHUB_SHA} at ${deployment.publishedUrl}`);

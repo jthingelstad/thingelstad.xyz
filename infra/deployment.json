@@ -101,5 +101,16 @@
       "qaQuotaWrites": 0,
       "qaAnalyticsWrites": 0
     }
+  },
+  "siteOutput": "_site",
+  "directoryIndex": {
+    "cloudFrontFunction": "thingelstad-xyz-site-directory-index",
+    "errorPage": "/404.html",
+    "changeSet": "cloud-engineer-directory-index-20261017",
+    "appliedAt": "2026-10-17T13:59:06Z",
+    "verified": {
+      "redirectBarePathToSlash": true,
+      "indexBeforeFirstPublish": 403
+    }
   }
 }

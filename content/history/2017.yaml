@@ -1,0 +1,8 @@
+- id: weekly-thing-one
+  date: 2017-05-13
+  kind: launch
+  title: The first Weekly Thing
+  summary: A newsletter experiment begins with issue one.
+  source: https://weekly.thingelstad.com/archive/1/
+  things:
+    - weekly-thing

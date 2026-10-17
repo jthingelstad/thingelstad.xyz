@@ -1,0 +1,60 @@
+{
+  "kind": "github",
+  "repository": "jthingelstad/rwbookclub.com",
+  "url": "https://github.com/jthingelstad/rwbookclub.com",
+  "observedAt": "2026-10-17T13:32:02.761Z",
+  "repositoryCreatedAt": "2026-04-09T23:16:42.000Z",
+  "archived": false,
+  "description": "Monorepo for the R/W Book Club: the public website, the shared knowledge corpus, and Oliver — the club's Discord agent.",
+  "languages": [
+    { "name": "Python", "bytes": 1549739 },
+    { "name": "JavaScript", "bytes": 70510 },
+    { "name": "Nunjucks", "bytes": 57485 },
+    { "name": "HTML", "bytes": 52461 },
+    { "name": "CSS", "bytes": 43895 },
+    { "name": "Shell", "bytes": 16041 }
+  ],
+  "release": {
+    "name": "quiet-quicksilver",
+    "date": "2026-07-03T22:07:58.000Z",
+    "url": "https://github.com/jthingelstad/rwbookclub.com/releases/tag/quiet-quicksilver"
+  },
+  "activity": [
+    {
+      "path": null,
+      "branch": "main",
+      "since": "2026-07-19T13:32:02.761Z",
+      "until": "2026-10-17T13:32:02.761Z",
+      "count": 64,
+      "complete": true,
+      "months": [
+        { "month": "2026-07", "count": 31 },
+        { "month": "2026-08", "count": 21 },
+        { "month": "2026-09", "count": 10 },
+        { "month": "2026-10", "count": 2 }
+      ],
+      "latestCommit": {
+        "date": "2026-10-16T10:55:48.000Z",
+        "url": "https://github.com/jthingelstad/rwbookclub.com/commit/a272d7bc2bd6c8e872de31460664b23bb2683b1d"
+      }
+    },
+    {
+      "path": "agent",
+      "branch": "main",
+      "since": "2026-07-19T13:32:02.761Z",
+      "until": "2026-10-17T13:32:02.761Z",
+      "count": 30,
+      "complete": true,
+      "months": [
+        { "month": "2026-07", "count": 13 },
+        { "month": "2026-08", "count": 11 },
+        { "month": "2026-09", "count": 5 },
+        { "month": "2026-10", "count": 1 }
+      ],
+      "latestCommit": {
+        "date": "2026-10-15T13:41:30.000Z",
+        "url": "https://github.com/jthingelstad/rwbookclub.com/commit/c87b04514a29833f721d90af958285342cd0859c"
+      }
+    }
+  ]
+}

@@ -1,0 +1,102 @@
+# Direction: Things I’ve Built as a content repository
+
+Things I’ve Built is an index and archive of Jamie’s projects, including the ones he has stepped away from. The site is a durable static site that is easy to update weekly or monthly, with an RSS feed and `llms.txt`. thingelstad.xyz is where Jamie keeps point-in-time project things, and this site is the index of them.
+
+The first version wrapped a small dataset in a React application, a Lambda guide, and a private editor. Producing and refreshing content was the expensive step. This direction makes content the center and treats rendering as a build.
+
+## Three layers, three owners
+
+| Layer        | Where                                               | Nature                                    | Who writes it                           | Cadence           |
+| ------------ | --------------------------------------------------- | ----------------------------------------- | --------------------------------------- | ----------------- |
+| Registry     | `content/things/*.md`, `content/topics.yaml`        | Things, sources, connections, topics      | Jamie or an agent, in Markdown and YAML | Monthly           |
+| Ledger       | `content/history/<year>.yaml`                       | Curated, sourced history events           | Jamie, often from collector proposals   | Weekly or monthly |
+| Observations | `data/observations/github/*.json`, `.../web/*.json` | Commits, releases, sitemap and feed dates | `npm run collect`, never a person       | Weekly, automated |
+
+Observations never change editorial fields. Status is a decision; activity is evidence. The site shows both and never lets the collector set a status.
+
+## The registry
+
+One Markdown file per thing. The file name is the ID. Front matter holds the facts; the body is the story.
+
+```yaml
+---
+title: Weekly Thing
+summary: A weekly collection of links and ideas.
+collection: Publishing
+status: active # active | dormant | retired | archived
+url: https://weekly.thingelstad.com/
+started: 2017 # YYYY, YYYY-MM, or YYYY-MM-DD, exactly as precise as the source
+topics: [open-web, archives]
+sources:
+  - kind: github
+    repository: jthingelstad/weekly.thingelstad.com
+    role: implementation
+  - kind: website
+    url: https://weekly.thingelstad.com/
+    role: website
+    sitemap: https://weekly.thingelstad.com/sitemap.xml
+    feed: https://weekly.thingelstad.com/feed.xml
+connections:
+  - to: librarian
+    label: is indexed by
+    detail: Librarian builds a searchable corpus from Weekly Thing content.
+    source: https://thingy.thingelstad.com/about/
+story: # optional; the current site’s richer project page
+  color: '#eaa18f'
+  introduction: Curiosity, collected and shared.
+  engineering: [...]
+  stack: [...]
+  related: [...]
+  questions: [...]
+---
+The body is the idea behind the thing, in Markdown.
+```
+
+Status words:
+
+- **active**: being built or operated.
+- **dormant**: not currently worked on, and may return.
+- **retired**: deliberately ended.
+- **archived**: complete and preserved as it is. Books, events, and one-time projects.
+
+Sources are inline. Two things that name the same repository or URL share one observation; the collector stores it once. A GitHub source can carry a `path` to scope activity to a directory. A website source can carry a `sitemap` and a `feed`, which is what makes it observable. A website without either is a reference only.
+
+Connections live on the thing they start from. Topics are a short list in `topics.yaml` with an ID, a title, and a description; membership is declared on each thing.
+
+Validation is strict and runs in tests: unknown fields, non-HTTPS URLs, private hosts, local paths, invalid dates, unknown references, and duplicate IDs all fail the build. Date precision is preserved as written. A recorded first commit is development evidence, never a launch date.
+
+## The ledger
+
+`content/history/<year>.yaml` holds events, each with a date, a kind (`launch`, `milestone`, `retirement`, `archive`, `development`), a title, a summary, a public source URL, and the things it concerns. A shared event appears once and names several things. The ledger is editorial. The collector may propose events, for example a new release or a repository archived on GitHub, but a person accepts them.
+
+The ledger is also the RSS feed: “what changed in what I’ve built,” newest first. Automated observations stay out of the main feed so it remains quiet and worth subscribing to.
+
+## Observations
+
+`npm run collect` reads the registry and observes every source:
+
+- **GitHub**: creation date, archived flag, latest non-prerelease release, languages by bytes, commits per month over 90 days for each attached directory scope, and the latest commit. Only public repositories, only GET requests, a small allowlist of fields.
+- **Sitemap**: page count, newest `lastmod`, and `lastmod` counts per month for twelve months. Modification evidence.
+- **Feed** (RSS, Atom, or JSON Feed): item count, newest publication date, and publications per month within the feed’s window. Publishing evidence, and the better signal for the blog, newsletter, and podcast.
+
+An observation is written only when the evidence changed. Time stamps alone never produce a diff, so a weekly run with nothing new is a no-op. A failed fetch keeps the previous observation. Git history is the time series; there is no separate append-only store.
+
+The weekly GitHub Actions workflow runs the collector, regenerates the build data, runs the tests, and commits changed observations to `main`. The normal CI and deploy workflow then validates and publishes.
+
+## Outputs of the static build
+
+- HTML: index, one page per thing, one per topic, a history page, and a timeline. The timeline is server-rendered SVG with a small script for hover and focus.
+- `feed.xml` and `feed.json`: the ledger. Optionally `activity.xml` for automated observations, kept separate.
+- `llms.txt`: one line per thing linking to its Markdown twin. `llms-full.txt`: every thing’s front matter and story concatenated. Each thing is published as both `/things/<id>/` and `/things/<id>.md`, since a static host cannot content-negotiate.
+- `things.json`: the registry plus the latest observation for each source, in one file. This is the ingestion surface for Librarian, so Thingy can answer questions about Jamie’s projects without this site running a model.
+
+## What is being retired
+
+The Bedrock guide, its Lambda Web Function, the DynamoDB quota counter, the tailnet editor and its client build, and the CloudFormation template generator for those pieces. Hosting stays on the existing private S3 bucket behind CloudFront; the deploy role shrinks to S3 and CloudFront invalidation. The React application is replaced by Eleventy, which Jamie already runs for the Weekly Thing archive. Until then, `npm run collection:build` regenerates the two JSON files the React site reads from the content tree, so the current site keeps working during the transition.
+
+## Risks
+
+- **Status drift.** Automated signals will disagree with editorial status. Show both; never let the collector change status.
+- **Weekly noise.** Change detection ignores time stamps. If a source emits noisy fields, round or drop them in the adapter.
+- **Dead sites.** Retired things should point at Wayback captures or blog project pages, not at hosts that no longer answer. A failed fetch is “no new observation,” not an error in content.
+- **Losing the graph.** The Connections view has real design work in it. Decide explicitly whether a build-time SVG version is wanted before the React application is removed.

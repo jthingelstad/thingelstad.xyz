@@ -1,0 +1,29 @@
+{
+  "kind": "github",
+  "repository": "jthingelstad/thing-hugo",
+  "url": "https://github.com/jthingelstad/thing-hugo",
+  "repositoryCreatedAt": "2026-04-20T03:24:21.000Z",
+  "archived": false,
+  "description": "",
+  "languages": [
+    { "name": "HTML", "bytes": 14820 },
+    { "name": "CSS", "bytes": 11361 }
+  ],
+  "release": null,
+  "activity": [
+    {
+      "path": null,
+      "branch": "main",
+      "since": "2026-07-16T12:28:01.101Z",
+      "until": "2026-10-14T12:28:01.101Z",
+      "count": 0,
+      "complete": true,
+      "months": [],
+      "latestCommit": {
+        "date": "2026-04-20T03:50:34.000Z",
+        "url": "https://github.com/jthingelstad/thing-hugo/commit/c31752f3efdefd788fdaa1358b5529ef498377be"
+      }
+    }
+  ],
+  "observedAt": "2026-10-14T12:28:01.101Z"
+}
