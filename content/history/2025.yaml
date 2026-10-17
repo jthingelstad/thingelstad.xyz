@@ -6,3 +6,19 @@
   source: https://www.thingelstad.com/categories/poap2rss/page/2/
   things:
     - poap2rss
+- id: 612-poap-challenge-launch
+  date: 2025-05-31
+  kind: launch
+  title: The 612 POAP Challenge begins
+  summary: A summer scavenger hunt around Minneapolis pairs location POAPs with the 612 Series, open until Labor Day.
+  source: https://www.thingelstad.com/2025/05/31/poap-challenge-collect-them-now.html
+  things:
+    - 612-poap-challenge
+- id: 612-poap-challenge-close
+  date: 2025-09-01
+  kind: archive
+  title: The 612 POAP Challenge closes
+  summary: As Labor Day ends, the challenge comes to a close and the site keeps the record of every claim.
+  source: https://612.poapchallenge.com/
+  things:
+    - 612-poap-challenge

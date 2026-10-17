@@ -1,9 +1,10 @@
 ---
 title: WikiApiary
-summary: Existing portfolio entry with local archived material
+summary: A wiki that monitors MediaWiki sites, started in 2012 and now operated by others.
 collection: Historical projects
-status: retired
+status: dormant
 url: https://wikiapiary.com/wiki/Main_Page
+started: '2012'
 topics:
   - mediawiki
   - semantic-mediawiki

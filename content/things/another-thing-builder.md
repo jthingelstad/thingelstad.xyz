@@ -4,6 +4,7 @@ summary: Earlier podcast authoring application
 collection: Publishing
 status: retired
 url: https://github.com/jthingelstad/at-builder
+ended: 2026-10-11
 topics:
   - open-web
 sources:

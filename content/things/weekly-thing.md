@@ -4,6 +4,7 @@ summary: A weekly collection of links and ideas.
 collection: Publishing
 status: active
 url: https://weekly.thingelstad.com/
+started: 2017-05-13
 topics:
   - open-web
   - archives

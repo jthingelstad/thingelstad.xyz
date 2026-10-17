@@ -4,11 +4,17 @@
     {
       "id": "612-poap-challenge",
       "title": "612 POAP Challenge",
-      "summary": "Existing blog portfolio entry",
+      "summary": "A summer scavenger hunt around Minneapolis, pairing location POAPs with the 612 Series.",
       "collection": "Historical projects",
       "url": "https://612.poapchallenge.com/",
       "historical": true,
-      "sources": [{ "sourceId": "website-612-poapchallenge-com", "role": "reference" }]
+      "sources": [
+        { "sourceId": "website-612-poapchallenge-com", "role": "reference" },
+        {
+          "sourceId": "website-www-thingelstad-com-2025-05-31-poap-challenge-collect-them-now-html",
+          "role": "reference"
+        }
+      ]
     },
     {
       "id": "another-thing-builder",
@@ -34,7 +40,7 @@
     {
       "id": "charlie-brown-tree",
       "title": "Charlie Brown Tree",
-      "summary": "Existing blog portfolio entry",
+      "summary": "A Charlie Brown tree at Magic Pines, made with Adam Gale of Rust N Grain.",
       "collection": "Historical projects",
       "url": "https://www.thingelstad.com/magic-pines/charlie-brown-tree/",
       "historical": true,
@@ -164,12 +170,12 @@
     {
       "id": "flight-path",
       "title": "Flight Path",
-      "summary": "An extension of the POAP Airport Rally, built entirely on an iPhone with Claude Code.",
+      "summary": "A globe of the POAP Airport Rally, built entirely on an iPhone with Claude Code. Its host no longer answers.",
       "collection": "Games and communities",
-      "url": "https://flightpath.poaprally.com/",
-      "historical": false,
+      "url": "https://weekly.thingelstad.com/archive/342/",
+      "historical": true,
       "sources": [
-        { "sourceId": "website-flightpath-poaprally-com", "role": "website" },
+        { "sourceId": "website-weekly-thingelstad-com-archive-342", "role": "reference" },
         { "sourceId": "website-www-thingelstad-com-2026-02-25-it-is-bonkers-to-me-html", "role": "reference" }
       ]
     },
@@ -320,7 +326,7 @@
     {
       "id": "open-loop",
       "title": "Open Loop",
-      "summary": "Podcast and transcript restoration project",
+      "summary": "A nine-episode podcast with Garrick van Buren in 2012 and 2013, archived with transcripts and a feed.",
       "collection": "Historical projects",
       "url": "https://www.thingelstad.com/projects/open-loop/",
       "historical": true,
@@ -377,13 +383,13 @@
     {
       "id": "poap2rss",
       "title": "POAP2RSS",
-      "summary": "Existing blog portfolio entry",
+      "summary": "POAP activity as RSS feeds, retired when the POAP API went offline in July 2026.",
       "collection": "Historical projects",
-      "url": "https://www.poap2rss.com/",
+      "url": "https://poap2rss.com/",
       "historical": true,
       "sources": [
         { "sourceId": "github-poap2rss", "role": "implementation" },
-        { "sourceId": "website-www-poap2rss-com", "role": "reference" }
+        { "sourceId": "website-poap2rss-com", "role": "reference" }
       ]
     },
     {
@@ -398,11 +404,11 @@
     {
       "id": "proof-of-a-person",
       "title": "Proof of a Person",
-      "summary": "A POAP project in progress. It will live at poap.thingelstad.xyz.",
+      "summary": "A POAP time capsule of Jamie’s collecting and issuing, and the people who collected his drops. In progress, to live at poap.thingelstad.xyz.",
       "collection": "Games and communities",
-      "url": null,
+      "url": "https://github.com/jthingelstad/poap-archive",
       "historical": false,
-      "sources": []
+      "sources": [{ "sourceId": "github-poap-archive", "role": "archive" }]
     },
     {
       "id": "q2a-number-captcha",
@@ -515,7 +521,7 @@
     {
       "id": "things-4-good-fall-fundraiser",
       "title": "Things 4 Good Fall Fundraiser",
-      "summary": "Earlier fundraiser page",
+      "summary": "An annual give-back event from 2021 to 2023, selling handmade wooden wick candles for causes.",
       "collection": "Historical projects",
       "url": "https://www.thingelstad.com/projects/fall-fundraiser/",
       "historical": true,
@@ -610,7 +616,7 @@
     {
       "id": "wicky-thing-candles",
       "title": "Wicky Thing Candles",
-      "summary": "Existing blog portfolio entry",
+      "summary": "Handmade wooden wick candles, the craft behind the Things 4 Good fundraisers.",
       "collection": "Historical projects",
       "url": "https://www.thingelstad.com/candles/",
       "historical": true,
@@ -619,10 +625,10 @@
     {
       "id": "wikiapiary",
       "title": "WikiApiary",
-      "summary": "Existing portfolio entry with local archived material",
+      "summary": "A wiki that monitors MediaWiki sites, started in 2012 and now operated by others.",
       "collection": "Historical projects",
       "url": "https://wikiapiary.com/wiki/Main_Page",
-      "historical": true,
+      "historical": false,
       "sources": [{ "sourceId": "website-wikiapiary-com-wiki-main-page", "role": "reference" }]
     },
     {
@@ -693,6 +699,11 @@
   ],
   "sources": [
     { "id": "website-612-poapchallenge-com", "kind": "website", "url": "https://612.poapchallenge.com/" },
+    {
+      "id": "website-www-thingelstad-com-2025-05-31-poap-challenge-collect-them-now-html",
+      "kind": "website",
+      "url": "https://www.thingelstad.com/2025/05/31/poap-challenge-collect-them-now.html"
+    },
     { "id": "github-at-builder", "kind": "github", "repository": "jthingelstad/at-builder" },
     { "id": "github-another-thingelstad-com", "kind": "github", "repository": "jthingelstad/another.thingelstad.com" },
     {
@@ -719,7 +730,11 @@
     { "id": "github-escape-thingelstad-com", "kind": "github", "repository": "jthingelstad/escape.thingelstad.com" },
     { "id": "website-escape-thingelstad-com", "kind": "website", "url": "https://escape.thingelstad.com/" },
     { "id": "github-filament", "kind": "github", "repository": "jthingelstad/filament" },
-    { "id": "website-flightpath-poaprally-com", "kind": "website", "url": "https://flightpath.poaprally.com/" },
+    {
+      "id": "website-weekly-thingelstad-com-archive-342",
+      "kind": "website",
+      "url": "https://weekly.thingelstad.com/archive/342/"
+    },
     {
       "id": "website-www-thingelstad-com-2026-02-25-it-is-bonkers-to-me-html",
       "kind": "website",
@@ -765,7 +780,8 @@
     { "id": "github-poapkings-com", "kind": "github", "repository": "jthingelstad/poapkings.com" },
     { "id": "website-poapkings-com", "kind": "website", "url": "https://poapkings.com/" },
     { "id": "github-poap2rss", "kind": "github", "repository": "jthingelstad/POAP2RSS" },
-    { "id": "website-www-poap2rss-com", "kind": "website", "url": "https://www.poap2rss.com/" },
+    { "id": "website-poap2rss-com", "kind": "website", "url": "https://poap2rss.com/" },
+    { "id": "github-poap-archive", "kind": "github", "repository": "jthingelstad/poap-archive" },
     { "id": "github-q2a-number-captcha", "kind": "github", "repository": "jthingelstad/q2a-number-captcha" },
     {
       "id": "website-rwbookclub-com",
@@ -951,6 +967,13 @@
       "source": "https://poapkings.com/elixir-drop/"
     },
     {
+      "from": "proof-of-a-person",
+      "to": "poap2rss",
+      "label": "preserves the record of",
+      "detail": "The archive captures Jamie’s POAP collecting, issuing, and writing after the protocol wound down, including the drops and claims POAP2RSS once syndicated.",
+      "source": "https://github.com/jthingelstad/poap-archive"
+    },
+    {
       "from": "r-w-book-club",
       "to": "oliver",
       "label": "includes",
@@ -1060,7 +1083,7 @@
       "id": "crypto",
       "title": "Crypto",
       "description": "Experiments with onchain participation and digital collectibles, through the POAP ecosystem.",
-      "projectIds": ["612-poap-challenge", "nnxyz", "poap-kings", "poap2rss"]
+      "projectIds": ["612-poap-challenge", "nnxyz", "poap-kings", "poap2rss", "proof-of-a-person"]
     },
     {
       "id": "mcp",
@@ -1096,6 +1119,7 @@
       "title": "Play",
       "description": "Games, playful arithmetic, and the communities that form around them.",
       "projectIds": [
+        "612-poap-challenge",
         "clash-royale-api-agent-reference",
         "elixir-bot",
         "elixir-clan",
@@ -1120,6 +1144,7 @@
         "librarian",
         "nnxyz",
         "planet-kubb-score",
+        "proof-of-a-person",
         "road-sign-math",
         "things-ive-built",
         "weekly-thing",
@@ -1198,6 +1223,15 @@
       "source": "https://github.com/jthingelstad/elixir-mcp/commit/5b9621672282ee9dbbddaf6fd3f201367f3b7848"
     },
     {
+      "id": "open-loop-feed",
+      "projectIds": ["open-loop"],
+      "date": "2026-10",
+      "kind": "milestone",
+      "title": "Open Loop returns as a podcast feed",
+      "summary": "All nine episodes are republished as a podcast feed with speaker-labelled transcripts, cleaned up with AI in October 2026.",
+      "source": "https://www.thingelstad.com/projects/open-loop/"
+    },
+    {
       "id": "elixir-bot-retired",
       "projectIds": ["elixir-bot", "elixir", "elixir-mcp-discord", "elixir-mcp-collector", "elixir-clan"],
       "date": "2026-09-26",
@@ -1232,6 +1266,15 @@
       "title": "Elixir: recorded development begins",
       "summary": "The earliest commit in this repository is a development record; the project or idea may predate it.",
       "source": "https://github.com/jthingelstad/elixir-mcp/commit/e2e126a9dc1b150db9ee64213fc48224f8c09ba2"
+    },
+    {
+      "id": "poap2rss-retired",
+      "projectIds": ["poap2rss"],
+      "date": "2026-07-31",
+      "kind": "retirement",
+      "title": "POAP2RSS retires with the POAP API",
+      "summary": "POAP wound down its platform on July 31, 2026. POAP2RSS read live claim activity through the POAP API, so it stopped working and was retired.",
+      "source": "https://poap2rss.com/"
     },
     {
       "id": "wt-builder-recorded-development",
@@ -1387,6 +1430,15 @@
       "source": "https://www.thingelstad.com/2026/01/20/i-made-a-book-yearly.html"
     },
     {
+      "id": "612-poap-challenge-close",
+      "projectIds": ["612-poap-challenge"],
+      "date": "2025-09-01",
+      "kind": "archive",
+      "title": "The 612 POAP Challenge closes",
+      "summary": "As Labor Day ends, the challenge comes to a close and the site keeps the record of every claim.",
+      "source": "https://612.poapchallenge.com/"
+    },
+    {
       "id": "poap2rss-launch",
       "projectIds": ["poap2rss"],
       "date": "2025-07-04",
@@ -1394,6 +1446,15 @@
       "title": "POAP meets RSS",
       "summary": "POAP2RSS is declared officially launched: POAP activity becomes available in feeds.",
       "source": "https://www.thingelstad.com/categories/poap2rss/page/2/"
+    },
+    {
+      "id": "612-poap-challenge-launch",
+      "projectIds": ["612-poap-challenge"],
+      "date": "2025-05-31",
+      "kind": "launch",
+      "title": "The 612 POAP Challenge begins",
+      "summary": "A summer scavenger hunt around Minneapolis pairs location POAPs with the 612 Series, open until Labor Day.",
+      "source": "https://www.thingelstad.com/2025/05/31/poap-challenge-collect-them-now.html"
     },
     {
       "id": "weekly-thing-one",

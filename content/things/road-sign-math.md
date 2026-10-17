@@ -2,8 +2,10 @@
 title: Road Sign Math
 summary: Find an equation hiding in plain sight.
 collection: Historical projects
-status: retired
+status: archived
 url: https://www.thingelstad.com/projects/road-sign-math/
+ended: '2014'
+started: 2005-02
 topics:
   - mediawiki
   - play

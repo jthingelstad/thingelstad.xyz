@@ -1,8 +1,8 @@
 ---
 title: Wicky Thing Candles
-summary: Existing blog portfolio entry
+summary: Handmade wooden wick candles, the craft behind the Things 4 Good fundraisers.
 collection: Historical projects
-status: retired
+status: archived
 url: https://www.thingelstad.com/candles/
 topics: []
 sources:

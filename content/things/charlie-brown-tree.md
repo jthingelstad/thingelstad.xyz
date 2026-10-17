@@ -1,8 +1,8 @@
 ---
 title: Charlie Brown Tree
-summary: Existing blog portfolio entry
+summary: A Charlie Brown tree at Magic Pines, made with Adam Gale of Rust N Grain.
 collection: Historical projects
-status: retired
+status: archived
 url: https://www.thingelstad.com/magic-pines/charlie-brown-tree/
 topics: []
 sources:

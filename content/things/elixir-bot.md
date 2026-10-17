@@ -4,6 +4,7 @@ summary: Original clan agent preserved as history
 collection: Games and communities
 status: retired
 url: https://github.com/jthingelstad/elixir-bot
+ended: 2026-09-26
 topics:
   - agents
   - play

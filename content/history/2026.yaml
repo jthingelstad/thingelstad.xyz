@@ -231,3 +231,19 @@
   source: https://github.com/jthingelstad/thingelstad.xyz
   things:
     - things-ive-built
+- id: poap2rss-retired
+  date: 2026-07-31
+  kind: retirement
+  title: POAP2RSS retires with the POAP API
+  summary: POAP wound down its platform on July 31, 2026. POAP2RSS read live claim activity through the POAP API, so it stopped working and was retired.
+  source: https://poap2rss.com/
+  things:
+    - poap2rss
+- id: open-loop-feed
+  date: 2026-10
+  kind: milestone
+  title: Open Loop returns as a podcast feed
+  summary: All nine episodes are republished as a podcast feed with speaker-labelled transcripts, cleaned up with AI in October 2026.
+  source: https://www.thingelstad.com/projects/open-loop/
+  things:
+    - open-loop

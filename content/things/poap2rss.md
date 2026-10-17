@@ -1,9 +1,11 @@
 ---
 title: POAP2RSS
-summary: Existing blog portfolio entry
+summary: POAP activity as RSS feeds, retired when the POAP API went offline in July 2026.
 collection: Historical projects
 status: retired
-url: https://www.poap2rss.com/
+url: https://poap2rss.com/
+ended: 2026-07-31
+started: 2025-07-04
 topics:
   - poap
   - crypto
@@ -13,7 +15,7 @@ sources:
     repository: jthingelstad/POAP2RSS
     role: implementation
   - kind: website
-    url: https://www.poap2rss.com/
+    url: https://poap2rss.com/
     role: reference
 connections: []
 ---
