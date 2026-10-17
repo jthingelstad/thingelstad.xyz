@@ -83,6 +83,7 @@
       "cloud-engineer-retire-guide-step2-20261017",
       "cloud-engineer-delivery-shrink-20261017"
     ],
-    "retainedAssetsBucket": "thingelstad-xyz-assets-assetsbucket-p9dnw4dc1dcv"
+    "retainedAssetsBucket": null,
+    "assetsBucketDeleted": "2026-10-17"
   }
 }
