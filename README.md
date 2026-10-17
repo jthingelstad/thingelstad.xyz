@@ -9,7 +9,7 @@ npm ci
 npm run dev
 ```
 
-Open http://127.0.0.1:5173. The preview binds only to loopback. `npm run check` checks formatting, JavaScript/TypeScript and CSS lint, unused code, TypeScript, unit tests, and the production build. Use `npm run format` to apply formatting. `npx playwright install chromium` followed by `npm run test:browser` runs browser tests at desktop, tablet, and phone sizes. For the production build locally, run `npm run build` then `npm start`.
+Open http://127.0.0.1:5173. The preview binds only to loopback. `npm run check` checks formatting, JavaScript/TypeScript and CSS lint, unused code, TypeScript, unit tests, and the production build. Use `npm run format` to apply formatting. `npx playwright install chromium`, then `npm run site:build` and `npm run test:browser`, runs browser tests of the static site at desktop, tablet, and phone sizes. For the production build locally, run `npm run build` then `npm start`.
 
 ## Static site
 

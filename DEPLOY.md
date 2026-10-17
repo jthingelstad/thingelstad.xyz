@@ -18,7 +18,7 @@ npm ci
 npm run package
 ```
 
-This runs formatting, lint, unused-code checks, TypeScript/build/tests, generates CloudFormation templates, and bundles the production HTTP guide server. Only `dist/` is uploaded as public content. The Lambda bundle includes the public catalog and guide logic; it excludes the broader `research/` inventory. `.build/guide-key.txt` gives the immutable code artifact key.
+This runs formatting, lint, unused-code checks, TypeScript/build/tests, builds the static site into `_site/`, generates CloudFormation templates, and bundles the production HTTP guide server. Only `_site/` is uploaded as public content. The Lambda bundle includes the public catalog and guide logic; it excludes the broader `research/` inventory. `.build/guide-key.txt` gives the immutable code artifact key.
 
 ## Publish an update
 
@@ -28,11 +28,15 @@ Use `cloud-engineer` in `us-east-1`. Verify STS account `999153317627` and `assu
 2. Upload `.build/guide.zip` to the artifacts bucket at the key in `.build/guide-key.txt`.
 3. Create a change set against `thingelstad-xyz-site`, using `infra/generated/site.json`, `CAPABILITY_IAM`, the existing `AssetsBucket`, new `GuideCodeKey`, the existing `CloudFrontDomain` and `GuideOriginDomain`, and the existing `CertificateArn` (preserve it once enabled).
 4. Inspect the change set and `DescribeEvents` validation results; then execute and verify the stack reaches `UPDATE_COMPLETE`.
-5. Upload `dist/assets/` with `Cache-Control: public,max-age=31536000,immutable`. Upload `dist/index.html` with `Cache-Control: no-cache` and `Content-Type: text/html`. Upload the favicon with its correct SVG MIME type. Keep old hashed assets for already-open pages and rollback.
-6. Invalidate `/index.html` and `/` on the stack’s distribution.
-7. Verify the hosted graph, index and project navigation, asset loading, and `/api/health`. Health verifies the runtime AWS identity; it does not invoke the model or consume the daily allowance. Model and quota refusal paths have injectable local regression tests.
+5. Upload `_site/` in the order `scripts/publish-plan.mjs` gives: `assets/` (content-hashed stylesheet, script, and fonts) with `Cache-Control: public,max-age=31536000,immutable`, then the other files and pages with `Cache-Control: no-cache`, the front page last. Every object gets an explicit content type with charset (`.md` is `text/markdown`). Keep old assets for already-open pages and rollback; nothing is deleted.
+6. Invalidate `/*` on the stack’s distribution.
+7. Verify the front page and a thing page match the built bytes, a missing page returns 404, and `/api/health`. Health verifies the runtime AWS identity; it does not invoke the model or consume the daily allowance. Model and quota refusal paths have injectable local regression tests.
 
-For client-only updates, run `npm run check`, upload new hashed assets before `dist/index.html`, invalidate `/` and `/index.html`, and verify the hosted result. No Lambda or CloudFormation update is needed when server and infrastructure code are unchanged. Intercept the Tinylytics collector during browser checks to keep test visits out of live analytics.
+For site-only updates, run `npm run check`, publish `_site/` as above, invalidate `/*`, and verify the hosted result. No Lambda or CloudFormation update is needed when server and infrastructure code are unchanged. Intercept the Tinylytics collector during browser checks to keep test visits out of live analytics.
+
+## Directory URLs and the 404 page
+
+The site is a tree of directories, each holding an `index.html`, and S3 behind Origin Access Control does not serve directory indexes. The distribution's default behavior runs the `thingelstad-xyz-site-directory-index` CloudFront Function (cloudfront-js-2.0, viewer request): a URI ending in `/` gets `index.html` appended, a URI whose last segment has no dot is redirected (301) to its slash form, and anything with a dot passes through. The `/api/*` behavior has no function. A missing object is a 403 from S3 (CloudFront has no `ListBucket`), so both 403 and 404 are mapped to `/404.html` with a 404 status and a 10-second error cache. Both were added through the reviewed change set `cloud-engineer-directory-index-20261017` on October 17, 2026.
 
 ## Connect the custom domain
 

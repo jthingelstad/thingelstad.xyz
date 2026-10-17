@@ -23,4 +23,4 @@ description: Every dated thing Jamie Thingelstad has built, by year, with its so
   <p>{% for thing in site.timeline.undated %}<a class="tag" href="{{ thing.page }}">{{ thing.title }}</a> {% endfor %}</p>
 </section>
 {% endif %}
-<script src="/js/timeline.js" defer></script>
+<script src="{{ assets.timeline }}" defer></script>
