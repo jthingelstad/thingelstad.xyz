@@ -2,115 +2,13 @@
   "schemaVersion": 1,
   "things": [
     {
-      "id": "jamie-thingelstad-blog",
-      "title": "Jamie Thingelstad blog",
-      "summary": "More than 20 years of personal writing on the web.",
-      "collection": "Publishing",
-      "url": "https://www.thingelstad.com/",
-      "historical": false,
-      "sources": [
-        { "sourceId": "website-jamie-thingelstad-blog", "role": "website" },
-        { "sourceId": "github-thing-hugo", "role": "theme" }
-      ],
-      "story": {
-        "color": "#a36852",
-        "introduction": "A personal life, written in public.",
-        "idea": "Jamie started blogging when writing on the web was becoming a common way to share ideas. He discovered that he enjoyed writing in public: telling stories about his experiences and sharing the projects he was working on. That enjoyment became a habit that continues today.\n\nWith roughly 10,000 posts across more than 20 years, the blog is a long-running record of one person’s life. It is personal and noncommercial, bringing together everyday experiences, photographs, and things Jamie builds.\n\nThe blog has moved from .Text, a Windows .NET blogging package, through WordPress to Micro.blog. Its writing has expanded from mainly longer articles to include shorter updates and, increasingly, photographs as mobile publishing made sharing them easier. It is a foundation for the wider collection, and its posts are syndicated in Weekly Thing.",
-        "engineering": [
-          "The publishing platform has evolved from .Text to WordPress and now Micro.blog.",
-          "Micro.blog is the current publishing authority; Thing Hugo provides its public theme.",
-          "Longer writing, shorter updates, and photographs share one personal archive.",
-          "Weekly Thing republishes blog posts as part of the newsletter."
-        ],
-        "stack": ["Micro.blog", "Hugo", "Open web"],
-        "source": "https://www.thingelstad.com/",
-        "sourceLabel": "Read the blog",
-        "related": [],
-        "questions": ["How has the blog changed over time?", "How does the blog connect to Weekly Thing?"],
-        "started": "More than 20 years of personal publishing"
-      }
-    },
-    {
-      "id": "weekly-thing",
-      "title": "Weekly Thing",
-      "summary": "A weekly collection of links and ideas.",
-      "collection": "Publishing",
-      "url": "https://weekly.thingelstad.com/",
-      "historical": false,
-      "story": {
-        "color": "#eaa18f",
-        "introduction": "Curiosity, collected and shared.",
-        "idea": "A weekly collection of interesting links, ideas, and observations from across the internet. Its publishing tools grew alongside the newsletter, from a Shortcuts workflow into a dedicated authoring application.",
-        "engineering": [
-          "WT Builder keeps an issue structured until it is sent, then renders different editions for the website, email, and audio.",
-          "The public archive is an Eleventy site. Librarian builds the searchable archive that Thingy answers from.",
-          "Authoring, public publishing, and archive retrieval have explicit ownership boundaries."
-        ],
-        "stack": ["Eleventy", "Publishing", "Email", "Audio"],
-        "source": "https://weekly.thingelstad.com/",
-        "sourceLabel": "Read the archive",
-        "related": ["wt-builder", "librarian", "thingy", "another-thing"],
-        "started": "Published since 2017",
-        "questions": ["What is behind the publishing workflow?", "How do Weekly Thing and Thingy connect?"]
-      },
-      "sources": [
-        { "sourceId": "github-weekly-thingelstad-com", "role": "implementation" },
-        { "sourceId": "website-weekly-thing", "role": "website" }
-      ]
-    },
-    {
-      "id": "another-thing",
-      "title": "Another Thing",
-      "summary": "Podcast",
-      "collection": "Publishing",
-      "url": "https://another.thingelstad.com/",
-      "historical": false,
-      "sources": [
-        { "sourceId": "github-another-thingelstad-com", "role": "implementation" },
-        { "sourceId": "website-another-thing", "role": "website" }
-      ]
-    },
-    {
-      "id": "thingy",
-      "title": "Thingy",
-      "summary": "Archive chat and discovery",
-      "collection": "Publishing",
-      "url": "https://thingy.thingelstad.com/",
-      "historical": false,
-      "sources": [
-        { "sourceId": "github-thingy-thingelstad-com", "role": "implementation" },
-        { "sourceId": "website-thingy", "role": "website" }
-      ]
-    },
-    {
-      "id": "librarian",
-      "title": "Librarian",
-      "summary": "Archive retrieval API and MCP server",
-      "collection": "Publishing",
-      "url": "https://librarian.thingelstad.com/mcp",
-      "historical": false,
-      "sources": [
-        { "sourceId": "github-librarian-thing", "role": "implementation" },
-        { "sourceId": "website-librarian", "role": "website" }
-      ]
-    },
-    {
-      "id": "wt-builder",
-      "title": "WT Builder",
-      "summary": "Newsletter and podcast authoring application",
-      "collection": "Publishing",
-      "url": null,
-      "historical": false,
-      "sources": [{ "sourceId": "github-wt-builder", "role": "implementation" }]
-    },
-    {
-      "id": "thing-hugo",
-      "title": "Thing Hugo",
-      "summary": "Public blog theme",
-      "collection": "Publishing",
-      "url": "https://github.com/jthingelstad/thing-hugo",
-      "historical": false,
-      "sources": [{ "sourceId": "github-thing-hugo", "role": "implementation" }]
+      "id": "612-poap-challenge",
+      "title": "612 POAP Challenge",
+      "summary": "Existing blog portfolio entry",
+      "collection": "Historical projects",
+      "url": "https://612.poapchallenge.com/",
+      "historical": true,
+      "sources": [{ "sourceId": "website-612-poapchallenge-com", "role": "reference" }]
     },
     {
       "id": "another-thing-builder",
@@ -122,98 +20,25 @@
       "sources": [{ "sourceId": "github-at-builder", "role": "implementation" }]
     },
     {
-      "id": "elixir",
-      "title": "Elixir",
-      "summary": "Clash Royale history, recorded.",
-      "collection": "Games and communities",
-      "url": "https://elixir.poapkings.com/",
+      "id": "another-thing",
+      "title": "Another Thing",
+      "summary": "Podcast",
+      "collection": "Publishing",
+      "url": "https://another.thingelstad.com/",
       "historical": false,
-      "story": {
-        "color": "#8860d9",
-        "introduction": "The game remembers the present. Elixir remembers what happened.",
-        "idea": "The Clash Royale API offers a current snapshot and a short, rotating battle log. Elixir continuously records observations so players, clans, and their agents can ask questions about the history.",
-        "engineering": [
-          "Independent collectors fetch public game observations from machines with allowlisted IP addresses.",
-          "One recorded history serves the browser application, a remote MCP server, and a versioned JSON API.",
-          "Clan management and Ladder are features of the same platform, sharing its record and application shell."
-        ],
-        "stack": ["React", "TypeScript", "PostgreSQL", "AWS", "MCP"],
-        "source": "https://elixir.poapkings.com/docs",
-        "sourceLabel": "Documentation",
-        "related": ["elixir-drop", "elixir-mcp-discord", "elixir-mcp-collector", "poap-kings"],
-        "questions": ["How does Elixir keep the history?", "What grew out of Elixir Bot?"]
-      },
       "sources": [
-        { "sourceId": "github-elixir-mcp", "role": "implementation" },
-        { "sourceId": "website-elixir", "role": "website" }
+        { "sourceId": "github-another-thingelstad-com", "role": "implementation" },
+        { "sourceId": "website-another-thingelstad-com", "role": "website" }
       ]
     },
     {
-      "id": "elixir-ladder",
-      "title": "Elixir Ladder",
-      "summary": "Ladder feature within Elixir",
-      "collection": "Games and communities",
-      "url": "https://elixir.poapkings.com/",
-      "historical": false,
-      "sources": [
-        { "sourceId": "github-elixir-mcp", "role": "implementation" },
-        { "sourceId": "website-elixir", "role": "website" }
-      ]
-    },
-    {
-      "id": "elixir-clan",
-      "title": "Elixir Clan",
-      "summary": "Clan management feature within Elixir",
-      "collection": "Games and communities",
-      "url": "https://elixir.poapkings.com/clan",
-      "historical": false,
-      "sources": [
-        { "sourceId": "github-elixir-mcp", "role": "implementation", "path": "packages/clan" },
-        { "sourceId": "website-elixir-clan", "role": "website" },
-        { "sourceId": "github-clan-poapkings-com", "role": "historical" }
-      ]
-    },
-    {
-      "id": "elixir-drop",
-      "title": "Elixir Drop",
-      "summary": "Card recognition and elixir cost training game",
-      "collection": "Games and communities",
-      "url": "https://drop.poapkings.com/",
-      "historical": false,
-      "sources": [
-        { "sourceId": "github-drop-poapkings-com", "role": "implementation" },
-        { "sourceId": "website-elixir-drop", "role": "website" }
-      ]
-    },
-    {
-      "id": "poap-kings",
-      "title": "POAP KINGS",
-      "summary": "Clash Royale clan website",
-      "collection": "Games and communities",
-      "url": "https://poapkings.com/",
-      "historical": false,
-      "sources": [
-        { "sourceId": "github-poapkings-com", "role": "implementation" },
-        { "sourceId": "website-poap-kings", "role": "website" }
-      ]
-    },
-    {
-      "id": "elixir-mcp-discord",
-      "title": "Elixir MCP Discord",
-      "summary": "Configurable Discord agent for clans",
-      "collection": "Games and communities",
-      "url": "https://github.com/jthingelstad/elixir-mcp-discord",
-      "historical": false,
-      "sources": [{ "sourceId": "github-elixir-mcp-discord", "role": "implementation" }]
-    },
-    {
-      "id": "elixir-mcp-collector",
-      "title": "Elixir MCP Collector",
-      "summary": "Volunteer fetch worker",
-      "collection": "Games and communities",
-      "url": "https://github.com/jthingelstad/elixir-mcp-collector",
-      "historical": false,
-      "sources": [{ "sourceId": "github-elixir-mcp-collector", "role": "implementation" }]
+      "id": "charlie-brown-tree",
+      "title": "Charlie Brown Tree",
+      "summary": "Existing blog portfolio entry",
+      "collection": "Historical projects",
+      "url": "https://www.thingelstad.com/magic-pines/charlie-brown-tree/",
+      "historical": true,
+      "sources": [{ "sourceId": "website-www-thingelstad-com-magic-pines-charlie-brown-tree", "role": "reference" }]
     },
     {
       "id": "clash-royale-api-agent-reference",
@@ -234,41 +59,86 @@
       "sources": [{ "sourceId": "github-elixir-bot", "role": "implementation" }]
     },
     {
-      "id": "r-w-book-club",
-      "title": "R/W Book Club",
-      "summary": "A shared archive of the Read / Write Book Club’s reading.",
+      "id": "elixir-clan",
+      "title": "Elixir Clan",
+      "summary": "Clan management feature within Elixir",
       "collection": "Games and communities",
-      "url": "https://rwbookclub.com/",
+      "url": "https://elixir.poapkings.com/clan",
       "historical": false,
       "sources": [
-        { "sourceId": "github-rwbookclub-com", "role": "implementation" },
-        { "sourceId": "website-r-w-book-club", "role": "website" }
-      ],
-      "story": {
-        "color": "#507b68",
-        "introduction": "A long-running reading group, with a shared record.",
-        "idea": "R/W stands for Read / Write Book Club. The club was started by Jamie’s professor, Dr. John Riedl; Jamie joined when the group was replacing a member. Jamie built the website, not the club.\n\nThe members have been meeting for many years, reading mostly nonfiction across a variety of subjects. The website documents the books they have read and provides a shared place for members’ commentary.\n\nThe group’s reading record has taken several forms, including a MediaWiki site and an Airtable database used across the club. The current website makes that history accessible to both people and agents: LLM context files provide an easily parsed reading record, and an iCal feed puts meetings on members’ calendars. The website shares an interest in reading with Jamie’s Reading Things newsletter.",
-        "engineering": [
-          "The website presents the club’s reading history and members’ commentary.",
-          "Public llms.txt and llms-full.txt files make the reading record accessible to agents for analysis.",
-          "An iCal feed lets members subscribe to the meeting calendar.",
-          "Earlier approaches included MediaWiki and a shared Airtable database."
-        ],
-        "stack": ["Static web", "LLM context files", "iCalendar"],
-        "source": "https://rwbookclub.com/llms.txt",
-        "sourceLabel": "Reading history for agents",
-        "related": [],
-        "questions": ["How can an agent explore the club’s reading history?", "How has the book club website evolved?"]
-      }
+        { "sourceId": "github-elixir-mcp", "role": "implementation", "path": "packages/clan" },
+        { "sourceId": "website-elixir-poapkings-com-clan", "role": "website" },
+        { "sourceId": "github-clan-poapkings-com", "role": "historical" }
+      ]
     },
     {
-      "id": "oliver",
-      "title": "Oliver",
-      "summary": "Book club agent and member application",
+      "id": "elixir-drop",
+      "title": "Elixir Drop",
+      "summary": "Card recognition and elixir cost training game",
       "collection": "Games and communities",
-      "url": null,
+      "url": "https://drop.poapkings.com/",
       "historical": false,
-      "sources": [{ "sourceId": "github-rwbookclub-com", "role": "implementation", "path": "agent" }]
+      "sources": [
+        { "sourceId": "github-drop-poapkings-com", "role": "implementation" },
+        { "sourceId": "website-drop-poapkings-com", "role": "website" }
+      ]
+    },
+    {
+      "id": "elixir-ladder",
+      "title": "Elixir Ladder",
+      "summary": "Ladder feature within Elixir",
+      "collection": "Games and communities",
+      "url": "https://elixir.poapkings.com/",
+      "historical": false,
+      "sources": [
+        { "sourceId": "github-elixir-mcp", "role": "implementation" },
+        { "sourceId": "website-elixir-poapkings-com", "role": "website" }
+      ]
+    },
+    {
+      "id": "elixir-mcp-collector",
+      "title": "Elixir MCP Collector",
+      "summary": "Volunteer fetch worker",
+      "collection": "Games and communities",
+      "url": "https://github.com/jthingelstad/elixir-mcp-collector",
+      "historical": false,
+      "sources": [{ "sourceId": "github-elixir-mcp-collector", "role": "implementation" }]
+    },
+    {
+      "id": "elixir-mcp-discord",
+      "title": "Elixir MCP Discord",
+      "summary": "Configurable Discord agent for clans",
+      "collection": "Games and communities",
+      "url": "https://github.com/jthingelstad/elixir-mcp-discord",
+      "historical": false,
+      "sources": [{ "sourceId": "github-elixir-mcp-discord", "role": "implementation" }]
+    },
+    {
+      "id": "elixir",
+      "title": "Elixir",
+      "summary": "Clash Royale history, recorded.",
+      "collection": "Games and communities",
+      "url": "https://elixir.poapkings.com/",
+      "historical": false,
+      "story": {
+        "color": "#8860d9",
+        "introduction": "The game remembers the present. Elixir remembers what happened.",
+        "engineering": [
+          "Independent collectors fetch public game observations from machines with allowlisted IP addresses.",
+          "One recorded history serves the browser application, a remote MCP server, and a versioned JSON API.",
+          "Clan management and Ladder are features of the same platform, sharing its record and application shell."
+        ],
+        "stack": ["React", "TypeScript", "PostgreSQL", "AWS", "MCP"],
+        "related": ["elixir-drop", "elixir-mcp-discord", "elixir-mcp-collector", "poap-kings"],
+        "questions": ["How does Elixir keep the history?", "What grew out of Elixir Bot?"],
+        "source": "https://elixir.poapkings.com/docs",
+        "sourceLabel": "Documentation",
+        "idea": "The Clash Royale API offers a current snapshot and a short, rotating battle log. Elixir continuously records observations so players, clans, and their agents can ask questions about the history."
+      },
+      "sources": [
+        { "sourceId": "github-elixir-mcp", "role": "implementation" },
+        { "sourceId": "website-elixir-poapkings-com", "role": "website" }
+      ]
     },
     {
       "id": "escaping-things",
@@ -279,265 +149,8 @@
       "historical": false,
       "sources": [
         { "sourceId": "github-escape-thingelstad-com", "role": "implementation" },
-        { "sourceId": "website-escaping-things", "role": "website" }
+        { "sourceId": "website-escape-thingelstad-com", "role": "website" }
       ]
-    },
-    {
-      "id": "planet-kubb-score",
-      "title": "Planet Kubb Score",
-      "summary": "Kubb notation, grammar, scoresheets and calculator",
-      "collection": "Games and communities",
-      "url": null,
-      "historical": false,
-      "sources": []
-    },
-    {
-      "id": "your-version-number",
-      "title": "Your Version Number",
-      "summary": "Life, versioned.",
-      "collection": "Personal tools and making",
-      "url": "https://yourversionnumber.com/",
-      "historical": false,
-      "story": {
-        "color": "#1763ff",
-        "introduction": "A different way to count the days.",
-        "idea": "Write a birthday the way you would version a piece of software: decades, years into the decade, and days since the last birthday. The same idea has a Work Edition for career milestones.",
-        "engineering": [
-          "A framework-free static site calculates its numbers in the browser.",
-          "Dates, people, themes, and signed cards travel in the URL, making a view shareable without an account.",
-          "The related Release Notes product adds daily email and a personal journal. It has its own server and storage."
-        ],
-        "stack": ["JavaScript", "CSS", "Static web", "URL state"],
-        "source": "https://github.com/jthingelstad/yourversionnumber.com",
-        "related": ["release-notes", "mb"],
-        "started": "The idea began in 2018",
-        "questions": ["How does the version number work?", "How is Release Notes related?"]
-      },
-      "sources": [
-        { "sourceId": "github-yourversionnumber-com", "role": "implementation" },
-        { "sourceId": "website-your-version-number", "role": "website" }
-      ]
-    },
-    {
-      "id": "release-notes",
-      "title": "Release Notes",
-      "summary": "Daily version-number email and personal journal",
-      "collection": "Personal tools and making",
-      "url": "https://notes.yourversionnumber.com/",
-      "historical": false,
-      "sources": [
-        { "sourceId": "github-yvn-release-notes", "role": "implementation" },
-        { "sourceId": "website-release-notes", "role": "website" }
-      ]
-    },
-    {
-      "id": "things-4-good",
-      "title": "Things 4 Good",
-      "summary": "Handmade candles. Family fundraising.",
-      "collection": "Personal tools and making",
-      "url": "https://things4good.xyz/",
-      "historical": false,
-      "story": {
-        "color": "#dda73f",
-        "introduction": "Build something small. Do some good.",
-        "idea": "The Thingelstad family’s annual handmade-candle fundraiser supports nonprofits chosen by the family. Its website brings together the sale, Maker Night, the organizations supported, and the impact over time.",
-        "engineering": [
-          "One event dataset records each sale and its allocations to supported organizations.",
-          "Totals, charts, and other impact figures are calculated from that shared dataset.",
-          "An Eleventy build delivers a static site, with small interactive enhancements for exploration."
-        ],
-        "stack": ["Eleventy", "JavaScript", "Data-driven content"],
-        "related": ["wicky-thing-candles", "things-4-good-fall-fundraiser"],
-        "questions": ["How is the fundraiser’s impact calculated?", "Show me other community projects."]
-      },
-      "sources": [
-        { "sourceId": "github-things4good-xyz", "role": "implementation" },
-        { "sourceId": "website-things-4-good", "role": "website" }
-      ]
-    },
-    {
-      "id": "mb",
-      "title": "mb",
-      "summary": "Micro.blog from the command line.",
-      "collection": "Developer tools and systems",
-      "url": "https://github.com/jthingelstad/mb",
-      "historical": false,
-      "story": {
-        "color": "#24272d",
-        "introduction": "An open-web tool built for people, scripts, and agents.",
-        "idea": "Give Micro.blog a compact, pipeable command-line interface that works without interactive prompts. The same services can be exposed to an AI client through a local MCP server.",
-        "engineering": [
-          "The CLI and MCP tools share the same service layer.",
-          "Write operations return durable receipts so an uncertain result can be checked before a request is sent again.",
-          "An optional MCP server exposes 23 typed tools. Homebrew provides a distribution path."
-        ],
-        "stack": ["Python", "CLI", "MCP", "Micro.blog"],
-        "source": "https://github.com/jthingelstad/mb",
-        "related": ["mb-audit", "homebrew-mb-tap", "weekly-thing"],
-        "questions": ["How does mb work with AI agents?", "What is interesting about its write receipts?"]
-      },
-      "sources": [{ "sourceId": "github-mb", "role": "implementation" }]
-    },
-    {
-      "id": "mb-audit",
-      "title": "mb-audit",
-      "summary": "Audit a live Micro.blog site against backups",
-      "collection": "Developer tools and systems",
-      "url": "https://github.com/jthingelstad/mb-audit",
-      "historical": false,
-      "sources": [{ "sourceId": "github-mb-audit", "role": "implementation" }]
-    },
-    {
-      "id": "homebrew-mb-tap",
-      "title": "Homebrew mb tap",
-      "summary": "Homebrew distribution for mb",
-      "collection": "Developer tools and systems",
-      "url": "https://github.com/jthingelstad/homebrew-tap",
-      "historical": false,
-      "sources": [{ "sourceId": "github-homebrew-tap", "role": "implementation" }]
-    },
-    {
-      "id": "projects-systems-administration",
-      "title": "Projects Systems Administration",
-      "summary": "Host backups, recovery and infrastructure tooling",
-      "collection": "Developer tools and systems",
-      "url": null,
-      "historical": false,
-      "sources": []
-    },
-    {
-      "id": "otto",
-      "title": "Otto",
-      "summary": "Personal OpenClaw agent workspace",
-      "collection": "Developer tools and systems",
-      "url": null,
-      "historical": false,
-      "sources": []
-    },
-    {
-      "id": "open-loop",
-      "title": "Open Loop",
-      "summary": "Podcast and transcript restoration project",
-      "collection": "Historical projects",
-      "url": "https://www.thingelstad.com/projects/open-loop/",
-      "historical": true,
-      "sources": [{ "sourceId": "website-open-loop", "role": "reference" }]
-    },
-    {
-      "id": "road-sign-math",
-      "title": "Road Sign Math",
-      "summary": "Find an equation hiding in plain sight.",
-      "collection": "Historical projects",
-      "url": "https://www.thingelstad.com/projects/road-sign-math/",
-      "historical": true,
-      "story": {
-        "color": "#287454",
-        "introduction": "A little mathematics. A lot of looking around.",
-        "idea": "A driving game with a simple invitation: find a road sign whose numbers make a valid equation, photograph it, and share the discovery. The historical project now has a locally recovered archive of signs and images.",
-        "engineering": [
-          "Historical wiki content is recovered into structured Markdown, with numbers, equations, places, and photo provenance.",
-          "The recovered collection includes 251 signs, alongside the original rules and other project pages.",
-          "Recovered images distinguish camera originals, archived originals, poster crops, and missing photos."
-        ],
-        "stack": ["Python", "Markdown", "Archives", "Mathematics"],
-        "related": ["planet-kubb-score", "planet-kubb", "open-loop"],
-        "started": "A project from 2005–2014",
-        "questions": ["How was Road Sign Math recovered?", "Show me other earlier experiments."]
-      },
-      "sources": [{ "sourceId": "website-road-sign-math", "role": "reference" }]
-    },
-    {
-      "id": "planet-kubb",
-      "title": "Planet Kubb",
-      "summary": "Original Kubb community site and wiki",
-      "collection": "Historical projects",
-      "url": "https://www.thingelstad.com/projects/planet-kubb/",
-      "historical": true,
-      "sources": [{ "sourceId": "website-planet-kubb", "role": "reference" }]
-    },
-    {
-      "id": "poap2rss",
-      "title": "POAP2RSS",
-      "summary": "Existing blog portfolio entry",
-      "collection": "Historical projects",
-      "url": "https://www.poap2rss.com/",
-      "historical": true,
-      "sources": [
-        { "sourceId": "github-poap2rss", "role": "implementation" },
-        { "sourceId": "website-poap2rss", "role": "reference" }
-      ]
-    },
-    {
-      "id": "612-poap-challenge",
-      "title": "612 POAP Challenge",
-      "summary": "Existing blog portfolio entry",
-      "collection": "Historical projects",
-      "url": "https://612.poapchallenge.com/",
-      "historical": true,
-      "sources": [{ "sourceId": "website-612-poap-challenge", "role": "reference" }]
-    },
-    {
-      "id": "charlie-brown-tree",
-      "title": "Charlie Brown Tree",
-      "summary": "Existing blog portfolio entry",
-      "collection": "Historical projects",
-      "url": "https://www.thingelstad.com/magic-pines/charlie-brown-tree/",
-      "historical": true,
-      "sources": [{ "sourceId": "website-charlie-brown-tree", "role": "reference" }]
-    },
-    {
-      "id": "wicky-thing-candles",
-      "title": "Wicky Thing Candles",
-      "summary": "Existing blog portfolio entry",
-      "collection": "Historical projects",
-      "url": "https://www.thingelstad.com/candles/",
-      "historical": true,
-      "sources": [{ "sourceId": "website-wicky-thing-candles", "role": "reference" }]
-    },
-    {
-      "id": "things-4-good-fall-fundraiser",
-      "title": "Things 4 Good Fall Fundraiser",
-      "summary": "Earlier fundraiser page",
-      "collection": "Historical projects",
-      "url": "https://www.thingelstad.com/projects/fall-fundraiser/",
-      "historical": true,
-      "sources": [{ "sourceId": "website-things-4-good-fall-fundraiser", "role": "reference" }]
-    },
-    {
-      "id": "wikiapiary",
-      "title": "WikiApiary",
-      "summary": "Existing portfolio entry with local archived material",
-      "collection": "Historical projects",
-      "url": "https://wikiapiary.com/wiki/Main_Page",
-      "historical": true,
-      "sources": [{ "sourceId": "website-wikiapiary", "role": "reference" }]
-    },
-    {
-      "id": "wikinosh",
-      "title": "Wikinosh",
-      "summary": "Existing blog portfolio entry",
-      "collection": "Historical projects",
-      "url": null,
-      "historical": true,
-      "sources": []
-    },
-    {
-      "id": "link-blog",
-      "title": "Link Blog",
-      "summary": "Existing blog portfolio entry",
-      "collection": "Historical projects",
-      "url": "https://www.thingelstad.com/projects/link-blog/",
-      "historical": true,
-      "sources": [{ "sourceId": "website-link-blog", "role": "reference" }]
-    },
-    {
-      "id": "foreground",
-      "title": "Foreground",
-      "summary": "MediaWiki skin project",
-      "collection": "Historical projects",
-      "url": "https://github.com/jthingelstad/foreground",
-      "historical": true,
-      "sources": [{ "sourceId": "github-foreground", "role": "implementation" }]
     },
     {
       "id": "filament",
@@ -549,67 +162,116 @@
       "sources": [{ "sourceId": "github-filament", "role": "implementation" }]
     },
     {
-      "id": "parseurl",
-      "title": "ParseURL",
-      "summary": "MediaWiki project",
-      "collection": "Historical projects",
-      "url": "https://github.com/jthingelstad/ParseURL",
-      "historical": true,
-      "sources": [{ "sourceId": "github-parseurl", "role": "implementation" }]
+      "id": "flight-path",
+      "title": "Flight Path",
+      "summary": "An extension of the POAP Airport Rally, built entirely on an iPhone with Claude Code.",
+      "collection": "Games and communities",
+      "url": "https://flightpath.poaprally.com/",
+      "historical": false,
+      "sources": [
+        { "sourceId": "website-flightpath-poaprally-com", "role": "website" },
+        { "sourceId": "website-www-thingelstad-com-2026-02-25-it-is-bonkers-to-me-html", "role": "reference" }
+      ]
     },
     {
-      "id": "numbers2words",
-      "title": "Numbers2Words",
-      "summary": "MediaWiki project",
+      "id": "foreground",
+      "title": "Foreground",
+      "summary": "MediaWiki skin project",
       "collection": "Historical projects",
-      "url": "https://github.com/jthingelstad/Number2Words",
+      "url": "https://github.com/jthingelstad/foreground",
       "historical": true,
-      "sources": [{ "sourceId": "github-number2words", "role": "implementation" }]
+      "sources": [{ "sourceId": "github-foreground", "role": "implementation" }]
     },
     {
-      "id": "q2a-number-captcha",
-      "title": "q2a-number-captcha",
-      "summary": "Existing code project",
-      "collection": "Historical projects",
-      "url": "https://github.com/jthingelstad/q2a-number-captcha",
-      "historical": true,
-      "sources": [{ "sourceId": "github-q2a-number-captcha", "role": "implementation" }]
+      "id": "homebrew-mb-tap",
+      "title": "Homebrew mb tap",
+      "summary": "Homebrew distribution for mb",
+      "collection": "Developer tools and systems",
+      "url": "https://github.com/jthingelstad/homebrew-tap",
+      "historical": false,
+      "sources": [{ "sourceId": "github-homebrew-tap", "role": "implementation" }]
     },
     {
-      "id": "wikiwonders",
-      "title": "WikiWonders",
-      "summary": "Archived project material",
-      "collection": "Historical projects",
-      "url": null,
-      "historical": true,
-      "sources": []
+      "id": "jamie-thingelstad-blog",
+      "title": "Jamie Thingelstad blog",
+      "summary": "More than 20 years of personal writing on the web.",
+      "collection": "Publishing",
+      "url": "https://www.thingelstad.com/",
+      "historical": false,
+      "story": {
+        "color": "#a36852",
+        "introduction": "A personal life, written in public.",
+        "engineering": [
+          "The publishing platform has evolved from .Text to WordPress and now Micro.blog.",
+          "Micro.blog is the current publishing authority; Thing Hugo provides its public theme.",
+          "Longer writing, shorter updates, and photographs share one personal archive.",
+          "Weekly Thing republishes blog posts as part of the newsletter."
+        ],
+        "stack": ["Micro.blog", "Hugo", "Open web"],
+        "related": [],
+        "questions": ["How has the blog changed over time?", "How does the blog connect to Weekly Thing?"],
+        "source": "https://www.thingelstad.com/",
+        "sourceLabel": "Read the blog",
+        "started": "More than 20 years of personal publishing",
+        "idea": "Jamie started blogging when writing on the web was becoming a common way to share ideas. He discovered that he enjoyed writing in public: telling stories about his experiences and sharing the projects he was working on. That enjoyment became a habit that continues today.\n\nWith roughly 10,000 posts across more than 20 years, the blog is a long-running record of one person’s life. It is personal and noncommercial, bringing together everyday experiences, photographs, and things Jamie builds.\n\nThe blog has moved from .Text, a Windows .NET blogging package, through WordPress to Micro.blog. Its writing has expanded from mainly longer articles to include shorter updates and, increasingly, photographs as mobile publishing made sharing them easier. It is a foundation for the wider collection, and its posts are syndicated in Weekly Thing."
+      },
+      "sources": [
+        { "sourceId": "website-www-thingelstad-com", "role": "website" },
+        { "sourceId": "github-thing-hugo", "role": "theme" }
+      ]
     },
     {
-      "id": "velotweets",
-      "title": "Velotweets",
-      "summary": "Archived Rails source project",
-      "collection": "Historical projects",
-      "url": null,
-      "historical": true,
-      "sources": []
+      "id": "librarian",
+      "title": "Librarian",
+      "summary": "Archive retrieval API and MCP server",
+      "collection": "Publishing",
+      "url": "https://librarian.thingelstad.com/mcp",
+      "historical": false,
+      "sources": [
+        { "sourceId": "github-librarian-thing", "role": "implementation" },
+        { "sourceId": "website-librarian-thingelstad-com-mcp", "role": "website" }
+      ]
     },
     {
-      "id": "smaller-than-a-redwood",
-      "title": "Smaller Than a Redwood",
-      "summary": "Archived publication",
+      "id": "link-blog",
+      "title": "Link Blog",
+      "summary": "Existing blog portfolio entry",
       "collection": "Historical projects",
-      "url": null,
+      "url": "https://www.thingelstad.com/projects/link-blog/",
       "historical": true,
-      "sources": []
+      "sources": [{ "sourceId": "website-www-thingelstad-com-projects-link-blog", "role": "reference" }]
     },
     {
-      "id": "thinglesbot",
-      "title": "Thinglesbot",
-      "summary": "Archived publication",
-      "collection": "Historical projects",
-      "url": null,
-      "historical": true,
-      "sources": []
+      "id": "mb-audit",
+      "title": "mb-audit",
+      "summary": "Audit a live Micro.blog site against backups",
+      "collection": "Developer tools and systems",
+      "url": "https://github.com/jthingelstad/mb-audit",
+      "historical": false,
+      "sources": [{ "sourceId": "github-mb-audit", "role": "implementation" }]
+    },
+    {
+      "id": "mb",
+      "title": "mb",
+      "summary": "Micro.blog from the command line.",
+      "collection": "Developer tools and systems",
+      "url": "https://github.com/jthingelstad/mb",
+      "historical": false,
+      "story": {
+        "color": "#24272d",
+        "introduction": "An open-web tool built for people, scripts, and agents.",
+        "engineering": [
+          "The CLI and MCP tools share the same service layer.",
+          "Write operations return durable receipts so an uncertain result can be checked before a request is sent again.",
+          "An optional MCP server exposes 23 typed tools. Homebrew provides a distribution path."
+        ],
+        "stack": ["Python", "CLI", "MCP", "Micro.blog"],
+        "related": ["mb-audit", "homebrew-mb-tap", "weekly-thing"],
+        "questions": ["How does mb work with AI agents?", "What is interesting about its write receipts?"],
+        "source": "https://github.com/jthingelstad/mb",
+        "idea": "Give Micro.blog a compact, pipeable command-line interface that works without interactive prompts. The same services can be exposed to an AI client through a local MCP server."
+      },
+      "sources": [{ "sourceId": "github-mb", "role": "implementation" }]
     },
     {
       "id": "nnxyz",
@@ -621,20 +283,162 @@
       "story": {
         "color": "#8062a8",
         "introduction": "Collected art, with room to look closely.",
-        "idea": "An online gallery of collected nnxyz and scrimshaw artwork, with native SVG viewing, brush-stroke playback, saved curatorial readings, and paths through the collection.",
         "engineering": [
           "Static artwork pages are built from a structured collection catalog.",
           "Native SVG and archived stroke data let visitors inspect and replay how a drawing was made.",
           "Saved curatorial readings and related works support exploration without a live model call."
         ],
         "stack": ["Astro", "TypeScript", "SVG", "AWS"],
-        "source": "https://github.com/jthingelstad/nnxyz",
         "related": [],
-        "questions": ["How does the gallery replay a drawing?", "Show me other archive projects."]
+        "questions": ["How does the gallery replay a drawing?", "Show me other archive projects."],
+        "source": "https://github.com/jthingelstad/nnxyz",
+        "idea": "An online gallery of collected nnxyz and scrimshaw artwork, with native SVG viewing, brush-stroke playback, saved curatorial readings, and paths through the collection."
       },
       "sources": [
         { "sourceId": "github-nnxyz", "role": "implementation" },
-        { "sourceId": "website-nnxyz", "role": "website" }
+        { "sourceId": "website-nnxyz-thingelstad-xyz", "role": "website" }
+      ]
+    },
+    {
+      "id": "numbers2words",
+      "title": "Numbers2Words",
+      "summary": "MediaWiki project",
+      "collection": "Historical projects",
+      "url": "https://github.com/jthingelstad/Number2Words",
+      "historical": true,
+      "sources": [{ "sourceId": "github-number2words", "role": "implementation" }]
+    },
+    {
+      "id": "oliver",
+      "title": "Oliver",
+      "summary": "Book club agent and member application",
+      "collection": "Games and communities",
+      "url": null,
+      "historical": false,
+      "sources": [{ "sourceId": "github-rwbookclub-com", "role": "implementation", "path": "agent" }]
+    },
+    {
+      "id": "open-loop",
+      "title": "Open Loop",
+      "summary": "Podcast and transcript restoration project",
+      "collection": "Historical projects",
+      "url": "https://www.thingelstad.com/projects/open-loop/",
+      "historical": true,
+      "sources": [{ "sourceId": "website-www-thingelstad-com-projects-open-loop", "role": "reference" }]
+    },
+    {
+      "id": "otto",
+      "title": "Otto",
+      "summary": "Personal OpenClaw agent workspace",
+      "collection": "Developer tools and systems",
+      "url": null,
+      "historical": false,
+      "sources": []
+    },
+    {
+      "id": "parseurl",
+      "title": "ParseURL",
+      "summary": "MediaWiki project",
+      "collection": "Historical projects",
+      "url": "https://github.com/jthingelstad/ParseURL",
+      "historical": true,
+      "sources": [{ "sourceId": "github-parseurl", "role": "implementation" }]
+    },
+    {
+      "id": "planet-kubb-score",
+      "title": "Planet Kubb Score",
+      "summary": "Kubb notation, grammar, scoresheets and calculator",
+      "collection": "Games and communities",
+      "url": null,
+      "historical": false,
+      "sources": []
+    },
+    {
+      "id": "planet-kubb",
+      "title": "Planet Kubb",
+      "summary": "Original Kubb community site and wiki",
+      "collection": "Historical projects",
+      "url": "https://www.thingelstad.com/projects/planet-kubb/",
+      "historical": true,
+      "sources": [{ "sourceId": "website-www-thingelstad-com-projects-planet-kubb", "role": "reference" }]
+    },
+    {
+      "id": "poap-kings",
+      "title": "POAP KINGS",
+      "summary": "Clash Royale clan website",
+      "collection": "Games and communities",
+      "url": "https://poapkings.com/",
+      "historical": false,
+      "sources": [
+        { "sourceId": "github-poapkings-com", "role": "implementation" },
+        { "sourceId": "website-poapkings-com", "role": "website" }
+      ]
+    },
+    {
+      "id": "poap2rss",
+      "title": "POAP2RSS",
+      "summary": "Existing blog portfolio entry",
+      "collection": "Historical projects",
+      "url": "https://www.poap2rss.com/",
+      "historical": true,
+      "sources": [
+        { "sourceId": "github-poap2rss", "role": "implementation" },
+        { "sourceId": "website-www-poap2rss-com", "role": "reference" }
+      ]
+    },
+    {
+      "id": "projects-systems-administration",
+      "title": "Projects Systems Administration",
+      "summary": "Host backups, recovery and infrastructure tooling",
+      "collection": "Developer tools and systems",
+      "url": null,
+      "historical": false,
+      "sources": []
+    },
+    {
+      "id": "proof-of-a-person",
+      "title": "Proof of a Person",
+      "summary": "A POAP project in progress. It will live at poap.thingelstad.xyz.",
+      "collection": "Games and communities",
+      "url": null,
+      "historical": false,
+      "sources": []
+    },
+    {
+      "id": "q2a-number-captcha",
+      "title": "q2a-number-captcha",
+      "summary": "Existing code project",
+      "collection": "Historical projects",
+      "url": "https://github.com/jthingelstad/q2a-number-captcha",
+      "historical": true,
+      "sources": [{ "sourceId": "github-q2a-number-captcha", "role": "implementation" }]
+    },
+    {
+      "id": "r-w-book-club",
+      "title": "R/W Book Club",
+      "summary": "A shared archive of the Read / Write Book Club’s reading.",
+      "collection": "Games and communities",
+      "url": "https://rwbookclub.com/",
+      "historical": false,
+      "story": {
+        "color": "#507b68",
+        "introduction": "A long-running reading group, with a shared record.",
+        "engineering": [
+          "The website presents the club’s reading history and members’ commentary.",
+          "Public llms.txt and llms-full.txt files make the reading record accessible to agents for analysis.",
+          "An iCal feed lets members subscribe to the meeting calendar.",
+          "Earlier approaches included MediaWiki and a shared Airtable database."
+        ],
+        "stack": ["Static web", "LLM context files", "iCalendar"],
+        "related": [],
+        "questions": ["How can an agent explore the club’s reading history?", "How has the book club website evolved?"],
+        "source": "https://rwbookclub.com/llms.txt",
+        "sourceLabel": "Reading history for agents",
+        "idea": "R/W stands for Read / Write Book Club. The club was started by Jamie’s professor, Dr. John Riedl; Jamie joined when the group was replacing a member. Jamie built the website, not the club.\n\nThe members have been meeting for many years, reading mostly nonfiction across a variety of subjects. The website documents the books they have read and provides a shared place for members’ commentary.\n\nThe group’s reading record has taken several forms, including a MediaWiki site and an Airtable database used across the club. The current website makes that history accessible to both people and agents: LLM context files provide an easily parsed reading record, and an iCal feed puts meetings on members’ calendars. The website shares an interest in reading with Jamie’s Reading Things newsletter."
+      },
+      "sources": [
+        { "sourceId": "github-rwbookclub-com", "role": "implementation" },
+        { "sourceId": "website-rwbookclub-com", "role": "website" }
       ]
     },
     {
@@ -645,98 +449,383 @@
       "url": null,
       "historical": true,
       "sources": []
+    },
+    {
+      "id": "release-notes",
+      "title": "Release Notes",
+      "summary": "Daily version-number email and personal journal",
+      "collection": "Personal tools and making",
+      "url": "https://notes.yourversionnumber.com/",
+      "historical": false,
+      "sources": [
+        { "sourceId": "github-yvn-release-notes", "role": "implementation" },
+        { "sourceId": "website-notes-yourversionnumber-com", "role": "website" }
+      ]
+    },
+    {
+      "id": "road-sign-math",
+      "title": "Road Sign Math",
+      "summary": "Find an equation hiding in plain sight.",
+      "collection": "Historical projects",
+      "url": "https://www.thingelstad.com/projects/road-sign-math/",
+      "historical": true,
+      "story": {
+        "color": "#287454",
+        "introduction": "A little mathematics. A lot of looking around.",
+        "engineering": [
+          "Historical wiki content is recovered into structured Markdown, with numbers, equations, places, and photo provenance.",
+          "The recovered collection includes 251 signs, alongside the original rules and other project pages.",
+          "Recovered images distinguish camera originals, archived originals, poster crops, and missing photos."
+        ],
+        "stack": ["Python", "Markdown", "Archives", "Mathematics"],
+        "related": ["planet-kubb-score", "planet-kubb", "open-loop"],
+        "questions": ["How was Road Sign Math recovered?", "Show me other earlier experiments."],
+        "started": "A project from 2005–2014",
+        "idea": "A driving game with a simple invitation: find a road sign whose numbers make a valid equation, photograph it, and share the discovery. The historical project now has a locally recovered archive of signs and images."
+      },
+      "sources": [{ "sourceId": "website-www-thingelstad-com-projects-road-sign-math", "role": "reference" }]
+    },
+    {
+      "id": "smaller-than-a-redwood",
+      "title": "Smaller Than a Redwood",
+      "summary": "Archived publication",
+      "collection": "Historical projects",
+      "url": null,
+      "historical": true,
+      "sources": []
+    },
+    {
+      "id": "thing-hugo",
+      "title": "Thing Hugo",
+      "summary": "Public blog theme",
+      "collection": "Publishing",
+      "url": "https://github.com/jthingelstad/thing-hugo",
+      "historical": false,
+      "sources": [{ "sourceId": "github-thing-hugo", "role": "implementation" }]
+    },
+    {
+      "id": "thinglesbot",
+      "title": "Thinglesbot",
+      "summary": "Archived publication",
+      "collection": "Historical projects",
+      "url": null,
+      "historical": true,
+      "sources": []
+    },
+    {
+      "id": "things-4-good-fall-fundraiser",
+      "title": "Things 4 Good Fall Fundraiser",
+      "summary": "Earlier fundraiser page",
+      "collection": "Historical projects",
+      "url": "https://www.thingelstad.com/projects/fall-fundraiser/",
+      "historical": true,
+      "sources": [{ "sourceId": "website-www-thingelstad-com-projects-fall-fundraiser", "role": "reference" }]
+    },
+    {
+      "id": "things-4-good",
+      "title": "Things 4 Good",
+      "summary": "Handmade candles. Family fundraising.",
+      "collection": "Personal tools and making",
+      "url": "https://things4good.xyz/",
+      "historical": false,
+      "story": {
+        "color": "#dda73f",
+        "introduction": "Build something small. Do some good.",
+        "engineering": [
+          "One event dataset records each sale and its allocations to supported organizations.",
+          "Totals, charts, and other impact figures are calculated from that shared dataset.",
+          "An Eleventy build delivers a static site, with small interactive enhancements for exploration."
+        ],
+        "stack": ["Eleventy", "JavaScript", "Data-driven content"],
+        "related": ["wicky-thing-candles", "things-4-good-fall-fundraiser"],
+        "questions": ["How is the fundraiser’s impact calculated?", "Show me other community projects."],
+        "idea": "The Thingelstad family’s annual handmade-candle fundraiser supports nonprofits chosen by the family. Its website brings together the sale, Maker Night, the organizations supported, and the impact over time."
+      },
+      "sources": [
+        { "sourceId": "github-things4good-xyz", "role": "implementation" },
+        { "sourceId": "website-things4good-xyz", "role": "website" }
+      ]
+    },
+    {
+      "id": "things-ive-built",
+      "title": "Things I’ve Built",
+      "summary": "An index and archive of Jamie’s projects, including the ones he has stepped away from.",
+      "collection": "Art & archives",
+      "url": "https://thingelstad.xyz/",
+      "historical": false,
+      "sources": [
+        { "sourceId": "github-thingelstad-xyz", "role": "implementation" },
+        { "sourceId": "website-thingelstad-xyz", "role": "website" }
+      ]
+    },
+    {
+      "id": "thingy",
+      "title": "Thingy",
+      "summary": "Archive chat and discovery",
+      "collection": "Publishing",
+      "url": "https://thingy.thingelstad.com/",
+      "historical": false,
+      "sources": [
+        { "sourceId": "github-thingy-thingelstad-com", "role": "implementation" },
+        { "sourceId": "website-thingy-thingelstad-com", "role": "website" }
+      ]
+    },
+    {
+      "id": "velotweets",
+      "title": "Velotweets",
+      "summary": "Archived Rails source project",
+      "collection": "Historical projects",
+      "url": null,
+      "historical": true,
+      "sources": []
+    },
+    {
+      "id": "weekly-thing",
+      "title": "Weekly Thing",
+      "summary": "A weekly collection of links and ideas.",
+      "collection": "Publishing",
+      "url": "https://weekly.thingelstad.com/",
+      "historical": false,
+      "story": {
+        "color": "#eaa18f",
+        "introduction": "Curiosity, collected and shared.",
+        "engineering": [
+          "WT Builder keeps an issue structured until it is sent, then renders different editions for the website, email, and audio.",
+          "The public archive is an Eleventy site. Librarian builds the searchable archive that Thingy answers from.",
+          "Authoring, public publishing, and archive retrieval have explicit ownership boundaries."
+        ],
+        "stack": ["Eleventy", "Publishing", "Email", "Audio"],
+        "related": ["wt-builder", "librarian", "thingy", "another-thing"],
+        "questions": ["What is behind the publishing workflow?", "How do Weekly Thing and Thingy connect?"],
+        "source": "https://weekly.thingelstad.com/",
+        "sourceLabel": "Read the archive",
+        "started": "Published since 2017",
+        "idea": "A weekly collection of interesting links, ideas, and observations from across the internet. Its publishing tools grew alongside the newsletter, from a Shortcuts workflow into a dedicated authoring application."
+      },
+      "sources": [
+        { "sourceId": "github-weekly-thingelstad-com", "role": "implementation" },
+        { "sourceId": "website-weekly-thingelstad-com", "role": "website" }
+      ]
+    },
+    {
+      "id": "wicky-thing-candles",
+      "title": "Wicky Thing Candles",
+      "summary": "Existing blog portfolio entry",
+      "collection": "Historical projects",
+      "url": "https://www.thingelstad.com/candles/",
+      "historical": true,
+      "sources": [{ "sourceId": "website-www-thingelstad-com-candles", "role": "reference" }]
+    },
+    {
+      "id": "wikiapiary",
+      "title": "WikiApiary",
+      "summary": "Existing portfolio entry with local archived material",
+      "collection": "Historical projects",
+      "url": "https://wikiapiary.com/wiki/Main_Page",
+      "historical": true,
+      "sources": [{ "sourceId": "website-wikiapiary-com-wiki-main-page", "role": "reference" }]
+    },
+    {
+      "id": "wikinosh",
+      "title": "Wikinosh",
+      "summary": "Existing blog portfolio entry",
+      "collection": "Historical projects",
+      "url": null,
+      "historical": true,
+      "sources": []
+    },
+    {
+      "id": "wikiwonders",
+      "title": "WikiWonders",
+      "summary": "Archived project material",
+      "collection": "Historical projects",
+      "url": null,
+      "historical": true,
+      "sources": []
+    },
+    {
+      "id": "wt-builder",
+      "title": "WT Builder",
+      "summary": "Newsletter and podcast authoring application",
+      "collection": "Publishing",
+      "url": null,
+      "historical": false,
+      "sources": [{ "sourceId": "github-wt-builder", "role": "implementation" }]
+    },
+    {
+      "id": "yearly-thing-2025",
+      "title": "Yearly Thing 2025",
+      "summary": "A book collecting a year of the Weekly Thing, subtitled Agents, Attention, Artifacts.",
+      "collection": "Publishing",
+      "url": "https://www.thingelstad.com/2026/01/20/i-made-a-book-yearly.html",
+      "historical": true,
+      "sources": [
+        { "sourceId": "website-www-thingelstad-com-2026-01-20-i-made-a-book-yearly-html", "role": "reference" }
+      ]
+    },
+    {
+      "id": "your-version-number",
+      "title": "Your Version Number",
+      "summary": "Life, versioned.",
+      "collection": "Personal tools and making",
+      "url": "https://yourversionnumber.com/",
+      "historical": false,
+      "story": {
+        "color": "#1763ff",
+        "introduction": "A different way to count the days.",
+        "engineering": [
+          "A framework-free static site calculates its numbers in the browser.",
+          "Dates, people, themes, and signed cards travel in the URL, making a view shareable without an account.",
+          "The related Release Notes product adds daily email and a personal journal. It has its own server and storage."
+        ],
+        "stack": ["JavaScript", "CSS", "Static web", "URL state"],
+        "related": ["release-notes", "mb"],
+        "questions": ["How does the version number work?", "How is Release Notes related?"],
+        "source": "https://github.com/jthingelstad/yourversionnumber.com",
+        "started": "The idea began in 2018",
+        "idea": "Write a birthday the way you would version a piece of software: decades, years into the decade, and days since the last birthday. The same idea has a Work Edition for career milestones."
+      },
+      "sources": [
+        { "sourceId": "github-yourversionnumber-com", "role": "implementation" },
+        { "sourceId": "website-yourversionnumber-com", "role": "website" }
+      ]
     }
   ],
   "sources": [
-    { "id": "github-weekly-thingelstad-com", "kind": "github", "repository": "jthingelstad/weekly.thingelstad.com" },
-    { "id": "github-another-thingelstad-com", "kind": "github", "repository": "jthingelstad/another.thingelstad.com" },
-    { "id": "github-thingy-thingelstad-com", "kind": "github", "repository": "jthingelstad/thingy.thingelstad.com" },
-    { "id": "github-librarian-thing", "kind": "github", "repository": "jthingelstad/librarian-thing" },
-    { "id": "github-wt-builder", "kind": "github", "repository": "jthingelstad/wt-builder" },
-    { "id": "github-thing-hugo", "kind": "github", "repository": "jthingelstad/thing-hugo" },
+    { "id": "website-612-poapchallenge-com", "kind": "website", "url": "https://612.poapchallenge.com/" },
     { "id": "github-at-builder", "kind": "github", "repository": "jthingelstad/at-builder" },
-    { "id": "github-elixir-mcp", "kind": "github", "repository": "jthingelstad/elixir-mcp" },
-    { "id": "github-drop-poapkings-com", "kind": "github", "repository": "jthingelstad/drop.poapkings.com" },
-    { "id": "github-poapkings-com", "kind": "github", "repository": "jthingelstad/poapkings.com" },
-    { "id": "github-elixir-mcp-discord", "kind": "github", "repository": "jthingelstad/elixir-mcp-discord" },
-    { "id": "github-elixir-mcp-collector", "kind": "github", "repository": "jthingelstad/elixir-mcp-collector" },
-    { "id": "github-cr-agent-api-docs", "kind": "github", "repository": "jthingelstad/cr-agent-api-docs" },
-    { "id": "github-elixir-bot", "kind": "github", "repository": "jthingelstad/elixir-bot" },
-    { "id": "github-rwbookclub-com", "kind": "github", "repository": "jthingelstad/rwbookclub.com" },
-    { "id": "github-escape-thingelstad-com", "kind": "github", "repository": "jthingelstad/escape.thingelstad.com" },
-    { "id": "github-yourversionnumber-com", "kind": "github", "repository": "jthingelstad/yourversionnumber.com" },
-    { "id": "github-yvn-release-notes", "kind": "github", "repository": "jthingelstad/yvn-release-notes" },
-    { "id": "github-things4good-xyz", "kind": "github", "repository": "jthingelstad/things4good.xyz" },
-    { "id": "github-mb", "kind": "github", "repository": "jthingelstad/mb" },
-    { "id": "github-mb-audit", "kind": "github", "repository": "jthingelstad/mb-audit" },
-    { "id": "github-homebrew-tap", "kind": "github", "repository": "jthingelstad/homebrew-tap" },
-    { "id": "github-poap2rss", "kind": "github", "repository": "jthingelstad/POAP2RSS" },
-    { "id": "github-foreground", "kind": "github", "repository": "jthingelstad/foreground" },
-    { "id": "github-filament", "kind": "github", "repository": "jthingelstad/filament" },
-    { "id": "github-parseurl", "kind": "github", "repository": "jthingelstad/ParseURL" },
-    { "id": "github-number2words", "kind": "github", "repository": "jthingelstad/Number2Words" },
-    { "id": "github-q2a-number-captcha", "kind": "github", "repository": "jthingelstad/q2a-number-captcha" },
-    { "id": "github-nnxyz", "kind": "github", "repository": "jthingelstad/nnxyz" },
-    { "id": "github-clan-poapkings-com", "kind": "github", "repository": "jthingelstad/clan.poapkings.com" },
-    { "id": "website-jamie-thingelstad-blog", "kind": "website", "url": "https://www.thingelstad.com/" },
-    { "id": "website-weekly-thing", "kind": "website", "url": "https://weekly.thingelstad.com/" },
-    { "id": "website-another-thing", "kind": "website", "url": "https://another.thingelstad.com/" },
-    { "id": "website-thingy", "kind": "website", "url": "https://thingy.thingelstad.com/" },
-    { "id": "website-librarian", "kind": "website", "url": "https://librarian.thingelstad.com/mcp" },
-    { "id": "website-elixir", "kind": "website", "url": "https://elixir.poapkings.com/" },
-    { "id": "website-elixir-clan", "kind": "website", "url": "https://elixir.poapkings.com/clan" },
-    { "id": "website-elixir-drop", "kind": "website", "url": "https://drop.poapkings.com/" },
-    { "id": "website-poap-kings", "kind": "website", "url": "https://poapkings.com/" },
-    { "id": "website-r-w-book-club", "kind": "website", "url": "https://rwbookclub.com/" },
-    { "id": "website-escaping-things", "kind": "website", "url": "https://escape.thingelstad.com/" },
-    { "id": "website-your-version-number", "kind": "website", "url": "https://yourversionnumber.com/" },
-    { "id": "website-release-notes", "kind": "website", "url": "https://notes.yourversionnumber.com/" },
-    { "id": "website-things-4-good", "kind": "website", "url": "https://things4good.xyz/" },
-    { "id": "website-open-loop", "kind": "website", "url": "https://www.thingelstad.com/projects/open-loop/" },
+    { "id": "github-another-thingelstad-com", "kind": "github", "repository": "jthingelstad/another.thingelstad.com" },
     {
-      "id": "website-road-sign-math",
+      "id": "website-another-thingelstad-com",
       "kind": "website",
-      "url": "https://www.thingelstad.com/projects/road-sign-math/"
+      "url": "https://another.thingelstad.com/",
+      "sitemap": "https://another.thingelstad.com/sitemap.xml"
     },
-    { "id": "website-planet-kubb", "kind": "website", "url": "https://www.thingelstad.com/projects/planet-kubb/" },
-    { "id": "website-poap2rss", "kind": "website", "url": "https://www.poap2rss.com/" },
-    { "id": "website-612-poap-challenge", "kind": "website", "url": "https://612.poapchallenge.com/" },
     {
-      "id": "website-charlie-brown-tree",
+      "id": "website-www-thingelstad-com-magic-pines-charlie-brown-tree",
       "kind": "website",
       "url": "https://www.thingelstad.com/magic-pines/charlie-brown-tree/"
     },
-    { "id": "website-wicky-thing-candles", "kind": "website", "url": "https://www.thingelstad.com/candles/" },
+    { "id": "github-cr-agent-api-docs", "kind": "github", "repository": "jthingelstad/cr-agent-api-docs" },
+    { "id": "github-elixir-bot", "kind": "github", "repository": "jthingelstad/elixir-bot" },
+    { "id": "github-elixir-mcp", "kind": "github", "repository": "jthingelstad/elixir-mcp" },
+    { "id": "website-elixir-poapkings-com-clan", "kind": "website", "url": "https://elixir.poapkings.com/clan" },
+    { "id": "github-clan-poapkings-com", "kind": "github", "repository": "jthingelstad/clan.poapkings.com" },
+    { "id": "github-drop-poapkings-com", "kind": "github", "repository": "jthingelstad/drop.poapkings.com" },
+    { "id": "website-drop-poapkings-com", "kind": "website", "url": "https://drop.poapkings.com/" },
+    { "id": "website-elixir-poapkings-com", "kind": "website", "url": "https://elixir.poapkings.com/" },
+    { "id": "github-elixir-mcp-collector", "kind": "github", "repository": "jthingelstad/elixir-mcp-collector" },
+    { "id": "github-elixir-mcp-discord", "kind": "github", "repository": "jthingelstad/elixir-mcp-discord" },
+    { "id": "github-escape-thingelstad-com", "kind": "github", "repository": "jthingelstad/escape.thingelstad.com" },
+    { "id": "website-escape-thingelstad-com", "kind": "website", "url": "https://escape.thingelstad.com/" },
+    { "id": "github-filament", "kind": "github", "repository": "jthingelstad/filament" },
+    { "id": "website-flightpath-poaprally-com", "kind": "website", "url": "https://flightpath.poaprally.com/" },
     {
-      "id": "website-things-4-good-fall-fundraiser",
+      "id": "website-www-thingelstad-com-2026-02-25-it-is-bonkers-to-me-html",
+      "kind": "website",
+      "url": "https://www.thingelstad.com/2026/02/25/it-is-bonkers-to-me.html"
+    },
+    { "id": "github-foreground", "kind": "github", "repository": "jthingelstad/foreground" },
+    { "id": "github-homebrew-tap", "kind": "github", "repository": "jthingelstad/homebrew-tap" },
+    {
+      "id": "website-www-thingelstad-com",
+      "kind": "website",
+      "url": "https://www.thingelstad.com/",
+      "sitemap": "https://www.thingelstad.com/sitemap.xml"
+    },
+    { "id": "github-thing-hugo", "kind": "github", "repository": "jthingelstad/thing-hugo" },
+    { "id": "github-librarian-thing", "kind": "github", "repository": "jthingelstad/librarian-thing" },
+    {
+      "id": "website-librarian-thingelstad-com-mcp",
+      "kind": "website",
+      "url": "https://librarian.thingelstad.com/mcp"
+    },
+    {
+      "id": "website-www-thingelstad-com-projects-link-blog",
+      "kind": "website",
+      "url": "https://www.thingelstad.com/projects/link-blog/"
+    },
+    { "id": "github-mb-audit", "kind": "github", "repository": "jthingelstad/mb-audit" },
+    { "id": "github-mb", "kind": "github", "repository": "jthingelstad/mb" },
+    { "id": "github-nnxyz", "kind": "github", "repository": "jthingelstad/nnxyz" },
+    { "id": "website-nnxyz-thingelstad-xyz", "kind": "website", "url": "https://nnxyz.thingelstad.xyz/" },
+    { "id": "github-number2words", "kind": "github", "repository": "jthingelstad/Number2Words" },
+    { "id": "github-rwbookclub-com", "kind": "github", "repository": "jthingelstad/rwbookclub.com" },
+    {
+      "id": "website-www-thingelstad-com-projects-open-loop",
+      "kind": "website",
+      "url": "https://www.thingelstad.com/projects/open-loop/"
+    },
+    { "id": "github-parseurl", "kind": "github", "repository": "jthingelstad/ParseURL" },
+    {
+      "id": "website-www-thingelstad-com-projects-planet-kubb",
+      "kind": "website",
+      "url": "https://www.thingelstad.com/projects/planet-kubb/"
+    },
+    { "id": "github-poapkings-com", "kind": "github", "repository": "jthingelstad/poapkings.com" },
+    { "id": "website-poapkings-com", "kind": "website", "url": "https://poapkings.com/" },
+    { "id": "github-poap2rss", "kind": "github", "repository": "jthingelstad/POAP2RSS" },
+    { "id": "website-www-poap2rss-com", "kind": "website", "url": "https://www.poap2rss.com/" },
+    { "id": "github-q2a-number-captcha", "kind": "github", "repository": "jthingelstad/q2a-number-captcha" },
+    {
+      "id": "website-rwbookclub-com",
+      "kind": "website",
+      "url": "https://rwbookclub.com/",
+      "sitemap": "https://rwbookclub.com/sitemap.xml"
+    },
+    { "id": "github-yvn-release-notes", "kind": "github", "repository": "jthingelstad/yvn-release-notes" },
+    { "id": "website-notes-yourversionnumber-com", "kind": "website", "url": "https://notes.yourversionnumber.com/" },
+    {
+      "id": "website-www-thingelstad-com-projects-road-sign-math",
+      "kind": "website",
+      "url": "https://www.thingelstad.com/projects/road-sign-math/"
+    },
+    {
+      "id": "website-www-thingelstad-com-projects-fall-fundraiser",
       "kind": "website",
       "url": "https://www.thingelstad.com/projects/fall-fundraiser/"
     },
-    { "id": "website-wikiapiary", "kind": "website", "url": "https://wikiapiary.com/wiki/Main_Page" },
-    { "id": "website-link-blog", "kind": "website", "url": "https://www.thingelstad.com/projects/link-blog/" },
-    { "id": "website-nnxyz", "kind": "website", "url": "https://nnxyz.thingelstad.xyz/" }
+    { "id": "github-things4good-xyz", "kind": "github", "repository": "jthingelstad/things4good.xyz" },
+    { "id": "website-things4good-xyz", "kind": "website", "url": "https://things4good.xyz/" },
+    { "id": "github-thingelstad-xyz", "kind": "github", "repository": "jthingelstad/thingelstad.xyz" },
+    { "id": "website-thingelstad-xyz", "kind": "website", "url": "https://thingelstad.xyz/" },
+    { "id": "github-thingy-thingelstad-com", "kind": "github", "repository": "jthingelstad/thingy.thingelstad.com" },
+    { "id": "website-thingy-thingelstad-com", "kind": "website", "url": "https://thingy.thingelstad.com/" },
+    { "id": "github-weekly-thingelstad-com", "kind": "github", "repository": "jthingelstad/weekly.thingelstad.com" },
+    {
+      "id": "website-weekly-thingelstad-com",
+      "kind": "website",
+      "url": "https://weekly.thingelstad.com/",
+      "sitemap": "https://weekly.thingelstad.com/sitemap.xml"
+    },
+    { "id": "website-www-thingelstad-com-candles", "kind": "website", "url": "https://www.thingelstad.com/candles/" },
+    {
+      "id": "website-wikiapiary-com-wiki-main-page",
+      "kind": "website",
+      "url": "https://wikiapiary.com/wiki/Main_Page"
+    },
+    { "id": "github-wt-builder", "kind": "github", "repository": "jthingelstad/wt-builder" },
+    {
+      "id": "website-www-thingelstad-com-2026-01-20-i-made-a-book-yearly-html",
+      "kind": "website",
+      "url": "https://www.thingelstad.com/2026/01/20/i-made-a-book-yearly.html"
+    },
+    { "id": "github-yourversionnumber-com", "kind": "github", "repository": "jthingelstad/yourversionnumber.com" },
+    {
+      "id": "website-yourversionnumber-com",
+      "kind": "website",
+      "url": "https://yourversionnumber.com/",
+      "sitemap": "https://yourversionnumber.com/sitemap.xml"
+    }
   ],
   "connections": [
     {
-      "from": "wt-builder",
-      "to": "weekly-thing",
-      "label": "publishes",
-      "detail": "WT Builder authors issues and sends the website, email, and audio editions of Weekly Thing.",
-      "source": "https://weekly.thingelstad.com/"
-    },
-    {
-      "from": "wt-builder",
-      "to": "another-thing",
-      "label": "authors",
-      "detail": "Another Thing podcast authoring moved into WT Builder in October 2026.",
-      "source": "https://another.thingelstad.com/"
-    },
-    {
-      "from": "weekly-thing",
-      "to": "librarian",
-      "label": "is indexed by",
-      "detail": "Librarian builds a searchable corpus from Weekly Thing content.",
-      "source": "https://thingy.thingelstad.com/about/"
+      "from": "another-thing-builder",
+      "to": "wt-builder",
+      "label": "was succeeded by",
+      "detail": "The earlier podcast authoring application was retired when WT Builder took on Another Thing in October 2026.",
+      "source": "https://github.com/jthingelstad/wt-builder/commit/bea76c7ef4fc79a878072feebf694ce18ad217ea",
+      "kind": "lineage"
     },
     {
       "from": "another-thing",
@@ -746,46 +835,36 @@
       "source": "https://thingy.thingelstad.com/about/"
     },
     {
-      "from": "jamie-thingelstad-blog",
-      "to": "librarian",
-      "label": "is indexed by",
-      "detail": "The blog contributes writing to the archive that Librarian retrieves from. Micro.blog remains the blog’s source of authority.",
-      "source": "https://thingy.thingelstad.com/about/"
+      "from": "elixir-bot",
+      "to": "elixir",
+      "label": "gave rise to",
+      "detail": "The original Elixir Bot was retired in September 2026. Recorded game history became the broader Elixir platform.",
+      "source": "https://github.com/jthingelstad/elixir-bot",
+      "kind": "lineage"
     },
     {
-      "from": "librarian",
-      "to": "thingy",
-      "label": "powers",
-      "detail": "Thingy is the web query surface for the Librarian archive and retrieval API.",
-      "source": "https://thingy.thingelstad.com/connect/"
+      "from": "elixir-bot",
+      "to": "elixir-mcp-discord",
+      "label": "was succeeded by",
+      "detail": "The configurable Elixir MCP Discord agent took over the original bot’s Discord role.",
+      "source": "https://github.com/jthingelstad/elixir-bot",
+      "kind": "lineage"
     },
     {
-      "from": "thing-hugo",
-      "to": "jamie-thingelstad-blog",
-      "label": "is its theme",
-      "detail": "Thing Hugo is the public Hugo theme developed for the blog’s Micro.blog publishing environment.",
-      "source": "https://github.com/jthingelstad/thing-hugo"
+      "from": "elixir-bot",
+      "to": "elixir-mcp-collector",
+      "label": "gave rise to",
+      "detail": "The original bot’s game observation work grew into a separate Collector that feeds Elixir’s recorded history.",
+      "source": "https://github.com/jthingelstad/elixir-bot",
+      "kind": "lineage"
     },
     {
-      "from": "mb",
-      "to": "jamie-thingelstad-blog",
-      "label": "works with its platform",
-      "detail": "mb is a CLI and MCP interface for Micro.blog, the platform on which Jamie publishes his blog.",
-      "source": "https://github.com/jthingelstad/mb"
-    },
-    {
-      "from": "mb-audit",
-      "to": "jamie-thingelstad-blog",
-      "label": "audits its platform",
-      "detail": "mb-audit compares a Micro.blog site with its BAR backups to check that the published content remains intact.",
-      "source": "https://github.com/jthingelstad/mb-audit"
-    },
-    {
-      "from": "homebrew-mb-tap",
-      "to": "mb",
-      "label": "distributes",
-      "detail": "The Homebrew tap provides an installation and distribution path for mb.",
-      "source": "https://github.com/jthingelstad/homebrew-tap"
+      "from": "elixir-bot",
+      "to": "elixir-clan",
+      "label": "gave rise to",
+      "detail": "The original bot’s clan management work carried forward into Elixir Clan, now a feature of the shared Elixir platform.",
+      "source": "https://github.com/jthingelstad/elixir-bot",
+      "kind": "lineage"
     },
     {
       "from": "elixir-mcp-collector",
@@ -823,35 +902,53 @@
       "source": "https://poapkings.com/elixir/"
     },
     {
+      "from": "homebrew-mb-tap",
+      "to": "mb",
+      "label": "distributes",
+      "detail": "The Homebrew tap provides an installation and distribution path for mb.",
+      "source": "https://github.com/jthingelstad/homebrew-tap"
+    },
+    {
+      "from": "jamie-thingelstad-blog",
+      "to": "librarian",
+      "label": "is indexed by",
+      "detail": "The blog contributes writing to the archive that Librarian retrieves from. Micro.blog remains the blog’s source of authority.",
+      "source": "https://thingy.thingelstad.com/about/"
+    },
+    {
+      "from": "jamie-thingelstad-blog",
+      "to": "weekly-thing",
+      "label": "posts are syndicated in",
+      "detail": "Weekly Thing republishes Jamie’s blog posts, connecting the newsletter to his ongoing personal writing.",
+      "source": "https://weekly.thingelstad.com/"
+    },
+    {
+      "from": "librarian",
+      "to": "thingy",
+      "label": "powers",
+      "detail": "Thingy is the web query surface for the Librarian archive and retrieval API.",
+      "source": "https://thingy.thingelstad.com/connect/"
+    },
+    {
+      "from": "mb-audit",
+      "to": "jamie-thingelstad-blog",
+      "label": "audits its platform",
+      "detail": "mb-audit compares a Micro.blog site with its BAR backups to check that the published content remains intact.",
+      "source": "https://github.com/jthingelstad/mb-audit"
+    },
+    {
+      "from": "mb",
+      "to": "jamie-thingelstad-blog",
+      "label": "works with its platform",
+      "detail": "mb is a CLI and MCP interface for Micro.blog, the platform on which Jamie publishes his blog.",
+      "source": "https://github.com/jthingelstad/mb"
+    },
+    {
       "from": "poap-kings",
       "to": "elixir-drop",
       "label": "runs",
       "detail": "POAP KINGS runs Elixir Drop, its card-recognition and elixir-cost training game.",
       "source": "https://poapkings.com/elixir-drop/"
-    },
-    {
-      "kind": "lineage",
-      "from": "elixir-bot",
-      "to": "elixir",
-      "label": "gave rise to",
-      "detail": "The original Elixir Bot was retired in September 2026. Recorded game history became the broader Elixir platform.",
-      "source": "https://github.com/jthingelstad/elixir-bot"
-    },
-    {
-      "kind": "lineage",
-      "from": "elixir-bot",
-      "to": "elixir-mcp-discord",
-      "label": "was succeeded by",
-      "detail": "The configurable Elixir MCP Discord agent took over the original bot’s Discord role.",
-      "source": "https://github.com/jthingelstad/elixir-bot"
-    },
-    {
-      "kind": "lineage",
-      "from": "your-version-number",
-      "to": "release-notes",
-      "label": "grew into",
-      "detail": "Release Notes uses Your Version Number’s birthday arithmetic in a daily email and personal journal.",
-      "source": "https://github.com/jthingelstad/yvn-release-notes"
     },
     {
       "from": "r-w-book-club",
@@ -861,35 +958,54 @@
       "source": "https://rwbookclub.com/"
     },
     {
-      "kind": "lineage",
-      "from": "elixir-bot",
-      "to": "elixir-mcp-collector",
-      "label": "gave rise to",
-      "detail": "The original bot’s game observation work grew into a separate Collector that feeds Elixir’s recorded history.",
-      "source": "https://github.com/jthingelstad/elixir-bot"
+      "from": "thing-hugo",
+      "to": "jamie-thingelstad-blog",
+      "label": "is its theme",
+      "detail": "Thing Hugo is the public Hugo theme developed for the blog’s Micro.blog publishing environment.",
+      "source": "https://github.com/jthingelstad/thing-hugo"
     },
     {
-      "kind": "lineage",
-      "from": "elixir-bot",
-      "to": "elixir-clan",
-      "label": "gave rise to",
-      "detail": "The original bot’s clan management work carried forward into Elixir Clan, now a feature of the shared Elixir platform.",
-      "source": "https://github.com/jthingelstad/elixir-bot"
+      "from": "things-ive-built",
+      "to": "librarian",
+      "label": "publishes a catalog for",
+      "detail": "The registry is published as things.json and llms.txt so Librarian and Thingy can answer questions about Jamie’s projects without this site running a model.",
+      "source": "https://github.com/jthingelstad/thingelstad.xyz"
     },
     {
-      "kind": "lineage",
-      "from": "another-thing-builder",
-      "to": "wt-builder",
-      "label": "was succeeded by",
-      "detail": "The earlier podcast authoring application was retired when WT Builder took on Another Thing in October 2026.",
-      "source": "https://github.com/jthingelstad/wt-builder/commit/bea76c7ef4fc79a878072feebf694ce18ad217ea"
+      "from": "weekly-thing",
+      "to": "librarian",
+      "label": "is indexed by",
+      "detail": "Librarian builds a searchable corpus from Weekly Thing content.",
+      "source": "https://thingy.thingelstad.com/about/"
     },
     {
-      "from": "jamie-thingelstad-blog",
+      "from": "wt-builder",
       "to": "weekly-thing",
-      "label": "posts are syndicated in",
-      "detail": "Weekly Thing republishes Jamie’s blog posts, connecting the newsletter to his ongoing personal writing.",
+      "label": "publishes",
+      "detail": "WT Builder authors issues and sends the website, email, and audio editions of Weekly Thing.",
       "source": "https://weekly.thingelstad.com/"
+    },
+    {
+      "from": "wt-builder",
+      "to": "another-thing",
+      "label": "authors",
+      "detail": "Another Thing podcast authoring moved into WT Builder in October 2026.",
+      "source": "https://another.thingelstad.com/"
+    },
+    {
+      "from": "yearly-thing-2025",
+      "to": "weekly-thing",
+      "label": "collects a year of",
+      "detail": "All 324 links Jamie commented on across 31 issues of the Weekly Thing in 2025, reorganized into ten topic chapters, in print and eBook form. Proceeds support the Weekly Thing Supporting Membership program.",
+      "source": "https://www.thingelstad.com/2026/01/20/i-made-a-book-yearly.html"
+    },
+    {
+      "from": "your-version-number",
+      "to": "release-notes",
+      "label": "grew into",
+      "detail": "Release Notes uses Your Version Number’s birthday arithmetic in a daily email and personal journal.",
+      "source": "https://github.com/jthingelstad/yvn-release-notes",
+      "kind": "lineage"
     }
   ],
   "topics": [
@@ -898,17 +1014,18 @@
       "title": "Agents",
       "description": "Software that observes, remembers, and acts. A thread from personal tools to community companions.",
       "projectIds": [
-        "elixir",
+        "clash-royale-api-agent-reference",
         "elixir-bot",
-        "elixir-mcp-discord",
         "elixir-mcp-collector",
+        "elixir-mcp-discord",
+        "elixir",
+        "flight-path",
+        "librarian",
+        "mb",
         "oliver",
         "otto",
-        "mb",
-        "librarian",
-        "thingy",
-        "clash-royale-api-agent-reference",
-        "projects-systems-administration"
+        "projects-systems-administration",
+        "thingy"
       ]
     },
     {
@@ -916,14 +1033,14 @@
       "title": "MediaWiki",
       "description": "Wikis as a place to build: communities, extensions, skins, and structured knowledge.",
       "projectIds": [
-        "wikiapiary",
-        "wikinosh",
-        "foreground",
         "filament",
-        "parseurl",
+        "foreground",
         "numbers2words",
+        "parseurl",
         "planet-kubb",
         "road-sign-math",
+        "wikiapiary",
+        "wikinosh",
         "wikiwonders"
       ]
     },
@@ -937,40 +1054,41 @@
       "id": "poap",
       "title": "POAP",
       "description": "Proof of participation, collected memories, and tools that connect tokens to the open web.",
-      "projectIds": ["poap2rss", "612-poap-challenge", "poap-kings"]
+      "projectIds": ["612-poap-challenge", "flight-path", "poap-kings", "poap2rss", "proof-of-a-person"]
     },
     {
       "id": "crypto",
       "title": "Crypto",
       "description": "Experiments with onchain participation and digital collectibles, through the POAP ecosystem.",
-      "projectIds": ["poap2rss", "612-poap-challenge", "poap-kings", "nnxyz"]
+      "projectIds": ["612-poap-challenge", "nnxyz", "poap-kings", "poap2rss"]
     },
     {
       "id": "mcp",
       "title": "MCP",
       "description": "Giving agents a useful interface to recorded knowledge and everyday tools.",
-      "projectIds": ["elixir", "elixir-mcp-discord", "elixir-mcp-collector", "librarian", "mb"]
+      "projectIds": ["elixir-mcp-collector", "elixir-mcp-discord", "elixir", "librarian", "mb"]
     },
     {
       "id": "open-web",
       "title": "The open web",
       "description": "Publishing, feeds, archives, and tools that keep information portable.",
       "projectIds": [
-        "jamie-thingelstad-blog",
-        "weekly-thing",
-        "another-thing",
-        "wt-builder",
         "another-thing-builder",
-        "thing-hugo",
-        "librarian",
-        "thingy",
-        "mb",
-        "mb-audit",
+        "another-thing",
         "homebrew-mb-tap",
-        "poap2rss",
-        "open-loop",
+        "jamie-thingelstad-blog",
+        "librarian",
         "link-blog",
-        "smaller-than-a-redwood"
+        "mb-audit",
+        "mb",
+        "open-loop",
+        "poap2rss",
+        "smaller-than-a-redwood",
+        "thing-hugo",
+        "things-ive-built",
+        "thingy",
+        "weekly-thing",
+        "wt-builder"
       ]
     },
     {
@@ -978,19 +1096,19 @@
       "title": "Play",
       "description": "Games, playful arithmetic, and the communities that form around them.",
       "projectIds": [
-        "elixir",
+        "clash-royale-api-agent-reference",
         "elixir-bot",
         "elixir-clan",
-        "elixir-ladder",
         "elixir-drop",
-        "poap-kings",
-        "planet-kubb",
-        "planet-kubb-score",
-        "road-sign-math",
-        "your-version-number",
-        "release-notes",
+        "elixir-ladder",
+        "elixir",
         "escaping-things",
-        "clash-royale-api-agent-reference"
+        "planet-kubb-score",
+        "planet-kubb",
+        "poap-kings",
+        "release-notes",
+        "road-sign-math",
+        "your-version-number"
       ]
     },
     {
@@ -998,19 +1116,21 @@
       "title": "Archives",
       "description": "Preserving content, collections, and the evidence behind them.",
       "projectIds": [
-        "nnxyz",
-        "road-sign-math",
-        "planet-kubb-score",
+        "jamie-thingelstad-blog",
         "librarian",
+        "nnxyz",
+        "planet-kubb-score",
+        "road-sign-math",
+        "things-ive-built",
         "weekly-thing",
-        "jamie-thingelstad-blog"
+        "yearly-thing-2025"
       ]
     },
     {
       "id": "reading",
       "title": "Reading",
       "description": "Books, reading, and the ways a family or community shares them.",
-      "projectIds": ["r-w-book-club", "reading-things"]
+      "projectIds": ["r-w-book-club", "reading-things", "yearly-thing-2025"]
     }
   ],
   "history": [
@@ -1031,6 +1151,15 @@
       "title": "A place for upcoming dates",
       "summary": "Release Notes adds personal upcoming dates and daily email reminders.",
       "source": "https://github.com/jthingelstad/yvn-release-notes/commit/5cc2442ecf8623d074b0d7e639285c08c3f78f89"
+    },
+    {
+      "id": "things-ive-built-recorded-development",
+      "projectIds": ["things-ive-built"],
+      "date": "2026-10-13",
+      "kind": "development",
+      "title": "Things I’ve Built: recorded development",
+      "summary": "A public repository records development of the project index. This is development evidence, not its launch date.",
+      "source": "https://github.com/jthingelstad/thingelstad.xyz"
     },
     {
       "id": "wt-podcast-authoring",
@@ -1186,15 +1315,6 @@
       "source": "https://github.com/jthingelstad/rwbookclub.com/commit/25852563166cc04650a451f4bb3bdf27c83c4424"
     },
     {
-      "id": "weekly-thing-recorded-development",
-      "projectIds": ["weekly-thing"],
-      "date": "2026-04-07",
-      "kind": "development",
-      "title": "Weekly Thing: recorded development begins",
-      "summary": "The earliest commit in this repository is a development record; the project or idea may predate it.",
-      "source": "https://github.com/jthingelstad/weekly.thingelstad.com/commit/e5074139a6e6fb37a0c83713e8808878e6af3205"
-    },
-    {
       "id": "librarian-recorded-development",
       "projectIds": ["librarian"],
       "date": "2026-04-07",
@@ -1202,6 +1322,15 @@
       "title": "Librarian: recorded development begins",
       "summary": "The earliest commit in this repository is a development record; the project or idea may predate it.",
       "source": "https://github.com/jthingelstad/librarian-thing/commit/95fed22aba9a066a74df067d2072ae0ca6cf2690"
+    },
+    {
+      "id": "weekly-thing-recorded-development",
+      "projectIds": ["weekly-thing"],
+      "date": "2026-04-07",
+      "kind": "development",
+      "title": "Weekly Thing: recorded development begins",
+      "summary": "The earliest commit in this repository is a development record; the project or idea may predate it.",
+      "source": "https://github.com/jthingelstad/weekly.thingelstad.com/commit/e5074139a6e6fb37a0c83713e8808878e6af3205"
     },
     {
       "id": "mb-recorded-development",
@@ -1222,6 +1351,15 @@
       "source": "https://github.com/jthingelstad/elixir-bot/commit/161b7f4e0c98d2acb84bb770981a12ba256bebc8"
     },
     {
+      "id": "flight-path-built",
+      "projectIds": ["flight-path"],
+      "date": "2026-02-25",
+      "kind": "launch",
+      "title": "Flight Path takes off",
+      "summary": "Jamie builds Flight Path, extending the POAP Airport Rally, entirely on an iPhone with Claude Code.",
+      "source": "https://www.thingelstad.com/2026/02/25/it-is-bonkers-to-me.html"
+    },
+    {
       "id": "escaping-things-recorded-development",
       "projectIds": ["escaping-things"],
       "date": "2026-02-11",
@@ -1238,6 +1376,15 @@
       "title": "POAP KINGS: recorded development begins",
       "summary": "The earliest commit in this repository is a development record; the project or idea may predate it.",
       "source": "https://github.com/jthingelstad/poapkings.com/commit/0716a099e57528016fa3a2cd8d86d6dd18e1e313"
+    },
+    {
+      "id": "yearly-thing-2025-published",
+      "projectIds": ["yearly-thing-2025", "weekly-thing"],
+      "date": "2026-01-20",
+      "kind": "launch",
+      "title": "Yearly Thing 2025 is published",
+      "summary": "A year of the Weekly Thing becomes a book, in print from Lulu and as an eBook, organized into ten topic chapters.",
+      "source": "https://www.thingelstad.com/2026/01/20/i-made-a-book-yearly.html"
     },
     {
       "id": "poap2rss-launch",

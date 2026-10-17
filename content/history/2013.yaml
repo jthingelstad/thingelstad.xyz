@@ -1,0 +1,17 @@
+- id: wikiapiary-year-one
+  date: 2013-12-22
+  kind: milestone
+  title: One year of WikiApiary
+  summary: A first-year retrospective describes the growing wiki community and credits Foreground as the site’s skin.
+  source: https://www.thingelstad.com/2013/12/22/one-year-for.html
+  things:
+    - wikiapiary
+    - foreground
+- id: wikinosh-semantic
+  date: 2013-07-30
+  kind: milestone
+  title: Making wiki data portable
+  summary: Work on paging Semantic MediaWiki datasets supports exporting Wikinosh nutrition data for offline mobile access.
+  source: https://www.thingelstad.com/2013/07/30/paging-large-datasets.html
+  things:
+    - wikinosh

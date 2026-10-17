@@ -1,0 +1,8 @@
+- id: poap2rss-launch
+  date: 2025-07-04
+  kind: launch
+  title: POAP meets RSS
+  summary: 'POAP2RSS is declared officially launched: POAP activity becomes available in feeds.'
+  source: https://www.thingelstad.com/categories/poap2rss/page/2/
+  things:
+    - poap2rss

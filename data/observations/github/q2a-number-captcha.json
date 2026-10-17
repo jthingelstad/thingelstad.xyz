@@ -1,0 +1,26 @@
+{
+  "kind": "github",
+  "repository": "jthingelstad/q2a-number-captcha",
+  "url": "https://github.com/jthingelstad/q2a-number-captcha",
+  "repositoryCreatedAt": "2014-11-16T01:39:31.000Z",
+  "archived": true,
+  "description": "CAPTCHA Plugin for Question2Answer that requires finding a digit in a large number.",
+  "languages": [{ "name": "PHP", "bytes": 7556 }],
+  "release": null,
+  "activity": [
+    {
+      "path": null,
+      "branch": "master",
+      "since": "2026-07-16T12:28:47.579Z",
+      "until": "2026-10-14T12:28:47.579Z",
+      "count": 0,
+      "complete": true,
+      "months": [],
+      "latestCommit": {
+        "date": "2015-11-28T20:16:07.000Z",
+        "url": "https://github.com/jthingelstad/q2a-number-captcha/commit/4fe465110e5df62a1d3b22817527b16e12a97b03"
+      }
+    }
+  ],
+  "observedAt": "2026-10-14T12:28:47.579Z"
+}

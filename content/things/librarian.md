@@ -1,0 +1,24 @@
+---
+title: Librarian
+summary: Archive retrieval API and MCP server
+collection: Publishing
+status: active
+url: https://librarian.thingelstad.com/mcp
+topics:
+  - agents
+  - mcp
+  - open-web
+  - archives
+sources:
+  - kind: github
+    repository: jthingelstad/librarian-thing
+    role: implementation
+  - kind: website
+    url: https://librarian.thingelstad.com/mcp
+    role: website
+connections:
+  - to: thingy
+    label: powers
+    detail: Thingy is the web query surface for the Librarian archive and retrieval API.
+    source: https://thingy.thingelstad.com/connect/
+---

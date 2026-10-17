@@ -1,0 +1,32 @@
+{
+  "kind": "github",
+  "repository": "jthingelstad/yvn-release-notes",
+  "url": "https://github.com/jthingelstad/yvn-release-notes",
+  "repositoryCreatedAt": "2026-10-07T10:00:44.000Z",
+  "archived": false,
+  "description": "Release Notes: a daily version-number email from Your Version Number; replies become the day's notes",
+  "languages": [
+    { "name": "TypeScript", "bytes": 1530604 },
+    { "name": "JavaScript", "bytes": 76272 },
+    { "name": "CSS", "bytes": 26033 },
+    { "name": "Shell", "bytes": 18884 },
+    { "name": "HTML", "bytes": 1314 }
+  ],
+  "release": null,
+  "activity": [
+    {
+      "path": null,
+      "branch": "main",
+      "since": "2026-07-16T12:28:30.170Z",
+      "until": "2026-10-14T12:28:30.170Z",
+      "count": 185,
+      "complete": true,
+      "months": [{ "month": "2026-10", "count": 185 }],
+      "latestCommit": {
+        "date": "2026-10-14T03:19:17.000Z",
+        "url": "https://github.com/jthingelstad/yvn-release-notes/commit/a46bcd3fc99547c09d3d6f4ddf24fa4b18380b4a"
+      }
+    }
+  ],
+  "observedAt": "2026-10-14T12:28:30.170Z"
+}

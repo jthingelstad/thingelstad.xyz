@@ -1,0 +1,13 @@
+{
+  "kind": "web",
+  "url": "https://yourversionnumber.com/",
+  "observedAt": "2026-10-17T13:16:08.424Z",
+  "sitemap": {
+    "url": "https://yourversionnumber.com/sitemap.xml",
+    "pages": 11,
+    "newestModified": null,
+    "months": [],
+    "complete": true
+  },
+  "feed": null
+}

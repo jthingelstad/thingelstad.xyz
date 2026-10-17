@@ -1,0 +1,42 @@
+name: Collect observations
+# Weekly evidence refresh. Observations are generated data; this workflow never edits content/.
+# A push to main runs the CI and deploy workflow, which validates the collection before publishing.
+on:
+  schedule:
+    - cron: '17 11 * * 1' # Mondays, 11:17 UTC
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: collect-observations
+  cancel-in-progress: false
+jobs:
+  collect:
+    name: Collect
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - name: Observe sources
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npm run collect
+        continue-on-error: true
+      - run: npm run collection:build
+      - run: npm test
+      - name: Commit changed observations
+        run: |
+          git add data/observations src/data/collection.json src/data/github.json
+          if git diff --cached --quiet; then
+            echo "No new evidence."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Collect observations $(date -u +%Y-%m-%d)"
+          git push

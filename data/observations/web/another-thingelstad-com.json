@@ -1,0 +1,19 @@
+{
+  "kind": "web",
+  "url": "https://another.thingelstad.com/",
+  "observedAt": "2026-10-17T13:16:08.424Z",
+  "sitemap": {
+    "url": "https://another.thingelstad.com/sitemap.xml",
+    "pages": 6,
+    "newestModified": "2025-10-05T23:48:44.000Z",
+    "months": [],
+    "complete": true
+  },
+  "feed": {
+    "url": "https://another.thingelstad.com/podcast.xml",
+    "title": "Another Thing",
+    "items": 1,
+    "newestPublished": "2025-10-05T23:48:44.000Z",
+    "months": []
+  }
+}

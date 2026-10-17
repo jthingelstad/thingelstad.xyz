@@ -1,0 +1,35 @@
+{
+  "kind": "github",
+  "repository": "jthingelstad/poapkings.com",
+  "url": "https://github.com/jthingelstad/poapkings.com",
+  "repositoryCreatedAt": "2026-02-05T04:14:14.000Z",
+  "archived": false,
+  "description": "Proof of Arena Push — the official website for the POAP KINGS Clash Royale clan (#J2RGCRVG). Eleventy static site on GitHub Pages.",
+  "languages": [
+    { "name": "JavaScript", "bytes": 115622 },
+    { "name": "Nunjucks", "bytes": 111706 },
+    { "name": "CSS", "bytes": 82917 },
+    { "name": "Shell", "bytes": 2072 }
+  ],
+  "release": null,
+  "activity": [
+    {
+      "path": null,
+      "branch": "main",
+      "since": "2026-07-16T12:28:11.603Z",
+      "until": "2026-10-14T12:28:11.603Z",
+      "count": 108,
+      "complete": true,
+      "months": [
+        { "month": "2026-07", "count": 26 },
+        { "month": "2026-08", "count": 46 },
+        { "month": "2026-09", "count": 36 }
+      ],
+      "latestCommit": {
+        "date": "2026-09-30T23:20:06.000Z",
+        "url": "https://github.com/jthingelstad/poapkings.com/commit/7f9b74f14ac8cadc539a9cd3e53929a346a8e813"
+      }
+    }
+  ],
+  "observedAt": "2026-10-14T12:28:11.603Z"
+}

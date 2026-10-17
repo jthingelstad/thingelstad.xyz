@@ -1,0 +1,34 @@
+{
+  "kind": "github",
+  "repository": "jthingelstad/foreground",
+  "url": "https://github.com/jthingelstad/foreground",
+  "repositoryCreatedAt": "2013-05-21T22:19:22.000Z",
+  "archived": true,
+  "description": "A MediaWiki skin that focuses on putting your content in the foreground.",
+  "languages": [
+    { "name": "CSS", "bytes": 47266 },
+    { "name": "PHP", "bytes": 11721 },
+    { "name": "JavaScript", "bytes": 761 }
+  ],
+  "release": {
+    "name": "v2.4.0",
+    "date": "2021-02-11T20:42:20.000Z",
+    "url": "https://github.com/jthingelstad/foreground/releases/tag/v2.4.0"
+  },
+  "activity": [
+    {
+      "path": null,
+      "branch": "develop",
+      "since": "2026-07-16T12:28:40.462Z",
+      "until": "2026-10-14T12:28:40.462Z",
+      "count": 0,
+      "complete": true,
+      "months": [],
+      "latestCommit": {
+        "date": "2022-07-28T10:46:13.000Z",
+        "url": "https://github.com/jthingelstad/foreground/commit/4d90744f75a7bbd1282580b74bd3a17136230210"
+      }
+    }
+  ],
+  "observedAt": "2026-10-14T12:28:40.462Z"
+}

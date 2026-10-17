@@ -1,0 +1,30 @@
+{
+  "kind": "github",
+  "repository": "jthingelstad/filament",
+  "url": "https://github.com/jthingelstad/filament",
+  "repositoryCreatedAt": "2013-06-06T18:58:29.000Z",
+  "archived": true,
+  "description": "MediaWiki skin based of the Pure CSS framework.",
+  "languages": [
+    { "name": "CSS", "bytes": 37162 },
+    { "name": "PHP", "bytes": 6721 },
+    { "name": "JavaScript", "bytes": 773 }
+  ],
+  "release": null,
+  "activity": [
+    {
+      "path": null,
+      "branch": "master",
+      "since": "2026-07-16T12:28:42.947Z",
+      "until": "2026-10-14T12:28:42.947Z",
+      "count": 0,
+      "complete": true,
+      "months": [],
+      "latestCommit": {
+        "date": "2013-11-29T14:10:32.000Z",
+        "url": "https://github.com/jthingelstad/filament/commit/7964bfe3d6e530e06c9ebc1979cfb2290eb04bc9"
+      }
+    }
+  ],
+  "observedAt": "2026-10-14T12:28:42.947Z"
+}
