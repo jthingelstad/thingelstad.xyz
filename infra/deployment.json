@@ -7,6 +7,13 @@
     "site": "thingelstad-xyz-site",
     "delivery": "thingelstad-xyz-delivery"
   },
+  "stackTags": {
+    "Application": "Thingelstad",
+    "Project": "thingelstad-xyz",
+    "Repository": "jthingelstad/thingelstad.xyz",
+    "ManagedBy": "cloudformation",
+    "Environment": "production"
+  },
   "assetsBucket": "thingelstad-xyz-assets-assetsbucket-p9dnw4dc1dcv",
   "siteBucket": "thingelstad-xyz-site-sitebucket-iqfg1dii0lwg",
   "distributionId": "E1YVIY0XUIKR2X",

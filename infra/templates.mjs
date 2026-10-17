@@ -78,8 +78,7 @@ save(
         Properties: {
           DomainName: 'thingelstad.xyz',
           SubjectAlternativeNames: ['www.thingelstad.xyz'],
-          ValidationMethod: 'DNS',
-          Tags: [{ Key: 'project', Value: 'thingelstad.xyz' }]
+          ValidationMethod: 'DNS'
         }
       }
     },

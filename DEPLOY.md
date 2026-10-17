@@ -9,6 +9,7 @@ The application stays in `/Users/otto/Projects/thingelstad.xyz`, separate from t
 - `thingelstad-xyz-site`: private versioned static bucket, CloudFront, Lambda Web Function with immutable revisions and an IAM-protected endpoint, model-specific runtime role, anonymous daily allowance table, and short-retention operational logs.
 - `thingelstad-xyz-delivery`: repository-scoped GitHub OIDC application delivery role.
 - Templates are generated from `infra/templates.mjs`. The certificate is separate so its external validation cannot block initial hosting deployment.
+- Each stack carries the standard tags in `infra/deployment.json` `stackTags`, and CloudFormation propagates them to the resources. Change sets that omit `Tags` keep them, so delivery leaves them alone; pass them when creating a stack. Templates set no tags of their own.
 
 ## Build
 
