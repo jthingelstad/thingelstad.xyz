@@ -2,10 +2,12 @@
   "kind": "github",
   "repository": "jthingelstad/things4good.xyz",
   "url": "https://github.com/jthingelstad/things4good.xyz",
-  "observedAt": "2026-10-17T13:32:02.761Z",
+  "observedAt": "2026-10-18T10:02:59.301Z",
   "repositoryCreatedAt": "2026-06-04T03:37:10.000Z",
   "archived": false,
   "description": "Things 4 Good — a handmade candle fundraiser site. Built with Eleventy.",
+  "stars": 1,
+  "forks": 0,
   "languages": [
     { "name": "Nunjucks", "bytes": 68723 },
     { "name": "CSS", "bytes": 59352 },
@@ -16,8 +18,8 @@
     {
       "path": null,
       "branch": "main",
-      "since": "2026-07-19T13:32:02.761Z",
-      "until": "2026-10-17T13:32:02.761Z",
+      "since": "2026-07-20T10:02:59.301Z",
+      "until": "2026-10-18T10:02:59.301Z",
       "count": 6,
       "complete": true,
       "months": [

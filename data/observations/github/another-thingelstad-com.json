@@ -2,10 +2,12 @@
   "kind": "github",
   "repository": "jthingelstad/another.thingelstad.com",
   "url": "https://github.com/jthingelstad/another.thingelstad.com",
-  "observedAt": "2026-10-17T13:32:02.761Z",
+  "observedAt": "2026-10-18T10:02:59.301Z",
   "repositoryCreatedAt": "2026-04-09T23:16:18.000Z",
   "archived": false,
   "description": "Website for Another Thing, a podcast by Jamie Thingelstad — an Eleventy static site (a publishing surface of the Studio brain).",
+  "stars": 1,
+  "forks": 0,
   "languages": [
     { "name": "Nunjucks", "bytes": 23286 },
     { "name": "CSS", "bytes": 18861 },
@@ -16,8 +18,8 @@
     {
       "path": null,
       "branch": "main",
-      "since": "2026-07-19T13:32:02.761Z",
-      "until": "2026-10-17T13:32:02.761Z",
+      "since": "2026-07-20T10:02:59.301Z",
+      "until": "2026-10-18T10:02:59.301Z",
       "count": 17,
       "complete": true,
       "months": [

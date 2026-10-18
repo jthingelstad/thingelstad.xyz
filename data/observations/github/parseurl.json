@@ -2,17 +2,20 @@
   "kind": "github",
   "repository": "jthingelstad/ParseURL",
   "url": "https://github.com/jthingelstad/ParseURL",
+  "observedAt": "2026-10-18T10:02:59.301Z",
   "repositoryCreatedAt": "2013-07-15T22:13:35.000Z",
   "archived": true,
   "description": "MediaWiki extension to allow easy parsing of URLs.",
+  "stars": 3,
+  "forks": 0,
   "languages": [{ "name": "PHP", "bytes": 2067 }],
   "release": null,
   "activity": [
     {
       "path": null,
       "branch": "master",
-      "since": "2026-07-16T12:28:44.444Z",
-      "until": "2026-10-14T12:28:44.444Z",
+      "since": "2026-07-20T10:02:59.301Z",
+      "until": "2026-10-18T10:02:59.301Z",
       "count": 0,
       "complete": true,
       "months": [],
@@ -21,6 +24,5 @@
         "url": "https://github.com/jthingelstad/ParseURL/commit/167e63df3e35d7ed0568ea071d7be7d4c6f7fed3"
       }
     }
-  ],
-  "observedAt": "2026-10-14T12:28:44.444Z"
+  ]
 }

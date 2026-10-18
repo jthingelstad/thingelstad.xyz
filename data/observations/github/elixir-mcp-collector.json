@@ -2,9 +2,12 @@
   "kind": "github",
   "repository": "jthingelstad/elixir-mcp-collector",
   "url": "https://github.com/jthingelstad/elixir-mcp-collector",
+  "observedAt": "2026-10-18T10:02:59.301Z",
   "repositoryCreatedAt": "2026-09-04T16:09:29.000Z",
   "archived": false,
   "description": "The operator-run collector for Elixir MCP — fetches Clash Royale history (via your own IP-bound API key) so AI agents can query it. Zero-trust: no cloud access. Unofficial; not endorsed by Supercell.",
+  "stars": 1,
+  "forks": 0,
   "languages": [
     { "name": "Go", "bytes": 225288 },
     { "name": "Shell", "bytes": 57986 },
@@ -19,8 +22,8 @@
     {
       "path": null,
       "branch": "main",
-      "since": "2026-07-16T12:28:17.043Z",
-      "until": "2026-10-14T12:28:17.043Z",
+      "since": "2026-07-20T10:02:59.301Z",
+      "until": "2026-10-18T10:02:59.301Z",
       "count": 65,
       "complete": true,
       "months": [{ "month": "2026-09", "count": 65 }],
@@ -29,6 +32,5 @@
         "url": "https://github.com/jthingelstad/elixir-mcp-collector/commit/d60ce8beb4c4211120edae1831f1eff6f9ab595e"
       }
     }
-  ],
-  "observedAt": "2026-10-14T12:28:17.043Z"
+  ]
 }

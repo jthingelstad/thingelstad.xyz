@@ -2,9 +2,12 @@
   "kind": "github",
   "repository": "jthingelstad/elixir-bot",
   "url": "https://github.com/jthingelstad/elixir-bot",
+  "observedAt": "2026-10-18T10:02:59.301Z",
   "repositoryCreatedAt": "2026-02-27T21:09:06.000Z",
   "archived": true,
   "description": "LLM-powered, channel-native Discord agent for the POAP KINGS Clash Royale clan — event-sourced reactive engine, scoped public/leadership memory, and GitHub-backed poapkings.com publishing.",
+  "stars": 3,
+  "forks": 0,
   "languages": [
     { "name": "Python", "bytes": 5427524 },
     { "name": "Shell", "bytes": 15430 }
@@ -18,8 +21,8 @@
     {
       "path": null,
       "branch": "main",
-      "since": "2026-07-16T12:28:20.654Z",
-      "until": "2026-10-14T12:28:20.654Z",
+      "since": "2026-07-20T10:02:59.301Z",
+      "until": "2026-10-18T10:02:59.301Z",
       "count": 300,
       "complete": false,
       "months": [
@@ -32,6 +35,5 @@
         "url": "https://github.com/jthingelstad/elixir-bot/commit/555d743ceb72a7779a6e47fab4912ae5d024e70e"
       }
     }
-  ],
-  "observedAt": "2026-10-14T12:28:20.654Z"
+  ]
 }

@@ -2,10 +2,12 @@
   "kind": "github",
   "repository": "jthingelstad/mb",
   "url": "https://github.com/jthingelstad/mb",
-  "observedAt": "2026-10-17T13:32:02.761Z",
+  "observedAt": "2026-10-18T10:02:59.301Z",
   "repositoryCreatedAt": "2026-03-01T20:48:59.000Z",
   "archived": false,
   "description": "Micro.blog CLI and local MCP server built for agents: structured output, composable commands, reviewable writes. brew install jthingelstad/tap/mb",
+  "stars": 5,
+  "forks": 1,
   "languages": [{ "name": "Python", "bytes": 610328 }],
   "release": {
     "name": "v2.2.1",
@@ -16,8 +18,8 @@
     {
       "path": null,
       "branch": "main",
-      "since": "2026-07-19T13:32:02.761Z",
-      "until": "2026-10-17T13:32:02.761Z",
+      "since": "2026-07-20T10:02:59.301Z",
+      "until": "2026-10-18T10:02:59.301Z",
       "count": 39,
       "complete": true,
       "months": [
