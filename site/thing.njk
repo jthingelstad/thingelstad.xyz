@@ -131,6 +131,13 @@ eleventyComputed:
   {% if thing.connections | length or thing.inbound | length %}
   <section class="connections">
     <h2>Connections</h2>
+    {% set diagram = thing | connectionDiagram(site) %}
+    {% if diagram %}
+    <figure class="connection-diagram{% if not diagram.narrow %} wide-only{% endif %}">
+      <div class="diagram-wide">{{ diagram.wide | safe }}</div>
+      {% if diagram.narrow %}<div class="diagram-narrow">{{ diagram.narrow | safe }}</div>{% endif %}
+    </figure>
+    {% endif %}
     <ul class="connection-list">
       {% for edge in thing.connections %}
       {% set other = site | thing(edge.to) %}

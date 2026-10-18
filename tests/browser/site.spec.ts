@@ -89,3 +89,22 @@ test('history anchors, the timeline, and the machine outputs are reachable', asy
   expect(missing.status()).toBe(404);
   expect(errors).toEqual([]);
 });
+
+test('connection diagrams are static SVG whose nodes lead to their things', async ({ page }) => {
+  const errors = watchErrors(page);
+  const phone = page.viewportSize()!.width <= 720;
+  await page.goto('/things/mb/');
+  const small = page.locator('.connection-diagram svg:visible');
+  await expect(small).toHaveCount(1);
+  await expect(small).toHaveAccessibleName('Connections of mb');
+  expect(await fitsViewport(page)).toBe(true);
+  await page.goto('/things/elixir-bot/');
+  if (phone) {
+    await expect(page.locator('.connection-diagram'), 'a hub too wide for a phone is left to the list').toBeHidden();
+  } else {
+    await page.locator('.connection-diagram svg:visible a[href="/things/elixir/"]').click();
+    await expect(page).toHaveURL(/\/things\/elixir\/$/);
+  }
+  expect(await fitsViewport(page)).toBe(true);
+  expect(errors).toEqual([]);
+});

@@ -533,6 +533,68 @@ h2 {
   color: var(--muted);
 }
 
+.connection-diagram {
+  --pele-bg: var(--paper);
+  --pele-fg: var(--ink);
+  --pele-muted: var(--muted);
+  --pele-line: var(--muted);
+  --pele-surface: var(--soft);
+  --pele-surface-alt: var(--soft);
+  --pele-border: var(--line);
+  --pele-accent: var(--accent);
+  --pele-radius: 6px;
+
+  margin: 0 0 16px;
+  overflow-x: auto;
+}
+
+.connection-diagram svg {
+  display: block;
+}
+
+.diagram-narrow {
+  display: none;
+}
+
+.connection-diagram .active rect {
+  fill: var(--active-soft);
+  stroke: var(--active);
+}
+
+.connection-diagram .dormant rect {
+  fill: var(--dormant-soft);
+  stroke: var(--dormant);
+}
+
+.connection-diagram .retired rect {
+  fill: var(--retired-soft);
+  stroke: var(--retired);
+}
+
+.connection-diagram .archived rect {
+  fill: var(--archived-soft);
+  stroke: var(--archived);
+}
+
+.connection-diagram .self rect {
+  fill: var(--ink);
+  stroke: var(--ink);
+}
+
+.connection-diagram .self .pele-label {
+  fill: var(--paper);
+}
+
+.connection-diagram a:hover rect,
+.connection-diagram a:focus-visible rect {
+  stroke: var(--accent);
+  stroke-width: 2;
+}
+
+.connection-diagram a:hover .pele-label {
+  text-decoration: underline;
+}
+
 .event-list li {
   display: grid;
   grid-template-columns: 110px 1fr;
@@ -648,6 +710,15 @@ h2 {
 }
 
 @media (width <= 720px) {
+  .diagram-wide,
+  .connection-diagram.wide-only {
+    display: none;
+  }
+
+  .diagram-narrow {
+    display: block;
+  }
+
   .site-header {
     flex-direction: column;
     align-items: flex-start;

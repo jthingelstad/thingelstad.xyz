@@ -41,7 +41,7 @@ Tinylytics loads once from the page layout (`site/_includes/layout.njk`) using e
 
 ## Design
 
-The site is a list, not an app. Fraunces headings and a paper palette, filled status chips with a dot, pill navigation, and a monogram sticker per thing (`sticker()` in `collection/site.ts`, seeded by the thing's ID) give it some play. Each thing row carries a sparkline of recent activity drawn from observations. The timeline page lays every thing on one axis with hoverable, keyboard-reachable event dots. Motion respects reduced-motion preferences. Project imagery, when added, should favor screenshots of the actual products.
+The site is a list, not an app. Fraunces headings and a paper palette, filled status chips with a dot, pill navigation, and a monogram sticker per thing (`sticker()` in `collection/site.ts`, seeded by the thing's ID) give it some play. Each thing row carries a sparkline of recent activity drawn from observations. The timeline page lays every thing on one axis with hoverable, keyboard-reachable event dots. A thing page draws its connections as a diagram above the list, rendered at build time by [Pele](https://pele.run) (`collection/diagram.ts`): static SVG with linked nodes in status colors, dashed for lineage, and no diagram code in the browser. Each diagram is rendered wide and narrow; phones get the narrow one only when it fits without shrinking the labels, and otherwise rely on the list, which carries the same edges with their sources. Motion respects reduced-motion preferences. Project imagery, when added, should favor screenshots of the actual products.
 
 ## Growing the shared history
 
