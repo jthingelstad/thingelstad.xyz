@@ -5,6 +5,7 @@ import { loadRegistry } from './load';
 import { loadObservations, observationPath, saveObservation } from './observations';
 import { defaultGitHubReader, observeRepository, type GitHubReader } from './adapters/github';
 import { defaultTextFetcher, observeWebsite, type TextFetcher } from './adapters/web';
+import { capturedUrl, observeCaptures } from './adapters/wayback';
 import {
   defaultTinylyticsReader,
   listSites,
@@ -18,7 +19,9 @@ import type { Observation, Registry } from './schema';
 export type CollectOptions = {
   registry?: Registry;
   existing?: Observation[];
-  only?: string; // a repository name, a website URL, or 'tinylytics'
+  only?: string; // a repository name, a website URL, 'tinylytics', or 'wayback'
+  wayback?: TextFetcher | null; // null skips the Internet Archive
+  pause?: (ms: number) => Promise<void>; // between Wayback requests: the CDX API rate-limits
   github?: GitHubReader;
   web?: TextFetcher;
   tinylytics?: TinylyticsReader | null; // null skips Tinylytics; the default needs TINYLYTICS_API_KEY
@@ -42,6 +45,8 @@ export function sameEvidence(a: Observation, b: Observation) {
   };
   return JSON.stringify(strip(a)) === JSON.stringify(strip(b));
 }
+// Sites, not the posts that mention them: a reference post's first capture only repeats its date.
+const capturedRoles = new Set(['website', 'archive', 'demo']);
 export function targets(registry: Registry) {
   const repositories = new Map<string, Set<string | null>>();
   const websites = new Map<string, { url: string; sitemap?: string; feed?: string }>();
@@ -70,6 +75,15 @@ export function targets(registry: Registry) {
       paths: [...paths].toSorted((a, b) => (a ?? '').localeCompare(b ?? ''))
     })),
     websites: [...websites.values()],
+    captured: [
+      ...new Set(
+        registry.things.flatMap((thing) =>
+          thing.sources.flatMap((source) =>
+            source.kind === 'website' && capturedRoles.has(source.role) ? [capturedUrl(source.url)] : []
+          )
+        )
+      )
+    ].toSorted(),
     origins: [
       ...new Set(
         registry.things.flatMap((thing) =>
@@ -110,13 +124,27 @@ export async function collect(options: CollectOptions = {}): Promise<CollectResu
       log(`Could not observe ${target}; previous evidence kept.`);
     }
   };
-  const { repositories, websites, origins } = targets(registry);
+  const { repositories, websites, origins, captured } = targets(registry);
   for (const { repository, paths } of repositories)
     if (!options.only || options.only.toLowerCase() === repository.toLowerCase())
       await record(repository, () => observeRepository(repository, paths, github, now));
   for (const website of websites)
     if (!options.only || options.only === website.url)
       await record(website.url, () => observeWebsite(website, web, now));
+  if (options.wayback !== null && (!options.only || options.only === 'wayback')) {
+    const fetchText = options.wayback ?? web;
+    const pause = options.pause ?? ((ms: number) => new Promise<void>((resolve) => setTimeout(resolve, ms)));
+    for (const url of captured) {
+      const target = `wayback ${url}`;
+      await record(target, () => observeCaptures(url, fetchText, now));
+      // A 429, or a refused connection once it has blocked the address, means stop asking for this run.
+      if (result.failed.some((f) => f.target === target && /^429 |fetch failed/.test(f.error))) {
+        log('The Internet Archive asked the collector to slow down; the remaining captures wait for the next run.');
+        break;
+      }
+      await pause(6000);
+    }
+  }
   if (!options.only || options.only === 'tinylytics') {
     const tinylytics = options.tinylytics === undefined ? defaultTinylyticsReader() : options.tinylytics;
     if (!tinylytics) log('No TINYLYTICS_API_KEY; Tinylytics skipped.');

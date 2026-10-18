@@ -1,0 +1,18 @@
+{
+  "kind": "wayback",
+  "url": "https://weekly.thingelstad.com/",
+  "observedAt": "2026-10-18T10:34:11.419Z",
+  "firstCapture": "2018-02-03",
+  "latestCapture": "2026-10-06",
+  "years": [
+    { "year": "2018", "days": 1 },
+    { "year": "2019", "days": 3 },
+    { "year": "2020", "days": 6 },
+    { "year": "2021", "days": 11 },
+    { "year": "2022", "days": 19 },
+    { "year": "2023", "days": 14 },
+    { "year": "2024", "days": 24 },
+    { "year": "2025", "days": 32 },
+    { "year": "2026", "days": 20 }
+  ]
+}
