@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { observeRepository, type GitHubReader } from '../collection/adapters/github';
 import { monthCounts, observeWebsite, parseFeed, parseSitemap } from '../collection/adapters/web';
 import { listSites, observeSite, rootOrigin, type TinylyticsReader } from '../collection/adapters/tinylytics';
+import { capturedUrl, observeCaptures } from '../collection/adapters/wayback';
 import { collect, sameEvidence, targets } from '../collection/collect';
 import { observationPath } from '../collection/observations';
 import type { Observation, Registry, Thing } from '../collection/schema';
@@ -148,6 +149,7 @@ test('the collector observes each source once and writes only changed evidence',
     now,
     save: async (o) => (saved.push(o), 'x'),
     tinylytics: null,
+    wayback: null,
     log: () => {}
   });
   assert.deepEqual(first.written, ['Owner/Example', 'https://example.com/']);
@@ -160,6 +162,7 @@ test('the collector observes each source once and writes only changed evidence',
     now: later,
     save: async () => assert.fail('nothing changed'),
     tinylytics: null,
+    wayback: null,
     log: () => {}
   });
   assert.deepEqual(second.unchanged, ['Owner/Example', 'https://example.com/']);
@@ -174,6 +177,7 @@ test('the collector observes each source once and writes only changed evidence',
     now: later,
     save: async () => 'x',
     tinylytics: null,
+    wayback: null,
     log: () => {}
   });
   assert.equal(third.failed[0].target, 'Owner/Example');
@@ -244,8 +248,67 @@ test('Tinylytics observations record monthly page views for registry sites only'
     existing: [],
     only: 'tinylytics',
     tinylytics: null,
+    wayback: null,
     log: (l) => logged.push(l)
   });
   assert.deepEqual(skipped.written, []);
   assert.match(logged.join(), /No TINYLYTICS_API_KEY/);
+});
+
+test('Wayback observations count capture days and unwrap Wayback links', async () => {
+  assert.equal(
+    capturedUrl('https://web.archive.org/web/20120512222332/http://wiki.planetkubb.com/wiki/Main_Page'),
+    'http://wiki.planetkubb.com/wiki/Main_Page'
+  );
+  assert.equal(capturedUrl('https://example.com/'), 'https://example.com/');
+  const requested: string[] = [];
+  const cdx = JSON.stringify([['timestamp'], ['20050214022942'], ['20050301120000'], ['20160101000000']]);
+  const observation = await observeCaptures('https://example.com/', async (url) => (requested.push(url), cdx), now);
+  assert.match(requested[0], /^https:\/\/web\.archive\.org\/cdx\/search\/cdx\?url=https%3A%2F%2Fexample\.com%2F&/);
+  assert.match(requested[0], /collapse=timestamp%3A8&filter=statuscode%3A200$/);
+  assert.equal(observation.firstCapture, '2005-02-14');
+  assert.equal(observation.latestCapture, '2016-01-01');
+  assert.deepEqual(observation.years, [
+    { year: '2005', days: 2 },
+    { year: '2016', days: 1 }
+  ]);
+  assert.equal(observationPath(observation), 'data/observations/wayback/example-com.json');
+  const none = await observeCaptures('https://never.example/', async () => '[]', now);
+  assert.equal(none.firstCapture, null);
+
+  const found = targets(registry);
+  assert.deepEqual(found.captured, ['https://example.com/'], 'reference sources are not captured');
+  const pauses: number[] = [];
+  const result = await collect({
+    registry,
+    existing: [],
+    only: 'wayback',
+    wayback: async () => cdx,
+    pause: async (ms) => void pauses.push(ms),
+    now,
+    save: async () => 'x',
+    log: () => {}
+  });
+  assert.deepEqual(result.written, ['wayback https://example.com/']);
+  assert.deepEqual(pauses, [6000], 'the collector pauses between Internet Archive requests');
+  const twoSites: Registry = {
+    ...registry,
+    things: [...registry.things, thing('d', [{ kind: 'website', url: 'https://second.example.com/', role: 'website' }])]
+  };
+  let calls = 0;
+  const limited = await collect({
+    registry: twoSites,
+    existing: [],
+    only: 'wayback',
+    wayback: async (url) => {
+      calls++;
+      throw new Error(`429 for ${url}`);
+    },
+    pause: async () => {},
+    now,
+    save: async () => 'x',
+    log: () => {}
+  });
+  assert.equal(calls, 1, 'a 429 stops the Wayback requests for the run');
+  assert.equal(limited.failed.length, 1);
 });

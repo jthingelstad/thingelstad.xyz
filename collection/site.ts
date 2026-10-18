@@ -17,8 +17,10 @@ import {
   type Thing,
   type ThingSource,
   type Topic,
+  type WaybackObservation,
   type WebObservation
 } from './schema';
+import { capturedUrl } from './adapters/wayback';
 
 export const siteUrl = 'https://thingelstad.xyz';
 const siteTitle = 'Things I’ve built.';
@@ -48,7 +50,11 @@ const collectionOrder = [
 ];
 
 type Evidence = { date: string; label: string; url: string | null };
-type SiteSource = ThingSource & { observation: GitHubObservation | WebObservation | null; evidence: Evidence[] };
+type SiteSource = ThingSource & {
+  observation: GitHubObservation | WebObservation | null;
+  captures?: WaybackObservation | null; // website sources only: Internet Archive captures
+  evidence: Evidence[];
+};
 type InboundConnection = Connection & { from: string };
 // A small monogram "sticker" for each thing: its initials on a tinted tile, tilted a degree or two. The
 // hue and tilt come from the id, so a thing keeps its sticker from build to build.
@@ -180,9 +186,11 @@ function sourceMonths(source: SiteSource): MonthCount[] {
 export function buildSiteModel(registry: Registry, observations: Observation[], now = new Date()): SiteModel {
   const github = new Map<string, GitHubObservation>();
   const web = new Map<string, WebObservation>();
+  const wayback = new Map<string, WaybackObservation>();
   for (const observation of observations)
     if (observation.kind === 'github') github.set(githubKey(observation.repository), observation);
     else if (observation.kind === 'web') web.set(websiteKey(observation.url), observation);
+    else if (observation.kind === 'wayback') wayback.set(websiteKey(observation.url), observation);
   const topicById = new Map(registry.topics.map((topic) => [topic.id, topic]));
   const inbound = new Map<string, InboundConnection[]>();
   for (const thing of registry.things)
@@ -197,7 +205,8 @@ export function buildSiteModel(registry: Registry, observations: Observation[], 
         return { ...source, observation, evidence: observation ? githubEvidence(source, observation) : [] };
       }
       const observation = web.get(websiteKey(source.url)) ?? null;
-      return { ...source, observation, evidence: observation ? webEvidence(observation) : [] };
+      const captures = wayback.get(websiteKey(capturedUrl(source.url))) ?? null;
+      return { ...source, observation, captures, evidence: observation ? webEvidence(observation) : [] };
     });
     const evidence = sources.flatMap((source) => source.evidence).sort((a, b) => b.date.localeCompare(a.date));
     const counts = new Map(window.map((month) => [month, 0]));
@@ -302,7 +311,7 @@ export function thingMarkdown(thing: SiteThing) {
     ...(thing.started ? { started: thing.started } : {}),
     ...(thing.ended ? { ended: thing.ended } : {}),
     topics: thing.topics,
-    sources: thing.sources.map(({ observation: _o, evidence: _e, ...source }) => source),
+    sources: thing.sources.map(({ observation: _o, captures: _c, evidence: _e, ...source }) => source),
     connections: thing.connections,
     ...(thing.story ? { story: thing.story } : {}),
     page: `${siteUrl}${thing.page}`

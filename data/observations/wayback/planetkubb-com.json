@@ -1,0 +1,24 @@
+{
+  "kind": "wayback",
+  "url": "https://planetkubb.com/",
+  "observedAt": "2026-10-18T10:34:11.419Z",
+  "firstCapture": "2012-06-16",
+  "latestCapture": "2026-06-17",
+  "years": [
+    { "year": "2012", "days": 2 },
+    { "year": "2013", "days": 11 },
+    { "year": "2014", "days": 6 },
+    { "year": "2015", "days": 6 },
+    { "year": "2016", "days": 6 },
+    { "year": "2017", "days": 2 },
+    { "year": "2018", "days": 6 },
+    { "year": "2019", "days": 8 },
+    { "year": "2020", "days": 5 },
+    { "year": "2021", "days": 12 },
+    { "year": "2022", "days": 7 },
+    { "year": "2023", "days": 5 },
+    { "year": "2024", "days": 15 },
+    { "year": "2025", "days": 13 },
+    { "year": "2026", "days": 6 }
+  ]
+}

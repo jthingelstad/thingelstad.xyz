@@ -102,16 +102,19 @@ eleventyComputed:
           <a href="{{ source.url }}">{{ source.url | replace("https://", "") }}</a>
           <span class="role">{{ source.role }}</span>
         </p>
-        {% if source.observation %}
+        {% if source.observation or (source.captures and source.captures.firstCapture) %}
         {% set o = source.observation %}
         <ul class="evidence">
-          {% if o.feed %}
+          {% if source.captures and source.captures.firstCapture %}
+          <li>First archived <a href="https://web.archive.org/web/{{ source.captures.firstCapture | replace("-", "") }}/{{ source.captures.url }}">{{ source.captures.firstCapture | day }}</a> by the Internet Archive <span class="muted">(existence evidence, not a launch date)</span></li>
+          {% endif %}
+          {% if o and o.feed %}
           <li><a href="{{ o.feed.url }}">Feed</a>{% if o.feed.title %} “{{ o.feed.title }}”{% endif %}: {{ o.feed.items }} items{% if o.feed.newestPublished %}, newest {{ o.feed.newestPublished | day }}{% endif %}</li>
           {% endif %}
-          {% if o.sitemap %}
+          {% if o and o.sitemap %}
           <li><a href="{{ o.sitemap.url }}">Sitemap</a>: {{ o.sitemap.pages | number }} pages{% if o.sitemap.newestModified %}, newest change {{ o.sitemap.newestModified | day }}{% endif %}</li>
           {% endif %}
-          <li class="muted">Observed {{ o.observedAt | day }}</li>
+          <li class="muted">Observed {{ (o or source.captures).observedAt | day }}</li>
         </ul>
         {% endif %}
         {% endif %}

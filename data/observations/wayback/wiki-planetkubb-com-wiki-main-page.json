@@ -1,0 +1,16 @@
+{
+  "kind": "wayback",
+  "url": "http://wiki.planetkubb.com/wiki/Main_Page",
+  "observedAt": "2026-10-18T10:31:42.876Z",
+  "firstCapture": "2012-05-12",
+  "latestCapture": "2018-09-13",
+  "years": [
+    { "year": "2012", "days": 8 },
+    { "year": "2013", "days": 10 },
+    { "year": "2014", "days": 5 },
+    { "year": "2015", "days": 8 },
+    { "year": "2016", "days": 14 },
+    { "year": "2017", "days": 5 },
+    { "year": "2018", "days": 4 }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "kind": "wayback",
+  "url": "https://reading.thingelstad.com/archive/",
+  "observedAt": "2026-10-18T10:34:11.419Z",
+  "firstCapture": "2021-11-30",
+  "latestCapture": "2026-06-11",
+  "years": [
+    { "year": "2021", "days": 1 },
+    { "year": "2022", "days": 4 },
+    { "year": "2023", "days": 5 },
+    { "year": "2024", "days": 4 },
+    { "year": "2025", "days": 10 },
+    { "year": "2026", "days": 5 }
+  ]
+}

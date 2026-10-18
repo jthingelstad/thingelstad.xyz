@@ -135,7 +135,15 @@ export type TinylyticsObservation = {
   hits: number; // human page views in the window; reach, not activity
   months: MonthCount[];
 };
-export type Observation = GitHubObservation | WebObservation | TinylyticsObservation;
+export type WaybackObservation = {
+  kind: 'wayback';
+  url: string; // the captured URL, unwrapped from a Wayback link
+  observedAt: string;
+  firstCapture: string | null; // existence evidence, not a launch date
+  latestCapture: string | null; // may be someone else's page after a domain lapsed
+  years: { year: string; days: number }[]; // days with a 200 capture
+};
+export type Observation = GitHubObservation | WebObservation | TinylyticsObservation | WaybackObservation;
 
 // Stable file names for observations, derived from the source identity so shared sources are stored once.
 const slug = (value: string) =>

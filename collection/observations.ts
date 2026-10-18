@@ -7,6 +7,7 @@ import {
   type GitHubObservation,
   type Observation,
   type TinylyticsObservation,
+  type WaybackObservation,
   type WebObservation
 } from './schema';
 
@@ -14,7 +15,7 @@ const observationsRoot = 'data/observations';
 
 export function observationPath(observation: Observation, root = observationsRoot) {
   if (observation.kind === 'github') return join(root, 'github', `${githubKey(observation.repository)}.json`);
-  return join(root, observation.kind === 'web' ? 'web' : 'tinylytics', `${websiteKey(observation.url)}.json`);
+  return join(root, observation.kind, `${websiteKey(observation.url)}.json`);
 }
 async function readDirectory(directory: string): Promise<unknown[]> {
   const names = (await readdir(directory).catch(() => [] as string[])).filter((n) => n.endsWith('.json')).sort();
@@ -52,13 +53,30 @@ function tinylytics(value: unknown): TinylyticsObservation {
     throw new Error('Invalid Tinylytics observation.');
   return value as unknown as TinylyticsObservation;
 }
+function wayback(value: unknown): WaybackObservation {
+  if (
+    !isRecord(value) ||
+    value.kind !== 'wayback' ||
+    typeof value.url !== 'string' ||
+    typeof value.observedAt !== 'string' ||
+    !Array.isArray(value.years)
+  )
+    throw new Error('Invalid Wayback observation.');
+  return value as unknown as WaybackObservation;
+}
 export async function loadObservations(root = observationsRoot): Promise<Observation[]> {
-  const [githubFiles, webFiles, tinylyticsFiles] = await Promise.all([
+  const [githubFiles, webFiles, tinylyticsFiles, waybackFiles] = await Promise.all([
     readDirectory(join(root, 'github')),
     readDirectory(join(root, 'web')),
-    readDirectory(join(root, 'tinylytics'))
+    readDirectory(join(root, 'tinylytics')),
+    readDirectory(join(root, 'wayback'))
   ]);
-  return [...githubFiles.map(github), ...webFiles.map(web), ...tinylyticsFiles.map(tinylytics)];
+  return [
+    ...githubFiles.map(github),
+    ...webFiles.map(web),
+    ...tinylyticsFiles.map(tinylytics),
+    ...waybackFiles.map(wayback)
+  ];
 }
 async function formatJson(value: unknown) {
   return format(JSON.stringify(value), { parser: 'json', printWidth: 120, tabWidth: 2 });
