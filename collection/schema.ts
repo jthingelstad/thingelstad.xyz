@@ -126,7 +126,16 @@ export type WebObservation = {
   sitemap: SitemapObservation | null;
   feed: FeedObservation | null;
 };
-export type Observation = GitHubObservation | WebObservation;
+export type TinylyticsObservation = {
+  kind: 'tinylytics';
+  url: string; // the site root, matched to website sources with the same root
+  observedAt: string;
+  since: string;
+  until: string;
+  hits: number; // human page views in the window; reach, not activity
+  months: MonthCount[];
+};
+export type Observation = GitHubObservation | WebObservation | TinylyticsObservation;
 
 // Stable file names for observations, derived from the source identity so shared sources are stored once.
 const slug = (value: string) =>

@@ -48,7 +48,7 @@ const collectionOrder = [
 ];
 
 type Evidence = { date: string; label: string; url: string | null };
-type SiteSource = ThingSource & { observation: Observation | null; evidence: Evidence[] };
+type SiteSource = ThingSource & { observation: GitHubObservation | WebObservation | null; evidence: Evidence[] };
 type InboundConnection = Connection & { from: string };
 // A small monogram "sticker" for each thing: its initials on a tinted tile, tilted a degree or two. The
 // hue and tilt come from the id, so a thing keeps its sticker from build to build.
@@ -182,7 +182,7 @@ export function buildSiteModel(registry: Registry, observations: Observation[], 
   const web = new Map<string, WebObservation>();
   for (const observation of observations)
     if (observation.kind === 'github') github.set(githubKey(observation.repository), observation);
-    else web.set(websiteKey(observation.url), observation);
+    else if (observation.kind === 'web') web.set(websiteKey(observation.url), observation);
   const topicById = new Map(registry.topics.map((topic) => [topic.id, topic]));
   const inbound = new Map<string, InboundConnection[]>();
   for (const thing of registry.things)

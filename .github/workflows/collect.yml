@@ -29,6 +29,7 @@ jobs:
       - name: Observe sources
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TINYLYTICS_API_KEY: ${{ secrets.TINYLYTICS_API_KEY }} # read-only key; without it Tinylytics is skipped
         run: npm run collect
         continue-on-error: true
       - run: npm test
