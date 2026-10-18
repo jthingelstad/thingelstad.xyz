@@ -81,7 +81,7 @@ The ledger is also the RSS feed: “what changed in what I’ve built,” newest
 
 An observation is written only when the evidence changed. Time stamps alone never produce a diff, so a weekly run with nothing new is a no-op. A failed fetch keeps the previous observation. Git history is the time series; there is no separate append-only store.
 
-The weekly GitHub Actions workflow runs the collector and the tests, then opens a pull request with the changed observations, because `main` takes changes only through pull requests with passing checks. Work done with the workflow’s own token starts no other workflow, so the job dispatches the checks on its branch, merges when they pass, and dispatches the deploy on `main`.
+The weekly GitHub Actions workflow runs the collector and the tests, then opens a pull request with the changed observations, because `main` takes changes only through pull requests with passing checks. Work done with the workflow’s own token starts no other workflow, so the job dispatches the checks on its branch, merges when they pass, and dispatches the deploy on `main`. GitHub does not link a dispatched run’s checks to a pull request, so after each required job passes on the branch’s exact commit, the job copies that result onto the commit as a status of the same name.
 
 ## Outputs of the static build
 
