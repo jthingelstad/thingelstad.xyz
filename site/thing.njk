@@ -82,6 +82,8 @@ eleventyComputed:
         {% if o.description %}<p class="source-description">{{ o.description }}</p>{% endif %}
         <ul class="evidence">
           <li>Repository created {{ o.repositoryCreatedAt | day }} <span class="muted">(a development record, not a launch date)</span></li>
+          {% set reached = o | reach %}
+          {% if reached %}<li>{{ reached }}</li>{% endif %}
           {% if o.languages | length %}<li>{{ o.languages | languages }}</li>{% endif %}
           {% if o.release %}<li>Latest release <a href="{{ o.release.url }}">{{ o.release.name }}</a>, {{ o.release.date | day }}</li>{% endif %}
           {% for scope in o.activity %}

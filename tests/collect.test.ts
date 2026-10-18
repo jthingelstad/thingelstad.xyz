@@ -36,6 +36,8 @@ const fakeReader: GitHubReader = async (endpoint) => {
     html_url: 'https://github.com/owner/example',
     archived: false,
     description: 'An example.',
+    stargazers_count: 12,
+    forks_count: 3,
     secret_extra: 'never published'
   };
 };
@@ -44,6 +46,8 @@ test('GitHub observations project an allowlist of public fields', async () => {
   const observation = await observeRepository('owner/example', [null, 'packages/a'], fakeReader, now);
   assert.equal(observation.kind, 'github');
   assert.equal(observation.release?.name, 'v1');
+  assert.equal(observation.stars, 12);
+  assert.equal(observation.forks, 3);
   assert.deepEqual(observation.languages[0], { name: 'TypeScript', bytes: 100 });
   assert.equal(observation.activity.length, 2);
   assert.equal(observation.activity[0].count, 1, 'duplicate commit IDs are counted once');

@@ -15,7 +15,9 @@ import {
   thingsJson,
   timelineSvg,
   toInstant,
-  sticker
+  sticker,
+  reach,
+  reachThreshold
 } from '../collection/site';
 import { splitFrontmatter } from '../collection/load';
 
@@ -125,6 +127,12 @@ test('the timeline and sparklines render without gaps in the data', () => {
   for (const row of model.timeline.rows) assert.ok(row.start <= row.end, row.thing.id);
   const line = sparkline(model.things[0].months, 'test');
   assert.equal(line.match(/<rect/g)?.length, 12);
+});
+
+test('stars and forks show only at the reach threshold', () => {
+  assert.equal(reach({ stars: reachThreshold - 1, forks: 40 }), null);
+  assert.equal(reach({}), null, 'observations from before the counts existed show nothing');
+  assert.equal(reach({ stars: 1370, forks: 1 }), '1,370 stars and 1 fork on GitHub');
 });
 
 test('stickers are initials on a tile whose hue and tilt follow from the id', () => {

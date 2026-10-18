@@ -99,6 +99,8 @@ export type GitHubObservation = {
   repositoryCreatedAt: string; // repository creation, not project launch
   archived: boolean;
   description: string;
+  stars: number; // lifetime totals with no dates: reach, not activity
+  forks: number;
   languages: { name: string; bytes: number }[];
   release: { name: string; date: string; url: string } | null;
   activity: CommitActivity[];
