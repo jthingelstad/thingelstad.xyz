@@ -1,0 +1,32 @@
+{
+  "kind": "github",
+  "repository": "jthingelstad/rsm.thingelstad.com",
+  "url": "https://github.com/jthingelstad/rsm.thingelstad.com",
+  "observedAt": "2026-10-18T10:38:59.915Z",
+  "repositoryCreatedAt": "2017-09-04T15:52:53.000Z",
+  "archived": false,
+  "description": "",
+  "stars": 2,
+  "forks": 0,
+  "languages": [
+    { "name": "HTML", "bytes": 7098 },
+    { "name": "SCSS", "bytes": 4302 },
+    { "name": "JavaScript", "bytes": 876 }
+  ],
+  "release": null,
+  "activity": [
+    {
+      "path": null,
+      "branch": "master",
+      "since": "2026-07-20T10:38:59.915Z",
+      "until": "2026-10-18T10:38:59.915Z",
+      "count": 0,
+      "complete": true,
+      "months": [],
+      "latestCommit": {
+        "date": "2026-06-12T15:11:43.000Z",
+        "url": "https://github.com/jthingelstad/rsm.thingelstad.com/commit/a95e1ef5b218a9b482f899a9affdf8d60326c789"
+      }
+    }
+  ]
+}

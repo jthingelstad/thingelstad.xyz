@@ -1,0 +1,19 @@
+{
+  "kind": "web",
+  "url": "https://www.roadsignmath.xyz/",
+  "observedAt": "2026-10-18T10:38:59.915Z",
+  "sitemap": {
+    "url": "https://www.roadsignmath.xyz/sitemap.xml",
+    "pages": 19,
+    "newestModified": "2025-09-02T00:00:13.000Z",
+    "months": [],
+    "complete": true
+  },
+  "feed": {
+    "url": "https://www.roadsignmath.xyz/feed.xml",
+    "title": "Road Sign Math",
+    "items": 16,
+    "newestPublished": "2025-09-02T00:00:13.000Z",
+    "months": []
+  }
+}

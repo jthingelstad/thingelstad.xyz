@@ -1,0 +1,13 @@
+{
+  "kind": "web",
+  "url": "https://thingy.thingelstad.com/",
+  "observedAt": "2026-10-18T10:38:59.915Z",
+  "sitemap": {
+    "url": "https://thingy.thingelstad.com/sitemap.xml",
+    "pages": 4,
+    "newestModified": null,
+    "months": [],
+    "complete": true
+  },
+  "feed": null
+}

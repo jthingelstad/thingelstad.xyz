@@ -1,0 +1,23 @@
+{
+  "kind": "web",
+  "url": "https://612.poapchallenge.com/",
+  "observedAt": "2026-10-18T10:38:59.915Z",
+  "sitemap": {
+    "url": "https://612.poapchallenge.com/sitemap.xml",
+    "pages": 484,
+    "newestModified": "2026-01-08T18:21:26.000Z",
+    "months": [
+      { "month": "2025-11", "count": 1 },
+      { "month": "2025-12", "count": 2 },
+      { "month": "2026-01", "count": 1 }
+    ],
+    "complete": true
+  },
+  "feed": {
+    "url": "https://612.poapchallenge.com/feed.xml",
+    "title": "612 POAP Challenge",
+    "items": 25,
+    "newestPublished": "2025-09-05T22:05:20.000Z",
+    "months": []
+  }
+}

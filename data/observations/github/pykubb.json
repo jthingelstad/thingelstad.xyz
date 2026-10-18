@@ -1,0 +1,28 @@
+{
+  "kind": "github",
+  "repository": "Planet-Kubb/PyKubb",
+  "url": "https://github.com/Planet-Kubb/PyKubb",
+  "observedAt": "2026-10-18T10:38:59.915Z",
+  "repositoryCreatedAt": "2014-08-16T01:34:53.000Z",
+  "archived": false,
+  "description": "Python module to analyze Kubb games and output statistics.",
+  "stars": 1,
+  "forks": 0,
+  "languages": [{ "name": "Python", "bytes": 14224 }],
+  "release": null,
+  "activity": [
+    {
+      "path": null,
+      "branch": "master",
+      "since": "2026-07-20T10:38:59.915Z",
+      "until": "2026-10-18T10:38:59.915Z",
+      "count": 0,
+      "complete": true,
+      "months": [],
+      "latestCommit": {
+        "date": "2014-08-17T16:14:51.000Z",
+        "url": "https://github.com/Planet-Kubb/PyKubb/commit/60c997a4da583cff5baea0d192b1d7ad5dd66fdb"
+      }
+    }
+  ]
+}

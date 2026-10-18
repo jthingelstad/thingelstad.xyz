@@ -1,0 +1,13 @@
+{
+  "kind": "web",
+  "url": "https://things4good.xyz/",
+  "observedAt": "2026-10-18T10:38:59.915Z",
+  "sitemap": {
+    "url": "https://things4good.xyz/sitemap.xml",
+    "pages": 6,
+    "newestModified": null,
+    "months": [],
+    "complete": true
+  },
+  "feed": null
+}

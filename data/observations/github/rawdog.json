@@ -1,0 +1,33 @@
+{
+  "kind": "github",
+  "repository": "Planet-Kubb/rawdog",
+  "url": "https://github.com/Planet-Kubb/rawdog",
+  "observedAt": "2026-10-18T10:38:59.915Z",
+  "repositoryCreatedAt": "2014-07-18T12:08:34.000Z",
+  "archived": false,
+  "description": "Configuration and template files for rawdog generated Planet Kubb planet feed.",
+  "stars": 2,
+  "forks": 0,
+  "languages": [
+    { "name": "Python", "bytes": 20835 },
+    { "name": "HTML", "bytes": 2339 },
+    { "name": "CSS", "bytes": 939 },
+    { "name": "Shell", "bytes": 440 }
+  ],
+  "release": null,
+  "activity": [
+    {
+      "path": null,
+      "branch": "master",
+      "since": "2026-07-20T10:38:59.915Z",
+      "until": "2026-10-18T10:38:59.915Z",
+      "count": 0,
+      "complete": true,
+      "months": [],
+      "latestCommit": {
+        "date": "2015-06-12T11:28:04.000Z",
+        "url": "https://github.com/Planet-Kubb/rawdog/commit/952009772408b83fec4f8bd06cdc99e0b4c631ec"
+      }
+    }
+  ]
+}

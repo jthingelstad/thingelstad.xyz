@@ -1,0 +1,28 @@
+{
+  "kind": "github",
+  "repository": "jthingelstad/mb-llms-txt",
+  "url": "https://github.com/jthingelstad/mb-llms-txt",
+  "observedAt": "2026-10-18T10:38:59.915Z",
+  "repositoryCreatedAt": "2026-05-02T11:18:41.000Z",
+  "archived": false,
+  "description": "Adds /llms.txt and /llms-full.txt to any Micro.blog hosted blog, following the llmstxt.org spec.",
+  "stars": 0,
+  "forks": 1,
+  "languages": [],
+  "release": null,
+  "activity": [
+    {
+      "path": null,
+      "branch": "main",
+      "since": "2026-07-20T10:38:59.915Z",
+      "until": "2026-10-18T10:38:59.915Z",
+      "count": 0,
+      "complete": true,
+      "months": [],
+      "latestCommit": {
+        "date": "2026-05-02T11:58:50.000Z",
+        "url": "https://github.com/jthingelstad/mb-llms-txt/commit/001040ee5e97f72e8d386c2df00fe927a8357d4c"
+      }
+    }
+  ]
+}

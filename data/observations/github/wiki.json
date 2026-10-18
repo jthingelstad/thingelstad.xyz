@@ -1,0 +1,28 @@
+{
+  "kind": "github",
+  "repository": "Planet-Kubb/wiki",
+  "url": "https://github.com/Planet-Kubb/wiki",
+  "observedAt": "2026-10-18T10:38:59.915Z",
+  "repositoryCreatedAt": "2013-02-16T14:15:29.000Z",
+  "archived": false,
+  "description": "Robots and helper scripts for the Planet Kubb wiki.",
+  "stars": 1,
+  "forks": 0,
+  "languages": [{ "name": "Python", "bytes": 8584 }],
+  "release": null,
+  "activity": [
+    {
+      "path": null,
+      "branch": "master",
+      "since": "2026-07-20T10:38:59.915Z",
+      "until": "2026-10-18T10:38:59.915Z",
+      "count": 0,
+      "complete": true,
+      "months": [],
+      "latestCommit": {
+        "date": "2013-02-25T04:38:44.000Z",
+        "url": "https://github.com/Planet-Kubb/wiki/commit/44aaeded2202255f8fc80b13226c7fc90fbcab0f"
+      }
+    }
+  ]
+}

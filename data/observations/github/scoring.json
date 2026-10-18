@@ -1,0 +1,28 @@
+{
+  "kind": "github",
+  "repository": "Planet-Kubb/scoring",
+  "url": "https://github.com/Planet-Kubb/scoring",
+  "observedAt": "2026-10-18T10:38:59.915Z",
+  "repositoryCreatedAt": "2014-07-07T00:24:32.000Z",
+  "archived": false,
+  "description": "Planet Kubb Scoresheet and supporting materials.",
+  "stars": 1,
+  "forks": 0,
+  "languages": [],
+  "release": null,
+  "activity": [
+    {
+      "path": null,
+      "branch": "master",
+      "since": "2026-07-20T10:38:59.915Z",
+      "until": "2026-10-18T10:38:59.915Z",
+      "count": 0,
+      "complete": true,
+      "months": [],
+      "latestCommit": {
+        "date": "2014-07-20T01:32:16.000Z",
+        "url": "https://github.com/Planet-Kubb/scoring/commit/5e7510e3f424c2219d00094d8999f514ac066bf7"
+      }
+    }
+  ]
+}

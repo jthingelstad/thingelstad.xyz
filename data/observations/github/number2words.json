@@ -2,17 +2,20 @@
   "kind": "github",
   "repository": "jthingelstad/Number2Words",
   "url": "https://github.com/jthingelstad/Number2Words",
+  "observedAt": "2026-10-18T10:38:59.915Z",
   "repositoryCreatedAt": "2011-07-20T03:27:57.000Z",
   "archived": true,
   "description": "MediaWiki parser extension to turn a write out a number in words.",
+  "stars": 3,
+  "forks": 0,
   "languages": [{ "name": "PHP", "bytes": 1720 }],
   "release": null,
   "activity": [
     {
       "path": null,
       "branch": "master",
-      "since": "2026-07-16T12:28:46.011Z",
-      "until": "2026-10-14T12:28:46.011Z",
+      "since": "2026-07-20T10:38:59.915Z",
+      "until": "2026-10-18T10:38:59.915Z",
       "count": 0,
       "complete": true,
       "months": [],
@@ -21,6 +24,5 @@
         "url": "https://github.com/jthingelstad/Number2Words/commit/f41457d862e0781d563edafc1c9116b6e3d8de9d"
       }
     }
-  ],
-  "observedAt": "2026-10-14T12:28:46.011Z"
+  ]
 }
