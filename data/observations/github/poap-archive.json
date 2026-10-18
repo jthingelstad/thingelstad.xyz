@@ -2,13 +2,15 @@
   "kind": "github",
   "repository": "jthingelstad/poap-archive",
   "url": "https://github.com/jthingelstad/poap-archive",
-  "observedAt": "2026-10-17T13:32:02.761Z",
+  "observedAt": "2026-10-18T10:38:59.915Z",
   "repositoryCreatedAt": "2026-10-17T11:31:15.000Z",
   "archived": false,
   "description": "Jamie Thingelstad's POAP time capsule: collecting, issuing, writing, and network, captured after the 2026 protocol sunset",
+  "stars": 0,
+  "forks": 0,
   "languages": [
-    { "name": "HTML", "bytes": 4512212 },
-    { "name": "Python", "bytes": 21243 },
+    { "name": "HTML", "bytes": 5126520 },
+    { "name": "Python", "bytes": 71961 },
     { "name": "CSS", "bytes": 11976 }
   ],
   "release": null,
@@ -16,14 +18,14 @@
     {
       "path": null,
       "branch": "main",
-      "since": "2026-07-19T13:32:02.761Z",
-      "until": "2026-10-17T13:32:02.761Z",
-      "count": 10,
+      "since": "2026-07-20T10:38:59.915Z",
+      "until": "2026-10-18T10:38:59.915Z",
+      "count": 21,
       "complete": true,
-      "months": [{ "month": "2026-10", "count": 10 }],
+      "months": [{ "month": "2026-10", "count": 21 }],
       "latestCommit": {
-        "date": "2026-10-17T12:32:56.000Z",
-        "url": "https://github.com/jthingelstad/poap-archive/commit/a1cad73f1ed2da37406c1db92c1bad9e93da64b0"
+        "date": "2026-10-17T13:59:57.000Z",
+        "url": "https://github.com/jthingelstad/poap-archive/commit/57e7da32398ffd5087df33ed94ee11f257eedcd8"
       }
     }
   ]

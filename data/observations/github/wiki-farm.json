@@ -1,0 +1,28 @@
+{
+  "kind": "github",
+  "repository": "jthingelstad/wiki-farm",
+  "url": "https://github.com/jthingelstad/wiki-farm",
+  "observedAt": "2026-10-18T10:38:59.915Z",
+  "repositoryCreatedAt": "2014-08-23T13:43:33.000Z",
+  "archived": true,
+  "description": "LocalSettings configuration for thingelstad.com MediaWiki farm.",
+  "stars": 8,
+  "forks": 3,
+  "languages": [{ "name": "PHP", "bytes": 47186 }],
+  "release": null,
+  "activity": [
+    {
+      "path": null,
+      "branch": "master",
+      "since": "2026-07-20T10:38:59.915Z",
+      "until": "2026-10-18T10:38:59.915Z",
+      "count": 0,
+      "complete": true,
+      "months": [],
+      "latestCommit": {
+        "date": "2015-11-29T20:34:34.000Z",
+        "url": "https://github.com/jthingelstad/wiki-farm/commit/f2b046a7964ee933c3124875dbe2d51f0a6845d5"
+      }
+    }
+  ]
+}

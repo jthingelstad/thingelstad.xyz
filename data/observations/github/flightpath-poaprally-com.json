@@ -1,0 +1,33 @@
+{
+  "kind": "github",
+  "repository": "jthingelstad/flightpath.poaprally.com",
+  "url": "https://github.com/jthingelstad/flightpath.poaprally.com",
+  "observedAt": "2026-10-18T10:38:59.915Z",
+  "repositoryCreatedAt": "2026-02-26T04:09:30.000Z",
+  "archived": true,
+  "description": "Flight Path — a visualization for the POAP Airport Rally.",
+  "stars": 1,
+  "forks": 0,
+  "languages": [
+    { "name": "JavaScript", "bytes": 56920 },
+    { "name": "CSS", "bytes": 43475 },
+    { "name": "Python", "bytes": 34546 },
+    { "name": "Nunjucks", "bytes": 33468 }
+  ],
+  "release": null,
+  "activity": [
+    {
+      "path": null,
+      "branch": "main",
+      "since": "2026-07-20T10:38:59.915Z",
+      "until": "2026-10-18T10:38:59.915Z",
+      "count": 6,
+      "complete": true,
+      "months": [{ "month": "2026-07", "count": 6 }],
+      "latestCommit": {
+        "date": "2026-07-24T16:19:50.000Z",
+        "url": "https://github.com/jthingelstad/flightpath.poaprally.com/commit/7069ab8f64c9ed3ba2537d4b1b4e578469b5bec6"
+      }
+    }
+  ]
+}

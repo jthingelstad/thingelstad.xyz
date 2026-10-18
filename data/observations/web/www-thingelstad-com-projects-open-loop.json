@@ -1,0 +1,13 @@
+{
+  "kind": "web",
+  "url": "https://www.thingelstad.com/projects/open-loop/",
+  "observedAt": "2026-10-18T10:38:59.915Z",
+  "sitemap": null,
+  "feed": {
+    "url": "https://files.thingelstad.com/projects/openloop/podcast.xml",
+    "title": "Open Loop",
+    "items": 9,
+    "newestPublished": "2013-04-12T17:00:00.000Z",
+    "months": []
+  }
+}

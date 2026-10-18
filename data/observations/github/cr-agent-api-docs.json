@@ -2,10 +2,12 @@
   "kind": "github",
   "repository": "jthingelstad/cr-agent-api-docs",
   "url": "https://github.com/jthingelstad/cr-agent-api-docs",
-  "observedAt": "2026-10-17T13:32:02.761Z",
+  "observedAt": "2026-10-18T10:38:59.915Z",
   "repositoryCreatedAt": "2026-03-10T00:39:15.000Z",
   "archived": false,
   "description": "Agent-first reference documentation for the public Clash Royale API (api.clashroyale.com/v1) — built for LLM agents, automation workflows, and API clients.",
+  "stars": 1,
+  "forks": 0,
   "languages": [
     { "name": "Python", "bytes": 87352 },
     { "name": "JavaScript", "bytes": 19846 },
@@ -16,8 +18,8 @@
     {
       "path": null,
       "branch": "main",
-      "since": "2026-07-19T13:32:02.761Z",
-      "until": "2026-10-17T13:32:02.761Z",
+      "since": "2026-07-20T10:38:59.915Z",
+      "until": "2026-10-18T10:38:59.915Z",
       "count": 81,
       "complete": true,
       "months": [

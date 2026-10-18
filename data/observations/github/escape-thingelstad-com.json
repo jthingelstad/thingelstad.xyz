@@ -2,10 +2,12 @@
   "kind": "github",
   "repository": "jthingelstad/escape.thingelstad.com",
   "url": "https://github.com/jthingelstad/escape.thingelstad.com",
-  "observedAt": "2026-10-17T13:32:02.761Z",
+  "observedAt": "2026-10-18T10:38:59.915Z",
   "repositoryCreatedAt": "2026-02-11T23:10:54.000Z",
   "archived": false,
   "description": "The Escaping Things escape-room team site — an Eleventy static site built from a normalized Airtable dataset (rooms played, countries, stats).",
+  "stars": 1,
+  "forks": 0,
   "languages": [
     { "name": "JavaScript", "bytes": 134346 },
     { "name": "Nunjucks", "bytes": 89595 },
@@ -18,8 +20,8 @@
     {
       "path": null,
       "branch": "main",
-      "since": "2026-07-19T13:32:02.761Z",
-      "until": "2026-10-17T13:32:02.761Z",
+      "since": "2026-07-20T10:38:59.915Z",
+      "until": "2026-10-18T10:38:59.915Z",
       "count": 28,
       "complete": true,
       "months": [

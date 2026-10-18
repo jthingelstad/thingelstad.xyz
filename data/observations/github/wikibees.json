@@ -1,0 +1,35 @@
+{
+  "kind": "github",
+  "repository": "WikiApiary/wikibees",
+  "url": "https://github.com/WikiApiary/wikibees",
+  "observedAt": "2026-10-18T10:38:59.915Z",
+  "repositoryCreatedAt": "2016-09-04T19:55:30.000Z",
+  "archived": false,
+  "description": "The WikiApiary Wikibots",
+  "stars": 4,
+  "forks": 5,
+  "languages": [
+    { "name": "Python", "bytes": 177486 },
+    { "name": "PHP", "bytes": 19541 },
+    { "name": "JavaScript", "bytes": 12310 },
+    { "name": "CSS", "bytes": 1873 },
+    { "name": "HTML", "bytes": 971 },
+    { "name": "Shell", "bytes": 586 }
+  ],
+  "release": null,
+  "activity": [
+    {
+      "path": null,
+      "branch": "master",
+      "since": "2026-07-20T10:38:59.915Z",
+      "until": "2026-10-18T10:38:59.915Z",
+      "count": 10,
+      "complete": true,
+      "months": [{ "month": "2026-09", "count": 10 }],
+      "latestCommit": {
+        "date": "2026-09-27T03:40:03.000Z",
+        "url": "https://github.com/WikiApiary/wikibees/commit/d4cbb731f99070b2fa242f24c823755dd71a1dab"
+      }
+    }
+  ]
+}

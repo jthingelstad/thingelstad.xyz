@@ -1,0 +1,28 @@
+{
+  "kind": "github",
+  "repository": "jthingelstad/poap-agent-api-docs",
+  "url": "https://github.com/jthingelstad/poap-agent-api-docs",
+  "observedAt": "2026-10-18T10:38:59.915Z",
+  "repositoryCreatedAt": "2026-03-10T02:28:43.000Z",
+  "archived": true,
+  "description": "Agent-first Markdown reference for the POAP API — endpoint references, workflow guides, and quirks found through live verification.",
+  "stars": 0,
+  "forks": 0,
+  "languages": [],
+  "release": null,
+  "activity": [
+    {
+      "path": null,
+      "branch": "main",
+      "since": "2026-07-20T10:38:59.915Z",
+      "until": "2026-10-18T10:38:59.915Z",
+      "count": 1,
+      "complete": true,
+      "months": [{ "month": "2026-07", "count": 1 }],
+      "latestCommit": {
+        "date": "2026-07-24T15:59:24.000Z",
+        "url": "https://github.com/jthingelstad/poap-agent-api-docs/commit/a8b8ea492c01e886efd00bb234efc1ef2a97eca4"
+      }
+    }
+  ]
+}

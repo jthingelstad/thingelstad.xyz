@@ -2,10 +2,12 @@
   "kind": "github",
   "repository": "jthingelstad/yourversionnumber.com",
   "url": "https://github.com/jthingelstad/yourversionnumber.com",
-  "observedAt": "2026-10-17T13:32:02.761Z",
+  "observedAt": "2026-10-18T10:38:59.915Z",
   "repositoryCreatedAt": "2026-05-01T05:46:33.000Z",
   "archived": false,
   "description": "Bookmarkable static page that shows a person's age as a v MAJOR.MINOR.PATCH version number.",
+  "stars": 2,
+  "forks": 0,
   "languages": [
     { "name": "CSS", "bytes": 369374 },
     { "name": "HTML", "bytes": 118016 },
@@ -17,8 +19,8 @@
     {
       "path": null,
       "branch": "main",
-      "since": "2026-07-19T13:32:02.761Z",
-      "until": "2026-10-17T13:32:02.761Z",
+      "since": "2026-07-20T10:38:59.915Z",
+      "until": "2026-10-18T10:38:59.915Z",
       "count": 64,
       "complete": true,
       "months": [

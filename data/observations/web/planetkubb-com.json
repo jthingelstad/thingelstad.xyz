@@ -1,0 +1,19 @@
+{
+  "kind": "web",
+  "url": "https://planetkubb.com/",
+  "observedAt": "2026-10-18T10:38:59.915Z",
+  "sitemap": {
+    "url": "https://planetkubb.com/wp-sitemap.xml",
+    "pages": 160,
+    "newestModified": "2019-06-23T16:31:29.000Z",
+    "months": [],
+    "complete": true
+  },
+  "feed": {
+    "url": "https://planetkubb.com/feed/",
+    "title": "Planet Kubb",
+    "items": 10,
+    "newestPublished": "2017-06-20T02:02:18.000Z",
+    "months": []
+  }
+}

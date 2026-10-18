@@ -1,0 +1,35 @@
+{
+  "kind": "github",
+  "repository": "WikiApiary/WikiApiary",
+  "url": "https://github.com/WikiApiary/WikiApiary",
+  "observedAt": "2026-10-18T10:38:59.915Z",
+  "repositoryCreatedAt": "2013-01-06T14:27:38.000Z",
+  "archived": false,
+  "description": "Celery-based task workers for collecting and updating data on WikiApiary.",
+  "stars": 31,
+  "forks": 9,
+  "languages": [
+    { "name": "Python", "bytes": 126726 },
+    { "name": "PHP", "bytes": 18198 },
+    { "name": "JavaScript", "bytes": 12153 },
+    { "name": "CSS", "bytes": 1873 },
+    { "name": "HTML", "bytes": 992 },
+    { "name": "Shell", "bytes": 266 }
+  ],
+  "release": null,
+  "activity": [
+    {
+      "path": null,
+      "branch": "develop",
+      "since": "2026-07-20T10:38:59.915Z",
+      "until": "2026-10-18T10:38:59.915Z",
+      "count": 0,
+      "complete": true,
+      "months": [],
+      "latestCommit": {
+        "date": "2015-03-14T13:38:58.000Z",
+        "url": "https://github.com/WikiApiary/WikiApiary/commit/d45dd10e54a0b2ecaef5f6a28ff6aa95282fc223"
+      }
+    }
+  ]
+}

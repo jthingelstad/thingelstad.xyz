@@ -1,0 +1,37 @@
+{
+  "kind": "github",
+  "repository": "wikimedia/mediawiki-skins-Foreground",
+  "url": "https://github.com/wikimedia/mediawiki-skins-Foreground",
+  "observedAt": "2026-10-18T10:38:59.915Z",
+  "repositoryCreatedAt": "2022-08-05T14:33:50.000Z",
+  "archived": false,
+  "description": "Github mirror of \"mediawiki/skins/Foreground\" - our actual code is hosted with Gerrit (please see https://www.mediawiki.org/wiki/Developer_access for contributing)",
+  "stars": 3,
+  "forks": 2,
+  "languages": [
+    { "name": "CSS", "bytes": 47886 },
+    { "name": "PHP", "bytes": 11175 },
+    { "name": "JavaScript", "bytes": 770 }
+  ],
+  "release": null,
+  "activity": [
+    {
+      "path": null,
+      "branch": "master",
+      "since": "2026-07-20T10:38:59.915Z",
+      "until": "2026-10-18T10:38:59.915Z",
+      "count": 12,
+      "complete": true,
+      "months": [
+        { "month": "2026-07", "count": 2 },
+        { "month": "2026-08", "count": 4 },
+        { "month": "2026-09", "count": 5 },
+        { "month": "2026-10", "count": 1 }
+      ],
+      "latestCommit": {
+        "date": "2026-10-06T11:27:33.000Z",
+        "url": "https://github.com/wikimedia/mediawiki-skins-Foreground/commit/c477114cd14fc66472de995cffaf0bad7f0d2a0d"
+      }
+    }
+  ]
+}
