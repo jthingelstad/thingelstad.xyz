@@ -1,0 +1,24 @@
+- id: numbers2words-recorded-development
+  date: 2011-07-20
+  kind: development
+  title: 'Numbers2Words: recorded development begins'
+  summary: The earliest commit in this repository is a development record; the project or idea may predate it.
+  source: https://github.com/jthingelstad/Number2Words/commit/3e486a7424544d3d9dad9915f236b615a7c8fd86
+  things:
+    - numbers2words
+- id: rw-rename
+  date: '2011'
+  kind: milestone
+  title: Creative Computer Book Club becomes R/W
+  summary: Same wiki
+  source: https://web.archive.org/web/20120106214958/http://rwbookclub.com/wiki/Main_Page
+  things:
+    - r-w-book-club
+- id: rsm-wiki
+  date: '2011'
+  kind: development
+  title: Road Sign Math becomes a wiki
+  summary: Moved from blog to wiki.
+  source: https://www.thingelstad.com/2023/10/21/road-sign-math.html
+  things:
+    - road-sign-math

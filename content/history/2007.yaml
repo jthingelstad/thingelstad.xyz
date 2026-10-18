@@ -1,0 +1,16 @@
+- id: thinglesbot-launch
+  date: 2007-03-11
+  kind: launch
+  title: Introducing my robot
+  summary: Jamie gives his home-monitoring scripts a voice as @thinglesBot on Twitter.
+  source: https://www.thingelstad.com/2007/03/11/introducing-my-robot.html
+  things:
+    - thinglesbot
+- id: rw-jamie-joins
+  date: '2007'
+  kind: milestone
+  title: Jamie joins the R/W Book Club
+  summary: John Riedl invites Jamie.
+  source: https://www.thingelstad.com/2013/07/21/goodbye-to-my.html
+  things:
+    - r-w-book-club

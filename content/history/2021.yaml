@@ -1,0 +1,25 @@
+- id: reading-things-launch
+  date: 2021-05-08
+  kind: launch
+  title: First Reading Things issue
+  summary: The family’s quarterly books newsletter sends its first issue.
+  source: https://www.thingelstad.com/2021/05/08/we-just-published.html
+  things:
+    - reading-things
+- id: things-4-good-first-sale
+  date: 2021-11-06
+  kind: launch
+  title: First Things 4 Good fundraiser
+  summary: 134 candles sold
+  source: https://www.thingelstad.com/2021/11/09/things-good-fall.html
+  things:
+    - things-4-good
+- id: jiggy-thing-001-ordered
+  date: 2021-10-06
+  kind: launch
+  title: First Jiggy Thing Puzzle
+  summary: The family finished the box for Celebration City and ordered 50 puzzles.
+  source: https://www.thingelstad.com/2021/10/06/our-family-created.html
+  things:
+    - jiggy-thing-puzzles
+    - things-4-good

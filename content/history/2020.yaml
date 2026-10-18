@@ -1,0 +1,32 @@
+- id: blog-microblog-import
+  date: 2020-05-02
+  kind: milestone
+  title: The blog moves to Micro.blog
+  summary: Jamie imports more than 1
+  source: https://www.thingelstad.com/2020/05/02/importing-jekyll-site.html
+  things:
+    - jamie-thingelstad-blog
+- id: weekly-thing-buttondown
+  date: 2020-01-18
+  kind: milestone
+  title: Weekly Thing moves to Buttondown
+  summary: Issue 131 is the first sent from Buttondown.
+  source: https://weekly.thingelstad.com/archive/131/
+  things:
+    - weekly-thing
+- id: link-blog-relaunch
+  date: 2020-11-08
+  kind: milestone
+  title: Link Blog relaunched
+  summary: Relaunched with comments and per-site index pages.
+  source: https://www.thingelstad.com/2020/11/08/i-got-my.html
+  things:
+    - link-blog
+- id: charlie-brown-tree-carving
+  date: 2020-05-24
+  kind: development
+  title: Charlie Brown Tree carving
+  summary: Carving in progress at Magic Pines.
+  source: https://www.thingelstad.com/2020/05/24/little-snippet-of.html
+  things:
+    - charlie-brown-tree

@@ -1,0 +1,17 @@
+- id: rsm-reboot
+  date: 2023-10-21
+  kind: launch
+  title: Road Sign Math rebooted
+  summary: Simple blog at roadsignmath.xyz.
+  source: https://www.thingelstad.com/2023/10/21/road-sign-math.html
+  things:
+    - road-sign-math
+- id: weekly-thing-shortcuts-rebuild
+  date: 2023-09-24
+  kind: milestone
+  title: Weekly Thing automation rebuilt
+  summary: Jamie rebuilt the Weekly Thing workflow as native Shortcuts with Data Jar caching and an automated photo section.
+  source: https://www.thingelstad.com/2023/09/24/how-i-build.html
+  things:
+    - shortcuts
+    - weekly-thing

@@ -6,3 +6,35 @@
   source: https://weekly.thingelstad.com/archive/1/
   things:
     - weekly-thing
+- id: link-thing-launch
+  date: 2017-09-09
+  kind: launch
+  title: Link Thing goes live
+  summary: Pinboard links become a Jekyll link blog.
+  source: https://weekly.thingelstad.com/archive/18/
+  things:
+    - link-blog
+- id: wikiapiary-handoff
+  date: 2017-04-17
+  kind: milestone
+  title: WikiApiary in new hands
+  summary: Mark Hershberger writes that he inherited WikiApiary from Jamie and is keeping it running.
+  source: https://lists.wikimedia.org/hyperkitty/list/wikiapiary@lists.wikimedia.org/message/HRNMPDZBNH5DWCWEFWMKLJAACDQDOAPY/
+  things:
+    - wikiapiary
+- id: rw-jekyll
+  date: 2017-09
+  kind: development
+  title: Book club Jekyll site
+  summary: Jamie builds rwbook.club.
+  source: https://weekly.thingelstad.com/archive/17/
+  things:
+    - r-w-book-club
+- id: open-loop-restored-2017
+  date: 2017-06-10
+  kind: archive
+  title: Open Loop archive back online
+  summary: Archive republished.
+  source: https://www.thingelstad.com/2017/06/10/put-the-archive.html
+  things:
+    - open-loop

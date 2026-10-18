@@ -1,0 +1,33 @@
+- id: foreground-1-0
+  date: 2014-07-03
+  kind: milestone
+  title: Foreground 1.0
+  summary: Jamie tags the first release of the Foreground skin.
+  source: https://github.com/jthingelstad/foreground/releases/tag/1.0
+  things:
+    - foreground
+- id: q2a-number-captcha-launch
+  date: 2014-11-16
+  kind: launch
+  title: A number captcha for Question2Answer
+  summary: Jamie releases a spelled-out-number captcha to stop spam sign-ups on Ask Planet Kubb.
+  source: https://www.thingelstad.com/2014/11/16/questionanswer-number-captcha.html
+  things:
+    - q2a-number-captcha
+    - ask-planet-kubb
+- id: pk-notation-bnf
+  date: 2014-08-27
+  kind: development
+  title: Notation BNF grammar
+  summary: Jamie writes a BNF grammar for the notation.
+  source: https://www.thingelstad.com/2014/08/27/what-did-i.html
+  things:
+    - planet-kubb-score
+- id: wiki-farm-config-published
+  date: 2014-08-24
+  kind: milestone
+  title: Wiki farm settings published
+  summary: Jamie published the LocalSettings configuration for his roughly dozen-wiki farm on GitHub.
+  source: https://www.thingelstad.com/2014/08/24/mediawiki-localsettings-for.html
+  things:
+    - mediawiki-farm
