@@ -1,8 +1,8 @@
 - id: rsm-reboot
   date: 2023-10-21
   kind: launch
-  title: Road Sign Math rebooted
-  summary: Simple blog at roadsignmath.xyz.
+  title: Road Sign Math reboots as a blog
+  summary: The second reboot returns it to a simple blog of Jamie’s signs at roadsignmath.xyz.
   source: https://www.thingelstad.com/2023/10/21/road-sign-math.html
   things:
     - road-sign-math

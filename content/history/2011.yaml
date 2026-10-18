@@ -16,9 +16,9 @@
     - r-w-book-club
 - id: rsm-wiki
   date: '2011'
-  kind: development
-  title: Road Sign Math becomes a wiki
-  summary: Moved from blog to wiki.
+  kind: milestone
+  title: Road Sign Math reboots as a wiki
+  summary: The first reboot moves the game from a blog to a wiki so players can maintain their own signs.
   source: https://www.thingelstad.com/2023/10/21/road-sign-math.html
   things:
     - road-sign-math
