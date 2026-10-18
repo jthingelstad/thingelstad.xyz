@@ -98,6 +98,11 @@ async function activity(
     latestCommit: newest ? { date: newest.date, url: newest.url } : null
   };
 }
+function count(value: unknown, label: string) {
+  if (typeof value !== 'number' || !Number.isSafeInteger(value) || value < 0)
+    throw new Error(`Invalid ${label} count.`);
+  return value;
+}
 export async function observeRepository(
   repositoryInput: string,
   paths: (string | null)[],
@@ -134,6 +139,8 @@ export async function observeRepository(
     repositoryCreatedAt: instant(repo.created_at),
     archived: repo.archived === true,
     description: typeof repo.description === 'string' ? repo.description.slice(0, 1000) : '',
+    stars: count(repo.stargazers_count, 'star'),
+    forks: count(repo.forks_count, 'fork'),
     languages: Object.entries(languages)
       .map(([name, bytes]) => {
         if (typeof bytes !== 'number' || !Number.isSafeInteger(bytes) || bytes < 0)

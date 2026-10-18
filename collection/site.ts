@@ -111,6 +111,16 @@ export function formatDate(date: string) {
     ...(date.length === 10 ? { day: 'numeric' } : {})
   }).format(value);
 }
+// Stars and forks show only where other people picked a repository up. Below this they say nothing
+// about the work, and observations collected before the counts existed have neither.
+export const reachThreshold = 10;
+export function reach(observation: { stars?: number; forks?: number }) {
+  const stars = observation.stars ?? 0;
+  if (stars < reachThreshold) return null;
+  const plural = (n: number, word: string) =>
+    `${new Intl.NumberFormat('en-US').format(n)} ${word}${n === 1 ? '' : 's'}`;
+  return `${plural(stars, 'star')} and ${plural(observation.forks ?? 0, 'fork')} on GitHub`;
+}
 // Feeds need an instant. A coarse date becomes the start of its period, in UTC.
 export function toInstant(date: string) {
   const full = date.length === 4 ? `${date}-01-01` : date.length === 7 ? `${date}-01` : date;
