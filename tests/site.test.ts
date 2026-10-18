@@ -74,8 +74,8 @@ test('the Markdown twin is valid front matter that carries the registry record',
     body: string;
   };
   assert.equal(frontmatter.id, 'road-sign-math');
-  assert.equal(frontmatter.status, 'archived');
-  assert.equal(frontmatter.started, '2005-02');
+  assert.equal(frontmatter.status, thing.status);
+  assert.equal(frontmatter.started, thing.started);
   assert.equal(frontmatter.page, `${siteUrl}/things/road-sign-math/`);
   assert.ok(Array.isArray(frontmatter.sources));
   assert.ok(!JSON.stringify(frontmatter).includes('observation'), 'observations stay out of the twin');

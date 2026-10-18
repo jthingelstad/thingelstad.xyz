@@ -1,10 +1,11 @@
 ---
 title: Elixir Bot
-summary: Original clan agent preserved as history
+summary: POAP KINGS’ first clan agent, a Discord bot that watched the clan and talked with its members from February to September 2026.
 collection: Games and communities
 status: retired
 url: https://github.com/jthingelstad/elixir-bot
-ended: 2026-09-26
+started: '2026-02'
+ended: '2026-09-26'
 topics:
   - agents
   - play
@@ -33,4 +34,23 @@ connections:
     label: gave rise to
     detail: The original bot’s clan management work carried forward into Elixir Clan, now a feature of the shared Elixir platform.
     source: https://github.com/jthingelstad/elixir-bot
+  - kind: lineage
+    to: clash-royale-api-agent-reference
+    label: gave rise to
+    detail: The Clash Royale API notes began inside Elixir Bot as cr-api-docs before becoming a standalone reference.
+    source: https://www.thingelstad.com/2026/03/10/automatic-programming-speed.html
+  - to: otto
+    label: was first coded by
+    detail: Otto wrote the first version of the bot, a templated command-and-response Discord bot.
+    source: https://weekly.thingelstad.com/archive/342/
+  - to: poap-kings
+    label: published
+    detail: The bot regenerated the clan website’s roster pages, member bios, and home page message and committed them to git.
+    source: https://sessions.minnestar.org/sessions/2094
 ---
+
+Elixir Bot was the agent for POAP KINGS, the Clash Royale clan Jamie runs with his son Tyler and Tyler’s cousin Levi. Jamie wanted [his own agent](https://weekly.thingelstad.com/archive/342/) so he could understand the agentic loop, data design, and memory from the inside: one that would monitor the clan, help it win wars, suggest strategies, and recommend promotions and demotions to leadership.
+
+It grew quickly in early 2026. Otto wrote the first version, a templated Discord bot. An LLM and a journal kept on the clan website [gave it a brain](https://ottoai.thingelstad.com/2026/03/01/building-elixir-when-a-discord.html), an hourly heartbeat and a SQLite memory made it agentic, and a long session with Codex [rebuilt its data and tools](https://ottoai.thingelstad.com/2026/03/07/from-snapshots-to-signals-elixirs.html) around signals. Later Jamie gave it an [agentic product team](https://www.thingelstad.com/2026/06/22/elixirs-agentic-product-team.html) of scheduled automations that proposed, built, and checked its changes. Jamie and Tyler told its story at Minnebar 20 in the session “[Elixir: Creating an AI Agent for our Clash Royale Clan](https://sessions.minnestar.org/sessions/2094).”
+
+Elixir Bot was retired on September 26, 2026. Its work was split among the projects that grew out of it: Elixir records the game, the Collector fetches from the API, Elixir MCP Discord talks in the clan’s Discord, Elixir Clan handles management and awards, and Elixir Drop is the game. The [repository](https://github.com/jthingelstad/elixir-bot) is archived as it was on the last day.

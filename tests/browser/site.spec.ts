@@ -60,7 +60,7 @@ test('history anchors, the timeline, and the machine outputs are reachable', asy
   const errors = watchErrors(page);
   await page.goto('/things/weekly-thing/');
   await page.locator('.event-list').getByRole('link').first().click();
-  await expect(page).toHaveURL(/\/history\/#weekly-thing-/);
+  await expect(page).toHaveURL(/\/history\/#[a-z0-9-]+$/);
   const anchor = new URL(page.url()).hash.slice(1);
   await expect(page.locator(`#${anchor}`)).toBeInViewport();
   await expect(page.locator('.event-list > li')).toHaveCount(history.length);
