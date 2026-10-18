@@ -1,23 +1,38 @@
 ---
 title: Proof of a Person
-summary: A POAP time capsule of Jamie’s collecting and issuing, and the people who collected his drops. In progress, to live at poap.thingelstad.xyz.
-collection: Games and communities
+summary: Jamie’s POAP time capsule, 2021 to 2026, built from an archive captured after the protocol wound down.
+collection: Art & archives
 status: active
-url: https://github.com/jthingelstad/poap-archive
-started: 2026-10
+url: https://poap.thingelstad.xyz/
+started: '2026-10-17'
 topics:
   - poap
   - crypto
   - archives
 sources:
   - kind: github
+    repository: jthingelstad/poap.thingelstad.xyz
+    role: implementation
+  - kind: github
     repository: jthingelstad/poap-archive
     role: archive
+  - kind: website
+    url: https://poap.thingelstad.xyz/
+    role: website
+    sitemap: https://poap.thingelstad.xyz/sitemap-index.xml
 connections:
   - to: poap2rss
-    label: preserves the record of
-    detail: The archive captures Jamie’s POAP collecting, issuing, and writing after the protocol wound down, including the drops and claims POAP2RSS once syndicated.
-    source: https://github.com/jthingelstad/poap-archive
+    label: tells the story of
+    detail: The capsule’s writing traces POAP2RSS back to Jamie’s 2023 POAP Wishlist, where he asked POAP for RSS feeds. “RSS never came from POAP, so Jamie built it.”
+    source: https://poap.thingelstad.xyz/
+  - to: 612-poap-challenge
+    label: preserves
+    detail: The 612 POAP Challenge drops are one of the series on the capsule’s Issued page, and the archive keeps a mirror of the challenge site.
+    source: https://poap.thingelstad.xyz/issued/
 ---
 
-After POAP wound down in 2026, Jamie captured his whole POAP life in a public archive: the tokens collected since 2021, the drops issued, the moments, and the network of collectors who met him through them. Proof of a Person is the tribute site built from that archive, a timeline with the collector on one side and the issuer on the other.
+Proof of Attendance Protocol entered maintenance mode in March 2026 and wound down that summer. On 2026-10-17 Jamie captured his whole POAP life into a public [archive](https://github.com/jthingelstad/poap-archive): every token he collected, every drop he created, the people who minted them, and the posts and Weekly Thing sections he wrote about POAP from 2021 on. The tokens themselves stay on the Gnosis chain; the archive keeps the records and artwork that lived on POAP’s own services.
+
+[Proof of a Person](https://poap.thingelstad.xyz/) is the time capsule built from that archive and published the same day. It counts 259 tokens collected, from the ENS 4th Anniversary vote on 2021-06-07 to an airport rally stop at Seattle-Tacoma in July 2026, and 130 drops issued, which 639 people minted. Each year from 2021 to 2026 is a chapter headed by a line from Jamie’s own posts. The pages show the timeline as two sides, what Jamie collected and what he made for other people, with a network of the people who hold his drops, his writing about POAP, and a short history of the company.
+
+The site is a static Astro build from a JSON export of the archive. Drop artwork is served from a copy taken from POAP’s asset host while it was still up.

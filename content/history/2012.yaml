@@ -23,3 +23,28 @@
   source: https://www.thingelstad.com/2013/12/22/one-year-for.html
   things:
     - wikiapiary
+- id: thinglesbot-retired
+  date: 2012-02-08
+  kind: retirement
+  title: Farewell to thinglesBot
+  summary: Jamie shuts down thinglesBot along with several other sites.
+  source: https://www.thingelstad.com/2012/02/08/shutting-down-some.html
+  things:
+    - thinglesbot
+- id: planet-kubb-launch
+  date: '2012'
+  kind: launch
+  title: Planet Kubb launches
+  summary: rawdog aggregator
+  source: https://www.thingelstad.com/projects/open-loop/1-big-fuzzy-dead-cat/
+  things:
+    - planet-kubb
+    - ask-planet-kubb
+- id: links-thing-launch
+  date: 2012-07-01
+  kind: launch
+  title: Bookmarks in a wiki
+  summary: Jamie wrote up links_thing, a Semantic MediaWiki bookmarking wiki holding nearly 4,000 imported links.
+  source: https://www.thingelstad.com/2012/07/01/bookmarking-with-semantic.html
+  things:
+    - links-thing

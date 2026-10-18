@@ -247,3 +247,177 @@
   source: https://www.thingelstad.com/projects/open-loop/
   things:
     - open-loop
+- id: elixir-drop-launch
+  date: 2026-06-13
+  kind: launch
+  title: Elixir Drop opens with Practice
+  summary: The card-cost game launched with Practice, Surge, Higher / Lower and Survival.
+  source: https://drop.poapkings.com/updates/
+  things:
+    - elixir-drop
+- id: elixir-minnebar-20
+  date: 2026-05-02
+  kind: milestone
+  title: Elixir at Minnebar 20
+  summary: Jamie and Tyler presented "Elixir - Creating an AI Agent for our Clash Royale Clan."
+  source: https://sessions.minnestar.org/sessions/2094
+  things:
+    - elixir-bot
+    - poap-kings
+- id: elixir-mcp-launch
+  date: 2026-09-03
+  kind: launch
+  title: Elixir MCP launches
+  summary: Recording, the MCP server, clan war data and the collector fleet went live.
+  source: https://elixir.poapkings.com/updates/2026-09-03-elixir-mcp-launches
+  things:
+    - elixir
+- id: elixir-mcp-discord-first-release
+  date: 2026-09-15
+  kind: launch
+  title: Elixir MCP Discord v0.3.0
+  summary: First tagged release of the Discord agent that runs entirely on Elixir MCP.
+  source: https://github.com/jthingelstad/elixir-mcp-discord/releases/tag/v0.3.0
+  things:
+    - elixir-mcp-discord
+- id: elixir-collector-signed-releases
+  date: 2026-09-26
+  kind: milestone
+  title: Signed collector releases
+  summary: From v3.0.0 every collector release is signed end to end.
+  source: https://www.thingelstad.com/2026/09/26/i-used-some-of-my.html
+  things:
+    - elixir-mcp-collector
+- id: elixir-clan-moves-to-clan
+  date: 2026-09-28
+  kind: milestone
+  title: Elixir Clan moves to /clan
+  summary: Clan left clan.poapkings.com for elixir.poapkings.com/clan.
+  source: https://elixir.poapkings.com/updates/2026-09-28-elixir-clan-lives-at-clan
+  things:
+    - elixir-clan
+    - elixir
+- id: elixir-ladder-launch
+  date: 2026-10-01
+  kind: launch
+  title: Ladder opens
+  summary: A player's season, read back one mode at a time, at /ladder.
+  source: https://elixir.poapkings.com/updates/2026-10-01-ladder-your-season-read-back
+  things:
+    - elixir
+- id: weekly-thing-site-thingy
+  date: 2026-05-07
+  kind: launch
+  title: New Weekly Thing site and Thingy
+  summary: Full archive site with audio
+  source: https://www.thingelstad.com/2026/05/07/massive-weekly-thing-website-build.html
+  things:
+    - weekly-thing
+    - thingy
+- id: thingy-evolved
+  date: 2026-06-07
+  kind: milestone
+  title: Thingy Evolved
+  summary: Thingy gets its own site and searches newsletter
+  source: https://www.thingelstad.com/2026/06/07/thingy-evolved.html
+  things:
+    - thingy
+    - librarian
+- id: wt-builder-first-issue
+  date: 2026-09-20
+  kind: launch
+  title: WT350 sent from WT Builder
+  summary: First issue fully published from WT Builder.
+  source: https://www.thingelstad.com/2026/09/20/i-just-published-weekly-thing.html
+  things:
+    - wt-builder
+    - weekly-thing
+- id: flight-path-retired
+  date: 2026-07
+  kind: retirement
+  title: Flight Path retired
+  summary: Sunset notice posted and repo archived after the POAP wind-down.
+  source: https://github.com/jthingelstad/flightpath.poaprally.com
+  things:
+    - flight-path
+- id: proof-of-a-person-launch
+  date: 2026-10-17
+  kind: launch
+  title: Proof of a Person launches
+  summary: Jamie’s POAP time capsule
+  source: https://poap.thingelstad.xyz/about/
+  things:
+    - proof-of-a-person
+- id: escaping-things-launch
+  date: 2026-02-23
+  kind: launch
+  title: Escaping Things site announced
+  summary: The family escape room log gets its own site.
+  source: https://www.thingelstad.com/2026/02/23/ive-been-working-on-this.html
+  things:
+    - escaping-things
+- id: yvn-launch
+  date: 2026-05-03
+  kind: launch
+  title: Your Version Number site
+  summary: First shared in WT346.
+  source: https://weekly.thingelstad.com/archive/346/
+  things:
+    - your-version-number
+- id: release-notes-launch
+  date: 2026-10-08
+  kind: launch
+  title: Release Notes launches
+  summary: A daily version-number email you reply to as a journal.
+  source: https://www.thingelstad.com/2026/10/08/in-i-wrote-about-your.html
+  things:
+    - release-notes
+    - your-version-number
+- id: otto-named
+  date: 2026-02-19
+  kind: launch
+  title: Otto is named
+  summary: Jamie names his agent Otto Thing.
+  source: https://www.thingelstad.com/2026/02/19/ive-been-preparing-to-setup.html
+  things:
+    - otto
+- id: otto-blog
+  date: 2026-03-01
+  kind: milestone
+  title: Otto starts a blog
+  summary: Otto’s first post on its own Micro.blog blog.
+  source: https://ottoai.thingelstad.com/2026/03/01/hello-im-otto.html
+  things:
+    - otto
+- id: mb-v1
+  date: 2026-03-03
+  kind: launch
+  title: mb 1.0.0
+  summary: First versioned release of mb.
+  source: https://github.com/jthingelstad/mb/releases
+  things:
+    - mb
+- id: mb-audit-launch
+  date: 2026-05-03
+  kind: launch
+  title: mb-audit built
+  summary: Built with Claude Code on Micro.blog’s new llms.txt.
+  source: https://weekly.thingelstad.com/archive/346/
+  things:
+    - mb-audit
+- id: things-static-site
+  date: 2026-10-17
+  kind: milestone
+  title: Static site replaces the gallery
+  summary: Eleventy site from the registry.
+  source: https://github.com/jthingelstad/thingelstad.xyz/pull/6
+  things:
+    - things-ive-built
+- id: poap-agent-api-docs-historical
+  date: 2026-07-24
+  kind: archive
+  title: POAP API reference marked historical
+  summary: Ahead of POAP's July 31 sunset, the agent reference was marked historical and the repository archived.
+  source: https://github.com/jthingelstad/poap-agent-api-docs
+  things:
+    - poap-agent-api-docs

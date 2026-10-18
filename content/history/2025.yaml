@@ -22,3 +22,45 @@
   source: https://612.poapchallenge.com/
   things:
     - 612-poap-challenge
+- id: another-thing-first-episode
+  date: 2025-10-05
+  kind: launch
+  title: Another Thing episode 1
+  summary: “How do you start a podcast?” is published.
+  source: https://another.thingelstad.com/2025/10/05/how-do-you-start-a.html
+  things:
+    - another-thing
+- id: poap2rss-612-feeds
+  date: 2025-07-06
+  kind: milestone
+  title: 612 challenge claims via POAP2RSS
+  summary: The challenge site shows claims through POAP2RSS feeds.
+  source: https://www.thingelstad.com/2025/07/06/with-the-help-of-poaprss.html
+  things:
+    - poap2rss
+    - 612-poap-challenge
+- id: things-4-good-five-years
+  date: 2025-11-16
+  kind: milestone
+  title: Five years of candle fundraisers
+  summary: $9
+  source: https://www.thingelstad.com/2025/11/16/things-good-five-year-impact.html
+  things:
+    - things-4-good
+- id: charlie-brown-tree-poap
+  date: 2025-05-25
+  kind: milestone
+  title: First location POAP
+  summary: The tree becomes Jamie’s first location-based POAP.
+  source: https://www.thingelstad.com/2025/05/25/i-created-my-very-first.html
+  things:
+    - charlie-brown-tree
+    - 612-poap-challenge
+- id: microblog-collection-shortcuts
+  date: 2025-01-11
+  kind: milestone
+  title: Micro.blog collection shortcuts shared
+  summary: Jamie shared his Collection Creator, Copier and Viewer shortcuts.
+  source: https://www.thingelstad.com/2025/01/11/microblog-collections-shortcuts.html
+  things:
+    - shortcuts

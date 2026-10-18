@@ -1,0 +1,8 @@
+- id: blog-start
+  date: 2004-06-02
+  kind: launch
+  title: The blog begins
+  summary: Jamie’s first blog post marks the official start of his blog.
+  source: https://www.thingelstad.com/2025/01/12/if-i-was-born-and.html
+  things:
+    - jamie-thingelstad-blog

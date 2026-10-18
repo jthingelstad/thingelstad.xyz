@@ -1,0 +1,8 @@
+- id: foreground-to-wikimedia
+  date: 2022-07-29
+  kind: archive
+  title: Foreground moves to Wikimedia
+  summary: Jamie agrees to archive his Foreground repository so Wikimedia volunteers can maintain the skin.
+  source: https://github.com/jthingelstad/foreground/issues/398
+  things:
+    - foreground
