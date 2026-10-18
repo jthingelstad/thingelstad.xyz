@@ -7,3 +7,11 @@
   things:
     - mediawiki-farm
     - road-sign-math
+- id: blog-squarespace
+  date: 2016-04-20
+  kind: milestone
+  title: The blog moves to Squarespace
+  summary: Jamie moves his blog from WordPress to Squarespace.
+  source: https://www.thingelstad.com/2016/04/20/moved-my-blog.html
+  things:
+    - jamie-thingelstad-blog

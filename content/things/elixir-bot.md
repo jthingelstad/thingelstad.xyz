@@ -47,6 +47,11 @@ connections:
     label: published
     detail: The bot regenerated the clan website’s roster pages, member bios, and home page message and committed them to git.
     source: https://sessions.minnestar.org/sessions/2094
+  - kind: lineage
+    to: weekly-thing-workshop
+    label: led to
+    detail: Running Elixir showed Jamie that “Discord is a reasonable place for an agent to run,” so he put the Weekly Thing Workshop’s agents there.
+    source: https://www.thingelstad.com/2026/05/12/the-weekly-thing-team.html
 ---
 
 Elixir Bot was the agent for POAP KINGS, the Clash Royale clan Jamie runs with his son Tyler and Tyler’s cousin Levi. Jamie wanted [his own agent](https://weekly.thingelstad.com/archive/342/) so he could understand the agentic loop, data design, and memory from the inside: one that would monitor the clan, help it win wars, suggest strategies, and recommend promotions and demotions to leadership.

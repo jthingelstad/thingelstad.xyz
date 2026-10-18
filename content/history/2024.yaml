@@ -1,0 +1,8 @@
+- id: weekly-thing-300
+  date: 2024-11-09
+  kind: milestone
+  title: Weekly Thing 300
+  summary: The 300th issue, seven and a half years after the first.
+  source: https://weekly.thingelstad.com/archive/300/
+  things:
+    - weekly-thing

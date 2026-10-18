@@ -16,11 +16,11 @@
   things:
     - open-loop
 - id: wikiapiary-origin
-  date: '2012'
+  date: 2012-12-21
   kind: launch
   title: A wiki to track other wikis
-  summary: WikiApiary begins as a holiday-break project, built with MediaWiki and Semantic MediaWiki.
-  source: https://www.thingelstad.com/2013/12/22/one-year-for.html
+  summary: WikiApiary begins as a holiday-break project, built with MediaWiki and Semantic MediaWiki in about three days.
+  source: https://www.mediawiki.org/wiki/WikiApiary
   things:
     - wikiapiary
 - id: thinglesbot-retired
@@ -42,9 +42,26 @@
     - ask-planet-kubb
 - id: links-thing-launch
   date: 2012-07-01
-  kind: launch
+  kind: milestone
   title: Bookmarks in a wiki
   summary: Jamie wrote up links_thing, a Semantic MediaWiki bookmarking wiki holding nearly 4,000 imported links.
   source: https://www.thingelstad.com/2012/07/01/bookmarking-with-semantic.html
   things:
     - links-thing
+- id: photography-relaunch
+  date: 2012-07-01
+  kind: milestone
+  title: Thingelstad Photography relaunched
+  summary: Jamie moves his photography site to WordPress to post an image a week.
+  source: https://www.thingelstad.com/2012/07/01/website-for-my.html
+  things:
+    - thingelstad-photography
+- id: farm-shutdowns-2012
+  date: 2012-02-08
+  kind: retirement
+  title: Shutting down some websites
+  summary: Jamie shuts down the MediaWiki Cookbook, a sandbox wiki and two Road Sign Math spin-offs, Road Sign Wordplay and Road Sign Bingo.
+  source: https://www.thingelstad.com/2012/02/08/shutting-down-some.html
+  things:
+    - mediawiki-farm
+    - road-sign-math

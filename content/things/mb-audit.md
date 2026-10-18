@@ -19,6 +19,10 @@ connections:
     label: audits its platform
     detail: mb-audit compares a Micro.blog site with its BAR backups to check that the published content remains intact.
     source: https://github.com/jthingelstad/mb-audit
+  - to: mb
+    label: is a sibling of
+    detail: Both are Micro.blog command-line tools Jamie had Claude Code build in 2026, mb for posting and managing a blog, mb-audit for checking a site against its backups.
+    source: https://weekly.thingelstad.com/archive/346/
 ---
 
 mb-audit audits a Micro.blog site against one or more BAR backup files, the archives Micro.blog exports. The backup is treated as the source of truth, and the live site is checked to make sure it still contains everything the backup says it should. Commands inspect a backup, verify and diff a site against it, and write a report; repair through Micropub is opt-in.

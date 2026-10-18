@@ -24,6 +24,11 @@ connections:
     label: shared its claims through
     detail: From July 2025 the challenge site posted every claim automatically, using POAP2RSS feeds merged with rssrssrssrss.com and imported into a Micro.blog account.
     source: https://www.thingelstad.com/2025/07/06/with-the-help-of-poaprss.html
+  - kind: lineage
+    to: airport-poap-rally
+    label: led to
+    detail: Jamie enjoyed the challenge so much he set up poapchallenge.com for more of them, registered poaprally.com, and used the same feed setup to track the Airport POAP Rally.
+    source: https://www.thingelstad.com/2025/12/26/airport-poap-rally-website.html
 ---
 
 The 612 POAP Challenge was a citywide scavenger hunt that ran from the end of May through Labor Day 2025. [How to Play](https://612.poapchallenge.com/how-to-play/) listed 31 Minneapolis locations in five themed categories, each with a location POAP that could only be claimed in the POAP app within 100 meters of the spot. Two hidden easter-egg locations were left for the curious. Completing a category earned a Category Collector POAP, and collecting all 31 earned the top award.

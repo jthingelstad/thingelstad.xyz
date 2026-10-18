@@ -30,3 +30,11 @@
   source: https://www.thingelstad.com/2020/05/24/little-snippet-of.html
   things:
     - charlie-brown-tree
+- id: link-blog-hyvor
+  date: 2020-12-19
+  kind: milestone
+  title: Comments and reactions
+  summary: The Link Blog switches to Hyvor Talk for comments and reactions.
+  source: https://www.thingelstad.com/2020/12/19/commenting-and-reactions.html
+  things:
+    - link-blog

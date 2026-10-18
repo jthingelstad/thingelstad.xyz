@@ -3,7 +3,7 @@
   kind: launch
   title: POAP meets RSS
   summary: 'POAP2RSS is declared officially launched: POAP activity becomes available in feeds.'
-  source: https://www.thingelstad.com/categories/poap2rss/page/2/
+  source: https://www.thingelstad.com/2025/07/04/i-decided-to-declare-poaprss.html
   things:
     - poap2rss
 - id: 612-poap-challenge-launch
@@ -64,3 +64,27 @@
   source: https://www.thingelstad.com/2025/01/11/microblog-collections-shortcuts.html
   things:
     - shortcuts
+- id: airport-poap-rally-launch
+  date: 2025-12-26
+  kind: launch
+  title: Following the Airport POAP Rally
+  summary: Jamie sets up a Micro.blog site that posts every claim at the rally’s 100 airports.
+  source: https://www.thingelstad.com/2025/12/26/airport-poap-rally-website.html
+  things:
+    - airport-poap-rally
+- id: weekly-thing-forum-closed
+  date: 2025-11-17
+  kind: milestone
+  title: Weekly Thing Forum closes
+  summary: Ponder shuts down, and with it the Weekly Thing Forum.
+  source: https://www.thingelstad.com/2025/11/17/farewell-weekly-thing-forum-and.html
+  things:
+    - weekly-thing
+- id: weekly-thing-gpt-launch
+  date: 2025-02-25
+  kind: launch
+  title: A GPT of the Weekly Thing
+  summary: Jamie makes a custom ChatGPT loaded with all 310 Weekly Thing issues.
+  source: https://www.thingelstad.com/2025/02/25/weekly-thing-gpt.html
+  things:
+    - weekly-thing-gpt

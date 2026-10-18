@@ -4,6 +4,7 @@ summary: The R/W Book Club’s AI agent and sixth member, which keeps the club�
 collection: Games and communities
 status: active
 url: https://rwbookclub.com/oliver/
+started: '2026-05'
 topics:
   - agents
   - reading
@@ -26,4 +27,4 @@ Oliver is the [R/W Book Club](https://rwbookclub.com/)’s agent: “archivist, 
 
 Two days before each meeting Oliver sends a researched discussion brief, the Preface, and a week after it a Postscript on news about books the club has read. He helps members pick the next book, runs roll call and reminders over email and Discord, keeps a weekly memory of members’ tastes seeded from ten years of the club’s mailing list, and announces his own releases.
 
-Jamie built Oliver in Python on the Anthropic API, as part of the club’s [public repository](https://github.com/jthingelstad/rwbookclub.com). He is named for Oliver Selfridge, whose 1958 paper “Pandemonium: A Paradigm for Learning” introduced the demon/agent metaphor ([SOUL.md](https://github.com/jthingelstad/rwbookclub.com/blob/main/agent/docs/SOUL.md)).
+Jamie built Oliver in Python on the Anthropic API, as part of the club’s [public repository](https://github.com/jthingelstad/rwbookclub.com), which became a monorepo of website, corpus and [Oliver](https://github.com/jthingelstad/rwbookclub.com/commit/bdb72521adb776b3a9897f1ae3c0f0f41c62ccfb) on May 27, 2026. He is named for Oliver Selfridge, whose 1958 paper “Pandemonium: A Paradigm for Learning” introduced the demon/agent metaphor ([SOUL.md](https://github.com/jthingelstad/rwbookclub.com/blob/main/agent/docs/SOUL.md)).

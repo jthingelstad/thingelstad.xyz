@@ -39,3 +39,11 @@
   source: https://www.thingelstad.com/2013/05/25/got-my-mediawiki.html
   things:
     - mediawiki-farm
+- id: pk-scoresheet-2013
+  date: 2013-10-31
+  kind: milestone
+  title: A scoresheet with on-pitch stats
+  summary: A new Planet Kubb scoresheet records statistics during play.
+  source: https://www.thingelstad.com/2013/10/31/proud-of-this.html
+  things:
+    - planet-kubb-score

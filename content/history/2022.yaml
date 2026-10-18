@@ -6,3 +6,11 @@
   source: https://github.com/jthingelstad/foreground/issues/398
   things:
     - foreground
+- id: weekly-thing-subreddit
+  date: 2022-10-30
+  kind: milestone
+  title: r/WeeklyThing
+  summary: Jamie creates a subreddit for discussing issues.
+  source: https://www.thingelstad.com/2022/10/30/i-decided-to.html
+  things:
+    - weekly-thing

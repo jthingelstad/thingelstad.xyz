@@ -15,3 +15,11 @@
   things:
     - shortcuts
     - weekly-thing
+- id: weekly-thing-forum
+  date: 2023-09-22
+  kind: milestone
+  title: Weekly Thing Forum opens
+  summary: Jamie opens a forum for readers on Ponder.
+  source: https://www.thingelstad.com/2023/09/22/introducing-weekly-thing.html
+  things:
+    - weekly-thing

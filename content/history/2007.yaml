@@ -14,3 +14,11 @@
   source: https://www.thingelstad.com/2013/07/21/goodbye-to-my.html
   things:
     - r-w-book-club
+- id: rsm-wordpress
+  date: 2007-08-17
+  kind: milestone
+  title: Road Sign Math moves to WordPress
+  summary: The site moves from .Text to WordPress.
+  source: https://www.thingelstad.com/2007/08/17/t212185032.html
+  things:
+    - road-sign-math
