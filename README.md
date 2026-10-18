@@ -33,7 +33,7 @@ npm run collect                 # observe every source; writes only changed evid
 npm run collect -- owner/repo   # one repository
 ```
 
-The collector uses `GITHUB_TOKEN` when present (GitHub Actions) and the GitHub CLI's login otherwise. The weekly workflow in `.github/workflows/collect.yml` commits changed observations to `main`. Only public HTTPS URLs and public repositories enter the content tree; the collector rejects private repositories before reading them and records repository creation, not project launch.
+The collector uses `GITHUB_TOKEN` when present (GitHub Actions) and the GitHub CLI's login otherwise. The weekly workflow in `.github/workflows/collect.yml` (Mondays 11:17 UTC) opens a pull request with changed observations, runs the checks on it, merges it when they pass, and dispatches the deploy. Only public HTTPS URLs and public repositories enter the content tree; the collector rejects private repositories before reading them and records repository creation, not project launch.
 
 ## Analytics
 
