@@ -3,6 +3,9 @@ name: Collect observations
 # main takes changes only through a pull request with passing checks, and work done with
 # GITHUB_TOKEN starts no other workflow on its own. So the job opens its own pull request,
 # dispatches the checks on it, merges it when they pass, and dispatches the deploy on main.
+# GitHub does not link a dispatched run's checks to a pull request, so once each required job has
+# passed on the branch's exact commit, the job copies that result onto the commit as a status the
+# pull request can see. Approved by Jamie on 2026-10-18.
 on:
   schedule:
     - cron: '17 11 * * 1' # Mondays, 11:17 UTC
@@ -11,6 +14,7 @@ permissions:
   contents: write
   pull-requests: write
   actions: write
+  statuses: write
 concurrency:
   group: collect-observations
   cancel-in-progress: false
@@ -62,5 +66,15 @@ jobs:
           done
           test -n "$run"
           gh run watch "$run" --interval 30 --exit-status
-          gh pr merge "$branch" --squash --delete-branch
+          for check in Quality Browser CodeQL; do
+            test "$(gh run view "$run" --json jobs --jq ".jobs[] | select(.name == \"$check\") | .conclusion")" = success
+            gh api --method POST "repos/$GITHUB_REPOSITORY/statuses/$sha" -f state=success -f context="$check" \
+              -f target_url="$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$run" \
+              -f description="Passed in the dispatched CI run on this commit" >/dev/null
+          done
+          for attempt in $(seq 12); do
+            gh pr merge "$branch" --squash --delete-branch && break
+            test "$attempt" -lt 12
+            sleep 10
+          done
           gh workflow run ci.yml --ref main
