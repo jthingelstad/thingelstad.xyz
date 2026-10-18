@@ -5,6 +5,7 @@ import { readFileSync } from 'node:fs';
 import markdownIt from 'markdown-it';
 import { formatDate, reach, sparkline, timelineSvg, type SiteModel, type Timeline } from '../collection/site';
 import type { MonthCount } from '../collection/schema';
+import { connectionDiagram } from '../collection/diagram';
 
 const markdown = markdownIt({ html: false, linkify: true, typographer: true });
 
@@ -45,6 +46,7 @@ export default function (eleventyConfig: EleventyConfig) {
   eleventyConfig.addFilter('thing', (site: SiteModel, id: string) => site.things.find((t) => t.id === id));
   eleventyConfig.addFilter('number', (value: number) => new Intl.NumberFormat('en-US').format(value));
   eleventyConfig.addFilter('reach', reach);
+  eleventyConfig.addFilter('connectionDiagram', connectionDiagram);
   eleventyConfig.addFilter('languages', (languages: { name: string; bytes: number }[]) =>
     languages
       .slice(0, 3)

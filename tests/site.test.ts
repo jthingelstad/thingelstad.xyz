@@ -20,6 +20,7 @@ import {
   reachThreshold
 } from '../collection/site';
 import { splitFrontmatter } from '../collection/load';
+import { connectionDiagram, connectionSource, phoneWidth } from '../collection/diagram';
 
 const registry = await loadRegistry();
 const observations = await loadObservations();
@@ -143,4 +144,33 @@ test('stickers are initials on a tile whose hue and tilt follow from the id', ()
   assert.notEqual(sticker('elixir', 'Elixir').hue, sticker('elixir-bot', 'Elixir Bot').hue);
   const { hue, tilt } = sticker('mb', 'mb');
   assert.ok(hue >= 0 && hue < 360 && tilt >= -3 && tilt <= 3);
+});
+
+test('connection diagrams draw the same edges as the list, escaped and linked', () => {
+  const lonely = model.things.find((t) => !t.connections.length && !t.inbound.length)!;
+  assert.equal(connectionSource(lonely, model), null);
+  assert.equal(connectionDiagram(lonely, model), null);
+  const bot = model.things.find((t) => t.id === 'elixir-bot')!;
+  const source = connectionSource(bot, model)!;
+  assert.match(source, /^ {2}t0\["Elixir Bot"\]:::self$/m);
+  assert.equal(source.match(/ -->\|| -\.->\|/g)?.length, bot.connections.length + bot.inbound.length);
+  assert.equal(
+    source.match(/ -\.->\|/g)?.length ?? 0,
+    [...bot.connections, ...bot.inbound].filter((e) => e.kind === 'lineage').length
+  );
+  assert.match(source, /click t\d+ href "\/things\/elixir\/"/);
+  const odd = { ...bot, title: 'Say "#1"', connections: [], inbound: bot.inbound.slice(0, 1) };
+  assert.match(connectionSource(odd, model)!, /t0\["Say #quot;#35;1#quot;"\]:::self/);
+  const diagram = connectionDiagram(bot, model)!;
+  assert.match(diagram.wide, /^<svg[^>]*role="graphics-document document"/);
+  assert.ok(diagram.wide.includes('href="/things/elixir/"'));
+  assert.ok(diagram.wide.includes('class="pele-node pele-shape-rect self"'));
+  assert.doesNotMatch(diagram.wide, /<script/);
+  assert.equal(diagram.narrow, null, `a hub wider than ${phoneWidth}px is left to the list on phones`);
+  assert.ok(
+    connectionDiagram(
+      model.things.find((t) => t.id === 'mb')!,
+      model
+    )!.narrow
+  );
 });

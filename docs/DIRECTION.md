@@ -99,4 +99,4 @@ The Bedrock guide, its Lambda Web Function, the DynamoDB quota counter, the tail
 - **Status drift.** Automated signals will disagree with editorial status. Show both; never let the collector change status.
 - **Weekly noise.** Change detection ignores time stamps. If a source emits noisy fields, round or drop them in the adapter.
 - **Dead sites.** Retired things should point at Wayback captures or blog project pages, not at hosts that no longer answer. A failed fetch is “no new observation,” not an error in content.
-- **Losing the graph.** The Connections view has real design work in it. Decide explicitly whether a build-time SVG version is wanted before the React application is removed.
+- **Losing the graph.** Decided 2026-10-18: each thing page draws its own neighborhood as build-time SVG with Pele (`collection/diagram.ts`). The site still has no whole-registry graph.
