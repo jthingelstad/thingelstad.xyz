@@ -12,6 +12,13 @@ sources:
   - kind: website
     url: https://things4good.xyz/
     role: website
+    sitemap: https://things4good.xyz/sitemap.xml
+  - kind: website
+    url: https://www.thingelstad.com/projects/fall-fundraiser/
+    role: reference
+  - kind: website
+    url: https://www.thingelstad.com/candles/
+    role: reference
 connections: []
 story:
   color: '#dda73f'
@@ -24,9 +31,7 @@ story:
     - Eleventy
     - JavaScript
     - Data-driven content
-  related:
-    - wicky-thing-candles
-    - things-4-good-fall-fundraiser
+  related: []
   questions:
     - How is the fundraiser’s impact calculated?
     - Show me other community projects.

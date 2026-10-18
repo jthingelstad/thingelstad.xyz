@@ -15,6 +15,8 @@ sources:
   - kind: website
     url: https://elixir.poapkings.com/
     role: website
+    sitemap: https://elixir.poapkings.com/sitemap.xml
+    feed: https://elixir.poapkings.com/feed.xml
 connections:
   - to: elixir-mcp-discord
     label: provides recorded facts to
@@ -23,10 +25,6 @@ connections:
   - to: elixir-clan
     label: includes
     detail: Clan management is a feature of the same Elixir platform and shares its recorded history, application, and runtime.
-    source: https://elixir.poapkings.com/docs
-  - to: elixir-ladder
-    label: includes
-    detail: Elixir Ladder is the platform’s browser feature for exploring ladder history.
     source: https://elixir.poapkings.com/docs
   - to: poap-kings
     label: supplies clan data to
@@ -58,3 +56,5 @@ story:
 ---
 
 The Clash Royale API offers a current snapshot and a short, rotating battle log. Elixir continuously records observations so players, clans, and their agents can ask questions about the history.
+
+In the browser, Elixir is the Console for a player's own history and the [Ladder](https://elixir.poapkings.com/ladder) for exploring ladder results. Elixir Clan runs in the same application.

@@ -12,6 +12,9 @@ sources:
   - kind: github
     repository: jthingelstad/mb
     role: implementation
+  - kind: github
+    repository: jthingelstad/homebrew-tap
+    role: distribution
 connections:
   - to: jamie-thingelstad-blog
     label: works with its platform
@@ -32,7 +35,6 @@ story:
   source: https://github.com/jthingelstad/mb
   related:
     - mb-audit
-    - homebrew-mb-tap
     - weekly-thing
   questions:
     - How does mb work with AI agents?
@@ -40,3 +42,5 @@ story:
 ---
 
 Give Micro.blog a compact, pipeable command-line interface that works without interactive prompts. The same services can be exposed to an AI client through a local MCP server.
+
+It installs from Jamie's [Homebrew tap](https://github.com/jthingelstad/homebrew-tap).
