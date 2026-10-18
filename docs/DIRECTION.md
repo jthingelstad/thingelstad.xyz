@@ -6,11 +6,11 @@ The first version wrapped a small dataset in a React application, a Lambda guide
 
 ## Three layers, three owners
 
-| Layer        | Where                                               | Nature                                    | Who writes it                           | Cadence           |
-| ------------ | --------------------------------------------------- | ----------------------------------------- | --------------------------------------- | ----------------- |
-| Registry     | `content/things/*.md`, `content/topics.yaml`        | Things, sources, connections, topics      | Jamie or an agent, in Markdown and YAML | Monthly           |
-| Ledger       | `content/history/<year>.yaml`                       | Curated, sourced history events           | Jamie, often from collector proposals   | Weekly or monthly |
-| Observations | `data/observations/github/*.json`, `.../web/*.json` | Commits, releases, sitemap and feed dates | `npm run collect`, never a person       | Weekly, automated |
+| Layer        | Where                                                                        | Nature                                                                         | Who writes it                           | Cadence           |
+| ------------ | ---------------------------------------------------------------------------- | ------------------------------------------------------------------------------ | --------------------------------------- | ----------------- |
+| Registry     | `content/things/*.md`, `content/topics.yaml`                                 | Things, sources, connections, topics                                           | Jamie or an agent, in Markdown and YAML | Monthly           |
+| Ledger       | `content/history/<year>.yaml`                                                | Curated, sourced history events                                                | Jamie, often from collector proposals   | Weekly or monthly |
+| Observations | `data/observations/github/*.json`, `.../web/*.json`, `.../tinylytics/*.json` | Commits, releases, sitemap and feed dates, stars and forks, monthly page views | `npm run collect`, never a person       | Weekly, automated |
 
 Observations never change editorial fields. Status is a decision; activity is evidence. The site shows both and never lets the collector set a status.
 
@@ -81,7 +81,7 @@ The ledger is also the RSS feed: “what changed in what I’ve built,” newest
 
 An observation is written only when the evidence changed. Time stamps alone never produce a diff, so a weekly run with nothing new is a no-op. A failed fetch keeps the previous observation. Git history is the time series; there is no separate append-only store.
 
-The weekly GitHub Actions workflow runs the collector, regenerates the build data, runs the tests, and commits changed observations to `main`. The normal CI and deploy workflow then validates and publishes.
+The weekly GitHub Actions workflow runs the collector and the tests, then opens a pull request with the changed observations, because `main` takes changes only through pull requests with passing checks. Work done with the workflow’s own token starts no other workflow, so the job dispatches the checks on its branch, merges when they pass, and dispatches the deploy on `main`.
 
 ## Outputs of the static build
 

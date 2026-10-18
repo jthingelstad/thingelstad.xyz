@@ -1,14 +1,20 @@
 import { mkdir, readFile, readdir, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { format } from 'prettier';
-import { githubKey, websiteKey, type GitHubObservation, type Observation, type WebObservation } from './schema';
+import {
+  githubKey,
+  websiteKey,
+  type GitHubObservation,
+  type Observation,
+  type TinylyticsObservation,
+  type WebObservation
+} from './schema';
 
 const observationsRoot = 'data/observations';
 
 export function observationPath(observation: Observation, root = observationsRoot) {
-  return observation.kind === 'github'
-    ? join(root, 'github', `${githubKey(observation.repository)}.json`)
-    : join(root, 'web', `${websiteKey(observation.url)}.json`);
+  if (observation.kind === 'github') return join(root, 'github', `${githubKey(observation.repository)}.json`);
+  return join(root, observation.kind === 'web' ? 'web' : 'tinylytics', `${websiteKey(observation.url)}.json`);
 }
 async function readDirectory(directory: string): Promise<unknown[]> {
   const names = (await readdir(directory).catch(() => [] as string[])).filter((n) => n.endsWith('.json')).sort();
@@ -35,12 +41,24 @@ function web(value: unknown): WebObservation {
     throw new Error('Invalid web observation.');
   return value as unknown as WebObservation;
 }
+function tinylytics(value: unknown): TinylyticsObservation {
+  if (
+    !isRecord(value) ||
+    value.kind !== 'tinylytics' ||
+    typeof value.url !== 'string' ||
+    typeof value.observedAt !== 'string' ||
+    !Array.isArray(value.months)
+  )
+    throw new Error('Invalid Tinylytics observation.');
+  return value as unknown as TinylyticsObservation;
+}
 export async function loadObservations(root = observationsRoot): Promise<Observation[]> {
-  const [githubFiles, webFiles] = await Promise.all([
+  const [githubFiles, webFiles, tinylyticsFiles] = await Promise.all([
     readDirectory(join(root, 'github')),
-    readDirectory(join(root, 'web'))
+    readDirectory(join(root, 'web')),
+    readDirectory(join(root, 'tinylytics'))
   ]);
-  return [...githubFiles.map(github), ...webFiles.map(web)];
+  return [...githubFiles.map(github), ...webFiles.map(web), ...tinylyticsFiles.map(tinylytics)];
 }
 async function formatJson(value: unknown) {
   return format(JSON.stringify(value), { parser: 'json', printWidth: 120, tabWidth: 2 });

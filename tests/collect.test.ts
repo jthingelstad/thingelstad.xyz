@@ -2,6 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { observeRepository, type GitHubReader } from '../collection/adapters/github';
 import { monthCounts, observeWebsite, parseFeed, parseSitemap } from '../collection/adapters/web';
+import { listSites, observeSite, rootOrigin, type TinylyticsReader } from '../collection/adapters/tinylytics';
 import { collect, sameEvidence, targets } from '../collection/collect';
 import { observationPath } from '../collection/observations';
 import type { Observation, Registry, Thing } from '../collection/schema';
@@ -36,6 +37,8 @@ const fakeReader: GitHubReader = async (endpoint) => {
     html_url: 'https://github.com/owner/example',
     archived: false,
     description: 'An example.',
+    stargazers_count: 12,
+    forks_count: 3,
     secret_extra: 'never published'
   };
 };
@@ -44,6 +47,8 @@ test('GitHub observations project an allowlist of public fields', async () => {
   const observation = await observeRepository('owner/example', [null, 'packages/a'], fakeReader, now);
   assert.equal(observation.kind, 'github');
   assert.equal(observation.release?.name, 'v1');
+  assert.equal(observation.stars, 12);
+  assert.equal(observation.forks, 3);
   assert.deepEqual(observation.languages[0], { name: 'TypeScript', bytes: 100 });
   assert.equal(observation.activity.length, 2);
   assert.equal(observation.activity[0].count, 1, 'duplicate commit IDs are counted once');
@@ -142,6 +147,7 @@ test('the collector observes each source once and writes only changed evidence',
     web: async () => rss,
     now,
     save: async (o) => (saved.push(o), 'x'),
+    tinylytics: null,
     log: () => {}
   });
   assert.deepEqual(first.written, ['Owner/Example', 'https://example.com/']);
@@ -153,6 +159,7 @@ test('the collector observes each source once and writes only changed evidence',
     web: async () => rss,
     now: later,
     save: async () => assert.fail('nothing changed'),
+    tinylytics: null,
     log: () => {}
   });
   assert.deepEqual(second.unchanged, ['Owner/Example', 'https://example.com/']);
@@ -166,9 +173,79 @@ test('the collector observes each source once and writes only changed evidence',
       rss.replace('<title>A</title>', '<title>A2</title><pubDate>Mon, 12 Oct 2026 12:00:00 GMT</pubDate>'),
     now: later,
     save: async () => 'x',
+    tinylytics: null,
     log: () => {}
   });
   assert.equal(third.failed[0].target, 'Owner/Example');
   assert.deepEqual(third.written, ['https://example.com/']);
   assert.ok(sameEvidence(saved[0], { ...saved[0], observedAt: later.toISOString() }));
+});
+
+const tinylyticsReader: TinylyticsReader = async (endpoint) => {
+  if (endpoint === 'sites')
+    return {
+      sites: [
+        { id: 1, url: 'https://example.com', label: 'Example', notes: 'private note' },
+        { id: 3, url: 'https://www.plain.example.com', label: 'Matches without www.' },
+        { id: 2, url: 'https://elsewhere.example.org/', label: 'Not in the registry' }
+      ]
+    };
+  assert.match(
+    endpoint,
+    /^sites\/[13]\/hits\?grouped=true&group_by=date&interval=month&start_date=2025-11-01&end_date=2026-10-14$/
+  );
+  return {
+    grouped_hits: [
+      { date: '2026-09-01', hit_count: 40 },
+      { date: '2026-10-01', hit_count: 2 }
+    ],
+    summary: { total_hits: 42, unique_visitors: 30 }
+  };
+};
+
+test('Tinylytics observations record monthly page views for registry sites only', async () => {
+  assert.equal(rootOrigin('https://example.com/'), 'https://example.com');
+  assert.equal(
+    rootOrigin('https://example.com/projects/open-loop/'),
+    null,
+    'a page inside a site never takes its traffic'
+  );
+  assert.equal(rootOrigin('http://example.com/'), null);
+  const sites = await listSites(tinylyticsReader);
+  assert.deepEqual(sites[0], { id: 1, url: 'https://example.com' });
+  const observation = await observeSite(sites[0], tinylyticsReader, now);
+  assert.equal(observation.url, 'https://example.com/');
+  assert.equal(observation.hits, 42);
+  assert.deepEqual(observation.months, [
+    { month: '2026-09', count: 40 },
+    { month: '2026-10', count: 2 }
+  ]);
+  assert.doesNotMatch(JSON.stringify(observation), /private note|unique_visitors/);
+  assert.equal(observationPath(observation), 'data/observations/tinylytics/example-com.json');
+
+  const saved: Observation[] = [];
+  const logged: string[] = [];
+  const result = await collect({
+    registry,
+    existing: [],
+    only: 'tinylytics',
+    tinylytics: tinylyticsReader,
+    now,
+    save: async (o) => (saved.push(o), 'x'),
+    log: () => {}
+  });
+  assert.deepEqual(
+    result.written,
+    ['https://example.com/', 'https://www.plain.example.com/'],
+    'only sites the registry names are observed, with or without www.'
+  );
+  const skipped = await collect({
+    registry,
+    existing: [],
+    only: 'tinylytics',
+    tinylytics: null,
+    log: (l) => logged.push(l)
+  });
+  assert.deepEqual(skipped.written, []);
+  assert.match(logged.join(), /No TINYLYTICS_API_KEY/);
 });

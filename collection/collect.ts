@@ -5,14 +5,23 @@ import { loadRegistry } from './load';
 import { loadObservations, observationPath, saveObservation } from './observations';
 import { defaultGitHubReader, observeRepository, type GitHubReader } from './adapters/github';
 import { defaultTextFetcher, observeWebsite, type TextFetcher } from './adapters/web';
+import {
+  defaultTinylyticsReader,
+  listSites,
+  observeSite,
+  rootOrigin,
+  siteKey,
+  type TinylyticsReader
+} from './adapters/tinylytics';
 import type { Observation, Registry } from './schema';
 
 export type CollectOptions = {
   registry?: Registry;
   existing?: Observation[];
-  only?: string; // a repository name or website URL
+  only?: string; // a repository name, a website URL, or 'tinylytics'
   github?: GitHubReader;
   web?: TextFetcher;
+  tinylytics?: TinylyticsReader | null; // null skips Tinylytics; the default needs TINYLYTICS_API_KEY
   now?: Date;
   save?: (observation: Observation) => Promise<string>;
   log?: (line: string) => void;
@@ -60,7 +69,17 @@ export function targets(registry: Registry) {
       repository: repositoryNames.get(key)!,
       paths: [...paths].toSorted((a, b) => (a ?? '').localeCompare(b ?? ''))
     })),
-    websites: [...websites.values()]
+    websites: [...websites.values()],
+    origins: [
+      ...new Set(
+        registry.things.flatMap((thing) =>
+          thing.sources.flatMap((source) => {
+            const origin = source.kind === 'website' ? rootOrigin(source.url) : null;
+            return origin ? [siteKey(origin)] : [];
+          })
+        )
+      )
+    ].toSorted()
   };
 }
 export async function collect(options: CollectOptions = {}): Promise<CollectResult> {
@@ -91,12 +110,28 @@ export async function collect(options: CollectOptions = {}): Promise<CollectResu
       log(`Could not observe ${target}; previous evidence kept.`);
     }
   };
-  const { repositories, websites } = targets(registry);
+  const { repositories, websites, origins } = targets(registry);
   for (const { repository, paths } of repositories)
     if (!options.only || options.only.toLowerCase() === repository.toLowerCase())
       await record(repository, () => observeRepository(repository, paths, github, now));
   for (const website of websites)
     if (!options.only || options.only === website.url)
       await record(website.url, () => observeWebsite(website, web, now));
+  if (!options.only || options.only === 'tinylytics') {
+    const tinylytics = options.tinylytics === undefined ? defaultTinylyticsReader() : options.tinylytics;
+    if (!tinylytics) log('No TINYLYTICS_API_KEY; Tinylytics skipped.');
+    else {
+      const sites = await listSites(tinylytics).catch((error: unknown) => {
+        result.failed.push({ target: 'tinylytics', error: error instanceof Error ? error.message : String(error) });
+        log('Could not list Tinylytics sites; previous evidence kept.');
+        return [];
+      });
+      for (const site of sites) {
+        const origin = rootOrigin(site.url);
+        if (origin && origins.includes(siteKey(origin)))
+          await record(`${origin}/`, () => observeSite(site, tinylytics, now));
+      }
+    }
+  }
   return result;
 }

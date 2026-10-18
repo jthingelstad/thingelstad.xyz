@@ -48,7 +48,7 @@ const collectionOrder = [
 ];
 
 type Evidence = { date: string; label: string; url: string | null };
-type SiteSource = ThingSource & { observation: Observation | null; evidence: Evidence[] };
+type SiteSource = ThingSource & { observation: GitHubObservation | WebObservation | null; evidence: Evidence[] };
 type InboundConnection = Connection & { from: string };
 // A small monogram "sticker" for each thing: its initials on a tinted tile, tilted a degree or two. The
 // hue and tilt come from the id, so a thing keeps its sticker from build to build.
@@ -111,6 +111,16 @@ export function formatDate(date: string) {
     ...(date.length === 10 ? { day: 'numeric' } : {})
   }).format(value);
 }
+// Stars and forks show only where other people picked a repository up. Below this they say nothing
+// about the work, and observations collected before the counts existed have neither.
+export const reachThreshold = 10;
+export function reach(observation: { stars?: number; forks?: number }) {
+  const stars = observation.stars ?? 0;
+  if (stars < reachThreshold) return null;
+  const plural = (n: number, word: string) =>
+    `${new Intl.NumberFormat('en-US').format(n)} ${word}${n === 1 ? '' : 's'}`;
+  return `${plural(stars, 'star')} and ${plural(observation.forks ?? 0, 'fork')} on GitHub`;
+}
 // Feeds need an instant. A coarse date becomes the start of its period, in UTC.
 export function toInstant(date: string) {
   const full = date.length === 4 ? `${date}-01-01` : date.length === 7 ? `${date}-01` : date;
@@ -172,7 +182,7 @@ export function buildSiteModel(registry: Registry, observations: Observation[], 
   const web = new Map<string, WebObservation>();
   for (const observation of observations)
     if (observation.kind === 'github') github.set(githubKey(observation.repository), observation);
-    else web.set(websiteKey(observation.url), observation);
+    else if (observation.kind === 'web') web.set(websiteKey(observation.url), observation);
   const topicById = new Map(registry.topics.map((topic) => [topic.id, topic]));
   const inbound = new Map<string, InboundConnection[]>();
   for (const thing of registry.things)
