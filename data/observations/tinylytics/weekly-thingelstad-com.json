@@ -1,10 +1,10 @@
 {
   "kind": "tinylytics",
   "url": "https://weekly.thingelstad.com/",
-  "observedAt": "2026-10-18T10:55:30.772Z",
+  "observedAt": "2026-10-19T17:30:51.900Z",
   "since": "2025-11-01",
-  "until": "2026-10-18",
-  "hits": 41472,
+  "until": "2026-10-19",
+  "hits": 41568,
   "months": [
     { "month": "2025-11", "count": 0 },
     { "month": "2025-12", "count": 0 },
@@ -17,6 +17,6 @@
     { "month": "2026-07", "count": 1050 },
     { "month": "2026-08", "count": 670 },
     { "month": "2026-09", "count": 4962 },
-    { "month": "2026-10", "count": 3179 }
+    { "month": "2026-10", "count": 3275 }
   ]
 }
