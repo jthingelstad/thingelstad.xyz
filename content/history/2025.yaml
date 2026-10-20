@@ -43,7 +43,7 @@
   date: 2025-11-16
   kind: milestone
   title: Five years of candle fundraisers
-  summary: $9
+  summary: Five years of candle sales have raised $31,787 for non-profits.
   source: https://www.thingelstad.com/2025/11/16/things-good-five-year-impact.html
   things:
     - things-4-good
@@ -51,7 +51,7 @@
   date: 2025-05-25
   kind: milestone
   title: First location POAP
-  summary: The tree becomes Jamie’s first location-based POAP.
+  summary: The tree becomes my first location-based POAP.
   source: https://www.thingelstad.com/2025/05/25/i-created-my-very-first.html
   things:
     - charlie-brown-tree
@@ -60,7 +60,7 @@
   date: 2025-12-26
   kind: launch
   title: Following the Airport POAP Rally
-  summary: Jamie sets up a Micro.blog site that posts every claim at the rally’s 100 airports.
+  summary: I set up a Micro.blog site that posts every claim at the rally’s 100 airports.
   source: https://www.thingelstad.com/2025/12/26/airport-poap-rally-website.html
   things:
     - airport-poap-rally
@@ -76,7 +76,7 @@
   date: 2025-02-25
   kind: launch
   title: A GPT of the Weekly Thing
-  summary: Jamie makes a custom ChatGPT loaded with all 310 Weekly Thing issues.
+  summary: I make a custom ChatGPT loaded with all 310 Weekly Thing issues.
   source: https://www.thingelstad.com/2025/02/25/weekly-thing-gpt.html
   things:
     - weekly-thing-gpt

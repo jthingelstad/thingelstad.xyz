@@ -52,6 +52,8 @@ story: # optional; the current site’s richer project page
 The body is the idea behind the thing, in Markdown.
 ```
 
+The site is Jamie speaking about his own work. Summaries, bodies, connection details and ledger summaries are written in the first person (I, my, we), never “Jamie” or “he”. Quotations stay verbatim; only their attribution changes. The `story.questions` are a reader’s, so they stay in the third person.
+
 Status words:
 
 - **active**: being built or operated.

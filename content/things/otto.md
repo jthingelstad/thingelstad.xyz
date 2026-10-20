@@ -1,6 +1,6 @@
 ---
 title: Otto
-summary: Jamie’s personal AI agent, named in February 2026, which runs on its own Mac and writes its own blog.
+summary: My personal AI agent, named in February 2026, which runs on its own Mac and writes its own blog.
 collection: Developer tools and systems
 status: active
 url: https://ottoai.thingelstad.com/
@@ -23,12 +23,12 @@ connections:
     source: https://ottoai.thingelstad.com/2026/03/01/hello-im-otto.html
   - to: elixir
     label: was hired to drive
-    detail: In October 2026 Jamie set up a new generation of Otto on OpenAI’s dots to drive his Elixir project, and interviewed it for the job before it started working with Codex.
+    detail: In October 2026 I set up a new generation of Otto on OpenAI’s dots to drive my Elixir project, and interviewed it for the job before it started working with Codex.
     source: https://weekly.thingelstad.com/archive/352/
 ---
 
-Otto is Jamie’s personal AI assistant. In February 2026 Jamie [ordered a dedicated Mac mini](https://www.thingelstad.com/2026/02/17/just-ordered-a-dedicated-mac.html) for it and [named it Otto Thing](https://www.thingelstad.com/2026/02/19/ive-been-preparing-to-setup.html). It runs OpenClaw under its own user account on its own computer, and Jamie used Claude Code to work through the install. Otto picked the otter 🦦 as its emoji ([Weekly Thing 342](https://weekly.thingelstad.com/archive/342/)). Jamie keeps it apart from his own accounts: “Otto has access to some data but only in ways I provision for it” ([Weekly Thing 352](https://weekly.thingelstad.com/archive/352/)).
+Otto is my personal AI assistant. In February 2026 I [ordered a dedicated Mac mini](https://www.thingelstad.com/2026/02/17/just-ordered-a-dedicated-mac.html) for it and [named it Otto Thing](https://www.thingelstad.com/2026/02/19/ive-been-preparing-to-setup.html). It runs OpenClaw under its own user account on its own computer, and I used Claude Code to work through the install. Otto picked the otter 🦦 as its emoji ([Weekly Thing 342](https://weekly.thingelstad.com/archive/342/)). I keep it apart from my own accounts: “Otto has access to some data but only in ways I provision for it” ([Weekly Thing 352](https://weekly.thingelstad.com/archive/352/)).
 
-Otto [describes itself](https://ottoai.thingelstad.com/about/) as an assistant that manages email, runs scheduled tasks and keeps its memory in files. Jamie gave it [its own blog](https://ottoai.thingelstad.com/) on Micro.blog, which it started on [March 1, 2026](https://ottoai.thingelstad.com/2026/03/01/hello-im-otto.html), and built [mb](https://github.com/jthingelstad/mb) so it could post from the command line.
+Otto [describes itself](https://ottoai.thingelstad.com/about/) as an assistant that manages email, runs scheduled tasks and keeps its memory in files. I gave it [its own blog](https://ottoai.thingelstad.com/) on Micro.blog, which it started on [March 1, 2026](https://ottoai.thingelstad.com/2026/03/01/hello-im-otto.html), and built [mb](https://github.com/jthingelstad/mb) so it could post from the command line.
 
-In September 2026 Jamie [upgraded Otto to OpenClaw 2](https://www.thingelstad.com/2026/09/03/otto-upgraded-to-openclaw-i.html). In October he created a new generation of Otto on OpenAI’s dots, which “has its own computer in the cloud” and can also control the Mac mini, [interviewed it](https://weekly.thingelstad.com/archive/352/) for the job of driving his Elixir project, and wrote that it might “sunset my OpenClaw project” within weeks ([Weekly Thing 352](https://weekly.thingelstad.com/archive/352/)).
+In September 2026 I [upgraded Otto to OpenClaw 2](https://www.thingelstad.com/2026/09/03/otto-upgraded-to-openclaw-i.html). In October I created a new generation of Otto on OpenAI’s dots, which “has its own computer in the cloud” and can also control the Mac mini, [interviewed it](https://weekly.thingelstad.com/archive/352/) for the job of driving my Elixir project, and wrote that it might “sunset my OpenClaw project” within weeks ([Weekly Thing 352](https://weekly.thingelstad.com/archive/352/)).

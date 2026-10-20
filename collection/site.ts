@@ -25,7 +25,7 @@ import { capturedUrl } from './adapters/wayback';
 export const siteUrl = 'https://thingelstad.xyz';
 const siteTitle = 'Things I’ve built.';
 const siteDescription =
-  'An index and archive of Jamie Thingelstad’s projects, including the ones he has stepped away from.';
+  'An index and archive of my projects, including the ones I’ve stepped away from. By Jamie Thingelstad.';
 const repositoryUrl = 'https://github.com/jthingelstad/thingelstad.xyz';
 
 const statusLabels: Record<Status, string> = {
@@ -418,7 +418,7 @@ export function jsonFeed(model: SiteModel) {
     title: `${model.title} History`,
     home_page_url: `${model.url}/`,
     feed_url: `${model.url}/feed.json`,
-    description: 'What changed in what Jamie Thingelstad has built. Sourced events, newest first.',
+    description: 'What changed in what I’ve built. Sourced events, newest first.',
     authors: [{ name: 'Jamie Thingelstad', url: 'https://www.thingelstad.com/' }],
     items: feedItems(model).map((item) => ({
       id: item.id,
@@ -461,7 +461,7 @@ ${item.things.map((thing) => `      <category>${escapeHtml(thing.title)}</catego
     <title>${escapeHtml(model.title)} History</title>
     <link>${model.url}/</link>
     <atom:link href="${model.url}/feed.xml" rel="self" type="application/rss+xml"/>
-    <description>What changed in what Jamie Thingelstad has built. Sourced events, newest first.</description>
+    <description>What changed in what I’ve built. Sourced events, newest first.</description>
     <language>en-us</language>
     <lastBuildDate>${rfc822(newest)}</lastBuildDate>
 ${entries}

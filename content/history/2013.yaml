@@ -19,7 +19,7 @@
   date: 2013-07-15
   kind: launch
   title: A super simple URL parser for MediaWiki
-  summary: Jamie publishes the ParseURL extension.
+  summary: I publish the ParseURL extension.
   source: https://www.thingelstad.com/2013/07/15/made-a-super.html
   things:
     - parseurl

@@ -27,7 +27,7 @@
   date: 2012-02-08
   kind: retirement
   title: Farewell to thinglesBot
-  summary: Jamie shuts down thinglesBot along with several other sites.
+  summary: I shut down thinglesBot along with several other sites.
   source: https://www.thingelstad.com/2012/02/08/shutting-down-some.html
   things:
     - thinglesbot
@@ -35,7 +35,7 @@
   date: '2012'
   kind: launch
   title: Planet Kubb launches
-  summary: rawdog aggregator
+  summary: I buy planetkubb.com and set it up as a rawdog aggregator of Kubb videos and club blogs.
   source: https://www.thingelstad.com/projects/open-loop/1-big-fuzzy-dead-cat/
   things:
     - planet-kubb
@@ -44,7 +44,7 @@
   date: 2012-07-01
   kind: milestone
   title: Bookmarks in a wiki
-  summary: Jamie wrote up links_thing, a Semantic MediaWiki bookmarking wiki holding nearly 4,000 imported links.
+  summary: I write up links_thing, a Semantic MediaWiki bookmarking wiki holding nearly 4,000 imported links.
   source: https://www.thingelstad.com/2012/07/01/bookmarking-with-semantic.html
   things:
     - links-thing
@@ -52,7 +52,7 @@
   date: 2012-07-01
   kind: milestone
   title: Thingelstad Photography relaunched
-  summary: Jamie moves his photography site to WordPress to post an image a week.
+  summary: I move my photography site to WordPress to post an image a week.
   source: https://www.thingelstad.com/2012/07/01/website-for-my.html
   things:
     - thingelstad-photography
@@ -60,7 +60,7 @@
   date: 2012-02-08
   kind: retirement
   title: Shutting down some websites
-  summary: Jamie shuts down the MediaWiki Cookbook, a sandbox wiki and two Road Sign Math spin-offs, Road Sign Wordplay and Road Sign Bingo.
+  summary: I shut down two Road Sign Math spin-offs, Road Sign Wordplay and Road Sign Bingo, along with the MediaWiki Cookbook and a sandbox wiki.
   source: https://www.thingelstad.com/2012/02/08/shutting-down-some.html
   things:
     - road-sign-math
