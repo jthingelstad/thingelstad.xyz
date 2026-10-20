@@ -18,9 +18,6 @@ sources:
     url: https://librarian.thingelstad.com/mcp
     role: mcp
   - kind: website
-    url: https://librarian.thingelstad.com/
-    role: website
-  - kind: website
     url: https://thingy.thingelstad.com/connect/
     role: reference
 connections:
