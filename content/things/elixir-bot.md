@@ -22,7 +22,7 @@ connections:
   - kind: lineage
     to: elixir-mcp-discord
     label: was succeeded by
-    detail: The configurable Elixir MCP Discord agent took over the original bot’s Discord role.
+    detail: The configurable Elixir Discord agent took over the original bot’s Discord role.
     source: https://github.com/jthingelstad/elixir-bot
   - kind: lineage
     to: elixir-mcp-collector

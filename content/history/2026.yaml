@@ -23,7 +23,6 @@
   things:
     - wt-builder
     - another-thing
-    - another-thing-builder
 - id: release-notes-recorded-development
   date: 2026-10-07
   kind: development
@@ -64,7 +63,7 @@
 - id: elixir-mcp-discord-recorded-development
   date: 2026-09-07
   kind: development
-  title: 'Elixir MCP Discord: recorded development begins'
+  title: 'Elixir Discord: recorded development begins'
   summary: The earliest commit in this repository is a development record; the project or idea may predate it.
   source: https://github.com/jthingelstad/elixir-mcp-discord/commit/1479a4601af90658fc3cd57cbdb269884a54f49d
   things:
@@ -118,14 +117,6 @@
   source: https://github.com/jthingelstad/thingy.thingelstad.com/commit/8167c8fdb7a4f9edd30cd4d8087fb34982e6c5ba
   things:
     - thingy
-- id: mb-audit-recorded-development
-  date: 2026-05-02
-  kind: development
-  title: 'mb-audit: recorded development begins'
-  summary: The earliest commit in this repository is a development record; the project or idea may predate it.
-  source: https://github.com/jthingelstad/mb-audit/commit/75fbad973b08899d25cef567506cd4519148ee5e
-  things:
-    - mb-audit
 - id: your-version-number-recorded-development
   date: 2026-05-01
   kind: development
@@ -134,14 +125,6 @@
   source: https://github.com/jthingelstad/yourversionnumber.com/commit/b2f68c8bc83cdde695b925d0aa3d37b796dd944a
   things:
     - your-version-number
-- id: thing-hugo-recorded-development
-  date: 2026-04-19
-  kind: development
-  title: 'Thing Hugo: recorded development begins'
-  summary: The earliest commit in this repository is a development record; the project or idea may predate it.
-  source: https://github.com/jthingelstad/thing-hugo/commit/fc501f80535d8219b4dd943eae64477c223a824a
-  things:
-    - thing-hugo
 - id: another-thing-recorded-development
   date: 2026-04-09
   kind: development
@@ -275,7 +258,7 @@
 - id: elixir-mcp-discord-first-release
   date: 2026-09-15
   kind: launch
-  title: Elixir MCP Discord v0.3.0
+  title: Elixir Discord v0.3.0
   summary: First tagged release of the Discord agent that runs entirely on Elixir MCP.
   source: https://github.com/jthingelstad/elixir-mcp-discord/releases/tag/v0.3.0
   things:
@@ -397,14 +380,6 @@
   source: https://github.com/jthingelstad/mb/releases
   things:
     - mb
-- id: mb-audit-launch
-  date: 2026-05-03
-  kind: launch
-  title: mb-audit built
-  summary: Built with Claude Code on Micro.blog’s new llms.txt.
-  source: https://weekly.thingelstad.com/archive/346/
-  things:
-    - mb-audit
 - id: things-static-site
   date: 2026-10-17
   kind: milestone
@@ -413,14 +388,6 @@
   source: https://github.com/jthingelstad/thingelstad.xyz/pull/6
   things:
     - things-ive-built
-- id: poap-agent-api-docs-historical
-  date: 2026-07-24
-  kind: archive
-  title: POAP API reference marked historical
-  summary: Ahead of POAP's July 31 sunset, the agent reference was marked historical and the repository archived.
-  source: https://github.com/jthingelstad/poap-agent-api-docs
-  things:
-    - poap-agent-api-docs
 - id: weekly-thing-archive-audio
   date: 2026-10-06
   kind: milestone
@@ -495,7 +462,6 @@
   source: https://www.thingelstad.com/2026/05/12/the-weekly-thing-team.html
   things:
     - weekly-thing-workshop
-    - shortcuts
 - id: poap-kings-redesign
   date: 2026-04-26
   kind: milestone

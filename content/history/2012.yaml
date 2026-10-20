@@ -63,5 +63,4 @@
   summary: Jamie shuts down the MediaWiki Cookbook, a sandbox wiki and two Road Sign Math spin-offs, Road Sign Wordplay and Road Sign Bingo.
   source: https://www.thingelstad.com/2012/02/08/shutting-down-some.html
   things:
-    - mediawiki-farm
     - road-sign-math

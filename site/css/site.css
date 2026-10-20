@@ -50,6 +50,8 @@
   --dormant-soft: #ffeec4;
   --retired: #6a6c74;
   --retired-soft: #ebebe8;
+  --abandoned: #b23c2a;
+  --abandoned-soft: #fbe2dc;
   --archived: #5a46c9;
   --archived-soft: #e9e4ff;
   --accent: #1f5fe0;
@@ -327,6 +329,12 @@ h2 {
   color: var(--retired);
 }
 
+.status-abandoned {
+  --chip: var(--abandoned-soft);
+
+  color: var(--abandoned);
+}
+
 .status-archived {
   --chip: var(--archived-soft);
 
@@ -395,6 +403,10 @@ h2 {
 
 .thing-row.is-retired {
   --spark: var(--retired);
+}
+
+.thing-row.is-abandoned {
+  --spark: var(--abandoned);
 }
 
 .thing-row.is-archived {
@@ -571,6 +583,11 @@ h2 {
   stroke: var(--retired);
 }
 
+.connection-diagram .abandoned rect {
+  fill: var(--abandoned-soft);
+  stroke: var(--abandoned);
+}
+
 .connection-diagram .archived rect {
   fill: var(--archived-soft);
   stroke: var(--archived);
@@ -679,6 +696,10 @@ h2 {
 
 .tl-dormant {
   fill: var(--dormant);
+}
+
+.tl-abandoned {
+  fill: var(--abandoned);
 }
 
 .tl-archived {

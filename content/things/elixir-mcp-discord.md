@@ -1,5 +1,5 @@
 ---
-title: Elixir MCP Discord
+title: Elixir Discord
 summary: An open-source Discord bot any Clash Royale clan can run, which gets every fact it states from Elixir MCP tool calls.
 collection: Games and communities
 status: active
@@ -20,7 +20,7 @@ connections:
     source: https://poapkings.com/elixir/
 ---
 
-Elixir MCP Discord is a Discord bot for a Clash Royale clan with no local game database, no Clash Royale API key, and no fallback. It connects to [Elixir](https://elixir.poapkings.com/) as that clan’s agent, and every fact it states comes from an MCP tool call made moments earlier. There is no clan in the repository: a clan points it at its own agent key, Claude key, and Discord channels, with no fork and no code to edit.
+Elixir Discord is a Discord bot for a Clash Royale clan with no local game database, no Clash Royale API key, and no fallback. It connects to [Elixir](https://elixir.poapkings.com/) as that clan’s agent, and every fact it states comes from an MCP tool call made moments earlier. There is no clan in the repository: a clan points it at its own agent key, Claude key, and Discord channels, with no fork and no code to edit.
 
 Its behavior is a set of routines, each a Markdown file that pairs a trigger with a prompt and a destination. A routine can answer whoever speaks in a channel, post when Elixir’s timeline records a join, a departure, or a standout session, fire on a game clock boundary such as the end of a war day, or run on a schedule. The record is the trigger, not the calendar.
 

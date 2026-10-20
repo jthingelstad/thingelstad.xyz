@@ -56,14 +56,6 @@
   things:
     - charlie-brown-tree
     - 612-poap-challenge
-- id: microblog-collection-shortcuts
-  date: 2025-01-11
-  kind: milestone
-  title: Micro.blog collection shortcuts shared
-  summary: Jamie shared his Collection Creator, Copier and Viewer shortcuts.
-  source: https://www.thingelstad.com/2025/01/11/microblog-collections-shortcuts.html
-  things:
-    - shortcuts
 - id: airport-poap-rally-launch
   date: 2025-12-26
   kind: launch

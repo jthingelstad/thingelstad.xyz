@@ -47,7 +47,6 @@ story:
   source: https://www.thingelstad.com/
   sourceLabel: Read the blog
   related:
-    - thing-hugo
     - weekly-thing
   questions:
     - How has the blog changed over time?

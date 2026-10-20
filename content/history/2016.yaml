@@ -5,7 +5,6 @@
   summary: Jamie decided to stop running his own servers and archive or hand off his hobby sites.
   source: https://www.thingelstad.com/2016/05/03/technical-downsizing.html
   things:
-    - mediawiki-farm
     - road-sign-math
 - id: blog-squarespace
   date: 2016-04-20

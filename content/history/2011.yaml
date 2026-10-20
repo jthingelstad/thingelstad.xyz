@@ -22,11 +22,3 @@
   source: https://www.thingelstad.com/2023/10/21/road-sign-math.html
   things:
     - road-sign-math
-- id: farm-linode
-  date: 2011-11-20
-  kind: milestone
-  title: One PHP install for every wiki
-  summary: A move to Linode puts all of Jamie’s wikis and blogs under one PHP install.
-  source: https://www.thingelstad.com/2011/11/20/move-to-linode.html
-  things:
-    - mediawiki-farm

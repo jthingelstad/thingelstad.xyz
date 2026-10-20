@@ -25,7 +25,7 @@ test('the index lists every thing with its status and leads to its page', async 
   const errors = watchErrors(page);
   await page.goto('/');
   await expect(page.locator('.thing-row')).toHaveCount(things.length);
-  for (const status of ['active', 'dormant', 'retired', 'archived']) {
+  for (const status of ['active', 'dormant', 'retired', 'abandoned', 'archived']) {
     const count = things.filter((thing) => thing.status === status).length;
     await expect(page.locator(`.thing-row .status-${status}`)).toHaveCount(count);
   }

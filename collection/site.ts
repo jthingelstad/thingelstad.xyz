@@ -32,12 +32,14 @@ const statusLabels: Record<Status, string> = {
   active: 'Active',
   dormant: 'Dormant',
   retired: 'Retired',
+  abandoned: 'Abandoned',
   archived: 'Archived'
 };
 const statusDescriptions: Record<Status, string> = {
   active: 'Being built or operated.',
   dormant: 'Not currently worked on, and may return.',
   retired: 'Deliberately ended.',
+  abandoned: 'Tried, and given up before it worked out.',
   archived: 'Complete and preserved as it is.'
 };
 const collectionOrder = [

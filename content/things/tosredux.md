@@ -2,7 +2,7 @@
 title: TOSRedux
 summary: A Semantic MediaWiki site at tosredux.org for crowdsourcing a structured analysis of websites’ terms of service.
 collection: Historical projects
-status: retired
+status: abandoned
 url: https://web.archive.org/web/20151013153210/https://wikiapiary.com/wiki/Farm:Thingelstad.com
 started: '2011'
 topics:

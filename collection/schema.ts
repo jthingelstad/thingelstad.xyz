@@ -9,8 +9,8 @@
 
 type DatePrecision = string; // YYYY, YYYY-MM, or YYYY-MM-DD, exactly as the source states it.
 
-export type Status = 'active' | 'dormant' | 'retired' | 'archived';
-export const statuses: Status[] = ['active', 'dormant', 'retired', 'archived'];
+export type Status = 'active' | 'dormant' | 'retired' | 'abandoned' | 'archived';
+export const statuses: Status[] = ['active', 'dormant', 'retired', 'abandoned', 'archived'];
 
 type GitHubSource = {
   kind: 'github';

@@ -2,7 +2,7 @@
 title: Weekly Thing Workshop
 summary: Four AI agents on Discord, Eddy, Linky, Marky and Patty, that helped Jamie edit, research, promote and fund the Weekly Thing in 2026.
 collection: Publishing
-status: retired
+status: abandoned
 url: https://www.thingelstad.com/2026/05/12/the-weekly-thing-team.html
 started: '2026-05-12'
 topics:

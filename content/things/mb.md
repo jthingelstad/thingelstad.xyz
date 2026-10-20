@@ -42,7 +42,6 @@ story:
     - Micro.blog
   source: https://github.com/jthingelstad/mb
   related:
-    - mb-audit
     - otto
     - jamie-thingelstad-blog
   questions:

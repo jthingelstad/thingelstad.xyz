@@ -1,5 +1,5 @@
 ---
-title: Elixir MCP Collector
+title: Elixir Collector
 summary: A small, signed Go program that volunteers run on their own machines to fetch Clash Royale API data for Elixir’s shared record.
 collection: Games and communities
 status: active

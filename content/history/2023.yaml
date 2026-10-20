@@ -13,7 +13,6 @@
   summary: Jamie rebuilt the Weekly Thing workflow as native Shortcuts with Data Jar caching and an automated photo section.
   source: https://www.thingelstad.com/2023/09/24/how-i-build.html
   things:
-    - shortcuts
     - weekly-thing
 - id: weekly-thing-forum
   date: 2023-09-22

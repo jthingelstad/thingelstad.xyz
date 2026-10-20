@@ -31,14 +31,6 @@
   source: https://www.thingelstad.com/2013/07/21/pictures-from-us.html
   things:
     - planet-kubb
-- id: mediawiki-farm-1-21
-  date: 2013-05-25
-  kind: milestone
-  title: Farm upgraded to MediaWiki 1.21
-  summary: Jamie upgraded his MediaWiki farm to 1.21, opening it to Lua modules.
-  source: https://www.thingelstad.com/2013/05/25/got-my-mediawiki.html
-  things:
-    - mediawiki-farm
 - id: pk-scoresheet-2013
   date: 2013-10-31
   kind: milestone
