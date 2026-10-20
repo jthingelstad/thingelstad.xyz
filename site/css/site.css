@@ -442,6 +442,43 @@ h2 {
   fill: var(--line);
 }
 
+.sparkline-views .spark-on {
+  fill: var(--muted);
+}
+
+.views .sparkline {
+  vertical-align: -3px;
+  margin-left: 6px;
+}
+
+.screenshot {
+  max-width: 720px;
+  margin: 28px 0 8px;
+}
+
+.screenshot a {
+  display: block;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--soft);
+  box-shadow:
+    0 1px 2px rgb(31 29 26 / 6%),
+    0 10px 28px rgb(31 29 26 / 8%);
+}
+
+.screenshot img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.screenshot figcaption {
+  margin-top: 8px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
 .topic-cloud a,
 .related .tag {
   margin-right: 8px;

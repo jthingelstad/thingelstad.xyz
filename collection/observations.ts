@@ -6,6 +6,7 @@ import {
   websiteKey,
   type GitHubObservation,
   type Observation,
+  type ScreenshotObservation,
   type TinylyticsObservation,
   type WaybackObservation,
   type WebObservation
@@ -64,20 +65,39 @@ function wayback(value: unknown): WaybackObservation {
     throw new Error('Invalid Wayback observation.');
   return value as unknown as WaybackObservation;
 }
+function screenshot(value: unknown): ScreenshotObservation {
+  if (
+    !isRecord(value) ||
+    value.kind !== 'screenshot' ||
+    typeof value.url !== 'string' ||
+    typeof value.observedAt !== 'string' ||
+    typeof value.image !== 'string' ||
+    !/^[a-z0-9-]+\.jpg$/.test(value.image) ||
+    typeof value.sha256 !== 'string' ||
+    !/^[a-f0-9]{64}$/.test(value.sha256)
+  )
+    throw new Error('Invalid screenshot observation.');
+  return value as unknown as ScreenshotObservation;
+}
 export async function loadObservations(root = observationsRoot): Promise<Observation[]> {
-  const [githubFiles, webFiles, tinylyticsFiles, waybackFiles] = await Promise.all([
+  const [githubFiles, webFiles, tinylyticsFiles, waybackFiles, screenshotFiles] = await Promise.all([
     readDirectory(join(root, 'github')),
     readDirectory(join(root, 'web')),
     readDirectory(join(root, 'tinylytics')),
-    readDirectory(join(root, 'wayback'))
+    readDirectory(join(root, 'wayback')),
+    readDirectory(join(root, 'screenshot'))
   ]);
   return [
     ...githubFiles.map(github),
     ...webFiles.map(web),
     ...tinylyticsFiles.map(tinylytics),
-    ...waybackFiles.map(wayback)
+    ...waybackFiles.map(wayback),
+    ...screenshotFiles.map(screenshot)
   ];
 }
+// A screenshot's JPEG sits beside its observation, under the same key.
+const screenshotImagePath = (observation: ScreenshotObservation, root = observationsRoot) =>
+  join(root, 'screenshot', observation.image);
 async function formatJson(value: unknown) {
   return format(JSON.stringify(value), { parser: 'json', printWidth: 120, tabWidth: 2 });
 }
@@ -86,4 +106,11 @@ export async function saveObservation(observation: Observation, root = observati
   await mkdir(join(path, '..'), { recursive: true });
   await writeFile(path, await formatJson(observation));
   return path;
+}
+// The image first, so an observation never names a JPEG that is not there.
+export async function saveScreenshot(observation: ScreenshotObservation, image: Uint8Array, root = observationsRoot) {
+  const path = screenshotImagePath(observation, root);
+  await mkdir(join(path, '..'), { recursive: true });
+  await writeFile(path, image);
+  return saveObservation(observation, root);
 }

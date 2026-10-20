@@ -4,9 +4,10 @@ import { observeRepository, type GitHubReader } from '../collection/adapters/git
 import { monthCounts, observeWebsite, parseFeed, parseSitemap } from '../collection/adapters/web';
 import { listSites, observeSite, rootOrigin, type TinylyticsReader } from '../collection/adapters/tinylytics';
 import { capturedUrl, observeCaptures } from '../collection/adapters/wayback';
+import { screenshotDue, type Capturer } from '../collection/adapters/screenshot';
 import { collect, sameEvidence, targets } from '../collection/collect';
 import { observationPath } from '../collection/observations';
-import type { Observation, Registry, Thing } from '../collection/schema';
+import type { Observation, Registry, ScreenshotObservation, Thing } from '../collection/schema';
 
 const now = new Date('2026-10-14T12:00:00Z');
 const fakeCommit = (n = 1) => ({
@@ -151,6 +152,7 @@ test('the collector observes each source once and writes only changed evidence',
     save: async (o) => (saved.push(o), 'x'),
     tinylytics: null,
     wayback: null,
+    screenshots: null,
     log: () => {}
   });
   assert.deepEqual(first.written, ['Owner/Example', 'https://example.com/']);
@@ -164,6 +166,7 @@ test('the collector observes each source once and writes only changed evidence',
     save: async () => assert.fail('nothing changed'),
     tinylytics: null,
     wayback: null,
+    screenshots: null,
     log: () => {}
   });
   assert.deepEqual(second.unchanged, ['Owner/Example', 'https://example.com/']);
@@ -179,6 +182,7 @@ test('the collector observes each source once and writes only changed evidence',
     save: async () => 'x',
     tinylytics: null,
     wayback: null,
+    screenshots: null,
     log: () => {}
   });
   assert.equal(third.failed[0].target, 'Owner/Example');
@@ -251,6 +255,7 @@ test('Tinylytics observations record monthly page views for registry sites only'
     only: 'tinylytics',
     tinylytics: null,
     wayback: null,
+    screenshots: null,
     log: (l) => logged.push(l)
   });
   assert.deepEqual(skipped.written, []);
@@ -313,4 +318,72 @@ test('Wayback observations count capture days and unwrap Wayback links', async (
   });
   assert.equal(calls, 1, 'a 429 stops the Wayback requests for the run');
   assert.equal(limited.failed.length, 1);
+});
+
+test('screenshots capture active website roots once a month, and only when the page changed', async () => {
+  const sites: Registry = {
+    ...registry,
+    things: [
+      ...registry.things,
+      { ...thing('d', [{ kind: 'website', url: 'https://gone.example.org/', role: 'website' }]), status: 'retired' },
+      thing('e', [{ kind: 'website', url: 'https://example.com/projects/e/', role: 'website' }])
+    ]
+  };
+  assert.deepEqual(
+    targets(sites).screenshots,
+    ['https://example.com/'],
+    'front pages only, never a retired thing or a page inside a site'
+  );
+  let pixels = 'first';
+  const captured: string[] = [];
+  let closed = 0;
+  const capturer: Capturer = {
+    capture: async (url) => (captured.push(url), { image: new TextEncoder().encode(pixels), width: 1280, height: 800 }),
+    close: async () => void closed++
+  };
+  const saved: { observation: ScreenshotObservation; image: Uint8Array }[] = [];
+  const run = (existing: Observation[], at: Date) =>
+    collect({
+      registry: sites,
+      existing,
+      only: 'screenshots',
+      screenshots: capturer,
+      now: at,
+      saveScreenshot: async (observation, image) => (saved.push({ observation, image }), 'x'),
+      log: () => {}
+    });
+  const first = await run([], now);
+  assert.deepEqual(first.written, ['screenshot https://example.com/']);
+  const shot = saved[0].observation;
+  assert.equal(shot.image, 'example-com.jpg');
+  assert.equal(observationPath(shot), 'data/observations/screenshot/example-com.json');
+  assert.match(shot.sha256, /^[a-f0-9]{64}$/);
+
+  const weekLater = await run([shot], new Date('2026-10-21T12:00:00Z'));
+  assert.deepEqual(weekLater.unchanged, ['screenshot https://example.com/'], 'a recent capture is not retaken');
+  assert.equal(captured.length, 1);
+
+  const monthLater = new Date('2026-11-11T09:00:00Z'); // four weekly runs on, a few hours early
+  assert.ok(screenshotDue(shot, monthLater));
+  const same = await run([shot], monthLater);
+  assert.deepEqual(same.unchanged, ['screenshot https://example.com/'], 'the same pixels are not written again');
+  pixels = 'second';
+  const changed = await run([shot], monthLater);
+  assert.deepEqual(changed.written, ['screenshot https://example.com/']);
+  assert.equal(saved.length, 2);
+  assert.equal(closed, 4, 'the browser is closed after every run');
+
+  const broken = await collect({
+    registry: sites,
+    existing: [],
+    only: 'screenshots',
+    screenshots: {
+      capture: async () => Promise.reject(new Error('503 for https://example.com/')),
+      close: async () => {}
+    },
+    now,
+    saveScreenshot: async () => assert.fail('nothing to save'),
+    log: () => {}
+  });
+  assert.equal(broken.failed[0].target, 'screenshot https://example.com/');
 });

@@ -13,14 +13,17 @@ import {
   type MonthCount,
   type Observation,
   type Registry,
+  type ScreenshotObservation,
   type Status,
   type Thing,
   type ThingSource,
+  type TinylyticsObservation,
   type Topic,
   type WaybackObservation,
   type WebObservation
 } from './schema';
 import { capturedUrl } from './adapters/wayback';
+import { rootOrigin, siteKey } from './adapters/tinylytics';
 
 export const siteUrl = 'https://thingelstad.xyz';
 const siteTitle = 'Things I’ve built.';
@@ -55,8 +58,25 @@ type Evidence = { date: string; label: string; url: string | null };
 type SiteSource = ThingSource & {
   observation: GitHubObservation | WebObservation | null;
   captures?: WaybackObservation | null; // website sources only: Internet Archive captures
+  views?: TinylyticsObservation | null; // website roots only: page views counted by Tinylytics
+  screenshot?: ScreenshotObservation | null; // website roots only: the front page, captured monthly
   evidence: Evidence[];
 };
+// The front page as it looked on the day it was captured. The JPEG is published under /assets/ with its
+// hash in the name, so a new capture is a new file and the old one stays for open pages.
+type SiteScreenshot = {
+  src: string;
+  site: string; // the URL that was captured
+  host: string;
+  date: string; // YYYY-MM-DD
+  width: number;
+  height: number;
+  alt: string;
+};
+// Page views for the site a thing is, over the window Tinylytics was asked about.
+type SiteViews = { site: string; total: number; until: string; months: MonthCount[] };
+export const screenshotAsset = (observation: ScreenshotObservation) =>
+  `/assets/screenshots/${observation.image.replace(/\.jpg$/, '')}-${observation.sha256.slice(0, 10)}.jpg`;
 type InboundConnection = Connection & { from: string };
 // A small monogram "sticker" for each thing: its initials on a tinted tile, tilted a degree or two. The
 // hue and tilt come from the id, so a thing keeps its sticker from build to build.
@@ -81,6 +101,8 @@ export type SiteThing = Omit<Thing, 'sources'> & {
   topicList: (Topic & { page: string })[];
   latest: Evidence | null; // the newest dated evidence across every source
   months: MonthCount[]; // commits and publications per month, last twelve months
+  screenshot: SiteScreenshot | null;
+  views: SiteViews | null;
   span: { start: number | null; end: number | null }; // years, for the timeline
 };
 type SiteTopic = Topic & { page: string; things: SiteThing[] };
@@ -188,6 +210,31 @@ function webEvidence(observation: WebObservation): Evidence[] {
     });
   return evidence;
 }
+// Every month from `since` to `until`, with Tinylytics' counts and zero where it had none.
+function viewMonths(observation: TinylyticsObservation): MonthCount[] {
+  const counts = new Map(observation.months.map((m) => [m.month, m.count]));
+  const months: MonthCount[] = [];
+  const [year, month] = observation.since.slice(0, 7).split('-').map(Number);
+  for (let i = 0; ; i++) {
+    const key = new Date(Date.UTC(year, month - 1 + i, 1)).toISOString().slice(0, 7);
+    if (key > observation.until.slice(0, 7) || i > 24) break;
+    months.push({ month: key, count: counts.get(key) ?? 0 });
+  }
+  return months;
+}
+function siteScreenshot(observation: ScreenshotObservation): SiteScreenshot {
+  const host = new URL(observation.url).host;
+  const date = observation.observedAt.slice(0, 10);
+  return {
+    src: screenshotAsset(observation),
+    site: observation.url,
+    host,
+    date,
+    width: observation.width,
+    height: observation.height,
+    alt: `The front page of ${host} on ${formatDate(date)}`
+  };
+}
 function sourceMonths(source: SiteSource): MonthCount[] {
   const observation = source.observation;
   if (!observation) return [];
@@ -204,10 +251,16 @@ export function buildSiteModel(registry: Registry, observations: Observation[], 
   const github = new Map<string, GitHubObservation>();
   const web = new Map<string, WebObservation>();
   const wayback = new Map<string, WaybackObservation>();
+  const tinylytics = new Map<string, TinylyticsObservation>();
+  const screenshots = new Map<string, ScreenshotObservation>();
   for (const observation of observations)
     if (observation.kind === 'github') github.set(githubKey(observation.repository), observation);
     else if (observation.kind === 'web') web.set(websiteKey(observation.url), observation);
     else if (observation.kind === 'wayback') wayback.set(websiteKey(observation.url), observation);
+    else if (observation.kind === 'tinylytics') {
+      const origin = rootOrigin(observation.url);
+      if (origin) tinylytics.set(siteKey(origin), observation);
+    } else screenshots.set(websiteKey(observation.url), observation);
   const topicById = new Map(registry.topics.map((topic) => [topic.id, topic]));
   const inbound = new Map<string, InboundConnection[]>();
   for (const thing of registry.things)
@@ -223,8 +276,23 @@ export function buildSiteModel(registry: Registry, observations: Observation[], 
       }
       const observation = web.get(websiteKey(source.url)) ?? null;
       const captures = wayback.get(websiteKey(capturedUrl(source.url))) ?? null;
-      return { ...source, observation, captures, evidence: observation ? webEvidence(observation) : [] };
+      // Page views and the front page belong to the thing whose website this is, never to a thing that
+      // only links to it.
+      const own = source.role === 'website';
+      const origin = own ? rootOrigin(source.url) : null;
+      const views = origin ? (tinylytics.get(siteKey(origin)) ?? null) : null;
+      const screenshot = own ? (screenshots.get(websiteKey(source.url)) ?? null) : null;
+      return {
+        ...source,
+        observation,
+        captures,
+        views,
+        screenshot,
+        evidence: observation ? webEvidence(observation) : []
+      };
     });
+    const shot = sources.find((source) => source.screenshot)?.screenshot;
+    const viewed = sources.find((source) => source.views)?.views;
     const evidence = sources.flatMap((source) => source.evidence).sort((a, b) => b.date.localeCompare(a.date));
     const counts = new Map(window.map((month) => [month, 0]));
     for (const source of sources)
@@ -256,6 +324,8 @@ export function buildSiteModel(registry: Registry, observations: Observation[], 
       }),
       latest: evidence[0] ?? null,
       months: window.map((month) => ({ month, count: counts.get(month) ?? 0 })),
+      screenshot: shot ? siteScreenshot(shot) : null,
+      views: viewed ? { site: viewed.url, total: viewed.hits, until: viewed.until, months: viewMonths(viewed) } : null,
       span: { start, end }
     };
   });
@@ -350,7 +420,9 @@ export function thingMarkdown(thing: SiteThing) {
     ...(thing.started ? { started: thing.started } : {}),
     ...(thing.ended ? { ended: thing.ended } : {}),
     topics: thing.topics,
-    sources: thing.sources.map(({ observation: _o, captures: _c, evidence: _e, ...source }) => source),
+    sources: thing.sources.map(
+      ({ observation: _o, captures: _c, views: _v, screenshot: _s, evidence: _e, ...source }) => source
+    ),
     connections: thing.connections,
     ...(thing.story ? { story: thing.story } : {}),
     page: `${siteUrl}${thing.page}`
@@ -405,8 +477,17 @@ export function thingsJson(model: SiteModel) {
       page: `${model.url}${thing.page}`,
       markdown: `${model.url}${thing.markdown}`,
       topics: thing.topics,
-      sources: thing.sources.map(({ evidence: _e, ...source }) => source),
+      sources: thing.sources.map(({ evidence: _e, screenshot: _s, ...source }) => source),
       connections: thing.connections,
+      ...(thing.screenshot
+        ? {
+            screenshot: {
+              url: `${model.url}${thing.screenshot.src}`,
+              site: thing.screenshot.site,
+              date: thing.screenshot.date
+            }
+          }
+        : {}),
       ...(thing.story ? { story: thing.story } : {}),
       body: thing.body.trim(),
       latest: thing.latest
@@ -477,8 +558,10 @@ function escapeHtml(value: string) {
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&#39;');
 }
+// RSS carries the newest events, enough for a reader to catch up; feed.json and /history/ carry them all.
+export const rssItems = 30;
 export function rssFeed(model: SiteModel) {
-  const items = feedItems(model);
+  const items = feedItems(model).slice(0, rssItems);
   const newest = items[0]?.instant ?? model.generated;
   const entries = items
     .map(
@@ -508,7 +591,7 @@ ${entries}
 }
 
 // A twelve-month sparkline of commits and publications. Evidence, never a verdict.
-export function sparkline(months: MonthCount[], label: string) {
+export function sparkline(months: MonthCount[], label: string, variant?: string) {
   const max = Math.max(1, ...months.map((m) => m.count));
   const width = 12 * 7;
   const height = 18;
@@ -518,7 +601,7 @@ export function sparkline(months: MonthCount[], label: string) {
       return `<rect x="${i * 7}" y="${height - h}" width="5" height="${h}" rx="1.5" class="${count ? 'spark-on' : 'spark-off'}"><title>${month}: ${count}</title></rect>`;
     })
     .join('');
-  return `<svg class="sparkline" viewBox="0 0 ${width} ${height}" width="${width}" height="${height}" role="img" aria-label="${escapeHtml(label)}">${bars}</svg>`;
+  return `<svg class="sparkline${variant ? ` sparkline-${variant}` : ''}" viewBox="0 0 ${width} ${height}" width="${width}" height="${height}" role="img" aria-label="${escapeHtml(label)}">${bars}</svg>`;
 }
 
 // The timeline reads down the page, newest year first. Each thing gets a small strip covering every
