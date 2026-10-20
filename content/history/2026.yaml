@@ -145,10 +145,10 @@
   date: 2026-04-07
   kind: development
   title: 'Librarian: recorded development begins'
-  summary: The earliest commit in this repository is a development record; the project or idea may predate it.
+  summary: The earliest commit in Librarian, the archive API behind Thingy, is a development record; the project or idea may predate it.
   source: https://github.com/jthingelstad/librarian-thing/commit/95fed22aba9a066a74df067d2072ae0ca6cf2690
   things:
-    - librarian
+    - thingy
 - id: weekly-thing-recorded-development
   date: 2026-04-07
   kind: development
@@ -305,7 +305,6 @@
   source: https://www.thingelstad.com/2026/06/07/thingy-evolved.html
   things:
     - thingy
-    - librarian
 - id: wt-builder-first-issue
   date: 2026-09-20
   kind: launch

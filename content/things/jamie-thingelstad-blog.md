@@ -24,10 +24,6 @@ sources:
     url: https://www.thingelstad.com/2021/04/28/four-great-years.html
     role: reference
 connections:
-  - to: librarian
-    label: is indexed by
-    detail: The blog contributes writing to the archive that Librarian retrieves from. Micro.blog remains the blog’s source of authority.
-    source: https://thingy.thingelstad.com/about/
   - to: weekly-thing
     label: posts are syndicated in
     detail: Weekly Thing republishes my blog posts, connecting the newsletter to my ongoing personal writing.

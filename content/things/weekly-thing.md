@@ -24,17 +24,12 @@ sources:
   - kind: website
     url: https://www.thingelstad.com/2026/05/07/massive-weekly-thing-website-build.html
     role: reference
-connections:
-  - to: librarian
-    label: is indexed by
-    detail: Librarian builds a searchable corpus from Weekly Thing content.
-    source: https://thingy.thingelstad.com/about/
 story:
   color: '#eaa18f'
   introduction: Curiosity, collected and shared.
   engineering:
     - WT Builder keeps an issue structured until it is sent, then renders different editions for the website, email, and audio.
-    - The public archive is an Eleventy site. Librarian builds the searchable archive that Thingy answers from.
+    - The public archive is an Eleventy site. Thingy's private Librarian API builds the searchable archive that Thingy answers from.
     - Authoring, public publishing, and archive retrieval have explicit ownership boundaries.
   stack:
     - Eleventy
@@ -46,7 +41,6 @@ story:
   related:
     - wt-builder
     - yearly-thing-2025
-    - librarian
     - thingy
     - another-thing
   started: Published since 2017
