@@ -1,8 +1,8 @@
 {
   "kind": "wayback",
   "url": "https://nnxyz.thingelstad.xyz/",
-  "observedAt": "2026-10-18T10:31:42.876Z",
-  "firstCapture": null,
-  "latestCapture": null,
-  "years": []
+  "observedAt": "2026-10-20T17:57:36.612Z",
+  "firstCapture": "2026-10-16",
+  "latestCapture": "2026-10-16",
+  "years": [{ "year": "2026", "days": 1 }]
 }

@@ -2,7 +2,7 @@
   "kind": "github",
   "repository": "jthingelstad/mb",
   "url": "https://github.com/jthingelstad/mb",
-  "observedAt": "2026-10-18T10:38:59.915Z",
+  "observedAt": "2026-10-20T17:57:36.612Z",
   "repositoryCreatedAt": "2026-03-01T20:48:59.000Z",
   "archived": false,
   "description": "Micro.blog CLI and local MCP server built for agents: structured output, composable commands, reviewable writes. brew install jthingelstad/tap/mb",
@@ -18,12 +18,12 @@
     {
       "path": null,
       "branch": "main",
-      "since": "2026-07-20T10:38:59.915Z",
-      "until": "2026-10-18T10:38:59.915Z",
-      "count": 39,
+      "since": "2026-07-01T00:00:00.000Z",
+      "until": "2026-10-20T17:57:36.612Z",
+      "count": 44,
       "complete": true,
       "months": [
-        { "month": "2026-07", "count": 1 },
+        { "month": "2026-07", "count": 6 },
         { "month": "2026-08", "count": 1 },
         { "month": "2026-10", "count": 37 }
       ],

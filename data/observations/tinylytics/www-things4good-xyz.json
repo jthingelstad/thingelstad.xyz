@@ -1,11 +1,12 @@
 {
   "kind": "tinylytics",
   "url": "https://www.things4good.xyz/",
-  "observedAt": "2026-10-18T10:55:30.772Z",
-  "since": "2025-11-01",
-  "until": "2026-10-18",
+  "observedAt": "2026-10-20T17:57:36.612Z",
+  "since": "2025-10-01",
+  "until": "2026-09-30",
   "hits": 94,
   "months": [
+    { "month": "2025-10", "count": 0 },
     { "month": "2025-11", "count": 0 },
     { "month": "2025-12", "count": 0 },
     { "month": "2026-01", "count": 25 },
@@ -16,7 +17,6 @@
     { "month": "2026-06", "count": 19 },
     { "month": "2026-07", "count": 0 },
     { "month": "2026-08", "count": 0 },
-    { "month": "2026-09", "count": 0 },
-    { "month": "2026-10", "count": 0 }
+    { "month": "2026-09", "count": 0 }
   ]
 }

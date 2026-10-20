@@ -1,10 +1,10 @@
 {
   "kind": "web",
   "url": "https://thingelstad.xyz/",
-  "observedAt": "2026-10-18T10:38:59.915Z",
+  "observedAt": "2026-10-20T17:57:36.612Z",
   "sitemap": {
     "url": "https://thingelstad.xyz/sitemap.xml",
-    "pages": 71,
+    "pages": 70,
     "newestModified": null,
     "months": [],
     "complete": true
@@ -12,19 +12,13 @@
   "feed": {
     "url": "https://thingelstad.xyz/feed.xml",
     "title": "Things I’ve built. History",
-    "items": 100,
+    "items": 30,
     "newestPublished": "2026-10-17T00:00:00.000Z",
     "months": [
-      { "month": "2025-11", "count": 1 },
-      { "month": "2026-01", "count": 1 },
-      { "month": "2026-02", "count": 6 },
-      { "month": "2026-03", "count": 3 },
-      { "month": "2026-04", "count": 5 },
-      { "month": "2026-05", "count": 7 },
-      { "month": "2026-06", "count": 4 },
-      { "month": "2026-07", "count": 4 },
-      { "month": "2026-09", "count": 9 },
-      { "month": "2026-10", "count": 12 }
+      { "month": "2026-06", "count": 1 },
+      { "month": "2026-07", "count": 3 },
+      { "month": "2026-09", "count": 12 },
+      { "month": "2026-10", "count": 14 }
     ]
   }
 }
