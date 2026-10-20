@@ -2,7 +2,7 @@
   "kind": "github",
   "repository": "jthingelstad/poapkings.com",
   "url": "https://github.com/jthingelstad/poapkings.com",
-  "observedAt": "2026-10-18T10:38:59.915Z",
+  "observedAt": "2026-10-19T17:30:51.900Z",
   "repositoryCreatedAt": "2026-02-05T04:14:14.000Z",
   "archived": false,
   "description": "Proof of Arena Push — the official website for the POAP KINGS Clash Royale clan (#J2RGCRVG). Eleventy static site on GitHub Pages.",
@@ -19,12 +19,12 @@
     {
       "path": null,
       "branch": "main",
-      "since": "2026-07-20T10:38:59.915Z",
-      "until": "2026-10-18T10:38:59.915Z",
-      "count": 108,
+      "since": "2026-07-21T17:30:51.900Z",
+      "until": "2026-10-19T17:30:51.900Z",
+      "count": 105,
       "complete": true,
       "months": [
-        { "month": "2026-07", "count": 23 },
+        { "month": "2026-07", "count": 20 },
         { "month": "2026-08", "count": 46 },
         { "month": "2026-09", "count": 36 },
         { "month": "2026-10", "count": 3 }

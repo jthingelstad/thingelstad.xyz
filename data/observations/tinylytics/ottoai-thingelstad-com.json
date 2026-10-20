@@ -1,10 +1,10 @@
 {
   "kind": "tinylytics",
   "url": "https://ottoai.thingelstad.com/",
-  "observedAt": "2026-10-18T10:55:30.772Z",
+  "observedAt": "2026-10-19T17:30:51.900Z",
   "since": "2025-11-01",
-  "until": "2026-10-18",
-  "hits": 1190,
+  "until": "2026-10-19",
+  "hits": 1194,
   "months": [
     { "month": "2025-11", "count": 0 },
     { "month": "2025-12", "count": 0 },
@@ -17,6 +17,6 @@
     { "month": "2026-07", "count": 71 },
     { "month": "2026-08", "count": 84 },
     { "month": "2026-09", "count": 51 },
-    { "month": "2026-10", "count": 177 }
+    { "month": "2026-10", "count": 181 }
   ]
 }

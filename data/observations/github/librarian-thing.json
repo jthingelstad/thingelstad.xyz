@@ -2,7 +2,7 @@
   "kind": "github",
   "repository": "jthingelstad/librarian-thing",
   "url": "https://github.com/jthingelstad/librarian-thing",
-  "observedAt": "2026-10-18T10:38:59.915Z",
+  "observedAt": "2026-10-19T17:30:51.900Z",
   "repositoryCreatedAt": "2026-06-03T23:21:50.000Z",
   "archived": false,
   "description": "Studio — the brain behind Jamie Thingelstad's publishing: capture, research, the editorial source of truth, the production pipeline, and the authoring agents. Downstream surfaces (blog, newsletter, podcast, Thingy) consume what it produces.",
@@ -21,17 +21,17 @@
     {
       "path": null,
       "branch": "main",
-      "since": "2026-07-20T10:38:59.915Z",
-      "until": "2026-10-18T10:38:59.915Z",
+      "since": "2026-07-21T17:30:51.900Z",
+      "until": "2026-10-19T17:30:51.900Z",
       "count": 300,
       "complete": false,
       "months": [
-        { "month": "2026-09", "count": 121 },
-        { "month": "2026-10", "count": 179 }
+        { "month": "2026-09", "count": 120 },
+        { "month": "2026-10", "count": 180 }
       ],
       "latestCommit": {
-        "date": "2026-10-17T15:59:50.000Z",
-        "url": "https://github.com/jthingelstad/librarian-thing/commit/b27ee8b1f41b0ce55b85b1b7687279c3805f8583"
+        "date": "2026-10-19T17:28:29.000Z",
+        "url": "https://github.com/jthingelstad/librarian-thing/commit/0ecbd117272853fd0e5a9a797de2e4c41ff5ddcf"
       }
     }
   ]
