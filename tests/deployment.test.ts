@@ -4,6 +4,7 @@ import { mkdirSync, mkdtempSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { dirname, join } from 'node:path';
 import { cacheControlFor, contentTypeFor, publishOrder } from '../scripts/publish-plan.mjs';
+import { viewerRequestCode } from '../infra/viewer-request.mjs';
 
 test('the site is published assets first, pages after, the front page last, each with its content type', () => {
   const dir = mkdtempSync(join(tmpdir(), 'site-'));
@@ -32,4 +33,33 @@ test('the site is published assets first, pages after, the front page last, each
   assert.equal(contentTypeFor('things/elixir.md'), 'text/markdown; charset=utf-8');
   assert.equal(contentTypeFor('feed.xml'), 'application/xml; charset=utf-8');
   assert.throws(() => contentTypeFor('mystery.bin'));
+});
+
+test('the viewer-request function serves directory indexes, adds the slash, and sends www to the apex', () => {
+  const handler = new Function(`${viewerRequestCode}\nreturn handler;`)() as (event: unknown) => {
+    uri?: string;
+    statusCode?: number;
+    headers?: { location?: { value: string } };
+  };
+  const request = (host: string, uri: string, querystring: Record<string, unknown> = {}) => ({
+    request: { uri, querystring, headers: { host: { value: host } } }
+  });
+  const location = (result: ReturnType<typeof handler>) => result.headers?.location?.value;
+  assert.equal(handler(request('thingelstad.xyz', '/')).uri, '/index.html');
+  assert.equal(handler(request('thingelstad.xyz', '/things/elixir/')).uri, '/things/elixir/index.html');
+  assert.equal(handler(request('thingelstad.xyz', '/feed.xml')).uri, '/feed.xml');
+  const bare = handler(request('thingelstad.xyz', '/things/elixir', { a: { value: '1' } }));
+  assert.equal(bare.statusCode, 301);
+  assert.equal(location(bare), '/things/elixir/?a=1');
+  assert.equal(location(handler(request('www.thingelstad.xyz', '/'))), 'https://thingelstad.xyz/');
+  assert.equal(
+    location(handler(request('www.thingelstad.xyz', '/things/elixir'))),
+    'https://thingelstad.xyz/things/elixir/'
+  );
+  assert.equal(location(handler(request('www.thingelstad.xyz', '/feed.xml'))), 'https://thingelstad.xyz/feed.xml');
+  const query = { utm_source: { value: 'x', multiValue: [{ value: 'x' }, { value: 'y' }] }, flag: { value: '' } };
+  assert.equal(
+    location(handler(request('WWW.thingelstad.xyz', '/history/', query))),
+    'https://thingelstad.xyz/history/?utm_source=x&utm_source=y&flag'
+  );
 });
