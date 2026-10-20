@@ -13,6 +13,7 @@ export const contentTypes = {
   '.txt': 'text/plain; charset=utf-8',
   '.md': 'text/markdown; charset=utf-8',
   '.svg': 'image/svg+xml',
+  '.jpg': 'image/jpeg',
   '.woff2': 'font/woff2'
 };
 export const immutable = 'public,max-age=31536000,immutable';

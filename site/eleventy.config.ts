@@ -1,20 +1,21 @@
 // Eleventy builds the static site from content/ and data/observations/ through the typed model in
 // collection/site.ts. Run with tsx (`npm run site:build`) so the TypeScript modules load.
 import { createHash } from 'node:crypto';
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import markdownIt from 'markdown-it';
 import {
   aliveBar,
   formatDate,
   lifespan,
   reach,
+  screenshotAsset,
   sparkline,
   type SiteModel,
   type Timeline,
   type TimelineRow,
   type TimelineYear
 } from '../collection/site';
-import type { MonthCount } from '../collection/schema';
+import type { MonthCount, ScreenshotObservation } from '../collection/schema';
 import { connectionDiagram } from '../collection/diagram';
 
 const markdown = markdownIt({ html: false, linkify: true, typographer: true });
@@ -45,11 +46,19 @@ export default function (eleventyConfig: EleventyConfig) {
     'node_modules/@fontsource-variable/fraunces/files/fraunces-latin-full-normal.woff2':
       'assets/fonts/fraunces-latin-full-normal.woff2'
   });
+  // Each front-page screenshot is published under /assets/ with its hash in the name (see screenshotAsset).
+  const screenshots = 'data/observations/screenshot';
+  for (const name of existsSync(screenshots) ? readdirSync(screenshots).filter((n) => n.endsWith('.json')) : []) {
+    const shot = JSON.parse(readFileSync(`${screenshots}/${name}`, 'utf8')) as ScreenshotObservation;
+    eleventyConfig.addPassthroughCopy({ [`${screenshots}/${shot.image}`]: screenshotAsset(shot).slice(1) });
+  }
   eleventyConfig.setLibrary('md', markdown);
   eleventyConfig.addFilter('date', (value: string) => formatDate(value));
   eleventyConfig.addFilter('day', (value: string) => formatDate(value.slice(0, 10)));
   eleventyConfig.addFilter('md', (value: string) => markdown.render(value ?? ''));
-  eleventyConfig.addFilter('sparkline', (months: MonthCount[], label: string) => sparkline(months, label));
+  eleventyConfig.addFilter('sparkline', (months: MonthCount[], label: string, variant?: string) =>
+    sparkline(months, label, variant)
+  );
   eleventyConfig.addFilter('lifespan', (row: TimelineRow, timeline: Timeline) => lifespan(row, timeline));
   eleventyConfig.addFilter('aliveBar', (year: TimelineYear, timeline: Timeline) => aliveBar(year, timeline));
   eleventyConfig.addFilter('thing', (site: SiteModel, id: string) => site.things.find((t) => t.id === id));

@@ -32,6 +32,8 @@ jobs:
           node-version-file: .nvmrc
           cache: npm
       - run: npm ci
+      # Chromium takes the monthly front-page screenshots. Without it the collector skips them.
+      - run: npx playwright install --with-deps chromium
       - name: Observe sources
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

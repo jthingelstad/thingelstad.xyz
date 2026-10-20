@@ -42,6 +42,27 @@ test('the index lists every thing with its status and leads to its page', async 
   expect(analyticsRequests).toBeGreaterThan(0);
 });
 
+test('a website thing shows its front page and page views', async ({ page }) => {
+  const errors = watchErrors(page);
+  await page.goto('/things/r-w-book-club/');
+  const shot = page.locator('.screenshot img');
+  await shot.scrollIntoViewIfNeeded();
+  await expect(shot).toHaveAttribute('alt', /^The front page of rwbookclub\.com on /);
+  await expect.poll(() => shot.evaluate((img: HTMLImageElement) => img.complete && img.naturalWidth)).toBe(1280);
+  await expect(page.locator('.screenshot a')).toHaveAttribute('href', 'https://rwbookclub.com/');
+  await expect(page.locator('.facts .views')).toContainText('in the twelve months to');
+  await expect(page.locator('.facts .views .sparkline-views')).toBeVisible();
+  await expect(page.locator('meta[property="og:image"]')).toHaveAttribute(
+    'content',
+    /\/assets\/screenshots\/rwbookclub-com-[0-9a-f]{10}\.jpg$/
+  );
+  expect(await fitsViewport(page)).toBe(true);
+  await page.goto('/things/elixir-bot/');
+  await expect(page.locator('.screenshot')).toHaveCount(0);
+  await expect(page.locator('meta[property="og:image"]')).toHaveCount(0);
+  expect(errors).toEqual([]);
+});
+
 test('connections link both ways and topics gather their things', async ({ page }) => {
   await page.goto('/things/elixir-bot/');
   await expect(page.locator('.facts .status-retired')).toBeVisible();

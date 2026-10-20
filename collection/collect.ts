@@ -2,7 +2,8 @@
 // evidence changed. Observation time stamps alone never cause a write, so a weekly run with nothing
 // new produces no diff.
 import { loadRegistry } from './load';
-import { loadObservations, observationPath, saveObservation } from './observations';
+import { loadObservations, observationPath, saveObservation, saveScreenshot } from './observations';
+import { defaultCapturer, observeScreenshot, screenshotDue, type Capturer } from './adapters/screenshot';
 import { defaultGitHubReader, observeRepository, type GitHubReader } from './adapters/github';
 import { defaultTextFetcher, observeWebsite, type TextFetcher } from './adapters/web';
 import { capturedUrl, observeCaptures } from './adapters/wayback';
@@ -14,19 +15,21 @@ import {
   siteKey,
   type TinylyticsReader
 } from './adapters/tinylytics';
-import type { Observation, Registry } from './schema';
+import { websiteKey, type Observation, type Registry, type ScreenshotObservation, type Status } from './schema';
 
 export type CollectOptions = {
   registry?: Registry;
   existing?: Observation[];
-  only?: string; // a repository name, a website URL, 'tinylytics', or 'wayback'
+  only?: string; // a repository name, a website URL, 'tinylytics', 'wayback', or 'screenshots'
   wayback?: TextFetcher | null; // null skips the Internet Archive
   pause?: (ms: number) => Promise<void>; // between Wayback requests: the CDX API rate-limits
   github?: GitHubReader;
   web?: TextFetcher;
   tinylytics?: TinylyticsReader | null; // null skips Tinylytics; the default needs TINYLYTICS_API_KEY
+  screenshots?: Capturer | null; // null skips screenshots; the default needs Playwright's Chromium
   now?: Date;
   save?: (observation: Observation) => Promise<string>;
+  saveScreenshot?: (observation: ScreenshotObservation, image: Uint8Array) => Promise<string>;
   log?: (line: string) => void;
 };
 export type CollectResult = { written: string[]; unchanged: string[]; failed: { target: string; error: string }[] };
@@ -47,6 +50,9 @@ export function sameEvidence(a: Observation, b: Observation) {
 }
 // Sites, not the posts that mention them: a reference post's first capture only repeats its date.
 const capturedRoles = new Set(['website', 'archive', 'demo']);
+// Screenshots are of front pages that are still the thing's own. A retired or abandoned thing's host may
+// belong to someone else by now, so it keeps whatever capture it already has.
+const photographed = new Set<Status>(['active', 'dormant', 'archived']);
 export function targets(registry: Registry) {
   const repositories = new Map<string, Set<string | null>>();
   const websites = new Map<string, { url: string; sitemap?: string; feed?: string }>();
@@ -82,6 +88,17 @@ export function targets(registry: Registry) {
             source.kind === 'website' && capturedRoles.has(source.role) ? [capturedUrl(source.url)] : []
           )
         )
+      )
+    ].toSorted(),
+    screenshots: [
+      ...new Set(
+        registry.things
+          .filter((thing) => photographed.has(thing.status))
+          .flatMap((thing) =>
+            thing.sources.flatMap((source) =>
+              source.kind === 'website' && source.role === 'website' && rootOrigin(source.url) ? [source.url] : []
+            )
+          )
       )
     ].toSorted(),
     origins: [
@@ -124,7 +141,7 @@ export async function collect(options: CollectOptions = {}): Promise<CollectResu
       log(`Could not observe ${target}; previous evidence kept.`);
     }
   };
-  const { repositories, websites, origins, captured } = targets(registry);
+  const { repositories, websites, origins, captured, screenshots } = targets(registry);
   for (const { repository, paths } of repositories)
     if (!options.only || options.only.toLowerCase() === repository.toLowerCase())
       await record(repository, () => observeRepository(repository, paths, github, now));
@@ -160,6 +177,40 @@ export async function collect(options: CollectOptions = {}): Promise<CollectResu
           await record(`${origin}/`, () => observeSite(site, tinylytics, now));
       }
     }
+  }
+  if (options.screenshots !== null && (!options.only || options.only === 'screenshots')) {
+    const capturer = options.screenshots ?? (await defaultCapturer());
+    const saveImage = options.saveScreenshot ?? saveScreenshot;
+    const shots = new Map(existing.flatMap((o) => (o.kind === 'screenshot' ? [[websiteKey(o.url), o] as const] : [])));
+    if (!capturer) log('Chromium is not installed; screenshots skipped.');
+    else
+      try {
+        for (const url of screenshots) {
+          const target = `screenshot ${url}`;
+          const before = shots.get(websiteKey(url));
+          if (!screenshotDue(before, now)) {
+            result.unchanged.push(target);
+            log(`Recent ${target}`);
+            continue;
+          }
+          try {
+            const { observation, image } = await observeScreenshot(url, capturer, now);
+            if (before?.sha256 === observation.sha256) {
+              result.unchanged.push(target);
+              log(`Unchanged ${target}`);
+            } else {
+              await saveImage(observation, image);
+              result.written.push(target);
+              log(`Observed ${target}`);
+            }
+          } catch (error) {
+            result.failed.push({ target, error: error instanceof Error ? error.message : String(error) });
+            log(`Could not observe ${target}; previous evidence kept.`);
+          }
+        }
+      } finally {
+        await capturer.close();
+      }
   }
   return result;
 }

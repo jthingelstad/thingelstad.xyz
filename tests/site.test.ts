@@ -9,6 +9,8 @@ import {
   llmsFullText,
   llmsText,
   rssFeed,
+  rssItems,
+  screenshotAsset,
   siteUrl,
   sparkline,
   thingMarkdown,
@@ -116,9 +118,56 @@ test('the feeds are the ledger, newest first', () => {
   for (let i = 1; i < feed.items.length; i++)
     assert.ok(feed.items[i - 1].date_published >= feed.items[i].date_published);
   const rss = rssFeed(model);
-  assert.equal(rss.match(/<item>/g)?.length, registry.history.length);
+  assert.equal(rss.match(/<item>/g)?.length, Math.min(rssItems, registry.history.length), 'RSS carries the newest');
+  assert.ok(rss.includes(`<guid isPermaLink="false">${registry.history[0].id}</guid>`), 'newest first');
   assert.ok(rss.includes(`<atom:link href="${siteUrl}/feed.xml"`));
   assert.ok(!rss.includes('<description><p>'), 'HTML inside RSS descriptions is escaped');
+});
+
+test('a website thing shows its own front page and page views, and a thing that only links to it does not', () => {
+  const site = 'https://rwbookclub.com/';
+  const screenshot = {
+    kind: 'screenshot' as const,
+    url: site,
+    observedAt: '2026-10-20T12:00:00Z',
+    image: 'rwbookclub-com.jpg',
+    sha256: 'ab'.repeat(32),
+    width: 1280,
+    height: 800
+  };
+  const views = {
+    kind: 'tinylytics' as const,
+    url: site,
+    observedAt: '2026-10-19T12:00:00Z',
+    since: '2025-10-01',
+    until: '2026-09-30',
+    hits: 30,
+    months: [
+      { month: '2026-04', count: 10 },
+      { month: '2026-09', count: 20 }
+    ]
+  };
+  const club = registry.things.find((t) => t.sources.some((s) => s.kind === 'website' && s.url === site))!;
+  const linker = {
+    ...registry.things.find((t) => t.id !== club.id)!,
+    id: 'linker',
+    sources: [{ kind: 'website' as const, url: site, role: 'reference' as const }]
+  };
+  const built = buildSiteModel({ ...registry, things: [...registry.things, linker] }, [screenshot, views], now);
+  const thing = built.things.find((t) => t.id === club.id)!;
+  assert.equal(thing.screenshot?.src, `/assets/screenshots/rwbookclub-com-${'ab'.repeat(5)}.jpg`);
+  assert.equal(thing.screenshot?.alt, 'The front page of rwbookclub.com on Oct 20, 2026');
+  assert.equal(thing.views?.total, 30);
+  assert.equal(thing.views?.months.length, 12, 'every month in the window, with zeros where Tinylytics had none');
+  assert.deepEqual(thing.views?.months[0], { month: '2025-10', count: 0 });
+  assert.deepEqual(thing.views?.months.at(-1), { month: '2026-09', count: 20 });
+  const other = built.things.find((t) => t.id === 'linker')!;
+  assert.equal(other.screenshot, null);
+  assert.equal(other.views, null);
+  const markdown = thingMarkdown(thing);
+  assert.doesNotMatch(markdown, /sha256|"hits"/, 'the Markdown twin keeps to the record');
+  const json = thingsJson(built).things.find((t) => t.id === club.id)!;
+  assert.equal(json.screenshot?.url, `${siteUrl}${screenshotAsset(screenshot)}`);
 });
 
 test('the timeline and sparklines render without gaps in the data', () => {

@@ -143,7 +143,19 @@ export type WaybackObservation = {
   latestCapture: string | null; // may be someone else's page after a domain lapsed
   years: { year: string; days: number }[]; // days with a 200 capture
 };
-export type Observation = GitHubObservation | WebObservation | TinylyticsObservation | WaybackObservation;
+// A capture of a website's front page, stored as a JPEG beside its observation. What the site looked
+// like on that day: evidence of the thing, never a statement about it.
+export type ScreenshotObservation = {
+  kind: 'screenshot';
+  url: string; // the site root that was captured
+  observedAt: string; // when it was captured
+  image: string; // the JPEG's file name, beside this observation
+  sha256: string;
+  width: number;
+  height: number;
+};
+export type Observation =
+  GitHubObservation | WebObservation | TinylyticsObservation | WaybackObservation | ScreenshotObservation;
 
 // Stable file names for observations, derived from the source identity so shared sources are stored once.
 const slug = (value: string) =>

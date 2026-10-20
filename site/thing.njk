@@ -36,12 +36,23 @@ eleventyComputed:
       <dt>Topics</dt>
       <dd>{% for topic in thing.topicList %}<a class="tag" href="{{ topic.page }}">{{ topic.title }}</a> {% endfor %}</dd>
       {% endif %}
+      {% if thing.views %}
+      <dt>Page views</dt>
+      <dd class="views">{{ thing.views.total | number }} in the twelve months to {{ thing.views.until | date }} {{ thing.views.months | sparkline("Page views per month, counted by Tinylytics", "views") | safe }}</dd>
+      {% endif %}
       {% if thing.latest %}
       <dt>Latest evidence</dt>
       <dd>{% if thing.latest.url %}<a href="{{ thing.latest.url }}">{{ thing.latest.label }}</a>{% else %}{{ thing.latest.label }}{% endif %}, {{ thing.latest.date | day }}</dd>
       {% endif %}
     </dl>
   </header>
+
+  {% if thing.screenshot %}
+  <figure class="screenshot">
+    <a href="{{ thing.screenshot.site }}"><img src="{{ thing.screenshot.src }}" width="{{ thing.screenshot.width }}" height="{{ thing.screenshot.height }}" alt="{{ thing.screenshot.alt }}" loading="lazy" decoding="async" /></a>
+    <figcaption>{{ thing.screenshot.host }} on {{ thing.screenshot.date | date }}. The collector captures the front page once a month.</figcaption>
+  </figure>
+  {% endif %}
 
   {% if thing.body | trim %}
   <section class="story">
@@ -67,7 +78,7 @@ eleventyComputed:
   {% if thing.sources | length %}
   <section class="sources">
     <h2>Sources and evidence</h2>
-    <p class="muted">Observed weekly from GitHub, sitemaps, and feeds. Evidence never sets a status.</p>
+    <p class="muted">Observed weekly from GitHub, sitemaps, feeds, the Internet Archive, and Tinylytics. Evidence never sets a status.</p>
     <ul class="source-list">
       {% for source in thing.sources %}
       <li class="source">
@@ -102,7 +113,7 @@ eleventyComputed:
           <a href="{{ source.url }}">{{ source.url | replace("https://", "") }}</a>
           <span class="role">{{ source.role }}</span>
         </p>
-        {% if source.observation or (source.captures and source.captures.firstCapture) %}
+        {% if source.observation or (source.captures and source.captures.firstCapture) or source.views %}
         {% set o = source.observation %}
         <ul class="evidence">
           {% if source.captures and source.captures.firstCapture %}
@@ -114,7 +125,10 @@ eleventyComputed:
           {% if o and o.sitemap %}
           <li><a href="{{ o.sitemap.url }}">Sitemap</a>: {{ o.sitemap.pages | number }} pages{% if o.sitemap.newestModified %}, newest change {{ o.sitemap.newestModified | day }}{% endif %}</li>
           {% endif %}
-          <li class="muted">Observed {{ (o or source.captures).observedAt | day }}</li>
+          {% if source.views %}
+          <li>{{ source.views.hits | number }} page views from {{ source.views.since | date }} to {{ source.views.until | date }}, counted by Tinylytics</li>
+          {% endif %}
+          <li class="muted">Observed {{ (o or source.captures or source.views).observedAt | day }}</li>
         </ul>
         {% endif %}
         {% endif %}
