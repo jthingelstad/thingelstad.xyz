@@ -52,8 +52,10 @@ export async function observeSite(
 ): Promise<TinylyticsObservation> {
   const origin = rootOrigin(site.url);
   if (!origin) throw new Error('Only HTTPS sites are observed.');
-  const since = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() - 11, 1)).toISOString().slice(0, 10);
-  const until = now.toISOString().slice(0, 10);
+  // The twelve complete months before this one. A month still in progress changed every week, so every
+  // run rewrote every site; complete months change once, when the month turns.
+  const since = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() - 12, 1)).toISOString().slice(0, 10);
+  const until = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), 0)).toISOString().slice(0, 10);
   const response = await reader(
     `sites/${site.id}/hits?grouped=true&group_by=date&interval=month&start_date=${since}&end_date=${until}`
   );

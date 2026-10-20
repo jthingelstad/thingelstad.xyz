@@ -2,7 +2,12 @@ name: CI and deploy
 on:
   push:
     branches: [main]
+  # The weekly collection opens pull requests that change only data/observations, with the workflow's own
+  # token. GitHub will not run this workflow for them; it recorded a failed run with no jobs on every one.
+  # collect.yml dispatches these checks on the branch instead, so such pull requests skip this trigger.
   pull_request:
+    paths-ignore:
+      - 'data/observations/**'
   workflow_dispatch:
 permissions:
   contents: read

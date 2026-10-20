@@ -78,7 +78,7 @@ The ledger is also the RSS feed: “what changed in what I’ve built,” newest
 
 `npm run collect` reads the registry and observes every source:
 
-- **GitHub**: creation date, archived flag, latest non-prerelease release, languages by bytes, commits per month over 90 days for each attached directory scope, and the latest commit. Only public repositories, only GET requests, a small allowlist of fields.
+- **GitHub**: creation date, archived flag, latest non-prerelease release, languages by bytes, commits per month since the first day of the month three months back, for each attached directory scope, and the latest commit. Only public repositories, only GET requests, a small allowlist of fields.
 - **Sitemap**: page count, newest `lastmod`, and `lastmod` counts per month for twelve months. Modification evidence.
 - **Feed** (RSS, Atom, or JSON Feed): item count, newest publication date, and publications per month within the feed’s window. Publishing evidence, and the better signal for the blog, newsletter, and podcast.
 
