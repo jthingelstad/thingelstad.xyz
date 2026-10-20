@@ -60,13 +60,16 @@ async function activity(
   path: string | null,
   now: Date
 ): Promise<CommitActivity> {
-  const since = new Date(now.valueOf() - 90 * 86400000).toISOString();
+  // The window starts on a month boundary, three months back: this month so far plus three complete
+  // months. A sliding 90 days dropped a commit off the edge every week and rewrote the observation
+  // with nothing new to say.
+  const since = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() - 3, 1)).toISOString();
   const base = `repos/${repository}/commits?sha=${encodeURIComponent(branch)}${path ? `&path=${encodeURIComponent(path)}` : ''}`;
   const latest = await reader(`${base}&per_page=1`);
   if (!Array.isArray(latest)) throw new Error('Unexpected commit response.');
   const commits = new Map<string, ReturnType<typeof commit>>();
   let complete = false;
-  // A bounded 90-day observation, not a lifetime total. Exactly-full pages remain lower bounds.
+  // A bounded observation, not a lifetime total. Exactly-full pages remain lower bounds.
   for (let page = 1; page <= 3; page++) {
     const response = await reader(
       `${base}&since=${encodeURIComponent(since)}&until=${encodeURIComponent(now.toISOString())}&per_page=100&page=${page}`

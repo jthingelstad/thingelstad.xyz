@@ -5,7 +5,9 @@ name: Collect observations
 # dispatches the checks on it, merges it when they pass, and dispatches the deploy on main.
 # GitHub does not link a dispatched run's checks to a pull request, so once each required job has
 # passed on the branch's exact commit, the job copies that result onto the commit as a status the
-# pull request can see. Approved by Jamie on 2026-10-18.
+# pull request can see. Approved by Jamie on 2026-10-18. A run closes any collection pull request an
+# earlier run left open (its checks failed or it could not merge): the new run observes from main, so it
+# carries the same evidence and more.
 on:
   schedule:
     - cron: '17 11 * * 1' # Mondays, 11:17 UTC
@@ -34,13 +36,33 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           TINYLYTICS_API_KEY: ${{ secrets.TINYLYTICS_API_KEY }} # read-only key; without it Tinylytics is skipped
-        run: npm run collect
+        # A source that cannot be read keeps its previous evidence and fails this step, which the run
+        # tolerates; the job summary lists what failed so a broken source is visible.
+        run: |
+          set -o pipefail
+          npm run collect 2>&1 | tee "$RUNNER_TEMP/collect.log"
         continue-on-error: true
+      - name: Summarize
+        if: always()
+        run: |
+          {
+            echo '### Collection'
+            echo
+            echo '```'
+            grep -E 'written,|^  ' "$RUNNER_TEMP/collect.log" || echo 'The collector did not finish.'
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
       - run: npm test
       - name: Open, check, merge and deploy
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
+          gh pr list --base main --state open --json number,headRefName \
+            --jq '.[] | select(.headRefName | startswith("collect/")) | .number' |
+            while read -r stale; do
+              gh pr close "$stale" --delete-branch \
+                --comment "Superseded by $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID, which observes from main."
+            done
           git add data/observations
           if git diff --cached --quiet; then
             echo "No new evidence."

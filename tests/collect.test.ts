@@ -54,6 +54,7 @@ test('GitHub observations project an allowlist of public fields', async () => {
   assert.equal(observation.activity.length, 2);
   assert.equal(observation.activity[0].count, 1, 'duplicate commit IDs are counted once');
   assert.equal(observation.activity[0].complete, true);
+  assert.equal(observation.activity[0].since, '2026-07-01T00:00:00.000Z', 'the window starts on a month boundary');
   assert.doesNotMatch(JSON.stringify(observation), /secret_extra|never published/);
   assert.equal(observationPath(observation), 'data/observations/github/example.json');
   await assert.rejects(
@@ -196,12 +197,12 @@ const tinylyticsReader: TinylyticsReader = async (endpoint) => {
     };
   assert.match(
     endpoint,
-    /^sites\/[13]\/hits\?grouped=true&group_by=date&interval=month&start_date=2025-11-01&end_date=2026-10-14$/
+    /^sites\/[13]\/hits\?grouped=true&group_by=date&interval=month&start_date=2025-10-01&end_date=2026-09-30$/
   );
   return {
     grouped_hits: [
-      { date: '2026-09-01', hit_count: 40 },
-      { date: '2026-10-01', hit_count: 2 }
+      { date: '2026-08-01', hit_count: 40 },
+      { date: '2026-09-01', hit_count: 2 }
     ],
     summary: { total_hits: 42, unique_visitors: 30 }
   };
@@ -221,9 +222,10 @@ test('Tinylytics observations record monthly page views for registry sites only'
   assert.equal(observation.url, 'https://example.com/');
   assert.equal(observation.hits, 42);
   assert.deepEqual(observation.months, [
-    { month: '2026-09', count: 40 },
-    { month: '2026-10', count: 2 }
+    { month: '2026-08', count: 40 },
+    { month: '2026-09', count: 2 }
   ]);
+  assert.deepEqual([observation.since, observation.until], ['2025-10-01', '2026-09-30'], 'complete months only');
   assert.doesNotMatch(JSON.stringify(observation), /private note|unique_visitors/);
   assert.equal(observationPath(observation), 'data/observations/tinylytics/example-com.json');
 
