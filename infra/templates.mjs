@@ -1,4 +1,5 @@
 import { writeFileSync, mkdirSync } from 'node:fs';
+import { viewerRequestCode } from './viewer-request.mjs';
 const ref = (name) => ({ Ref: name });
 const sub = (value) => ({ 'Fn::Sub': value });
 const get = (name, field) => ({ 'Fn::GetAtt': [name, field] });
@@ -103,32 +104,17 @@ save(
           }
         }
       },
-      // The static site is a tree of directories, each with an index.html, and S3 behind OAC does not serve
-      // directory indexes. This viewer-request function rewrites "/things/elixir/" to its index.html and
-      // sends "/things/elixir" to the slash form. Paths with a dot are files and pass through untouched.
+      // Directory indexes, the slash form, and www to the apex. The code and its rules are in viewer-request.mjs.
       DirectoryIndex: {
         Type: 'AWS::CloudFront::Function',
         Properties: {
           Name: sub('${AWS::StackName}-directory-index'),
           AutoPublish: true,
-          FunctionConfig: { Comment: 'Serve index.html for directory URLs', Runtime: 'cloudfront-js-2.0' },
-          FunctionCode: [
-            'function handler(event) {',
-            '  var request = event.request;',
-            '  var uri = request.uri;',
-            "  if (uri.endsWith('/')) {",
-            "    request.uri = uri + 'index.html';",
-            "  } else if (!uri.split('/').pop().includes('.')) {",
-            '    return {',
-            '      statusCode: 301,',
-            "      statusDescription: 'Moved Permanently',",
-            "      headers: { location: { value: uri + '/' } }",
-            '    };',
-            '  }',
-            '  return request;',
-            '}',
-            ''
-          ].join('\n')
+          FunctionConfig: {
+            Comment: 'Serve index.html for directory URLs and redirect www to the apex',
+            Runtime: 'cloudfront-js-2.0'
+          },
+          FunctionCode: viewerRequestCode
         }
       },
       Distribution: {
