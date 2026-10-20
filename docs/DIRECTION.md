@@ -23,7 +23,7 @@ One Markdown file per thing. The file name is the ID. Front matter holds the fac
 title: Weekly Thing
 summary: A weekly collection of links and ideas.
 collection: Publishing
-status: active # active | dormant | retired | archived
+status: active # active | dormant | retired | abandoned | archived
 url: https://weekly.thingelstad.com/
 started: 2017 # YYYY, YYYY-MM, or YYYY-MM-DD, exactly as precise as the source
 topics: [open-web, archives]
@@ -52,11 +52,14 @@ story: # optional; the current site’s richer project page
 The body is the idea behind the thing, in Markdown.
 ```
 
+The site is Jamie speaking about his own work. Summaries, bodies, connection details and ledger summaries are written in the first person (I, my, we), never “Jamie” or “he”. Quotations stay verbatim; only their attribution changes. The `story.questions` are a reader’s, so they stay in the third person.
+
 Status words:
 
 - **active**: being built or operated.
 - **dormant**: not currently worked on, and may return.
 - **retired**: deliberately ended.
+- **abandoned**: tried, and given up before it worked out. Jamie decides this one, like every status.
 - **archived**: complete and preserved as it is. Books, events, and one-time projects.
 
 Sources are inline. Two things that name the same repository or URL share one observation; the collector stores it once. A GitHub source can carry a `path` to scope activity to a directory. A website source can carry a `sitemap` and a `feed`, which is what makes it observable. A website without either is a reference only.

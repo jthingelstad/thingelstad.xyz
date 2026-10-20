@@ -19,7 +19,7 @@
   date: 2013-07-15
   kind: launch
   title: A super simple URL parser for MediaWiki
-  summary: Jamie publishes the ParseURL extension.
+  summary: I publish the ParseURL extension.
   source: https://www.thingelstad.com/2013/07/15/made-a-super.html
   things:
     - parseurl
@@ -31,11 +31,11 @@
   source: https://www.thingelstad.com/2013/07/21/pictures-from-us.html
   things:
     - planet-kubb
-- id: mediawiki-farm-1-21
-  date: 2013-05-25
+- id: pk-scoresheet-2013
+  date: 2013-10-31
   kind: milestone
-  title: Farm upgraded to MediaWiki 1.21
-  summary: Jamie upgraded his MediaWiki farm to 1.21, opening it to Lua modules.
-  source: https://www.thingelstad.com/2013/05/25/got-my-mediawiki.html
+  title: A scoresheet with on-pitch stats
+  summary: A new Planet Kubb scoresheet records statistics during play.
+  source: https://www.thingelstad.com/2013/10/31/proud-of-this.html
   things:
-    - mediawiki-farm
+    - planet-kubb-score

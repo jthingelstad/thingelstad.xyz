@@ -2,20 +2,48 @@
 layout: layout.njk
 permalink: /timeline/
 title: Timeline
-description: Every dated thing Jamie Thingelstad has built, by year, with its sourced events.
+description: Every dated thing I’ve built, by the year it started, newest first.
 ---
 <section class="intro">
   <h1>Timeline</h1>
-  <p class="lede">Each bar runs from a thing’s first dated year to its last, or to now for things still active. Dots are sourced history events. Bars are decisions; dots are evidence.</p>
+  <p class="lede">Every dated thing I’ve built, by the year it started, newest first. The bar under each year counts what was alive then. Each thing’s strip runs from {{ site.timeline.firstYear }} to {{ site.timeline.lastYear }}: its span is the bar, its sourced events are the dots. Bars are decisions; dots are evidence.</p>
   <p class="legend">
     {% for s in site.statuses %}<span class="status status-{{ s.status }}">{{ s.label }}</span> {% endfor %}
-    <span class="muted">· dots: launch, milestone, retirement, archive, development</span>
   </p>
 </section>
-<div class="timeline-scroll" tabindex="0" aria-label="Timeline, scrolls sideways">
-  {{ site.timeline | timeline | safe }}
-</div>
-<div class="tooltip" role="status" aria-live="polite" hidden></div>
+<ol class="tl-years">
+  {% for y in site.timeline.years %}
+  <li class="tl-year{% if not y.started.length %} is-quiet{% endif %}" id="y{{ y.year }}">
+    <h2 class="tl-year-label">{{ y.year }}</h2>
+    <div class="tl-year-body">
+      <div class="tl-alive">
+        {{ y | aliveBar(site.timeline) | safe }}
+        <span class="muted">{{ y.total }} alive{% if y.started.length %} · {{ y.started.length }} new{% endif %}{% if y.events %} · <a href="/history/#{{ y.year }}">{{ y.events }} {{ 'event' if y.events == 1 else 'events' }}</a>{% endif %}</span>
+      </div>
+      {% if y.started.length %}
+      <ul class="tl-things">
+        {% for row in y.started %}
+        <li>
+          {{ row | lifespan(site.timeline) | safe }}
+          <div class="tl-thing">
+          <a class="thing-title" href="{{ row.thing.page }}">{{ row.thing.title }}</a>
+          <span class="status status-{{ row.thing.status }}" title="{{ row.thing.statusDescription }}">{{ row.thing.statusLabel }}</span>
+          <span class="dates">
+            {%- if row.thing.started %}{{ row.thing.started | date }}{% else %}{{ row.start }}{% endif %}
+            {%- if row.thing.ended %} – {{ row.thing.ended | date }}{% elif row.thing.status == 'active' or row.thing.status == 'dormant' %} – now{% elif row.end != row.start %} – {{ row.end }}{% endif -%}
+          </span>
+          </div>
+        </li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+      {% if y.ended.length %}
+      <p class="tl-ended muted">Ended: {% for row in y.ended %}<a href="{{ row.thing.page }}">{{ row.thing.title }}</a>{% if not loop.last %}, {% endif %}{% endfor %}</p>
+      {% endif %}
+    </div>
+  </li>
+  {% endfor %}
+</ol>
 {% if site.timeline.undated | length %}
 <section class="undated">
   <h2>Not yet dated</h2>
@@ -23,4 +51,3 @@ description: Every dated thing Jamie Thingelstad has built, by year, with its so
   <p>{% for thing in site.timeline.undated %}<a class="tag" href="{{ thing.page }}">{{ thing.title }}</a> {% endfor %}</p>
 </section>
 {% endif %}
-<script src="{{ assets.timeline }}" defer></script>

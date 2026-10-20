@@ -2,7 +2,15 @@
   date: 2022-07-29
   kind: archive
   title: Foreground moves to Wikimedia
-  summary: Jamie agrees to archive his Foreground repository so Wikimedia volunteers can maintain the skin.
+  summary: I agree to archive my Foreground repository so Wikimedia volunteers can maintain the skin.
   source: https://github.com/jthingelstad/foreground/issues/398
   things:
     - foreground
+- id: weekly-thing-subreddit
+  date: 2022-10-30
+  kind: milestone
+  title: r/WeeklyThing
+  summary: I create a subreddit for discussing issues.
+  source: https://www.thingelstad.com/2022/10/30/i-decided-to.html
+  things:
+    - weekly-thing

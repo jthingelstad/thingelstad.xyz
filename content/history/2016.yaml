@@ -2,8 +2,15 @@
   date: 2016-05-03
   kind: retirement
   title: Technical downsizing
-  summary: Jamie decided to stop running his own servers and archive or hand off his hobby sites.
+  summary: I decide to stop running my own servers and to archive or hand off my hobby sites.
   source: https://www.thingelstad.com/2016/05/03/technical-downsizing.html
   things:
-    - mediawiki-farm
     - road-sign-math
+- id: blog-squarespace
+  date: 2016-04-20
+  kind: milestone
+  title: The blog moves to Squarespace
+  summary: I move my blog from WordPress to Squarespace.
+  source: https://www.thingelstad.com/2016/04/20/moved-my-blog.html
+  things:
+    - jamie-thingelstad-blog

@@ -1,6 +1,6 @@
 ---
 title: Librarian
-summary: The API and MCP server behind Thingy that searches and cites Jamie’s newsletter, blog, and podcast archive.
+summary: The API and MCP server behind Thingy that searches and cites my newsletter, blog, and podcast archive.
 collection: Publishing
 status: active
 url: https://thingy.thingelstad.com/connect/
@@ -30,7 +30,7 @@ connections:
     source: https://thingy.thingelstad.com/connect/
   - to: things-ive-built
     label: indexes
-    detail: Librarian snapshots the registry’s things.json into its Weekly Thing corpus, so Thingy and MCP clients can answer questions about Jamie’s projects (sources thing-<id> and thing-index).
+    detail: Librarian snapshots the registry’s things.json into its Weekly Thing corpus, so Thingy and MCP clients can answer questions about my projects (sources thing-<id> and thing-index).
     source: https://github.com/jthingelstad/librarian-thing/tree/main/data/things
   - to: wt-builder
     label: receives issues from
@@ -62,6 +62,6 @@ story:
     - How can I connect my own AI to the archive?
 ---
 
-Librarian is the archive half of Jamie’s publishing system. It holds working copies of every Weekly Thing issue, the blog posts pulled from Micro.blog, and the Another Thing episodes with their transcripts. It builds search indexes from them and serves them through an API, and Thingy answers from that API. Its [repository](https://github.com/jthingelstad/librarian-thing) began as Studio, Jamie’s earlier publishing system. When publishing moved to WT Builder, what was left became Librarian.
+Librarian is the archive half of my publishing system. It holds working copies of every Weekly Thing issue, the blog posts pulled from Micro.blog, and the Another Thing episodes with their transcripts. It builds search indexes from them and serves them through an API, and Thingy answers from that API. Its [repository](https://github.com/jthingelstad/librarian-thing) began as Studio, my earlier publishing system. When publishing moved to WT Builder, what was left became Librarian.
 
-The same tools Thingy uses are offered as an MCP server at `librarian.thingelstad.com/mcp`. Weekly Thing subscribers can [connect Claude, ChatGPT, or another AI](https://thingy.thingelstad.com/connect/) to it and sign in with their email, with no password. The AI can then search the newsletter, blog, links, photos, and podcast, and link back to each source it uses. As described on [Thingy’s about page](https://thingy.thingelstad.com/about/), an AI agent spent eight review rounds trying to break the tools when the MCP server launched, and what it found shaped how matching works. Librarian also indexes this registry of things Jamie has built.
+The same tools Thingy uses are offered as an MCP server at `librarian.thingelstad.com/mcp`. Weekly Thing subscribers can [connect Claude, ChatGPT, or another AI](https://thingy.thingelstad.com/connect/) to it and sign in with their email, with no password. The AI can then search the newsletter, blog, links, photos, and podcast, and link back to each source it uses. As described on [Thingy’s about page](https://thingy.thingelstad.com/about/), an AI agent spent eight review rounds trying to break the tools when the MCP server launched, and what it found shaped how matching works. Librarian also indexes this registry of things I have built.

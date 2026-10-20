@@ -50,6 +50,8 @@
   --dormant-soft: #ffeec4;
   --retired: #6a6c74;
   --retired-soft: #ebebe8;
+  --abandoned: #b23c2a;
+  --abandoned-soft: #fbe2dc;
   --archived: #5a46c9;
   --archived-soft: #e9e4ff;
   --accent: #1f5fe0;
@@ -327,6 +329,12 @@ h2 {
   color: var(--retired);
 }
 
+.status-abandoned {
+  --chip: var(--abandoned-soft);
+
+  color: var(--abandoned);
+}
+
 .status-archived {
   --chip: var(--archived-soft);
 
@@ -395,6 +403,10 @@ h2 {
 
 .thing-row.is-retired {
   --spark: var(--retired);
+}
+
+.thing-row.is-abandoned {
+  --spark: var(--abandoned);
 }
 
 .thing-row.is-archived {
@@ -571,6 +583,11 @@ h2 {
   stroke: var(--retired);
 }
 
+.connection-diagram .abandoned rect {
+  fill: var(--abandoned-soft);
+  stroke: var(--abandoned);
+}
+
 .connection-diagram .archived rect {
   fill: var(--archived-soft);
   stroke: var(--archived);
@@ -640,73 +657,147 @@ h2 {
   font-size: 14px;
 }
 
-.timeline-scroll {
-  overflow-x: auto;
-  margin: 24px 0;
-  padding-bottom: 8px;
-}
-
-.timeline {
-  display: block;
-  font-size: 13px;
-}
-
-.tl-grid {
-  stroke: var(--line);
+.tl-years {
+  list-style: none;
+  margin: 24px 0 0;
+  padding: 0;
 }
 
 .tl-year {
-  fill: var(--muted);
-  font-size: 11px;
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr);
+  gap: 0 16px;
+  padding: 14px 0;
+  border-top: 1px solid var(--line);
 }
 
-.tl-label text {
-  fill: var(--ink);
+.tl-year.is-quiet {
+  padding: 6px 0;
 }
 
-.tl-label:hover text {
-  fill: var(--blue);
+.tl-year-label {
+  position: sticky;
+  top: 0;
+  align-self: start;
+  margin: 0;
+  font-size: 20px;
+  line-height: 1.3;
+  background: var(--paper);
 }
 
-.tl-bar {
+.tl-year.is-quiet .tl-year-label {
+  font-size: 15px;
+  color: var(--muted);
+}
+
+.tl-alive {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 12px;
+  font-size: 13px;
+  min-height: 26px;
+}
+
+.alive {
+  display: block;
+  width: min(240px, 100%);
+  height: 8px;
+  border-radius: 4px;
+  background: var(--line);
+  overflow: hidden;
+}
+
+.tl-things {
+  columns: 360px;
+  column-gap: 24px;
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0;
+}
+
+.tl-things li {
+  break-inside: avoid;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 10px;
+  padding: 4px 0;
+}
+
+.tl-thing {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2px 8px;
+}
+
+.tl-things .thing-title {
+  margin-right: 0;
+}
+
+.tl-things .dates {
+  flex-basis: 100%;
+  font-size: 13px;
+  line-height: 1.3;
+  color: var(--muted);
+}
+
+.tl-ended {
+  margin: 6px 0 0;
+}
+
+.lifespan {
+  display: block;
+  flex: none;
+}
+
+.ls-track {
+  fill: var(--line);
+}
+
+.ls-bar,
+.ls-retired {
   fill: var(--retired);
-  opacity: 0.45;
 }
 
-.tl-active {
+.ls-active {
   fill: var(--active);
 }
 
-.tl-dormant {
+.ls-dormant {
   fill: var(--dormant);
 }
 
-.tl-archived {
+.ls-abandoned {
+  fill: var(--abandoned);
+}
+
+.ls-archived {
   fill: var(--archived);
 }
 
-.tl-event {
-  fill: var(--paper);
-  stroke: var(--ink);
-  stroke-width: 1.5;
+.ls-event {
+  fill: var(--ink);
 }
 
-.tl-event:hover,
-.tl-event:focus {
-  fill: var(--blue);
-  outline: none;
-}
+@media (width <= 560px) {
+  .tl-year {
+    grid-template-columns: minmax(0, 1fr);
+  }
 
-.tooltip {
-  position: absolute;
-  background: var(--ink);
-  color: var(--paper);
-  font-size: 13px;
-  padding: 6px 10px;
-  border-radius: 6px;
-  max-width: 320px;
-  pointer-events: none;
-  z-index: 2;
+  .tl-year-label {
+    padding: 2px 0 6px;
+    z-index: 1;
+  }
+
+  .tl-year.is-quiet {
+    grid-template-columns: 48px minmax(0, 1fr);
+  }
+
+  .tl-year.is-quiet .tl-year-label {
+    padding: 0;
+  }
 }
 
 @media (width <= 720px) {

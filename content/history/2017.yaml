@@ -18,16 +18,16 @@
   date: 2017-04-17
   kind: milestone
   title: WikiApiary in new hands
-  summary: Mark Hershberger writes that he inherited WikiApiary from Jamie and is keeping it running.
+  summary: Mark Hershberger writes that he inherited WikiApiary from me and is keeping it running.
   source: https://lists.wikimedia.org/hyperkitty/list/wikiapiary@lists.wikimedia.org/message/HRNMPDZBNH5DWCWEFWMKLJAACDQDOAPY/
   things:
     - wikiapiary
 - id: rw-jekyll
-  date: 2017-09
+  date: 2017-09-01
   kind: development
   title: Book club Jekyll site
-  summary: Jamie builds rwbook.club.
-  source: https://weekly.thingelstad.com/archive/17/
+  summary: I build rwbook.club on Jekyll, “rough but functional.”
+  source: https://www.thingelstad.com/2017/09/01/rough-but-functional.html
   things:
     - r-w-book-club
 - id: open-loop-restored-2017
@@ -38,3 +38,19 @@
   source: https://www.thingelstad.com/2017/06/10/put-the-archive.html
   things:
     - open-loop
+- id: weekly-thing-mailchimp
+  date: 2017-10-14
+  kind: milestone
+  title: Weekly Thing moves to MailChimp
+  summary: Issue 23 is the first sent from MailChimp, after 22 on TinyLetter.
+  source: https://weekly.thingelstad.com/archive/23/
+  things:
+    - weekly-thing
+- id: link-thing-search
+  date: 2017-09-30
+  kind: milestone
+  title: Searching 9,000 links
+  summary: I add Lunr.js search to Link Thing.
+  source: https://weekly.thingelstad.com/archive/21/
+  things:
+    - link-blog

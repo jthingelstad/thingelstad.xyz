@@ -1,8 +1,8 @@
 - id: road-sign-math-launch
-  date: 2005-02
+  date: 2005-02-13
   kind: launch
   title: Road Sign Math begins
-  summary: A road sign with a mathematical relationship becomes a game for finding more. The retrospective identifies February 2005 as the launch month.
-  source: https://weekly.thingelstad.com/archive/267/#history
+  summary: A road sign with a mathematical relationship becomes a game for finding more. Five years later I marked February 13, 2005 as the day the site launched.
+  source: https://www.thingelstad.com/2010/02/13/010000.html
   things:
     - road-sign-math

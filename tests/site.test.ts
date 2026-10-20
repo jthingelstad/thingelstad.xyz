@@ -13,7 +13,8 @@ import {
   sparkline,
   thingMarkdown,
   thingsJson,
-  timelineSvg,
+  aliveBar,
+  lifespan,
   toInstant,
   sticker,
   reach,
@@ -121,9 +122,18 @@ test('the feeds are the ledger, newest first', () => {
 });
 
 test('the timeline and sparklines render without gaps in the data', () => {
-  const svg = timelineSvg(model.timeline);
-  assert.equal(svg.match(/class="tl-row"/g)?.length, model.timeline.rows.length);
-  assert.doesNotMatch(svg, /NaN|undefined/);
+  const { timeline } = model;
+  assert.equal(timeline.years.length, timeline.lastYear - timeline.firstYear + 1);
+  assert.equal(timeline.years[0].year, timeline.lastYear, 'newest year first');
+  assert.equal(timeline.years.flatMap((y) => y.started).length, timeline.rows.length, 'each thing starts once');
+  for (const y of timeline.years) {
+    assert.equal(
+      y.total,
+      y.alive.reduce((sum, s) => sum + s.count, 0)
+    );
+    assert.doesNotMatch(aliveBar(y, timeline), /NaN|undefined/);
+  }
+  for (const row of timeline.rows) assert.doesNotMatch(lifespan(row, timeline), /NaN|undefined/, row.thing.id);
   assert.ok(model.timeline.rows.length + model.timeline.undated.length === model.things.length);
   for (const row of model.timeline.rows) assert.ok(row.start <= row.end, row.thing.id);
   const line = sparkline(model.things[0].months, 'test');

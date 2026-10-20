@@ -10,7 +10,7 @@
   date: 2021-11-06
   kind: launch
   title: First Things 4 Good fundraiser
-  summary: 134 candles sold
+  summary: More than 100 people come to buy candles, Jiggy Thing Puzzle #001, honey and cookies, and we raise $4,757 for four non-profits.
   source: https://www.thingelstad.com/2021/11/09/things-good-fall.html
   things:
     - things-4-good
@@ -23,3 +23,43 @@
   things:
     - jiggy-thing-puzzles
     - things-4-good
+- id: things-4-good-endaoment
+  date: 2021-11-28
+  kind: milestone
+  title: Things 4 Good on Endaoment
+  summary: I set up a crypto donor-advised fund named Things 4 Good and makes its first grant, to the Internet Archive.
+  source: https://www.thingelstad.com/2021/11/28/things-good-on.html
+  things:
+    - things-4-good
+- id: reading-things-fall
+  date: 2021-10-31
+  kind: milestone
+  title: Fall Reading Things
+  summary: The fall 2021 issue of Reading Things is published.
+  source: https://www.thingelstad.com/2021/10/31/we-just-published.html
+  things:
+    - reading-things
+- id: weekly-thing-200
+  date: 2021-10-23
+  kind: milestone
+  title: Weekly Thing 200
+  summary: The 200th issue.
+  source: https://weekly.thingelstad.com/archive/200/
+  things:
+    - weekly-thing
+- id: reading-things-first-100
+  date: 2021-07-25
+  kind: milestone
+  title: Reading Things reaches 100
+  summary: The family marks 100 subscribers with a POAP, and sends the summer issue.
+  source: https://www.thingelstad.com/2021/07/25/poap-at-reading-things-first.html
+  things:
+    - reading-things
+- id: rsm-phoenix
+  date: 2021-03-13
+  kind: milestone
+  title: A breath of new life
+  summary: A sign Tammy found near Phoenix revives Road Sign Math at roadsignmath.thingelstad.com.
+  source: https://weekly.thingelstad.com/archive/177/
+  things:
+    - road-sign-math

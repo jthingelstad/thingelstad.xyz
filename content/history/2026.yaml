@@ -23,7 +23,6 @@
   things:
     - wt-builder
     - another-thing
-    - another-thing-builder
 - id: release-notes-recorded-development
   date: 2026-10-07
   kind: development
@@ -64,7 +63,7 @@
 - id: elixir-mcp-discord-recorded-development
   date: 2026-09-07
   kind: development
-  title: 'Elixir MCP Discord: recorded development begins'
+  title: 'Elixir Discord: recorded development begins'
   summary: The earliest commit in this repository is a development record; the project or idea may predate it.
   source: https://github.com/jthingelstad/elixir-mcp-discord/commit/1479a4601af90658fc3cd57cbdb269884a54f49d
   things:
@@ -118,14 +117,6 @@
   source: https://github.com/jthingelstad/thingy.thingelstad.com/commit/8167c8fdb7a4f9edd30cd4d8087fb34982e6c5ba
   things:
     - thingy
-- id: mb-audit-recorded-development
-  date: 2026-05-02
-  kind: development
-  title: 'mb-audit: recorded development begins'
-  summary: The earliest commit in this repository is a development record; the project or idea may predate it.
-  source: https://github.com/jthingelstad/mb-audit/commit/75fbad973b08899d25cef567506cd4519148ee5e
-  things:
-    - mb-audit
 - id: your-version-number-recorded-development
   date: 2026-05-01
   kind: development
@@ -134,14 +125,6 @@
   source: https://github.com/jthingelstad/yourversionnumber.com/commit/b2f68c8bc83cdde695b925d0aa3d37b796dd944a
   things:
     - your-version-number
-- id: thing-hugo-recorded-development
-  date: 2026-04-19
-  kind: development
-  title: 'Thing Hugo: recorded development begins'
-  summary: The earliest commit in this repository is a development record; the project or idea may predate it.
-  source: https://github.com/jthingelstad/thing-hugo/commit/fc501f80535d8219b4dd943eae64477c223a824a
-  things:
-    - thing-hugo
 - id: another-thing-recorded-development
   date: 2026-04-09
   kind: development
@@ -219,7 +202,7 @@
   date: 2026-02-25
   kind: launch
   title: Flight Path takes off
-  summary: Jamie builds Flight Path, extending the POAP Airport Rally, entirely on an iPhone with Claude Code.
+  summary: I build Flight Path, extending the POAP Airport Rally, entirely on an iPhone with Claude Code.
   source: https://www.thingelstad.com/2026/02/25/it-is-bonkers-to-me.html
   things:
     - flight-path
@@ -232,11 +215,11 @@
   things:
     - things-ive-built
 - id: poap2rss-retired
-  date: 2026-07-31
+  date: 2026-07-24
   kind: retirement
   title: POAP2RSS retires with the POAP API
-  summary: POAP wound down its platform on July 31, 2026. POAP2RSS read live claim activity through the POAP API, so it stopped working and was retired.
-  source: https://poap2rss.com/
+  summary: POAP was winding down its platform on July 31, 2026. POAP2RSS read live claim activity through the POAP API, so a week earlier I retired it and archived the repository.
+  source: https://github.com/jthingelstad/POAP2RSS/commit/22798583f396bd59771b0e4ee320d20c51d18f20
   things:
     - poap2rss
 - id: open-loop-feed
@@ -259,7 +242,7 @@
   date: 2026-05-02
   kind: milestone
   title: Elixir at Minnebar 20
-  summary: Jamie and Tyler presented "Elixir - Creating an AI Agent for our Clash Royale Clan."
+  summary: Tyler and I present "Elixir - Creating an AI Agent for our Clash Royale Clan."
   source: https://sessions.minnestar.org/sessions/2094
   things:
     - elixir-bot
@@ -275,7 +258,7 @@
 - id: elixir-mcp-discord-first-release
   date: 2026-09-15
   kind: launch
-  title: Elixir MCP Discord v0.3.0
+  title: Elixir Discord v0.3.0
   summary: First tagged release of the Discord agent that runs entirely on Elixir MCP.
   source: https://github.com/jthingelstad/elixir-mcp-discord/releases/tag/v0.3.0
   things:
@@ -309,7 +292,7 @@
   date: 2026-05-07
   kind: launch
   title: New Weekly Thing site and Thingy
-  summary: Full archive site with audio
+  summary: I build a new Weekly Thing website that puts all nine years and 345 issues of the archive on show, with Thingy as its librarian.
   source: https://www.thingelstad.com/2026/05/07/massive-weekly-thing-website-build.html
   things:
     - weekly-thing
@@ -318,7 +301,7 @@
   date: 2026-06-07
   kind: milestone
   title: Thingy Evolved
-  summary: Thingy gets its own site and searches newsletter
+  summary: Thingy moves to its own site and learns my blog and Another Thing as well as the Weekly Thing.
   source: https://www.thingelstad.com/2026/06/07/thingy-evolved.html
   things:
     - thingy
@@ -333,18 +316,18 @@
     - wt-builder
     - weekly-thing
 - id: flight-path-retired
-  date: 2026-07
+  date: 2026-07-24
   kind: retirement
   title: Flight Path retired
-  summary: Sunset notice posted and repo archived after the POAP wind-down.
-  source: https://github.com/jthingelstad/flightpath.poaprally.com
+  summary: A week before POAP’s shutdown, I replace the globe with a sunset notice and archived the repository.
+  source: https://github.com/jthingelstad/flightpath.poaprally.com/commit/fea8eac46878b7ab9afa418c48193b4139d8a06b
   things:
     - flight-path
 - id: proof-of-a-person-launch
   date: 2026-10-17
   kind: launch
   title: Proof of a Person launches
-  summary: Jamie’s POAP time capsule
+  summary: My POAP time capsule goes live.
   source: https://poap.thingelstad.xyz/about/
   things:
     - proof-of-a-person
@@ -377,7 +360,7 @@
   date: 2026-02-19
   kind: launch
   title: Otto is named
-  summary: Jamie names his agent Otto Thing.
+  summary: I name my agent Otto Thing.
   source: https://www.thingelstad.com/2026/02/19/ive-been-preparing-to-setup.html
   things:
     - otto
@@ -397,14 +380,6 @@
   source: https://github.com/jthingelstad/mb/releases
   things:
     - mb
-- id: mb-audit-launch
-  date: 2026-05-03
-  kind: launch
-  title: mb-audit built
-  summary: Built with Claude Code on Micro.blog’s new llms.txt.
-  source: https://weekly.thingelstad.com/archive/346/
-  things:
-    - mb-audit
 - id: things-static-site
   date: 2026-10-17
   kind: milestone
@@ -413,11 +388,93 @@
   source: https://github.com/jthingelstad/thingelstad.xyz/pull/6
   things:
     - things-ive-built
-- id: poap-agent-api-docs-historical
-  date: 2026-07-24
-  kind: archive
-  title: POAP API reference marked historical
-  summary: Ahead of POAP's July 31 sunset, the agent reference was marked historical and the repository archived.
-  source: https://github.com/jthingelstad/poap-agent-api-docs
+- id: weekly-thing-archive-audio
+  date: 2026-10-06
+  kind: milestone
+  title: Every issue in audio
+  summary: I restructure the Weekly Thing archive and renders every issue in audio, so the podcast feed reaches back to the first issue.
+  source: https://www.thingelstad.com/2026/10/06/weekly-thing-archive-improved.html
   things:
-    - poap-agent-api-docs
+    - weekly-thing
+- id: otto-dots
+  date: 2026-10-03
+  kind: milestone
+  title: A new generation of Otto
+  summary: I set up Otto on OpenAI’s dots and interviews it for the job of driving Elixir.
+  source: https://weekly.thingelstad.com/archive/352/
+  things:
+    - otto
+    - elixir
+- id: yvn-redesign
+  date: 2026-09-19
+  kind: milestone
+  title: Your Version Number redesigned
+  summary: Your Version Number gets a new design, a theme browser and a card creator.
+  source: https://weekly.thingelstad.com/archive/350/
+  things:
+    - your-version-number
+- id: thingy-complete
+  date: 2026-09-03
+  kind: milestone
+  title: Thingy called complete
+  summary: I call Thingy complete after adding photos and shared conversations.
+  source: https://www.thingelstad.com/2026/09/03/im-ready-to-call-thingy.html
+  things:
+    - thingy
+- id: otto-openclaw-2
+  date: 2026-09-03
+  kind: milestone
+  title: Otto moves to OpenClaw 2
+  summary: Otto is upgraded to OpenClaw 2 after a rocky start on OpenClaw.
+  source: https://www.thingelstad.com/2026/09/03/otto-upgraded-to-openclaw-i.html
+  things:
+    - otto
+- id: elixir-product-team
+  date: 2026-06-22
+  kind: milestone
+  title: An agentic product team for Elixir
+  summary: I set up six automations, from Data Analyst to Product Manager, to drive Elixir’s development on their own.
+  source: https://www.thingelstad.com/2026/06/22/elixirs-agentic-product-team.html
+  things:
+    - elixir-bot
+- id: oliver-recorded-development
+  date: 2026-05-27
+  kind: development
+  title: 'Oliver: recorded development begins'
+  summary: The book club repository becomes a monorepo of website, corpus and Oliver. This is development evidence, not a launch date.
+  source: https://github.com/jthingelstad/rwbookclub.com/commit/bdb72521adb776b3a9897f1ae3c0f0f41c62ccfb
+  things:
+    - oliver
+- id: workshop-first-issue
+  date: 2026-05-23
+  kind: milestone
+  title: WT349 made in the Workshop
+  summary: The first Weekly Thing made start to finish in the Weekly Thing Workshop.
+  source: https://weekly.thingelstad.com/archive/349/
+  things:
+    - weekly-thing-workshop
+    - weekly-thing
+- id: workshop-launch
+  date: 2026-05-12
+  kind: launch
+  title: The Weekly Thing Team
+  summary: I introduce four Discord agents, Eddy, Linky, Marky and Patty, to help edit, research, promote and fund the Weekly Thing.
+  source: https://www.thingelstad.com/2026/05/12/the-weekly-thing-team.html
+  things:
+    - weekly-thing-workshop
+- id: poap-kings-redesign
+  date: 2026-04-26
+  kind: milestone
+  title: POAP KINGS redesigned
+  summary: Claude Design gives the clan website its current look.
+  source: https://weekly.thingelstad.com/archive/345/
+  things:
+    - poap-kings
+- id: elixir-data-refactor
+  date: 2026-03-07
+  kind: milestone
+  title: Making Elixir smarter
+  summary: Codex redesigns Elixir’s data model and tools, tested against 50 questions I wrote with Claude.
+  source: https://www.thingelstad.com/2026/03/07/making-elixir-smarter.html
+  things:
+    - elixir-bot

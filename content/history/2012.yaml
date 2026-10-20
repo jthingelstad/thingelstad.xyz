@@ -16,18 +16,18 @@
   things:
     - open-loop
 - id: wikiapiary-origin
-  date: '2012'
+  date: 2012-12-21
   kind: launch
   title: A wiki to track other wikis
-  summary: WikiApiary begins as a holiday-break project, built with MediaWiki and Semantic MediaWiki.
-  source: https://www.thingelstad.com/2013/12/22/one-year-for.html
+  summary: WikiApiary begins as a holiday-break project, built with MediaWiki and Semantic MediaWiki in about three days.
+  source: https://www.mediawiki.org/wiki/WikiApiary
   things:
     - wikiapiary
 - id: thinglesbot-retired
   date: 2012-02-08
   kind: retirement
   title: Farewell to thinglesBot
-  summary: Jamie shuts down thinglesBot along with several other sites.
+  summary: I shut down thinglesBot along with several other sites.
   source: https://www.thingelstad.com/2012/02/08/shutting-down-some.html
   things:
     - thinglesbot
@@ -35,16 +35,32 @@
   date: '2012'
   kind: launch
   title: Planet Kubb launches
-  summary: rawdog aggregator
+  summary: I buy planetkubb.com and set it up as a rawdog aggregator of Kubb videos and club blogs.
   source: https://www.thingelstad.com/projects/open-loop/1-big-fuzzy-dead-cat/
   things:
     - planet-kubb
     - ask-planet-kubb
 - id: links-thing-launch
   date: 2012-07-01
-  kind: launch
+  kind: milestone
   title: Bookmarks in a wiki
-  summary: Jamie wrote up links_thing, a Semantic MediaWiki bookmarking wiki holding nearly 4,000 imported links.
+  summary: I write up links_thing, a Semantic MediaWiki bookmarking wiki holding nearly 4,000 imported links.
   source: https://www.thingelstad.com/2012/07/01/bookmarking-with-semantic.html
   things:
     - links-thing
+- id: photography-relaunch
+  date: 2012-07-01
+  kind: milestone
+  title: Thingelstad Photography relaunched
+  summary: I move my photography site to WordPress to post an image a week.
+  source: https://www.thingelstad.com/2012/07/01/website-for-my.html
+  things:
+    - thingelstad-photography
+- id: farm-shutdowns-2012
+  date: 2012-02-08
+  kind: retirement
+  title: Shutting down some websites
+  summary: I shut down two Road Sign Math spin-offs, Road Sign Wordplay and Road Sign Bingo, along with the MediaWiki Cookbook and a sandbox wiki.
+  source: https://www.thingelstad.com/2012/02/08/shutting-down-some.html
+  things:
+    - road-sign-math
