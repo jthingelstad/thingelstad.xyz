@@ -86,13 +86,28 @@ export type SiteThing = Omit<Thing, 'sources'> & {
 type SiteTopic = Topic & { page: string; things: SiteThing[] };
 type SiteCollection = { name: string; things: SiteThing[] };
 type SiteYear = { year: string; events: HistoryEvent[] };
-type TimelineRow = {
+export type TimelineRow = {
   thing: SiteThing;
   start: number;
   end: number;
   events: { event: HistoryEvent; year: number }[];
 };
-export type Timeline = { firstYear: number; lastYear: number; rows: TimelineRow[]; undated: SiteThing[] };
+export type TimelineYear = {
+  year: number;
+  alive: { status: Status; count: number }[]; // things whose span covers the year, by status
+  total: number;
+  started: TimelineRow[]; // newest start first
+  ended: TimelineRow[]; // things that ended this year after starting earlier
+  events: number;
+};
+export type Timeline = {
+  firstYear: number;
+  lastYear: number;
+  rows: TimelineRow[];
+  years: TimelineYear[]; // newest first
+  mostAlive: number;
+  undated: SiteThing[];
+};
 export type SiteModel = {
   url: string;
   title: string;
@@ -274,6 +289,26 @@ export function buildSiteModel(registry: Registry, observations: Observation[], 
     }))
     .sort((a, b) => a.start - b.start || a.thing.title.localeCompare(b.thing.title));
   const firstYear = rows.length ? Math.min(...rows.map((row) => row.start)) : now.getUTCFullYear();
+  const lastYear = now.getUTCFullYear();
+  const startedOn = (row: TimelineRow) => row.thing.started ?? String(row.start);
+  const timelineYears: TimelineYear[] = Array.from({ length: lastYear - firstYear + 1 }, (_, i) => {
+    const y = lastYear - i;
+    const alive = rows.filter((row) => row.start <= y && row.end >= y);
+    return {
+      year: y,
+      alive: (Object.keys(statusLabels) as Status[])
+        .map((status) => ({ status, count: alive.filter((row) => row.thing.status === status).length }))
+        .filter((s) => s.count > 0),
+      total: alive.length,
+      started: rows
+        .filter((row) => row.start === y)
+        .toSorted((a, b) => startedOn(b).localeCompare(startedOn(a)) || a.thing.title.localeCompare(b.thing.title)),
+      ended: rows.filter(
+        (row) => row.end === y && row.start < y && row.thing.status !== 'active' && row.thing.status !== 'dormant'
+      ),
+      events: registry.history.filter((event) => year(event.date) === y).length
+    };
+  });
   const statuses = (Object.keys(statusLabels) as Status[]).map((status) => ({
     status,
     label: statusLabels[status],
@@ -293,8 +328,10 @@ export function buildSiteModel(registry: Registry, observations: Observation[], 
     years,
     timeline: {
       firstYear,
-      lastYear: now.getUTCFullYear(),
+      lastYear,
       rows,
+      years: timelineYears,
+      mostAlive: Math.max(1, ...timelineYears.map((y) => y.total)),
       undated: sortedThings.filter((thing) => !byId.get(thing.id)?.span.start && thing.span.start === null)
     },
     statuses
@@ -484,52 +521,39 @@ export function sparkline(months: MonthCount[], label: string) {
   return `<svg class="sparkline" viewBox="0 0 ${width} ${height}" width="${width}" height="${height}" role="img" aria-label="${escapeHtml(label)}">${bars}</svg>`;
 }
 
-// The timeline is server-rendered SVG. One row per dated thing; a bar from its first to last year,
-// dots for its sourced events. A small script adds hover and focus detail; without it, titles work.
-export function timelineSvg(timeline: Timeline) {
-  const left = 220;
-  const right = 24;
-  const columnWidth = 32;
-  const rowHeight = 24;
-  const top = 28;
+// The timeline reads down the page, newest year first. Each thing gets a small strip covering every
+// year on the timeline: its span as a bar, its sourced events as dots. Both are plain SVG with titles.
+export function lifespan(row: TimelineRow, timeline: Timeline) {
+  const step = 4;
   const years = timeline.lastYear - timeline.firstYear + 1;
-  const width = left + years * columnWidth + right;
-  const height = top + timeline.rows.length * rowHeight + 12;
-  const x = (y: number) => left + (y - timeline.firstYear) * columnWidth;
-  const grid = Array.from({ length: years }, (_, i) => timeline.firstYear + i)
-    .map(
-      (y) =>
-        `<line x1="${x(y)}" y1="${top - 6}" x2="${x(y)}" y2="${height - 8}" class="tl-grid"/>` +
-        (years <= 14 || y % 2 === 0 ? `<text x="${x(y) + 2}" y="${top - 12}" class="tl-year">${y}</text>` : '')
-    )
+  const width = years * step;
+  const height = 12;
+  const x = (y: number) => (y - timeline.firstYear) * step;
+  const thing = row.thing;
+  const span =
+    row.start === row.end
+      ? `${row.start}`
+      : `${row.start} to ${thing.status === 'active' || thing.status === 'dormant' ? 'now' : row.end}`;
+  const dots = [...new Set(row.events.map((e) => e.year))]
+    .map((ey) => `<circle cx="${x(ey) + step / 2}" cy="${height / 2}" r="1.6" class="ls-event"/>`)
     .join('');
-  const rows = timeline.rows
-    .map((row, i) => {
-      const y = top + i * rowHeight;
-      const thing = row.thing;
-      const x1 = x(row.start);
-      const x2 = x(row.end) + columnWidth - 6;
-      const label = escapeHtml(thing.title);
-      const span =
-        row.start === row.end
-          ? `${thing.started ? formatDate(thing.started) : row.start}`
-          : `${thing.started ? formatDate(thing.started) : row.start} to ${thing.ended ? formatDate(thing.ended) : thing.status === 'active' || thing.status === 'dormant' ? 'now' : row.end}`;
-      const tip = `${thing.title} · ${thing.statusLabel} · ${span}`;
-      const dots = row.events
-        .map(
-          ({ event, year: ey }) =>
-            `<circle cx="${x(ey) + columnWidth / 2}" cy="${y + rowHeight / 2}" r="3.5" class="tl-event tl-${event.kind}" data-tip="${escapeHtml(`${formatDate(event.date)} · ${event.title}`)}" tabindex="0" role="img" aria-label="${escapeHtml(`${formatDate(event.date)}: ${event.title}`)}"><title>${escapeHtml(`${formatDate(event.date)} · ${event.title}`)}</title></circle>`
-        )
-        .join('');
-      return `<g class="tl-row" data-tip="${escapeHtml(tip)}">
-  <a href="${thing.page}" class="tl-label"><text x="${left - 10}" y="${y + rowHeight / 2 + 4}" text-anchor="end">${label}</text></a>
-  <rect x="${x1}" y="${y + 6}" width="${Math.max(10, x2 - x1)}" height="${rowHeight - 12}" rx="5" class="tl-bar tl-${thing.status}"><title>${escapeHtml(tip)}</title></rect>
-  ${dots}
-</g>`;
+  const label = `${thing.title}: ${span}, ${row.events.length} sourced ${row.events.length === 1 ? 'event' : 'events'}`;
+  return `<svg class="lifespan" viewBox="0 0 ${width} ${height}" width="${width}" height="${height}" role="img" aria-label="${escapeHtml(label)}"><title>${escapeHtml(label)}</title><rect x="0" y="${height / 2 - 1}" width="${width}" height="2" rx="1" class="ls-track"/><rect x="${x(row.start)}" y="2" width="${x(row.end) + step - x(row.start)}" height="${height - 4}" rx="3" class="ls-bar ls-${thing.status}"/>${dots}</svg>`;
+}
+
+// How many things were alive in a year, as one bar split by status, scaled to the busiest year.
+export function aliveBar(year: TimelineYear, timeline: Timeline) {
+  const width = 240;
+  const height = 8;
+  let x = 0;
+  const parts = year.alive
+    .map(({ status, count }) => {
+      const w = (count / timeline.mostAlive) * width;
+      const rect = `<rect x="${x.toFixed(1)}" y="0" width="${w.toFixed(1)}" height="${height}" class="ls-${status}"><title>${count} ${statusLabels[status].toLowerCase()}</title></rect>`;
+      x += w;
+      return rect;
     })
-    .join('\n');
-  return `<svg class="timeline" viewBox="0 0 ${width} ${height}" width="${width}" height="${height}" role="group" aria-label="Timeline of things by year">
-${grid}
-${rows}
-</svg>`;
+    .join('');
+  const label = `${year.total} ${year.total === 1 ? 'thing' : 'things'} alive in ${year.year}`;
+  return `<svg class="alive" viewBox="0 0 ${width} ${height}" preserveAspectRatio="none" role="img" aria-label="${label}">${parts}</svg>`;
 }

@@ -65,14 +65,9 @@ test('history anchors, the timeline, and the machine outputs are reachable', asy
   await expect(page.locator(`#${anchor}`)).toBeInViewport();
   await expect(page.locator('.event-list > li')).toHaveCount(history.length);
   await page.goto('/timeline/');
-  await expect(page.locator('.timeline .tl-row').first()).toBeVisible();
-  const dot = page.locator('.tl-event').first();
-  await dot.hover();
-  await expect(page.locator('.tooltip')).toBeVisible();
-  await dot.focus();
-  await expect(page.locator('.tooltip')).toContainText(/\d{4}/);
-  await page.keyboard.press('Escape');
-  await expect(page.locator('.tooltip')).toBeHidden();
+  await expect(page.locator('.tl-things > li')).toHaveCount(things.length);
+  await expect(page.locator('.tl-year').first()).toHaveAttribute('id', `y${new Date().getUTCFullYear()}`);
+  await expect(page.locator('.tl-things .lifespan').first()).toBeVisible();
   expect(await fitsViewport(page)).toBe(true);
   for (const path of [
     '/feed.xml',
