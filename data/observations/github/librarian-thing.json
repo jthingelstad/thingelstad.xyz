@@ -2,14 +2,14 @@
   "kind": "github",
   "repository": "jthingelstad/librarian-thing",
   "url": "https://github.com/jthingelstad/librarian-thing",
-  "observedAt": "2026-10-19T17:30:51.900Z",
+  "observedAt": "2026-10-20T17:57:36.612Z",
   "repositoryCreatedAt": "2026-06-03T23:21:50.000Z",
   "archived": false,
   "description": "Studio — the brain behind Jamie Thingelstad's publishing: capture, research, the editorial source of truth, the production pipeline, and the authoring agents. Downstream surfaces (blog, newsletter, podcast, Thingy) consume what it produces.",
   "stars": 2,
   "forks": 0,
   "languages": [
-    { "name": "Python", "bytes": 1349395 },
+    { "name": "Python", "bytes": 1349493 },
     { "name": "TypeScript", "bytes": 987672 },
     { "name": "JavaScript", "bytes": 693436 },
     { "name": "Nunjucks", "bytes": 9233 },
@@ -21,17 +21,17 @@
     {
       "path": null,
       "branch": "main",
-      "since": "2026-07-21T17:30:51.900Z",
-      "until": "2026-10-19T17:30:51.900Z",
+      "since": "2026-07-01T00:00:00.000Z",
+      "until": "2026-10-20T17:57:36.612Z",
       "count": 300,
       "complete": false,
       "months": [
-        { "month": "2026-09", "count": 120 },
-        { "month": "2026-10", "count": 180 }
+        { "month": "2026-09", "count": 118 },
+        { "month": "2026-10", "count": 182 }
       ],
       "latestCommit": {
-        "date": "2026-10-19T17:28:29.000Z",
-        "url": "https://github.com/jthingelstad/librarian-thing/commit/0ecbd117272853fd0e5a9a797de2e4c41ff5ddcf"
+        "date": "2026-10-20T02:44:00.000Z",
+        "url": "https://github.com/jthingelstad/librarian-thing/commit/32062c9e911d602f5dca6d4049045814e393d40c"
       }
     }
   ]

@@ -2,7 +2,7 @@
   "kind": "github",
   "repository": "jthingelstad/escape.thingelstad.com",
   "url": "https://github.com/jthingelstad/escape.thingelstad.com",
-  "observedAt": "2026-10-18T10:38:59.915Z",
+  "observedAt": "2026-10-20T17:57:36.612Z",
   "repositoryCreatedAt": "2026-02-11T23:10:54.000Z",
   "archived": false,
   "description": "The Escaping Things escape-room team site — an Eleventy static site built from a normalized Airtable dataset (rooms played, countries, stats).",
@@ -20,12 +20,12 @@
     {
       "path": null,
       "branch": "main",
-      "since": "2026-07-20T10:38:59.915Z",
-      "until": "2026-10-18T10:38:59.915Z",
-      "count": 28,
+      "since": "2026-07-01T00:00:00.000Z",
+      "until": "2026-10-20T17:57:36.612Z",
+      "count": 34,
       "complete": true,
       "months": [
-        { "month": "2026-07", "count": 2 },
+        { "month": "2026-07", "count": 8 },
         { "month": "2026-08", "count": 19 },
         { "month": "2026-09", "count": 6 },
         { "month": "2026-10", "count": 1 }
