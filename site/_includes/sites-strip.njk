@@ -5,7 +5,7 @@
     <ul class="sites-strip__list">
       {%- for item in sitesStrip %}
       <li class="sites-strip__item sites-strip__item--{{ item.id }}{% if item.current %} sites-strip__item--current{% endif %}">
-        <a href="{{ item.url }}" title="{{ item.description }}"{% if item.current %} aria-current="true"{% endif %}>{{ item.name }}</a>
+        <a href="{{ item.href }}" title="{{ item.description }}"{% if item.current %} aria-current="true"{% endif %}>{{ item.label }}</a>
       </li>
       {%- endfor %}
     </ul>
