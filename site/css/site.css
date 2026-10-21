@@ -56,6 +56,7 @@
   --archived-soft: #e9e4ff;
   --accent: #1f5fe0;
   --display: fraunces, georgia, serif;
+  --frame: 1040px;
 }
 
 * {
@@ -95,7 +96,7 @@ a:focus-visible,
 
 /* Jamie's sites: the strip that opens every one of Jamie's sites. Its values are the shared contract in
    thingelstad.com's AGENTS.md ("The sites strip"), identical everywhere; only the inner row follows this
-   site's frame, full width with .site-header's side padding. No dark values: this site has no dark mode. */
+   site's frame: the --frame column with .site-header's side padding. No dark values: this site has no dark mode. */
 .sites-strip {
   background: #f3f3f5;
   font-family: Inter, system-ui, sans-serif;
@@ -108,7 +109,9 @@ a:focus-visible,
   flex-wrap: wrap;
   align-items: center;
   gap: 4px 24px;
+  max-width: var(--frame);
   min-height: 40px;
+  margin: 0 auto;
   padding: 0 clamp(16px, 4vw, 52px);
 }
 
@@ -167,6 +170,8 @@ a:focus-visible,
   align-items: center;
   justify-content: space-between;
   gap: 16px;
+  max-width: var(--frame);
+  margin: 0 auto;
   padding: 24px clamp(16px, 4vw, 52px);
   font-size: 14px;
 }
@@ -218,16 +223,25 @@ a:focus-visible,
 }
 
 .site-main {
-  max-width: 1040px;
+  max-width: var(--frame);
   margin: 0 auto;
   padding: 8px clamp(16px, 4vw, 52px) 64px;
 }
 
 .site-footer {
-  border-top: 1px solid var(--line);
-  padding: 24px clamp(16px, 4vw, 52px) 48px;
+  max-width: var(--frame);
+  margin: 0 auto;
+  padding: 0 clamp(16px, 4vw, 52px) 48px;
   color: var(--muted);
   font-size: 14px;
+}
+
+/* The rule above the footer spans the text column, like the dividers in the main column. */
+.site-footer::before {
+  content: '';
+  display: block;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
 }
 
 .site-footer a {
