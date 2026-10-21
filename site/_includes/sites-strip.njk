@@ -1,0 +1,13 @@
+{#- The shared "Jamie's sites" strip: the same markup on every one of Jamie's sites (collection/sites-strip.ts). -#}
+<nav class="sites-strip" aria-label="Jamie's sites">
+  <div class="sites-strip__inner">
+    <span class="sites-strip__label">Jamie's sites</span>
+    <ul class="sites-strip__list">
+      {%- for item in sitesStrip %}
+      <li class="sites-strip__item sites-strip__item--{{ item.id }}{% if item.current %} sites-strip__item--current{% endif %}">
+        <a href="{{ item.url }}" title="{{ item.description }}"{% if item.current %} aria-current="true"{% endif %}>{{ item.name }}</a>
+      </li>
+      {%- endfor %}
+    </ul>
+  </div>
+</nav>

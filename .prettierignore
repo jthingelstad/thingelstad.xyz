@@ -5,3 +5,5 @@ package-lock.json
 playwright-report/
 test-results/
 _site/
+# A byte-for-byte copy of thingelstad.com's shared/sites.json (npm run sites:sync).
+data/sites.json

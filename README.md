@@ -10,11 +10,13 @@ npm run site:build   # content/ and data/observations/ -> _site/
 npm run site:serve   # the same, with a local server on http://localhost:8080/
 ```
 
-`npm run check` checks formatting, JavaScript/TypeScript and CSS lint, unused code, TypeScript, unit tests, and the site build. Use `npm run format` to apply formatting. `npx playwright install chromium`, then `npm run site:build` and `npm run test:browser`, runs browser tests of the static site at desktop, tablet, and phone sizes. They serve `_site/` through `scripts/serve-site.mjs`, which handles directory indexes and the 404 page the way CloudFront does.
+`npm run check` checks the vendored sites list, formatting, JavaScript/TypeScript and CSS lint, unused code, TypeScript, unit tests, and the site build. Use `npm run format` to apply formatting. `npx playwright install chromium`, then `npm run site:build` and `npm run test:browser`, runs browser tests of the static site at desktop, tablet, and phone sizes. They serve `_site/` through `scripts/serve-site.mjs`, which handles directory indexes and the 404 page the way CloudFront does.
 
 ## Static site
 
 `site/eleventy.config.ts` and the templates in `site/` read the typed model in `collection/site.ts`, which joins the registry with the latest observation for every source. Pages: the index grouped by status, `/things/<id>/`, `/topics/<id>/`, `/history/`, and `/timeline/`. Outputs: `feed.json` (the whole ledger, newest first) and `feed.xml` (its newest 30 entries), `llms.txt` and `llms-full.txt`, a Markdown twin of every thing at `/things/<id>.md`, `things.json` for Librarian, `robots.txt`, and `sitemap.xml`. Status comes from the registry only; activity comes from observations only. `tests/site.test.ts` checks the model and the outputs.
+
+Every page opens with the “Jamie’s sites” strip that all of Jamie’s sites share (`site/_includes/sites-strip.njk`), rendered at build time with no script. Its list is `data/sites.json`, a committed byte-for-byte copy of `shared/sites.json` in the thingelstad.com repository, whose `AGENTS.md` also holds the strip’s markup and values. `npm run sites:sync` refreshes the copy from the sibling checkout (`../thingelstad.com`, or `SITES_SOURCE`); `npm run sites:check` fails when it drifts, and where there is no sibling, as in CI, checks only the committed copy.
 
 Stylesheets, scripts, and fonts are written to `/assets/` with a content hash in the name and are served immutable; every other file is served with `no-cache`.
 
