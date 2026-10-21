@@ -4,7 +4,7 @@ import { readFileSync } from 'node:fs';
 type Thing = { id: string; title: string; status: string; topics: string[]; sources: { kind: string }[] };
 type Output = { things: Thing[]; topics: { id: string; title: string }[]; history: { id: string; title: string }[] };
 const { things, topics, history } = JSON.parse(readFileSync('_site/things.json', 'utf8')) as Output;
-type SharedSite = { id: string; name: string; short_name: string; url: string; in_sites_strip: boolean };
+type SharedSite = { id: string; strip_label: string; url: string; in_sites_strip: boolean };
 const stripSites = (JSON.parse(readFileSync('data/sites.json', 'utf8')) as { sites: SharedSite[] }).sites.filter(
   (site) => site.in_sites_strip
 );
@@ -67,12 +67,12 @@ test('every page opens with the Jamie’s sites strip, this site current', async
     const links = strip.getByRole('link');
     await expect(links).toHaveCount(stripSites.length);
     for (const [index, site] of stripSites.entries()) {
-      await expect(links.nth(index)).toHaveAttribute('href', site.url);
-      await expect(links.nth(index)).toHaveText(site.id === 'xyz' ? site.short_name : site.name);
+      await expect(links.nth(index)).toHaveAttribute('href', `${site.url}?ref=sites-strip-xyz`);
+      await expect(links.nth(index)).toHaveText(site.strip_label);
     }
     const current = strip.locator('[aria-current="true"]');
     await expect(current).toHaveCount(1);
-    await expect(current).toHaveText('Projects');
+    await expect(current).toHaveText('Things I’ve built');
     await expect(strip.locator('.sites-strip__item--current')).toHaveClass(/\bsites-strip__item--xyz\b/);
     await expect(strip).toHaveCSS('background-color', 'rgb(243, 243, 245)');
     await expect(strip.locator('.sites-strip__label')).toBeVisible({ visible: !phone });

@@ -249,15 +249,17 @@ test('the sites strip lists the shared sites in file order, with this site curre
     [
       {
         id: 'xyz',
-        url: 'https://thingelstad.xyz/',
+        href: 'https://thingelstad.xyz/?ref=sites-strip-xyz',
         description: sites.find((site) => site.id === 'xyz')!.description,
-        name: 'Projects',
+        label: 'Things I’ve built',
         current: true
       }
     ]
   );
-  for (const item of strip.filter((i) => !i.current)) {
-    assert.equal(item.name, sites.find((site) => site.id === item.id)!.name);
+  for (const item of strip) {
+    const site = sites.find((s) => s.id === item.id)!;
+    assert.equal(item.label, site.strip_label, `${item.id} reads the same as on every other site`);
+    assert.equal(item.href, `${site.url}?ref=sites-strip-xyz`);
   }
   const without = sites.map((site) => (site.id === 'xyz' ? { ...site, in_sites_strip: false } : site));
   assert.throws(() => sitesStrip(without), /does not put xyz in the strip/);
