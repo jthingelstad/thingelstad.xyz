@@ -93,6 +93,75 @@ a:focus-visible,
   left: 8px;
 }
 
+/* Jamie's sites: the strip that opens every one of Jamie's sites. Its values are the shared contract in
+   thingelstad.com's AGENTS.md ("The sites strip"), identical everywhere; only the inner row follows this
+   site's frame, full width with .site-header's side padding. No dark values: this site has no dark mode. */
+.sites-strip {
+  background: #f3f3f5;
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.sites-strip__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 24px;
+  min-height: 40px;
+  padding: 0 clamp(16px, 4vw, 52px);
+}
+
+.sites-strip__label {
+  color: #5a5a66;
+}
+
+.sites-strip__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 24px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sites-strip a {
+  color: #16161a;
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.sites-strip a:hover {
+  color: #16161a;
+  text-decoration-thickness: 2px;
+}
+
+.sites-strip a:focus-visible {
+  outline: 2px solid #16161a;
+  outline-offset: 3px;
+}
+
+.sites-strip__item--current a {
+  text-decoration: none;
+}
+
+.sites-strip__item--weekly a,
+.sites-strip__item--weekly a:hover {
+  color: #1a5eb6;
+}
+
+.sites-strip__item--another a,
+.sites-strip__item--another a:hover {
+  color: #c63a20;
+}
+
+.sites-strip__item--thingy a,
+.sites-strip__item--thingy a:hover {
+  color: #b5461a;
+}
+
 .site-header {
   display: flex;
   align-items: center;
@@ -834,6 +903,24 @@ h2 {
 
   .tl-year.is-quiet .tl-year-label {
     padding: 0;
+  }
+}
+
+/* Phones: the sites strip is one row that scrolls sideways, without its label. */
+@media (width <= 40rem) {
+  .sites-strip__inner,
+  .sites-strip__list {
+    flex-wrap: nowrap;
+    gap: 18px;
+  }
+
+  .sites-strip__inner {
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .sites-strip__label {
+    display: none;
   }
 }
 

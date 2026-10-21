@@ -17,6 +17,7 @@ import {
 } from '../collection/site';
 import type { MonthCount, ScreenshotObservation } from '../collection/schema';
 import { connectionDiagram } from '../collection/diagram';
+import { parseSites, sitesPath, sitesStrip } from '../collection/sites-strip';
 
 const markdown = markdownIt({ html: false, linkify: true, typographer: true });
 
@@ -37,6 +38,8 @@ export default function (eleventyConfig: EleventyConfig) {
     css: `/assets/site-${hashed('site/css/site.css')}.css`
   };
   eleventyConfig.addGlobalData('assets', assets);
+  // The "Jamie's sites" strip at the top of every page, from the vendored data/sites.json.
+  eleventyConfig.addGlobalData('sitesStrip', sitesStrip(parseSites(readFileSync(sitesPath, 'utf8'))));
   eleventyConfig.addPassthroughCopy({ 'public/favicon.svg': 'favicon.svg' });
   eleventyConfig.addPassthroughCopy({
     'site/css/site.css': assets.css.slice(1),

@@ -1,5 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
 import { loadRegistry } from '../collection/load';
 import { loadObservations } from '../collection/observations';
 import {
@@ -24,6 +25,7 @@ import {
 } from '../collection/site';
 import { splitFrontmatter } from '../collection/load';
 import { connectionDiagram, connectionSource, phoneWidth } from '../collection/diagram';
+import { parseSites, sitesPath, sitesStrip } from '../collection/sites-strip';
 
 const registry = await loadRegistry();
 const observations = await loadObservations();
@@ -231,5 +233,37 @@ test('connection diagrams draw the same edges as the list, escaped and linked', 
       model.things.find((t) => t.id === 'mb')!,
       model
     )!.narrow
+  );
+});
+
+test('the sites strip lists the shared sites in file order, with this site current', () => {
+  const sites = parseSites(readFileSync(sitesPath, 'utf8'));
+  const strip = sitesStrip(sites);
+  assert.deepEqual(
+    strip.map((item) => item.id),
+    sites.filter((site) => site.in_sites_strip).map((site) => site.id)
+  );
+  assert.ok(!strip.some((item) => item.id === 'escape'), 'Escaping Things stays out');
+  assert.deepEqual(
+    strip.filter((item) => item.current),
+    [
+      {
+        id: 'xyz',
+        url: 'https://thingelstad.xyz/',
+        description: sites.find((site) => site.id === 'xyz')!.description,
+        name: 'Projects',
+        current: true
+      }
+    ]
+  );
+  for (const item of strip.filter((i) => !i.current)) {
+    assert.equal(item.name, sites.find((site) => site.id === item.id)!.name);
+  }
+  const without = sites.map((site) => (site.id === 'xyz' ? { ...site, in_sites_strip: false } : site));
+  assert.throws(() => sitesStrip(without), /does not put xyz in the strip/);
+  assert.throws(() => parseSites('{"sites": []}'), /has no sites list/);
+  assert.throws(
+    () => parseSites(JSON.stringify({ sites: [{ ...sites[0], url: 'http://example.com/' }] })),
+    /not an HTTPS URL/
   );
 });
