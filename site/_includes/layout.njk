@@ -8,6 +8,10 @@
     <title>{% if title %}{{ title }} — {% endif %}{{ site.title }}</title>
     <link rel="canonical" href="{{ site.url }}{{ page.url }}" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg?v={{ assets.favicon }}" />
+    {#- The type every one of Jamie's sites shares (site/css/shared/, vendored from thingelstad.com shared/):
+        the two faces every page sets first, preloaded, then the --jt- tokens, then this site's own look. #}
+    {% for href in assets.fontPreloads %}<link rel="preload" href="{{ href }}" as="font" type="font/woff2" crossorigin />
+    {% endfor %}<link rel="stylesheet" href="{{ assets.tokens }}" />
     <link rel="stylesheet" href="{{ assets.css }}" />
     <link rel="alternate" type="application/rss+xml" title="{{ site.title }} History" href="/feed.xml" />
     <link rel="alternate" type="application/feed+json" title="{{ site.title }} History" href="/feed.json" />

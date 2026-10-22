@@ -19,6 +19,7 @@ import type { MonthCount, ScreenshotObservation } from '../collection/schema';
 import { connectionDiagram } from '../collection/diagram';
 import { parseSites, siteRef, sitesPath } from '../collection/sites';
 import { sitesStrip } from '../collection/sites-strip';
+import { sharedTypeAssets, sharedTypeDir } from '../collection/shared-type';
 
 const markdown = markdownIt({ html: false, linkify: true, typographer: true });
 
@@ -32,30 +33,30 @@ type EleventyConfig = {
 
 export default function (eleventyConfig: EleventyConfig) {
   // Everything under /assets/ is content-addressed and published with an immutable cache header; HTML
-  // and the other top-level files are published with no-cache. The stylesheet refers to the fonts by
-  // their versioned names, so a font change is a new name too. The favicon keeps its /favicon.svg name and
+  // and the other top-level files are published with no-cache. The shared type (tokens.css and the fonts it
+  // names relative to itself) goes up as one directory whose name hashes every file in it, so a font or token
+  // change is a new name too (collection/shared-type.ts). The favicon keeps its /favicon.svg name and
   // carries the same content hash as ?v=, so browsers that hold on to an icon fetch a changed one.
   const hashed = (path: string) => createHash('sha256').update(readFileSync(path)).digest('hex').slice(0, 10);
+  const shared = sharedTypeAssets();
   const assets = {
     css: `/assets/site-${hashed('site/css/site.css')}.css`,
+    tokens: shared.tokens,
+    fontPreloads: shared.preloads,
     favicon: hashed('public/favicon.svg')
   };
   eleventyConfig.addGlobalData('assets', assets);
   // From the vendored data/sites.json: the "Jamie's sites" strip at the top of every page, the owner's
   // h-card in the footer and rel=me links in the head, and `ref`, which tags a link to another strip site
   // with ?ref=xyz-<placement> (`{{ url | ref("thing") }}`). Templates add refs; content text keeps its links.
-  const shared = parseSites(readFileSync(sitesPath, 'utf8'));
-  eleventyConfig.addGlobalData('sitesStrip', sitesStrip(shared.sites));
-  eleventyConfig.addGlobalData('owner', shared.owner);
-  eleventyConfig.addFilter('ref', siteRef(shared.sites));
+  const sites = parseSites(readFileSync(sitesPath, 'utf8'));
+  eleventyConfig.addGlobalData('sitesStrip', sitesStrip(sites.sites));
+  eleventyConfig.addGlobalData('owner', sites.owner);
+  eleventyConfig.addFilter('ref', siteRef(sites.sites));
   eleventyConfig.addPassthroughCopy({ 'public/favicon.svg': 'favicon.svg' });
   eleventyConfig.addPassthroughCopy({
     'site/css/site.css': assets.css.slice(1),
-    'node_modules/@fontsource/inter/files/inter-latin-400-normal.woff2': 'assets/fonts/inter-latin-400-normal.woff2',
-    'node_modules/@fontsource/inter/files/inter-latin-500-normal.woff2': 'assets/fonts/inter-latin-500-normal.woff2',
-    'node_modules/@fontsource/inter/files/inter-latin-600-normal.woff2': 'assets/fonts/inter-latin-600-normal.woff2',
-    'node_modules/@fontsource-variable/fraunces/files/fraunces-latin-full-normal.woff2':
-      'assets/fonts/fraunces-latin-full-normal.woff2'
+    [sharedTypeDir]: shared.base.slice(1)
   });
   // Each front-page screenshot is published under /assets/ with its hash in the name (see screenshotAsset).
   const screenshots = 'data/observations/screenshot';

@@ -16,6 +16,5 @@
     "scripts/*.ts",
     "collection/**/*.ts",
     "site/**/*.{ts,js}"
-  ],
-  "ignoreDependencies": ["@fontsource-variable/fraunces", "@fontsource/inter"]
+  ]
 }

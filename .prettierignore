@@ -7,3 +7,5 @@ test-results/
 _site/
 # A byte-for-byte copy of thingelstad.com's shared/sites.json (npm run sites:sync).
 data/sites.json
+# A byte-for-byte copy of thingelstad.com's shared/tokens.css and shared/fonts/ (npm run sites:sync).
+site/css/shared/

@@ -255,3 +255,74 @@ test('links to the other sites carry a ref, and story text keeps its links', asy
     }
   }
 });
+
+test('the shared type: Inter Tight headings, Inter text, nothing under 14px, no design italics, one frame', async ({
+  page,
+  baseURL
+}) => {
+  const errors = watchErrors(page);
+  const fonts: string[] = [];
+  page.on('request', (request) => {
+    if (request.resourceType() === 'font') fonts.push(request.url());
+  });
+  const width = page.viewportSize()!.width;
+  const phone = width <= 640;
+  for (const [path, status] of [
+    ['/', 200],
+    ['/things/thingy/', 200],
+    ['/things/elixir-bot/', 200],
+    ['/things/yearly-thing-2025/', 200],
+    ['/topics/', 200],
+    ['/history/', 200],
+    ['/timeline/', 200],
+    ['/things/nothing-here/', 404]
+  ] as const) {
+    const response = await page.goto(path);
+    expect(response?.status(), path).toBe(status);
+    await page.evaluate(() => document.fonts.ready);
+    const type = await page.evaluate(() => {
+      const describe = (el: Element) => `${el.tagName.toLowerCase()}.${[...el.classList].join('.')}`;
+      const small: string[] = [];
+      const italic: string[] = [];
+      for (const el of document.querySelectorAll('body *')) {
+        const own = [...el.childNodes].some((node) => node.nodeType === Node.TEXT_NODE && node.textContent!.trim());
+        if (!own || !el.getBoundingClientRect().width) continue;
+        const style = getComputedStyle(el);
+        if (parseFloat(style.fontSize) < 14) small.push(`${describe(el)} ${style.fontSize}`);
+        // Content text (a thing's story, Jamie's own Markdown) keeps its emphasis; the design never slants.
+        if (style.fontStyle !== 'normal' && !el.closest('.story')) italic.push(describe(el));
+      }
+      const h1 = getComputedStyle(document.querySelector('h1')!);
+      // Where each band's content starts: the strip, header, main column and footer share one left edge.
+      const edges = ['.sites-strip__inner', '.site-header', '.site-main', '.site-footer'].map((selector) => {
+        const el = document.querySelector(selector)!;
+        return el.getBoundingClientRect().left + parseFloat(getComputedStyle(el).paddingLeft);
+      });
+      const main = document.querySelector('.site-main')!;
+      const mainStyle = getComputedStyle(main);
+      return {
+        small,
+        italic,
+        h1: { family: h1.fontFamily, weight: h1.fontWeight, tracking: h1.letterSpacing },
+        body: { family: getComputedStyle(document.body).fontFamily, size: getComputedStyle(document.body).fontSize },
+        loaded: [...document.fonts].filter((face) => face.status === 'loaded').map((face) => face.family),
+        edges,
+        column: main.clientWidth - parseFloat(mainStyle.paddingLeft) - parseFloat(mainStyle.paddingRight)
+      };
+    });
+    expect(type.small, `${path}: text under 14px`).toEqual([]);
+    expect(type.italic, `${path}: italics outside content`).toEqual([]);
+    expect(type.h1.family, path).toMatch(/^"Inter Tight", Inter,/);
+    expect(type.h1.weight, path).toBe('800');
+    expect(type.body.family, path).toMatch(/^Inter,/);
+    expect(type.body.size, path).toBe(phone ? '18px' : '19px');
+    expect(type.loaded, path).toEqual(expect.arrayContaining(['Inter', 'Inter Tight']));
+    expect(new Set(type.edges).size, `${path}: one left edge`).toBe(1);
+    // The shared frame: 1120px less its 24px gutters, or the viewport less its gutters.
+    expect(type.column, path).toBe(Math.min(1120, width) - (phone ? 32 : 48));
+    expect(await fitsViewport(page), path).toBe(true);
+  }
+  expect(fonts.length).toBeGreaterThan(0);
+  for (const url of fonts) expect(url).toMatch(new RegExp(`^${baseURL}/assets/shared-[0-9a-f]{10}/fonts/inter-`));
+  expect(errors).toEqual([]);
+});
