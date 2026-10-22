@@ -1,4 +1,5 @@
 import { test, expect, type Page } from '@playwright/test';
+import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 
 type Thing = { id: string; title: string; status: string; topics: string[]; sources: { kind: string }[] };
@@ -8,6 +9,14 @@ type SharedSite = { id: string; strip_label: string; url: string; in_sites_strip
 type Owner = { name: string; url: string; avatar: string; note: string; rel_me: string[] };
 const shared = JSON.parse(readFileSync('data/sites.json', 'utf8')) as { owner: Owner; sites: SharedSite[] };
 const stripSites = shared.sites.filter((site) => site.in_sites_strip);
+// The strip contract's colour marks (thingelstad.com AGENTS.md, "The sites strip"); the blog stays ink.
+const stripColours = {
+  www: 'rgb(22, 22, 26)',
+  weekly: 'rgb(26, 94, 182)',
+  another: 'rgb(179, 18, 63)',
+  thingy: 'rgb(181, 70, 26)',
+  xyz: 'rgb(29, 115, 72)'
+};
 const { owner } = shared;
 // The other strip sites, whose links from here carry ?ref=xyz-<placement>.
 const sisterHosts = stripSites.filter((site) => site.id !== 'xyz').map((site) => new URL(site.url).hostname);
@@ -78,6 +87,9 @@ test('every page opens with the Jamie’s sites strip, this site current', async
     await expect(current).toHaveText('Things I’ve built');
     await expect(strip.locator('.sites-strip__item--current')).toHaveClass(/\bsites-strip__item--xyz\b/);
     await expect(strip).toHaveCSS('background-color', 'rgb(243, 243, 245)');
+    for (const [id, color] of Object.entries(stripColours)) {
+      await expect(strip.locator(`.sites-strip__item--${id} a`), `${path}: ${id}`).toHaveCSS('color', color);
+    }
     await expect(strip.locator('.sites-strip__label')).toBeVisible({ visible: !phone });
     const rows = await strip
       .locator('.sites-strip__item')
@@ -87,6 +99,18 @@ test('every page opens with the Jamie’s sites strip, this site current', async
     expect(await fitsViewport(page), path).toBe(true);
   }
   expect(errors).toEqual([]);
+});
+
+test('the favicon is the green T, versioned by its content', async ({ page }) => {
+  await page.goto('/');
+  const href = await page.locator('head link[rel="icon"]').getAttribute('href');
+  expect(href).toMatch(/^\/favicon\.svg\?v=[0-9a-f]{10}$/);
+  const icon = await page.request.get(href!);
+  expect(icon.ok()).toBe(true);
+  expect(icon.headers()['content-type']).toBe('image/svg+xml');
+  const svg = await icon.body();
+  expect(svg.toString()).toContain('fill="#1d7348"');
+  expect(createHash('sha256').update(svg).digest('hex').slice(0, 10)).toBe(href!.split('?v=')[1]);
 });
 
 test('a website thing shows its front page and page views', async ({ page }) => {
