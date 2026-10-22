@@ -33,10 +33,12 @@ type EleventyConfig = {
 export default function (eleventyConfig: EleventyConfig) {
   // Everything under /assets/ is content-addressed and published with an immutable cache header; HTML
   // and the other top-level files are published with no-cache. The stylesheet refers to the fonts by
-  // their versioned names, so a font change is a new name too.
+  // their versioned names, so a font change is a new name too. The favicon keeps its /favicon.svg name and
+  // carries the same content hash as ?v=, so browsers that hold on to an icon fetch a changed one.
   const hashed = (path: string) => createHash('sha256').update(readFileSync(path)).digest('hex').slice(0, 10);
   const assets = {
-    css: `/assets/site-${hashed('site/css/site.css')}.css`
+    css: `/assets/site-${hashed('site/css/site.css')}.css`,
+    favicon: hashed('public/favicon.svg')
   };
   eleventyConfig.addGlobalData('assets', assets);
   // From the vendored data/sites.json: the "Jamie's sites" strip at the top of every page, the owner's
