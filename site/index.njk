@@ -3,7 +3,7 @@ layout: layout.njk
 permalink: /
 ---
 <section class="intro">
-  <h1 class="title">Things I’ve <em>built</em><span class="dot">.</span></h1>
+  <h1 class="title">Things I’ve <span class="accent">built</span><span class="dot">.</span></h1>
   <p class="lede">{{ site.description }}</p>
   <p class="legend">
     {% for s in site.statuses %}<span class="status status-{{ s.status }}" title="{{ s.description }}">{{ s.label }} {{ s.count }}</span> {% endfor %}

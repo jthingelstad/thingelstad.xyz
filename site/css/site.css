@@ -1,43 +1,25 @@
-@font-face {
-  font-family: Inter;
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url('/assets/fonts/inter-latin-400-normal.woff2') format('woff2');
-}
-
-@font-face {
-  font-family: Inter;
-  font-style: normal;
-  font-weight: 500;
-  font-display: swap;
-  src: url('/assets/fonts/inter-latin-500-normal.woff2') format('woff2');
-}
-
-@font-face {
-  font-family: Inter;
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: url('/assets/fonts/inter-latin-600-normal.woff2') format('woff2');
-}
-
-@font-face {
-  font-family: Fraunces;
-  font-style: normal;
-  font-weight: 100 900;
-  font-display: swap;
-  src: url('/assets/fonts/fraunces-latin-full-normal.woff2') format('woff2-variations');
-}
-
+/* Type: the type every one of Jamie's sites shares, from the --jt- tokens in tokens.css (site/css/shared/, a
+   byte-for-byte copy of thingelstad.com shared/tokens.css, vendored with its fonts by npm run sites:sync and
+   linked before this file). Faces are named by role: Inter Tight for headings, Inter for reading text, controls
+   and labels, a system mono for code. Sizes are the blog's scale, the --jt-size-* tokens: 19px body (18px on
+   phones), nothing below 14px. No italics in the design: emphasis is the green or ink, and weight. Content
+   text keeps its own emphasis. font-synthesis: none, so no face is ever faked bold or slanted. */
 :root {
-  font-family: Inter, Arial, sans-serif;
+  font-family: var(--font-body);
   color: var(--ink);
   background: var(--paper);
   font-synthesis: none;
   font-weight: 400;
-  line-height: 1.5;
+  line-height: var(--jt-line-height);
 
+  --font-heading: var(--jt-font-heading);
+  --font-body: var(--jt-font-body);
+  --font-ui: var(--jt-font-body);
+  --font-label: var(--jt-font-body);
+  --font-code: var(--jt-font-mono);
+  --weight-heading: var(--jt-weight-heading);
+
+  /* The paper palette and the status colours, this site's own. */
   --ink: #1f1d1a;
   --paper: #fffcf5;
   --muted: #6f6a61;
@@ -59,8 +41,13 @@
      5.2:1 on --soft. A thing page sets --accent to its story colour in its header; --accent-text stays. */
   --accent: #1d7348;
   --accent-text: #1d7348;
-  --display: fraunces, georgia, serif;
-  --frame: 1040px;
+
+  /* Frame: every site's 1120px (--jt-frame) with the shared gutters inside it, 24px (16px on phones), so the
+     strip, header, content and footer share one left edge with the blog's. The reading column is the blog's
+     720px measure. */
+  --frame: var(--jt-frame);
+  --gutter: var(--jt-gutter);
+  --measure: var(--jt-measure);
 }
 
 * {
@@ -69,6 +56,14 @@
 
 body {
   margin: 0;
+  font-size: var(--jt-size-base);
+}
+
+code,
+kbd,
+pre,
+samp {
+  font-family: var(--font-code);
 }
 
 a {
@@ -100,10 +95,17 @@ a:focus-visible,
 
 /* Jamie's sites: the strip that opens every one of Jamie's sites. Its values are the shared contract in
    thingelstad.com's AGENTS.md ("The sites strip"), identical everywhere; only the inner row follows this
-   site's frame: the --frame column with .site-header's side padding. No dark values: this site has no dark mode. */
+   site's frame: the --frame column with the shared gutters. It names Inter itself, not a role, because its values
+   are the contract. No dark values: this site has no dark mode. */
 .sites-strip {
   background: #f3f3f5;
-  font-family: Inter, system-ui, sans-serif;
+  font-family:
+    Inter,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    system-ui,
+    sans-serif;
   font-size: 14px;
   line-height: 1.6;
 }
@@ -116,7 +118,7 @@ a:focus-visible,
   max-width: var(--frame);
   min-height: 40px;
   margin: 0 auto;
-  padding: 0 clamp(16px, 4vw, 52px);
+  padding: 0 var(--gutter);
 }
 
 .sites-strip__label {
@@ -181,27 +183,25 @@ a:focus-visible,
   gap: 16px;
   max-width: var(--frame);
   margin: 0 auto;
-  padding: 24px clamp(16px, 4vw, 52px);
-  font-size: 14px;
+  padding: 24px var(--gutter);
 }
 
 .wordmark {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  font-size: 19px;
-  font-weight: 650;
+  font-size: var(--jt-size-h3);
 }
 
 .mark {
   display: inline-grid;
   place-items: center;
-  width: 28px;
-  height: 28px;
-  border-radius: 8px;
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
   background: var(--accent);
   color: #fff;
-  font-size: 16px;
+  font-size: 1.25rem;
   rotate: -4deg;
   transition: rotate 180ms ease;
 }
@@ -218,6 +218,8 @@ a:focus-visible,
 .site-header nav a {
   padding: 6px 12px;
   border-radius: 999px;
+  font-family: var(--font-ui);
+  font-size: var(--jt-size-ui);
   font-weight: 500;
 }
 
@@ -234,15 +236,15 @@ a:focus-visible,
 .site-main {
   max-width: var(--frame);
   margin: 0 auto;
-  padding: 8px clamp(16px, 4vw, 52px) 64px;
+  padding: 8px var(--gutter) 64px;
 }
 
 .site-footer {
   max-width: var(--frame);
   margin: 0 auto;
-  padding: 0 clamp(16px, 4vw, 52px) 48px;
+  padding: 0 var(--gutter) 48px;
   color: var(--muted);
-  font-size: 14px;
+  font-size: var(--jt-size-small);
 }
 
 /* The rule above the footer spans the text column, like the dividers in the main column. */
@@ -274,24 +276,20 @@ a:focus-visible,
 h1,
 h2,
 .wordmark {
-  font-family: var(--display);
-  font-variation-settings:
-    'SOFT' 60,
-    'WONK' 1;
-  font-optical-sizing: auto;
-  letter-spacing: 0;
+  font-family: var(--font-heading);
+  font-weight: var(--weight-heading);
+  letter-spacing: var(--jt-tracking-heading);
 }
 
 h1 {
-  font-size: clamp(34px, 5vw, 52px);
-  font-weight: 640;
+  font-size: var(--jt-size-h1);
   line-height: 1.05;
-  margin: 8px 0 14px;
+  margin: 8px 0 16px;
 }
 
-h1 em {
-  font-style: italic;
-  font-weight: 520;
+/* The green word in the front page's title: colour and a lighter weight mark it, never italics. */
+h1 .accent {
+  font-weight: 600;
   color: var(--accent-text);
 }
 
@@ -306,34 +304,35 @@ h1 .dot {
 }
 
 .with-sticker .sticker {
-  --size: 56px;
+  --size: 60px;
 
-  font-size: 22px;
+  font-size: 1.5rem;
 }
 
 h2 {
-  font-size: 24px;
-  font-weight: 600;
-  margin: 44px 0 12px;
+  font-size: var(--jt-size-h2);
+  line-height: 1.2;
+  margin: 48px 0 14px;
 }
 
 .badge {
   display: inline-grid;
   place-items: center;
-  min-width: 26px;
-  height: 26px;
-  padding: 0 7px;
+  min-width: 30px;
+  height: 30px;
+  padding: 0 8px;
   border-radius: 999px;
   background: var(--soft);
   color: var(--muted);
-  font-family: Inter, sans-serif;
-  font-size: 13px;
+  font-family: var(--font-label);
+  font-size: var(--jt-size-small);
   font-weight: 500;
-  vertical-align: 4px;
+  letter-spacing: normal;
+  vertical-align: 5px;
 }
 
 .sticker {
-  --size: 36px;
+  --size: 40px;
 
   display: inline-grid;
   place-items: center;
@@ -344,18 +343,17 @@ h2 {
   background: hsl(var(--hue) 70% 88%);
   color: hsl(var(--hue) 55% 28%);
   box-shadow: inset 0 0 0 1.5px hsl(var(--hue) 50% 78%);
-  font-family: var(--display);
-  font-variation-settings: 'SOFT' 100;
-  font-weight: 700;
-  font-size: 15px;
-  letter-spacing: 0.5px;
+  font-family: var(--font-heading);
+  font-weight: var(--weight-heading);
+  font-size: 1.0625rem;
+  letter-spacing: 0.02em;
   rotate: var(--tilt, 0deg);
   transition: rotate 180ms ease;
 }
 
 .lede {
-  font-size: 18px;
-  max-width: 64ch;
+  font-size: 1.25rem;
+  max-width: var(--measure);
   margin: 0 0 12px;
 }
 
@@ -377,13 +375,15 @@ h2 {
 }
 
 .count {
+  font-family: var(--font-label);
   font-weight: 400;
-  font-size: 14px;
+  font-size: var(--jt-size-small);
+  letter-spacing: normal;
   margin-left: 4px;
 }
 
 .crumbs {
-  font-size: 14px;
+  font-size: var(--jt-size-small);
   color: var(--muted);
   margin: 0;
 }
@@ -392,15 +392,16 @@ h2 {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  font-size: 13px;
+  font-size: var(--jt-size-label);
   margin: 16px 0 0;
 }
 
 .status {
   display: inline-block;
-  font-size: 12px;
+  font-family: var(--font-label);
+  font-size: var(--jt-size-label);
   font-weight: 600;
-  padding: 2px 9px;
+  padding: 2px 10px;
   border-radius: 999px;
   background: var(--chip, var(--soft));
   line-height: 1.5;
@@ -410,8 +411,8 @@ h2 {
 .status::before {
   content: '';
   display: inline-block;
-  width: 7px;
-  height: 7px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
   background: currentcolor;
   margin: 0 5px 1px 0;
@@ -451,7 +452,8 @@ h2 {
 .role,
 .kind {
   display: inline-block;
-  font-size: 13px;
+  font-family: var(--font-label);
+  font-size: var(--jt-size-label);
   padding: 2px 8px;
   border-radius: 6px;
   background: var(--soft);
@@ -527,7 +529,7 @@ h2 {
 .thing-summary {
   margin: 4px 0 0;
   color: var(--muted);
-  font-size: 15px;
+  font-size: 1.0625rem;
 }
 
 .thing-row-meta {
@@ -535,7 +537,7 @@ h2 {
   flex-direction: column;
   align-items: flex-end;
   gap: 4px;
-  font-size: 13px;
+  font-size: var(--jt-size-meta);
   color: var(--muted);
   white-space: nowrap;
 }
@@ -558,7 +560,7 @@ h2 {
 }
 
 .screenshot {
-  max-width: 720px;
+  max-width: var(--measure);
   margin: 28px 0 8px;
 }
 
@@ -581,7 +583,7 @@ h2 {
 
 .screenshot figcaption {
   margin-top: 8px;
-  font-size: 13px;
+  font-size: var(--jt-size-meta);
   color: var(--muted);
 }
 
@@ -596,6 +598,7 @@ h2 {
 }
 
 .topic-list h2 {
+  font-size: 1.625rem;
   margin: 0 0 6px;
 }
 
@@ -609,10 +612,12 @@ h2 {
   padding-left: 20px;
 }
 
+/* A thing's one-line introduction, under the lede: weight and the muted ink set it apart, not italics. */
 .introduction {
-  font-size: 16px;
+  max-width: var(--measure);
+  font-size: 1.125rem;
+  font-weight: 500;
   color: var(--muted);
-  font-style: italic;
   margin: 0 0 12px;
 }
 
@@ -621,7 +626,7 @@ h2 {
   grid-template-columns: max-content 1fr;
   gap: 6px 20px;
   margin: 20px 0 0;
-  font-size: 15px;
+  font-size: 1.0625rem;
 }
 
 .facts dt {
@@ -633,8 +638,7 @@ h2 {
 }
 
 .story {
-  max-width: 68ch;
-  font-size: 17px;
+  max-width: var(--measure);
 }
 
 .story p {
@@ -648,7 +652,7 @@ h2 {
 }
 
 .evidence {
-  font-size: 15px;
+  font-size: 1.0625rem;
 }
 
 .source {
@@ -664,14 +668,14 @@ h2 {
 .source-description {
   margin: 4px 0 0;
   color: var(--muted);
-  font-size: 15px;
+  font-size: 1.0625rem;
 }
 
 .activity {
   display: flex;
   align-items: center;
   gap: 12px;
-  font-size: 14px;
+  font-size: var(--jt-size-small);
 }
 
 .connection-list li {
@@ -698,6 +702,7 @@ h2 {
   --pele-border: var(--line);
   --pele-accent: var(--accent);
   --pele-radius: 6px;
+  --pele-font: var(--font-ui);
 
   margin: 0 0 16px;
   overflow-x: auto;
@@ -757,7 +762,7 @@ h2 {
 
 .event-list li {
   display: grid;
-  grid-template-columns: 110px 1fr;
+  grid-template-columns: 124px 1fr;
   gap: 2px 16px;
   padding: 12px 0;
   border-top: 1px solid var(--line);
@@ -765,7 +770,7 @@ h2 {
 
 .event-list time {
   color: var(--muted);
-  font-size: 14px;
+  font-size: var(--jt-size-meta);
   padding-top: 3px;
 }
 
@@ -797,7 +802,7 @@ h2 {
 
 .thing-footer {
   margin-top: 40px;
-  font-size: 14px;
+  font-size: var(--jt-size-small);
 }
 
 .tl-years {
@@ -808,7 +813,7 @@ h2 {
 
 .tl-year {
   display: grid;
-  grid-template-columns: 64px minmax(0, 1fr);
+  grid-template-columns: 72px minmax(0, 1fr);
   gap: 0 16px;
   padding: 14px 0;
   border-top: 1px solid var(--line);
@@ -823,13 +828,13 @@ h2 {
   top: 0;
   align-self: start;
   margin: 0;
-  font-size: 20px;
+  font-size: var(--jt-size-h3);
   line-height: 1.3;
   background: var(--paper);
 }
 
 .tl-year.is-quiet .tl-year-label {
-  font-size: 15px;
+  font-size: 1.0625rem;
   color: var(--muted);
 }
 
@@ -838,7 +843,7 @@ h2 {
   flex-wrap: wrap;
   align-items: center;
   gap: 4px 12px;
-  font-size: 13px;
+  font-size: var(--jt-size-label);
   min-height: 26px;
 }
 
@@ -881,7 +886,7 @@ h2 {
 
 .tl-things .dates {
   flex-basis: 100%;
-  font-size: 13px;
+  font-size: var(--jt-size-meta);
   line-height: 1.3;
   color: var(--muted);
 }
@@ -935,7 +940,7 @@ h2 {
   }
 
   .tl-year.is-quiet {
-    grid-template-columns: 48px minmax(0, 1fr);
+    grid-template-columns: 56px minmax(0, 1fr);
   }
 
   .tl-year.is-quiet .tl-year-label {
