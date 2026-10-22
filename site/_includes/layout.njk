@@ -12,6 +12,8 @@
     <link rel="alternate" type="application/rss+xml" title="{{ site.title }} History" href="/feed.xml" />
     <link rel="alternate" type="application/feed+json" title="{{ site.title }} History" href="/feed.json" />
     {% if markdownTwin %}<link rel="alternate" type="text/markdown" href="{{ markdownTwin }}" />{% endif %}
+    {% for href in owner.rel_me %}<link rel="me" href="{{ href }}" />
+    {% endfor %}
     <meta property="og:title" content="{% if title %}{{ title }}{% else %}{{ site.title }}{% endif %}" />
     <meta property="og:description" content="{{ description or site.description }}" />
     <meta property="og:url" content="{{ site.url }}{{ page.url }}" />
@@ -41,7 +43,9 @@
     </main>
     <footer class="site-footer">
       <p>
-        An index of what I’ve built, by <a href="https://www.thingelstad.com/">Jamie Thingelstad</a>, kept as
+        {#- Jamie's h-card, the same on every one of Jamie's sites (thingelstad.com AGENTS.md, "Jamie on every site"). Identity links stay clean: no ref. #}
+        An index of what I’ve built, by
+        <a class="h-card" href="{{ owner.url }}" rel="me author"><img class="u-photo" src="{{ owner.avatar }}" alt="" width="24" height="24" /><span class="p-name">{{ owner.name }}</span><data class="p-note" value="{{ owner.note }}"></data></a>, kept as
         <a href="{{ site.repository }}">Markdown and YAML</a>. Status is a decision; activity is evidence.
       </p>
       <p>

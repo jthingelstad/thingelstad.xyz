@@ -5,9 +5,12 @@ type Thing = { id: string; title: string; status: string; topics: string[]; sour
 type Output = { things: Thing[]; topics: { id: string; title: string }[]; history: { id: string; title: string }[] };
 const { things, topics, history } = JSON.parse(readFileSync('_site/things.json', 'utf8')) as Output;
 type SharedSite = { id: string; strip_label: string; url: string; in_sites_strip: boolean };
-const stripSites = (JSON.parse(readFileSync('data/sites.json', 'utf8')) as { sites: SharedSite[] }).sites.filter(
-  (site) => site.in_sites_strip
-);
+type Owner = { name: string; url: string; avatar: string; note: string; rel_me: string[] };
+const shared = JSON.parse(readFileSync('data/sites.json', 'utf8')) as { owner: Owner; sites: SharedSite[] };
+const stripSites = shared.sites.filter((site) => site.in_sites_strip);
+const { owner } = shared;
+// The other strip sites, whose links from here carry ?ref=xyz-<placement>.
+const sisterHosts = stripSites.filter((site) => site.id !== 'xyz').map((site) => new URL(site.url).hostname);
 
 // Keep CI visits out of analytics. The embed is intercepted, never loaded.
 let analyticsRequests = 0;
@@ -167,4 +170,64 @@ test('connection diagrams are static SVG whose nodes lead to their things', asyn
   }
   expect(await fitsViewport(page)).toBe(true);
   expect(errors).toEqual([]);
+});
+
+test('every page names Jamie with the shared h-card and rel=me links', async ({ page }) => {
+  for (const [path, status] of [
+    ['/', 200],
+    ['/things/weekly-thing/', 200],
+    ['/things/nothing-here/', 404]
+  ] as const) {
+    const response = await page.goto(path);
+    expect(response?.status(), path).toBe(status);
+    const card = page.locator('.site-footer a.h-card');
+    await expect(card).toHaveCount(1);
+    await expect(card, 'identity links stay clean').toHaveAttribute('href', owner.url);
+    await expect(card).toHaveAttribute('rel', 'me author');
+    await expect(card.locator('.p-name')).toHaveText(owner.name);
+    await expect(card.locator('data.p-note')).toHaveAttribute('value', owner.note);
+    const photo = card.locator('img.u-photo');
+    await expect(photo).toHaveAttribute('src', owner.avatar);
+    await expect(photo).toHaveAttribute('alt', '');
+    await expect(photo).toHaveCSS('border-radius', '50%');
+    const box = (await photo.boundingBox())!;
+    expect([box.width, box.height]).toEqual([24, 24]);
+    const name = (await card.locator('.p-name').boundingBox())!;
+    expect(
+      Math.abs(box.y + box.height / 2 - (name.y + name.height / 2)),
+      'the photo sits beside the name'
+    ).toBeLessThan(3);
+    const relMe = await page
+      .locator('head link[rel="me"]')
+      .evaluateAll((links) => links.map((link) => link.getAttribute('href')));
+    expect(relMe).toEqual(owner.rel_me);
+    expect(await fitsViewport(page), path).toBe(true);
+  }
+});
+
+test('links to the other sites carry a ref, and story text keeps its links', async ({ page }) => {
+  await page.goto('/things/weekly-thing/');
+  const where = page.locator('.facts').getByRole('link', { name: 'weekly.thingelstad.com/' });
+  await expect(where).toHaveAttribute('href', 'https://weekly.thingelstad.com/?ref=xyz-thing');
+  await expect(page.locator('.screenshot a')).toHaveAttribute('href', 'https://weekly.thingelstad.com/?ref=xyz-thing');
+  for (const path of ['/things/weekly-thing/', '/things/jamie-thingelstad-blog/', '/things/thingy/', '/history/']) {
+    await page.goto(path);
+    const links = await page.locator('a[href^="https://"]').evaluateAll((anchors) =>
+      anchors.map((a) => ({
+        href: a.getAttribute('href')!,
+        story: Boolean(a.closest('.story')),
+        strip: Boolean(a.closest('.sites-strip')),
+        card: a.classList.contains('h-card')
+      }))
+    );
+    for (const link of links) {
+      const url = new URL(link.href);
+      if (!sisterHosts.includes(url.hostname) || link.strip || link.card) continue;
+      const ref = url.searchParams.get('ref');
+      if (link.story) expect(ref, `${path}: story text is content`).toBeNull();
+      // Feeds and sitemaps are files, not visits, and stay as the record has them.
+      else if (/\.(xml|json)$/.test(url.pathname)) expect(ref, `${path}: ${link.href}`).toBeNull();
+      else expect(ref, `${path}: ${link.href}`).toMatch(/^xyz-(thing|source)$/);
+    }
+  }
 });

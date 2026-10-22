@@ -18,7 +18,7 @@ description: What changed in what I’ve built. Sourced events, newest first.
       <time datetime="{{ event.date }}">{{ event.date | date }}</time>
       <span class="kind kind-{{ event.kind }}">{{ event.kind }}</span>
       <strong>{{ event.title }}</strong>
-      <p>{{ event.summary }} <a href="{{ event.source }}">Source</a></p>
+      <p>{{ event.summary }} <a href="{{ event.source | ref("source") }}">Source</a></p>
       <p class="muted">{% for id in event.things %}{% set other = site | thing(id) %}<a href="{{ other.page }}">{{ other.title }}</a>{% if not loop.last %}, {% endif %}{% endfor %}</p>
     </li>
     {% endfor %}

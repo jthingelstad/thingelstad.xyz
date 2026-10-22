@@ -10,6 +10,10 @@ eleventyComputed:
   description: '{{ thing.summary }}'
   markdownTwin: '{{ thing.markdown }}'
 ---
+{#- Links to another of Jamie's strip sites carry ?ref=xyz-<placement> (the ref filter, collection/sites.ts):
+    "thing" for the thing itself (Where, the screenshot, the story's call to read it), "source" for the sources
+    and the citations of connections and events. Feed, sitemap and evidence links are files, not visits, and
+    the story text is content: both keep their links as written. #}
 <article class="thing">
   <header class="thing-header"{% if thing.story %} style="--accent: {{ thing.story.color }}"{% endif %}>
     <p class="crumbs"><a href="/">Things</a> · <a href="/#{{ thing.collection | slugify }}">{{ thing.collection }}</a></p>
@@ -30,7 +34,7 @@ eleventyComputed:
       {% endif %}
       {% if thing.url %}
       <dt>Where</dt>
-      <dd><a href="{{ thing.url }}">{{ thing.url | replace("https://", "") }}</a></dd>
+      <dd><a href="{{ thing.url | ref("thing") }}">{{ thing.url | replace("https://", "") }}</a></dd>
       {% endif %}
       {% if thing.topicList | length %}
       <dt>Topics</dt>
@@ -49,7 +53,7 @@ eleventyComputed:
 
   {% if thing.screenshot %}
   <figure class="screenshot">
-    <a href="{{ thing.screenshot.site }}"><img src="{{ thing.screenshot.src }}" width="{{ thing.screenshot.width }}" height="{{ thing.screenshot.height }}" alt="{{ thing.screenshot.alt }}" loading="lazy" decoding="async" /></a>
+    <a href="{{ thing.screenshot.site | ref("thing") }}"><img src="{{ thing.screenshot.src }}" width="{{ thing.screenshot.width }}" height="{{ thing.screenshot.height }}" alt="{{ thing.screenshot.alt }}" loading="lazy" decoding="async" /></a>
     <figcaption>{{ thing.screenshot.host }} on {{ thing.screenshot.date | date }}. The collector captures the front page once a month.</figcaption>
   </figure>
   {% endif %}
@@ -70,7 +74,7 @@ eleventyComputed:
     <p class="stack">{% for item in thing.story.stack %}<span class="tag">{{ item }}</span> {% endfor %}</p>
     {% endif %}
     {% if thing.story.source %}
-    <p><a href="{{ thing.story.source }}">{{ thing.story.sourceLabel or "Source" }}</a></p>
+    <p><a href="{{ thing.story.source | ref("thing") }}">{{ thing.story.sourceLabel or "Source" }}</a></p>
     {% endif %}
   </section>
   {% endif %}
@@ -110,7 +114,7 @@ eleventyComputed:
         {% endif %}
         {% else %}
         <p class="source-head">
-          <a href="{{ source.url }}">{{ source.url | replace("https://", "") }}</a>
+          <a href="{{ source.url | ref("source") }}">{{ source.url | replace("https://", "") }}</a>
           <span class="role">{{ source.role }}</span>
         </p>
         {% if source.observation or (source.captures and source.captures.firstCapture) or source.views %}
@@ -157,14 +161,14 @@ eleventyComputed:
       {% set other = site | thing(edge.to) %}
       <li{% if edge.kind == 'lineage' %} class="lineage"{% endif %}>
         <p><strong>{{ thing.title }}</strong> {{ edge.label }} <a href="{{ other.page }}">{{ other.title }}</a></p>
-        <p class="muted">{{ edge.detail }} <a href="{{ edge.source }}">Source</a></p>
+        <p class="muted">{{ edge.detail }} <a href="{{ edge.source | ref("source") }}">Source</a></p>
       </li>
       {% endfor %}
       {% for edge in thing.inbound %}
       {% set other = site | thing(edge.from) %}
       <li{% if edge.kind == 'lineage' %} class="lineage"{% endif %}>
         <p><a href="{{ other.page }}">{{ other.title }}</a> {{ edge.label }} <strong>{{ thing.title }}</strong></p>
-        <p class="muted">{{ edge.detail }} <a href="{{ edge.source }}">Source</a></p>
+        <p class="muted">{{ edge.detail }} <a href="{{ edge.source | ref("source") }}">Source</a></p>
       </li>
       {% endfor %}
     </ul>
@@ -187,7 +191,7 @@ eleventyComputed:
         <time datetime="{{ event.date }}">{{ event.date | date }}</time>
         <span class="kind kind-{{ event.kind }}">{{ event.kind }}</span>
         <a href="/history/#{{ event.id }}"><strong>{{ event.title }}</strong></a>
-        <p>{{ event.summary }} <a href="{{ event.source }}">Source</a></p>
+        <p>{{ event.summary }} <a href="{{ event.source | ref("source") }}">Source</a></p>
       </li>
       {% endfor %}
     </ol>

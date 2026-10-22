@@ -18,6 +18,8 @@ npm run site:serve   # the same, with a local server on http://localhost:8080/
 
 Every page opens with the “Jamie’s sites” strip that all of Jamie’s sites share (`site/_includes/sites-strip.njk`), rendered at build time with no script. Its list is `data/sites.json`, a committed byte-for-byte copy of `shared/sites.json` in the thingelstad.com repository, whose `AGENTS.md` also holds the strip’s markup and values. `npm run sites:sync` refreshes the copy from the sibling checkout (`../thingelstad.com`, or `SITES_SOURCE`); `npm run sites:check` fails when it drifts, and where there is no sibling, as in CI, checks only the committed copy.
 
+The same list names Jamie in the footer of every page with the shared h-card (photo, name and note from `owner`, linking to the blog with no ref), and every page’s head carries a `rel="me"` link for each of `owner.rel_me` (`collection/sites.ts`). Template links to another of Jamie’s strip sites (a thing’s Where link and screenshot, its sources, and the citations on thing and history pages) carry `?ref=xyz-thing` or `?ref=xyz-source`, so Tinylytics on the destination shows which connections people use. Links inside a thing’s story are content and stay as written, and the machine outputs keep the record’s URLs.
+
 Stylesheets, scripts, and fonts are written to `/assets/` with a content hash in the name and are served immutable; every other file is served with `no-cache`.
 
 ## Extend the collection

@@ -1,5 +1,5 @@
 ---
-title: Things I’ve Built
+title: Things I’ve built
 summary: An index and archive of my projects, including the ones I have stepped away from.
 collection: Art & archives
 status: active
