@@ -17,7 +17,8 @@ import {
 } from '../collection/site';
 import type { MonthCount, ScreenshotObservation } from '../collection/schema';
 import { connectionDiagram } from '../collection/diagram';
-import { parseSites, sitesPath, sitesStrip } from '../collection/sites-strip';
+import { parseSites, siteRef, sitesPath } from '../collection/sites';
+import { sitesStrip } from '../collection/sites-strip';
 
 const markdown = markdownIt({ html: false, linkify: true, typographer: true });
 
@@ -38,8 +39,13 @@ export default function (eleventyConfig: EleventyConfig) {
     css: `/assets/site-${hashed('site/css/site.css')}.css`
   };
   eleventyConfig.addGlobalData('assets', assets);
-  // The "Jamie's sites" strip at the top of every page, from the vendored data/sites.json.
-  eleventyConfig.addGlobalData('sitesStrip', sitesStrip(parseSites(readFileSync(sitesPath, 'utf8'))));
+  // From the vendored data/sites.json: the "Jamie's sites" strip at the top of every page, the owner's
+  // h-card in the footer and rel=me links in the head, and `ref`, which tags a link to another strip site
+  // with ?ref=xyz-<placement> (`{{ url | ref("thing") }}`). Templates add refs; content text keeps its links.
+  const shared = parseSites(readFileSync(sitesPath, 'utf8'));
+  eleventyConfig.addGlobalData('sitesStrip', sitesStrip(shared.sites));
+  eleventyConfig.addGlobalData('owner', shared.owner);
+  eleventyConfig.addFilter('ref', siteRef(shared.sites));
   eleventyConfig.addPassthroughCopy({ 'public/favicon.svg': 'favicon.svg' });
   eleventyConfig.addPassthroughCopy({
     'site/css/site.css': assets.css.slice(1),

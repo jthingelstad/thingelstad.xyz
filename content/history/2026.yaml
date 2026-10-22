@@ -209,7 +209,7 @@
 - id: things-ive-built-recorded-development
   date: 2026-10-13
   kind: development
-  title: 'Things I’ve Built: recorded development'
+  title: 'Things I’ve built: recorded development'
   summary: A public repository records development of the project index. This is development evidence, not its launch date.
   source: https://github.com/jthingelstad/thingelstad.xyz
   things:

@@ -25,7 +25,8 @@ import {
 } from '../collection/site';
 import { splitFrontmatter } from '../collection/load';
 import { connectionDiagram, connectionSource, phoneWidth } from '../collection/diagram';
-import { parseSites, sitesPath, sitesStrip } from '../collection/sites-strip';
+import { parseSites, siteRef, sitesPath, withRef } from '../collection/sites';
+import { sitesStrip } from '../collection/sites-strip';
 
 const registry = await loadRegistry();
 const observations = await loadObservations();
@@ -236,8 +237,10 @@ test('connection diagrams draw the same edges as the list, escaped and linked', 
   );
 });
 
+const shared = readFileSync(sitesPath, 'utf8');
+
 test('the sites strip lists the shared sites in file order, with this site current', () => {
-  const sites = parseSites(readFileSync(sitesPath, 'utf8'));
+  const { sites } = parseSites(shared);
   const strip = sitesStrip(sites);
   assert.deepEqual(
     strip.map((item) => item.id),
@@ -265,7 +268,64 @@ test('the sites strip lists the shared sites in file order, with this site curre
   assert.throws(() => sitesStrip(without), /does not put xyz in the strip/);
   assert.throws(() => parseSites('{"sites": []}'), /has no sites list/);
   assert.throws(
-    () => parseSites(JSON.stringify({ sites: [{ ...sites[0], url: 'http://example.com/' }] })),
+    () => parseSites(JSON.stringify({ ...JSON.parse(shared), sites: [{ ...sites[0], url: 'http://example.com/' }] })),
     /not an HTTPS URL/
   );
+});
+
+test('the shared list names Jamie the same way on every site', () => {
+  const { owner } = parseSites(shared);
+  const data = JSON.parse(shared) as { owner: Record<string, unknown> };
+  assert.deepEqual(owner, data.owner);
+  assert.equal(owner.name, 'Jamie Thingelstad');
+  assert.equal(owner.url, 'https://www.thingelstad.com/', 'the identity link is the clean URL');
+  assert.match(owner.avatar, /^https:\/\/avatars\.micro\.blog\//);
+  assert.ok(owner.note.length > 0);
+  assert.ok(owner.rel_me.length > 0 && owner.rel_me.every((url) => url.startsWith('https://')));
+  const without = (change: Record<string, unknown>) =>
+    JSON.stringify({ ...JSON.parse(shared), owner: { ...data.owner, ...change } });
+  assert.throws(() => parseSites(JSON.stringify({ sites: JSON.parse(shared).sites })), /has no owner/);
+  assert.throws(() => parseSites(without({ note: '' })), /the owner has no note/);
+  assert.throws(() => parseSites(without({ avatar: 'http://example.com/me.jpg' })), /must be HTTPS/);
+  assert.throws(() => parseSites(without({ rel_me: ['http://example.com/'] })), /rel_me/);
+  assert.throws(() => parseSites(without({ rel_me: [] })), /rel_me/);
+});
+
+test('a ref joins any query and goes before any fragment', () => {
+  assert.equal(
+    withRef('https://weekly.thingelstad.com/', 'xyz-thing'),
+    'https://weekly.thingelstad.com/?ref=xyz-thing'
+  );
+  assert.equal(
+    withRef('https://thingy.thingelstad.com/?prompt=a%20b', 'xyz-thing'),
+    'https://thingy.thingelstad.com/?prompt=a%20b&ref=xyz-thing'
+  );
+  assert.equal(
+    withRef('https://weekly.thingelstad.com/archive/306/#journal', 'xyz-source'),
+    'https://weekly.thingelstad.com/archive/306/?ref=xyz-source#journal'
+  );
+  assert.equal(
+    withRef('https://thingy.thingelstad.com/?from=a#top', 'xyz-thing'),
+    'https://thingy.thingelstad.com/?from=a&ref=xyz-thing#top'
+  );
+  assert.equal(withRef('https://www.thingelstad.com/?', 'xyz-thing'), 'https://www.thingelstad.com/?ref=xyz-thing');
+});
+
+test('only links to another strip site carry a ref', () => {
+  const { sites } = parseSites(shared);
+  const ref = siteRef(sites);
+  for (const site of sites.filter((s) => s.in_sites_strip && s.id !== 'xyz'))
+    assert.equal(ref(site.url, 'thing'), `${site.url}?ref=xyz-thing`, site.id);
+  assert.equal(
+    ref('https://www.thingelstad.com/2021/04/28/four-great-years.html', 'source'),
+    'https://www.thingelstad.com/2021/04/28/four-great-years.html?ref=xyz-source'
+  );
+  for (const url of [
+    'https://thingelstad.xyz/', // this site
+    'https://escape.thingelstad.com/', // not in the strip
+    'https://ottoai.thingelstad.com/',
+    'https://github.com/jthingelstad/thingelstad.xyz',
+    'not a url'
+  ])
+    assert.equal(ref(url, 'thing'), url);
 });

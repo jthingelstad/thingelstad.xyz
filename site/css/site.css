@@ -248,6 +248,20 @@ a:focus-visible,
   color: var(--ink);
 }
 
+/* Jamie's h-card: the round photo beside the name, inside the sentence, without opening up the line. */
+.site-footer .h-card {
+  white-space: nowrap;
+}
+
+.site-footer .h-card .u-photo {
+  width: 24px;
+  height: 24px;
+  margin: -4px 6px -4px 0;
+  border-radius: 50%;
+  object-fit: cover;
+  vertical-align: middle;
+}
+
 h1,
 h2,
 .wordmark {
