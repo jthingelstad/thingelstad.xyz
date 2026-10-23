@@ -4,8 +4,10 @@ import { format } from 'prettier';
 import {
   githubKey,
   websiteKey,
+  type CommitLogObservation,
   type GitHubObservation,
   type Observation,
+  type PublicationsObservation,
   type ScreenshotObservation,
   type TinylyticsObservation,
   type WaybackObservation,
@@ -15,7 +17,8 @@ import {
 const observationsRoot = 'data/observations';
 
 export function observationPath(observation: Observation, root = observationsRoot) {
-  if (observation.kind === 'github') return join(root, 'github', `${githubKey(observation.repository)}.json`);
+  if (observation.kind === 'github' || observation.kind === 'commits')
+    return join(root, observation.kind, `${githubKey(observation.repository)}.json`);
   return join(root, observation.kind, `${websiteKey(observation.url)}.json`);
 }
 async function readDirectory(directory: string): Promise<unknown[]> {
@@ -79,20 +82,49 @@ function screenshot(value: unknown): ScreenshotObservation {
     throw new Error('Invalid screenshot observation.');
   return value as unknown as ScreenshotObservation;
 }
+function commits(value: unknown): CommitLogObservation {
+  if (
+    !isRecord(value) ||
+    value.kind !== 'commits' ||
+    typeof value.repository !== 'string' ||
+    typeof value.observedAt !== 'string' ||
+    !Array.isArray(value.commits) ||
+    !Array.isArray(value.tags)
+  )
+    throw new Error('Invalid commit log.');
+  return value as unknown as CommitLogObservation;
+}
+function publications(value: unknown): PublicationsObservation {
+  if (
+    !isRecord(value) ||
+    value.kind !== 'publications' ||
+    typeof value.url !== 'string' ||
+    typeof value.feed !== 'string' ||
+    typeof value.observedAt !== 'string' ||
+    !Array.isArray(value.items)
+  )
+    throw new Error('Invalid publication log.');
+  return value as unknown as PublicationsObservation;
+}
 export async function loadObservations(root = observationsRoot): Promise<Observation[]> {
-  const [githubFiles, webFiles, tinylyticsFiles, waybackFiles, screenshotFiles] = await Promise.all([
-    readDirectory(join(root, 'github')),
-    readDirectory(join(root, 'web')),
-    readDirectory(join(root, 'tinylytics')),
-    readDirectory(join(root, 'wayback')),
-    readDirectory(join(root, 'screenshot'))
-  ]);
+  const [githubFiles, webFiles, tinylyticsFiles, waybackFiles, screenshotFiles, commitFiles, publicationFiles] =
+    await Promise.all([
+      readDirectory(join(root, 'github')),
+      readDirectory(join(root, 'web')),
+      readDirectory(join(root, 'tinylytics')),
+      readDirectory(join(root, 'wayback')),
+      readDirectory(join(root, 'screenshot')),
+      readDirectory(join(root, 'commits')),
+      readDirectory(join(root, 'publications'))
+    ]);
   return [
     ...githubFiles.map(github),
     ...webFiles.map(web),
     ...tinylyticsFiles.map(tinylytics),
     ...waybackFiles.map(wayback),
-    ...screenshotFiles.map(screenshot)
+    ...screenshotFiles.map(screenshot),
+    ...commitFiles.map(commits),
+    ...publicationFiles.map(publications)
   ];
 }
 // A screenshot's JPEG sits beside its observation, under the same key.
@@ -101,10 +133,22 @@ const screenshotImagePath = (observation: ScreenshotObservation, root = observat
 async function formatJson(value: unknown) {
   return format(JSON.stringify(value), { parser: 'json', printWidth: 120, tabWidth: 2 });
 }
+// The commit and publication logs hold one entry per line, newest first, so a collection's diff is a line
+// for each commit or item that landed. Prettier would spread each entry over eight lines; it skips these.
+function logJson(observation: Observation) {
+  const record = observation as Record<string, unknown>;
+  const fields = Object.entries(record).map(([key, value]) =>
+    Array.isArray(value)
+      ? `  ${JSON.stringify(key)}: [${value.length ? `\n${value.map((v) => `    ${JSON.stringify(v)}`).join(',\n')}\n  ` : ''}]`
+      : `  ${JSON.stringify(key)}: ${JSON.stringify(value)}`
+  );
+  return `{\n${fields.join(',\n')}\n}\n`;
+}
 export async function saveObservation(observation: Observation, root = observationsRoot) {
   const path = observationPath(observation, root);
   await mkdir(join(path, '..'), { recursive: true });
-  await writeFile(path, await formatJson(observation));
+  const logged = observation.kind === 'commits' || observation.kind === 'publications';
+  await writeFile(path, logged ? logJson(observation) : await formatJson(observation));
   return path;
 }
 // The image first, so an observation never names a JPEG that is not there.

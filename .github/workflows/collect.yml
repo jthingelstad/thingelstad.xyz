@@ -1,5 +1,7 @@
 name: Collect observations
-# Weekly evidence refresh. Observations are generated data; this workflow never edits content/.
+# Daily evidence refresh. Observations are generated data; this workflow never edits content/. Daily so
+# /activity/ and activity.xml carry each day's commits and posts (approved by Jamie on 2026-10-23); the
+# Internet Archive is asked on Mondays only, since its CDX API rate-limits.
 # main takes changes only through a pull request with passing checks, and work done with
 # GITHUB_TOKEN starts no other workflow on its own. So the job opens its own pull request,
 # dispatches the checks on it, merges it when they pass, and dispatches the deploy on main.
@@ -10,7 +12,7 @@ name: Collect observations
 # carries the same evidence and more.
 on:
   schedule:
-    - cron: '17 11 * * 1' # Mondays, 11:17 UTC
+    - cron: '17 11 * * *' # every day, 11:17 UTC (6:17 Central, 5:17 in winter)
   workflow_dispatch:
 permissions:
   contents: write
@@ -32,7 +34,8 @@ jobs:
           node-version-file: .nvmrc
           cache: npm
       - run: npm ci
-      # Chromium takes the monthly front-page screenshots. Without it the collector skips them.
+      # Chromium takes the monthly front-page screenshots. Without it the collector skips them. The collector
+      # captures a site only when its screenshot is due, so most daily runs take none.
       - run: npx playwright install --with-deps chromium
       - name: Observe sources
         env:
@@ -42,7 +45,9 @@ jobs:
         # tolerates; the job summary lists what failed so a broken source is visible.
         run: |
           set -o pipefail
-          npm run collect 2>&1 | tee "$RUNNER_TEMP/collect.log"
+          wayback=--no-wayback
+          if [ "$(date -u +%u)" = 1 ] || [ "$GITHUB_EVENT_NAME" = workflow_dispatch ]; then wayback=; fi
+          npm run collect -- ${wayback:+"$wayback"} 2>&1 | tee "$RUNNER_TEMP/collect.log"
         continue-on-error: true
       - name: Summarize
         if: always()
@@ -79,7 +84,7 @@ jobs:
           git push -u origin "$branch"
           sha="$(git rev-parse HEAD)"
           gh pr create --base main --head "$branch" --title "Collect observations $day" \
-            --body "Weekly evidence refresh from run $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID. Merged automatically when the checks pass."
+            --body "Daily evidence refresh from run $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID. Merged automatically when the checks pass."
           gh workflow run ci.yml --ref "$branch"
           run=""
           for _ in $(seq 30); do

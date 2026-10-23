@@ -1,0 +1,59 @@
+---
+layout: layout.njk
+permalink: /activity/
+title: Activity
+description: What landed in the things I build, week by week. Commits to their public repositories and posts in their feeds, collected daily.
+---
+{#- The activity model is collection/activity.ts: commits from the commit logs, publications from the feed logs,
+    days and weeks in US Central. Evidence, like the rest of the observations: it never sets a status. #}
+{% set a = site.activity %}
+<section class="intro">
+  <h1>Activity</h1>
+  <p class="lede">What landed in the things I build, week by week: commits to their public repositories and posts in their own feeds. Most of my commits are now made with an agent, and each commit says who made it.</p>
+  {% if a.collected %}<p class="muted">Collected daily, most recently {{ a.collected | localDay | day }}. Follow along: <a href="/activity.xml">RSS</a>, one item for each day with activity.</p>{% endif %}
+</section>
+
+<section class="activity-years" aria-labelledby="every-year">
+  <h2 id="every-year">Every year</h2>
+  {% include "who-legend.njk" %}
+  <ol class="who-years">
+    {% for y in a.years %}
+    <li id="y{{ y.year }}">
+      <span class="who-year">{{ y.year }}</span>
+      {{ y.who | whoBar(a.mostInYear, y.year + ": " + (y | activitySummary or "nothing")) | safe }}
+      <span class="who-numbers">{{ (y | activitySummary) or "Nothing collected" }}</span>
+    </li>
+    {% endfor %}
+  </ol>
+  <p class="muted">{{ a.total | number }} commits and {{ a.publications | number }} publications in all. A commit is with an agent when an agent authored it or signed it with a co-author line, or when one of my agents made it under its own name. Codex seldom signs its commits, so much of its work counts as mine here. Bots’ commits, dependency updates and the collector’s own, are left out.</p>
+</section>
+
+<section class="activity-weeks" aria-labelledby="week-by-week">
+  <h2 id="week-by-week">Week by week</h2>
+  {% for week in a.weeks %}
+  <section class="week" id="{{ week.id }}">
+    <h3>Week of {{ week.start | day }}{% if week.current %} <span class="badge">so far</span>{% endif %}</h3>
+    {% if week.things | length %}
+    <p class="muted">{{ week | activitySummary }}, in {{ week.things | length }} {{ 'thing' if (week.things | length) == 1 else 'things' }}.</p>
+    <ul class="activity-list">
+      {% for entry in week.things %}{% include "activity-entry.njk" %}{% endfor %}
+    </ul>
+    {% else %}
+    <p class="muted">Nothing landed this week.</p>
+    {% endif %}
+  </section>
+  {% endfor %}
+</section>
+
+<section class="activity-by-year" aria-labelledby="by-thing">
+  <h2 id="by-thing">Things, year by year</h2>
+  {% for y in a.years %}{% if y.things | length %}
+  <section class="activity-year" id="things-{{ y.year }}">
+    <h3>{{ y.year }}</h3>
+    <p class="activity-tally">
+      {%- for t in y.things %}<a href="{{ t.page }}">{{ t.title }}</a> <span class="muted">{% if t.commits %}{{ t.commits | number }}{% if t.publications %} + {{ t.publications | number }}{% endif %}{% else %}{{ t.publications | number }} {{ 'post' if t.publications == 1 else 'posts' }}{% endif %}</span>{% if not loop.last %} · {% endif %}{% endfor -%}
+    </p>
+  </section>
+  {% endif %}{% endfor %}
+  <p class="muted">Commits, then publications. A thing’s commits are those in its own repositories, or in its directory of one it shares.</p>
+</section>

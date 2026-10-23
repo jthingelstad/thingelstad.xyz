@@ -180,6 +180,7 @@ test('history anchors, the timeline, and the machine outputs are reachable', asy
   for (const path of [
     '/feed.xml',
     '/feed.json',
+    '/activity.xml',
     '/llms.txt',
     '/llms-full.txt',
     '/things.json',
@@ -190,6 +191,38 @@ test('history anchors, the timeline, and the machine outputs are reachable', asy
   }
   const missing = await page.request.get('/things/nothing-here/');
   expect(missing.status()).toBe(404);
+  expect(errors).toEqual([]);
+});
+
+test('activity shows who made the commits, week by week, and each thing keeps its own', async ({ page }) => {
+  const errors = watchErrors(page);
+  await page.goto('/activity/');
+  await expect(page.getByRole('heading', { level: 1 })).toHaveAccessibleName('Activity');
+  await expect(page.locator('.site-header nav a[aria-current="page"]')).toHaveText('Activity');
+  const years = page.locator('.who-years > li');
+  expect(await years.count()).toBeGreaterThan(1);
+  await expect(years.first().locator('svg.who-bar')).toHaveAttribute('aria-label', /^\d{4}: /);
+  await expect(page.locator('.activity-years .who-legend')).toContainText('With an agent');
+  await expect(page.locator('.week')).toHaveCount(12);
+  const week = page.locator('.week').first();
+  await expect(week).toHaveAttribute('id', /^w-\d{4}-\d{2}-\d{2}$/);
+  await expect(week.locator('h3')).toContainText('so far');
+  expect(await fitsViewport(page)).toBe(true);
+  const entry = page.locator('.activity-entry .activity-thing').first();
+  const title = (await entry.innerText()).trim();
+  await entry.click();
+  await expect(page.locator('.thing-activity h2')).toHaveText('Activity');
+  await expect(page.getByRole('heading', { level: 1 })).toContainText(title);
+  await page.goto('/things/jamie-thingelstad-blog/');
+  await expect(page.locator('.thing-activity .year-chart svg')).toHaveAttribute('aria-label', /commits per year from/);
+  const recent = page.locator('.thing-activity a.activity-week').first();
+  const anchor = (await recent.getAttribute('href'))!;
+  expect(anchor).toMatch(/^\/activity\/#w-\d{4}-\d{2}-\d{2}$/);
+  await recent.click();
+  await expect(page.locator(anchor.slice('/activity/'.length))).toBeInViewport();
+  const feed = await page.request.get('/activity.xml');
+  expect(feed.ok()).toBe(true);
+  expect(await feed.text()).toContain('<guid isPermaLink="false">activity-');
   expect(errors).toEqual([]);
 });
 
@@ -250,7 +283,13 @@ test('links to the other sites carry a ref, and story text keeps its links', asy
   const where = page.locator('.facts').getByRole('link', { name: 'weekly.thingelstad.com/' });
   await expect(where).toHaveAttribute('href', 'https://weekly.thingelstad.com/?ref=xyz-thing');
   await expect(page.locator('.screenshot a')).toHaveAttribute('href', 'https://weekly.thingelstad.com/?ref=xyz-thing');
-  for (const path of ['/things/weekly-thing/', '/things/jamie-thingelstad-blog/', '/things/thingy/', '/history/']) {
+  for (const path of [
+    '/things/weekly-thing/',
+    '/things/jamie-thingelstad-blog/',
+    '/things/thingy/',
+    '/history/',
+    '/activity/'
+  ]) {
     await page.goto(path);
     const links = await page.locator('a[href^="https://"]').evaluateAll((anchors) =>
       anchors.map((a) => ({
@@ -267,7 +306,7 @@ test('links to the other sites carry a ref, and story text keeps its links', asy
       if (link.story) expect(ref, `${path}: story text is content`).toBeNull();
       // Feeds and sitemaps are files, not visits, and stay as the record has them.
       else if (/\.(xml|json)$/.test(url.pathname)) expect(ref, `${path}: ${link.href}`).toBeNull();
-      else expect(ref, `${path}: ${link.href}`).toMatch(/^xyz-(thing|source)$/);
+      else expect(ref, `${path}: ${link.href}`).toMatch(/^xyz-(thing|source|activity)$/);
     }
   }
 });
@@ -291,6 +330,7 @@ test('the shared type: Inter Tight headings, Inter text, nothing under 14px, no 
     ['/topics/', 200],
     ['/history/', 200],
     ['/timeline/', 200],
+    ['/activity/', 200],
     ['/search/?q=wiki', 200],
     ['/things/nothing-here/', 404]
   ] as const) {

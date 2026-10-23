@@ -1,9 +1,10 @@
-// The machine-readable outputs: feeds of the ledger, llms.txt, and the things.json ingestion surface.
-import { jsonFeed, llmsFullText, llmsText, rssFeed, thingsJson } from '../collection/site.ts';
+// The machine-readable outputs: feeds of the ledger and of activity, llms.txt, and the things.json ingestion surface.
+import { activityRss, jsonFeed, llmsFullText, llmsText, rssFeed, thingsJson } from '../collection/site.ts';
 
 const outputs = {
   '/feed.xml': (site) => rssFeed(site),
   '/feed.json': (site) => JSON.stringify(jsonFeed(site), null, 2),
+  '/activity.xml': (site) => activityRss(site),
   '/llms.txt': (site) => llmsText(site),
   '/llms-full.txt': (site) => llmsFullText(site),
   '/things.json': (site) => JSON.stringify(thingsJson(site), null, 2),
@@ -13,6 +14,7 @@ const outputs = {
       '/',
       '/topics/',
       '/history/',
+      '/activity/',
       '/timeline/',
       ...site.things.map((t) => t.page),
       ...site.topics.map((t) => t.page)

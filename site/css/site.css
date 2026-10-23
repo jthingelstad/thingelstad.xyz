@@ -42,6 +42,13 @@
   --accent: #1d7348;
   --accent-text: #1d7348;
 
+  /* Who made a commit, in /activity/ and a thing's Activity chart: three hues validated as a categorical set
+     on --paper (the dataviz skill's validator, colourblind pairs included). The aqua is under 3:1 on paper,
+     so every chart carries its numbers as text and a legend; text stays in the ink colours. */
+  --who-me: #2a78d6;
+  --who-agent: #eb6834;
+  --who-others: #1baf7a;
+
   /* Frame: every site's 1120px (--jt-frame) with the shared gutters inside it, 24px (16px on phones), so the
      strip, header, content and footer share one left edge with the blog's. The reading column is the blog's
      720px measure. */
@@ -682,6 +689,181 @@ h2 {
   display: flex;
   align-items: center;
   gap: 12px;
+  font-size: var(--jt-size-small);
+}
+
+/* Activity (site/activity.njk, a thing's Activity section; collection/activity.ts draws the charts). */
+.who-me {
+  fill: var(--who-me);
+  background: var(--who-me);
+}
+
+.who-agent {
+  fill: var(--who-agent);
+  background: var(--who-agent);
+}
+
+.who-others {
+  fill: var(--who-others);
+  background: var(--who-others);
+}
+
+.who-none {
+  fill: var(--line);
+}
+
+.who-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+  font-size: var(--jt-size-label);
+}
+
+.who-legend > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.who-key {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+}
+
+.who-years {
+  list-style: none;
+  margin: 16px 0;
+  padding: 0;
+}
+
+.who-years li {
+  display: grid;
+  grid-template-columns: 56px minmax(0, 360px) minmax(0, 1fr);
+  align-items: center;
+  gap: 4px 16px;
+  padding: 6px 0;
+  border-top: 1px solid var(--line);
+}
+
+.who-year {
+  font-family: var(--font-heading);
+  font-weight: var(--weight-heading);
+}
+
+.who-bar {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.who-numbers {
+  font-size: var(--jt-size-small);
+  color: var(--muted);
+}
+
+.week {
+  scroll-margin-top: 16px;
+}
+
+.week h3,
+.activity-year h3,
+.thing-activity h3 {
+  font-size: var(--jt-size-h3);
+  margin: 32px 0 4px;
+}
+
+.week h3 .badge {
+  height: 26px;
+  vertical-align: 2px;
+}
+
+.week:target h3 {
+  color: var(--accent-text);
+}
+
+.activity-list {
+  list-style: none;
+  margin: 12px 0 0;
+  padding: 0;
+}
+
+.activity-entry {
+  padding: 12px 0;
+  border-top: 1px solid var(--line);
+}
+
+.activity-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 12px;
+  margin: 0;
+}
+
+.site-main .activity-head a.activity-thing {
+  text-decoration: none;
+}
+
+.activity-thing {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+}
+
+.activity-thing .sticker {
+  --size: 30px;
+
+  font-size: var(--jt-size-label);
+}
+
+.activity-week {
+  font-weight: 600;
+}
+
+.activity-head .muted {
+  font-size: var(--jt-size-small);
+}
+
+.headlines {
+  margin: 6px 0 0;
+  padding-left: 20px;
+  list-style: disc;
+  font-size: 1.0625rem;
+}
+
+.headlines li {
+  margin: 2px 0;
+  overflow-wrap: anywhere;
+}
+
+.activity-more {
+  margin: 4px 0 0;
+  padding-left: 20px;
+  font-size: var(--jt-size-small);
+}
+
+.activity-tally {
+  max-width: var(--measure);
+  margin: 0;
+}
+
+.year-chart {
+  margin: 16px 0;
+}
+
+.year-chart svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.year-chart figcaption {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+  margin-top: 8px;
   font-size: var(--jt-size-small);
 }
 
@@ -1369,6 +1551,14 @@ h2 {
     grid-template-columns: 1fr;
   }
 
+  .who-years li {
+    grid-template-columns: 48px minmax(0, 1fr);
+  }
+
+  .who-numbers {
+    grid-column: 2;
+  }
+
   .event-list .kind,
   .event-list strong,
   .event-list > li > a,
@@ -1377,30 +1567,41 @@ h2 {
   }
 }
 
-/* Phones: the five links keep to one row, spread across it with less room around each. They fit at 17px from
-   375px wide and a size smaller from 350px; narrower than that the row scrolls sideways like the sites strip.
-   It never breaks onto a second line. */
-@media (width <= 460px) {
+/* Phones: the six links keep to one row, spread across it with less room around each. They fit at 17px from
+   440px wide, 15px from 390px and 14px from 350px; narrower than that the row scrolls sideways like the sites
+   strip. It never breaks onto a second line. */
+@media (width <= 560px) {
   .site-header nav {
     align-self: stretch;
     justify-content: space-between;
     gap: 0;
-    margin-inline: -6px;
+    margin-inline: -4px;
   }
 
   .site-header nav a {
-    padding-inline: 6px;
+    padding-inline: 4px;
   }
 }
 
-@media (width < 375px) {
+@media (width < 440px) {
+  .site-header nav a {
+    font-size: 0.9375rem;
+  }
+}
+
+@media (width < 390px) {
+  .site-header nav a {
+    font-size: var(--jt-size-label);
+  }
+}
+
+@media (width < 365px) {
   .site-header nav {
-    margin-inline: -5px;
+    margin-inline: -2px;
   }
 
   .site-header nav a {
-    padding-inline: 5px;
-    font-size: var(--jt-size-small);
+    padding-inline: 2px;
   }
 }
 

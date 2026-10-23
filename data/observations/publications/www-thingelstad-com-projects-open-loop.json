@@ -1,0 +1,17 @@
+{
+  "kind": "publications",
+  "url": "https://www.thingelstad.com/projects/open-loop/",
+  "feed": "https://files.thingelstad.com/projects/openloop/podcast.xml",
+  "observedAt": "2026-10-23T22:34:35.565Z",
+  "items": [
+    {"url":"https://www.thingelstad.com/projects/open-loop/8-dont-eat-the-cupcake/","title":"Don't Eat the Cupcake","date":"2013-04-12T17:00:00.000Z"},
+    {"url":"https://www.thingelstad.com/projects/open-loop/7-turtle-turtle-turtle/","title":"Turtle Turtle Turtle","date":"2013-01-12T18:00:00.000Z"},
+    {"url":"https://www.thingelstad.com/projects/open-loop/6-loppet-2013/","title":"Loppet 2013","date":"2012-11-08T18:00:00.000Z"},
+    {"url":"https://www.thingelstad.com/projects/open-loop/5-i-know-its-terribly-useful/","title":"I Know It's Terribly Useful","date":"2012-10-15T17:00:00.000Z"},
+    {"url":"https://www.thingelstad.com/projects/open-loop/4-enough-win-for-everyone/","title":"Enough Win for Everyone","date":"2012-10-12T17:00:00.000Z"},
+    {"url":"https://www.thingelstad.com/projects/open-loop/3-kubb-fever/","title":"Kubb Fever","date":"2012-07-23T17:00:00.000Z"},
+    {"url":"https://www.thingelstad.com/projects/open-loop/2-what-am-i-editing-anyway/","title":"What am I Editing Anyway?","date":"2012-06-20T17:00:00.000Z"},
+    {"url":"https://www.thingelstad.com/projects/open-loop/1-big-fuzzy-dead-cat/","title":"Big Fuzzy Dead Cat","date":"2012-06-11T17:00:00.000Z"},
+    {"url":"https://www.thingelstad.com/projects/open-loop/0-but-no-shoes/","title":"But No Shoes","date":"2012-06-01T17:00:00.000Z"}
+  ]
+}

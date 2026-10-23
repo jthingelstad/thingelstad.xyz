@@ -7,11 +7,13 @@ import { stringify } from 'yaml';
 import {
   githubKey,
   websiteKey,
+  type CommitLogObservation,
   type Connection,
   type GitHubObservation,
   type HistoryEvent,
   type MonthCount,
   type Observation,
+  type PublicationsObservation,
   type Registry,
   type ScreenshotObservation,
   type Status,
@@ -24,6 +26,15 @@ import {
 } from './schema';
 import { capturedUrl } from './adapters/wayback';
 import { rootOrigin, siteKey } from './adapters/tinylytics';
+import {
+  activityMonths,
+  countsAsActivity,
+  activitySummary,
+  buildActivity,
+  type Activity,
+  type ActivityDay,
+  type ThingRecord
+} from './activity';
 
 export const siteUrl = 'https://thingelstad.xyz';
 const siteTitle = 'Things I’ve built.';
@@ -105,6 +116,7 @@ export type SiteThing = Omit<Thing, 'sources'> & {
   views: SiteViews | null;
   span: { start: number | null; end: number | null }; // years, for the timeline
   filters: ThingFilter[]; // its facet values, for /search/
+  activity: ThingRecord | null; // its commits and publications over its life, from the logs
 };
 // The facets of /search/. Each thing's row carries its values (data-filters), and the search page lists every
 // value with how many things carry it. A value is a stable slug for the address (?topic=mediawiki); its label
@@ -159,6 +171,7 @@ export type SiteModel = {
   timeline: Timeline;
   statuses: { status: Status; label: string; description: string; count: number }[];
   facets: Facet[];
+  activity: Activity;
 };
 
 // Dates keep the precision the source gave them: YYYY, YYYY-MM, or YYYY-MM-DD.
@@ -289,6 +302,8 @@ export function buildSiteModel(registry: Registry, observations: Observation[], 
   const wayback = new Map<string, WaybackObservation>();
   const tinylytics = new Map<string, TinylyticsObservation>();
   const screenshots = new Map<string, ScreenshotObservation>();
+  const commitLogs = new Map<string, CommitLogObservation>();
+  const publicationLogs = new Map<string, PublicationsObservation>();
   for (const observation of observations)
     if (observation.kind === 'github') github.set(githubKey(observation.repository), observation);
     else if (observation.kind === 'web') web.set(websiteKey(observation.url), observation);
@@ -296,7 +311,17 @@ export function buildSiteModel(registry: Registry, observations: Observation[], 
     else if (observation.kind === 'tinylytics') {
       const origin = rootOrigin(observation.url);
       if (origin) tinylytics.set(siteKey(origin), observation);
-    } else screenshots.set(websiteKey(observation.url), observation);
+    } else if (observation.kind === 'commits') commitLogs.set(githubKey(observation.repository), observation);
+    else if (observation.kind === 'publications') publicationLogs.set(websiteKey(observation.url), observation);
+    else screenshots.set(websiteKey(observation.url), observation);
+  const activityThings = registry.things.map((thing) => ({
+    id: thing.id,
+    title: thing.title,
+    page: `/things/${thing.id}/`,
+    status: thing.status,
+    sources: thing.sources
+  }));
+  const activity = buildActivity(activityThings, [...commitLogs.values()], [...publicationLogs.values()]);
   const topicById = new Map(registry.topics.map((topic) => [topic.id, topic]));
   const inbound = new Map<string, InboundConnection[]>();
   for (const thing of registry.things)
@@ -330,10 +355,22 @@ export function buildSiteModel(registry: Registry, observations: Observation[], 
     const shot = sources.find((source) => source.screenshot)?.screenshot;
     const viewed = sources.find((source) => source.views)?.views;
     const evidence = sources.flatMap((source) => source.evidence).sort((a, b) => b.date.localeCompare(a.date));
+    // The commit and publication logs count every month of the sources that are the thing's activity; the
+    // GitHub and feed observations count the rest (a successor's repository, a feed the thing only refers
+    // to, a source with no log yet) over their shorter windows, as they always have.
     const counts = new Map(window.map((month) => [month, 0]));
-    for (const source of sources)
-      for (const { month, count } of sourceMonths(source))
-        if (counts.has(month)) counts.set(month, (counts.get(month) ?? 0) + count);
+    const logged = (source: ThingSource) =>
+      countsAsActivity(source) &&
+      (source.kind === 'github'
+        ? commitLogs.has(githubKey(source.repository))
+        : publicationLogs.has(websiteKey(source.url)));
+    const fromLogs = activityMonths(
+      activityThings.find((t) => t.id === thing.id)!,
+      [...commitLogs.values()],
+      [...publicationLogs.values()]
+    );
+    for (const { month, count } of [...fromLogs, ...sources.filter((s) => !logged(s)).flatMap(sourceMonths)])
+      if (counts.has(month)) counts.set(month, (counts.get(month) ?? 0) + count);
     const events = registry.history.filter((event) => event.things.includes(thing.id));
     const eventYears = events.map((event) => year(event.date));
     const start = thing.started ? year(thing.started) : eventYears.length ? Math.min(...eventYears) : null;
@@ -363,7 +400,8 @@ export function buildSiteModel(registry: Registry, observations: Observation[], 
       screenshot: shot ? siteScreenshot(shot) : null,
       views: viewed ? { site: viewed.url, total: viewed.hits, until: viewed.until, months: viewMonths(viewed) } : null,
       span: { start, end },
-      filters: thingFilters(thing, sources, topicById)
+      filters: thingFilters(thing, sources, topicById),
+      activity: activity.things.get(thing.id) ?? null
     };
   });
   const byId = new Map(things.map((thing) => [thing.id, thing]));
@@ -475,7 +513,8 @@ export function buildSiteModel(registry: Registry, observations: Observation[], 
       undated: sortedThings.filter((thing) => !byId.get(thing.id)?.span.start && thing.span.start === null)
     },
     statuses,
-    facets
+    facets,
+    activity: activity.activity
   };
 }
 
@@ -522,6 +561,7 @@ export function llmsText(model: SiteModel) {
     '## Optional',
     '',
     `- [History](${model.url}/history/): every sourced event, newest first`,
+    `- [Activity](${model.url}/activity/): the commits and publications that landed in each thing, week by week; ${model.url}/activity.xml has one item a day`,
     `- [Full text](${model.url}/llms-full.txt): every thing's record and story in one file`,
     ''
   ];
@@ -653,6 +693,68 @@ ${item.things.map((thing) => `      <category>${escapeHtml(thing.title)}</catego
     <link>${model.url}/</link>
     <atom:link href="${model.url}/feed.xml" rel="self" type="application/rss+xml"/>
     <description>What changed in what I’ve built. Sourced events, newest first.</description>
+    <language>en-us</language>
+    <lastBuildDate>${rfc822(newest)}</lastBuildDate>
+${entries}
+  </channel>
+</rss>
+`;
+}
+
+// The activity feed: one item a day, for the newest complete days with something in them. It is kept apart
+// from the history feed, which stays quiet: this one is evidence, collected every day.
+const activityFeedPath = '/activity.xml';
+function activityItem(model: SiteModel, day: ActivityDay) {
+  const names = day.things.map((t) => t.title);
+  const title = `${formatDate(day.day)}: ${
+    names.length <= 3
+      ? names.join(', ').replace(/, ([^,]*)$/, ' and $1')
+      : `${names.slice(0, 3).join(', ')} and ${names.length - 3} more`
+  }`;
+  const link = (url: string) => (url.startsWith('/') ? `${model.url}${url}` : url);
+  const things = day.things
+    .map((thing) => {
+      const lines = [...thing.headlines, ...thing.published]
+        .map((line) => `<li><a href="${escapeHtml(link(line.url))}">${escapeHtml(line.text)}</a></li>`)
+        .join('');
+      const more =
+        thing.more > 0
+          ? `<p>${thing.moreUrl ? `<a href="${escapeHtml(thing.moreUrl)}">` : ''}And ${thing.more} more ${thing.more === 1 ? 'commit' : 'commits'}${thing.moreUrl ? ' on GitHub</a>' : ''}.</p>`
+          : '';
+      return `<li><p><a href="${model.url}${thing.page}">${escapeHtml(thing.title)}</a>: ${escapeHtml(activitySummary(thing))}.</p>${lines ? `<ul>${lines}</ul>` : ''}${more}</li>`;
+    })
+    .join('');
+  return {
+    title,
+    url: `${model.url}/activity/#${day.week}`,
+    id: `activity-${day.day}`,
+    instant: day.last,
+    html: `<p>${escapeHtml(activitySummary(day))}.</p><ul>${things}</ul>`,
+    things: day.things.map((t) => t.title)
+  };
+}
+export function activityRss(model: SiteModel) {
+  const items = model.activity.days.map((day) => activityItem(model, day));
+  const newest = items[0]?.instant ?? model.generated;
+  const entries = items
+    .map(
+      (item) => `    <item>
+      <title>${escapeHtml(item.title)}</title>
+      <link>${item.url}</link>
+      <guid isPermaLink="false">${item.id}</guid>
+      <pubDate>${rfc822(item.instant)}</pubDate>
+      <description>${escapeHtml(item.html)}</description>
+${item.things.map((thing) => `      <category>${escapeHtml(thing)}</category>`).join('\n')}
+    </item>`
+    )
+    .join('\n');
+  return `<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>${escapeHtml(model.title)} Activity</title>
+    <link>${model.url}/activity/</link>
+    <atom:link href="${model.url}${activityFeedPath}" rel="self" type="application/rss+xml"/>
+    <description>What landed in what I’ve built, one item a day: commits to each thing’s public repositories, with who made them, and what its feeds published.</description>
     <language>en-us</language>
     <lastBuildDate>${rfc822(newest)}</lastBuildDate>
 ${entries}

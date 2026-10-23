@@ -1,0 +1,24 @@
+{
+  "kind": "commits",
+  "repository": "jthingelstad/poap.thingelstad.xyz",
+  "url": "https://github.com/jthingelstad/poap.thingelstad.xyz",
+  "observedAt": "2026-10-23T22:33:13.535Z",
+  "branch": "main",
+  "commits": [
+    {"sha":"6e01412b6fa0","date":"2026-10-17T14:29:27.000Z","subject":"Let long names in headings wrap on narrow screens","by":"agent","agents":["claude"]},
+    {"sha":"a4a3f4c77c03","date":"2026-10-17T14:24:51.000Z","subject":"Build the time capsule pages","by":"agent","agents":["claude"]},
+    {"sha":"4c9087282c2f","date":"2026-10-17T14:00:53.000Z","subject":"Leave POAP Moments out of the time capsule","by":"agent","agents":["claude"]},
+    {"sha":"811ae8c0025f","date":"2026-10-17T13:54:42.000Z","subject":"Handoff: steps 5 and 7 done, moment photos match on a window","by":"agent","agents":["claude"]},
+    {"sha":"0f6b7e3cf7f5","date":"2026-10-17T13:51:34.000Z","subject":"Re-export from poap-archive main and keep a copy in the archive bucket","by":"agent","agents":["claude"]},
+    {"sha":"be57411cbdd1","date":"2026-10-17T13:41:36.000Z","subject":"Publish the drop artwork","by":"agent","agents":["claude"]},
+    {"sha":"6689ab99889a","date":"2026-10-17T13:36:25.000Z","subject":"Keep CloudFront's bucket grant across bootstrap runs, stub Tinylytics in QA","by":"agent","agents":["claude"]},
+    {"sha":"b4a5ec16a173","date":"2026-10-17T13:23:17.000Z","subject":"Record the live stacks in deployment.json","by":"agent","agents":["claude"]},
+    {"sha":"d2c8bd1f130b","date":"2026-10-17T13:04:09.000Z","subject":"Let apply follow plan, add infra:attach, local handoff notes","by":"agent","agents":["claude"]},
+    {"sha":"4351806f3c4d","date":"2026-10-17T12:59:39.000Z","subject":"Format the site validator the way Ruff wants","by":"agent","agents":["claude"]},
+    {"sha":"d56521f70df7","date":"2026-10-17T12:49:20.000Z","subject":"Add the handoff for the local session: AWS, DNS, media, photos","by":"agent","agents":["claude"]},
+    {"sha":"b44ed59c61de","date":"2026-10-17T12:47:58.000Z","subject":"Keep the spaces before inline links","by":"agent","agents":["claude"]},
+    {"sha":"679020b74068","date":"2026-10-17T12:47:23.000Z","subject":"Bootstrap the site on the nnxyz pattern","by":"agent","agents":["claude"]},
+    {"sha":"2bbb053503d3","date":"2026-10-17T12:32:41.000Z","subject":"Start the POAP time capsule site","by":"agent","agents":["claude"]}
+  ],
+  "tags": []
+}

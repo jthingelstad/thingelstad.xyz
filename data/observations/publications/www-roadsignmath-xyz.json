@@ -1,0 +1,24 @@
+{
+  "kind": "publications",
+  "url": "https://www.roadsignmath.xyz/",
+  "feed": "https://www.roadsignmath.xyz/feed.xml",
+  "observedAt": "2026-10-23T22:34:35.565Z",
+  "items": [
+    {"url":"https://www.roadsignmath.xyz/2025/09/01/tyler-found-this-one-driving.html","title":null,"excerpt":"Tyler found this one driving up I-35W. $${(90-82) \\over 8 } \\times 1 \\times 2 = {6 \\over {10 - 7}}$$","date":"2025-09-02T00:00:13.000Z"},
+    {"url":"https://www.roadsignmath.xyz/2025/08/06/in-vermont-on-the-way.html","title":null,"excerpt":"In Vermont on the way to the airport. $$ { \\left( 25 - 1 \\right) \\over 8 } = 4 - { 3 \\over 3 } $$","date":"2025-08-07T01:02:54.000Z"},
+    {"url":"https://www.roadsignmath.xyz/2025/06/19/strategy-here-is-to-cancel.html","title":null,"excerpt":"Strategy here is to cancel a bunch of the numbers out and your left with a pretty simple winner…","date":"2025-06-20T02:34:29.000Z"},
+    {"url":"https://www.roadsignmath.xyz/2023/10/22/153816.html","title":null,"excerpt":"$$ \\sqrt { 5 - 1 } = 2 $$","date":"2023-10-22T20:38:16.000Z"},
+    {"url":"https://www.roadsignmath.xyz/2023/10/22/153704.html","title":"Mason Math","date":"2023-10-22T20:37:04.000Z"},
+    {"url":"https://www.roadsignmath.xyz/2023/10/22/125959.html","title":"Iconium","date":"2023-10-22T17:59:59.000Z"},
+    {"url":"https://www.roadsignmath.xyz/2023/10/22/125900.html","title":null,"excerpt":"$$ 5 + 1 = 6 $$","date":"2023-10-22T17:59:00.000Z"},
+    {"url":"https://www.roadsignmath.xyz/2023/10/22/sqrt.html","title":null,"excerpt":"$$ 10 + \\sqrt 4 = 12 $$","date":"2023-10-22T17:58:09.000Z"},
+    {"url":"https://www.roadsignmath.xyz/2023/10/21/genesis.html","title":"Genesis (2023)","date":"2023-10-21T12:56:35.000Z"},
+    {"url":"https://www.roadsignmath.xyz/2023/10/19/sqrt-sqrt.html","title":"Fair Play","date":"2023-10-19T19:50:20.000Z"},
+    {"url":"https://www.roadsignmath.xyz/2023/10/19/sqrt.html","title":"Fair Grove","date":"2023-10-19T19:41:41.000Z"},
+    {"url":"https://www.roadsignmath.xyz/2021/08/05/saratoga.html","title":"Saratoga","date":"2021-08-05T05:00:00.000Z"},
+    {"url":"https://www.roadsignmath.xyz/2021/08/04/greenbush.html","title":"Greenbush","date":"2021-08-04T05:00:00.000Z"},
+    {"url":"https://www.roadsignmath.xyz/2021/08/02/wurtsboro.html","title":"Wurtsboro","date":"2021-08-02T05:00:00.000Z"},
+    {"url":"https://www.roadsignmath.xyz/2021/07/31/gross-vehicle-weight.html","title":"Gross Vehicle Weight","date":"2021-07-31T05:00:00.000Z"},
+    {"url":"https://www.roadsignmath.xyz/2021/03/04/phoenix-math.html","title":"Phoenix Math","date":"2021-03-04T06:00:00.000Z"}
+  ]
+}
