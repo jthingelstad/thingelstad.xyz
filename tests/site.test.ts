@@ -11,6 +11,7 @@ import {
   llmsText,
   rssFeed,
   rssItems,
+  activityRss,
   screenshotAsset,
   siteUrl,
   sparkline,
@@ -24,6 +25,16 @@ import {
   reachThreshold
 } from '../collection/site';
 import { splitFrontmatter } from '../collection/load';
+import {
+  activitySummary,
+  buildActivity,
+  localDay,
+  weekOf,
+  whoBar,
+  yearColumns,
+  type ActivityThing
+} from '../collection/activity';
+import type { CommitEntry, CommitLogObservation, PublicationsObservation } from '../collection/schema';
 import { connectionDiagram, connectionSource, phoneWidth } from '../collection/diagram';
 import { parseSites, siteRef, sitesPath, withRef } from '../collection/sites';
 import { sitesStrip } from '../collection/sites-strip';
@@ -395,4 +406,191 @@ test('only links to another strip site carry a ref', () => {
     'not a url'
   ])
     assert.equal(ref(url, 'thing'), url);
+});
+
+const commitAt = (n: number, date: string, by: CommitEntry['by'], extra: Partial<CommitEntry> = {}): CommitEntry => ({
+  sha: String(n).padStart(12, '0'),
+  date,
+  subject: `Change ${n}`,
+  by,
+  ...extra
+});
+const sharedLog: CommitLogObservation = {
+  kind: 'commits',
+  repository: 'owner/sharedLog',
+  url: 'https://github.com/owner/sharedLog',
+  observedAt: '2026-10-22T15:00:00.000Z', // Thursday Oct 22, Central
+  branch: 'main',
+  commits: [
+    commitAt(9, '2026-10-23T01:00:00.000Z', 'me'), // after the collection: waits for the next one
+    commitAt(1, '2026-10-22T04:30:00.000Z', 'agent', { agents: ['claude'], paths: ['a', 'b'] }), // Oct 21 Central
+    commitAt(2, '2026-10-21T15:00:00.000Z', 'agent', { paths: ['a'], pr: 7, subject: 'Add a page (#7)' }),
+    commitAt(3, '2026-10-19T15:00:00.000Z', 'others', { paths: ['b'] }),
+    commitAt(4, '2026-10-12T15:00:00.000Z', 'me', { paths: ['a'] }),
+    commitAt(5, '2024-03-01T15:00:00.000Z', 'me', { paths: ['a'] })
+  ],
+  tags: [{ name: 'v1', date: '2026-10-21T16:00:00.000Z' }]
+};
+const successor: CommitLogObservation = {
+  ...sharedLog,
+  repository: 'someone/fork',
+  url: 'https://github.com/someone/fork',
+  commits: [commitAt(8, '2026-10-21T15:00:00.000Z', 'others')],
+  tags: []
+};
+const posts: PublicationsObservation = {
+  kind: 'publications',
+  url: 'https://a.example.com/',
+  feed: 'https://a.example.com/feed.xml',
+  observedAt: '2026-10-22T14:00:00.000Z',
+  items: [
+    { url: 'https://a.example.com/post', title: 'A post', date: '2026-10-21T17:00:00.000Z' },
+    { url: null, title: null, excerpt: 'Opening words', date: '2026-10-20T17:00:00.000Z' }
+  ]
+};
+const activityThings: ActivityThing[] = [
+  {
+    id: 'a',
+    title: 'Thing A',
+    page: '/things/a/',
+    status: 'active',
+    sources: [
+      { kind: 'github', repository: 'owner/sharedLog', role: 'implementation', path: 'a' },
+      { kind: 'github', repository: 'someone/fork', role: 'successor' },
+      { kind: 'website', url: 'https://a.example.com/', role: 'website', feed: 'https://a.example.com/feed.xml' },
+      { kind: 'website', url: 'https://a.example.com/', role: 'podcast', feed: 'https://a.example.com/feed.xml' }
+    ]
+  },
+  {
+    id: 'b',
+    title: 'Thing B',
+    page: '/things/b/',
+    status: 'retired',
+    sources: [
+      { kind: 'github', repository: 'owner/sharedLog', role: 'implementation', path: 'b' },
+      { kind: 'website', url: 'https://a.example.com/', role: 'reference', feed: 'https://a.example.com/feed.xml' }
+    ]
+  },
+  {
+    id: 'c',
+    title: 'Thing C',
+    page: '/things/c/',
+    status: 'active',
+    sources: [{ kind: 'github', repository: 'owner/sharedLog', role: 'implementation' }]
+  }
+];
+
+test('activity groups commits and posts by Central day and Monday week, counting each commit once', () => {
+  assert.equal(localDay('2026-10-22T04:30:00.000Z'), '2026-10-21');
+  assert.equal(weekOf('2026-10-25'), '2026-10-19');
+  assert.equal(weekOf('2026-10-19'), '2026-10-19');
+  const { activity, things } = buildActivity(activityThings, [sharedLog, successor], [posts]);
+  assert.equal(activity.collected, '2026-10-22T15:00:00.000Z');
+  assert.equal(
+    activity.total,
+    5,
+    'the sharedLog commit is counted once, the successor and the future commit not at all'
+  );
+  assert.equal(activity.publications, 2, 'a newsletter and its podcast feed count once; a reference feed not at all');
+  assert.deepEqual(
+    activity.years.map((y) => [y.year, y.total]),
+    [
+      [2026, 4],
+      [2025, 0],
+      [2024, 1]
+    ]
+  );
+  const [week, last] = activity.weeks;
+  assert.equal(week.id, 'w-2026-10-19');
+  assert.equal(week.current, true);
+  assert.equal(last.id, 'w-2026-10-12');
+  assert.equal(activity.weeks.length, 12);
+  assert.equal(week.commits, 3);
+  assert.deepEqual(week.who, { me: 0, agent: 2, others: 1, claude: 1, codex: 0 });
+  const a = week.things.find((t) => t.id === 'a')!;
+  assert.equal(a.commits, 2);
+  assert.equal(a.publicationCount, 2);
+  assert.deepEqual(
+    a.headlines.map((h) => h.text),
+    ['Change 1', 'Add a page (#7)'],
+    'a directory scope has no tags'
+  );
+  assert.equal(a.more, 0);
+  assert.equal(a.moreUrl, null, 'every commit is a headline, so no link to the rest');
+  const c = week.things.find((t) => t.id === 'c')!;
+  assert.deepEqual(
+    c.headlines.map((h) => h.text),
+    ['Change 1', 'Tagged v1', 'Add a page (#7)'],
+    'tags, then pull requests, then the rest, shown newest first'
+  );
+  assert.equal(c.more, 1);
+  assert.equal(c.moreUrl, 'https://github.com/owner/sharedLog/commits/main?since=2026-10-19&until=2026-10-25');
+  assert.deepEqual(
+    a.published.map((p) => [p.text, p.url]),
+    [
+      ['A post', 'https://a.example.com/post'],
+      ['Opening words', '/things/a/']
+    ]
+  );
+  assert.deepEqual(
+    activity.days.map((d) => d.day),
+    ['2026-10-21', '2026-10-20', '2026-10-19', '2026-10-12', '2024-03-01'],
+    'complete days only: the collection ran on Oct 22'
+  );
+  assert.equal(activity.days[0].week, 'w-2026-10-19');
+  const recordA = things.get('a')!;
+  assert.equal(recordA.total, 4);
+  assert.equal(recordA.firstCommit, '2024-03-01');
+  assert.deepEqual(
+    recordA.years.map((y) => y.total),
+    [1, 0, 1 + 2],
+    'every year from the first commit to now, for an active thing'
+  );
+  assert.deepEqual(recordA.peak, { year: 2026, total: 3 });
+  assert.equal(recordA.recent[0].week, 'w-2026-10-19');
+  assert.equal(recordA.recent.at(-1)!.week, null, 'a week no longer on /activity/ has no anchor');
+  const recordB = things.get('b')!;
+  assert.deepEqual(
+    recordB.years.map((y) => y.year),
+    [2026],
+    'a retired thing stops at its last commit'
+  );
+  assert.equal(recordB.publications, 0);
+});
+
+test('activity reads as sentences, charts, and a feed of complete days', () => {
+  const who = { me: 2, agent: 46, others: 0, claude: 40, codex: 1 };
+  assert.equal(
+    activitySummary({ commits: 48, who, publications: 2 }),
+    '48 commits (40 with Claude, 1 with Codex, 5 with another agent, 2 by me) and 2 publications'
+  );
+  const claude = { me: 0, agent: 9, others: 0, claude: 9, codex: 0 };
+  assert.equal(
+    activitySummary({ total: 9, who: claude, publications: 1 }),
+    '9 commits, all with Claude, and 1 publication'
+  );
+  assert.equal(activitySummary({ commits: 1, who: { ...claude, agent: 0, claude: 0, me: 1 } }), '1 commit by me');
+  assert.equal(
+    activitySummary({ commits: 0, who: { ...claude, agent: 0, claude: 0 }, publicationCount: 3 }),
+    '3 publications'
+  );
+  const bar = whoBar(who, 96, '2026: <48> commits');
+  assert.match(bar, /aria-label="2026: &lt;48&gt; commits"/);
+  assert.equal(bar.match(/class="who-(me|agent|others)"/g)?.length, 2, 'one mark for each author with commits');
+  assert.match(bar, /<title>46 with an agent<\/title>/);
+  const { things } = buildActivity(activityThings, [sharedLog], [posts]);
+  const columns = yearColumns(things.get('a')!, 'Thing A');
+  assert.equal(columns.match(/class="who-none"/g)?.length, 1, 'an empty year is a hairline');
+  assert.match(columns, /aria-label="Thing A: commits per year from 2024 to 2026, 4 commits in all"/);
+  assert.equal(yearColumns(things.get('b')!, 'Thing B'), '', 'one year is a number, not a chart');
+
+  const rss = activityRss(model);
+  assert.equal(rss.match(/<item>/g)?.length, model.activity.days.length);
+  assert.ok(model.activity.days.length <= 30);
+  assert.ok(rss.includes(`<atom:link href="${siteUrl}/activity.xml"`));
+  assert.ok(!rss.includes('<description><p>'), 'HTML inside RSS descriptions is escaped');
+  for (const day of model.activity.days) {
+    assert.ok(rss.includes(`<guid isPermaLink="false">activity-${day.day}</guid>`));
+    assert.ok(day.day < localDay(model.activity.collected!), 'a day is in the feed once it is over');
+  }
 });

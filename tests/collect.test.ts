@@ -1,7 +1,8 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { observeRepository, type GitHubReader } from '../collection/adapters/github';
-import { monthCounts, observeWebsite, parseFeed, parseSitemap } from '../collection/adapters/web';
+import { monthCounts, observePublications, observeWebsite, parseFeed, parseSitemap } from '../collection/adapters/web';
+import { attribute, isBot, observeCommits, parseLog, subjectOf, type GitRunner } from '../collection/adapters/git';
 import { listSites, observeSite, rootOrigin, type TinylyticsReader } from '../collection/adapters/tinylytics';
 import { capturedUrl, observeCaptures } from '../collection/adapters/wayback';
 import { screenshotDue, type Capturer } from '../collection/adapters/screenshot';
@@ -150,12 +151,13 @@ test('the collector observes each source once and writes only changed evidence',
     web: async () => rss,
     now,
     save: async (o) => (saved.push(o), 'x'),
+    git: null,
     tinylytics: null,
     wayback: null,
     screenshots: null,
     log: () => {}
   });
-  assert.deepEqual(first.written, ['Owner/Example', 'https://example.com/']);
+  assert.deepEqual(first.written, ['Owner/Example', 'https://example.com/', 'publications https://example.com/']);
   const later = new Date('2026-10-21T12:00:00Z');
   const second = await collect({
     registry,
@@ -164,12 +166,13 @@ test('the collector observes each source once and writes only changed evidence',
     web: async () => rss,
     now: later,
     save: async () => assert.fail('nothing changed'),
+    git: null,
     tinylytics: null,
     wayback: null,
     screenshots: null,
     log: () => {}
   });
-  assert.deepEqual(second.unchanged, ['Owner/Example', 'https://example.com/']);
+  assert.deepEqual(second.unchanged, ['Owner/Example', 'https://example.com/', 'publications https://example.com/']);
   const third = await collect({
     registry,
     existing: saved,
@@ -180,13 +183,14 @@ test('the collector observes each source once and writes only changed evidence',
       rss.replace('<title>A</title>', '<title>A2</title><pubDate>Mon, 12 Oct 2026 12:00:00 GMT</pubDate>'),
     now: later,
     save: async () => 'x',
+    git: null,
     tinylytics: null,
     wayback: null,
     screenshots: null,
     log: () => {}
   });
   assert.equal(third.failed[0].target, 'Owner/Example');
-  assert.deepEqual(third.written, ['https://example.com/']);
+  assert.deepEqual(third.written, ['https://example.com/', 'publications https://example.com/']);
   assert.ok(sameEvidence(saved[0], { ...saved[0], observedAt: later.toISOString() }));
 });
 
@@ -386,4 +390,148 @@ test('screenshots capture active website roots once a month, and only when the p
     log: () => {}
   });
   assert.equal(broken.failed[0].target, 'screenshot https://example.com/');
+});
+
+test('commits are attributed to me, an agent, or others, and bots are left out', () => {
+  assert.equal(isBot('dependabot[bot]', '49699333+dependabot[bot]@users.noreply.github.com'), true);
+  assert.equal(isBot('Translation Bot', 'translatewiki@example.org'), true);
+  assert.equal(isBot('Lib Upgrader', 'tools.libraryupgrader@tools.wmflabs.org'), true);
+  assert.equal(isBot('Abbott', 'abbott@example.com'), false, 'bot only as a word');
+  assert.equal(attribute('github-actions[bot]', 'actions@github.com', []), null);
+  assert.deepEqual(attribute('Jamie Thingelstad', 'jamie@thingelstad.com', []), { by: 'me', agents: [] });
+  assert.deepEqual(attribute('jthingelstad', '123+jthingelstad@users.noreply.github.com', []), {
+    by: 'me',
+    agents: []
+  });
+  assert.deepEqual(
+    attribute('Jamie Thingelstad', 'jamie@thingelstad.com', ['Claude Opus 5.5 <noreply@anthropic.com>']),
+    { by: 'agent', agents: ['claude'] },
+    'a co-author line names the agent'
+  );
+  assert.deepEqual(attribute('Codex', 'codex@openai.com', []), { by: 'agent', agents: ['codex'] });
+  assert.deepEqual(attribute('Otto Thing', 'otto@thingelstad.com', []), { by: 'agent', agents: [] });
+  assert.deepEqual(attribute('A Friend', 'friend@example.com', []), { by: 'others', agents: [] });
+  assert.equal(
+    attribute('Jamie Thingelstad', 'jamie@thingelstad.com', ['dependabot[bot] <support@github.com>']),
+    null,
+    'a merged bot pull request'
+  );
+  assert.deepEqual(subjectOf('Merge pull request #12 from owner/branch', '\nAdd the activity page\n'), {
+    subject: 'Add the activity page',
+    pr: 12
+  });
+  assert.deepEqual(subjectOf('Add the activity page (#13)', ''), { subject: 'Add the activity page (#13)', pr: 13 });
+  assert.equal(subjectOf('x'.repeat(300), '').subject.length, 160);
+});
+
+const sha = (n: number) => String(n).repeat(40);
+const logOutput = [
+  [sha(1), '2026-10-20T09:00:00-05:00', 'Jamie Thingelstad', 'jamie@thingelstad.com', '', 'Fix it', ''],
+  [
+    sha(2),
+    '2026-10-21T09:00:00-05:00',
+    'Jamie Thingelstad',
+    'jamie@thingelstad.com',
+    'Claude <noreply@anthropic.com>',
+    'Merge pull request #4 from owner/feature',
+    'Build the feature\n\nBody.'
+  ],
+  [sha(3), '2026-10-22T09:00:00-05:00', 'dependabot[bot]', 'bot@github.com', '', 'Bump a thing', '']
+]
+  .map((fields) => `${fields.join('\u001f')}\u001e`)
+  .join('\n');
+test('git log output becomes a commit log, newest first, without bots', () => {
+  const commits = parseLog(logOutput);
+  assert.deepEqual(
+    commits.map((c) => [c.sha, c.subject, c.by, c.agents, c.pr]),
+    [
+      [sha(2).slice(0, 12), 'Build the feature', 'agent', ['claude'], 4],
+      [sha(1).slice(0, 12), 'Fix it', 'me', undefined, undefined]
+    ]
+  );
+  assert.equal(commits[0].date, '2026-10-21T14:00:00.000Z');
+  assert.throws(() => parseLog('not-a-sha\u001f2026-10-20\u001e'), /invalid commit/);
+});
+
+test('commit logs come from a credential-free, commits-only clone of a public repository', async () => {
+  const calls: string[][] = [];
+  const git: GitRunner = async (args) => {
+    calls.push(args);
+    if (args.includes('clone')) return '';
+    if (args.includes('symbolic-ref')) return 'main\n';
+    if (args.includes('for-each-ref')) return `v1.0\u001f2026-10-21T10:00:00-05:00\nbad tag name!\u001f2026-10-21\n`;
+    if (args.at(-1) === 'packages/a') return `${sha(2)}\n`;
+    return logOutput;
+  };
+  const observation = await observeCommits('owner/example', [null, 'packages/a'], git, fakeReader, now);
+  const clone = calls.find((args) => args.includes('clone'))!;
+  assert.deepEqual(clone.slice(0, 2), ['-c', 'credential.helper=']);
+  assert.ok(clone.includes('--filter=blob:none'), 'a directory scope needs trees');
+  assert.ok(clone.includes('https://github.com/owner/example.git'));
+  assert.equal(observation.branch, 'main');
+  assert.deepEqual(observation.commits[0].paths, ['packages/a']);
+  assert.equal(observation.commits[1].paths, undefined);
+  assert.deepEqual(observation.tags, [{ name: 'v1.0', date: '2026-10-21T15:00:00.000Z' }]);
+  assert.equal(observationPath(observation), 'data/observations/commits/example.json');
+  assert.doesNotMatch(JSON.stringify(observation), /thingelstad\.com|anthropic/, 'no email addresses');
+  const unscoped: string[][] = [];
+  await observeCommits('owner/example', [null], async (args) => (unscoped.push(args), git(args)), fakeReader, now);
+  assert.ok(unscoped[0].includes('--filter=tree:0'), 'no scope, no trees');
+  let cloned = false;
+  await assert.rejects(
+    observeCommits(
+      'owner/example',
+      [],
+      async () => ((cloned = true), ''),
+      async (e) => ({ ...((await fakeReader(e)) as object), private: true, visibility: 'private' }),
+      now
+    ),
+    /public repositories/
+  );
+  assert.equal(cloned, false, 'a private repository is never cloned');
+});
+
+test('the publication log keeps every item its feed has carried', async () => {
+  const feed = `<rss version="2.0"><channel><title>Blog</title>
+<item><link>https://example.com/2026/10/20/a.html</link><description>&lt;p&gt;Card shop stop at &lt;a href="x"&gt;Spitty’s&lt;/a&gt; .&lt;/p&gt;</description><pubDate>Tue, 20 Oct 2026 12:00:00 GMT</pubDate></item>
+<item><title>Titled &amp;amp; escaped</title><guid>tag:example.com,2026:1</guid><pubDate>Mon, 19 Oct 2026 12:00:00 GMT</pubDate></item>
+<item><title>No date</title></item>
+</channel></rss>`;
+  assert.deepEqual(parseFeed(feed).entries, [
+    {
+      url: 'https://example.com/2026/10/20/a.html',
+      title: null,
+      excerpt: 'Card shop stop at Spitty’s.',
+      date: '2026-10-20T12:00:00.000Z'
+    },
+    { url: null, id: 'tag:example.com,2026:1', title: 'Titled & escaped', date: '2026-10-19T12:00:00.000Z' }
+  ]);
+  assert.deepEqual(
+    parseFeed(atom).entries.map((e) => e.title),
+    ['One', 'Two']
+  );
+  assert.deepEqual(
+    parseFeed(jsonFeed).entries.map((e) => [e.id, e.date]),
+    [['1', '2026-08-02T15:00:00.000Z']]
+  );
+  const escaped = `<rss><channel><item><title>Hi &amp;lt;b&amp;gt;there&amp;lt;/b&amp;gt; &amp;#99999999;</title><pubDate>Tue, 20 Oct 2026 12:00:00 GMT</pubDate></item></channel></rss>`;
+  assert.equal(parseFeed(escaped).entries[0].title, 'Hi there', 'markup escaped twice is still removed');
+  const source = { url: 'https://example.com/', feed: 'https://example.com/feed.xml' };
+  const first = await observePublications(source, async () => feed, undefined, now);
+  assert.equal(first.items.length, 2);
+  const later = feed.replace(/<item><link>.*?<\/item>/s, '').replace('Titled', 'Retitled');
+  const second = await observePublications(source, async () => later, first, now);
+  assert.deepEqual(
+    second.items.map((i) => i.title ?? i.excerpt),
+    ['Card shop stop at Spitty’s.', 'Retitled & escaped'],
+    'an aged-out item stays; a changed item is updated in place'
+  );
+  const moved = await observePublications(
+    { ...source, feed: 'https://example.com/new.xml' },
+    async () => later,
+    first,
+    now
+  );
+  assert.equal(moved.items.length, 1, 'a different feed starts a new log');
+  assert.equal(observationPath(second), 'data/observations/publications/example-com.json');
 });

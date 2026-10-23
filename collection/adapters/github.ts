@@ -3,6 +3,7 @@ import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
 import type { CommitActivity, GitHubObservation } from '../schema';
 import { repositoryName, repositoryPath } from '../validate';
+import { isBot } from './git';
 
 export type GitHubReader = (endpoint: string) => Promise<unknown>;
 const exec = promisify(execFile);
@@ -49,9 +50,13 @@ function publicGitHubUrl(value: unknown) {
 function commit(value: unknown) {
   const item = record(value),
     details = record(item.commit),
-    committer = record(details.committer);
+    committer = record(details.committer),
+    author = details.author && typeof details.author === 'object' ? (details.author as Record<string, unknown>) : {};
   if (typeof item.sha !== 'string' || !/^[a-f0-9]{40}$/.test(item.sha)) throw new Error('Invalid commit.');
-  return { sha: item.sha, date: instant(committer.date), url: publicGitHubUrl(item.html_url) };
+  const bot =
+    (item.author as { type?: unknown } | null)?.type === 'Bot' ||
+    isBot(String(author.name ?? ''), String(author.email ?? ''));
+  return { sha: item.sha, date: instant(committer.date), url: publicGitHubUrl(item.html_url), bot };
 }
 async function activity(
   reader: GitHubReader,
@@ -65,7 +70,8 @@ async function activity(
   // with nothing new to say.
   const since = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() - 3, 1)).toISOString();
   const base = `repos/${repository}/commits?sha=${encodeURIComponent(branch)}${path ? `&path=${encodeURIComponent(path)}` : ''}`;
-  const latest = await reader(`${base}&per_page=1`);
+  // Bots' commits are upkeep, not activity, and the collector's own merge would otherwise be news every day.
+  const latest = await reader(`${base}&per_page=30`);
   if (!Array.isArray(latest)) throw new Error('Unexpected commit response.');
   const commits = new Map<string, ReturnType<typeof commit>>();
   let complete = false;
@@ -77,7 +83,7 @@ async function activity(
     if (!Array.isArray(response)) throw new Error('Unexpected commit response.');
     for (const raw of response) {
       const item = commit(raw);
-      if (item.date >= since && item.date <= now.toISOString()) commits.set(item.sha, item);
+      if (!item.bot && item.date >= since && item.date <= now.toISOString()) commits.set(item.sha, item);
     }
     if (response.length < 100) {
       complete = true;
@@ -89,7 +95,7 @@ async function activity(
     const month = item.date.slice(0, 7);
     months.set(month, (months.get(month) ?? 0) + 1);
   }
-  const newest = latest.length ? commit(latest[0]) : null;
+  const newest = latest.map(commit).find((item) => !item.bot) ?? null;
   return {
     path,
     branch,

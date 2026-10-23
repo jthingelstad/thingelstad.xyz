@@ -1,0 +1,14 @@
+{
+  "kind": "commits",
+  "repository": "jthingelstad/rsm.thingelstad.com",
+  "url": "https://github.com/jthingelstad/rsm.thingelstad.com",
+  "observedAt": "2026-10-23T22:33:13.535Z",
+  "branch": "master",
+  "commits": [
+    {"sha":"a95e1ef5b218","date":"2026-06-12T15:11:43.000Z","subject":"Remove dependabot — no package manager in this repo","by":"agent","agents":["claude"]},
+    {"sha":"96e7af89f94d","date":"2026-06-12T15:08:54.000Z","subject":"Add dependabot for npm","by":"agent","agents":["claude"]},
+    {"sha":"ff07f4b1bcc3","date":"2017-09-04T23:00:45.000Z","subject":"Images for RSM signs.","by":"me"},
+    {"sha":"bb1161201058","date":"2017-09-04T15:54:54.000Z","subject":"First commit","by":"me"}
+  ],
+  "tags": []
+}

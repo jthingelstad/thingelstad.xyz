@@ -1,0 +1,32 @@
+{
+  "kind": "commits",
+  "repository": "Planet-Kubb/rawdog",
+  "url": "https://github.com/Planet-Kubb/rawdog",
+  "observedAt": "2026-10-23T22:33:13.535Z",
+  "branch": "master",
+  "commits": [
+    {"sha":"952009772408","date":"2015-06-12T11:28:04.000Z","subject":"YouTube dropped RSS support.","by":"me"},
+    {"sha":"ba4bad2bbb1e","date":"2015-06-12T11:26:20.000Z","subject":"Deactiveated openloop.","by":"me"},
+    {"sha":"667b32035bbb","date":"2015-05-02T13:30:35.000Z","subject":"Feed updates","by":"me"},
+    {"sha":"0700413b9576","date":"2015-04-29T11:29:59.000Z","subject":"Add Sioux Falls Kubb","by":"me"},
+    {"sha":"4655d8ce07be","date":"2015-04-18T17:32:08.000Z","subject":"update feeds","by":"me"},
+    {"sha":"c73aea10eff3","date":"2015-02-08T19:26:06.000Z","subject":"feed updates","by":"me"},
+    {"sha":"694d3e839191","date":"2015-01-26T02:10:16.000Z","subject":"Feed changes","by":"me"},
+    {"sha":"a9ec01dafb76","date":"2014-12-13T21:21:44.000Z","subject":"Kubboom website no longer exists.","by":"me"},
+    {"sha":"188a600ac8da","date":"2014-10-11T12:29:31.000Z","subject":"feed updates","by":"me"},
+    {"sha":"cf8062e18be7","date":"2014-07-18T12:13:03.000Z","subject":"Catch up commit.","by":"me"},
+    {"sha":"7a4369cab0eb","date":"2012-03-29T02:13:38.000Z","subject":"Tweaked feeds and templates.","by":"me"},
+    {"sha":"c715e3e00388","date":"2012-02-28T06:16:29.000Z","subject":"Added campaign tracking codes to Planet Kubb buttons.","by":"me"},
+    {"sha":"0bb23e28a31d","date":"2012-02-27T03:41:37.000Z","subject":"Removed Planet Kubb Wiki from Planet feed, it was too noisy. Added Kubbchucks RSS feed. Added iOS icon.","by":"me"},
+    {"sha":"f86cd12577c1","date":"2012-02-24T01:36:12.000Z","subject":"Added feed images for most feeds. Added Twitter follow button to sidebar.","by":"me"},
+    {"sha":"3e072b951b88","date":"2012-02-23T04:44:39.000Z","subject":"Total redesign of the site pages. Lots of changes.","by":"me"},
+    {"sha":"41c22f3ee280","date":"2012-02-23T03:32:20.000Z","subject":"Split the feed definitions into a seperate config file to keep it clean.","by":"me"},
+    {"sha":"4b3966ac2069","date":"2012-02-23T03:26:25.000Z","subject":"Added additional feeds to the planet and minor tweaks to templates.","by":"me"},
+    {"sha":"e7c572755585","date":"2012-02-20T18:50:21.000Z","subject":"Merge branch 'master' of github.com:thingles/PlanetKubb","by":"me"},
+    {"sha":"023649f27145","date":"2012-02-20T18:49:38.000Z","subject":"Added a number of additional feeds","by":"me"},
+    {"sha":"c73501b55e3b","date":"2012-02-18T13:26:55.000Z","subject":"Script to reset all state information that rawdog keeps and start over.","by":"me"},
+    {"sha":"a2663cb55e5f","date":"2012-02-18T13:25:34.000Z","subject":"Setup script to get the installation working for rawdog.","by":"me"},
+    {"sha":"efd4d3e3c384","date":"2012-02-16T01:49:34.000Z","subject":"Initial commit.","by":"me"}
+  ],
+  "tags": []
+}

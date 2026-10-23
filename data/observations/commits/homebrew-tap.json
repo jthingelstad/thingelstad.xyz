@@ -1,0 +1,33 @@
+{
+  "kind": "commits",
+  "repository": "jthingelstad/homebrew-tap",
+  "url": "https://github.com/jthingelstad/homebrew-tap",
+  "observedAt": "2026-10-23T22:33:13.535Z",
+  "branch": "main",
+  "commits": [
+    {"sha":"2e70b135454c","date":"2026-10-05T22:39:07.000Z","subject":"mb: add 2.2.1 bottle.","by":"me"},
+    {"sha":"1ea2ba356ed1","date":"2026-10-05T22:38:31.000Z","subject":"mb 2.2.1","by":"agent","agents":["claude"]},
+    {"sha":"ba54692a65cb","date":"2026-10-05T19:26:50.000Z","subject":"mb: point caveats and README at guided mb auth (#8)","pr":8,"by":"agent","agents":["claude"]},
+    {"sha":"c18a988a9bd0","date":"2026-10-05T19:07:07.000Z","subject":"mb: add 2.2.0 bottle.","by":"me"},
+    {"sha":"1959c3af1799","date":"2026-10-05T19:06:39.000Z","subject":"mb 2.2.0","by":"agent","agents":["claude"]},
+    {"sha":"66c2151248ea","date":"2026-10-05T18:29:53.000Z","subject":"mb: add 2.1.0 bottle.","by":"me"},
+    {"sha":"19d964055187","date":"2026-10-05T18:29:12.000Z","subject":"mb 2.1.0","by":"agent","agents":["claude"]},
+    {"sha":"e51d4c546e42","date":"2026-10-05T17:47:26.000Z","subject":"Rename tap to jthingelstad/tap","by":"agent","agents":["claude"]},
+    {"sha":"5dd8ab5a7d44","date":"2026-10-05T15:51:37.000Z","subject":"mb: add 2.0.1 bottle.","by":"me"},
+    {"sha":"5f43c28b4048","date":"2026-10-05T15:50:58.000Z","subject":"mb 2.0.1: standard Python formula and test-bot bottles","by":"agent","agents":["claude"]},
+    {"sha":"ddbe7b132d85","date":"2026-10-05T15:50:22.000Z","subject":"Add brew pr-pull publish workflow","by":"agent","agents":["claude"]},
+    {"sha":"3d47ad80458a","date":"2026-10-04T23:30:32.000Z","subject":"Publish verified install commands and retained release evidence","by":"me"},
+    {"sha":"d2e99f428d19","date":"2026-10-04T23:26:33.000Z","subject":"Declare verified bottle and gate public URL installation","by":"me"},
+    {"sha":"482f46533d78","date":"2026-10-04T23:00:40.000Z","subject":"Scope documented loader switch to verified local bottle","by":"me"},
+    {"sha":"fb1f3baad006","date":"2026-10-04T22:23:30.000Z","subject":"Permit the verified local bottle loader for one pour invocation","by":"me"},
+    {"sha":"60427f533402","date":"2026-10-04T21:55:05.000Z","subject":"Preserve shared cache archives during backend staging","pr":1,"by":"me"},
+    {"sha":"63873041a903","date":"2026-10-04T20:39:16.000Z","subject":"Copy backend archives without consuming the runtime cache","by":"me"},
+    {"sha":"a0139a0e0e64","date":"2026-10-04T20:27:11.000Z","subject":"Fetch checksummed resources before network-denied builds","by":"me"},
+    {"sha":"7a4061f182bb","date":"2026-10-04T20:20:16.000Z","subject":"Bring hosted native dependencies to their frozen versions","by":"me"},
+    {"sha":"59e0de8760ba","date":"2026-10-04T20:16:20.000Z","subject":"Restore the frozen core tree on disposable hosted images","by":"me"},
+    {"sha":"ec6286f1b43c","date":"2026-10-04T20:15:08.000Z","subject":"Resolve native formula files across official core shards","by":"me"},
+    {"sha":"7b80489f4471","date":"2026-10-04T20:12:50.000Z","subject":"Consume frozen core formulas instead of moving API bottles","by":"me"},
+    {"sha":"984180f1f808","date":"2026-10-04T20:07:32.000Z","subject":"Prepare verified MB 2.0.0 Apple Silicon bottles","by":"me"}
+  ],
+  "tags": []
+}

@@ -16,6 +16,7 @@ import {
   type TimelineYear
 } from '../collection/site';
 import type { MonthCount, ScreenshotObservation } from '../collection/schema';
+import { activitySummary, localDay, whoBar, yearColumns } from '../collection/activity';
 import { connectionDiagram } from '../collection/diagram';
 import { parseSites, siteRef, sitesPath } from '../collection/sites';
 import { sitesStrip } from '../collection/sites-strip';
@@ -80,6 +81,10 @@ export default function (eleventyConfig: EleventyConfig) {
   eleventyConfig.addFilter('thing', (site: SiteModel, id: string) => site.things.find((t) => t.id === id));
   eleventyConfig.addFilter('number', (value: number) => new Intl.NumberFormat('en-US').format(value));
   eleventyConfig.addFilter('reach', reach);
+  eleventyConfig.addFilter('activitySummary', activitySummary);
+  eleventyConfig.addFilter('localDay', localDay);
+  eleventyConfig.addFilter('whoBar', whoBar);
+  eleventyConfig.addFilter('yearColumns', yearColumns);
   eleventyConfig.addFilter('connectionDiagram', connectionDiagram);
   eleventyConfig.addFilter('languages', (languages: { name: string; bytes: number }[]) =>
     languages

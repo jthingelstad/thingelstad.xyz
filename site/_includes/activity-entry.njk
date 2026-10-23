@@ -1,0 +1,26 @@
+{#- One thing's commits and publications in a week (a ThingPeriod in collection/activity.ts). On /activity/ it
+    leads with the thing; on a thing's page (weekHead) with the week, linked to it on /activity/ while it is there. #}
+<li class="activity-entry">
+  <p class="activity-head">
+    {% if weekHead %}
+    {% if entry.week %}<a class="activity-week" href="/activity/#{{ entry.week }}">Week of {{ entry.period | day }}</a>{% else %}<span class="activity-week">Week of {{ entry.period | day }}</span>{% endif %}
+    {% else %}
+    {% set other = site | thing(entry.id) %}
+    <a class="activity-thing" href="{{ entry.page }}">{% if other %}{% set thing = other %}{% include "sticker.njk" %}{% endif %}<span>{{ entry.title }}</span></a>
+    {% endif %}
+    <span class="muted">{{ entry | activitySummary }}</span>
+  </p>
+  {% if entry.headlines | length or entry.published | length %}
+  <ul class="headlines">
+    {% for line in entry.headlines %}<li><a href="{{ line.url }}">{{ line.text }}</a></li>{% endfor %}
+    {% for item in entry.published %}<li class="published"><span class="muted">Published</span> <a href="{{ item.url | ref("activity") }}">{{ item.text }}</a></li>{% endfor %}
+  </ul>
+  {% endif %}
+  {% if entry.more > 0 or entry.publicationCount > entry.published.length %}
+  <p class="activity-more muted">
+    {%- if entry.more > 0 %}{% if entry.moreUrl %}<a href="{{ entry.moreUrl }}">{{ entry.more | number }} more {{ 'commit' if entry.more == 1 else 'commits' }} on GitHub</a>{% else %}{{ entry.more | number }} more {{ 'commit' if entry.more == 1 else 'commits' }}{% endif %}{% endif -%}
+    {%- if entry.more > 0 and entry.publicationCount > entry.published.length %} · {% endif -%}
+    {%- if entry.publicationCount > entry.published.length %}{{ (entry.publicationCount - entry.published.length) | number }} more {{ 'publication' if (entry.publicationCount - entry.published.length) == 1 else 'publications' }}{% endif -%}
+  </p>
+  {% endif %}
+</li>

@@ -1,0 +1,28 @@
+{
+  "kind": "publications",
+  "url": "https://rwbookclub.com/",
+  "feed": "https://rwbookclub.com/feed.xml",
+  "observedAt": "2026-10-23T22:34:35.565Z",
+  "items": [
+    {"url":"https://rwbookclub.com/books/blindsight/","title":"Blindsight","date":"2026-07-28T00:00:00.000Z"},
+    {"url":"https://rwbookclub.com/books/a-world-appears/","title":"A World Appears: A Journey into Consciousness","date":"2026-06-30T00:00:00.000Z"},
+    {"url":"https://rwbookclub.com/books/patterns-in-nature/","title":"Patterns in Nature: Why the Natural World Looks the Way it Does","date":"2026-05-26T00:00:00.000Z"},
+    {"url":"https://rwbookclub.com/books/the-overstory/","title":"The Overstory","date":"2026-01-27T00:00:00.000Z"},
+    {"url":"https://rwbookclub.com/books/enshittification/","title":"Enshittification","date":"2025-11-25T00:00:00.000Z"},
+    {"url":"https://rwbookclub.com/books/heart-of-darkness/","title":"Heart of Darkness","date":"2025-09-30T00:00:00.000Z"},
+    {"url":"https://rwbookclub.com/books/the-origins-of-totalitarianism/","title":"The Origins of Totalitarianism","date":"2025-08-26T00:00:00.000Z"},
+    {"url":"https://rwbookclub.com/books/co-intelligence/","title":"Co-Intelligence: Living and Working with AI","date":"2025-06-24T00:00:00.000Z"},
+    {"url":"https://rwbookclub.com/books/how-to-do-nothing/","title":"How to Do Nothing: Resisting the Attention Economy","date":"2025-05-27T00:00:00.000Z"},
+    {"url":"https://rwbookclub.com/books/through-the-language-glass/","title":"Through the Language Glass: Why the World Looks Different in Other Languages","date":"2024-10-29T00:00:00.000Z"},
+    {"url":"https://rwbookclub.com/books/army-of-none/","title":"Army of None: Autonomous Weapons and the Future of War","date":"2024-09-17T00:00:00.000Z"},
+    {"url":"https://rwbookclub.com/books/the-power-law/","title":"The Power Law: Venture Capital and the Making of a New Future","date":"2024-05-29T00:00:00.000Z"},
+    {"url":"https://rwbookclub.com/books/dictionary-people/","title":"Dictionary People","date":"2024-04-23T00:00:00.000Z"},
+    {"url":"https://rwbookclub.com/books/medici-money/","title":"Medici Money","date":"2024-02-28T00:00:00.000Z"},
+    {"url":"https://rwbookclub.com/books/dawn-of-everything/","title":"Dawn of Everything: A New History of Humanity","date":"2023-12-20T00:00:00.000Z"},
+    {"url":"https://rwbookclub.com/books/otherlands/","title":"Otherlands: A Journey Through Earth's Extinct Worlds","date":"2023-08-31T00:00:00.000Z"},
+    {"url":"https://rwbookclub.com/books/men-without-work/","title":"Men Without Work","date":"2023-07-11T00:00:00.000Z"},
+    {"url":"https://rwbookclub.com/books/nation-of-takers/","title":"Nation of Takers: America's Entitlement Epidemic","date":"2023-07-11T00:00:00.000Z"},
+    {"url":"https://rwbookclub.com/books/a-supposedly-fun-thing-i-ll-never-do-again/","title":"A Supposedly Fun Thing I'll Never Do Again: Essays and Arguments","date":"2023-05-30T00:00:00.000Z"},
+    {"url":"https://rwbookclub.com/books/to-shake-the-sleeping-self/","title":"To Shake the Sleeping Self: A Journey from Oregon to Patagonia, and a Quest for a Life with No Regret","date":"2023-04-11T00:00:00.000Z"}
+  ]
+}

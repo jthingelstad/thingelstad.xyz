@@ -84,10 +84,37 @@ eleventyComputed:
   </section>
   {% endif %}
 
+  {% if thing.activity %}
+  {% set record = thing.activity %}
+  <section class="thing-activity" data-pagefind-ignore>
+    <h2>Activity</h2>
+    {% if record.total %}<p>{{ { total: record.total, who: record.who } | activitySummary }}, {{ 'on' if record.total == 1 else 'the first on' }} {{ record.firstCommit | day }}.</p>{% endif %}
+    {% if record.publications %}<p>{{ record.publications | number }} {{ 'publication' if record.publications == 1 else 'publications' }} collected from its feeds, the oldest from {{ record.firstPublication | day }}.</p>{% endif %}
+    {% set columns = record | yearColumns(thing.title) %}
+    {% if columns %}
+    <figure class="year-chart">
+      {{ columns | safe }}
+      <figcaption>
+        <span class="muted">Commits each year from {{ record.years[0].year }} to {{ (record.years | last).year }}{% if record.peak %}, most in {{ record.peak.year }} ({{ record.peak.total | number }}){% endif %}.</span>
+        {% include "who-legend.njk" %}
+      </figcaption>
+    </figure>
+    {% endif %}
+    {% if record.recent | length %}
+    <h3>The latest weeks with activity</h3>
+    <ul class="activity-list">
+      {% set weekHead = true %}
+      {% for entry in record.recent %}{% include "activity-entry.njk" %}{% endfor %}
+    </ul>
+    {% endif %}
+    <p class="muted"><a href="/activity/">All activity</a>, week by week. Who made each commit is from its author and co-author lines.</p>
+  </section>
+  {% endif %}
+
   {% if thing.sources | length %}
   <section class="sources" data-pagefind-ignore>
     <h2>Sources and evidence</h2>
-    <p class="muted">Observed weekly from GitHub, sitemaps, feeds, the Internet Archive, and Tinylytics. Evidence never sets a status.</p>
+    <p class="muted">Observed daily from GitHub, sitemaps, feeds, the Internet Archive, and Tinylytics. Evidence never sets a status.</p>
     <ul class="source-list">
       {% for source in thing.sources %}
       <li class="source">

@@ -9,3 +9,6 @@ _site/
 data/sites.json
 # A byte-for-byte copy of thingelstad.com's shared/tokens.css and shared/fonts/ (npm run sites:sync).
 site/css/shared/
+# The commit and publication logs, one entry per line (logJson in collection/observations.ts).
+data/observations/commits/
+data/observations/publications/

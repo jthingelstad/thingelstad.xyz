@@ -5,7 +5,8 @@ import { loadRegistry } from './load';
 import { loadObservations, observationPath, saveObservation, saveScreenshot } from './observations';
 import { defaultCapturer, observeScreenshot, screenshotDue, type Capturer } from './adapters/screenshot';
 import { defaultGitHubReader, observeRepository, type GitHubReader } from './adapters/github';
-import { defaultTextFetcher, observeWebsite, type TextFetcher } from './adapters/web';
+import { defaultTextFetcher, observePublications, observeWebsite, type TextFetcher } from './adapters/web';
+import { defaultGitRunner, observeCommits, type GitRunner } from './adapters/git';
 import { capturedUrl, observeCaptures } from './adapters/wayback';
 import {
   defaultTinylyticsReader,
@@ -15,15 +16,24 @@ import {
   siteKey,
   type TinylyticsReader
 } from './adapters/tinylytics';
-import { websiteKey, type Observation, type Registry, type ScreenshotObservation, type Status } from './schema';
+import {
+  websiteKey,
+  type Observation,
+  type PublicationsObservation,
+  type Registry,
+  type ScreenshotObservation,
+  type Status
+} from './schema';
+import { siteUrl } from './site';
 
 export type CollectOptions = {
   registry?: Registry;
   existing?: Observation[];
-  only?: string; // a repository name, a website URL, 'tinylytics', 'wayback', or 'screenshots'
+  only?: string; // a repository name, a website URL, 'commits', 'publications', 'tinylytics', 'wayback', or 'screenshots'
   wayback?: TextFetcher | null; // null skips the Internet Archive
   pause?: (ms: number) => Promise<void>; // between Wayback requests: the CDX API rate-limits
   github?: GitHubReader;
+  git?: GitRunner | null; // null skips the commit logs; the default runs the git command line
   web?: TextFetcher;
   tinylytics?: TinylyticsReader | null; // null skips Tinylytics; the default needs TINYLYTICS_API_KEY
   screenshots?: Capturer | null; // null skips screenshots; the default needs Playwright's Chromium
@@ -50,6 +60,9 @@ export function sameEvidence(a: Observation, b: Observation) {
 }
 // Sites, not the posts that mention them: a reference post's first capture only repeats its date.
 const capturedRoles = new Set(['website', 'archive', 'demo']);
+// A thing's own feeds are its publications. A feed it only refers to is someone else's, and this site's own
+// feed is the history ledger, which is already a page here.
+const publishedRoles = new Set(['website', 'podcast']);
 // Screenshots are of front pages that are still the thing's own. A retired or abandoned thing's host may
 // belong to someone else by now, so it keeps whatever capture it already has.
 const photographed = new Set<Status>(['active', 'dormant', 'archived']);
@@ -81,6 +94,20 @@ export function targets(registry: Registry) {
       paths: [...paths].toSorted((a, b) => (a ?? '').localeCompare(b ?? ''))
     })),
     websites: [...websites.values()],
+    feeds: [
+      ...new Map(
+        registry.things.flatMap((thing) =>
+          thing.sources.flatMap((source) =>
+            source.kind === 'website' &&
+            source.feed &&
+            publishedRoles.has(source.role) &&
+            new URL(source.feed).origin !== siteUrl
+              ? [[source.url, { url: source.url, feed: source.feed }] as const]
+              : []
+          )
+        )
+      ).values()
+    ],
     captured: [
       ...new Set(
         registry.things.flatMap((thing) =>
@@ -117,7 +144,13 @@ export async function collect(options: CollectOptions = {}): Promise<CollectResu
   const registry = options.registry ?? (await loadRegistry());
   const existing = options.existing ?? (await loadObservations());
   const github = options.github ?? defaultGitHubReader();
-  const web = options.web ?? defaultTextFetcher();
+  // A feed is read once a run, for its counts and for its items.
+  const fetched = new Map<string, Promise<string>>();
+  const fetchText = options.web ?? defaultTextFetcher();
+  const web: TextFetcher = (url) => {
+    if (!fetched.has(url)) fetched.set(url, fetchText(url));
+    return fetched.get(url)!;
+  };
   const save = options.save ?? saveObservation;
   const log = options.log ?? console.log;
   const now = options.now ?? new Date();
@@ -141,13 +174,24 @@ export async function collect(options: CollectOptions = {}): Promise<CollectResu
       log(`Could not observe ${target}; previous evidence kept.`);
     }
   };
-  const { repositories, websites, origins, captured, screenshots } = targets(registry);
+  const { repositories, websites, feeds, origins, captured, screenshots } = targets(registry);
   for (const { repository, paths } of repositories)
     if (!options.only || options.only.toLowerCase() === repository.toLowerCase())
       await record(repository, () => observeRepository(repository, paths, github, now));
+  const git = options.git === undefined ? defaultGitRunner() : options.git;
+  if (git)
+    for (const { repository, paths } of repositories)
+      if (!options.only || options.only === 'commits' || options.only.toLowerCase() === repository.toLowerCase())
+        await record(`commits ${repository}`, () => observeCommits(repository, paths, git, github, now));
   for (const website of websites)
     if (!options.only || options.only === website.url)
       await record(website.url, () => observeWebsite(website, web, now));
+  const logs = new Map(
+    existing.flatMap((o) => (o.kind === 'publications' ? [[o.url, o] as [string, PublicationsObservation]] : []))
+  );
+  for (const source of feeds)
+    if (!options.only || options.only === 'publications' || options.only === source.url)
+      await record(`publications ${source.url}`, () => observePublications(source, web, logs.get(source.url), now));
   if (options.wayback !== null && (!options.only || options.only === 'wayback')) {
     const fetchText = options.wayback ?? web;
     const pause = options.pause ?? ((ms: number) => new Promise<void>((resolve) => setTimeout(resolve, ms)));

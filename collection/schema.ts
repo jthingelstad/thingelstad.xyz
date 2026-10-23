@@ -154,8 +154,53 @@ export type ScreenshotObservation = {
   width: number;
   height: number;
 };
+// Every commit on a public repository's default branch, read from a commits-only clone. Git is already an
+// append-only log, so each run re-reads the whole history and the observation changes only when a commit
+// lands. Commits by bots (dependabot, the collector itself) are left out: they are upkeep, not work.
+export type CommitAuthor = 'me' | 'agent' | 'others';
+export type Agent = 'claude' | 'codex';
+export type CommitEntry = {
+  sha: string; // the first twelve hex digits
+  date: string; // committer date: when it landed on the branch
+  subject: string; // the first line; a merge commit's pull request title
+  by: CommitAuthor;
+  agents?: Agent[]; // the agents a commit names, by author or co-author trailer; absent when it names none
+  pr?: number;
+  paths?: string[]; // the registry's directory scopes this commit touched, for repositories that have them
+};
+export type CommitLogObservation = {
+  kind: 'commits';
+  repository: string;
+  url: string;
+  observedAt: string;
+  branch: string;
+  commits: CommitEntry[]; // newest first
+  tags: { name: string; date: string }[]; // newest first
+};
+// Every item a thing's own feed has carried. A feed holds only its newest items, so the collector keeps each
+// one it has seen: the log only grows, and an item that ages out of the feed stays.
+export type Publication = {
+  url: string | null;
+  id?: string; // the item's guid or id, when it has no link
+  title: string | null;
+  excerpt?: string; // the opening words, for an item with no title (Micro.blog posts)
+  date: string;
+};
+export type PublicationsObservation = {
+  kind: 'publications';
+  url: string; // the website source, keyed like its web observation
+  feed: string;
+  observedAt: string;
+  items: Publication[]; // newest first
+};
 export type Observation =
-  GitHubObservation | WebObservation | TinylyticsObservation | WaybackObservation | ScreenshotObservation;
+  | GitHubObservation
+  | WebObservation
+  | TinylyticsObservation
+  | WaybackObservation
+  | ScreenshotObservation
+  | CommitLogObservation
+  | PublicationsObservation;
 
 // Stable file names for observations, derived from the source identity so shared sources are stored once.
 const slug = (value: string) =>
