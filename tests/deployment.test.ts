@@ -14,7 +14,9 @@ test('the site is published assets first, pages after, the front page last, each
     'feed.xml',
     'things/elixir/index.html',
     'things/elixir.md',
-    'assets/site-1.css'
+    'assets/site-1.css',
+    'pagefind/pagefind.js',
+    'pagefind/fragment/en_1a2b3c.pf_fragment'
   ]) {
     mkdirSync(join(dir, dirname(file)), { recursive: true });
     writeFileSync(join(dir, file), '');
@@ -22,7 +24,9 @@ test('the site is published assets first, pages after, the front page last, each
   const order = publishOrder(dir);
   assert.deepEqual(order, [
     'assets/site-1.css',
+    'pagefind/fragment/en_1a2b3c.pf_fragment',
     'feed.xml',
+    'pagefind/pagefind.js',
     'things.json',
     'things/elixir.md',
     'things/elixir/index.html',
@@ -33,6 +37,15 @@ test('the site is published assets first, pages after, the front page last, each
   assert.equal(contentTypeFor('things/elixir.md'), 'text/markdown; charset=utf-8');
   assert.equal(contentTypeFor('feed.xml'), 'application/xml; charset=utf-8');
   assert.throws(() => contentTypeFor('mystery.bin'));
+  // The search index: Pagefind names its index files by their content, but not its scripts, wasm or entry file.
+  assert.equal(cacheControlFor('pagefind/fragment/en_1a2b3c.pf_fragment'), 'public,max-age=31536000,immutable');
+  assert.equal(cacheControlFor('pagefind/pagefind.en_185a4f95c4.pf_meta'), 'public,max-age=31536000,immutable');
+  assert.equal(cacheControlFor('pagefind/pagefind.js'), 'no-cache');
+  assert.equal(cacheControlFor('pagefind/wasm.en.pagefind'), 'no-cache');
+  assert.equal(cacheControlFor('pagefind/pagefind-entry.json'), 'no-cache');
+  assert.equal(cacheControlFor('things/page.pf_fragment'), 'no-cache');
+  assert.equal(contentTypeFor('pagefind/wasm.en.pagefind'), 'application/octet-stream');
+  assert.equal(contentTypeFor('pagefind/index/en_1a2b3c.pf_index'), 'application/octet-stream');
 });
 
 test('the viewer-request function serves directory indexes, adds the slash, and sends www to the apex', () => {

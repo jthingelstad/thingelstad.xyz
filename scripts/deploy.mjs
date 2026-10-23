@@ -37,7 +37,11 @@ if (!isDeepStrictEqual(typeof liveTemplate === 'string' ? JSON.parse(liveTemplat
 // Nothing is deleted. Previous assets stay for open tabs and for rollback by restoring an object version.
 const siteRoot = '_site';
 const keys = publishOrder(siteRoot);
-if (!keys.includes('index.html') || !keys.includes('404.html') || !keys.includes('things.json')) {
+if (
+  ['index.html', '404.html', 'things.json', 'search/index.html', 'pagefind/pagefind.js'].some(
+    (key) => !keys.includes(key)
+  )
+) {
   throw new Error('The site build is incomplete.');
 }
 for (const key of keys) {

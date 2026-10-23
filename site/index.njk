@@ -6,7 +6,7 @@ permalink: /
   <h1 class="title">Things I’ve <span class="accent">built</span><span class="dot">.</span></h1>
   <p class="lede">{{ site.description }}</p>
   <p class="legend">
-    {% for s in site.statuses %}<span class="status status-{{ s.status }}" title="{{ s.description }}">{{ s.label }} {{ s.count }}</span> {% endfor %}
+    {% for s in site.statuses %}<a class="status status-{{ s.status }}" href="/search/?status={{ s.status }}" title="{{ s.description }}">{{ s.label }} {{ s.count }}</a> {% endfor %}
   </p>
 </section>
 {% for collection in site.collections %}

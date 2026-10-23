@@ -14,13 +14,18 @@ eleventyComputed:
     "thing" for the thing itself (Where, the screenshot, the story's call to read it), "source" for the sources
     and the citations of connections and events. Feed, sitemap and evidence links are files, not visits, and
     the story text is content: both keep their links as written. #}
-<article class="thing">
+{#- Search (collection/search-index.ts): Pagefind indexes the article, which is the words of the thing: its
+    title, summary, story, build, connections and history. The crumbs, facts, screenshot, evidence, diagram
+    and footer are left out. The empty image keeps Pagefind from taking the footer's photo as the page's
+    image, whose address would match words like "avatars" on every page. #}
+<article class="thing" data-pagefind-body>
+  <span hidden data-pagefind-meta="image:"></span>
   <header class="thing-header"{% if thing.story %} style="--accent: {{ thing.story.color }}"{% endif %}>
-    <p class="crumbs"><a href="/">Things</a> · <a href="/#{{ thing.collection | slugify }}">{{ thing.collection }}</a></p>
+    <p class="crumbs" data-pagefind-ignore><a href="/">Things</a> · <a href="/#{{ thing.collection | slugify }}">{{ thing.collection }}</a></p>
     <h1 class="with-sticker">{% include "sticker.njk" %}<span>{{ thing.title }}</span></h1>
     <p class="lede">{{ thing.summary }}</p>
     {% if thing.story %}<p class="introduction">{{ thing.story.introduction }}</p>{% endif %}
-    <dl class="facts">
+    <dl class="facts" data-pagefind-ignore>
       <dt>Status</dt>
       <dd><span class="status status-{{ thing.status }}">{{ thing.statusLabel }}</span> <span class="muted">{{ thing.statusDescription }}</span></dd>
       {% if thing.started or thing.ended %}
@@ -52,7 +57,7 @@ eleventyComputed:
   </header>
 
   {% if thing.screenshot %}
-  <figure class="screenshot">
+  <figure class="screenshot" data-pagefind-ignore>
     <a href="{{ thing.screenshot.site | ref("thing") }}"><img src="{{ thing.screenshot.src }}" width="{{ thing.screenshot.width }}" height="{{ thing.screenshot.height }}" alt="{{ thing.screenshot.alt }}" loading="lazy" decoding="async" /></a>
     <figcaption>{{ thing.screenshot.host }} on {{ thing.screenshot.date | date }}. The collector captures the front page once a month.</figcaption>
   </figure>
@@ -80,7 +85,7 @@ eleventyComputed:
   {% endif %}
 
   {% if thing.sources | length %}
-  <section class="sources">
+  <section class="sources" data-pagefind-ignore>
     <h2>Sources and evidence</h2>
     <p class="muted">Observed weekly from GitHub, sitemaps, feeds, the Internet Archive, and Tinylytics. Evidence never sets a status.</p>
     <ul class="source-list">
@@ -151,7 +156,7 @@ eleventyComputed:
     <h2>Connections</h2>
     {% set diagram = thing | connectionDiagram(site) %}
     {% if diagram %}
-    <figure class="connection-diagram{% if not diagram.narrow %} wide-only{% endif %}">
+    <figure class="connection-diagram{% if not diagram.narrow %} wide-only{% endif %}" data-pagefind-ignore>
       <div class="diagram-wide">{{ diagram.wide | safe }}</div>
       {% if diagram.narrow %}<div class="diagram-narrow">{{ diagram.narrow | safe }}</div>{% endif %}
     </figure>
@@ -198,7 +203,7 @@ eleventyComputed:
   </section>
   {% endif %}
 
-  <footer class="thing-footer">
+  <footer class="thing-footer" data-pagefind-ignore>
     <p class="muted">This thing as <a href="{{ thing.markdown }}">Markdown</a> · <a href="{{ site.repository }}/blob/main/content/things/{{ thing.id }}.md">Edit the record</a></p>
   </footer>
 </article>

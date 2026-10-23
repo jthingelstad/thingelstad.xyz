@@ -1,4 +1,4 @@
-<li class="thing-row is-{{ thing.status }}">
+<li class="thing-row is-{{ thing.status }}" data-page="{{ thing.page }}" data-filters="{% for f in thing.filters %}{{ f.name }}:{{ f.value }} {% endfor %}"{% if thing.started %} data-started="{{ thing.started }}"{% endif %}>
   {% include "sticker.njk" %}
   <div class="thing-row-main">
     <a class="thing-title" href="{{ thing.page }}">{{ thing.title }}</a>
