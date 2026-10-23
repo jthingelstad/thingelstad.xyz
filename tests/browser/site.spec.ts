@@ -101,6 +101,22 @@ test('every page opens with the Jamie’s sites strip, this site current', async
   expect(errors).toEqual([]);
 });
 
+test('the header links keep to one row at every width, scrolling only below 350px', async ({ page }) => {
+  await page.goto('/search/');
+  await page.evaluate(() => document.fonts.ready);
+  for (const width of [1536, 820, 500, 430, 390, 375, 360, 320]) {
+    await page.setViewportSize({ width, height: 800 });
+    const nav = await page.evaluate(() => {
+      const nav = document.querySelector('.site-header nav')!;
+      const tops = [...nav.querySelectorAll('a')].map((a) => Math.round(a.getBoundingClientRect().top));
+      return { rows: new Set(tops).size, overflow: nav.scrollWidth - nav.clientWidth };
+    });
+    expect(nav.rows, `${width}px: one row`).toBe(1);
+    if (width >= 350) expect(nav.overflow, `${width}px: every link fits`).toBeLessThanOrEqual(0);
+    expect(await fitsViewport(page), `${width}px`).toBe(true);
+  }
+});
+
 test('the favicon is the green T, versioned by its content', async ({ page }) => {
   await page.goto('/');
   const href = await page.locator('head link[rel="icon"]').getAttribute('href');

@@ -219,7 +219,6 @@ select:focus-visible,
 
 .site-header nav {
   display: flex;
-  flex-wrap: wrap;
   gap: 4px;
 }
 
@@ -1340,6 +1339,11 @@ h2 {
     gap: 8px;
   }
 
+  /* Under the wordmark, the first link's text lines up with it. */
+  .site-header nav {
+    margin-inline-start: -12px;
+  }
+
   .thing-row {
     grid-template-columns: auto minmax(0, 1fr);
   }
@@ -1370,6 +1374,39 @@ h2 {
   .event-list > li > a,
   .event-list p {
     grid-column: 1;
+  }
+}
+
+/* Phones: the five links keep to one row, spread across it with less room around each. They fit at 17px from
+   375px wide and a size smaller from 350px; narrower than that the row scrolls sideways like the sites strip.
+   It never breaks onto a second line. */
+@media (width <= 460px) {
+  .site-header nav {
+    align-self: stretch;
+    justify-content: space-between;
+    gap: 0;
+    margin-inline: -6px;
+  }
+
+  .site-header nav a {
+    padding-inline: 6px;
+  }
+}
+
+@media (width < 375px) {
+  .site-header nav {
+    margin-inline: -5px;
+  }
+
+  .site-header nav a {
+    padding-inline: 5px;
+    font-size: var(--jt-size-small);
+  }
+}
+
+@media (width < 350px) {
+  .site-header nav {
+    overflow-x: auto;
   }
 }
 
