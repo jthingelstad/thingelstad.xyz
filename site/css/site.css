@@ -71,11 +71,18 @@ a {
   text-decoration: none;
 }
 
-a:hover {
+a:not(.status):hover {
   color: var(--accent-text);
 }
 
+/* Elements shown by a script start hidden, and a class's display never overrides that. */
+[hidden] {
+  display: none !important;
+}
+
 a:focus-visible,
+button:focus-visible,
+select:focus-visible,
 [tabindex]:focus-visible {
   outline: 2px solid var(--accent-text);
   outline-offset: 3px;
@@ -212,6 +219,7 @@ a:focus-visible,
 
 .site-header nav {
   display: flex;
+  flex-wrap: wrap;
   gap: 4px;
 }
 
@@ -929,6 +937,356 @@ h2 {
   fill: var(--ink);
 }
 
+/* The front page's status legend leads to the search, filtered by that status. */
+.legend a.status:hover {
+  box-shadow: inset 0 0 0 1.5px currentcolor;
+}
+
+/* Search (site/search.njk, site/js/search.js): the box, the facets beside the list (folded above it on a
+   narrow screen), and the list, which is the front page's rows narrowed and reordered. A chosen facet value
+   is filled with ink, like the current page in the header. */
+.search-intro h1 {
+  margin-bottom: 12px;
+}
+
+.search-label {
+  display: block;
+  max-width: var(--measure);
+  color: var(--muted);
+}
+
+.search-row {
+  display: flex;
+  gap: 12px;
+  max-width: var(--measure);
+  margin-top: 14px;
+}
+
+.search-row input {
+  flex: 1;
+  min-width: 0;
+  padding: 12px 16px;
+  border: 2px solid var(--ink);
+  border-radius: 14px;
+  background: #fff;
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 1.125rem;
+  box-shadow: 3px 3px 0 var(--ink);
+}
+
+.search-row input:focus {
+  outline: none;
+  border-color: var(--accent-text);
+  box-shadow: 3px 3px 0 var(--accent-text);
+}
+
+.search-row input::placeholder {
+  color: var(--muted);
+}
+
+.surprise {
+  flex: none;
+  padding: 0 18px;
+  border: 2px solid var(--ink);
+  border-radius: 14px;
+  background: var(--dormant-soft);
+  color: var(--ink);
+  font-family: var(--font-ui);
+  font-size: var(--jt-size-ui);
+  font-weight: 600;
+  box-shadow: 3px 3px 0 var(--ink);
+  rotate: -1.5deg;
+  cursor: pointer;
+  transition: rotate 180ms ease;
+}
+
+.surprise:hover {
+  rotate: 1.5deg;
+}
+
+.surprise:active {
+  translate: 2px 2px;
+  box-shadow: 1px 1px 0 var(--ink);
+}
+
+.search-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  align-items: start;
+  gap: 24px 48px;
+  margin-top: 36px;
+}
+
+.search-results {
+  grid-area: 1 / 1;
+}
+
+.facet-panel {
+  grid-area: 1 / 2;
+  padding: 18px 20px 20px;
+  border-radius: 16px;
+  background: var(--soft);
+}
+
+.facet-panel summary {
+  display: none;
+}
+
+.facet {
+  min-width: 0;
+  margin: 0 0 20px;
+  padding: 0;
+  border: 0;
+}
+
+.facet legend {
+  margin-bottom: 8px;
+  padding: 0;
+  font-family: var(--font-label);
+  font-size: var(--jt-size-small);
+  font-weight: 600;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  padding: 3px 10px;
+  border: 1.5px solid var(--line);
+  border-radius: 999px;
+  background: var(--paper);
+  font-family: var(--font-label);
+  font-size: var(--jt-size-label);
+  font-weight: 500;
+  line-height: 1.5;
+  cursor: pointer;
+}
+
+/* A status chip keeps its status colour, as in the front page's legend. */
+.chip:not(.status) {
+  color: var(--ink);
+}
+
+.chip.status {
+  border-color: transparent;
+  background: var(--chip);
+  font-weight: 600;
+}
+
+.chip .count {
+  margin: 0;
+  font-size: var(--jt-size-label);
+}
+
+.chip:hover:not(:disabled) {
+  border-color: var(--ink);
+}
+
+.chip[aria-pressed='true'] {
+  border-color: var(--ink);
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.chip[aria-pressed='true'] .count {
+  color: var(--line);
+}
+
+/* A chosen status keeps its colour in the dot. */
+.chip.status[aria-pressed='true']::before {
+  background: var(--chip);
+}
+
+.chip:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+/* Started: one bar per year, as tall as the things begun that year. The outline is all of them; the green
+   fill is the ones the search would show, so the bars sink as the list narrows. */
+.histogram {
+  display: grid;
+  grid-auto-columns: minmax(0, 1fr);
+  grid-auto-flow: column;
+  gap: 2px;
+  height: 84px;
+  margin-bottom: 30px;
+}
+
+.year {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.bar {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: calc(var(--total) / var(--most) * 100%);
+  min-height: 8px;
+  padding: 0;
+  border: 0;
+  border-radius: 3px 3px 1px 1px;
+  background: var(--line);
+  cursor: pointer;
+}
+
+.bar.empty {
+  height: 2px;
+  min-height: 0;
+  cursor: default;
+}
+
+.bar .fill {
+  position: absolute;
+  inset: auto 0 0;
+  height: calc(var(--n) / var(--total) * 100%);
+  border-radius: inherit;
+  background: var(--accent);
+  transition: height 200ms ease;
+}
+
+.bar:hover:not(:disabled) .fill,
+.bar[aria-pressed='true'] .fill {
+  background: var(--ink);
+}
+
+.bar[aria-pressed='true'] {
+  box-shadow:
+    0 0 0 2px var(--paper),
+    0 0 0 3.5px var(--ink);
+}
+
+.bar:disabled {
+  cursor: default;
+}
+
+.tick {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  translate: -50% 6px;
+  color: var(--muted);
+  font-family: var(--font-label);
+  font-size: var(--jt-size-label);
+  white-space: nowrap;
+}
+
+.facet-note {
+  margin: 0;
+  font-size: var(--jt-size-label);
+}
+
+.clear {
+  margin-left: 8px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--accent-text);
+  font-family: var(--font-ui);
+  font-size: var(--jt-size-small);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+.search-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 16px;
+  margin-bottom: 6px;
+}
+
+.search-status {
+  margin: 0;
+  font-weight: 600;
+}
+
+.sort {
+  color: var(--muted);
+  font-family: var(--font-ui);
+  font-size: var(--jt-size-small);
+}
+
+.sort select {
+  margin-left: 6px;
+  padding: 4px 8px;
+  border: 1.5px solid var(--line);
+  border-radius: 8px;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-ui);
+  font-size: var(--jt-size-small);
+}
+
+/* The passage that matched, in place of the summary and set like it, with the matched words marked. */
+.search-excerpt {
+  margin: 4px 0 0;
+  color: var(--muted);
+  font-size: 1.0625rem;
+}
+
+.search-excerpt mark {
+  padding: 0 2px;
+  border-radius: 3px;
+  background: var(--dormant-soft);
+  color: var(--ink);
+  font-weight: 600;
+}
+
+@media (width < 900px) {
+  .search-layout {
+    grid-template-columns: minmax(0, 1fr);
+    margin-top: 24px;
+  }
+
+  .search-results,
+  .facet-panel {
+    grid-area: auto;
+  }
+
+  .facet-panel {
+    padding: 0;
+    background: none;
+  }
+
+  .facet-panel summary {
+    display: inline-flex;
+    padding: 6px 14px;
+    border: 1.5px solid var(--ink);
+    border-radius: 999px;
+    font-family: var(--font-ui);
+    font-size: var(--jt-size-ui);
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .facet-panel[open] summary {
+    margin-bottom: 16px;
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  .facet-panel[open] {
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--line);
+  }
+}
+
 @media (width <= 560px) {
   .tl-year {
     grid-template-columns: minmax(0, 1fr);
@@ -1018,6 +1376,8 @@ h2 {
 @media (prefers-reduced-motion: reduce) {
   .sticker,
   .mark,
+  .surprise,
+  .bar .fill,
   .thing-row {
     transition: none;
   }

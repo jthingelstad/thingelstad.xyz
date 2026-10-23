@@ -275,10 +275,12 @@ test('the shared type: Inter Tight headings, Inter text, nothing under 14px, no 
     ['/topics/', 200],
     ['/history/', 200],
     ['/timeline/', 200],
+    ['/search/?q=wiki', 200],
     ['/things/nothing-here/', 404]
   ] as const) {
     const response = await page.goto(path);
     expect(response?.status(), path).toBe(status);
+    if (path.startsWith('/search/')) await expect(page.locator('.search-excerpt').first()).toBeVisible();
     await page.evaluate(() => document.fonts.ready);
     const type = await page.evaluate(() => {
       const describe = (el: Element) => `${el.tagName.toLowerCase()}.${[...el.classList].join('.')}`;
@@ -325,4 +327,95 @@ test('the shared type: Inter Tight headings, Inter text, nothing under 14px, no 
   expect(fonts.length).toBeGreaterThan(0);
   for (const url of fonts) expect(url).toMatch(new RegExp(`^${baseURL}/assets/shared-[0-9a-f]{10}/fonts/inter-`));
   expect(errors).toEqual([]);
+});
+
+test('search narrows the list by its words and facets, and keeps them in the address', async ({ page }) => {
+  const errors = watchErrors(page);
+  const phone = page.viewportSize()!.width < 900;
+  const rows = page.locator('.thing-row:visible');
+  const status = page.locator('[data-search-status]');
+  const chip = (facet: string, value: string) => page.locator(`[data-facet="${facet}"] button[data-value="${value}"]`);
+  const count = async (facet: string, value: string) =>
+    Number(await chip(facet, value).locator('[data-count]').textContent());
+  await page.goto('/search/');
+  await expect(status).toHaveText(`All ${things.length} things`);
+  await expect(rows).toHaveCount(things.length);
+  // The filters sit beside the list on a wide screen and fold into a button on a narrow one.
+  const filters = page.locator('[data-search-facets]');
+  await expect(filters).toHaveJSProperty('open', !phone);
+  if (phone) await filters.locator('summary').click();
+  expect(await fitsViewport(page)).toBe(true);
+
+  // Words: each match shows the passage that matched in place of its summary.
+  await page.getByRole('searchbox').fill('wiki');
+  await expect(status).toContainText(`of ${things.length} things match “wiki”`);
+  await expect(page).toHaveURL(/\/search\/\?q=wiki$/);
+  const matches = await rows.count();
+  expect(matches).toBeGreaterThan(1);
+  expect(matches).toBeLessThan(things.length);
+  await expect(rows.locator('.search-excerpt mark')).not.toHaveCount(0);
+  await expect(rows.locator('.search-excerpt')).toHaveCount(matches);
+  await expect(rows.locator('.thing-summary:visible')).toHaveCount(0);
+
+  // A choice shows as many things as its count said, and the other counts follow.
+  const retired = await count('status', 'retired');
+  expect(retired).toBeGreaterThan(0);
+  await chip('status', 'retired').click();
+  await expect(chip('status', 'retired')).toHaveAttribute('aria-pressed', 'true');
+  await expect(page).toHaveURL(/\?q=wiki&status=retired$/);
+  await expect(rows).toHaveCount(retired);
+  await expect(page.locator('.thing-row.is-retired:visible')).toHaveCount(retired);
+  // A facet is counted without its own choice, so Retired keeps its count and the other statuses say what they add.
+  expect(await count('status', 'retired')).toBe(retired);
+  expect(await count('status', 'active')).toBeGreaterThan(0);
+  await page.getByRole('button', { name: 'Clear' }).click();
+  await expect(rows).toHaveCount(things.length);
+  await expect(page).toHaveURL(/\/search\/$/);
+
+  // Pagefind shortens a word it does not know until something matches; a nonsense word matches nothing here.
+  await page.getByRole('searchbox').fill('avatars');
+  await expect(status).toHaveText('Nothing I’ve built matches “avatars”.');
+  await expect(rows).toHaveCount(0);
+
+  // The address carries a search: Python things, newest first, and a bar of the histogram adds a year.
+  await page.goto('/search/?language=python&sort=newest');
+  const python = await count('language', 'python');
+  await expect(rows).toHaveCount(python);
+  await expect(page.getByRole('combobox', { name: 'Sort' })).toHaveValue('newest');
+  const started = await rows.evaluateAll((items) => items.map((item) => (item as HTMLElement).dataset.started ?? ''));
+  expect(started.filter(Boolean)).toEqual(started.filter(Boolean).toSorted().reverse());
+  // Filters from the address open the panel on any screen.
+  await expect(filters).toHaveJSProperty('open', true);
+  const year = page.locator('[data-facet="year"] button.bar:not(:disabled)').last();
+  const value = (await year.getAttribute('data-value'))!;
+  await year.click();
+  await expect(page).toHaveURL(new RegExp(`\\?year=${value}&language=python&sort=newest$`));
+  await expect(rows).not.toHaveCount(0);
+  for (const when of await rows.evaluateAll((items) => items.map((item) => (item as HTMLElement).dataset.started)))
+    expect(when).toMatch(new RegExp(`^${value}`));
+  expect(await fitsViewport(page)).toBe(true);
+  expect(errors).toEqual([]);
+});
+
+test('the legend on the front page leads to search, filtered by status', async ({ page }) => {
+  await page.goto('/');
+  await page.locator('.legend a.status-dormant').click();
+  await expect(page).toHaveURL(/\/search\/\?status=dormant$/);
+  const dormant = things.filter((thing) => thing.status === 'dormant').length;
+  await expect(page.locator('.thing-row:visible')).toHaveCount(dormant);
+  await expect(page.locator('[data-facet="status"] button[data-value="dormant"]')).toHaveAttribute(
+    'aria-pressed',
+    'true'
+  );
+});
+
+test.describe('without JavaScript', () => {
+  test.use({ javaScriptEnabled: false });
+  test('the search page still lists every thing', async ({ page }) => {
+    await page.goto('/search/');
+    await expect(page.locator('.thing-row:visible')).toHaveCount(things.length);
+    await expect(page.locator('[data-search-status]')).toContainText('Every thing I’ve built is listed below.');
+    await expect(page.getByRole('searchbox')).toBeHidden();
+    await expect(page.locator('[data-search-facets]')).toBeHidden();
+  });
 });

@@ -32,6 +32,7 @@
     "knip": "^6.41.0",
     "markdown-it": "^15.0.3",
     "oxlint": "^1.88.0",
+    "pagefind": "1.5.2",
     "prettier": "^3.9.10",
     "stylelint": "^17.16.0",
     "stylelint-config-standard": "^40.0.0",

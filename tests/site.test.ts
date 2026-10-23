@@ -291,6 +291,73 @@ test('the shared list names Jamie the same way on every site', () => {
   assert.throws(() => parseSites(without({ rel_me: [] })), /rel_me/);
 });
 
+test('the search facets count every thing, and each row carries the values it is counted under', () => {
+  const facet = (name: string) => model.facets.find((f) => f.name === name)!;
+  assert.deepEqual(
+    model.facets.map((f) => f.name),
+    ['status', 'year', 'topic', 'collection', 'language']
+  );
+  // Status in the legend's order, with the legend's counts; every thing has one status and one collection.
+  assert.deepEqual(
+    facet('status').values.map((v) => [v.value, v.count]),
+    model.statuses.map((s) => [s.status, s.count])
+  );
+  for (const name of ['status', 'collection'])
+    assert.equal(
+      facet(name).values.reduce((sum, v) => sum + v.count, 0),
+      model.things.length
+    );
+  assert.deepEqual(
+    facet('collection').values.map((v) => v.label),
+    model.collections.map((c) => c.name)
+  );
+  assert.ok(
+    facet('collection').values.some((v) => v.value === 'art-and-archives'),
+    'a slug spells out &'
+  );
+  // Every year from the first start to this one, empty years included, so the histogram has no gaps.
+  const years = facet('year').values.map((v) => Number(v.value));
+  assert.equal(years.at(-1), now.getUTCFullYear());
+  assert.ok(years.every((year, i) => !i || year === years[i - 1] + 1));
+  assert.ok(facet('year').values.some((v) => !v.count));
+  assert.equal(
+    facet('year').values.reduce((sum, v) => sum + v.count, 0),
+    model.things.filter((t) => t.started).length
+  );
+  for (const f of model.facets) assert.equal(f.most, Math.max(...f.values.map((v) => v.count)));
+  // Topics and languages most first.
+  for (const name of ['topic', 'language']) {
+    const counts = facet(name).values.map((v) => v.count);
+    assert.deepEqual(
+      counts,
+      counts.toSorted((a, b) => b - a)
+    );
+  }
+  for (const thing of model.things) {
+    const values = (name: string) => thing.filters.filter((f) => f.name === name).map((f) => f.value);
+    assert.deepEqual(values('status'), [thing.status]);
+    assert.deepEqual(
+      values('topic'),
+      thing.topicList.map((t) => t.id)
+    );
+    assert.deepEqual(values('year'), thing.started ? [thing.started.slice(0, 4)] : []);
+    // The language is the top one GitHub reports for each repository, never a claim of the registry's.
+    const top = new Set(
+      thing.sources.flatMap((source) =>
+        source.observation?.kind === 'github' ? source.observation.languages.slice(0, 1).map((l) => l.name) : []
+      )
+    );
+    assert.deepEqual(
+      thing.filters.filter((f) => f.name === 'language').map((f) => f.label),
+      [...top]
+    );
+    for (const f of thing.filters) {
+      assert.match(f.value, /^[a-z0-9-]+$/, 'a value is a slug that fits the address and data-filters');
+      assert.ok(facet(f.name).values.some((v) => v.value === f.value && v.label === f.label));
+    }
+  }
+});
+
 test('a ref joins any query and goes before any fragment', () => {
   assert.equal(
     withRef('https://weekly.thingelstad.com/', 'xyz-thing'),

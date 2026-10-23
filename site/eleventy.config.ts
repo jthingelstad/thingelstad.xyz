@@ -20,6 +20,7 @@ import { connectionDiagram } from '../collection/diagram';
 import { parseSites, siteRef, sitesPath } from '../collection/sites';
 import { sitesStrip } from '../collection/sites-strip';
 import { sharedTypeAssets, sharedTypeDir } from '../collection/shared-type';
+import { writeSearchIndex } from '../collection/search-index';
 
 const markdown = markdownIt({ html: false, linkify: true, typographer: true });
 
@@ -29,6 +30,7 @@ type EleventyConfig = {
   addGlobalData(name: string, value: unknown): void;
   setLibrary(name: string, library: unknown): void;
   addFilter(name: string, filter: (...args: never[]) => unknown): void;
+  on(event: 'eleventy.after', callback: (event: { dir: { output: string } }) => Promise<void>): void;
 };
 
 export default function (eleventyConfig: EleventyConfig) {
@@ -41,6 +43,7 @@ export default function (eleventyConfig: EleventyConfig) {
   const shared = sharedTypeAssets();
   const assets = {
     css: `/assets/site-${hashed('site/css/site.css')}.css`,
+    search: `/assets/search-${hashed('site/js/search.js')}.js`,
     tokens: shared.tokens,
     fontPreloads: shared.preloads,
     favicon: hashed('public/favicon.svg')
@@ -56,6 +59,7 @@ export default function (eleventyConfig: EleventyConfig) {
   eleventyConfig.addPassthroughCopy({ 'public/favicon.svg': 'favicon.svg' });
   eleventyConfig.addPassthroughCopy({
     'site/css/site.css': assets.css.slice(1),
+    'site/js/search.js': assets.search.slice(1),
     [sharedTypeDir]: shared.base.slice(1)
   });
   // Each front-page screenshot is published under /assets/ with its hash in the name (see screenshotAsset).
@@ -83,6 +87,10 @@ export default function (eleventyConfig: EleventyConfig) {
       .map((l) => l.name)
       .join(', ')
   );
+  // Pagefind indexes the thing pages once they are written (collection/search-index.ts), for /search/.
+  eleventyConfig.on('eleventy.after', async ({ dir }) => {
+    await writeSearchIndex(dir.output);
+  });
   return {
     dir: { input: 'site', output: '_site', includes: '_includes', data: '_data' },
     templateFormats: ['njk', '11ty.js'],

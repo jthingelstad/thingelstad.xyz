@@ -1,0 +1,63 @@
+---
+layout: layout.njk
+permalink: /search/
+title: Search
+description: Search everything I’ve built, and narrow it by status, the year it started, topic, collection, and language.
+---
+{#- Search and facets. The page lists every thing, as the index does, so it works without JavaScript.
+    site/js/search.js loads the Pagefind index (collection/search-index.ts) for the words, then narrows and
+    orders this list by the facet values each row carries, adds the passage that matched, and keeps the query
+    and filters in the address. The values and their counts come from the model (collection/site.ts); the
+    script updates the counts as the list narrows. #}
+<section class="intro search-intro">
+  <h1 class="title">Search what I’ve <span class="accent">built</span><span class="dot">.</span></h1>
+  <form class="search-form" role="search" action="/search/" data-search-form hidden>
+    <label class="search-label" for="search-query">Search the words of every thing, or narrow the list with the filters.</label>
+    <div class="search-row">
+      <input id="search-query" name="q" type="search" autocomplete="off" spellcheck="false" placeholder="A wiki, a bot, a newsletter, Clash Royale" data-search-query />
+      <button type="button" class="surprise" data-search-surprise>Surprise me</button>
+    </div>
+  </form>
+</section>
+<div class="search-layout" data-search>
+  <details class="facet-panel" data-search-facets hidden>
+    <summary>Filters<span class="selected" data-search-selected></span></summary>
+    {% for facet in site.facets %}
+    <fieldset class="facet facet-{{ facet.name }}" data-facet="{{ facet.name }}">
+      <legend>{{ facet.label }}</legend>
+      {% if facet.name == 'year' %}
+      <div class="histogram" style="--most: {{ facet.most }}">
+        {% for v in facet.values %}
+        <span class="year">
+          {% if v.count %}<button type="button" class="bar" data-value="{{ v.value }}" data-label="{{ v.label }}" aria-pressed="false" aria-label="Started {{ v.label }}, {{ v.count }} thing{{ "s" if v.count != 1 }}" title="{{ v.label }}: {{ v.count }} thing{{ "s" if v.count != 1 }}" style="--total: {{ v.count }}; --n: {{ v.count }}"><span class="fill"></span></button>{% else %}<span class="bar empty"></span>{% endif %}
+          {% if v.value | int % 5 == 0 %}<span class="tick" aria-hidden="true">{{ v.label }}</span>{% endif %}
+        </span>
+        {% endfor %}
+      </div>
+      {% else %}
+      <p class="chips">
+        {% for v in facet.values %}<button type="button" class="chip{% if facet.name == 'status' %} status status-{{ v.value }}{% endif %}" data-value="{{ v.value }}" data-label="{{ v.label }}" aria-pressed="false">{{ v.label }}<span class="count" data-count>{{ v.count }}</span></button> {% endfor %}
+      </p>
+      {% endif %}
+    </fieldset>
+    {% endfor %}
+    <p class="facet-note muted">Written in is the top language GitHub reports for each repository.</p>
+  </details>
+  <div class="search-results">
+    <div class="search-bar">
+      <p class="search-status"><span role="status" data-search-status>Search needs JavaScript. Every thing I’ve built is listed below.</span> <button type="button" class="clear" data-search-clear hidden>Clear</button></p>
+      <label class="sort" data-search-sort-label hidden>Sort
+        <select data-search-sort>
+          <option value="match">Best match</option>
+          <option value="title">A to Z</option>
+          <option value="newest">Newest first</option>
+          <option value="oldest">Oldest first</option>
+        </select>
+      </label>
+    </div>
+    <ol class="thing-list" data-search-results>
+      {% for thing in site.things %}{% include "thing-row.njk" %}{% endfor %}
+    </ol>
+  </div>
+</div>
+<script type="module" src="{{ assets.search }}"></script>

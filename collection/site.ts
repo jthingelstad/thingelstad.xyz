@@ -104,7 +104,22 @@ export type SiteThing = Omit<Thing, 'sources'> & {
   screenshot: SiteScreenshot | null;
   views: SiteViews | null;
   span: { start: number | null; end: number | null }; // years, for the timeline
+  filters: ThingFilter[]; // its facet values, for /search/
 };
+// The facets of /search/. Each thing's row carries its values (data-filters), and the search page lists every
+// value with how many things carry it. A value is a stable slug for the address (?topic=mediawiki); its label
+// is what a reader sees. The language is the top one GitHub reports for each of the thing's repositories:
+// evidence, like every observation, and never a statement about it.
+type FacetName = 'status' | 'collection' | 'topic' | 'year' | 'language';
+type ThingFilter = { name: FacetName; value: string; label: string };
+type FacetValue = { value: string; label: string; count: number };
+type Facet = { name: FacetName; label: string; values: FacetValue[]; most: number }; // most: the largest count
+const facetSlug = (label: string) =>
+  label
+    .toLowerCase()
+    .replace(/&/g, ' and ')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
 type SiteTopic = Topic & { page: string; things: SiteThing[] };
 type SiteCollection = { name: string; things: SiteThing[] };
 type SiteYear = { year: string; events: HistoryEvent[] };
@@ -143,6 +158,7 @@ export type SiteModel = {
   years: SiteYear[];
   timeline: Timeline;
   statuses: { status: Status; label: string; description: string; count: number }[];
+  facets: Facet[];
 };
 
 // Dates keep the precision the source gave them: YYYY, YYYY-MM, or YYYY-MM-DD.
@@ -247,6 +263,26 @@ function sourceMonths(source: SiteSource): MonthCount[] {
   return observation.feed?.months ?? [];
 }
 
+function thingFilters(thing: Thing, sources: SiteSource[], topics: Map<string, Topic>): ThingFilter[] {
+  const languages = new Set(
+    sources.flatMap((source) =>
+      source.observation?.kind === 'github' ? source.observation.languages.slice(0, 1).map((l) => l.name) : []
+    )
+  );
+  return [
+    { name: 'status', value: thing.status, label: statusLabels[thing.status] },
+    { name: 'collection', value: facetSlug(thing.collection), label: thing.collection },
+    ...thing.topics.flatMap((id) => {
+      const topic = topics.get(id);
+      return topic ? [{ name: 'topic' as const, value: topic.id, label: topic.title }] : [];
+    }),
+    ...(thing.started
+      ? [{ name: 'year' as const, value: thing.started.slice(0, 4), label: thing.started.slice(0, 4) }]
+      : []),
+    ...[...languages].map((name) => ({ name: 'language' as const, value: facetSlug(name), label: name }))
+  ];
+}
+
 export function buildSiteModel(registry: Registry, observations: Observation[], now = new Date()): SiteModel {
   const github = new Map<string, GitHubObservation>();
   const web = new Map<string, WebObservation>();
@@ -326,7 +362,8 @@ export function buildSiteModel(registry: Registry, observations: Observation[], 
       months: window.map((month) => ({ month, count: counts.get(month) ?? 0 })),
       screenshot: shot ? siteScreenshot(shot) : null,
       views: viewed ? { site: viewed.url, total: viewed.hits, until: viewed.until, months: viewMonths(viewed) } : null,
-      span: { start, end }
+      span: { start, end },
+      filters: thingFilters(thing, sources, topicById)
     };
   });
   const byId = new Map(things.map((thing) => [thing.id, thing]));
@@ -385,6 +422,39 @@ export function buildSiteModel(registry: Registry, observations: Observation[], 
     description: statusDescriptions[status],
     count: things.filter((thing) => thing.status === status).length
   }));
+  const counted = (name: FacetName) => {
+    const values = new Map<string, FacetValue>();
+    for (const thing of things)
+      for (const filter of thing.filters.filter((f) => f.name === name)) {
+        const value = values.get(filter.value) ?? { value: filter.value, label: filter.label, count: 0 };
+        values.set(filter.value, { ...value, count: value.count + 1 });
+      }
+    return values;
+  };
+  const byCount = (values: Map<string, FacetValue>) =>
+    [...values.values()].sort((a, b) => b.count - a.count || a.label.localeCompare(b.label));
+  const inOrder = (values: Map<string, FacetValue>, order: string[]) => order.flatMap((v) => values.get(v) ?? []);
+  // Started is every year from the first to this one, empty years included, so it draws as a histogram.
+  const started = counted('year');
+  const first = Math.min(now.getUTCFullYear(), ...[...started.keys()].map(Number));
+  const startYears = Array.from({ length: now.getUTCFullYear() - first + 1 }, (_, i) => String(first + i));
+  const facet = (name: FacetName, label: string, values: FacetValue[]): Facet => ({
+    name,
+    label,
+    values,
+    most: Math.max(0, ...values.map((v) => v.count))
+  });
+  const facets = [
+    facet('status', 'Status', inOrder(counted('status'), Object.keys(statusLabels))),
+    facet(
+      'year',
+      'Started',
+      startYears.map((y) => started.get(y) ?? { value: y, label: y, count: 0 })
+    ),
+    facet('topic', 'Topic', byCount(counted('topic'))),
+    facet('collection', 'Collection', inOrder(counted('collection'), names.map(facetSlug))),
+    facet('language', 'Written in', byCount(counted('language')))
+  ];
   return {
     url: siteUrl,
     title: siteTitle,
@@ -404,7 +474,8 @@ export function buildSiteModel(registry: Registry, observations: Observation[], 
       mostAlive: Math.max(1, ...timelineYears.map((y) => y.total)),
       undated: sortedThings.filter((thing) => !byId.get(thing.id)?.span.start && thing.span.start === null)
     },
-    statuses
+    statuses,
+    facets
   };
 }
 
