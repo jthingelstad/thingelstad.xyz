@@ -2,7 +2,7 @@
   "kind": "github",
   "repository": "jthingelstad/homebrew-tap",
   "url": "https://github.com/jthingelstad/homebrew-tap",
-  "observedAt": "2026-10-18T10:38:59.915Z",
+  "observedAt": "2026-10-23T23:01:15.615Z",
   "repositoryCreatedAt": "2026-10-04T20:06:48.000Z",
   "archived": false,
   "description": "Homebrew tap for MB, the Micro.blog CLI and MCP server",
@@ -18,11 +18,11 @@
     {
       "path": null,
       "branch": "main",
-      "since": "2026-07-20T10:38:59.915Z",
-      "until": "2026-10-18T10:38:59.915Z",
-      "count": 24,
+      "since": "2026-07-01T00:00:00.000Z",
+      "until": "2026-10-23T23:01:15.615Z",
+      "count": 23,
       "complete": true,
-      "months": [{ "month": "2026-10", "count": 24 }],
+      "months": [{ "month": "2026-10", "count": 23 }],
       "latestCommit": {
         "date": "2026-10-05T22:39:07.000Z",
         "url": "https://github.com/jthingelstad/homebrew-tap/commit/2e70b135454ceae1c58c27dbc0567bed7707a643"
