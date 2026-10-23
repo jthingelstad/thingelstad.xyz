@@ -30,7 +30,7 @@ type EleventyConfig = {
   addGlobalData(name: string, value: unknown): void;
   setLibrary(name: string, library: unknown): void;
   addFilter(name: string, filter: (...args: never[]) => unknown): void;
-  on(event: 'eleventy.after', callback: (event: { dir: { output: string } }) => Promise<void>): void;
+  on(event: 'eleventy.after', callback: (event: { directories: { output: string } }) => Promise<void>): void;
 };
 
 export default function (eleventyConfig: EleventyConfig) {
@@ -87,9 +87,10 @@ export default function (eleventyConfig: EleventyConfig) {
       .map((l) => l.name)
       .join(', ')
   );
-  // Pagefind indexes the thing pages once they are written (collection/search-index.ts), for /search/.
-  eleventyConfig.on('eleventy.after', async ({ dir }) => {
-    await writeSearchIndex(dir.output);
+  // Pagefind indexes the thing pages once they are written (collection/search-index.ts), for /search/. It reads
+  // `directories.output`, where this build wrote, which --output changes; the older `dir` is only the config.
+  eleventyConfig.on('eleventy.after', async ({ directories }) => {
+    await writeSearchIndex(directories.output);
   });
   return {
     dir: { input: 'site', output: '_site', includes: '_includes', data: '_data' },
