@@ -89,20 +89,28 @@ async function observeSitemap(url: string, fetchText: TextFetcher, now: Date): P
   };
 }
 
-// The words of an item, for the activity log: entities decoded, markup and whitespace gone.
-const plain = (value: string) =>
-  decode(
-    decode(value)
-      .replace(/<\/?(p|br|div|li|ul|ol|h[1-6]|blockquote|figure|figcaption|img)\b[^>]*>/gi, ' ')
-      .replace(/<[^>]*>/g, '')
-  )
-    .replace(/&#(\d+);/g, (_, n: string) => String.fromCodePoint(Number(n)))
-    .replace(/&#x([0-9a-f]+);/gi, (_, n: string) => String.fromCodePoint(parseInt(n, 16)))
-    .replace(/&nbsp;/g, ' ')
+// The words of an item, for the activity log: entities decoded (a feed's HTML arrives escaped, so twice),
+// markup and whitespace gone. Tags are removed until none are left, so markup escaped once more than the
+// rest cannot come through as a tag. The site escapes the words again wherever it shows them.
+const blockTags = /<\/?(p|br|div|li|ul|ol|h[1-6]|blockquote|figure|figcaption|img)\b[^>]*>/gi;
+const codePoint = (n: number) => (n > 0 && n <= 0x10ffff ? String.fromCodePoint(n) : '');
+const entities = (value: string) =>
+  decode(value)
+    .replace(/&#(\d+);/g, (_, n: string) => codePoint(Number(n)))
+    .replace(/&#x([0-9a-f]+);/gi, (_, n: string) => codePoint(parseInt(n, 16)))
+    .replace(/&nbsp;/g, ' ');
+function plain(value: string) {
+  let text = entities(entities(value).replace(blockTags, ' ')).replace(blockTags, ' ');
+  for (let before = ''; before !== text;) {
+    before = text;
+    text = text.replace(/<[^>]*>/g, '');
+  }
+  return text
     .replace(/\p{Cc}+/gu, ' ')
     .replace(/\s+/g, ' ')
     .replace(/\s+([.,;:!?])/g, '$1')
     .trim();
+}
 const cut = (value: string, max: number) => {
   if (value.length <= max) return value;
   const head = value.slice(0, max);

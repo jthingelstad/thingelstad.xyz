@@ -514,6 +514,8 @@ test('the publication log keeps every item its feed has carried', async () => {
     parseFeed(jsonFeed).entries.map((e) => [e.id, e.date]),
     [['1', '2026-08-02T15:00:00.000Z']]
   );
+  const escaped = `<rss><channel><item><title>Hi &amp;lt;b&amp;gt;there&amp;lt;/b&amp;gt; &amp;#99999999;</title><pubDate>Tue, 20 Oct 2026 12:00:00 GMT</pubDate></item></channel></rss>`;
+  assert.equal(parseFeed(escaped).entries[0].title, 'Hi there', 'markup escaped twice is still removed');
   const source = { url: 'https://example.com/', feed: 'https://example.com/feed.xml' };
   const first = await observePublications(source, async () => feed, undefined, now);
   assert.equal(first.items.length, 2);
