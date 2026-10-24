@@ -184,6 +184,48 @@ test('a website thing shows its own front page and page views, and a thing that 
   assert.equal(json.screenshot?.url, `${siteUrl}${screenshotAsset(screenshot)}`);
 });
 
+test('artifacts are published beside their thing, shown by an image where there is one, and carried in the twin', () => {
+  const velo = model.things.find((t) => t.id === 'velotweets')!;
+  const byFile = new Map(velo.artifacts.map((artifact) => [artifact.file, artifact]));
+  const logo = byFile.get('masthead-logo.png')!;
+  assert.equal(logo.src, '/things/velotweets/artifacts/masthead-logo.png');
+  assert.deepEqual(logo.image, { src: logo.src, width: 200, height: 100 });
+  assert.equal(logo.kind, 'PNG image');
+  const drawing = byFile.get('cyclist.ai')!;
+  assert.equal(drawing.src, '/things/velotweets/artifacts/cyclist.ai');
+  assert.equal(
+    drawing.image?.src,
+    '/things/velotweets/artifacts/cyclist.png',
+    'a file a browser cannot show uses its preview'
+  );
+  assert.equal(drawing.kind, 'Adobe Illustrator file');
+  assert.equal(byFile.get('color-palette.ase')!.image, null, 'a file with no preview is a download only');
+  for (const artifact of velo.artifacts)
+    assert.equal(artifact.bytes, readFileSync(`content/artifacts/velotweets/${artifact.file}`).length);
+  assert.deepEqual(model.things.find((t) => t.id === 'elixir')!.artifacts, []);
+
+  const { frontmatter } = splitFrontmatter(thingMarkdown(velo), 'twin') as { frontmatter: Record<string, unknown> };
+  const twinArtifacts = frontmatter.artifacts as Record<string, unknown>[];
+  assert.equal(twinArtifacts.length, velo.artifacts.length);
+  assert.deepEqual(twinArtifacts[4], {
+    file: 'cyclist.ai',
+    title: drawing.title,
+    caption: drawing.caption,
+    date: '2009-05-05',
+    preview: 'cyclist.png',
+    url: `${siteUrl}/things/velotweets/artifacts/cyclist.ai`
+  });
+  assert.ok(!thingMarkdown(model.things.find((t) => t.id === 'elixir')!).includes('artifacts:'));
+  const json = thingsJson(model).things.find((t) => t.id === 'velotweets')!;
+  assert.equal(json.artifacts?.[0].url, `${siteUrl}/things/velotweets/artifacts/masthead-logo.png`);
+  assert.equal(json.artifacts?.[0].kind, 'PNG image');
+  assert.equal(json.artifacts?.[0].bytes, logo.bytes);
+  assert.throws(
+    () => buildSiteModel({ ...registry, artifactFiles: undefined }, observations, now),
+    /velotweets\/masthead-logo\.png was not measured/
+  );
+});
+
 test('the timeline and sparklines render without gaps in the data', () => {
   const { timeline } = model;
   assert.equal(timeline.years.length, timeline.lastYear - timeline.firstYear + 1);

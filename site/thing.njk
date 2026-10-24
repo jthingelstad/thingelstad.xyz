@@ -15,8 +15,8 @@ eleventyComputed:
     and the citations of connections and events. Feed, sitemap and evidence links are files, not visits, and
     the story text is content: both keep their links as written. #}
 {#- Search (collection/search-index.ts): Pagefind indexes the article, which is the words of the thing: its
-    title, summary, story, build, connections and history. The crumbs, facts, screenshot, evidence, diagram
-    and footer are left out. The empty image keeps Pagefind from taking the footer's photo as the page's
+    title, summary, story, build, artifacts, connections and history. The crumbs, facts, screenshot, evidence,
+    diagram and footer are left out. The empty image keeps Pagefind from taking the footer's photo as the page's
     image, whose address would match words like "avatars" on every page. #}
 <article class="thing" data-pagefind-body>
   <span hidden data-pagefind-meta="image:"></span>
@@ -81,6 +81,32 @@ eleventyComputed:
     {% if thing.story.source %}
     <p><a href="{{ thing.story.source | ref("thing") }}">{{ thing.story.sourceLabel or "Source" }}</a></p>
     {% endif %}
+  </section>
+  {% endif %}
+
+  {#- Artifacts: files from the project itself, published beside this page. An image is shown as it is and
+      opens full size; any other file is a download, shown by its preview when it has one. The titles and
+      captions are the thing's words and are indexed; the file names and sizes are not. #}
+  {% if thing.artifacts | length %}
+  <section class="artifacts">
+    <h2>Artifacts</h2>
+    <p class="muted">Files from the project itself, as they were kept.</p>
+    <ul class="artifact-list">
+      {% for artifact in thing.artifacts %}
+      <li class="artifact">
+        {% if artifact.image %}
+        <a class="artifact-image" href="{{ artifact.image.src }}" data-pagefind-ignore><img src="{{ artifact.image.src }}" width="{{ artifact.image.width }}" height="{{ artifact.image.height }}" alt="{{ artifact.title }}" loading="lazy" decoding="async" /></a>
+        {% endif %}
+        <h3>{{ artifact.title }}</h3>
+        {% if artifact.caption %}<p class="artifact-caption">{{ artifact.caption }}</p>{% endif %}
+        <p class="artifact-meta muted" data-pagefind-ignore>
+          <a href="{{ artifact.src }}" download>{{ artifact.file }}</a> · {{ artifact.kind }}, {{ artifact.size }}
+          {%- if artifact.date %} · {{ artifact.date | date }}{% endif %}
+          {%- if artifact.source %} · <a href="{{ artifact.source | ref("source") }}">Source</a>{% endif %}
+        </p>
+      </li>
+      {% endfor %}
+    </ul>
   </section>
   {% endif %}
 

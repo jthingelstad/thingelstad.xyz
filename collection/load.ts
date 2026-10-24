@@ -1,7 +1,9 @@
-import { readFile, readdir } from 'node:fs/promises';
+import { existsSync } from 'node:fs';
+import { readFile, readdir, stat } from 'node:fs/promises';
 import { basename, join } from 'node:path';
 import { parse } from 'yaml';
-import type { Registry } from './schema';
+import { artifactMaxBytes, imageSize, isImage } from './artifacts';
+import type { ArtifactFile, Registry, Thing } from './schema';
 import { checkReferences, ContentError, historyEvent, thing, topic } from './validate';
 
 const contentRoot = 'content';
@@ -46,5 +48,50 @@ export async function loadRegistry(root = contentRoot): Promise<Registry> {
   )
     .flat()
     .sort((a, b) => b.date.localeCompare(a.date) || a.id.localeCompare(b.id));
-  return checkReferences({ things, topics, history });
+  return { ...checkReferences({ things, topics, history }), artifactFiles: await measureArtifacts(root, things) };
+}
+
+// content/artifacts/ holds one folder per thing that lists artifacts, and each folder holds exactly the files
+// its record names: an unlisted file would be published without a word about it, and a listed one that is
+// missing would be a broken link. Files whose names start with a dot (.DS_Store) are the Finder's, not
+// artifacts, and are neither checked nor published.
+export async function measureArtifacts(root: string, things: Thing[]): Promise<Map<string, ArtifactFile>> {
+  const directory = join(root, 'artifacts');
+  const listing = new Map(things.filter((t) => t.artifacts).map((t) => [t.id, t.artifacts!]));
+  const folders = existsSync(directory) ? await readdir(directory, { withFileTypes: true }) : [];
+  for (const folder of folders.filter((entry) => !entry.name.startsWith('.'))) {
+    const where = `artifacts/${folder.name}`;
+    if (!folder.isDirectory())
+      throw new ContentError(where, 'Keep each thing’s artifacts in a folder named by its id.');
+    if (!listing.has(folder.name)) throw new ContentError(where, `No thing lists artifacts in this folder.`);
+  }
+  const files = new Map<string, ArtifactFile>();
+  for (const [id, artifacts] of listing) {
+    const folder = join(directory, id);
+    const where = `artifacts/${id}`;
+    const named = artifacts.flatMap((a) => (a.preview ? [a.file, a.preview] : [a.file]));
+    if (!existsSync(folder))
+      throw new ContentError(where, `things/${id}.md lists artifacts, but the folder is missing.`);
+    const present = (await readdir(folder, { withFileTypes: true })).filter((entry) => !entry.name.startsWith('.'));
+    for (const entry of present)
+      if (!named.includes(entry.name))
+        throw new ContentError(`${where}/${entry.name}`, `Not listed in things/${id}.md.`);
+    for (const name of named) {
+      const entry = present.find((e) => e.name === name);
+      if (!entry) throw new ContentError(`${where}/${name}`, 'Listed, but not in the folder.');
+      if (!entry.isFile()) throw new ContentError(`${where}/${name}`, 'Expected a file, not a folder or a link.');
+      const path = join(folder, name);
+      const { size } = await stat(path);
+      if (!size || size > artifactMaxBytes)
+        throw new ContentError(`${where}/${name}`, `An artifact is between 1 byte and ${artifactMaxBytes / 1e6} MB.`);
+      if (!isImage(name)) {
+        files.set(`${id}/${name}`, { bytes: size });
+        continue;
+      }
+      const dimensions = imageSize(await readFile(path));
+      if (!dimensions) throw new ContentError(`${where}/${name}`, 'Not an image this site can read.');
+      files.set(`${id}/${name}`, { bytes: size, ...dimensions });
+    }
+  }
+  return files;
 }
