@@ -280,6 +280,11 @@ export function topic(value: unknown, where: string): Topic {
     description: text(item.description, `${where}.description`)
   };
 }
+export function featuredEntry(value: unknown, where: string): string {
+  const item = record(value, ['thing'], where);
+  return identifier(item.thing, `${where}.thing`);
+}
+export const featuredMax = 6;
 export function historyEvent(value: unknown, where: string): HistoryEvent {
   const item = record(value, ['id', 'date', 'kind', 'title', 'summary', 'source', 'things'], where);
   if (!eventKinds.includes(item.kind as never))
@@ -319,5 +324,13 @@ export function checkReferences(registry: Registry) {
     for (const related of item.story?.related ?? []) reference(related, `${where}.story.related`);
   }
   for (const event of registry.history) for (const id of event.things) reference(id, `history/${event.id}`);
+  unique(registry.featured, 'featured.yaml');
+  if (registry.featured.length > featuredMax)
+    throw new ContentError('featured.yaml', `Feature at most ${featuredMax} things, so the shelf stays a choice.`);
+  for (const id of registry.featured) {
+    reference(id, 'featured.yaml');
+    if (registry.things.find((t) => t.id === id)!.status !== 'active')
+      throw new ContentError('featured.yaml', `Only active things are featured; ${id} is not.`);
+  }
   return registry;
 }

@@ -1,0 +1,12 @@
+<li class="feature"{% if thing.story %} style="--cover: {{ thing.story.color }}"{% endif %}>
+  {#- The cover is the front page the collector last captured, linked like the thing page's screenshot; a thing
+      with no capture (a repository, say) shows its sticker on its story colour. The visit link says the same
+      thing in words, so the cover is hidden from the keyboard and screen readers. #}
+  <a class="feature-cover" href="{{ (thing.screenshot.site if thing.screenshot else thing.url) | ref("featured") }}" tabindex="-1" aria-hidden="true">
+    {%- if thing.screenshot %}<img src="{{ thing.screenshot.src }}" width="{{ thing.screenshot.width }}" height="{{ thing.screenshot.height }}" alt="" decoding="async" />
+    {%- else %}<span class="feature-mark">{{ thing.sticker.letters }}</span>{% endif -%}
+  </a>
+  <h3><a href="{{ thing.page }}">{{ thing.title }}</a></h3>
+  <p class="feature-summary">{{ thing.summary }}</p>
+  {% if thing.url %}<a class="feature-visit" href="{{ thing.url | ref("featured") }}">{{ thing.url | displayUrl }}<span aria-hidden="true"> ↗</span></a>{% endif %}
+</li>

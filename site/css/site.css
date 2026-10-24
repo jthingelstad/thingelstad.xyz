@@ -651,6 +651,99 @@ h2 {
   color: var(--muted);
 }
 
+/* The front page's featured shelf (content/featured.yaml): the few things I want a visitor to see first, as
+   cards above the full index. Each card leads with the site's front page as the collector last captured it,
+   cropped to its top, or the thing's sticker on its story colour when there is no capture. */
+.feature-list {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 32px 24px;
+  padding: 0;
+  margin: 8px 0 0;
+  list-style: none;
+}
+
+/* Three to a row. Four make two rows of two; with five, the first two lead a row of their own. */
+.feature {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  grid-column: span 2;
+}
+
+.feature:first-child:nth-last-child(4),
+.feature:first-child:nth-last-child(4) ~ .feature,
+.feature:first-child:nth-last-child(5),
+.feature:first-child:nth-last-child(5) + .feature {
+  grid-column: span 3;
+}
+
+.feature-cover {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--cover, var(--soft));
+  box-shadow:
+    0 1px 2px var(--shadow),
+    0 10px 28px var(--shadow);
+  transition: translate 180ms ease;
+}
+
+.feature-cover:hover {
+  translate: 0 -3px;
+}
+
+.feature-cover img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+}
+
+.feature-mark {
+  font-family: var(--font-heading);
+  font-weight: var(--weight-heading);
+  font-size: 4rem;
+  letter-spacing: var(--jt-tracking-heading);
+  color: #fff;
+}
+
+.feature h3 {
+  font-family: var(--font-heading);
+  font-weight: var(--weight-heading);
+  letter-spacing: var(--jt-tracking-heading);
+  font-size: var(--jt-size-h3);
+  margin: 16px 0 4px;
+}
+
+.site-main .feature h3 a,
+.site-main .feature .feature-cover {
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.site-main .feature h3 a:hover {
+  text-decoration: underline;
+}
+
+.feature-summary {
+  margin: 0 0 12px;
+  color: var(--muted);
+  font-size: 1.0625rem;
+}
+
+.site-main .feature-visit {
+  margin-top: auto;
+  font-size: var(--jt-size-small);
+  font-weight: 600;
+  color: var(--accent-text);
+  overflow-wrap: anywhere;
+}
+
 /* A thing's artifacts: cards in a grid, each image in a frame of one shape so a logo and a screenshot sit
    side by side. An image is shrunk to fit its frame and never enlarged past its own size. */
 .artifact-list {
@@ -1526,6 +1619,47 @@ h2 {
   background: var(--dormant-soft);
   color: var(--ink);
   font-weight: 600;
+}
+
+/* On phones the shelf is a list: a small cover beside each card's words, so five fit in about a screen. */
+@media (width <= 720px) {
+  .feature-list {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+  }
+
+  .feature,
+  .feature:first-child:nth-last-child(4),
+  .feature:first-child:nth-last-child(4) ~ .feature,
+  .feature:first-child:nth-last-child(5),
+  .feature:first-child:nth-last-child(5) + .feature {
+    display: grid;
+    grid-template-columns: 112px minmax(0, 1fr);
+    grid-column: auto;
+    gap: 0 14px;
+    align-content: start;
+  }
+
+  .feature-cover {
+    grid-row: 1 / span 3;
+    align-self: start;
+    border-radius: 8px;
+    box-shadow: 0 1px 2px var(--shadow);
+  }
+
+  .feature-mark {
+    font-size: 1.75rem;
+  }
+
+  .feature h3 {
+    margin: 0 0 2px;
+    font-size: var(--jt-size-base);
+  }
+
+  .feature-summary {
+    margin: 0 0 6px;
+    font-size: var(--jt-size-small);
+  }
 }
 
 @media (width < 900px) {

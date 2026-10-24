@@ -201,6 +201,7 @@ export type SiteModel = {
   repository: string;
   generated: string;
   things: SiteThing[];
+  featured: SiteThing[]; // in the order of content/featured.yaml
   collections: SiteCollection[];
   topics: SiteTopic[];
   history: HistoryEvent[];
@@ -538,6 +539,7 @@ export function buildSiteModel(registry: Registry, observations: Observation[], 
     repository: repositoryUrl,
     generated: now.toISOString(),
     things: sortedThings,
+    featured: registry.featured.map((id) => byId.get(id)!),
     collections,
     topics,
     history: registry.history,

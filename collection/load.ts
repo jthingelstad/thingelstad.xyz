@@ -4,7 +4,7 @@ import { basename, join } from 'node:path';
 import { parse } from 'yaml';
 import { artifactMaxBytes, imageSize, isImage } from './artifacts';
 import type { ArtifactFile, Registry, Thing } from './schema';
-import { checkReferences, ContentError, historyEvent, thing, topic } from './validate';
+import { checkReferences, ContentError, featuredEntry, historyEvent, thing, topic } from './validate';
 
 const contentRoot = 'content';
 
@@ -27,6 +27,9 @@ export async function loadRegistry(root = contentRoot): Promise<Registry> {
   const topicsRaw = parse(await readFile(join(root, 'topics.yaml'), 'utf8'));
   if (!Array.isArray(topicsRaw)) throw new ContentError('topics.yaml', 'Expected a list of topics.');
   const topics = topicsRaw.map((item, index) => topic(item, `topics.yaml[${index}]`));
+  const featuredRaw = parse(await readFile(join(root, 'featured.yaml'), 'utf8')) ?? [];
+  if (!Array.isArray(featuredRaw)) throw new ContentError('featured.yaml', 'Expected a list of things.');
+  const featured = featuredRaw.map((item, index) => featuredEntry(item, `featured.yaml[${index}]`));
   const historyDirectory = join(root, 'history');
   const historyFiles = (await readdir(historyDirectory)).filter((name) => /^\d{4}\.yaml$/.test(name)).sort();
   const history = (
@@ -48,7 +51,7 @@ export async function loadRegistry(root = contentRoot): Promise<Registry> {
   )
     .flat()
     .sort((a, b) => b.date.localeCompare(a.date) || a.id.localeCompare(b.id));
-  return { ...checkReferences({ things, topics, history }), artifactFiles: await measureArtifacts(root, things) };
+  return { ...checkReferences({ things, topics, history, featured }), artifactFiles: await measureArtifacts(root, things) };
 }
 
 // content/artifacts/ holds one folder per thing that lists artifacts, and each folder holds exactly the files
