@@ -1,3 +1,11 @@
+- id: linking-things-launch
+  date: 2026-10-23
+  kind: launch
+  title: Linking Things goes live
+  summary: Every link I have saved since 2005, 16,524 of them, gets a page of its own, joined to the Weekly Thing issues that carried them.
+  source: https://links.thingelstad.xyz/
+  things:
+    - linking-things
 - id: nnxyz-recorded-development
   date: 2026-10-13
   kind: development
