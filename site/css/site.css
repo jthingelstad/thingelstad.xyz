@@ -107,7 +107,7 @@ select:focus-visible,
   left: 8px;
 }
 
-/* Jamie's sites: the strip that opens every one of Jamie's sites. Its values are the shared contract in
+/* The sites strip: the strip that opens every one of Jamie's sites. Its values are the shared contract in
    thingelstad.com's AGENTS.md ("The sites strip"), identical everywhere; only the inner row follows this
    site's frame: the --frame column with the shared gutters. It names Inter itself, not a role, because its values
    are the contract. No dark values: this site has no dark mode. */

@@ -50,7 +50,7 @@ export default function (eleventyConfig: EleventyConfig) {
     favicon: hashed('public/favicon.svg')
   };
   eleventyConfig.addGlobalData('assets', assets);
-  // From the vendored data/sites.json: the "Jamie's sites" strip at the top of every page, the owner's
+  // From the vendored data/sites.json: the sites strip at the top of every page, the owner's
   // h-card in the footer and rel=me links in the head, and `ref`, which tags a link to another strip site
   // with ?ref=xyz-<placement> (`{{ url | ref("thing") }}`). Templates add refs; content text keeps its links.
   const sites = parseSites(readFileSync(sitesPath, 'utf8'));
