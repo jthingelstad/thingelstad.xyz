@@ -26,7 +26,23 @@ export const contentTypes = {
 export const immutable = 'public,max-age=31536000,immutable';
 export const revalidate = 'no-cache';
 
+// A thing's artifacts (/things/<id>/artifacts/<file>) can be any kind of file. Images, PDFs, ZIP archives and
+// text are served as what they are; everything else, HTML and SVG included, is served as bytes to download, so
+// an old project's page or script never runs as a page of this site.
+const artifactTypes = {
+  '.png': 'image/png',
+  '.jpg': 'image/jpeg',
+  '.jpeg': 'image/jpeg',
+  '.gif': 'image/gif',
+  '.webp': 'image/webp',
+  '.pdf': 'application/pdf',
+  '.zip': 'application/zip',
+  '.txt': 'text/plain; charset=utf-8'
+};
+const isArtifact = (key) => /^things\/[^/]+\/artifacts\/[^/]+$/.test(key);
+
 export function contentTypeFor(key) {
+  if (isArtifact(key)) return artifactTypes[extname(key).toLowerCase()] ?? 'application/octet-stream';
   const type = contentTypes[extname(key)];
   if (!type) throw new Error(`No content type for ${key}`);
   return type;

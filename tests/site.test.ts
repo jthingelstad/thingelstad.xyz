@@ -125,6 +125,37 @@ test('things.json carries the registry plus the latest observation per source', 
   assert.doesNotMatch(JSON.stringify(json), /\/Users\/|localhost|127\.0\.0\.1|ts\.net/);
 });
 
+test('the featured shelf keeps its order, and tags links only to sites Tinylytics counts', () => {
+  assert.deepEqual(
+    model.featured.map(({ thing }) => thing.id),
+    registry.featured
+  );
+  assert.deepEqual(thingsJson(model).featured, registry.featured);
+  const text = llmsText(model);
+  assert.ok(text.indexOf('## Featured') < text.indexOf('## Things'));
+  const counted = (url: string) => ({
+    kind: 'tinylytics' as const,
+    url,
+    observedAt: '2026-10-19T12:00:00Z',
+    since: '2025-10-01',
+    until: '2026-09-30',
+    hits: 1,
+    months: [{ month: '2026-09', count: 1 }]
+  });
+  const featured = ['release-notes', 'mb', 'things-ive-built'];
+  const built = buildSiteModel(
+    { ...registry, featured },
+    [counted('https://notes.yourversionnumber.com'), counted('https://thingelstad.xyz')],
+    now
+  );
+  const [notes, mb, here] = built.featured;
+  assert.equal(notes.href, 'https://notes.yourversionnumber.com/?ref=xyz-featured');
+  assert.equal(notes.cover, notes.href, 'no capture here, so the cover leads to the same place');
+  assert.equal(mb.href, 'https://github.com/jthingelstad/mb', 'Tinylytics does not count GitHub');
+  assert.equal(here.href, 'https://thingelstad.xyz/', 'this site never tags itself');
+  assert.equal(buildSiteModel({ ...registry, featured: [] }, observations, now).featured.length, 0);
+});
+
 test('the feeds are the ledger, newest first', () => {
   const feed = jsonFeed(model);
   assert.equal(feed.items.length, registry.history.length);
@@ -182,6 +213,47 @@ test('a website thing shows its own front page and page views, and a thing that 
   assert.doesNotMatch(markdown, /sha256|"hits"/, 'the Markdown twin keeps to the record');
   const json = thingsJson(built).things.find((t) => t.id === club.id)!;
   assert.equal(json.screenshot?.url, `${siteUrl}${screenshotAsset(screenshot)}`);
+});
+
+test('artifacts are published beside their thing, shown by an image where there is one, and carried in the twin', () => {
+  const velo = model.things.find((t) => t.id === 'velotweets')!;
+  const byFile = new Map(velo.artifacts.map((artifact) => [artifact.file, artifact]));
+  const logo = byFile.get('masthead-logo.png')!;
+  assert.equal(logo.src, '/things/velotweets/artifacts/masthead-logo.png');
+  assert.deepEqual(logo.image, { src: logo.src, width: 200, height: 100 });
+  assert.equal(logo.kind, 'PNG image');
+  const icons = byFile.get('jerseys.zip')!;
+  assert.equal(icons.src, '/things/velotweets/artifacts/jerseys.zip');
+  assert.equal(
+    icons.image?.src,
+    '/things/velotweets/artifacts/jerseys.png',
+    'a file a browser cannot show uses its preview'
+  );
+  assert.equal(icons.kind, 'ZIP archive');
+  assert.equal(byFile.get('color-palette.ase')!.image, null, 'a file with no preview is a download only');
+  for (const artifact of velo.artifacts)
+    assert.equal(artifact.bytes, readFileSync(`content/artifacts/velotweets/${artifact.file}`).length);
+  assert.deepEqual(model.things.find((t) => t.id === 'elixir')!.artifacts, []);
+
+  const { frontmatter } = splitFrontmatter(thingMarkdown(velo), 'twin') as { frontmatter: Record<string, unknown> };
+  const twinArtifacts = frontmatter.artifacts as Record<string, unknown>[];
+  assert.equal(twinArtifacts.length, velo.artifacts.length);
+  assert.deepEqual(twinArtifacts.at(-1), {
+    file: 'jerseys.zip',
+    title: icons.title,
+    caption: icons.caption,
+    preview: 'jerseys.png',
+    url: `${siteUrl}/things/velotweets/artifacts/jerseys.zip`
+  });
+  assert.ok(!thingMarkdown(model.things.find((t) => t.id === 'elixir')!).includes('artifacts:'));
+  const json = thingsJson(model).things.find((t) => t.id === 'velotweets')!;
+  assert.equal(json.artifacts?.[0].url, `${siteUrl}/things/velotweets/artifacts/masthead-logo.png`);
+  assert.equal(json.artifacts?.[0].kind, 'PNG image');
+  assert.equal(json.artifacts?.[0].bytes, logo.bytes);
+  assert.throws(
+    () => buildSiteModel({ ...registry, artifactFiles: undefined }, observations, now),
+    /velotweets\/masthead-logo\.png was not measured/
+  );
 });
 
 test('the timeline and sparklines render without gaps in the data', () => {
@@ -265,7 +337,7 @@ test('the sites strip lists the shared sites in file order, with this site curre
         id: 'xyz',
         href: 'https://thingelstad.xyz/?ref=sites-strip-xyz',
         description: sites.find((site) => site.id === 'xyz')!.description,
-        label: 'Things I’ve built',
+        label: 'Projects',
         current: true
       }
     ]

@@ -12,3 +12,5 @@ site/css/shared/
 # The commit and publication logs, one entry per line (logJson in collection/observations.ts).
 data/observations/commits/
 data/observations/publications/
+# Files from the projects themselves, kept byte for byte as they were made.
+content/artifacts/

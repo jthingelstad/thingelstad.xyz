@@ -1,10 +1,10 @@
 {
   "kind": "web",
   "url": "https://elixir.poapkings.com/",
-  "observedAt": "2026-10-18T10:38:59.915Z",
+  "observedAt": "2026-10-23T23:01:15.615Z",
   "sitemap": {
     "url": "https://elixir.poapkings.com/sitemap.xml",
-    "pages": 962,
+    "pages": 978,
     "newestModified": null,
     "months": [],
     "complete": true
@@ -13,7 +13,7 @@
     "url": "https://elixir.poapkings.com/feed.xml",
     "title": "Elixir updates",
     "items": 50,
-    "newestPublished": "2026-10-16T12:00:00.000Z",
+    "newestPublished": "2026-10-21T12:00:00.000Z",
     "months": [{ "month": "2026-10", "count": 50 }]
   }
 }
