@@ -2,9 +2,12 @@
   "kind": "commits",
   "repository": "jthingelstad/thingelstad.xyz",
   "url": "https://github.com/jthingelstad/thingelstad.xyz",
-  "observedAt": "2026-10-23T23:01:15.615Z",
+  "observedAt": "2026-10-24T14:31:08.251Z",
   "branch": "main",
   "commits": [
+    {"sha":"9a255db6f303","date":"2026-10-24T02:35:36.000Z","subject":"Dark mode, following the system setting (#45)","pr":45,"by":"agent","agents":["claude"]},
+    {"sha":"5eb79fc3b942","date":"2026-10-24T01:53:46.000Z","subject":"Sites strip: plain labels under Jamie's name (#44)","pr":44,"by":"agent","agents":["claude"]},
+    {"sha":"5fc160ecf48a","date":"2026-10-24T00:59:16.000Z","subject":"Linking Things: a thing, a launch, and a place in the strip (#43)","pr":43,"by":"agent","agents":["claude"]},
     {"sha":"2d066bea02aa","date":"2026-10-23T22:54:59.000Z","subject":"Activity: commit and feed logs, /activity/, activity.xml, collected daily (#40)","pr":40,"by":"agent","agents":["claude"]},
     {"sha":"7caaf5f1f6bd","date":"2026-10-23T22:10:24.000Z","subject":"Header links keep to one row on phones (#39)","pr":39,"by":"agent","agents":["claude"]},
     {"sha":"81ac9262927a","date":"2026-10-23T21:34:13.000Z","subject":"Search: Pagefind for the words, facets on the page (#37)","pr":37,"by":"agent","agents":["claude"]},
