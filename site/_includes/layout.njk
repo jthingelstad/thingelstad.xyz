@@ -3,7 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#fffcf5" />
+    <meta name="theme-color" content="#fffcf5" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#171512" media="(prefers-color-scheme: dark)" />
     <meta name="description" content="{{ description or site.description }}" />
     <title>{% if title %}{{ title }} — {% endif %}{{ site.title }}</title>
     <link rel="canonical" href="{{ site.url }}{{ page.url }}" />
@@ -15,6 +16,7 @@
     <link rel="stylesheet" href="{{ assets.css }}" />
     <link rel="alternate" type="application/rss+xml" title="{{ site.title }} History" href="/feed.xml" />
     <link rel="alternate" type="application/feed+json" title="{{ site.title }} History" href="/feed.json" />
+    <link rel="alternate" type="application/rss+xml" title="{{ site.title }} Activity" href="/activity.xml" />
     {% if markdownTwin %}<link rel="alternate" type="text/markdown" href="{{ markdownTwin }}" />{% endif %}
     {% for href in owner.rel_me %}<link rel="me" href="{{ href }}" />
     {% endfor %}
@@ -39,6 +41,7 @@
         <a href="/"{% if page.url == '/' %} aria-current="page"{% endif %}>Things</a>
         <a href="/topics/"{% if page.url.startsWith('/topics/') %} aria-current="page"{% endif %}>Topics</a>
         <a href="/history/"{% if page.url == '/history/' %} aria-current="page"{% endif %}>History</a>
+        <a href="/activity/"{% if page.url == '/activity/' %} aria-current="page"{% endif %}>Activity</a>
         <a href="/timeline/"{% if page.url == '/timeline/' %} aria-current="page"{% endif %}>Timeline</a>
         <a href="/search/"{% if page.url == '/search/' %} aria-current="page"{% endif %}>Search</a>
       </nav>
@@ -54,7 +57,7 @@
         <a href="{{ site.repository }}">Markdown and YAML</a>. Status is a decision; activity is evidence.
       </p>
       <p>
-        <a href="/feed.xml">RSS</a> · <a href="/feed.json">JSON Feed</a> · <a href="/llms.txt">llms.txt</a> ·
+        <a href="/feed.xml">RSS</a> · <a href="/feed.json">JSON Feed</a> · <a href="/activity.xml">Activity RSS</a> · <a href="/llms.txt">llms.txt</a> ·
         <a href="/things.json">things.json</a> · <a href="{{ site.repository }}">Source</a>
       </p>
     </footer>

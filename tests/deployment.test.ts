@@ -37,6 +37,15 @@ test('the site is published assets first, pages after, the front page last, each
   assert.equal(contentTypeFor('things/elixir.md'), 'text/markdown; charset=utf-8');
   assert.equal(contentTypeFor('feed.xml'), 'application/xml; charset=utf-8');
   assert.throws(() => contentTypeFor('mystery.bin'));
+  // A thing's artifacts can be any file. Images, PDFs and archives are served as what they are; anything else,
+  // a page or a script among them, as bytes to download, so it never runs as a page of this site.
+  assert.equal(contentTypeFor('things/velotweets/artifacts/masthead-logo.png'), 'image/png');
+  assert.equal(contentTypeFor('things/velotweets/artifacts/jerseys.zip'), 'application/zip');
+  assert.equal(contentTypeFor('things/example/artifacts/design.ai'), 'application/octet-stream');
+  assert.equal(contentTypeFor('things/example/artifacts/old-home.html'), 'application/octet-stream');
+  assert.equal(contentTypeFor('things/example/artifacts/logo.svg'), 'application/octet-stream');
+  assert.equal(cacheControlFor('things/velotweets/artifacts/jerseys.zip'), 'no-cache');
+  assert.throws(() => contentTypeFor('things/velotweets/mystery.bin'), /No content type/);
   // The search index: Pagefind names its index files by their content, but not its scripts, wasm or entry file.
   assert.equal(cacheControlFor('pagefind/fragment/en_1a2b3c.pf_fragment'), 'public,max-age=31536000,immutable');
   assert.equal(cacheControlFor('pagefind/pagefind.en_185a4f95c4.pf_meta'), 'public,max-age=31536000,immutable');

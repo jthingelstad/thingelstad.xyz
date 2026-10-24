@@ -14,5 +14,5 @@
     ],
     "typescript/no-explicit-any": "error"
   },
-  "ignorePatterns": ["research/**", "infra/generated/**", "_site/**"]
+  "ignorePatterns": ["research/**", "infra/generated/**", "_site/**", "content/artifacts/**"]
 }

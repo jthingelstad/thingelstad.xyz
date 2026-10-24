@@ -2,7 +2,7 @@
   "kind": "github",
   "repository": "jthingelstad/clan.poapkings.com",
   "url": "https://github.com/jthingelstad/clan.poapkings.com",
-  "observedAt": "2026-10-18T10:38:59.915Z",
+  "observedAt": "2026-10-23T23:01:15.615Z",
   "repositoryCreatedAt": "2026-09-12T18:42:54.000Z",
   "archived": true,
   "description": "Moved: Elixir Clan now lives in jthingelstad/elixir-mcp as clan/ (2026-09-28), history included. Archived.",
@@ -20,14 +20,14 @@
     {
       "path": null,
       "branch": "main",
-      "since": "2026-07-20T10:38:59.915Z",
-      "until": "2026-10-18T10:38:59.915Z",
-      "count": 115,
+      "since": "2026-07-01T00:00:00.000Z",
+      "until": "2026-10-23T23:01:15.615Z",
+      "count": 114,
       "complete": true,
-      "months": [{ "month": "2026-09", "count": 115 }],
+      "months": [{ "month": "2026-09", "count": 114 }],
       "latestCommit": {
-        "date": "2026-09-28T23:40:13.000Z",
-        "url": "https://github.com/jthingelstad/clan.poapkings.com/commit/2bb5b6052b2a3c72b5a58f3feb61a34082b8b402"
+        "date": "2026-09-27T18:56:36.000Z",
+        "url": "https://github.com/jthingelstad/clan.poapkings.com/commit/918ae08b28bbbfd171708dabe19fef827f997af1"
       }
     }
   ]

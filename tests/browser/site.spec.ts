@@ -2,9 +2,21 @@ import { test, expect, type Page } from '@playwright/test';
 import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 
-type Thing = { id: string; title: string; status: string; topics: string[]; sources: { kind: string }[] };
-type Output = { things: Thing[]; topics: { id: string; title: string }[]; history: { id: string; title: string }[] };
-const { things, topics, history } = JSON.parse(readFileSync('_site/things.json', 'utf8')) as Output;
+type Thing = {
+  id: string;
+  title: string;
+  status: string;
+  topics: string[];
+  sources: { kind: string }[];
+  artifacts?: { file: string; url: string; preview?: string }[];
+};
+type Output = {
+  featured: string[];
+  things: Thing[];
+  topics: { id: string; title: string }[];
+  history: { id: string; title: string }[];
+};
+const { featured, things, topics, history } = JSON.parse(readFileSync('_site/things.json', 'utf8')) as Output;
 type SharedSite = { id: string; strip_label: string; url: string; in_sites_strip: boolean };
 type Owner = { name: string; url: string; avatar: string; note: string; rel_me: string[] };
 const shared = JSON.parse(readFileSync('data/sites.json', 'utf8')) as { owner: Owner; sites: SharedSite[] };
@@ -63,7 +75,48 @@ test('the index lists every thing with its status and leads to its page', async 
   expect(analyticsRequests).toBeGreaterThan(0);
 });
 
-test('every page opens with the Jamie’s sites strip, this site current', async ({ page }) => {
+test('the featured shelf leads the front page, its links measured where Tinylytics counts the site', async ({
+  page
+}, testInfo) => {
+  await page.goto('/');
+  const cards = page.locator('.featured .feature');
+  const titles = featured.map((id) => things.find((thing) => thing.id === id)!.title);
+  await expect(cards.locator('h3')).toHaveText(titles);
+  const shelf = await page.locator('.featured').boundingBox();
+  const index = await page.locator('.collection').first().boundingBox();
+  expect(shelf!.y).toBeLessThan(index!.y);
+  const links = await cards.evaluateAll((items) =>
+    items.map((item) => ({
+      visit: item.querySelector('.feature-visit')?.getAttribute('href') ?? null,
+      cover: item.querySelector('.feature-cover')!.getAttribute('href')
+    }))
+  );
+  const refs = links.map((link) => link.visit && new URL(link.visit).searchParams.get('ref'));
+  expect(refs).toContain('xyz-featured');
+  for (const [i, link] of links.entries()) {
+    expect(refs[i] === null || refs[i] === 'xyz-featured', link.visit!).toBe(true);
+    if (link.visit && new URL(link.visit).hostname === 'github.com') expect(refs[i]).toBeNull();
+    expect(new URL(link.cover!).searchParams.get('ref')).toBe(refs[i]);
+  }
+  // Three to a row on a wide screen (five: the first two lead a row of their own); a list on a phone, each
+  // small cover beside its card's words. Either way the page never scrolls sideways.
+  const covers = await cards
+    .locator('.feature-cover')
+    .evaluateAll((items) => items.map((item) => item.getBoundingClientRect().toJSON() as DOMRect));
+  const words = await cards
+    .locator('h3')
+    .evaluateAll((items) => items.map((item) => item.getBoundingClientRect().toJSON() as DOMRect));
+  if (testInfo.project.name === 'desktop') {
+    if (featured.length === 5) expect(covers[0].width).toBeGreaterThan(covers[2].width * 1.3);
+    expect(covers[0].y).toBe(covers[1].y);
+  } else if (testInfo.project.name === 'phone')
+    for (const [i, cover] of covers.entries()) expect(cover.right).toBeLessThanOrEqual(words[i].left);
+  expect(await fitsViewport(page)).toBe(true);
+  await cards.locator('h3 a').first().click();
+  await expect(page).toHaveURL(new RegExp(`/things/${featured[0]}/$`));
+});
+
+test('every page opens with the sites strip, this site current', async ({ page }) => {
   const errors = watchErrors(page);
   const phone = page.viewportSize()!.width <= 640;
   for (const [path, status] of [
@@ -73,7 +126,7 @@ test('every page opens with the Jamie’s sites strip, this site current', async
   ] as const) {
     const response = await page.goto(path);
     expect(response?.status(), path).toBe(status);
-    const strip = page.getByRole('navigation', { name: "Jamie's sites" });
+    const strip = page.getByRole('navigation', { name: 'Jamie Thingelstad' });
     await expect(strip).toBeVisible();
     expect(await page.evaluate(() => document.querySelector('body > .skip + *')?.className), path).toBe('sites-strip');
     const links = strip.getByRole('link');
@@ -84,7 +137,7 @@ test('every page opens with the Jamie’s sites strip, this site current', async
     }
     const current = strip.locator('[aria-current="true"]');
     await expect(current).toHaveCount(1);
-    await expect(current).toHaveText('Things I’ve built');
+    await expect(current).toHaveText('Projects');
     await expect(strip.locator('.sites-strip__item--current')).toHaveClass(/\bsites-strip__item--xyz\b/);
     await expect(strip).toHaveCSS('background-color', 'rgb(243, 243, 245)');
     for (const [id, color] of Object.entries(stripColours)) {
@@ -99,6 +152,54 @@ test('every page opens with the Jamie’s sites strip, this site current', async
     expect(await fitsViewport(page), path).toBe(true);
   }
   expect(errors).toEqual([]);
+});
+
+// Dark follows the system setting. The strip takes the contract's dark values, the --jt-*-text colours.
+const darkStripColours = {
+  www: 'rgb(236, 236, 240)',
+  weekly: 'rgb(120, 172, 242)',
+  another: 'rgb(245, 138, 163)',
+  thingy: 'rgb(243, 162, 116)',
+  xyz: 'rgb(116, 211, 160)'
+};
+
+test('dark mode follows the system: a dark paper, light ink, and the strip in its dark values', async ({ page }) => {
+  await page.emulateMedia({ colorScheme: 'dark' });
+  for (const path of ['/', '/things/mb/', '/search/', '/activity/']) {
+    await page.goto(path);
+    await expect(page.locator('html'), path).toHaveCSS('background-color', 'rgb(23, 21, 18)');
+    await expect(page.locator('html'), path).toHaveCSS('color', 'rgb(236, 231, 220)');
+    const strip = page.getByRole('navigation', { name: 'Jamie Thingelstad' });
+    await expect(strip).toHaveCSS('background-color', 'rgb(30, 30, 35)');
+    for (const [id, color] of Object.entries(darkStripColours)) {
+      await expect(strip.locator(`.sites-strip__item--${id} a`), `${path}: ${id}`).toHaveCSS('color', color);
+    }
+  }
+  await expect(page.locator('meta[name="theme-color"][media="(prefers-color-scheme: dark)"]')).toHaveAttribute(
+    'content',
+    '#171512'
+  );
+  await page.goto('/search/');
+  await expect(page.locator('#search-input, .search-row input').first()).toHaveCSS(
+    'background-color',
+    'rgb(15, 14, 12)'
+  );
+});
+
+test('the header links keep to one row at every width, scrolling only below 350px', async ({ page }) => {
+  await page.goto('/search/');
+  await page.evaluate(() => document.fonts.ready);
+  for (const width of [1536, 820, 500, 430, 390, 375, 360, 320]) {
+    await page.setViewportSize({ width, height: 800 });
+    const nav = await page.evaluate(() => {
+      const nav = document.querySelector('.site-header nav')!;
+      const tops = [...nav.querySelectorAll('a')].map((a) => Math.round(a.getBoundingClientRect().top));
+      return { rows: new Set(tops).size, overflow: nav.scrollWidth - nav.clientWidth };
+    });
+    expect(nav.rows, `${width}px: one row`).toBe(1);
+    if (width >= 350) expect(nav.overflow, `${width}px: every link fits`).toBeLessThanOrEqual(0);
+    expect(await fitsViewport(page), `${width}px`).toBe(true);
+  }
 });
 
 test('the favicon is the green T, versioned by its content', async ({ page }) => {
@@ -134,6 +235,50 @@ test('a website thing shows its front page and page views', async ({ page }) => 
   expect(errors).toEqual([]);
 });
 
+test('a thing’s artifacts are shown, linked, and served as the files they are', async ({ page, request }) => {
+  const errors = watchErrors(page);
+  const { artifacts } = things.find((thing) => thing.id === 'velotweets')!;
+  await page.goto('/things/velotweets/');
+  await expect(page.locator('.artifacts h2')).toHaveText('Artifacts');
+  await expect(page.locator('.artifact')).toHaveCount(artifacts!.length);
+  // An image is shown as itself; a file a browser cannot show, by its preview; a file with neither, by its name.
+  const shown = artifacts!.filter((a) => /\.(png|jpe?g|gif|webp)$/.test(a.file) || a.preview);
+  const images = page.locator('.artifact-image img');
+  await expect(images).toHaveCount(shown.length);
+  for (const image of await images.all()) {
+    await image.scrollIntoViewIfNeeded();
+    await expect
+      .poll(() => image.evaluate((img: HTMLImageElement) => img.complete && img.naturalWidth))
+      .toBeGreaterThan(0);
+    const box = await image.evaluate((img) => {
+      const frame = img.parentElement!.getBoundingClientRect();
+      const own = img.getBoundingClientRect();
+      return { fits: own.width <= frame.width && own.height <= frame.height, alt: img.getAttribute('alt') };
+    });
+    expect(box.fits).toBe(true);
+    expect(box.alt).toBeTruthy();
+  }
+  const downloads = page.locator('.artifact-meta a[download]');
+  await expect(downloads).toHaveCount(artifacts!.length);
+  for (const [i, artifact] of artifacts!.entries()) {
+    const href = await downloads.nth(i).getAttribute('href');
+    expect(href).toBe(new URL(artifact.url).pathname);
+    const response = await request.get(href!);
+    expect(response.status(), href!).toBe(200);
+    expect(response.headers()['content-type'], href!).toBe(
+      artifact.file.endsWith('.png')
+        ? 'image/png'
+        : artifact.file.endsWith('.zip')
+          ? 'application/zip'
+          : 'application/octet-stream'
+    );
+  }
+  expect(await fitsViewport(page)).toBe(true);
+  await page.goto('/things/elixir-bot/');
+  await expect(page.locator('.artifacts')).toHaveCount(0);
+  expect(errors).toEqual([]);
+});
+
 test('connections link both ways and topics gather their things', async ({ page }) => {
   await page.goto('/things/elixir-bot/');
   await expect(page.locator('.facts .status-retired')).toBeVisible();
@@ -164,6 +309,7 @@ test('history anchors, the timeline, and the machine outputs are reachable', asy
   for (const path of [
     '/feed.xml',
     '/feed.json',
+    '/activity.xml',
     '/llms.txt',
     '/llms-full.txt',
     '/things.json',
@@ -174,6 +320,38 @@ test('history anchors, the timeline, and the machine outputs are reachable', asy
   }
   const missing = await page.request.get('/things/nothing-here/');
   expect(missing.status()).toBe(404);
+  expect(errors).toEqual([]);
+});
+
+test('activity shows who made the commits, week by week, and each thing keeps its own', async ({ page }) => {
+  const errors = watchErrors(page);
+  await page.goto('/activity/');
+  await expect(page.getByRole('heading', { level: 1 })).toHaveAccessibleName('Activity');
+  await expect(page.locator('.site-header nav a[aria-current="page"]')).toHaveText('Activity');
+  const years = page.locator('.who-years > li');
+  expect(await years.count()).toBeGreaterThan(1);
+  await expect(years.first().locator('svg.who-bar')).toHaveAttribute('aria-label', /^\d{4}: /);
+  await expect(page.locator('.activity-years .who-legend')).toContainText('With an agent');
+  await expect(page.locator('.week')).toHaveCount(12);
+  const week = page.locator('.week').first();
+  await expect(week).toHaveAttribute('id', /^w-\d{4}-\d{2}-\d{2}$/);
+  await expect(week.locator('h3')).toContainText('so far');
+  expect(await fitsViewport(page)).toBe(true);
+  const entry = page.locator('.activity-entry .activity-thing').first();
+  const title = (await entry.innerText()).trim();
+  await entry.click();
+  await expect(page.locator('.thing-activity h2')).toHaveText('Activity');
+  await expect(page.getByRole('heading', { level: 1 })).toContainText(title);
+  await page.goto('/things/jamie-thingelstad-blog/');
+  await expect(page.locator('.thing-activity .year-chart svg')).toHaveAttribute('aria-label', /commits per year from/);
+  const recent = page.locator('.thing-activity a.activity-week').first();
+  const anchor = (await recent.getAttribute('href'))!;
+  expect(anchor).toMatch(/^\/activity\/#w-\d{4}-\d{2}-\d{2}$/);
+  await recent.click();
+  await expect(page.locator(anchor.slice('/activity/'.length))).toBeInViewport();
+  const feed = await page.request.get('/activity.xml');
+  expect(feed.ok()).toBe(true);
+  expect(await feed.text()).toContain('<guid isPermaLink="false">activity-');
   expect(errors).toEqual([]);
 });
 
@@ -234,7 +412,14 @@ test('links to the other sites carry a ref, and story text keeps its links', asy
   const where = page.locator('.facts').getByRole('link', { name: 'weekly.thingelstad.com/' });
   await expect(where).toHaveAttribute('href', 'https://weekly.thingelstad.com/?ref=xyz-thing');
   await expect(page.locator('.screenshot a')).toHaveAttribute('href', 'https://weekly.thingelstad.com/?ref=xyz-thing');
-  for (const path of ['/things/weekly-thing/', '/things/jamie-thingelstad-blog/', '/things/thingy/', '/history/']) {
+  for (const path of [
+    '/',
+    '/things/weekly-thing/',
+    '/things/jamie-thingelstad-blog/',
+    '/things/thingy/',
+    '/history/',
+    '/activity/'
+  ]) {
     await page.goto(path);
     const links = await page.locator('a[href^="https://"]').evaluateAll((anchors) =>
       anchors.map((a) => ({
@@ -251,7 +436,7 @@ test('links to the other sites carry a ref, and story text keeps its links', asy
       if (link.story) expect(ref, `${path}: story text is content`).toBeNull();
       // Feeds and sitemaps are files, not visits, and stay as the record has them.
       else if (/\.(xml|json)$/.test(url.pathname)) expect(ref, `${path}: ${link.href}`).toBeNull();
-      else expect(ref, `${path}: ${link.href}`).toMatch(/^xyz-(thing|source)$/);
+      else expect(ref, `${path}: ${link.href}`).toMatch(/^xyz-(thing|source|activity|featured)$/);
     }
   }
 });
@@ -271,10 +456,12 @@ test('the shared type: Inter Tight headings, Inter text, nothing under 14px, no 
     ['/', 200],
     ['/things/thingy/', 200],
     ['/things/elixir-bot/', 200],
+    ['/things/velotweets/', 200],
     ['/things/yearly-thing-2025/', 200],
     ['/topics/', 200],
     ['/history/', 200],
     ['/timeline/', 200],
+    ['/activity/', 200],
     ['/search/?q=wiki', 200],
     ['/things/nothing-here/', 404]
   ] as const) {
