@@ -29,6 +29,7 @@ import {
 import { capturedUrl } from './adapters/wayback';
 import { artifactKind, formatBytes, isImage } from './artifacts';
 import { rootOrigin, siteKey } from './adapters/tinylytics';
+import { currentSite, withRef } from './sites';
 import {
   activityMonths,
   countsAsActivity,
@@ -194,6 +195,16 @@ export type Timeline = {
   mostAlive: number;
   undated: SiteThing[];
 };
+// A card on the front page's featured shelf, in the order of content/featured.yaml. Its links to the thing's
+// own site carry ?ref=xyz-featured when Tinylytics counts that site, so the site's Sources report shows what
+// the shelf sends it (Jamie, 2026-10-24: "add ref tags for these links so they can be measured"). A site
+// Tinylytics does not count, a GitHub repository say, keeps its address as the record has it.
+type SiteFeature = {
+  thing: SiteThing;
+  href: string | null; // the thing's own address
+  cover: string | null; // where the cover leads: the captured site, or the thing's address
+};
+
 export type SiteModel = {
   url: string;
   title: string;
@@ -201,6 +212,7 @@ export type SiteModel = {
   repository: string;
   generated: string;
   things: SiteThing[];
+  featured: SiteFeature[];
   collections: SiteCollection[];
   topics: SiteTopic[];
   history: HistoryEvent[];
@@ -443,6 +455,12 @@ export function buildSiteModel(registry: Registry, observations: Observation[], 
     };
   });
   const byId = new Map(things.map((thing) => [thing.id, thing]));
+  const featuredLink = (url: string | null) => {
+    if (!url) return null;
+    const { hostname, origin } = new URL(url);
+    const counted = tinylytics.has(siteKey(origin)) && hostname !== new URL(siteUrl).hostname;
+    return counted ? withRef(url, `${currentSite}-featured`) : url;
+  };
   const sortedThings = things.toSorted((a, b) => a.title.localeCompare(b.title, 'en', { sensitivity: 'base' }));
 
   const names = [...new Set(things.map((thing) => thing.collection))].toSorted((a, b) => {
@@ -538,6 +556,10 @@ export function buildSiteModel(registry: Registry, observations: Observation[], 
     repository: repositoryUrl,
     generated: now.toISOString(),
     things: sortedThings,
+    featured: registry.featured.map((id) => {
+      const thing = byId.get(id)!;
+      return { thing, href: featuredLink(thing.url), cover: featuredLink(thing.screenshot?.site ?? thing.url) };
+    }),
     collections,
     topics,
     history: registry.history,
@@ -589,6 +611,16 @@ export function llmsText(model: SiteModel) {
     '',
     `Every thing has a Markdown twin at /things/<id>.md. The whole registry with the latest observation for each source is ${model.url}/things.json. The history ledger is ${model.url}/feed.json. Status is a decision; activity is evidence.`,
     '',
+    ...(model.featured.length
+      ? [
+          '## Featured',
+          '',
+          'The things I most want a visitor to see now, in the order the front page shows them.',
+          '',
+          ...model.featured.map(({ thing }) => `- [${thing.title}](${model.url}${thing.markdown}): ${thing.summary}`),
+          ''
+        ]
+      : []),
     '## Things',
     '',
     ...model.things.map((thing) => `- [${thing.title}](${model.url}${thing.markdown}): ${thing.summary}`),
@@ -615,6 +647,7 @@ export function thingsJson(model: SiteModel) {
   return {
     site: model.url,
     generated: model.generated,
+    featured: model.featured.map(({ thing }) => thing.id), // the front page's shelf, in its order
     things: model.things.map((thing) => ({
       id: thing.id,
       title: thing.title,

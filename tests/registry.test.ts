@@ -6,7 +6,7 @@ import { join } from 'node:path';
 import { artifactKind, formatBytes, imageSize } from '../collection/artifacts';
 import { loadRegistry, measureArtifacts, splitFrontmatter } from '../collection/load';
 import type { ScreenshotObservation } from '../collection/schema';
-import { checkReferences, thing, historyEvent, preciseDate } from '../collection/validate';
+import { checkReferences, featuredEntry, featuredMax, thing, historyEvent, preciseDate } from '../collection/validate';
 
 const registry = await loadRegistry();
 
@@ -68,14 +68,17 @@ test('thing front matter is validated strictly', () => {
 
 test('references between files are checked after loading', () => {
   const a = thing('a', { ...base, topics: ['missing'] }, '', 'x');
-  assert.throws(() => checkReferences({ things: [a], topics: [], history: [] }), /Unknown topic: missing/);
+  assert.throws(
+    () => checkReferences({ things: [a], topics: [], history: [], featured: [] }),
+    /Unknown topic: missing/
+  );
   const b = thing(
     'b',
     { ...base, connections: [{ to: 'c', label: 'uses', detail: 'd', source: 'https://example.com/' }] },
     '',
     'x'
   );
-  assert.throws(() => checkReferences({ things: [b], topics: [], history: [] }), /Unknown thing: c/);
+  assert.throws(() => checkReferences({ things: [b], topics: [], history: [], featured: [] }), /Unknown thing: c/);
   const event = historyEvent(
     {
       id: 'e',
@@ -88,8 +91,29 @@ test('references between files are checked after loading', () => {
     },
     'x'
   );
-  assert.throws(() => checkReferences({ things: [], topics: [], history: [event] }), /Unknown thing: nobody/);
+  assert.throws(
+    () => checkReferences({ things: [], topics: [], history: [event], featured: [] }),
+    /Unknown thing: nobody/
+  );
   assert.throws(() => historyEvent({ ...event, things: [] }, 'x'), /at least one thing/);
+});
+
+test('the featured shelf names a few active things, once each', () => {
+  assert.ok(registry.featured.length > 0 && registry.featured.length <= featuredMax);
+  for (const id of registry.featured)
+    assert.equal(registry.things.find((t) => t.id === id)?.status, 'active', `${id} is featured`);
+  assert.equal(featuredEntry({ thing: 'example' }, 'x'), 'example');
+  assert.throws(() => featuredEntry({ thing: 'example', note: 'hi' }, 'x'), /Unknown field: note/);
+  assert.throws(() => featuredEntry('example', 'x'), /Expected/);
+  const things = ['a', 'b', 'c', 'd', 'e', 'f', 'g'].map((id) => thing(id, base, '', 'x'));
+  const check = (featured: string[], list = things) =>
+    checkReferences({ things: list, topics: [], history: [], featured });
+  assert.deepEqual(check(['b', 'a']).featured, ['b', 'a'], 'the shelf keeps the file’s order');
+  assert.throws(() => check(['a', 'a']), /Duplicate: a/);
+  assert.throws(() => check(['nobody']), /Unknown thing: nobody/);
+  assert.throws(() => check(['a', 'b', 'c', 'd', 'e', 'f', 'g']), /at most 6/);
+  const retired = thing('old', { ...base, status: 'retired', ended: '2020' }, '', 'x');
+  assert.throws(() => check(['old'], [...things, retired]), /Only active things are featured; old is not/);
 });
 
 test('front matter splitting keeps the Markdown body intact', () => {

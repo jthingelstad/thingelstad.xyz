@@ -10,8 +10,13 @@ type Thing = {
   sources: { kind: string }[];
   artifacts?: { file: string; url: string; preview?: string }[];
 };
-type Output = { things: Thing[]; topics: { id: string; title: string }[]; history: { id: string; title: string }[] };
-const { things, topics, history } = JSON.parse(readFileSync('_site/things.json', 'utf8')) as Output;
+type Output = {
+  featured: string[];
+  things: Thing[];
+  topics: { id: string; title: string }[];
+  history: { id: string; title: string }[];
+};
+const { featured, things, topics, history } = JSON.parse(readFileSync('_site/things.json', 'utf8')) as Output;
 type SharedSite = { id: string; strip_label: string; url: string; in_sites_strip: boolean };
 type Owner = { name: string; url: string; avatar: string; note: string; rel_me: string[] };
 const shared = JSON.parse(readFileSync('data/sites.json', 'utf8')) as { owner: Owner; sites: SharedSite[] };
@@ -68,6 +73,47 @@ test('the index lists every thing with its status and leads to its page', async 
   expect(await fitsViewport(page)).toBe(true);
   expect(errors).toEqual([]);
   expect(analyticsRequests).toBeGreaterThan(0);
+});
+
+test('the featured shelf leads the front page, its links measured where Tinylytics counts the site', async ({
+  page
+}, testInfo) => {
+  await page.goto('/');
+  const cards = page.locator('.featured .feature');
+  const titles = featured.map((id) => things.find((thing) => thing.id === id)!.title);
+  await expect(cards.locator('h3')).toHaveText(titles);
+  const shelf = await page.locator('.featured').boundingBox();
+  const index = await page.locator('.collection').first().boundingBox();
+  expect(shelf!.y).toBeLessThan(index!.y);
+  const links = await cards.evaluateAll((items) =>
+    items.map((item) => ({
+      visit: item.querySelector('.feature-visit')?.getAttribute('href') ?? null,
+      cover: item.querySelector('.feature-cover')!.getAttribute('href')
+    }))
+  );
+  const refs = links.map((link) => link.visit && new URL(link.visit).searchParams.get('ref'));
+  expect(refs).toContain('xyz-featured');
+  for (const [i, link] of links.entries()) {
+    expect(refs[i] === null || refs[i] === 'xyz-featured', link.visit!).toBe(true);
+    if (link.visit && new URL(link.visit).hostname === 'github.com') expect(refs[i]).toBeNull();
+    expect(new URL(link.cover!).searchParams.get('ref')).toBe(refs[i]);
+  }
+  // Three to a row on a wide screen (five: the first two lead a row of their own); a list on a phone, each
+  // small cover beside its card's words. Either way the page never scrolls sideways.
+  const covers = await cards
+    .locator('.feature-cover')
+    .evaluateAll((items) => items.map((item) => item.getBoundingClientRect().toJSON() as DOMRect));
+  const words = await cards
+    .locator('h3')
+    .evaluateAll((items) => items.map((item) => item.getBoundingClientRect().toJSON() as DOMRect));
+  if (testInfo.project.name === 'desktop') {
+    if (featured.length === 5) expect(covers[0].width).toBeGreaterThan(covers[2].width * 1.3);
+    expect(covers[0].y).toBe(covers[1].y);
+  } else if (testInfo.project.name === 'phone')
+    for (const [i, cover] of covers.entries()) expect(cover.right).toBeLessThanOrEqual(words[i].left);
+  expect(await fitsViewport(page)).toBe(true);
+  await cards.locator('h3 a').first().click();
+  await expect(page).toHaveURL(new RegExp(`/things/${featured[0]}/$`));
 });
 
 test('every page opens with the sites strip, this site current', async ({ page }) => {
@@ -367,6 +413,7 @@ test('links to the other sites carry a ref, and story text keeps its links', asy
   await expect(where).toHaveAttribute('href', 'https://weekly.thingelstad.com/?ref=xyz-thing');
   await expect(page.locator('.screenshot a')).toHaveAttribute('href', 'https://weekly.thingelstad.com/?ref=xyz-thing');
   for (const path of [
+    '/',
     '/things/weekly-thing/',
     '/things/jamie-thingelstad-blog/',
     '/things/thingy/',
@@ -389,7 +436,7 @@ test('links to the other sites carry a ref, and story text keeps its links', asy
       if (link.story) expect(ref, `${path}: story text is content`).toBeNull();
       // Feeds and sitemaps are files, not visits, and stay as the record has them.
       else if (/\.(xml|json)$/.test(url.pathname)) expect(ref, `${path}: ${link.href}`).toBeNull();
-      else expect(ref, `${path}: ${link.href}`).toMatch(/^xyz-(thing|source|activity)$/);
+      else expect(ref, `${path}: ${link.href}`).toMatch(/^xyz-(thing|source|activity|featured)$/);
     }
   }
 });

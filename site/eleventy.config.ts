@@ -87,6 +87,7 @@ export default function (eleventyConfig: EleventyConfig) {
   eleventyConfig.addFilter('lifespan', (row: TimelineRow, timeline: Timeline) => lifespan(row, timeline));
   eleventyConfig.addFilter('aliveBar', (year: TimelineYear, timeline: Timeline) => aliveBar(year, timeline));
   eleventyConfig.addFilter('thing', (site: SiteModel, id: string) => site.things.find((t) => t.id === id));
+  eleventyConfig.addFilter('displayUrl', (value: string) => value.replace(/^https:\/\//, '').replace(/\/$/, ''));
   eleventyConfig.addFilter('number', (value: number) => new Intl.NumberFormat('en-US').format(value));
   eleventyConfig.addFilter('reach', reach);
   eleventyConfig.addFilter('activitySummary', activitySummary);
