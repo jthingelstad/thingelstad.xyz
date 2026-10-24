@@ -30,6 +30,7 @@ The content tree is the source of truth. See [docs/DIRECTION.md](docs/DIRECTION.
 
 - `content/things/<id>.md`: one thing per file. Front matter holds title, summary, collection, status (`active`, `dormant`, `retired`, `abandoned`, `archived`), URL, dates, topics, inline sources, and directed connections. The body is the story.
 - `content/topics.yaml`: topic IDs, titles, and descriptions. Membership is declared on each thing.
+- `content/featured.yaml`: the things the front page shows first, in order. At most six, all active.
 - `content/history/<year>.yaml`: sourced history events. Dates keep their source precision (`YYYY`, `YYYY-MM`, or `YYYY-MM-DD`). Development records are not launch dates. A shared event appears once and names several things.
 - `data/observations/`: generated evidence from `npm run collect` (GitHub activity, sitemap `lastmod` dates, feed items). Never edit by hand. Observations never change a status.
 - `research/project-inventory.json`: the broader local research inventory, including unresolved archive candidates. It contains local paths and is **not public site data**.

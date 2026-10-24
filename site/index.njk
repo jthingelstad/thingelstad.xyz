@@ -13,7 +13,7 @@ permalink: /
 <section class="featured" aria-labelledby="featured">
   <h2 id="featured">Featured</h2>
   <ul class="feature-list">
-    {% for thing in site.featured %}{% include "feature-card.njk" %}{% endfor %}
+    {% for feature in site.featured %}{% include "feature-card.njk" %}{% endfor %}
   </ul>
 </section>
 {% endif %}

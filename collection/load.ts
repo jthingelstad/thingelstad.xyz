@@ -51,7 +51,10 @@ export async function loadRegistry(root = contentRoot): Promise<Registry> {
   )
     .flat()
     .sort((a, b) => b.date.localeCompare(a.date) || a.id.localeCompare(b.id));
-  return { ...checkReferences({ things, topics, history, featured }), artifactFiles: await measureArtifacts(root, things) };
+  return {
+    ...checkReferences({ things, topics, history, featured }),
+    artifactFiles: await measureArtifacts(root, things)
+  };
 }
 
 // content/artifacts/ holds one folder per thing that lists artifacts, and each folder holds exactly the files

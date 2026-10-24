@@ -125,6 +125,37 @@ test('things.json carries the registry plus the latest observation per source', 
   assert.doesNotMatch(JSON.stringify(json), /\/Users\/|localhost|127\.0\.0\.1|ts\.net/);
 });
 
+test('the featured shelf keeps its order, and tags links only to sites Tinylytics counts', () => {
+  assert.deepEqual(
+    model.featured.map(({ thing }) => thing.id),
+    registry.featured
+  );
+  assert.deepEqual(thingsJson(model).featured, registry.featured);
+  const text = llmsText(model);
+  assert.ok(text.indexOf('## Featured') < text.indexOf('## Things'));
+  const counted = (url: string) => ({
+    kind: 'tinylytics' as const,
+    url,
+    observedAt: '2026-10-19T12:00:00Z',
+    since: '2025-10-01',
+    until: '2026-09-30',
+    hits: 1,
+    months: [{ month: '2026-09', count: 1 }]
+  });
+  const featured = ['release-notes', 'mb', 'things-ive-built'];
+  const built = buildSiteModel(
+    { ...registry, featured },
+    [counted('https://notes.yourversionnumber.com'), counted('https://thingelstad.xyz')],
+    now
+  );
+  const [notes, mb, here] = built.featured;
+  assert.equal(notes.href, 'https://notes.yourversionnumber.com/?ref=xyz-featured');
+  assert.equal(notes.cover, notes.href, 'no capture here, so the cover leads to the same place');
+  assert.equal(mb.href, 'https://github.com/jthingelstad/mb', 'Tinylytics does not count GitHub');
+  assert.equal(here.href, 'https://thingelstad.xyz/', 'this site never tags itself');
+  assert.equal(buildSiteModel({ ...registry, featured: [] }, observations, now).featured.length, 0);
+});
+
 test('the feeds are the ledger, newest first', () => {
   const feed = jsonFeed(model);
   assert.equal(feed.items.length, registry.history.length);
