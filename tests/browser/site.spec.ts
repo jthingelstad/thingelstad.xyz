@@ -63,7 +63,7 @@ test('the index lists every thing with its status and leads to its page', async 
   expect(analyticsRequests).toBeGreaterThan(0);
 });
 
-test('every page opens with the Jamie’s sites strip, this site current', async ({ page }) => {
+test('every page opens with the sites strip, this site current', async ({ page }) => {
   const errors = watchErrors(page);
   const phone = page.viewportSize()!.width <= 640;
   for (const [path, status] of [
@@ -73,7 +73,7 @@ test('every page opens with the Jamie’s sites strip, this site current', async
   ] as const) {
     const response = await page.goto(path);
     expect(response?.status(), path).toBe(status);
-    const strip = page.getByRole('navigation', { name: "Jamie's sites" });
+    const strip = page.getByRole('navigation', { name: 'Jamie Thingelstad' });
     await expect(strip).toBeVisible();
     expect(await page.evaluate(() => document.querySelector('body > .skip + *')?.className), path).toBe('sites-strip');
     const links = strip.getByRole('link');
@@ -84,7 +84,7 @@ test('every page opens with the Jamie’s sites strip, this site current', async
     }
     const current = strip.locator('[aria-current="true"]');
     await expect(current).toHaveCount(1);
-    await expect(current).toHaveText('Things I’ve built');
+    await expect(current).toHaveText('Projects');
     await expect(strip.locator('.sites-strip__item--current')).toHaveClass(/\bsites-strip__item--xyz\b/);
     await expect(strip).toHaveCSS('background-color', 'rgb(243, 243, 245)');
     for (const [id, color] of Object.entries(stripColours)) {

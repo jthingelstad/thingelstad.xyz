@@ -265,7 +265,7 @@ test('the sites strip lists the shared sites in file order, with this site curre
         id: 'xyz',
         href: 'https://thingelstad.xyz/?ref=sites-strip-xyz',
         description: sites.find((site) => site.id === 'xyz')!.description,
-        label: 'Things I’ve built',
+        label: 'Projects',
         current: true
       }
     ]
