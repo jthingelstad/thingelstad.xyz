@@ -2,9 +2,11 @@
   "kind": "commits",
   "repository": "jthingelstad/thing-hugo",
   "url": "https://github.com/jthingelstad/thing-hugo",
-  "observedAt": "2026-10-23T22:33:13.535Z",
+  "observedAt": "2026-10-24T14:31:08.251Z",
   "branch": "main",
   "commits": [
+    {"sha":"12691f01a4bf","date":"2026-10-24T01:53:27.000Z","subject":"2.0.17: the sites strip in plain labels, under Jamie's name","by":"agent","agents":["claude"]},
+    {"sha":"2deb1f52ac1a","date":"2026-10-24T00:53:05.000Z","subject":"2.0.16: Linking Things in the strip and the footer","by":"agent","agents":["claude"]},
     {"sha":"493b4589dd0e","date":"2026-10-23T01:07:03.000Z","subject":"2.0.15: descriptions of 160 characters, and /archive/ and /photos/ their own","by":"agent","agents":["claude"]},
     {"sha":"d6430823fc6e","date":"2026-10-22T09:22:18.000Z","subject":"2.0.14: Another Thing crimson, Things I've built green","by":"agent","agents":["claude"]},
     {"sha":"ae78ba778964","date":"2026-10-22T02:44:53.000Z","subject":"2.0.13: ref tags on links to the other sites, and the blog dates from 2004","by":"agent","agents":["claude"]},
