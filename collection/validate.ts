@@ -1,6 +1,8 @@
+import { isImage } from './artifacts';
 import {
   eventKinds,
   statuses,
+  type Artifact,
   type Connection,
   type HistoryEvent,
   type Registry,
@@ -177,6 +179,34 @@ function story(value: unknown, where: string): Story {
   return result;
 }
 
+// An artifact's file name is its last path segment on the site, so it is a plain lowercase name with an
+// extension: no folders, no spaces, nothing that needs escaping in a URL.
+function artifactFile(value: unknown, where: string): string {
+  const name = text(value, where, 100);
+  if (!/^[a-z0-9][a-z0-9_-]*(?:\.[a-z0-9_-]+)*\.[a-z0-9]+$/.test(name))
+    throw new ContentError(where, 'Use a lowercase file name with an extension, such as front-page.png.');
+  return name;
+}
+function artifact(value: unknown, where: string): Artifact {
+  const item = record(value, ['file', 'title', 'caption', 'date', 'source', 'preview'], where);
+  const result: Artifact = {
+    file: artifactFile(item.file, `${where}.file`),
+    title: text(item.title, `${where}.title`, 160)
+  };
+  const caption = optionalText(item.caption, `${where}.caption`, 1000);
+  if (caption !== undefined) result.caption = caption;
+  if (item.date !== undefined) result.date = preciseDate(item.date, `${where}.date`);
+  if (item.source !== undefined) result.source = publicUrl(item.source, `${where}.source`);
+  if (item.preview !== undefined) {
+    if (isImage(result.file))
+      throw new ContentError(where, 'An image is shown as it is; only other files take a preview.');
+    result.preview = artifactFile(item.preview, `${where}.preview`);
+    if (!isImage(result.preview))
+      throw new ContentError(`${where}.preview`, 'A preview is a PNG, JPEG, GIF, or WebP image.');
+  }
+  return result;
+}
+
 const thingFields = [
   'title',
   'summary',
@@ -188,7 +218,8 @@ const thingFields = [
   'topics',
   'sources',
   'connections',
-  'story'
+  'story',
+  'artifacts'
 ];
 export function thing(id: string, frontmatter: unknown, body: string, where: string): Thing {
   const item = record(frontmatter, thingFields, where);
@@ -214,6 +245,14 @@ export function thing(id: string, frontmatter: unknown, body: string, where: str
   if (result.started && result.ended && result.ended < result.started)
     throw new ContentError(where, 'A thing cannot end before it started.');
   if (item.story !== undefined) result.story = story(item.story, `${where}.story`);
+  const artifacts = list(item.artifacts, `${where}.artifacts`, 200).map((a, i) =>
+    artifact(a, `${where}.artifacts[${i}]`)
+  );
+  if (artifacts.length) result.artifacts = artifacts;
+  unique(
+    artifacts.flatMap((a) => (a.preview ? [a.file, a.preview] : [a.file])),
+    `${where}.artifacts`
+  );
   if (result.story && !result.body) throw new ContentError(where, 'A story needs a body: the idea behind the thing.');
   if (result.body.length > 20000) throw new ContentError(where, 'The body is too long.');
   if (/\/Users\//.test(result.body) || [...result.body].some((c) => c.charCodeAt(0) < 9))

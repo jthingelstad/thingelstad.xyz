@@ -7,6 +7,8 @@ import { stringify } from 'yaml';
 import {
   githubKey,
   websiteKey,
+  type Artifact,
+  type ArtifactFile,
   type CommitLogObservation,
   type Connection,
   type GitHubObservation,
@@ -25,6 +27,7 @@ import {
   type WebObservation
 } from './schema';
 import { capturedUrl } from './adapters/wayback';
+import { artifactKind, formatBytes, isImage } from './artifacts';
 import { rootOrigin, siteKey } from './adapters/tinylytics';
 import {
   activityMonths,
@@ -89,6 +92,39 @@ type SiteViews = { site: string; total: number; until: string; months: MonthCoun
 export const screenshotAsset = (observation: ScreenshotObservation) =>
   `/assets/screenshots/${observation.image.replace(/\.jpg$/, '')}-${observation.sha256.slice(0, 10)}.jpg`;
 type InboundConnection = Connection & { from: string };
+// An artifact as its page shows it: where it is published, what kind of file it is and how big, and the image
+// that shows it, which is the file itself or its preview (null for a file with neither).
+type SiteArtifact = Artifact & {
+  src: string;
+  kind: string;
+  bytes: number;
+  size: string;
+  image: { src: string; width: number; height: number } | null;
+};
+const artifactPath = (id: string, file: string) => `/things/${id}/artifacts/${file}`;
+function siteArtifact(id: string, artifact: Artifact, files: Map<string, ArtifactFile> | undefined): SiteArtifact {
+  const measured = (file: string) => {
+    const found = files?.get(`${id}/${file}`);
+    if (!found) throw new Error(`The artifact ${id}/${file} was not measured; load the registry with loadRegistry.`);
+    return found;
+  };
+  const { bytes } = measured(artifact.file);
+  const shown = isImage(artifact.file) ? artifact.file : artifact.preview;
+  const image = shown ? measured(shown) : null;
+  return {
+    ...artifact,
+    src: artifactPath(id, artifact.file),
+    kind: artifactKind(artifact.file),
+    bytes,
+    size: formatBytes(bytes),
+    image: shown && image ? { src: artifactPath(id, shown), width: image.width!, height: image.height! } : null
+  };
+}
+// The artifact as its record has it, with its address: what the Markdown twin and things.json carry.
+const artifactRecord = ({ src, kind: _k, bytes: _b, size: _s, image: _i, ...artifact }: SiteArtifact) => ({
+  ...artifact,
+  url: `${siteUrl}${src}`
+});
 // A small monogram "sticker" for each thing: its initials on a tinted tile, tilted a degree or two. The
 // hue and tilt come from the id, so a thing keeps its sticker from build to build.
 export type Sticker = { letters: string; hue: number; tilt: number };
@@ -100,7 +136,7 @@ export function sticker(id: string, title: string): Sticker {
   return { letters, hue: hash % 360, tilt: (hash % 7) - 3 };
 }
 
-export type SiteThing = Omit<Thing, 'sources'> & {
+export type SiteThing = Omit<Thing, 'sources' | 'artifacts'> & {
   page: string;
   markdown: string;
   statusLabel: string;
@@ -113,6 +149,7 @@ export type SiteThing = Omit<Thing, 'sources'> & {
   latest: Evidence | null; // the newest dated evidence across every source
   months: MonthCount[]; // commits and publications per month, last twelve months
   screenshot: SiteScreenshot | null;
+  artifacts: SiteArtifact[];
   views: SiteViews | null;
   span: { start: number | null; end: number | null }; // years, for the timeline
   filters: ThingFilter[]; // its facet values, for /search/
@@ -398,6 +435,7 @@ export function buildSiteModel(registry: Registry, observations: Observation[], 
       latest: evidence[0] ?? null,
       months: window.map((month) => ({ month, count: counts.get(month) ?? 0 })),
       screenshot: shot ? siteScreenshot(shot) : null,
+      artifacts: (thing.artifacts ?? []).map((artifact) => siteArtifact(thing.id, artifact, registry.artifactFiles)),
       views: viewed ? { site: viewed.url, total: viewed.hits, until: viewed.until, months: viewMonths(viewed) } : null,
       span: { start, end },
       filters: thingFilters(thing, sources, topicById),
@@ -535,6 +573,7 @@ export function thingMarkdown(thing: SiteThing) {
     ),
     connections: thing.connections,
     ...(thing.story ? { story: thing.story } : {}),
+    ...(thing.artifacts.length ? { artifacts: thing.artifacts.map(artifactRecord) } : {}),
     page: `${siteUrl}${thing.page}`
   };
   const yaml = stringify(frontmatter, { lineWidth: 0 }).trimEnd();
@@ -600,6 +639,15 @@ export function thingsJson(model: SiteModel) {
           }
         : {}),
       ...(thing.story ? { story: thing.story } : {}),
+      ...(thing.artifacts.length
+        ? {
+            artifacts: thing.artifacts.map((artifact) => ({
+              ...artifactRecord(artifact),
+              kind: artifact.kind,
+              bytes: artifact.bytes
+            }))
+          }
+        : {}),
       body: thing.body.trim(),
       latest: thing.latest
     })),

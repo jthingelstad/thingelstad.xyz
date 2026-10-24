@@ -8,7 +8,7 @@ The first version wrapped a small dataset in a React application, a Lambda guide
 
 | Layer        | Where                                                                                                                                                                                    | Nature                                                                                                                                                                                        | Who writes it                           | Cadence                                            |
 | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------- | -------------------------------------------------- |
-| Registry     | `content/things/*.md`, `content/topics.yaml`                                                                                                                                             | Things, sources, connections, topics                                                                                                                                                          | Jamie or an agent, in Markdown and YAML | Monthly                                            |
+| Registry     | `content/things/*.md`, `content/topics.yaml`, `content/artifacts/<id>/*`                                                                                                                 | Things, sources, connections, topics, artifacts                                                                                                                                               | Jamie or an agent, in Markdown and YAML | Monthly                                            |
 | Ledger       | `content/history/<year>.yaml`                                                                                                                                                            | Curated, sourced history events                                                                                                                                                               | Jamie, often from collector proposals   | Weekly or monthly                                  |
 | Observations | `data/observations/github/*.json`, `.../commits/*.json`, `.../web/*.json`, `.../publications/*.json`, `.../tinylytics/*.json`, `.../wayback/*.json`, `.../screenshot/*.json` and `*.jpg` | Commits, releases, every commit and who made it, sitemap and feed dates, every feed item, stars and forks, monthly page views, Internet Archive capture days, a monthly front-page screenshot | `npm run collect`, never a person       | Daily, automated (the Internet Archive on Mondays) |
 
@@ -48,6 +48,15 @@ story: # optional; the current site’s richer project page
   stack: [...]
   related: [...]
   questions: [...]
+artifacts: # optional; files from the project itself, in content/artifacts/<id>/
+  - file: masthead-logo.png
+    title: The masthead
+    caption: The logo and its tagline, from the top of every page.
+    date: 2009-05
+    source: https://www.thingelstad.com/2009/05/12/introducing-velotweets-the.html
+  - file: jerseys.zip
+    preview: jerseys.png # an image of a file a browser cannot show
+    title: Jersey icons
 ---
 The body is the idea behind the thing, in Markdown.
 ```
@@ -65,6 +74,8 @@ Status words:
 Sources are inline. Two things that name the same repository or URL share one observation; the collector stores it once. A GitHub source can carry a `path` to scope activity to a directory. A website source can carry a `sitemap` and a `feed`, which is what makes it observable. A website without either is a reference only.
 
 Connections live on the thing they start from. Topics are a short list in `topics.yaml` with an ID, a title, and a description; membership is declared on each thing.
+
+Artifacts (added 2026-10-24, Jamie: “We should allow any kind of artifact. Images, archives, files.”) are files from a project itself, kept to make its page richer, never to bring it back: a logo, a screenshot from its time, a design file, an archive of icons. They live in `content/artifacts/<id>/`, and the thing lists each one under `artifacts` with a `file` (a lowercase name with an extension), a `title`, and optionally a `caption`, a `date`, a public `source` page that shows or describes it, and, for a file a browser cannot show, a `preview` image in the same folder. The folder holds exactly the files its record lists (the Finder’s dotfiles aside), each up to 25 MB; the loader checks that and reads each image’s size from its header (`collection/load.ts`, `collection/artifacts.ts`). The build publishes the files unchanged at `/things/<id>/artifacts/<file>`, an address that stays good for as long as the thing does. The page shows them as a grid of cards, each image or preview in a white frame with the file’s name, kind, size and date, and the Markdown twin and `things.json` list them with their URLs. Images, PDFs, ZIP archives and text are served as what they are; anything else, HTML and SVG included, as `application/octet-stream`, so an old project’s page or script never runs as part of this site. The repository is public, so an artifact is published when it is committed: read a file before adding it, and keep credentials, private data, and licensed stock art out.
 
 Validation is strict and runs in tests: unknown fields, non-HTTPS URLs, private hosts, local paths, invalid dates, unknown references, and duplicate IDs all fail the build. Date precision is preserved as written. A recorded first commit is development evidence, never a launch date.
 

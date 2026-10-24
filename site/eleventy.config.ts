@@ -69,6 +69,14 @@ export default function (eleventyConfig: EleventyConfig) {
     const shot = JSON.parse(readFileSync(`${screenshots}/${name}`, 'utf8')) as ScreenshotObservation;
     eleventyConfig.addPassthroughCopy({ [`${screenshots}/${shot.image}`]: screenshotAsset(shot).slice(1) });
   }
+  // Each thing's artifacts are published beside its page, under their own names (/things/<id>/artifacts/<file>):
+  // a link to one stays good for as long as the thing does. The loader has already checked every folder
+  // against its record (collection/load.ts), so the folders are copied as they are, less the Finder's dotfiles.
+  const artifacts = 'content/artifacts';
+  const folders = existsSync(artifacts) ? readdirSync(artifacts, { withFileTypes: true }) : [];
+  for (const id of folders.filter((e) => e.isDirectory() && !e.name.startsWith('.')).map((e) => e.name))
+    for (const file of readdirSync(`${artifacts}/${id}`).filter((n) => !n.startsWith('.')))
+      eleventyConfig.addPassthroughCopy({ [`${artifacts}/${id}/${file}`]: `things/${id}/artifacts/${file}` });
   eleventyConfig.setLibrary('md', markdown);
   eleventyConfig.addFilter('date', (value: string) => formatDate(value));
   eleventyConfig.addFilter('day', (value: string) => formatDate(value.slice(0, 10)));

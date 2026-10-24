@@ -1,22 +1,20 @@
 // A loopback static server for the built site, for browser tests and local checks. It behaves like the
 // CloudFront distribution: a directory URL serves its index.html, a directory URL without a trailing
-// slash redirects to one, and a missing path serves 404.html with a 404 status.
+// slash redirects to one, and a missing path serves 404.html with a 404 status. Each file goes out with the
+// content type the publish gives it (scripts/publish-plan.mjs).
 import { createReadStream, statSync } from 'node:fs';
 import { createServer } from 'node:http';
-import { extname, join, normalize } from 'node:path';
+import { join, normalize, relative, sep } from 'node:path';
+import { contentTypeFor } from './publish-plan.mjs';
 
 const root = process.argv[3] ?? '_site';
 const port = Number(process.argv[2] ?? 4173);
-const types = {
-  '.html': 'text/html; charset=utf-8',
-  '.css': 'text/css; charset=utf-8',
-  '.js': 'text/javascript; charset=utf-8',
-  '.json': 'application/json; charset=utf-8',
-  '.xml': 'application/xml; charset=utf-8',
-  '.txt': 'text/plain; charset=utf-8',
-  '.md': 'text/markdown; charset=utf-8',
-  '.svg': 'image/svg+xml',
-  '.woff2': 'font/woff2'
+const typeOf = (path) => {
+  try {
+    return contentTypeFor(relative(root, path).split(sep).join('/'));
+  } catch {
+    return 'application/octet-stream';
+  }
 };
 const fileAt = (path) => {
   try {
@@ -26,7 +24,7 @@ const fileAt = (path) => {
   }
 };
 const send = (response, path, status = 200) => {
-  response.writeHead(status, { 'content-type': types[extname(path)] ?? 'application/octet-stream' });
+  response.writeHead(status, { 'content-type': typeOf(path) });
   createReadStream(path).pipe(response);
 };
 createServer((request, response) => {

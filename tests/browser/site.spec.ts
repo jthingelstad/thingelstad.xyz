@@ -2,7 +2,14 @@ import { test, expect, type Page } from '@playwright/test';
 import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 
-type Thing = { id: string; title: string; status: string; topics: string[]; sources: { kind: string }[] };
+type Thing = {
+  id: string;
+  title: string;
+  status: string;
+  topics: string[];
+  sources: { kind: string }[];
+  artifacts?: { file: string; url: string; preview?: string }[];
+};
 type Output = { things: Thing[]; topics: { id: string; title: string }[]; history: { id: string; title: string }[] };
 const { things, topics, history } = JSON.parse(readFileSync('_site/things.json', 'utf8')) as Output;
 type SharedSite = { id: string; strip_label: string; url: string; in_sites_strip: boolean };
@@ -182,6 +189,50 @@ test('a website thing shows its front page and page views', async ({ page }) => 
   expect(errors).toEqual([]);
 });
 
+test('a thing’s artifacts are shown, linked, and served as the files they are', async ({ page, request }) => {
+  const errors = watchErrors(page);
+  const { artifacts } = things.find((thing) => thing.id === 'velotweets')!;
+  await page.goto('/things/velotweets/');
+  await expect(page.locator('.artifacts h2')).toHaveText('Artifacts');
+  await expect(page.locator('.artifact')).toHaveCount(artifacts!.length);
+  // An image is shown as itself; a file a browser cannot show, by its preview; a file with neither, by its name.
+  const shown = artifacts!.filter((a) => /\.(png|jpe?g|gif|webp)$/.test(a.file) || a.preview);
+  const images = page.locator('.artifact-image img');
+  await expect(images).toHaveCount(shown.length);
+  for (const image of await images.all()) {
+    await image.scrollIntoViewIfNeeded();
+    await expect
+      .poll(() => image.evaluate((img: HTMLImageElement) => img.complete && img.naturalWidth))
+      .toBeGreaterThan(0);
+    const box = await image.evaluate((img) => {
+      const frame = img.parentElement!.getBoundingClientRect();
+      const own = img.getBoundingClientRect();
+      return { fits: own.width <= frame.width && own.height <= frame.height, alt: img.getAttribute('alt') };
+    });
+    expect(box.fits).toBe(true);
+    expect(box.alt).toBeTruthy();
+  }
+  const downloads = page.locator('.artifact-meta a[download]');
+  await expect(downloads).toHaveCount(artifacts!.length);
+  for (const [i, artifact] of artifacts!.entries()) {
+    const href = await downloads.nth(i).getAttribute('href');
+    expect(href).toBe(new URL(artifact.url).pathname);
+    const response = await request.get(href!);
+    expect(response.status(), href!).toBe(200);
+    expect(response.headers()['content-type'], href!).toBe(
+      artifact.file.endsWith('.png')
+        ? 'image/png'
+        : artifact.file.endsWith('.zip')
+          ? 'application/zip'
+          : 'application/octet-stream'
+    );
+  }
+  expect(await fitsViewport(page)).toBe(true);
+  await page.goto('/things/elixir-bot/');
+  await expect(page.locator('.artifacts')).toHaveCount(0);
+  expect(errors).toEqual([]);
+});
+
 test('connections link both ways and topics gather their things', async ({ page }) => {
   await page.goto('/things/elixir-bot/');
   await expect(page.locator('.facts .status-retired')).toBeVisible();
@@ -358,6 +409,7 @@ test('the shared type: Inter Tight headings, Inter text, nothing under 14px, no 
     ['/', 200],
     ['/things/thingy/', 200],
     ['/things/elixir-bot/', 200],
+    ['/things/velotweets/', 200],
     ['/things/yearly-thing-2025/', 200],
     ['/topics/', 200],
     ['/history/', 200],
