@@ -101,6 +101,38 @@ test('every page opens with the sites strip, this site current', async ({ page }
   expect(errors).toEqual([]);
 });
 
+// Dark follows the system setting. The strip takes the contract's dark values, the --jt-*-text colours.
+const darkStripColours = {
+  www: 'rgb(236, 236, 240)',
+  weekly: 'rgb(120, 172, 242)',
+  another: 'rgb(245, 138, 163)',
+  thingy: 'rgb(243, 162, 116)',
+  xyz: 'rgb(116, 211, 160)'
+};
+
+test('dark mode follows the system: a dark paper, light ink, and the strip in its dark values', async ({ page }) => {
+  await page.emulateMedia({ colorScheme: 'dark' });
+  for (const path of ['/', '/things/mb/', '/search/', '/activity/']) {
+    await page.goto(path);
+    await expect(page.locator('html'), path).toHaveCSS('background-color', 'rgb(23, 21, 18)');
+    await expect(page.locator('html'), path).toHaveCSS('color', 'rgb(236, 231, 220)');
+    const strip = page.getByRole('navigation', { name: 'Jamie Thingelstad' });
+    await expect(strip).toHaveCSS('background-color', 'rgb(30, 30, 35)');
+    for (const [id, color] of Object.entries(darkStripColours)) {
+      await expect(strip.locator(`.sites-strip__item--${id} a`), `${path}: ${id}`).toHaveCSS('color', color);
+    }
+  }
+  await expect(page.locator('meta[name="theme-color"][media="(prefers-color-scheme: dark)"]')).toHaveAttribute(
+    'content',
+    '#171512'
+  );
+  await page.goto('/search/');
+  await expect(page.locator('#search-input, .search-row input').first()).toHaveCSS(
+    'background-color',
+    'rgb(15, 14, 12)'
+  );
+});
+
 test('the header links keep to one row at every width, scrolling only below 350px', async ({ page }) => {
   await page.goto('/search/');
   await page.evaluate(() => document.fonts.ready);
