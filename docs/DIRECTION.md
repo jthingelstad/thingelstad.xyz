@@ -54,9 +54,9 @@ artifacts: # optional; files from the project itself, in content/artifacts/<id>/
     caption: The logo and its tagline, from the top of every page.
     date: 2009-05
     source: https://www.thingelstad.com/2009/05/12/introducing-velotweets-the.html
-  - file: cyclist.ai
-    preview: cyclist.png # an image of a file a browser cannot show
-    title: The rider
+  - file: jerseys.zip
+    preview: jerseys.png # an image of a file a browser cannot show
+    title: Jersey icons
 ---
 The body is the idea behind the thing, in Markdown.
 ```

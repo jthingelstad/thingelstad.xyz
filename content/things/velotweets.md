@@ -51,11 +51,6 @@ artifacts:
     caption: Photos the riders posted to TwitPic, gathered into one grid.
     date: '2009-05'
     source: https://www.thingelstad.com/2009/05/12/introducing-velotweets-the.html
-  - file: cyclist.ai
-    preview: cyclist.png
-    title: The rider
-    caption: The line drawing of a rider behind the cyclist in the masthead, as an Illustrator file.
-    date: '2009-05-05'
   - file: color-palette.ase
     title: The colour palette
     caption: 'The site’s colours as Adobe swatches: light blue #A0D3F2, slate blue #56779A, dark brown #261802, yellow #FFFF00, and white.'

@@ -191,14 +191,14 @@ test('artifacts are published beside their thing, shown by an image where there 
   assert.equal(logo.src, '/things/velotweets/artifacts/masthead-logo.png');
   assert.deepEqual(logo.image, { src: logo.src, width: 200, height: 100 });
   assert.equal(logo.kind, 'PNG image');
-  const drawing = byFile.get('cyclist.ai')!;
-  assert.equal(drawing.src, '/things/velotweets/artifacts/cyclist.ai');
+  const icons = byFile.get('jerseys.zip')!;
+  assert.equal(icons.src, '/things/velotweets/artifacts/jerseys.zip');
   assert.equal(
-    drawing.image?.src,
-    '/things/velotweets/artifacts/cyclist.png',
+    icons.image?.src,
+    '/things/velotweets/artifacts/jerseys.png',
     'a file a browser cannot show uses its preview'
   );
-  assert.equal(drawing.kind, 'Adobe Illustrator file');
+  assert.equal(icons.kind, 'ZIP archive');
   assert.equal(byFile.get('color-palette.ase')!.image, null, 'a file with no preview is a download only');
   for (const artifact of velo.artifacts)
     assert.equal(artifact.bytes, readFileSync(`content/artifacts/velotweets/${artifact.file}`).length);
@@ -207,13 +207,12 @@ test('artifacts are published beside their thing, shown by an image where there 
   const { frontmatter } = splitFrontmatter(thingMarkdown(velo), 'twin') as { frontmatter: Record<string, unknown> };
   const twinArtifacts = frontmatter.artifacts as Record<string, unknown>[];
   assert.equal(twinArtifacts.length, velo.artifacts.length);
-  assert.deepEqual(twinArtifacts[4], {
-    file: 'cyclist.ai',
-    title: drawing.title,
-    caption: drawing.caption,
-    date: '2009-05-05',
-    preview: 'cyclist.png',
-    url: `${siteUrl}/things/velotweets/artifacts/cyclist.ai`
+  assert.deepEqual(twinArtifacts.at(-1), {
+    file: 'jerseys.zip',
+    title: icons.title,
+    caption: icons.caption,
+    preview: 'jerseys.png',
+    url: `${siteUrl}/things/velotweets/artifacts/jerseys.zip`
   });
   assert.ok(!thingMarkdown(model.things.find((t) => t.id === 'elixir')!).includes('artifacts:'));
   const json = thingsJson(model).things.find((t) => t.id === 'velotweets')!;

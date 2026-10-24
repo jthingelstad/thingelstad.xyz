@@ -41,7 +41,7 @@ test('the site is published assets first, pages after, the front page last, each
   // a page or a script among them, as bytes to download, so it never runs as a page of this site.
   assert.equal(contentTypeFor('things/velotweets/artifacts/masthead-logo.png'), 'image/png');
   assert.equal(contentTypeFor('things/velotweets/artifacts/jerseys.zip'), 'application/zip');
-  assert.equal(contentTypeFor('things/velotweets/artifacts/cyclist.ai'), 'application/octet-stream');
+  assert.equal(contentTypeFor('things/example/artifacts/design.ai'), 'application/octet-stream');
   assert.equal(contentTypeFor('things/example/artifacts/old-home.html'), 'application/octet-stream');
   assert.equal(contentTypeFor('things/example/artifacts/logo.svg'), 'application/octet-stream');
   assert.equal(cacheControlFor('things/velotweets/artifacts/jerseys.zip'), 'no-cache');

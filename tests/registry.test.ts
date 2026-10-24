@@ -223,7 +223,7 @@ test('image sizes are read from their headers, and files are named by kind and s
   }
   assert.equal(imageSize(Buffer.from('not an image')), null);
   assert.equal(imageSize(png(0, 10)), null);
-  assert.equal(artifactKind('cyclist.ai'), 'Adobe Illustrator file');
+  assert.equal(artifactKind('design.ai'), 'Adobe Illustrator file');
   assert.equal(artifactKind('jerseys.zip'), 'ZIP archive');
   assert.equal(artifactKind('notes.xyz'), 'XYZ file');
   assert.equal(formatBytes(276), '276 bytes');
