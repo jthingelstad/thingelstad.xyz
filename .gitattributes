@@ -1,0 +1,3 @@
+# A thing's artifacts are files from the project itself, kept byte for byte (no line-ending changes) and left
+# out of GitHub's language count.
+content/artifacts/** -text linguist-vendored

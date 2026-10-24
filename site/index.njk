@@ -9,6 +9,14 @@ permalink: /
     {% for s in site.statuses %}<a class="status status-{{ s.status }}" href="/search/?status={{ s.status }}" title="{{ s.description }}">{{ s.label }} {{ s.count }}</a> {% endfor %}
   </p>
 </section>
+{% if site.featured.length %}
+<section class="featured" aria-labelledby="featured">
+  <h2 id="featured">Featured</h2>
+  <ul class="feature-list">
+    {% for feature in site.featured %}{% include "feature-card.njk" %}{% endfor %}
+  </ul>
+</section>
+{% endif %}
 {% for collection in site.collections %}
 <section class="collection" id="{{ collection.name | slugify }}">
   <h2>{{ collection.name }} <span class="count badge">{{ collection.things | length }}</span></h2>

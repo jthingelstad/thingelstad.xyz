@@ -7,6 +7,8 @@ import { stringify } from 'yaml';
 import {
   githubKey,
   websiteKey,
+  type Artifact,
+  type ArtifactFile,
   type CommitLogObservation,
   type Connection,
   type GitHubObservation,
@@ -25,7 +27,9 @@ import {
   type WebObservation
 } from './schema';
 import { capturedUrl } from './adapters/wayback';
+import { artifactKind, formatBytes, isImage } from './artifacts';
 import { rootOrigin, siteKey } from './adapters/tinylytics';
+import { currentSite, withRef } from './sites';
 import {
   activityMonths,
   countsAsActivity,
@@ -89,6 +93,39 @@ type SiteViews = { site: string; total: number; until: string; months: MonthCoun
 export const screenshotAsset = (observation: ScreenshotObservation) =>
   `/assets/screenshots/${observation.image.replace(/\.jpg$/, '')}-${observation.sha256.slice(0, 10)}.jpg`;
 type InboundConnection = Connection & { from: string };
+// An artifact as its page shows it: where it is published, what kind of file it is and how big, and the image
+// that shows it, which is the file itself or its preview (null for a file with neither).
+type SiteArtifact = Artifact & {
+  src: string;
+  kind: string;
+  bytes: number;
+  size: string;
+  image: { src: string; width: number; height: number } | null;
+};
+const artifactPath = (id: string, file: string) => `/things/${id}/artifacts/${file}`;
+function siteArtifact(id: string, artifact: Artifact, files: Map<string, ArtifactFile> | undefined): SiteArtifact {
+  const measured = (file: string) => {
+    const found = files?.get(`${id}/${file}`);
+    if (!found) throw new Error(`The artifact ${id}/${file} was not measured; load the registry with loadRegistry.`);
+    return found;
+  };
+  const { bytes } = measured(artifact.file);
+  const shown = isImage(artifact.file) ? artifact.file : artifact.preview;
+  const image = shown ? measured(shown) : null;
+  return {
+    ...artifact,
+    src: artifactPath(id, artifact.file),
+    kind: artifactKind(artifact.file),
+    bytes,
+    size: formatBytes(bytes),
+    image: shown && image ? { src: artifactPath(id, shown), width: image.width!, height: image.height! } : null
+  };
+}
+// The artifact as its record has it, with its address: what the Markdown twin and things.json carry.
+const artifactRecord = ({ src, kind: _k, bytes: _b, size: _s, image: _i, ...artifact }: SiteArtifact) => ({
+  ...artifact,
+  url: `${siteUrl}${src}`
+});
 // A small monogram "sticker" for each thing: its initials on a tinted tile, tilted a degree or two. The
 // hue and tilt come from the id, so a thing keeps its sticker from build to build.
 export type Sticker = { letters: string; hue: number; tilt: number };
@@ -100,7 +137,7 @@ export function sticker(id: string, title: string): Sticker {
   return { letters, hue: hash % 360, tilt: (hash % 7) - 3 };
 }
 
-export type SiteThing = Omit<Thing, 'sources'> & {
+export type SiteThing = Omit<Thing, 'sources' | 'artifacts'> & {
   page: string;
   markdown: string;
   statusLabel: string;
@@ -113,6 +150,7 @@ export type SiteThing = Omit<Thing, 'sources'> & {
   latest: Evidence | null; // the newest dated evidence across every source
   months: MonthCount[]; // commits and publications per month, last twelve months
   screenshot: SiteScreenshot | null;
+  artifacts: SiteArtifact[];
   views: SiteViews | null;
   span: { start: number | null; end: number | null }; // years, for the timeline
   filters: ThingFilter[]; // its facet values, for /search/
@@ -157,6 +195,16 @@ export type Timeline = {
   mostAlive: number;
   undated: SiteThing[];
 };
+// A card on the front page's featured shelf, in the order of content/featured.yaml. Its links to the thing's
+// own site carry ?ref=xyz-featured when Tinylytics counts that site, so the site's Sources report shows what
+// the shelf sends it (Jamie, 2026-10-24: "add ref tags for these links so they can be measured"). A site
+// Tinylytics does not count, a GitHub repository say, keeps its address as the record has it.
+type SiteFeature = {
+  thing: SiteThing;
+  href: string | null; // the thing's own address
+  cover: string | null; // where the cover leads: the captured site, or the thing's address
+};
+
 export type SiteModel = {
   url: string;
   title: string;
@@ -164,6 +212,7 @@ export type SiteModel = {
   repository: string;
   generated: string;
   things: SiteThing[];
+  featured: SiteFeature[];
   collections: SiteCollection[];
   topics: SiteTopic[];
   history: HistoryEvent[];
@@ -398,6 +447,7 @@ export function buildSiteModel(registry: Registry, observations: Observation[], 
       latest: evidence[0] ?? null,
       months: window.map((month) => ({ month, count: counts.get(month) ?? 0 })),
       screenshot: shot ? siteScreenshot(shot) : null,
+      artifacts: (thing.artifacts ?? []).map((artifact) => siteArtifact(thing.id, artifact, registry.artifactFiles)),
       views: viewed ? { site: viewed.url, total: viewed.hits, until: viewed.until, months: viewMonths(viewed) } : null,
       span: { start, end },
       filters: thingFilters(thing, sources, topicById),
@@ -405,6 +455,12 @@ export function buildSiteModel(registry: Registry, observations: Observation[], 
     };
   });
   const byId = new Map(things.map((thing) => [thing.id, thing]));
+  const featuredLink = (url: string | null) => {
+    if (!url) return null;
+    const { hostname, origin } = new URL(url);
+    const counted = tinylytics.has(siteKey(origin)) && hostname !== new URL(siteUrl).hostname;
+    return counted ? withRef(url, `${currentSite}-featured`) : url;
+  };
   const sortedThings = things.toSorted((a, b) => a.title.localeCompare(b.title, 'en', { sensitivity: 'base' }));
 
   const names = [...new Set(things.map((thing) => thing.collection))].toSorted((a, b) => {
@@ -500,6 +556,10 @@ export function buildSiteModel(registry: Registry, observations: Observation[], 
     repository: repositoryUrl,
     generated: now.toISOString(),
     things: sortedThings,
+    featured: registry.featured.map((id) => {
+      const thing = byId.get(id)!;
+      return { thing, href: featuredLink(thing.url), cover: featuredLink(thing.screenshot?.site ?? thing.url) };
+    }),
     collections,
     topics,
     history: registry.history,
@@ -535,6 +595,7 @@ export function thingMarkdown(thing: SiteThing) {
     ),
     connections: thing.connections,
     ...(thing.story ? { story: thing.story } : {}),
+    ...(thing.artifacts.length ? { artifacts: thing.artifacts.map(artifactRecord) } : {}),
     page: `${siteUrl}${thing.page}`
   };
   const yaml = stringify(frontmatter, { lineWidth: 0 }).trimEnd();
@@ -550,6 +611,16 @@ export function llmsText(model: SiteModel) {
     '',
     `Every thing has a Markdown twin at /things/<id>.md. The whole registry with the latest observation for each source is ${model.url}/things.json. The history ledger is ${model.url}/feed.json. Status is a decision; activity is evidence.`,
     '',
+    ...(model.featured.length
+      ? [
+          '## Featured',
+          '',
+          'The things I most want a visitor to see now, in the order the front page shows them.',
+          '',
+          ...model.featured.map(({ thing }) => `- [${thing.title}](${model.url}${thing.markdown}): ${thing.summary}`),
+          ''
+        ]
+      : []),
     '## Things',
     '',
     ...model.things.map((thing) => `- [${thing.title}](${model.url}${thing.markdown}): ${thing.summary}`),
@@ -576,6 +647,7 @@ export function thingsJson(model: SiteModel) {
   return {
     site: model.url,
     generated: model.generated,
+    featured: model.featured.map(({ thing }) => thing.id), // the front page's shelf, in its order
     things: model.things.map((thing) => ({
       id: thing.id,
       title: thing.title,
@@ -600,6 +672,15 @@ export function thingsJson(model: SiteModel) {
           }
         : {}),
       ...(thing.story ? { story: thing.story } : {}),
+      ...(thing.artifacts.length
+        ? {
+            artifacts: thing.artifacts.map((artifact) => ({
+              ...artifactRecord(artifact),
+              kind: artifact.kind,
+              bytes: artifact.bytes
+            }))
+          }
+        : {}),
       body: thing.body.trim(),
       latest: thing.latest
     })),

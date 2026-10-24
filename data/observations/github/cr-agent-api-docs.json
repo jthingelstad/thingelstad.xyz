@@ -2,15 +2,15 @@
   "kind": "github",
   "repository": "jthingelstad/cr-agent-api-docs",
   "url": "https://github.com/jthingelstad/cr-agent-api-docs",
-  "observedAt": "2026-10-20T17:57:36.612Z",
+  "observedAt": "2026-10-23T23:01:15.615Z",
   "repositoryCreatedAt": "2026-03-10T00:39:15.000Z",
   "archived": false,
   "description": "Agent-first reference documentation for the public Clash Royale API (api.clashroyale.com/v1) — built for LLM agents, automation workflows, and API clients.",
   "stars": 1,
   "forks": 0,
   "languages": [
-    { "name": "Python", "bytes": 87352 },
-    { "name": "JavaScript", "bytes": 19846 },
+    { "name": "Python", "bytes": 87305 },
+    { "name": "JavaScript", "bytes": 21671 },
     { "name": "Shell", "bytes": 2407 }
   ],
   "release": null,
@@ -19,18 +19,18 @@
       "path": null,
       "branch": "main",
       "since": "2026-07-01T00:00:00.000Z",
-      "until": "2026-10-20T17:57:36.612Z",
-      "count": 82,
+      "until": "2026-10-23T23:01:15.615Z",
+      "count": 86,
       "complete": true,
       "months": [
         { "month": "2026-07", "count": 3 },
         { "month": "2026-08", "count": 2 },
-        { "month": "2026-09", "count": 71 },
-        { "month": "2026-10", "count": 6 }
+        { "month": "2026-09", "count": 69 },
+        { "month": "2026-10", "count": 12 }
       ],
       "latestCommit": {
-        "date": "2026-10-06T16:03:31.000Z",
-        "url": "https://github.com/jthingelstad/cr-agent-api-docs/commit/ab340ca82671d779a5fd82a84a5cb6cde4478f1a"
+        "date": "2026-10-21T04:16:22.000Z",
+        "url": "https://github.com/jthingelstad/cr-agent-api-docs/commit/bcd8ddcbe134c3d09eab9f237a8b07a997a04fd7"
       }
     }
   ]

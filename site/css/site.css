@@ -10,6 +10,7 @@
   background: var(--paper);
   font-synthesis: none;
   font-weight: 400;
+  color-scheme: light dark;
   line-height: var(--jt-line-height);
 
   --font-heading: var(--jt-font-heading);
@@ -36,6 +37,17 @@
   --archived: #5a46c9;
   --archived-soft: #e9e4ff;
 
+  /* Smaller pieces of the palette: link underlines, the search box, the screenshot's shadow, the artifacts'
+     frame (white in the dark too, because the files were made for white pages), and the stickers' lightness
+     (each sticker brings its own --hue). */
+  --underline: #c9ccd3;
+  --field: #fff;
+  --artifact-ground: #fff;
+  --shadow: rgb(31 29 26 / 7%);
+  --sticker-ground: 88%;
+  --sticker-ink: 28%;
+  --sticker-edge: 78%;
+
   /* Things I've built green, the --jt-xyz values in thingelstad.com's shared/tokens.css: the fill (the
      mark, sparklines, rules) and the text colour (links, type and the focus ring), 5.7:1 on --paper and
      5.2:1 on --soft. A thing page sets --accent to its story colour in its header; --accent-text stays. */
@@ -48,6 +60,7 @@
   --who-me: #2a78d6;
   --who-agent: #eb6834;
   --who-others: #1baf7a;
+  --story-mix: 0%;
 
   /* Frame: every site's 1120px (--jt-frame) with the shared gutters inside it, 24px (16px on phones), so the
      strip, header, content and footer share one left edge with the blog's. The reading column is the blog's
@@ -55,6 +68,43 @@
   --frame: var(--jt-frame);
   --gutter: var(--jt-gutter);
   --measure: var(--jt-measure);
+}
+
+/* Dark: the same paper, at night. It follows the reader's system setting; there is no switch. The ground is a
+   warm near-black, the paper's own hue; text and status colours are lightened and their chips darkened, as
+   the shared tokens do for the site colours (--jt-xyz-text #74d3a0 for links and the focus ring). Fills stay:
+   the green mark keeps white on #1d7348. Contrast on --paper: ink 14.8:1, muted 7.2, green 10.0, every
+   status 7.5 or more and 6.2 or more on its chip. The who hues were re-run through the dataviz validator on
+   this ground and pass; the orange steps down to #e8652f to stay inside the dark lightness band. */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ink: #ece7dc;
+    --paper: #171512;
+    --muted: #a8a296;
+    --line: #36322b;
+    --soft: #221f1a;
+    --active: #5fcf8e;
+    --active-soft: #16301f;
+    --dormant: #e6b04a;
+    --dormant-soft: #352812;
+    --retired: #a9abb3;
+    --retired-soft: #2a2a2d;
+    --abandoned: #f08b78;
+    --abandoned-soft: #3b1b15;
+    --archived: #aa9cff;
+    --archived-soft: #26204a;
+    --accent-text: #74d3a0;
+    --who-agent: #e8652f;
+    --underline: #57524a;
+    --field: #0f0e0c;
+    --shadow: rgb(0 0 0 / 35%);
+    --sticker-ground: 22%;
+    --sticker-ink: 82%;
+    --sticker-edge: 34%;
+
+    /* A thing's story colour is its own; lifted toward the ink so the darkest (mb's) still shows. */
+    --story-mix: 25%;
+  }
 }
 
 * {
@@ -107,10 +157,10 @@ select:focus-visible,
   left: 8px;
 }
 
-/* Jamie's sites: the strip that opens every one of Jamie's sites. Its values are the shared contract in
+/* The sites strip: the strip that opens every one of Jamie's sites. Its values are the shared contract in
    thingelstad.com's AGENTS.md ("The sites strip"), identical everywhere; only the inner row follows this
    site's frame: the --frame column with the shared gutters. It names Inter itself, not a role, because its values
-   are the contract. No dark values: this site has no dark mode. */
+   are the contract, dark ones included (at the end of this file). */
 .sites-strip {
   background: #f3f3f5;
   font-family:
@@ -354,9 +404,9 @@ h2 {
   height: var(--size);
   flex: none;
   border-radius: 22%;
-  background: hsl(var(--hue) 70% 88%);
-  color: hsl(var(--hue) 55% 28%);
-  box-shadow: inset 0 0 0 1.5px hsl(var(--hue) 50% 78%);
+  background: hsl(var(--hue) 70% var(--sticker-ground));
+  color: hsl(var(--hue) 55% var(--sticker-ink));
+  box-shadow: inset 0 0 0 1.5px hsl(var(--hue) 50% var(--sticker-edge));
   font-family: var(--font-heading);
   font-weight: var(--weight-heading);
   font-size: 1.0625rem;
@@ -375,7 +425,7 @@ h2 {
 .site-main li a:not(.tag, .thing-title),
 .site-main dd a:not(.tag) {
   text-decoration: underline;
-  text-decoration-color: #c9ccd3;
+  text-decoration-color: var(--underline);
   text-underline-offset: 3px;
 }
 
@@ -585,8 +635,8 @@ h2 {
   border-radius: 10px;
   background: var(--soft);
   box-shadow:
-    0 1px 2px rgb(31 29 26 / 6%),
-    0 10px 28px rgb(31 29 26 / 8%);
+    0 1px 2px var(--shadow),
+    0 10px 28px var(--shadow);
 }
 
 .screenshot img {
@@ -599,6 +649,148 @@ h2 {
   margin-top: 8px;
   font-size: var(--jt-size-meta);
   color: var(--muted);
+}
+
+/* The front page's featured shelf (content/featured.yaml): the few things I want a visitor to see first, as
+   cards above the full index. Each card leads with the site's front page as the collector last captured it,
+   cropped to its top, or the thing's sticker on its story colour when there is no capture. */
+.feature-list {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 32px 24px;
+  padding: 0;
+  margin: 8px 0 0;
+  list-style: none;
+}
+
+/* Three to a row. Four make two rows of two; with five, the first two lead a row of their own. */
+.feature {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  grid-column: span 2;
+}
+
+.feature:first-child:nth-last-child(4),
+.feature:first-child:nth-last-child(4) ~ .feature,
+.feature:first-child:nth-last-child(5),
+.feature:first-child:nth-last-child(5) + .feature {
+  grid-column: span 3;
+}
+
+.feature-cover {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--cover, var(--soft));
+  box-shadow:
+    0 1px 2px var(--shadow),
+    0 10px 28px var(--shadow);
+  transition: translate 180ms ease;
+}
+
+.feature-cover:hover {
+  translate: 0 -3px;
+}
+
+.feature-cover img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+}
+
+.feature-mark {
+  font-family: var(--font-heading);
+  font-weight: var(--weight-heading);
+  font-size: 4rem;
+  letter-spacing: var(--jt-tracking-heading);
+  color: #fff;
+}
+
+.feature h3 {
+  font-family: var(--font-heading);
+  font-weight: var(--weight-heading);
+  letter-spacing: var(--jt-tracking-heading);
+  font-size: var(--jt-size-h3);
+  margin: 16px 0 4px;
+}
+
+.site-main .feature h3 a,
+.site-main .feature .feature-cover {
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.site-main .feature h3 a:hover {
+  text-decoration: underline;
+}
+
+.feature-summary {
+  margin: 0 0 12px;
+  color: var(--muted);
+  font-size: 1.0625rem;
+}
+
+.site-main .feature-visit {
+  margin-top: auto;
+  font-size: var(--jt-size-small);
+  font-weight: 600;
+  color: var(--accent-text);
+  overflow-wrap: anywhere;
+}
+
+/* A thing's artifacts: cards in a grid, each image in a frame of one shape so a logo and a screenshot sit
+   side by side. An image is shrunk to fit its frame and never enlarged past its own size. */
+.artifact-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+  gap: 28px 24px;
+  padding: 0;
+  margin: 16px 0 0;
+  list-style: none;
+}
+
+.artifact {
+  min-width: 0;
+}
+
+.artifact-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 4 / 3;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--artifact-ground);
+}
+
+.artifact-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: scale-down;
+}
+
+.artifact h3 {
+  font-size: var(--jt-size-base);
+  margin: 12px 0 4px;
+}
+
+.artifact-caption {
+  margin: 4px 0;
+  font-size: 1.0625rem;
+}
+
+.artifact-meta {
+  margin: 4px 0;
+  font-size: var(--jt-size-meta);
+  overflow-wrap: anywhere;
 }
 
 .topic-cloud a,
@@ -621,7 +813,7 @@ h2 {
 }
 
 .thing-header {
-  border-left: 5px solid var(--accent);
+  border-left: 5px solid color-mix(in oklab, var(--accent), var(--ink) var(--story-mix));
   border-radius: 3px;
   padding-left: 20px;
 }
@@ -1149,7 +1341,7 @@ h2 {
   padding: 12px 16px;
   border: 2px solid var(--ink);
   border-radius: 14px;
-  background: #fff;
+  background: var(--field);
   color: var(--ink);
   font-family: var(--font-body);
   font-size: 1.125rem;
@@ -1429,6 +1621,47 @@ h2 {
   font-weight: 600;
 }
 
+/* On phones the shelf is a list: a small cover beside each card's words, so five fit in about a screen. */
+@media (width <= 720px) {
+  .feature-list {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+  }
+
+  .feature,
+  .feature:first-child:nth-last-child(4),
+  .feature:first-child:nth-last-child(4) ~ .feature,
+  .feature:first-child:nth-last-child(5),
+  .feature:first-child:nth-last-child(5) + .feature {
+    display: grid;
+    grid-template-columns: 112px minmax(0, 1fr);
+    grid-column: auto;
+    gap: 0 14px;
+    align-content: start;
+  }
+
+  .feature-cover {
+    grid-row: 1 / span 3;
+    align-self: start;
+    border-radius: 8px;
+    box-shadow: 0 1px 2px var(--shadow);
+  }
+
+  .feature-mark {
+    font-size: 1.75rem;
+  }
+
+  .feature h3 {
+    margin: 0 0 2px;
+    font-size: var(--jt-size-base);
+  }
+
+  .feature-summary {
+    margin: 0 0 6px;
+    font-size: var(--jt-size-small);
+  }
+}
+
 @media (width < 900px) {
   .search-layout {
     grid-template-columns: minmax(0, 1fr);
@@ -1613,6 +1846,46 @@ h2 {
 @media (width < 350px) {
   .site-header nav {
     overflow-x: auto;
+  }
+}
+
+/* The sites strip's dark values, from the contract in thingelstad.com's AGENTS.md: the --jt-*-text colours. */
+@media (prefers-color-scheme: dark) {
+  .sites-strip {
+    background: #1e1e23;
+  }
+
+  .sites-strip__label {
+    color: #9d9daa;
+  }
+
+  .sites-strip a,
+  .sites-strip a:hover {
+    color: #ececf0;
+  }
+
+  .sites-strip a:focus-visible {
+    outline-color: #ececf0;
+  }
+
+  .sites-strip__item--weekly a,
+  .sites-strip__item--weekly a:hover {
+    color: #78acf2;
+  }
+
+  .sites-strip__item--another a,
+  .sites-strip__item--another a:hover {
+    color: #f58aa3;
+  }
+
+  .sites-strip__item--thingy a,
+  .sites-strip__item--thingy a:hover {
+    color: #f3a274;
+  }
+
+  .sites-strip__item--xyz a,
+  .sites-strip__item--xyz a:hover {
+    color: #74d3a0;
   }
 }
 

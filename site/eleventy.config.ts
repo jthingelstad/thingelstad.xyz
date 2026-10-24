@@ -50,7 +50,7 @@ export default function (eleventyConfig: EleventyConfig) {
     favicon: hashed('public/favicon.svg')
   };
   eleventyConfig.addGlobalData('assets', assets);
-  // From the vendored data/sites.json: the "Jamie's sites" strip at the top of every page, the owner's
+  // From the vendored data/sites.json: the sites strip at the top of every page, the owner's
   // h-card in the footer and rel=me links in the head, and `ref`, which tags a link to another strip site
   // with ?ref=xyz-<placement> (`{{ url | ref("thing") }}`). Templates add refs; content text keeps its links.
   const sites = parseSites(readFileSync(sitesPath, 'utf8'));
@@ -69,6 +69,14 @@ export default function (eleventyConfig: EleventyConfig) {
     const shot = JSON.parse(readFileSync(`${screenshots}/${name}`, 'utf8')) as ScreenshotObservation;
     eleventyConfig.addPassthroughCopy({ [`${screenshots}/${shot.image}`]: screenshotAsset(shot).slice(1) });
   }
+  // Each thing's artifacts are published beside its page, under their own names (/things/<id>/artifacts/<file>):
+  // a link to one stays good for as long as the thing does. The loader has already checked every folder
+  // against its record (collection/load.ts), so the folders are copied as they are, less the Finder's dotfiles.
+  const artifacts = 'content/artifacts';
+  const folders = existsSync(artifacts) ? readdirSync(artifacts, { withFileTypes: true }) : [];
+  for (const id of folders.filter((e) => e.isDirectory() && !e.name.startsWith('.')).map((e) => e.name))
+    for (const file of readdirSync(`${artifacts}/${id}`).filter((n) => !n.startsWith('.')))
+      eleventyConfig.addPassthroughCopy({ [`${artifacts}/${id}/${file}`]: `things/${id}/artifacts/${file}` });
   eleventyConfig.setLibrary('md', markdown);
   eleventyConfig.addFilter('date', (value: string) => formatDate(value));
   eleventyConfig.addFilter('day', (value: string) => formatDate(value.slice(0, 10)));
@@ -79,6 +87,7 @@ export default function (eleventyConfig: EleventyConfig) {
   eleventyConfig.addFilter('lifespan', (row: TimelineRow, timeline: Timeline) => lifespan(row, timeline));
   eleventyConfig.addFilter('aliveBar', (year: TimelineYear, timeline: Timeline) => aliveBar(year, timeline));
   eleventyConfig.addFilter('thing', (site: SiteModel, id: string) => site.things.find((t) => t.id === id));
+  eleventyConfig.addFilter('displayUrl', (value: string) => value.replace(/^https:\/\//, '').replace(/\/$/, ''));
   eleventyConfig.addFilter('number', (value: number) => new Intl.NumberFormat('en-US').format(value));
   eleventyConfig.addFilter('reach', reach);
   eleventyConfig.addFilter('activitySummary', activitySummary);
