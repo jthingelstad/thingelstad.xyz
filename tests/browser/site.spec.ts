@@ -1,6 +1,7 @@
 import { test, expect, type Page } from '@playwright/test';
 import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
+import { llmsShapeProblems } from '../llms-shape';
 
 type Thing = {
   id: string;
@@ -333,6 +334,9 @@ test('history anchors, the timeline, and the machine outputs are reachable', asy
     const response = await page.request.get(path);
     expect(response.ok(), path).toBe(true);
   }
+  // llms.txt as the llmstxt.org reference parser reads it: prose only above the first heading (tests/llms-shape.ts).
+  const llms = await page.request.get('/llms.txt');
+  expect(llmsShapeProblems(await llms.text())).toEqual([]);
   const missing = await page.request.get('/things/nothing-here/');
   expect(missing.status()).toBe(404);
   expect(errors).toEqual([]);
@@ -424,38 +428,47 @@ test('every page names Jamie with the shared h-card and rel=me links', async ({ 
   }
 });
 
-// Microformat roots on a page: every class an mf2 parser would read as one (h-card, h-entry, h-feed, ...).
+// The microformats on a page an mf2 parser reads as roots or as a feed's children (h-card, h-entry, h-feed, ...):
+// every h-* class except on a property's value, which here is only an entry's p-author h-card.
 const microformatRoots = (page: Page) =>
   page.evaluate(() =>
-    [...document.querySelectorAll('[class]')].flatMap((element) =>
-      [...element.classList].filter((name) => /^h-[a-z]+(-[a-z]+)*$/.test(name))
-    )
+    [...document.querySelectorAll('[class]')]
+      .filter((element) => ![...element.classList].some((name) => /^(p|u|dt|e)-/.test(name)))
+      .flatMap((element) => [...element.classList].filter((name) => /^h-[a-z]+(-[a-z]+)*$/.test(name)))
   );
-// The date a thing's h-entry is published under: when it started, else when it ended (site/thing.njk).
-const entryDate = (thing: Thing) => thing.started ?? thing.ended;
+// What each entry says beyond its name, url and summary: its author, the owner's hidden h-card with the clean
+// identity URL, and no dt-* date (a thing's dates are when it started and ended, not when it was published).
+const entryExtras = (entries: Element[]) =>
+  entries.map((entry) => ({
+    author: [...entry.querySelectorAll('.h-card')].map((card) => ({
+      property: card.classList.contains('p-author') && card.parentElement === entry,
+      url: card.getAttribute('href'),
+      name: card.textContent!.trim(),
+      shown: card.checkVisibility()
+    })),
+    dates: [...entry.querySelectorAll('[class]')].flatMap((element) =>
+      [...element.classList].filter((name) => name.startsWith('dt-'))
+    )
+  }));
+const ownerAuthor = { author: [{ property: true, url: owner.url, name: owner.name, shown: false }], dates: [] };
 
-test('a thing page is one h-entry: its title, canonical address, date, summary and story', async ({ page }) => {
-  expect(
-    things.every((thing) => entryDate(thing)),
-    'every thing has a date for its entry'
-  ).toBe(true);
+test('a thing page is one h-entry: its title, canonical address, author, summary and story', async ({ page }) => {
   for (const thing of things) {
     const path = new URL(thing.page).pathname;
     await page.goto(path);
     // The entry and the footer's h-card, nothing else, and neither inside the other.
     expect((await microformatRoots(page)).toSorted(), path).toEqual(['h-card', 'h-entry']);
     const entry = page.locator('article.h-entry');
-    await expect(entry.locator('.h-card'), path).toHaveCount(0);
+    await expect(page.locator('.h-card .h-entry'), path).toHaveCount(0);
+    expect(await entry.evaluateAll(entryExtras), path).toEqual([ownerAuthor]);
     await expect(entry.locator('.p-name'), path).toHaveText(thing.title);
     const canonical = await page.locator('link[rel="canonical"]').getAttribute('href');
     expect(canonical, path).toBe(thing.page);
     await expect(entry.locator('.u-url'), path).toHaveCount(1);
     await expect(entry.locator('data.u-url'), path).toHaveAttribute('value', canonical!);
-    // The date as the record gives it, on the date the page shows.
-    const published = entry.locator('.dt-published');
-    await expect(published, path).toHaveCount(1);
-    await expect(published, path).toHaveAttribute('datetime', entryDate(thing)!);
-    await expect(published, path).toBeVisible();
+    // The dates the page shows stay, as the record gives them.
+    for (const date of [thing.started, thing.ended].filter(Boolean))
+      await expect(entry.locator(`.facts time[datetime="${date}"]`), path).toBeVisible();
     await expect(entry.locator('.p-summary'), path).toHaveText(thing.summary);
     await expect(entry.locator('.e-content'), path).toHaveCount(thing.body?.trim() ? 1 : 0);
   }
@@ -479,7 +492,10 @@ test('every list of things is an h-feed of h-entries, one level deep', async ({ 
     await page.goto(list.path);
     expect(new Set(await microformatRoots(page)), list.path).toEqual(new Set(['h-card', 'h-feed', 'h-entry']));
     const shape = await page.evaluate(() => ({
-      nested: document.querySelectorAll('.h-entry .h-entry, .h-entry .h-feed, .h-feed .h-feed, .h-feed .h-card').length,
+      // An entry's author is its one h-card, a property; any other microformat inside an entry or feed is nested.
+      nested: document.querySelectorAll(
+        '.h-entry .h-entry, .h-entry .h-feed, .h-feed .h-feed, .h-feed .h-card:not(.h-entry > .p-author)'
+      ).length,
       loose: [...document.querySelectorAll('.h-entry')].filter((entry) => !entry.closest('.h-feed')).length,
       plain: document.querySelectorAll('.thing-row:not(.h-entry), .feature:not(.h-entry)').length,
       // Each feed's name: its one p-name outside its entries.
@@ -501,9 +517,6 @@ test('every list of things is an h-feed of h-entries, one level deep', async ({ 
       items.map((item) => ({
         name: [...item.querySelectorAll('.p-name')].map((element) => element.textContent!.trim()),
         url: [...item.querySelectorAll('.u-url')].map((element) => element.getAttribute('href')!),
-        published: [...item.querySelectorAll('.dt-published')].map(
-          (element) => element.getAttribute('datetime') ?? element.getAttribute('value')
-        ),
         summary: [...item.querySelectorAll('.p-summary')].map((element) => element.textContent!.trim())
       }))
     );
@@ -514,10 +527,11 @@ test('every list of things is an h-feed of h-entries, one level deep', async ({ 
       expect(entry, list.path).toEqual({
         name: [thing.title],
         url: [new URL(thing.page).pathname],
-        published: [entryDate(thing)],
         summary: [thing.summary]
       });
     }
+    for (const extras of await page.locator('.h-entry').evaluateAll(entryExtras))
+      expect(extras, list.path).toEqual(ownerAuthor);
   }
 });
 

@@ -4,14 +4,14 @@
       with no capture (a repository, say) shows its sticker on its story colour. The visit link says the same
       thing in words, so the cover is hidden from the keyboard and screen readers. Both links carry
       ?ref=xyz-featured where Tinylytics counts the site (feature.href and feature.cover, collection/site.ts). #}
-  {#- An h-entry of the featured h-feed: the title links the thing's page (p-name, u-url). The card shows no
-      date, so dt-published is an empty <data>, the thing page's date (started, else ended); it sits in the
-      h3 because on a phone the card is a grid, where another child would take a cell. #}
+  {#- An h-entry of the featured h-feed: the title links the thing's page (p-name, u-url), and the author is the
+      owner's hidden h-card (p-author), as on the thing page. A hidden element takes no cell of the phone's grid. #}
   <a class="feature-cover" href="{{ feature.cover }}" tabindex="-1" aria-hidden="true">
     {%- if thing.screenshot %}<img src="{{ thing.screenshot.src }}" width="{{ thing.screenshot.width }}" height="{{ thing.screenshot.height }}" alt="" decoding="async" />
     {%- else %}<span class="feature-mark">{{ thing.sticker.letters }}</span>{% endif -%}
   </a>
-  <h3><a class="p-name u-url" href="{{ thing.page }}">{{ thing.title }}</a>{% if thing.started or thing.ended %}<data class="dt-published" value="{{ thing.started or thing.ended }}"></data>{% endif %}</h3>
+  <h3><a class="p-name u-url" href="{{ thing.page }}">{{ thing.title }}</a></h3>
+  <a class="p-author h-card" href="{{ owner.url }}" hidden>{{ owner.name }}</a>
   <p class="feature-summary p-summary">{{ thing.summary }}</p>
   {% if feature.href %}<a class="feature-visit" href="{{ feature.href }}">{{ thing.url | displayUrl }}<span aria-hidden="true"> ↗</span></a>{% endif %}
 </li>
