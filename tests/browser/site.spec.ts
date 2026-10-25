@@ -5,6 +5,12 @@ import { readFileSync } from 'node:fs';
 type Thing = {
   id: string;
   title: string;
+  summary: string;
+  collection: string;
+  page: string;
+  started?: string | null;
+  ended?: string | null;
+  body?: string;
   status: string;
   topics: string[];
   sources: { kind: string }[];
@@ -416,6 +422,145 @@ test('every page names Jamie with the shared h-card and rel=me links', async ({ 
     expect(relMe).toEqual(owner.rel_me);
     expect(await fitsViewport(page), path).toBe(true);
   }
+});
+
+// Microformat roots on a page: every class an mf2 parser would read as one (h-card, h-entry, h-feed, ...).
+const microformatRoots = (page: Page) =>
+  page.evaluate(() =>
+    [...document.querySelectorAll('[class]')].flatMap((element) =>
+      [...element.classList].filter((name) => /^h-[a-z]+(-[a-z]+)*$/.test(name))
+    )
+  );
+// The date a thing's h-entry is published under: when it started, else when it ended (site/thing.njk).
+const entryDate = (thing: Thing) => thing.started ?? thing.ended;
+
+test('a thing page is one h-entry: its title, canonical address, date, summary and story', async ({ page }) => {
+  expect(
+    things.every((thing) => entryDate(thing)),
+    'every thing has a date for its entry'
+  ).toBe(true);
+  for (const thing of things) {
+    const path = new URL(thing.page).pathname;
+    await page.goto(path);
+    // The entry and the footer's h-card, nothing else, and neither inside the other.
+    expect((await microformatRoots(page)).toSorted(), path).toEqual(['h-card', 'h-entry']);
+    const entry = page.locator('article.h-entry');
+    await expect(entry.locator('.h-card'), path).toHaveCount(0);
+    await expect(entry.locator('.p-name'), path).toHaveText(thing.title);
+    const canonical = await page.locator('link[rel="canonical"]').getAttribute('href');
+    expect(canonical, path).toBe(thing.page);
+    await expect(entry.locator('.u-url'), path).toHaveCount(1);
+    await expect(entry.locator('data.u-url'), path).toHaveAttribute('value', canonical!);
+    // The date as the record gives it, on the date the page shows.
+    const published = entry.locator('.dt-published');
+    await expect(published, path).toHaveCount(1);
+    await expect(published, path).toHaveAttribute('datetime', entryDate(thing)!);
+    await expect(published, path).toBeVisible();
+    await expect(entry.locator('.p-summary'), path).toHaveText(thing.summary);
+    await expect(entry.locator('.e-content'), path).toHaveCount(thing.body?.trim() ? 1 : 0);
+  }
+});
+
+test('every list of things is an h-feed of h-entries, one level deep', async ({ page }) => {
+  const byPath = new Map(things.map((thing) => [new URL(thing.page).pathname, thing]));
+  const collections = [...new Set(things.map((thing) => thing.collection))];
+  await page.goto('/');
+  const siteTitle = await page.title(); // the front page's title is the site's own
+  const lists = [
+    { path: '/', feeds: ['Featured', ...collections], entries: featured.length + things.length },
+    { path: '/search/', feeds: [siteTitle], entries: things.length },
+    {
+      path: '/topics/agents/',
+      feeds: [topics.find((topic) => topic.id === 'agents')!.title],
+      entries: things.filter((thing) => thing.topics.includes('agents')).length
+    }
+  ];
+  for (const list of lists) {
+    await page.goto(list.path);
+    expect(new Set(await microformatRoots(page)), list.path).toEqual(new Set(['h-card', 'h-feed', 'h-entry']));
+    const shape = await page.evaluate(() => ({
+      nested: document.querySelectorAll('.h-entry .h-entry, .h-entry .h-feed, .h-feed .h-feed, .h-feed .h-card').length,
+      loose: [...document.querySelectorAll('.h-entry')].filter((entry) => !entry.closest('.h-feed')).length,
+      plain: document.querySelectorAll('.thing-row:not(.h-entry), .feature:not(.h-entry)').length,
+      // Each feed's name: its one p-name outside its entries.
+      feeds: [...document.querySelectorAll('.h-feed')].map((feed) =>
+        [...feed.querySelectorAll('.p-name')]
+          .filter((name) => !name.closest('.h-entry'))
+          .map((name) => name.getAttribute('value') ?? name.textContent!.trim())
+      )
+    }));
+    expect(shape.nested, `${list.path}: nothing inside an entry or another feed`).toBe(0);
+    expect(shape.loose, `${list.path}: every entry is in a feed`).toBe(0);
+    expect(shape.plain, `${list.path}: every row and card is an entry`).toBe(0);
+    expect(
+      shape.feeds.every((names) => names.length === 1),
+      `${list.path}: each feed has one name`
+    ).toBe(true);
+    expect(shape.feeds.flat().toSorted(), list.path).toEqual(list.feeds.toSorted());
+    const entries = await page.locator('.h-entry').evaluateAll((items) =>
+      items.map((item) => ({
+        name: [...item.querySelectorAll('.p-name')].map((element) => element.textContent!.trim()),
+        url: [...item.querySelectorAll('.u-url')].map((element) => element.getAttribute('href')!),
+        published: [...item.querySelectorAll('.dt-published')].map(
+          (element) => element.getAttribute('datetime') ?? element.getAttribute('value')
+        ),
+        summary: [...item.querySelectorAll('.p-summary')].map((element) => element.textContent!.trim())
+      }))
+    );
+    expect(entries, list.path).toHaveLength(list.entries);
+    for (const entry of entries) {
+      const thing = byPath.get(entry.url[0])!;
+      expect(thing, `${list.path}: ${entry.url[0]}`).toBeTruthy();
+      expect(entry, list.path).toEqual({
+        name: [thing.title],
+        url: [new URL(thing.page).pathname],
+        published: [entryDate(thing)],
+        summary: [thing.summary]
+      });
+    }
+  }
+});
+
+test('each feed is served as the type its head link names, and the sitemap lists every page', async ({ page }) => {
+  // The local server sends each file with the type the publish gives it (scripts/publish-plan.mjs).
+  await page.goto('/things/weekly-thing/');
+  const alternates = await page
+    .locator('head link[rel="alternate"]')
+    .evaluateAll((links) =>
+      links.map((link) => ({ type: link.getAttribute('type')!, href: link.getAttribute('href')! }))
+    );
+  expect(alternates.map((link) => link.href)).toEqual([
+    '/feed.xml',
+    '/feed.json',
+    '/activity.xml',
+    '/things/weekly-thing.md'
+  ]);
+  for (const { type, href } of alternates) {
+    const response = await page.request.get(href);
+    expect(response.ok(), href).toBe(true);
+    expect(response.headers()['content-type'], href).toBe(`${type}; charset=utf-8`);
+  }
+  expect(alternates.map((link) => link.type)).toEqual([
+    'application/rss+xml',
+    'application/feed+json',
+    'application/rss+xml',
+    'text/markdown'
+  ]);
+  const sitemap = await page.request.get('/sitemap.xml');
+  expect(sitemap.headers()['content-type']).toBe('application/xml; charset=utf-8');
+  const pages = [...(await sitemap.text()).matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => new URL(match[1]).pathname);
+  expect(new Set(pages).size, 'each page once').toBe(pages.length);
+  // Every page the header links (search among them), every thing, every topic.
+  const header = await page
+    .locator('.site-header nav a')
+    .evaluateAll((links) => links.map((link) => link.getAttribute('href')!));
+  expect(header).toContain('/search/');
+  for (const path of [
+    ...header,
+    ...things.map((thing) => new URL(thing.page).pathname),
+    ...topics.map((topic) => `/topics/${topic.id}/`)
+  ])
+    expect(pages, path).toContain(path);
 });
 
 test('links to the other sites carry a ref, and story text keeps its links', async ({ page }) => {
