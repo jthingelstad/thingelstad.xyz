@@ -1,8 +1,9 @@
 {#- A thing as an h-entry of its list's h-feed (the index's collections, a topic, search): the title links its
-    page (p-name, u-url), the summary is p-summary, and the date shown is dt-published, started or else ended,
-    as on the thing page. #}
+    page (p-name, u-url), the summary is p-summary, and the author is the owner's hidden h-card (p-author), as on
+    the thing page. The dates shown are when it started and ended, not when it was published, so no dt-published. #}
 <li class="thing-row h-entry is-{{ thing.status }}" data-page="{{ thing.page }}" data-filters="{% for f in thing.filters %}{{ f.name }}:{{ f.value }} {% endfor %}"{% if thing.started %} data-started="{{ thing.started }}"{% endif %}>
   {% include "sticker.njk" %}
+  <a class="p-author h-card" href="{{ owner.url }}" hidden>{{ owner.name }}</a>
   <div class="thing-row-main">
     <a class="thing-title p-name u-url" href="{{ thing.page }}">{{ thing.title }}</a>
     <span class="status status-{{ thing.status }}" title="{{ thing.statusDescription }}">{{ thing.statusLabel }}</span>
@@ -10,9 +11,9 @@
   </div>
   <div class="thing-row-meta">
     <span class="dates">
-      {%- if thing.started %}<time class="dt-published" datetime="{{ thing.started }}">{{ thing.started | date }}</time>{% endif %}
+      {%- if thing.started %}<time datetime="{{ thing.started }}">{{ thing.started | date }}</time>{% endif %}
       {%- if thing.started and thing.ended %} – {% endif %}
-      {%- if thing.ended %}<time{% if not thing.started %} class="dt-published"{% endif %} datetime="{{ thing.ended }}">{{ thing.ended | date }}</time>{% elif thing.started and (thing.status == 'active' or thing.status == 'dormant') %} – now{% endif -%}
+      {%- if thing.ended %}<time datetime="{{ thing.ended }}">{{ thing.ended | date }}</time>{% elif thing.started and (thing.status == 'active' or thing.status == 'dormant') %} – now{% endif -%}
     </span>
     {% if thing.latest %}<span class="latest">{{ thing.latest.label }} {{ thing.latest.date | day }}</span>{% endif %}
     {{ thing.months | sparkline("Commits and publications in the last twelve months") | safe }}

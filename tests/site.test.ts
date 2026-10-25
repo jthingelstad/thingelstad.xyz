@@ -25,6 +25,7 @@ import {
   reachThreshold
 } from '../collection/site';
 import { splitFrontmatter } from '../collection/load';
+import { llmsShapeProblems } from './llms-shape';
 import {
   activitySummary,
   buildActivity,
@@ -114,6 +115,30 @@ test('llms.txt lists every thing and topic by its Markdown twin or page', () => 
   for (const topic of model.topics) assert.ok(text.includes(`](${siteUrl}${topic.page}): `), topic.id);
   const full = llmsFullText(model);
   for (const thing of model.things) assert.ok(full.includes(`id: ${thing.id}\n`), thing.id);
+});
+
+test('llms.txt keeps the shape the reference parser reads: prose above the first heading, links under each', () => {
+  assert.deepEqual(llmsShapeProblems(llmsText(model)), []);
+  // A thing whose title has brackets still makes one link: they turn into parentheses.
+  const [first, ...rest] = model.things;
+  const bracketed = llmsText({ ...model, things: [{ ...first, title: '[Draft] Thing' }, ...rest] });
+  assert.ok(bracketed.includes('- [(Draft) Thing]('));
+  assert.deepEqual(llmsShapeProblems(bracketed), []);
+  // What the guard refuses: the old Featured intro under its heading, a second link, a ### heading, a heading in
+  // the prose, a bracket in a name, a relative URL.
+  const lines = (...body: string[]) => ['# Things', '', '> A summary.', '', ...body].join('\n');
+  const ok = '- [Elixir](https://thingelstad.xyz/things/elixir.md): A service.';
+  assert.deepEqual(llmsShapeProblems(lines('Prose is fine up here.', '', '## Featured', '', ok)), []);
+  for (const bad of [
+    lines('## Featured', '', 'The things I most want a visitor to see now.', '', ok),
+    lines('## Things', ok.replace('A service.', 'See [mb](https://thingelstad.xyz/things/mb.md).')),
+    lines('## Things', '', '### Agents', '', ok),
+    lines('### Notes', '', '## Things', '', ok),
+    lines('## Things', '', '- [Elixir [MCP]](https://thingelstad.xyz/things/elixir.md): A service.'),
+    lines('## Things', '', '- [Elixir](/things/elixir.md): A service.'),
+    lines('Only prose.')
+  ])
+    assert.notDeepEqual(llmsShapeProblems(bad), [], bad);
 });
 
 test('things.json carries the registry plus the latest observation per source', () => {

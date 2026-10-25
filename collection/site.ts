@@ -607,7 +607,14 @@ export function thingMarkdown(thing: SiteThing) {
   return `---\n${yaml}\n---\n\n# ${thing.title}\n\n${thing.summary}\n${body ? `\n${body}\n` : ''}`;
 }
 
+// llms.txt (llmstxt.org) as its reference parser reads it: prose only above the first `##`, and under each heading
+// nothing but `- [name](url): notes` lines, one link each. The parser fails on a line under a heading that has no
+// link, and keeps only the first of two, so a name never carries a bracket (tests/llms-shape.ts guards the shape).
+const llmsName = (name: string) => name.replaceAll('[', '(').replaceAll(']', ')');
+
 export function llmsText(model: SiteModel) {
+  const thingLine = (thing: SiteThing) =>
+    `- [${llmsName(thing.title)}](${model.url}${thing.markdown}): ${thing.summary}`;
   const lines = [
     `# ${model.title}`,
     '',
@@ -617,21 +624,21 @@ export function llmsText(model: SiteModel) {
     '',
     ...(model.featured.length
       ? [
+          'Featured lists the things I most want a visitor to see now, in the order the front page shows them.',
+          '',
           '## Featured',
           '',
-          'The things I most want a visitor to see now, in the order the front page shows them.',
-          '',
-          ...model.featured.map(({ thing }) => `- [${thing.title}](${model.url}${thing.markdown}): ${thing.summary}`),
+          ...model.featured.map(({ thing }) => thingLine(thing)),
           ''
         ]
       : []),
     '## Things',
     '',
-    ...model.things.map((thing) => `- [${thing.title}](${model.url}${thing.markdown}): ${thing.summary}`),
+    ...model.things.map(thingLine),
     '',
     '## Topics',
     '',
-    ...model.topics.map((topic) => `- [${topic.title}](${model.url}${topic.page}): ${topic.description}`),
+    ...model.topics.map((topic) => `- [${llmsName(topic.title)}](${model.url}${topic.page}): ${topic.description}`),
     '',
     '## Optional',
     '',

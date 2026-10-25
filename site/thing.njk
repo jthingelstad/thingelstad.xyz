@@ -19,12 +19,15 @@ eleventyComputed:
     diagram and footer are left out. The empty image keeps Pagefind from taking the footer's photo as the page's
     image, whose address would match words like "avatars" on every page. #}
 {#- The thing as an h-entry (IndieWeb): its title (p-name, without the sticker's letters), its canonical address
-    (u-url), the date it is known by (dt-published), its summary (p-summary) and its story (e-content). No
-    p-author: the footer's h-card (rel="me author") names Jamie for the whole page, as it does for the h-entries
-    on Weekly Thing and Another Thing. Nothing inside carries another microformat, so the entry has no children. #}
+    (u-url), its author (p-author), its summary (p-summary) and its story (e-content). The author is the owner's
+    h-card from data/sites.json, hidden, with the clean identity URL: the page already names Jamie in the footer
+    (rel="me author"), and this says the entry is Jamie's too. It is the only microformat inside the entry, and
+    Pagefind leaves it out. The entry has no dt-published: the dates a thing shows are when it started and ended,
+    not when its page was published. #}
 <article class="thing h-entry" data-pagefind-body>
   <span hidden data-pagefind-meta="image:"></span>
   <data class="u-url" value="{{ site.url }}{{ page.url }}"></data>
+  <a class="p-author h-card" href="{{ owner.url }}" hidden data-pagefind-ignore>{{ owner.name }}</a>
   <header class="thing-header"{% if thing.story %} style="--accent: {{ thing.story.color }}"{% endif %}>
     <p class="crumbs" data-pagefind-ignore><a href="/">Things</a> · <a href="/#{{ thing.collection | slugify }}">{{ thing.collection }}</a></p>
     <h1 class="with-sticker">{% include "sticker.njk" %}<span class="p-name">{{ thing.title }}</span></h1>
@@ -35,13 +38,10 @@ eleventyComputed:
       <dd><span class="status status-{{ thing.status }}">{{ thing.statusLabel }}</span> <span class="muted">{{ thing.statusDescription }}</span></dd>
       {% if thing.started or thing.ended %}
       <dt>Dates</dt>
-      {#- dt-published is the started date, when the thing began, with the precision the record gives (a year, a
-          month or a day). A thing whose record has only an end (Ask Planet Kubb) takes that instead, so that its
-          entry still has a date for readers that order entries by one; every thing has one or the other. #}
       <dd>
-        {%- if thing.started %}Started <time class="dt-published" datetime="{{ thing.started }}">{{ thing.started | date }}</time>{% endif %}
+        {%- if thing.started %}Started <time datetime="{{ thing.started }}">{{ thing.started | date }}</time>{% endif %}
         {%- if thing.started and thing.ended %}. {% endif %}
-        {%- if thing.ended %}Ended <time{% if not thing.started %} class="dt-published"{% endif %} datetime="{{ thing.ended }}">{{ thing.ended | date }}</time>{% endif -%}
+        {%- if thing.ended %}Ended <time datetime="{{ thing.ended }}">{{ thing.ended | date }}</time>{% endif -%}
         {%- if thing.story and thing.story.started %} <span class="muted">({{ thing.story.started }})</span>{% endif -%}
       </dd>
       {% endif %}
