@@ -268,7 +268,7 @@ test('artifacts are published beside their thing, shown by an image where there 
   assert.equal(json.artifacts?.[0].bytes, logo.bytes);
   assert.throws(
     () => buildSiteModel({ ...registry, artifactFiles: undefined }, observations, now),
-    /velotweets\/masthead-logo\.png was not measured/
+    /\/[a-z0-9.-]+ was not measured; load the registry with loadRegistry/
   );
 });
 
