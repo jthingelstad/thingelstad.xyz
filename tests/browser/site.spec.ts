@@ -396,6 +396,8 @@ test('every page names Jamie with the shared h-card and rel=me links', async ({ 
     await expect(card, 'identity links stay clean').toHaveAttribute('href', owner.url);
     await expect(card).toHaveAttribute('rel', 'me author');
     await expect(card.locator('.p-name')).toHaveText(owner.name);
+    // The u-photo stops mf2 parsers implying a url from the href, so the card names it.
+    await expect(card.locator('data.u-url')).toHaveAttribute('value', owner.url);
     await expect(card.locator('data.p-note')).toHaveAttribute('value', owner.note);
     const photo = card.locator('img.u-photo');
     await expect(photo).toHaveAttribute('src', owner.avatar);
