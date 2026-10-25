@@ -212,6 +212,7 @@ export type SiteModel = {
   repository: string;
   generated: string;
   things: SiteThing[];
+  screenshot: SiteScreenshot | null;
   featured: SiteFeature[];
   collections: SiteCollection[];
   topics: SiteTopic[];
@@ -556,6 +557,8 @@ export function buildSiteModel(registry: Registry, observations: Observation[], 
     repository: repositoryUrl,
     generated: now.toISOString(),
     things: sortedThings,
+    // The share image for a page that isn't a thing's own: this site's front page, as its thing has it.
+    screenshot: things.find((thing) => thing.url === `${siteUrl}/`)?.screenshot ?? null,
     featured: registry.featured.map((id) => {
       const thing = byId.get(id)!;
       return { thing, href: featuredLink(thing.url), cover: featuredLink(thing.screenshot?.site ?? thing.url) };
