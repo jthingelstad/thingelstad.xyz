@@ -24,12 +24,16 @@
     <meta property="og:description" content="{{ description or site.description }}" />
     <meta property="og:url" content="{{ site.url }}{{ page.url }}" />
     <meta property="og:site_name" content="{{ site.title }}" />
-    {% if thing and thing.screenshot %}
-    <meta property="og:image" content="{{ site.url }}{{ thing.screenshot.src }}" />
-    <meta property="og:image:width" content="{{ thing.screenshot.width }}" />
-    <meta property="og:image:height" content="{{ thing.screenshot.height }}" />
-    <meta property="og:image:alt" content="{{ thing.screenshot.alt }}" />
+    {#- A thing's page shares its own screenshot, or none; every other page this site's front page. #}
+    {%- if thing and thing.page == page.url %}{% set share = thing.screenshot %}{% else %}{% set share = site.screenshot %}{% endif %}
+    {% if share %}
+    <meta property="og:image" content="{{ site.url }}{{ share.src }}" />
+    <meta property="og:image:width" content="{{ share.width }}" />
+    <meta property="og:image:height" content="{{ share.height }}" />
+    <meta property="og:image:alt" content="{{ share.alt }}" />
     <meta name="twitter:card" content="summary_large_image" />
+    {% else %}
+    <meta name="twitter:card" content="summary" />
     {% endif %}
   </head>
   <body>

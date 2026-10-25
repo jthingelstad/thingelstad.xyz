@@ -232,6 +232,15 @@ test('a website thing shows its front page and page views', async ({ page }) => 
   await page.goto('/things/elixir-bot/');
   await expect(page.locator('.screenshot')).toHaveCount(0);
   await expect(page.locator('meta[property="og:image"]')).toHaveCount(0);
+  await expect(page.locator('meta[name="twitter:card"]')).toHaveAttribute('content', 'summary');
+  // A page that is no thing's own shares this site's front page.
+  for (const path of ['/', '/activity/', '/topics/']) {
+    await page.goto(path);
+    await expect(page.locator('meta[property="og:image"]'), path).toHaveAttribute(
+      'content',
+      /^https:\/\/thingelstad\.xyz\/assets\/screenshots\/thingelstad-xyz-[0-9a-f]{10}\.jpg$/
+    );
+  }
   expect(errors).toEqual([]);
 });
 

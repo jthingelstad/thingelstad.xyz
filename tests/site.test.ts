@@ -169,6 +169,22 @@ test('the feeds are the ledger, newest first', () => {
   assert.ok(!rss.includes('<description><p>'), 'HTML inside RSS descriptions is escaped');
 });
 
+test('a page that is no thing’s own shares this site’s front page', () => {
+  const own = {
+    kind: 'screenshot' as const,
+    url: `${siteUrl}/`,
+    observedAt: '2026-10-20T12:00:00Z',
+    image: 'thingelstad-xyz.jpg',
+    sha256: 'cd'.repeat(32),
+    width: 1280,
+    height: 800
+  };
+  assert.equal(buildSiteModel(registry, [], now).screenshot, null);
+  const shot = buildSiteModel(registry, [own], now).screenshot;
+  assert.equal(shot?.src, `/assets/screenshots/thingelstad-xyz-${'cd'.repeat(5)}.jpg`);
+  assert.equal(shot?.alt, 'The front page of thingelstad.xyz on Oct 20, 2026');
+});
+
 test('a website thing shows its own front page and page views, and a thing that only links to it does not', () => {
   const site = 'https://rwbookclub.com/';
   const screenshot = {
