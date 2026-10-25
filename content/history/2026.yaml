@@ -1,3 +1,23 @@
+- id: cards-everywhere
+  date: 2026-10-25
+  kind: milestone
+  title: Cards for Weekly Thing, Another Thing, and Linking Things
+  summary: Every newsletter issue, podcast episode, and saved link starts sharing a card of its own, drawn from its page.
+  source: https://github.com/jthingelstad/weekly.thingelstad.com/pull/28
+  things:
+    - cards
+    - weekly-thing
+    - another-thing
+    - linking-things
+- id: cards-launch
+  date: 2026-10-24
+  kind: launch
+  title: Cards goes live
+  summary: Every blog post starts sharing its own card, drawn from the post itself at cards.thingelstad.com.
+  source: https://github.com/jthingelstad/thing-hugo/commit/ecb83ccab3cce43601b16c489f04689787496a41
+  things:
+    - cards
+    - jamie-thingelstad-blog
 - id: linking-things-launch
   date: 2026-10-23
   kind: launch

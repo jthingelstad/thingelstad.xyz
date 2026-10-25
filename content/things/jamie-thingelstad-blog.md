@@ -45,6 +45,7 @@ story:
   sourceLabel: Read the blog
   related:
     - weekly-thing
+    - cards
   questions:
     - How has the blog changed over time?
     - How does the blog connect to Weekly Thing?
