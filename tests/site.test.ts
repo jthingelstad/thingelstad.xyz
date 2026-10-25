@@ -48,9 +48,14 @@ test('dates keep the precision the source gave them', () => {
   assert.equal(formatDate('2005'), '2005');
   assert.equal(formatDate('2005-02'), 'Feb 2005');
   assert.equal(formatDate('2017-05-13'), 'May 13, 2017');
-  assert.equal(toInstant('2012'), '2012-01-01T00:00:00Z');
-  assert.equal(toInstant('2026-10'), '2026-10-01T00:00:00Z');
-  assert.equal(toInstant('2026-10-13'), '2026-10-13T00:00:00Z');
+  assert.equal(toInstant('2012'), '2012-01-01T12:00:00Z');
+  assert.equal(toInstant('2026-10'), '2026-10-01T12:00:00Z');
+  assert.equal(toInstant('2026-10-13'), '2026-10-13T12:00:00Z');
+  // A Central reader sees the day as written.
+  const central = (date: string) =>
+    new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Chicago' }).format(new Date(toInstant(date)));
+  assert.equal(central('2026-10-25'), '2026-10-25');
+  assert.equal(central('2026-01-15'), '2026-01-15');
 });
 
 test('the model keeps status as a decision and activity as evidence', () => {

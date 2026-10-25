@@ -245,10 +245,11 @@ export function reach(observation: { stars?: number; forks?: number }) {
     `${new Intl.NumberFormat('en-US').format(n)} ${word}${n === 1 ? '' : 's'}`;
   return `${plural(stars, 'star')} and ${plural(observation.forks ?? 0, 'fork')} on GitHub`;
 }
-// Feeds need an instant. A coarse date becomes the start of its period, in UTC.
+// Feeds need an instant. A coarse date becomes the start of its period, at noon UTC: that keeps its
+// calendar day from UTC-11 to UTC+11, where midnight UTC showed a Central reader the day before.
 export function toInstant(date: string) {
   const full = date.length === 4 ? `${date}-01-01` : date.length === 7 ? `${date}-01` : date;
-  return `${full}T00:00:00Z`;
+  return `${full}T12:00:00Z`;
 }
 function rfc822(instant: string) {
   return new Date(instant).toUTCString();
