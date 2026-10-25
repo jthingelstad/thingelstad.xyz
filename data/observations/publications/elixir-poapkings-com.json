@@ -2,8 +2,11 @@
   "kind": "publications",
   "url": "https://elixir.poapkings.com/",
   "feed": "https://elixir.poapkings.com/feed.xml",
-  "observedAt": "2026-10-23T22:34:35.565Z",
+  "observedAt": "2026-10-25T14:59:53.527Z",
   "items": [
+    {"url":"https://elixir.poapkings.com/updates/2026-10-24-connect-discord-and-sign-in-with-it","title":"Connect Discord, and sign in with it","date":"2026-10-24T12:00:00.000Z"},
+    {"url":"https://elixir.poapkings.com/updates/2026-10-24-contract-11-14-0","title":"Contract 11.14.0","date":"2026-10-24T12:00:00.000Z"},
+    {"url":"https://elixir.poapkings.com/updates/2026-10-24-the-privacy-page-covers-connecting-discord","title":"The privacy page covers connecting Discord","date":"2026-10-24T12:00:00.000Z"},
     {"url":"https://elixir.poapkings.com/updates/2026-10-21-a-wrong-json-api-path-says-where-the-right-ones-are","title":"A wrong JSON API path says where the right ones are","date":"2026-10-21T12:00:00.000Z"},
     {"url":"https://elixir.poapkings.com/updates/2026-10-21-connecting-no-longer-spends-your-hour","title":"Connecting no longer spends your hour","date":"2026-10-21T12:00:00.000Z"},
     {"url":"https://elixir.poapkings.com/updates/2026-10-21-contract-11-13-2","title":"Contract 11.13.2","date":"2026-10-21T12:00:00.000Z"},

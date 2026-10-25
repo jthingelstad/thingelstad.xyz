@@ -1,7 +1,7 @@
 {
   "kind": "web",
   "url": "https://escape.thingelstad.com/",
-  "observedAt": "2026-10-18T10:38:59.915Z",
+  "observedAt": "2026-10-25T14:59:53.527Z",
   "sitemap": {
     "url": "https://escape.thingelstad.com/sitemap.xml",
     "pages": 136,
@@ -13,7 +13,7 @@
     "url": "https://escape.thingelstad.com/feed.xml",
     "title": "Escaping Things — Recent Rooms",
     "items": 25,
-    "newestPublished": "2026-08-18T00:00:00.000Z",
+    "newestPublished": "2026-08-18T12:00:00.000Z",
     "months": [
       { "month": "2026-02", "count": 1 },
       { "month": "2026-03", "count": 12 },

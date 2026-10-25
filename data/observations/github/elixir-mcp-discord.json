@@ -2,14 +2,14 @@
   "kind": "github",
   "repository": "jthingelstad/elixir-mcp-discord",
   "url": "https://github.com/jthingelstad/elixir-mcp-discord",
-  "observedAt": "2026-10-23T23:01:15.615Z",
+  "observedAt": "2026-10-25T14:59:53.527Z",
   "repositoryCreatedAt": "2026-09-08T02:08:00.000Z",
   "archived": false,
   "description": "A Discord bot for a Clash Royale clan powered entirely by Elixir MCP. No local game database, no Clash Royale API key, no fallback - every fact comes from an MCP tool call.",
   "stars": 1,
   "forks": 0,
   "languages": [
-    { "name": "JavaScript", "bytes": 945277 },
+    { "name": "JavaScript", "bytes": 948105 },
     { "name": "Shell", "bytes": 12142 },
     { "name": "Dockerfile", "bytes": 2328 }
   ],
@@ -23,16 +23,16 @@
       "path": null,
       "branch": "main",
       "since": "2026-07-01T00:00:00.000Z",
-      "until": "2026-10-23T23:01:15.615Z",
-      "count": 157,
+      "until": "2026-10-25T14:59:53.527Z",
+      "count": 159,
       "complete": true,
       "months": [
         { "month": "2026-09", "count": 107 },
-        { "month": "2026-10", "count": 50 }
+        { "month": "2026-10", "count": 52 }
       ],
       "latestCommit": {
-        "date": "2026-10-16T12:13:02.000Z",
-        "url": "https://github.com/jthingelstad/elixir-mcp-discord/commit/ab3e51e2efb607cb72713b59aac45a3faacb4650"
+        "date": "2026-10-24T17:33:26.000Z",
+        "url": "https://github.com/jthingelstad/elixir-mcp-discord/commit/da555999734d26d7239dfbe318f0ea0f0954b574"
       }
     }
   ]

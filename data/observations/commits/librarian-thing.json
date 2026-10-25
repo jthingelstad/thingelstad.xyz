@@ -2,9 +2,11 @@
   "kind": "commits",
   "repository": "jthingelstad/librarian-thing",
   "url": "https://github.com/jthingelstad/librarian-thing",
-  "observedAt": "2026-10-24T14:31:08.251Z",
+  "observedAt": "2026-10-25T14:59:53.527Z",
   "branch": "main",
   "commits": [
+    {"sha":"c47fe9363113","date":"2026-10-25T09:42:48.000Z","subject":"Saved links: note voice reads the note's form alone, no year rule (#90)","pr":90,"by":"agent","agents":["claude"]},
+    {"sha":"aaeef9bed9dc","date":"2026-10-25T08:57:16.000Z","subject":"Let Release Notes ask /auth the way Thingy does","by":"agent","agents":["claude"]},
     {"sha":"d13facaaf260","date":"2026-10-24T12:31:55.000Z","subject":"Codex findings from #64, #70, #71 and #78: four fixes (#89)","pr":89,"by":"agent","agents":["claude"]},
     {"sha":"2e41f62bf2c3","date":"2026-10-24T12:02:49.000Z","subject":"Reference rows open in any scope, document headings pass the section check, spans cut by code points (#88)","pr":88,"by":"agent","agents":["claude"]},
     {"sha":"367de67d15cc","date":"2026-10-24T05:50:24.000Z","subject":"Add the links corpus, Linking Things' saved links (opt-in) (#87)","pr":87,"by":"agent","agents":["claude"]},

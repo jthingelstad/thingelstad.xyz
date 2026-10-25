@@ -1,0 +1,30 @@
+{
+  "kind": "commits",
+  "repository": "jthingelstad/cards.thingelstad.com",
+  "url": "https://github.com/jthingelstad/cards.thingelstad.com",
+  "observedAt": "2026-10-25T14:59:53.527Z",
+  "branch": "main",
+  "commits": [
+    {"sha":"34b0da20fb39","date":"2026-10-25T13:12:55.000Z","subject":"Record the card design rules and a fixed preview set (#9)","pr":9,"by":"agent","agents":["claude"]},
+    {"sha":"500b422092b7","date":"2026-10-25T12:58:04.000Z","subject":"Design pass: every card dark, balanced headlines, a card per kind (#8)","pr":8,"by":"agent","agents":["claude"]},
+    {"sha":"fbaa3b7fc321","date":"2026-10-25T12:04:02.000Z","subject":"Record Jamie's overlay settings: 1.3 wide, 80 characters, top 0.72","by":"agent","agents":["claude"]},
+    {"sha":"bdf470b54b74","date":"2026-10-25T12:04:02.000Z","subject":"Blog photo posts over their photo when it fits","by":"agent","agents":["claude"]},
+    {"sha":"7e8a6a286943","date":"2026-10-25T11:37:43.000Z","subject":"Draw a card for each Linking Things record","by":"agent","agents":["claude"]},
+    {"sha":"5aa11c00aae7","date":"2026-10-25T11:04:04.000Z","subject":"Name the test files, which Node 24 needs","by":"agent","agents":["claude"]},
+    {"sha":"7d8540457638","date":"2026-10-25T11:04:04.000Z","subject":"Give each site one entry in src/sites.mjs","by":"agent","agents":["claude"]},
+    {"sha":"9d84fbe86e68","date":"2026-10-25T10:23:48.000Z","subject":"Photo cards as JPEG, under Bluesky's 1 MB","by":"agent","agents":["claude"]},
+    {"sha":"329b74488409","date":"2026-10-25T10:20:39.000Z","subject":"Rich cards: the newsletter's front page, a blue issue card, the show's own card (#3)","pr":3,"by":"agent","agents":["claude"]},
+    {"sha":"70238fc5c7b9","date":"2026-10-25T09:47:04.000Z","subject":"Draw a card only at its exact query","by":"agent","agents":["claude"]},
+    {"sha":"3fa15e9b983b","date":"2026-10-25T09:47:04.000Z","subject":"Draw only the card a page names, behind Origin Shield","by":"agent","agents":["claude"]},
+    {"sha":"4a2bb73c9e10","date":"2026-10-25T09:09:28.000Z","subject":"Cards for Weekly Thing issues and Another Thing episodes","by":"agent","agents":["claude"]},
+    {"sha":"2644148d6887","date":"2026-10-24T18:11:44.000Z","subject":"Draw emoji: Twemoji SVGs through Satori's asset hook","by":"agent","agents":["claude"]},
+    {"sha":"9b88f882eaa4","date":"2026-10-24T18:06:32.000Z","subject":"AGENTS: updown.io watches /health from outside; keep the validation CNAME","by":"agent","agents":["claude"]},
+    {"sha":"88e176c25088","date":"2026-10-24T18:02:38.000Z","subject":"AGENTS: the theme points every post at its card, live in 2.0.19","by":"agent","agents":["claude"]},
+    {"sha":"f49e9922b1d6","date":"2026-10-24T17:49:56.000Z","subject":"Deployment: cards.thingelstad.com on its own certificate","by":"agent","agents":["claude"]},
+    {"sha":"350c0c719be9","date":"2026-10-24T17:20:55.000Z","subject":"Deployment: the live stack's bucket, function and distribution","by":"agent","agents":["claude"]},
+    {"sha":"888016f9fca2","date":"2026-10-24T17:19:34.000Z","subject":"Card: the words' column is the left half, and long words fit","by":"agent","agents":["claude"]},
+    {"sha":"39fe434b048d","date":"2026-10-24T17:16:19.000Z","subject":"The theme's v is a hash of the post's words, not a last edit","by":"agent","agents":["claude"]},
+    {"sha":"539773022231","date":"2026-10-24T17:10:57.000Z","subject":"Card maker: social cards drawn from each post","by":"agent","agents":["claude"]}
+  ],
+  "tags": []
+}

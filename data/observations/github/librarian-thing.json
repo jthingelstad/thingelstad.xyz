@@ -2,16 +2,16 @@
   "kind": "github",
   "repository": "jthingelstad/librarian-thing",
   "url": "https://github.com/jthingelstad/librarian-thing",
-  "observedAt": "2026-10-24T14:31:08.251Z",
+  "observedAt": "2026-10-25T14:59:53.527Z",
   "repositoryCreatedAt": "2026-06-03T23:21:50.000Z",
   "archived": false,
   "description": "Studio — the brain behind Jamie Thingelstad's publishing: capture, research, the editorial source of truth, the production pipeline, and the authoring agents. Downstream surfaces (blog, newsletter, podcast, Thingy) consume what it produces.",
   "stars": 2,
   "forks": 0,
   "languages": [
-    { "name": "Python", "bytes": 1720728 },
-    { "name": "TypeScript", "bytes": 1041740 },
-    { "name": "JavaScript", "bytes": 771790 },
+    { "name": "Python", "bytes": 1720559 },
+    { "name": "TypeScript", "bytes": 1042157 },
+    { "name": "JavaScript", "bytes": 775800 },
     { "name": "Makefile", "bytes": 3540 },
     { "name": "Shell", "bytes": 3340 }
   ],
@@ -21,16 +21,16 @@
       "path": null,
       "branch": "main",
       "since": "2026-07-01T00:00:00.000Z",
-      "until": "2026-10-24T14:31:08.251Z",
+      "until": "2026-10-25T14:59:53.527Z",
       "count": 292,
       "complete": false,
       "months": [
-        { "month": "2026-09", "count": 88 },
-        { "month": "2026-10", "count": 204 }
+        { "month": "2026-09", "count": 86 },
+        { "month": "2026-10", "count": 206 }
       ],
       "latestCommit": {
-        "date": "2026-10-24T12:31:55.000Z",
-        "url": "https://github.com/jthingelstad/librarian-thing/commit/d13facaaf260a81e35192f4a47ff9b794cfe22cf"
+        "date": "2026-10-25T09:42:48.000Z",
+        "url": "https://github.com/jthingelstad/librarian-thing/commit/c47fe936311337e8dfcbe6071c98c32428576cbb"
       }
     }
   ]
