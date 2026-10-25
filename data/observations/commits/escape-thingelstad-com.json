@@ -2,9 +2,12 @@
   "kind": "commits",
   "repository": "jthingelstad/escape.thingelstad.com",
   "url": "https://github.com/jthingelstad/escape.thingelstad.com",
-  "observedAt": "2026-10-23T22:33:13.535Z",
+  "observedAt": "2026-10-25T14:59:53.527Z",
   "branch": "main",
   "commits": [
+    {"sha":"2f182bd4796f","date":"2026-10-25T13:41:39.000Z","subject":"Feed dates at noon UTC, so a room keeps its play day in Central (#18)","pr":18,"by":"agent","agents":["claude"]},
+    {"sha":"281c072d9275","date":"2026-10-25T04:16:18.000Z","subject":"Fix Pillow advisories: move to 13.0.0 (#17)","pr":17,"by":"agent","agents":["claude"]},
+    {"sha":"8cb2e0b82af2","date":"2026-10-25T04:13:05.000Z","subject":"Publish a JSON Feed, rooms.json and llms.txt (#16)","pr":16,"by":"agent","agents":["claude"]},
     {"sha":"cd1854801565","date":"2026-10-16T11:07:25.000Z","subject":"Fix undici, sharp, source-map-js, brace-expansion and markdown-it advisories","by":"agent","agents":["claude"]},
     {"sha":"e9c68d6d6d65","date":"2026-09-26T21:03:05.000Z","subject":"Document the manual Airtable sync paths","by":"agent","agents":["claude"]},
     {"sha":"a2eec5941f9b","date":"2026-09-26T21:03:05.000Z","subject":"Ignore env file variants and add .env.example","by":"agent","agents":["claude"]},

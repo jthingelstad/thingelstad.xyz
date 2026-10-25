@@ -2,9 +2,11 @@
   "kind": "commits",
   "repository": "jthingelstad/elixir-mcp-discord",
   "url": "https://github.com/jthingelstad/elixir-mcp-discord",
-  "observedAt": "2026-10-23T22:33:13.535Z",
+  "observedAt": "2026-10-25T14:59:53.527Z",
   "branch": "main",
   "commits": [
+    {"sha":"da555999734d","date":"2026-10-24T17:33:26.000Z","subject":"Take undici 6.29.1 and zod 4.6.7 for two high advisories","by":"agent","agents":["claude"]},
+    {"sha":"b6221676f702","date":"2026-10-24T17:33:26.000Z","subject":"Send an unknown member to Connect Discord, not straight to link_me","by":"agent","agents":["claude"]},
     {"sha":"ab3e51e2efb6","date":"2026-10-16T12:13:02.000Z","subject":"Write the state file owner-only, every time","by":"agent","agents":["claude"]},
     {"sha":"18a8c8cd88b0","date":"2026-10-12T16:20:02.000Z","subject":"AGENTS: the agent is also the storyteller; Clan posts separately","by":"agent","agents":["claude"]},
     {"sha":"dce64079c686","date":"2026-10-12T16:16:38.000Z","subject":"AGENTS: the agent converses; Elixir Clan posts","by":"agent","agents":["claude"]},

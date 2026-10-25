@@ -2,9 +2,12 @@
   "kind": "commits",
   "repository": "jthingelstad/thingy.thingelstad.com",
   "url": "https://github.com/jthingelstad/thingy.thingelstad.com",
-  "observedAt": "2026-10-24T14:31:08.251Z",
+  "observedAt": "2026-10-25T14:59:53.527Z",
   "branch": "main",
   "commits": [
+    {"sha":"fc43ff93649a","date":"2026-10-25T13:41:26.000Z","subject":"Footer h-card: an explicit url (#40)","pr":40,"by":"agent","agents":["claude"]},
+    {"sha":"701cff982f57","date":"2026-10-25T04:13:17.000Z","subject":"Add llms.txt for agents and LLMs (#39)","pr":39,"by":"agent","agents":["claude"]},
+    {"sha":"fb4f00100c14","date":"2026-10-24T14:36:13.000Z","subject":"Source cards: saved links are Linking Things, not the blog","by":"agent","agents":["claude"]},
     {"sha":"94bdadd445ad","date":"2026-10-24T03:12:28.000Z","subject":"Add system-following dark mode (#37)","pr":37,"by":"agent","agents":["claude"]},
     {"sha":"3896ac24f7f1","date":"2026-10-24T01:49:57.000Z","subject":"Sites strip: plain labels under Jamie's name","by":"agent","agents":["claude"]},
     {"sha":"3153036ea9de","date":"2026-10-24T00:50:57.000Z","subject":"Sites strip: Linking Things joins","by":"agent","agents":["claude"]},
