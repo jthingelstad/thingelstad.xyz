@@ -23,6 +23,15 @@ export const contentTypes = {
   '.pf_fragment': 'application/octet-stream',
   '.pf_filter': 'application/octet-stream'
 };
+// The feeds go out as what they are, the types the <link rel="alternate"> in every page's head names: both XML
+// feeds are RSS 2.0, and feed.json is JSON Feed 1.1. Every other .xml (the sitemap) and .json file keeps the
+// plain type. CloudFront compresses rss+xml but not feed+json, which is not on its list, so feed.json goes out
+// whole, as Linking Things' does.
+const feedTypes = {
+  'feed.xml': 'application/rss+xml; charset=utf-8',
+  'activity.xml': 'application/rss+xml; charset=utf-8',
+  'feed.json': 'application/feed+json; charset=utf-8'
+};
 export const immutable = 'public,max-age=31536000,immutable';
 export const revalidate = 'no-cache';
 
@@ -43,6 +52,7 @@ const isArtifact = (key) => /^things\/[^/]+\/artifacts\/[^/]+$/.test(key);
 
 export function contentTypeFor(key) {
   if (isArtifact(key)) return artifactTypes[extname(key).toLowerCase()] ?? 'application/octet-stream';
+  if (Object.hasOwn(feedTypes, key)) return feedTypes[key];
   const type = contentTypes[extname(key)];
   if (!type) throw new Error(`No content type for ${key}`);
   return type;

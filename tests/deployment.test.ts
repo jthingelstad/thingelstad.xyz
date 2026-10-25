@@ -35,7 +35,13 @@ test('the site is published assets first, pages after, the front page last, each
   assert.equal(cacheControlFor('assets/site-1.css'), 'public,max-age=31536000,immutable');
   assert.equal(cacheControlFor('things/elixir/index.html'), 'no-cache');
   assert.equal(contentTypeFor('things/elixir.md'), 'text/markdown; charset=utf-8');
-  assert.equal(contentTypeFor('feed.xml'), 'application/xml; charset=utf-8');
+  // The feeds are served as the feed types their head links name; other XML and JSON keep the plain types.
+  assert.equal(contentTypeFor('feed.xml'), 'application/rss+xml; charset=utf-8');
+  assert.equal(contentTypeFor('activity.xml'), 'application/rss+xml; charset=utf-8');
+  assert.equal(contentTypeFor('feed.json'), 'application/feed+json; charset=utf-8');
+  assert.equal(contentTypeFor('sitemap.xml'), 'application/xml; charset=utf-8');
+  assert.equal(contentTypeFor('things.json'), 'application/json; charset=utf-8');
+  assert.equal(contentTypeFor('pagefind/pagefind-entry.json'), 'application/json; charset=utf-8');
   assert.throws(() => contentTypeFor('mystery.bin'));
   // A thing's artifacts can be any file. Images, PDFs and archives are served as what they are; anything else,
   // a page or a script among them, as bytes to download, so it never runs as a page of this site.

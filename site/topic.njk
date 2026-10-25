@@ -9,11 +9,15 @@ eleventyComputed:
   title: '{{ topic.title }}'
   description: '{{ topic.description }}'
 ---
+{#- The topic's things as an h-feed of h-entries (thing-row.njk), named by the topic's heading. The wrapper has
+    no style of its own, so the page lays out as before. #}
+<div class="h-feed">
 <section class="intro">
   <p class="crumbs"><a href="/topics/">Topics</a></p>
-  <h1>{{ topic.title }}</h1>
+  <h1 class="p-name">{{ topic.title }}</h1>
   <p class="lede">{{ topic.description }}</p>
 </section>
 <ul class="thing-list">
   {% for thing in topic.things %}{% include "thing-row.njk" %}{% endfor %}
 </ul>
+</div>
