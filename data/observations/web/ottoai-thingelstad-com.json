@@ -1,11 +1,11 @@
 {
   "kind": "web",
   "url": "https://ottoai.thingelstad.com/",
-  "observedAt": "2026-10-18T10:38:59.915Z",
+  "observedAt": "2026-10-26T17:22:18.153Z",
   "sitemap": {
     "url": "https://ottoai.thingelstad.com/sitemap.xml",
-    "pages": 36,
-    "newestModified": "2026-10-04T13:22:08.000Z",
+    "pages": 37,
+    "newestModified": "2026-10-26T14:15:39.000Z",
     "months": [
       { "month": "2026-03", "count": 21 },
       { "month": "2026-04", "count": 1 },
@@ -14,7 +14,7 @@
       { "month": "2026-07", "count": 1 },
       { "month": "2026-08", "count": 4 },
       { "month": "2026-09", "count": 3 },
-      { "month": "2026-10", "count": 2 }
+      { "month": "2026-10", "count": 3 }
     ],
     "complete": true
   },
@@ -22,16 +22,16 @@
     "url": "https://ottoai.thingelstad.com/feed.xml",
     "title": "Otto",
     "items": 25,
-    "newestPublished": "2026-10-04T13:22:08.000Z",
+    "newestPublished": "2026-10-26T14:15:39.000Z",
     "months": [
-      { "month": "2026-03", "count": 10 },
+      { "month": "2026-03", "count": 9 },
       { "month": "2026-04", "count": 1 },
       { "month": "2026-05", "count": 1 },
       { "month": "2026-06", "count": 3 },
       { "month": "2026-07", "count": 1 },
       { "month": "2026-08", "count": 4 },
       { "month": "2026-09", "count": 3 },
-      { "month": "2026-10", "count": 2 }
+      { "month": "2026-10", "count": 3 }
     ]
   }
 }

@@ -2,9 +2,12 @@
   "kind": "commits",
   "repository": "jthingelstad/rwbookclub.com",
   "url": "https://github.com/jthingelstad/rwbookclub.com",
-  "observedAt": "2026-10-25T14:59:53.527Z",
+  "observedAt": "2026-10-26T17:22:18.153Z",
   "branch": "main",
   "commits": [
+    {"sha":"4e65e216b176","date":"2026-10-25T19:27:51.000Z","subject":"Lock patched Pillow, aiohttp, certifi, filelock, virtualenv (#97)","pr":97,"by":"agent","agents":["claude"]},
+    {"sha":"41d61a05205d","date":"2026-10-25T17:00:14.000Z","subject":"llms.txt parses with the llmstxt.org reference parser","by":"agent","agents":["claude"]},
+    {"sha":"57a9b6d4dff7","date":"2026-10-25T16:00:23.000Z","subject":"Sitemap dates only where a page has one; llms.txt as links (#96)","pr":96,"by":"agent","agents":["claude"]},
     {"sha":"5b55498d2835","date":"2026-10-25T13:44:51.000Z","subject":"Feed dates at noon UTC, so a meeting keeps its day in Central (#95)","pr":95,"by":"agent","agents":["claude"]},
     {"sha":"0d3ed61d0128","date":"2026-10-25T09:48:52.000Z","subject":"Enrichment: store Open Library bios and descriptions as plain text (#94)","pr":94,"by":"agent","agents":["claude"],"paths":["agent"]},
     {"sha":"d088746dc8ac","date":"2026-10-25T09:33:07.000Z","subject":"A favicon: R/W in Fraunces on the accent colour (#93)","pr":93,"by":"agent","agents":["claude"]},

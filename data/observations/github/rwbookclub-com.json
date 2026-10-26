@@ -2,16 +2,16 @@
   "kind": "github",
   "repository": "jthingelstad/rwbookclub.com",
   "url": "https://github.com/jthingelstad/rwbookclub.com",
-  "observedAt": "2026-10-25T14:59:53.527Z",
+  "observedAt": "2026-10-26T17:22:18.153Z",
   "repositoryCreatedAt": "2026-04-09T23:16:42.000Z",
   "archived": false,
   "description": "Monorepo for the R/W Book Club: the public website, the shared knowledge corpus, and Oliver — the club's Discord agent.",
   "stars": 1,
   "forks": 0,
   "languages": [
-    { "name": "Python", "bytes": 1552278 },
-    { "name": "JavaScript", "bytes": 71816 },
-    { "name": "Nunjucks", "bytes": 60794 },
+    { "name": "Python", "bytes": 1552428 },
+    { "name": "JavaScript", "bytes": 74757 },
+    { "name": "Nunjucks", "bytes": 61388 },
     { "name": "HTML", "bytes": 52461 },
     { "name": "CSS", "bytes": 43895 },
     { "name": "Shell", "bytes": 16041 }
@@ -26,25 +26,25 @@
       "path": null,
       "branch": "main",
       "since": "2026-07-01T00:00:00.000Z",
-      "until": "2026-10-25T14:59:53.527Z",
-      "count": 157,
+      "until": "2026-10-26T17:22:18.153Z",
+      "count": 160,
       "complete": true,
       "months": [
         { "month": "2026-07", "count": 119 },
         { "month": "2026-08", "count": 21 },
         { "month": "2026-09", "count": 10 },
-        { "month": "2026-10", "count": 7 }
+        { "month": "2026-10", "count": 10 }
       ],
       "latestCommit": {
-        "date": "2026-10-25T13:44:51.000Z",
-        "url": "https://github.com/jthingelstad/rwbookclub.com/commit/5b55498d2835ba3fb200f23c61f350a5e6f316c5"
+        "date": "2026-10-25T19:27:51.000Z",
+        "url": "https://github.com/jthingelstad/rwbookclub.com/commit/4e65e216b1769cb5ea750c75a9f3fb069473107b"
       }
     },
     {
       "path": "agent",
       "branch": "main",
       "since": "2026-07-01T00:00:00.000Z",
-      "until": "2026-10-25T14:59:53.527Z",
+      "until": "2026-10-26T17:22:18.153Z",
       "count": 109,
       "complete": true,
       "months": [

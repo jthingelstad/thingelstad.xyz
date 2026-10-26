@@ -2,9 +2,11 @@
   "kind": "commits",
   "repository": "jthingelstad/escape.thingelstad.com",
   "url": "https://github.com/jthingelstad/escape.thingelstad.com",
-  "observedAt": "2026-10-25T14:59:53.527Z",
+  "observedAt": "2026-10-26T17:22:18.153Z",
   "branch": "main",
   "commits": [
+    {"sha":"f8cbb7850038","date":"2026-10-25T18:07:59.000Z","subject":"llms.txt in the reference parser's shape; room h-entries carry a p-summary (#20)","pr":20,"by":"agent","agents":["claude"]},
+    {"sha":"7f871b15d511","date":"2026-10-25T16:35:03.000Z","subject":"Room h-entries and room-list h-feeds; rooms.json is no longer a head alternate (#19)","pr":19,"by":"agent","agents":["claude"]},
     {"sha":"2f182bd4796f","date":"2026-10-25T13:41:39.000Z","subject":"Feed dates at noon UTC, so a room keeps its play day in Central (#18)","pr":18,"by":"agent","agents":["claude"]},
     {"sha":"281c072d9275","date":"2026-10-25T04:16:18.000Z","subject":"Fix Pillow advisories: move to 13.0.0 (#17)","pr":17,"by":"agent","agents":["claude"]},
     {"sha":"8cb2e0b82af2","date":"2026-10-25T04:13:05.000Z","subject":"Publish a JSON Feed, rooms.json and llms.txt (#16)","pr":16,"by":"agent","agents":["claude"]},

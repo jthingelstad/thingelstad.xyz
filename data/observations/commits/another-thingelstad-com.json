@@ -2,9 +2,11 @@
   "kind": "commits",
   "repository": "jthingelstad/another.thingelstad.com",
   "url": "https://github.com/jthingelstad/another.thingelstad.com",
-  "observedAt": "2026-10-25T14:59:53.527Z",
+  "observedAt": "2026-10-26T17:22:18.153Z",
   "branch": "main",
   "commits": [
+    {"sha":"4eb3f80766ff","date":"2026-10-26T02:18:45.000Z","subject":"Sync sites.json: Things 4 Good listed, out of the strip (#10)","pr":10,"by":"agent","agents":["claude"]},
+    {"sha":"bd6a89bd6e0b","date":"2026-10-25T16:32:05.000Z","subject":"Home and archive h-feeds; index.json is no longer a head alternate (#9)","pr":9,"by":"agent","agents":["claude"]},
     {"sha":"454d050e1cb1","date":"2026-10-25T13:41:20.000Z","subject":"Footer h-card: an explicit url (#8)","pr":8,"by":"agent","agents":["claude"]},
     {"sha":"2db63e5b330a","date":"2026-10-25T10:22:41.000Z","subject":"Episode cards: the number and running time for the show's own card (#7)","pr":7,"by":"agent","agents":["claude"]},
     {"sha":"2ee910246ba8","date":"2026-10-25T09:15:28.000Z","subject":"Every episode shares its own card from cards.thingelstad.com (#6)","pr":6,"by":"agent","agents":["claude"]},

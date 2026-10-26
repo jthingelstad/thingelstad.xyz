@@ -2,9 +2,12 @@
   "kind": "commits",
   "repository": "jthingelstad/thingelstad.xyz",
   "url": "https://github.com/jthingelstad/thingelstad.xyz",
-  "observedAt": "2026-10-25T14:59:53.527Z",
+  "observedAt": "2026-10-26T17:22:18.153Z",
   "branch": "main",
   "commits": [
+    {"sha":"4d14b75724d7","date":"2026-10-26T02:18:54.000Z","subject":"Sync sites.json: Things 4 Good listed, out of the strip (#57)","pr":57,"by":"agent","agents":["claude"]},
+    {"sha":"c77059bd585f","date":"2026-10-25T17:59:51.000Z","subject":"llms.txt the reference parser reads; things' h-entries name an author, not a published date (#56)","pr":56,"by":"agent","agents":["claude"]},
+    {"sha":"e8217f366f64","date":"2026-10-25T16:10:18.000Z","subject":"Feeds as feed types, things as h-entries, lists as h-feeds, search in the sitemap (#55)","pr":55,"by":"agent","agents":["claude"]},
     {"sha":"beea5eef0f4e","date":"2026-10-25T13:41:33.000Z","subject":"Feed dates at noon UTC; give the owner h-card a u-url (#53)","pr":53,"by":"agent","agents":["claude"]},
     {"sha":"7bfb6d1afa56","date":"2026-10-25T12:33:41.000Z","subject":"Cards: a record of its own, with four of its cards (#52)","pr":52,"by":"agent","agents":["claude"]},
     {"sha":"a34d2ea2bc88","date":"2026-10-25T09:25:24.000Z","subject":"Share images: every page that is no thing's own shares the front page (#51)","pr":51,"by":"agent","agents":["claude"]},

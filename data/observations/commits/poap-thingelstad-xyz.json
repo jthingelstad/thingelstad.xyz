@@ -2,9 +2,12 @@
   "kind": "commits",
   "repository": "jthingelstad/poap.thingelstad.xyz",
   "url": "https://github.com/jthingelstad/poap.thingelstad.xyz",
-  "observedAt": "2026-10-23T22:33:13.535Z",
+  "observedAt": "2026-10-26T17:22:18.153Z",
   "branch": "main",
   "commits": [
+    {"sha":"fa1c70135030","date":"2026-10-25T20:54:17.000Z","subject":"Update fast-uri to 3.1.9 for four advisories (#3)","pr":3,"by":"agent","agents":["claude"]},
+    {"sha":"70351d691b6c","date":"2026-10-25T17:56:29.000Z","subject":"llms.txt the reference parser reads; legacy-root guard; plain bytes without Accept-Encoding (#2)","pr":2,"by":"agent","agents":["claude"]},
+    {"sha":"b710e86fc1cc","date":"2026-10-25T16:02:28.000Z","subject":"Drop and token pages: rename the item class to detail (#1)","pr":1,"by":"agent","agents":["claude"]},
     {"sha":"6e01412b6fa0","date":"2026-10-17T14:29:27.000Z","subject":"Let long names in headings wrap on narrow screens","by":"agent","agents":["claude"]},
     {"sha":"a4a3f4c77c03","date":"2026-10-17T14:24:51.000Z","subject":"Build the time capsule pages","by":"agent","agents":["claude"]},
     {"sha":"4c9087282c2f","date":"2026-10-17T14:00:53.000Z","subject":"Leave POAP Moments out of the time capsule","by":"agent","agents":["claude"]},

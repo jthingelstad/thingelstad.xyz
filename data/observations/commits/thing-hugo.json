@@ -2,9 +2,11 @@
   "kind": "commits",
   "repository": "jthingelstad/thing-hugo",
   "url": "https://github.com/jthingelstad/thing-hugo",
-  "observedAt": "2026-10-25T14:59:53.527Z",
+  "observedAt": "2026-10-26T17:22:18.153Z",
   "branch": "main",
   "commits": [
+    {"sha":"c9fb96bc3880","date":"2026-10-26T02:19:03.000Z","subject":"Sync sites.json: Things 4 Good listed, out of the strip (#3)","pr":3,"by":"agent","agents":["claude"]},
+    {"sha":"70058cb4ebd5","date":"2026-10-25T16:54:43.000Z","subject":"2.0.35: llms.txt reads as the reference parser reads it","by":"agent","agents":["claude"]},
     {"sha":"92f676bb4e01","date":"2026-10-25T14:12:58.000Z","subject":"2.0.34: llms.txt lists links, pages carry their url and author","by":"agent","agents":["claude"]},
     {"sha":"91ae76df83e3","date":"2026-10-25T14:00:36.000Z","subject":"2.0.33: a category page keeps its posts when micro.blog's copy shares the address","by":"agent","agents":["claude"]},
     {"sha":"e6cdea8b2343","date":"2026-10-25T13:41:45.000Z","subject":"2.0.32: og:url is the canonical on a list's later pages (#2)","pr":2,"by":"agent","agents":["claude"]},
