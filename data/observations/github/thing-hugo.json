@@ -2,15 +2,15 @@
   "kind": "github",
   "repository": "jthingelstad/thing-hugo",
   "url": "https://github.com/jthingelstad/thing-hugo",
-  "observedAt": "2026-10-26T17:22:18.153Z",
+  "observedAt": "2026-10-27T16:36:47.822Z",
   "repositoryCreatedAt": "2026-04-20T03:24:21.000Z",
   "archived": false,
   "description": "",
   "stars": 0,
   "forks": 0,
   "languages": [
-    { "name": "HTML", "bytes": 121858 },
-    { "name": "CSS", "bytes": 61149 },
+    { "name": "HTML", "bytes": 122543 },
+    { "name": "CSS", "bytes": 64074 },
     { "name": "JavaScript", "bytes": 48000 }
   ],
   "release": null,
@@ -19,13 +19,13 @@
       "path": null,
       "branch": "main",
       "since": "2026-07-01T00:00:00.000Z",
-      "until": "2026-10-26T17:22:18.153Z",
-      "count": 81,
+      "until": "2026-10-27T16:36:47.822Z",
+      "count": 85,
       "complete": true,
-      "months": [{ "month": "2026-10", "count": 81 }],
+      "months": [{ "month": "2026-10", "count": 85 }],
       "latestCommit": {
-        "date": "2026-10-26T02:19:03.000Z",
-        "url": "https://github.com/jthingelstad/thing-hugo/commit/c9fb96bc3880d120e3903867aadd2441b38d5a53"
+        "date": "2026-10-27T01:09:29.000Z",
+        "url": "https://github.com/jthingelstad/thing-hugo/commit/3752a20d69714ad329241c98dccd6968966d1695"
       }
     }
   ]

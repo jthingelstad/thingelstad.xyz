@@ -2,9 +2,11 @@
   "kind": "commits",
   "repository": "jthingelstad/yourversionnumber.com",
   "url": "https://github.com/jthingelstad/yourversionnumber.com",
-  "observedAt": "2026-10-26T17:22:18.153Z",
+  "observedAt": "2026-10-27T16:36:47.822Z",
   "branch": "main",
   "commits": [
+    {"sha":"618546de0981","date":"2026-10-27T01:38:27.000Z","subject":"README: drop the access-log paragraph and its promise (#10)","pr":10,"by":"agent","agents":["claude"]},
+    {"sha":"1ba8ea5bb1a4","date":"2026-10-27T00:50:37.000Z","subject":"Record the CloudFront access logs (#9)","pr":9,"by":"agent","agents":["claude"]},
     {"sha":"9572e841ec02","date":"2026-10-25T17:53:47.000Z","subject":"Make llms.txt parse with the reference parser (#7)","pr":7,"by":"agent","agents":["claude"]},
     {"sha":"a1169fb4f698","date":"2026-10-25T16:01:23.000Z","subject":"Serve the .txt files as UTF-8 (#6)","pr":6,"by":"agent","agents":["claude"]},
     {"sha":"8961b49f2406","date":"2026-10-25T09:20:25.000Z","subject":"Say Release Notes is free with the Weekly Thing (#5)","pr":5,"by":"agent","agents":["claude"]},

@@ -2,14 +2,14 @@
   "kind": "github",
   "repository": "jthingelstad/wt-builder",
   "url": "https://github.com/jthingelstad/wt-builder",
-  "observedAt": "2026-10-26T17:22:18.153Z",
+  "observedAt": "2026-10-27T16:36:47.822Z",
   "repositoryCreatedAt": "2026-07-27T04:23:50.000Z",
   "archived": false,
   "description": "Item-first authoring and publishing application for The Weekly Thing",
   "stars": 2,
   "forks": 0,
   "languages": [
-    { "name": "TypeScript", "bytes": 2268543 },
+    { "name": "TypeScript", "bytes": 2309939 },
     { "name": "CSS", "bytes": 98408 },
     { "name": "Python", "bytes": 52549 },
     { "name": "JavaScript", "bytes": 2464 },
@@ -21,16 +21,16 @@
       "path": null,
       "branch": "main",
       "since": "2026-07-01T00:00:00.000Z",
-      "until": "2026-10-26T17:22:18.153Z",
+      "until": "2026-10-27T16:36:47.822Z",
       "count": 300,
       "complete": false,
       "months": [
-        { "month": "2026-09", "count": 203 },
-        { "month": "2026-10", "count": 97 }
+        { "month": "2026-09", "count": 194 },
+        { "month": "2026-10", "count": 106 }
       ],
       "latestCommit": {
-        "date": "2026-10-26T02:11:44.000Z",
-        "url": "https://github.com/jthingelstad/wt-builder/commit/7786e0d2c9cc57311f8300f91377d049e39ef691"
+        "date": "2026-10-27T11:50:21.000Z",
+        "url": "https://github.com/jthingelstad/wt-builder/commit/3dc74646af91681e237d7e0b7833d8f42b81a2c0"
       }
     }
   ]

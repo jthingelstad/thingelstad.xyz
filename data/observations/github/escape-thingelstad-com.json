@@ -2,15 +2,15 @@
   "kind": "github",
   "repository": "jthingelstad/escape.thingelstad.com",
   "url": "https://github.com/jthingelstad/escape.thingelstad.com",
-  "observedAt": "2026-10-26T17:22:18.153Z",
+  "observedAt": "2026-10-27T16:36:47.822Z",
   "repositoryCreatedAt": "2026-02-11T23:10:54.000Z",
   "archived": false,
   "description": "The Escaping Things escape-room team site — an Eleventy static site built from a normalized Airtable dataset (rooms played, countries, stats).",
   "stars": 1,
   "forks": 0,
   "languages": [
-    { "name": "JavaScript", "bytes": 161826 },
-    { "name": "Nunjucks", "bytes": 93707 },
+    { "name": "JavaScript", "bytes": 203091 },
+    { "name": "Nunjucks", "bytes": 94488 },
     { "name": "CSS", "bytes": 53878 },
     { "name": "Python", "bytes": 47325 },
     { "name": "Shell", "bytes": 741 }
@@ -21,18 +21,18 @@
       "path": null,
       "branch": "main",
       "since": "2026-07-01T00:00:00.000Z",
-      "until": "2026-10-26T17:22:18.153Z",
-      "count": 34,
+      "until": "2026-10-27T16:36:47.822Z",
+      "count": 38,
       "complete": true,
       "months": [
         { "month": "2026-07", "count": 8 },
         { "month": "2026-08", "count": 14 },
         { "month": "2026-09", "count": 6 },
-        { "month": "2026-10", "count": 6 }
+        { "month": "2026-10", "count": 10 }
       ],
       "latestCommit": {
-        "date": "2026-10-25T18:07:59.000Z",
-        "url": "https://github.com/jthingelstad/escape.thingelstad.com/commit/f8cbb7850038f83ae158619f39edc068d8fbfd87"
+        "date": "2026-10-27T00:28:28.000Z",
+        "url": "https://github.com/jthingelstad/escape.thingelstad.com/commit/3fad0b571f54d7885b267e12ad7e4a8a84306c97"
       }
     }
   ]

@@ -2,9 +2,11 @@
   "kind": "commits",
   "repository": "jthingelstad/thingelstad.xyz",
   "url": "https://github.com/jthingelstad/thingelstad.xyz",
-  "observedAt": "2026-10-26T17:22:18.153Z",
+  "observedAt": "2026-10-27T16:36:47.822Z",
   "branch": "main",
   "commits": [
+    {"sha":"11aa28209ed5","date":"2026-10-27T01:16:44.000Z","subject":"Sync: a record of its own, with its map and page (#60)","pr":60,"by":"agent","agents":["claude"]},
+    {"sha":"010e621343e6","date":"2026-10-27T00:54:27.000Z","subject":"Access logs for the distribution: /thingelstad-xyz/web-access, kept 14 days (#59)","pr":59,"by":"agent","agents":["claude"]},
     {"sha":"4d14b75724d7","date":"2026-10-26T02:18:54.000Z","subject":"Sync sites.json: Things 4 Good listed, out of the strip (#57)","pr":57,"by":"agent","agents":["claude"]},
     {"sha":"c77059bd585f","date":"2026-10-25T17:59:51.000Z","subject":"llms.txt the reference parser reads; things' h-entries name an author, not a published date (#56)","pr":56,"by":"agent","agents":["claude"]},
     {"sha":"e8217f366f64","date":"2026-10-25T16:10:18.000Z","subject":"Feeds as feed types, things as h-entries, lists as h-feeds, search in the sitemap (#55)","pr":55,"by":"agent","agents":["claude"]},
