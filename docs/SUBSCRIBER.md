@@ -11,6 +11,11 @@ repository is excluded to prevent collection commits creating a loop.
 Targeted collection PRs supersede only the same repository's earlier PR;
 they never close a pending full collection PR. Ordinary manual and daily
 collection keep their existing broad behavior.
+The global collector remains serialized, with GitHub's `queue: max` keeping
+up to 100 pending selectors instead of replacing a different repository's
+pending run. Each starts from current main. Requests beyond GitHub's queue
+limit can still be canceled; the daily collection remains the backstop.
+See [GitHub's concurrency contract](https://docs.github.com/en/actions/how-tos/write-workflows/choose-when-workflows-run/control-workflow-concurrency).
 That collector's validation, pull request, checks and publish path remain
 the authority. The existing daily collection clock stays in place until a
 natural event proves the new route. No observation or content was collected
