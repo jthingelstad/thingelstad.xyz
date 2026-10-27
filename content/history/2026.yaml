@@ -1,3 +1,11 @@
+- id: sync-launch
+  date: 2026-10-26
+  kind: launch
+  title: Sync goes live
+  summary: A page that shows what each of my systems holds and how far behind each hop between them runs, built from a shared map of every flow.
+  source: https://sync.thingelstad.xyz/
+  things:
+    - sync
 - id: cards-everywhere
   date: 2026-10-25
   kind: milestone
