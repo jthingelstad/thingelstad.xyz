@@ -4,6 +4,13 @@ The sync intake accepts signed pushes only for the public repositories in
 this registry. Its proposed API destination pins sync-rebuild.yml. The
 workflow defaults to a credential-free dry run; real work additionally
 requires SYNC_REBUILD_ENABLED=true and dispatches the existing collector.
+It passes only the pushed registered repository. The collector's existing
+selector refreshes that repository and its commit evidence; website,
+Wayback, Tinylytics and screenshot collection are skipped. Its own
+repository is excluded to prevent collection commits creating a loop.
+Targeted collection PRs supersede only the same repository's earlier PR;
+they never close a pending full collection PR. Ordinary manual and daily
+collection keep their existing broad behavior.
 That collector's validation, pull request, checks and publish path remain
 the authority. The existing daily collection clock stays in place until a
 natural event proves the new route. No observation or content was collected

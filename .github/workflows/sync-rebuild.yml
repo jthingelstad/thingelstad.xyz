@@ -7,6 +7,10 @@ on:
         type: choice
         options: ['true', 'false']
         default: 'true'
+      repository:
+        description: Registered public repository whose evidence changed
+        type: string
+        default: ''
 permissions:
   contents: read
 jobs:
@@ -25,8 +29,13 @@ jobs:
       - name: Require the reviewed cutover
         env:
           ENABLED: ${{ vars.SYNC_REBUILD_ENABLED }}
-        run: test "$ENABLED" = true
+          REPOSITORY_SELECTOR: ${{ inputs.repository }}
+        run: |
+          test "$ENABLED" = true
+          [[ "$REPOSITORY_SELECTOR" =~ ^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$ ]]
+          test "$REPOSITORY_SELECTOR" != jthingelstad/thingelstad.xyz
       - name: Use the existing collector and all its publication gates
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh workflow run collect.yml --repo "$GITHUB_REPOSITORY" --ref main
+          REPOSITORY_SELECTOR: ${{ inputs.repository }}
+        run: gh workflow run collect.yml --repo "$GITHUB_REPOSITORY" --ref main -f "repository=$REPOSITORY_SELECTOR" -f from_sync=true
