@@ -2,16 +2,16 @@
   "kind": "github",
   "repository": "jthingelstad/another.thingelstad.com",
   "url": "https://github.com/jthingelstad/another.thingelstad.com",
-  "observedAt": "2026-10-26T17:22:18.153Z",
+  "observedAt": "2026-10-27T16:36:47.822Z",
   "repositoryCreatedAt": "2026-04-09T23:16:18.000Z",
   "archived": false,
   "description": "Website for Another Thing, a podcast by Jamie Thingelstad — an Eleventy static site (a publishing surface of the Studio brain).",
   "stars": 1,
   "forks": 0,
   "languages": [
-    { "name": "JavaScript", "bytes": 41488 },
+    { "name": "JavaScript", "bytes": 100294 },
     { "name": "CSS", "bytes": 32727 },
-    { "name": "Nunjucks", "bytes": 27701 }
+    { "name": "Nunjucks", "bytes": 28530 }
   ],
   "release": null,
   "activity": [
@@ -19,18 +19,18 @@
       "path": null,
       "branch": "main",
       "since": "2026-07-01T00:00:00.000Z",
-      "until": "2026-10-26T17:22:18.153Z",
-      "count": 39,
+      "until": "2026-10-27T16:36:47.822Z",
+      "count": 48,
       "complete": true,
       "months": [
         { "month": "2026-07", "count": 4 },
         { "month": "2026-08", "count": 10 },
         { "month": "2026-09", "count": 5 },
-        { "month": "2026-10", "count": 20 }
+        { "month": "2026-10", "count": 29 }
       ],
       "latestCommit": {
-        "date": "2026-10-26T02:18:45.000Z",
-        "url": "https://github.com/jthingelstad/another.thingelstad.com/commit/4eb3f80766ff39f33b83d2cd5d6b46ece277515b"
+        "date": "2026-10-27T12:08:23.000Z",
+        "url": "https://github.com/jthingelstad/another.thingelstad.com/commit/c203b9f29d1347b9915fbd4780fa9872eab8ee9e"
       }
     }
   ]

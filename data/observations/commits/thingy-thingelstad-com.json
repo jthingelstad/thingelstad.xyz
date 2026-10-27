@@ -2,9 +2,12 @@
   "kind": "commits",
   "repository": "jthingelstad/thingy.thingelstad.com",
   "url": "https://github.com/jthingelstad/thingy.thingelstad.com",
-  "observedAt": "2026-10-26T17:22:18.153Z",
+  "observedAt": "2026-10-27T16:36:47.822Z",
   "branch": "main",
   "commits": [
+    {"sha":"0c2bda9d1a6c","date":"2026-10-27T12:08:25.000Z","subject":"The serving receipt merged; one ReceiverRoles list replaces the per-destination role.","by":"agent","agents":["claude"]},
+    {"sha":"35909994c796","date":"2026-10-27T11:49:40.000Z","subject":"Serving receipts follow verified native corpus promotions.","pr":46,"by":"me"},
+    {"sha":"d4c22fe1b064","date":"2026-10-27T08:45:39.000Z","subject":"Serving receipts follow verified native corpus promotions.","by":"agent"},
     {"sha":"34536ad69b50","date":"2026-10-26T02:18:49.000Z","subject":"Sync sites.json: Things 4 Good listed, out of the strip (#45)","pr":45,"by":"agent","agents":["claude"]},
     {"sha":"098753cfa928","date":"2026-10-25T19:34:57.000Z","subject":"Bump happy-dom 21.0.4, zod 4.6.7, fast-uri 3.1.9 for security alerts (#44)","pr":44,"by":"agent","agents":["claude"]},
     {"sha":"986fcb0fff79","date":"2026-10-25T19:25:23.000Z","subject":"Bump vitest to 4.1.12 for @vitest/mocker advisories (#43)","pr":43,"by":"agent","agents":["claude"]},

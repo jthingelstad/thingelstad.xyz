@@ -2,9 +2,10 @@
   "kind": "commits",
   "repository": "jthingelstad/rwbookclub.com",
   "url": "https://github.com/jthingelstad/rwbookclub.com",
-  "observedAt": "2026-10-26T17:22:18.153Z",
+  "observedAt": "2026-10-27T16:36:47.822Z",
   "branch": "main",
   "commits": [
+    {"sha":"52fa84179a9a","date":"2026-10-27T03:57:09.000Z","subject":"Team workflow: every run posts its closeout to the activity stream","by":"agent","agents":["claude"]},
     {"sha":"4e65e216b176","date":"2026-10-25T19:27:51.000Z","subject":"Lock patched Pillow, aiohttp, certifi, filelock, virtualenv (#97)","pr":97,"by":"agent","agents":["claude"]},
     {"sha":"41d61a05205d","date":"2026-10-25T17:00:14.000Z","subject":"llms.txt parses with the llmstxt.org reference parser","by":"agent","agents":["claude"]},
     {"sha":"57a9b6d4dff7","date":"2026-10-25T16:00:23.000Z","subject":"Sitemap dates only where a page has one; llms.txt as links (#96)","pr":96,"by":"agent","agents":["claude"]},

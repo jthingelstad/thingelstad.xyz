@@ -2,9 +2,12 @@
   "kind": "commits",
   "repository": "jthingelstad/cards.thingelstad.com",
   "url": "https://github.com/jthingelstad/cards.thingelstad.com",
-  "observedAt": "2026-10-26T17:22:18.153Z",
+  "observedAt": "2026-10-27T16:36:47.822Z",
   "branch": "main",
   "commits": [
+    {"sha":"3f8fa7c13ccd","date":"2026-10-27T00:51:55.000Z","subject":"CloudFront access logs for the cards distribution","pr":13,"by":"me"},
+    {"sha":"02b9730ccaae","date":"2026-10-27T00:50:17.000Z","subject":"Record the access logs in AGENTS.md","by":"agent","agents":["claude"]},
+    {"sha":"e38c1a33f06e","date":"2026-10-27T00:50:00.000Z","subject":"CloudFront access logs for the cards distribution","by":"agent","agents":["claude"]},
     {"sha":"1ab2a6085bed","date":"2026-10-26T02:18:29.000Z","subject":"Draw Things 4 Good's cards in its own type (#11)","pr":11,"by":"agent","agents":["claude"]},
     {"sha":"9fb49984d67d","date":"2026-10-25T20:52:23.000Z","subject":"Override fflate to 0.7.5 for GHSA-px8p-9vwx-vf98 (#10)","pr":10,"by":"agent","agents":["claude"]},
     {"sha":"34b0da20fb39","date":"2026-10-25T13:12:55.000Z","subject":"Record the card design rules and a fixed preview set (#9)","pr":9,"by":"agent","agents":["claude"]},
