@@ -57,7 +57,7 @@
       <p>
         {#- Jamie's h-card, the same on every one of Jamie's sites (thingelstad.com AGENTS.md, "Jamie on every site"). Identity links stay clean: no ref. #}
         An index of what I’ve built, by
-        <a class="h-card" href="{{ owner.url }}" rel="me author"><img class="u-photo" src="{{ owner.avatar }}" alt="" width="24" height="24" /><span class="p-name">{{ owner.name }}</span><data class="p-note" value="{{ owner.note }}"></data></a>, kept as
+        <a class="h-card" href="{{ owner.url }}" rel="me author"><img class="u-photo" src="{{ owner.avatar }}" alt="" width="24" height="24" /><span class="p-name">{{ owner.name }}</span><data class="u-url" value="{{ owner.url }}"></data><data class="p-note" value="{{ owner.note }}"></data></a>, kept as
         <a href="{{ site.repository }}">Markdown and YAML</a>. Status is a decision; activity is evidence.
       </p>
       <p>

@@ -9,6 +9,8 @@ const outputs = {
   '/llms-full.txt': (site) => llmsFullText(site),
   '/things.json': (site) => JSON.stringify(thingsJson(site), null, 2),
   '/robots.txt': (site) => `User-agent: *\nAllow: /\n\nSitemap: ${site.url}/sitemap.xml\n`,
+  // Every page the header links, then each thing and topic. /search/ lists every thing without JavaScript, so
+  // it is a page worth indexing; its filtered addresses (?status=...) are the same page and stay out.
   '/sitemap.xml': (site) => {
     const pages = [
       '/',
@@ -16,6 +18,7 @@ const outputs = {
       '/history/',
       '/activity/',
       '/timeline/',
+      '/search/',
       ...site.things.map((t) => t.page),
       ...site.topics.map((t) => t.page)
     ];

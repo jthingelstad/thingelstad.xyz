@@ -1,14 +1,17 @@
 {%- set thing = feature.thing -%}
-<li class="feature"{% if thing.story %} style="--cover: {{ thing.story.color }}"{% endif %}>
+<li class="feature h-entry"{% if thing.story %} style="--cover: {{ thing.story.color }}"{% endif %}>
   {#- The cover is the front page the collector last captured, linked like the thing page's screenshot; a thing
       with no capture (a repository, say) shows its sticker on its story colour. The visit link says the same
       thing in words, so the cover is hidden from the keyboard and screen readers. Both links carry
       ?ref=xyz-featured where Tinylytics counts the site (feature.href and feature.cover, collection/site.ts). #}
+  {#- An h-entry of the featured h-feed: the title links the thing's page (p-name, u-url), and the author is the
+      owner's hidden h-card (p-author), as on the thing page. A hidden element takes no cell of the phone's grid. #}
   <a class="feature-cover" href="{{ feature.cover }}" tabindex="-1" aria-hidden="true">
     {%- if thing.screenshot %}<img src="{{ thing.screenshot.src }}" width="{{ thing.screenshot.width }}" height="{{ thing.screenshot.height }}" alt="" decoding="async" />
     {%- else %}<span class="feature-mark">{{ thing.sticker.letters }}</span>{% endif -%}
   </a>
-  <h3><a href="{{ thing.page }}">{{ thing.title }}</a></h3>
-  <p class="feature-summary">{{ thing.summary }}</p>
+  <h3><a class="p-name u-url" href="{{ thing.page }}">{{ thing.title }}</a></h3>
+  <a class="p-author h-card" href="{{ owner.url }}" hidden>{{ owner.name }}</a>
+  <p class="feature-summary p-summary">{{ thing.summary }}</p>
   {% if feature.href %}<a class="feature-visit" href="{{ feature.href }}">{{ thing.url | displayUrl }}<span aria-hidden="true"> ↗</span></a>{% endif %}
 </li>

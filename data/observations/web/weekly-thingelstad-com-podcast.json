@@ -1,13 +1,13 @@
 {
   "kind": "web",
   "url": "https://weekly.thingelstad.com/podcast/",
-  "observedAt": "2026-10-18T10:38:59.915Z",
+  "observedAt": "2026-10-26T17:22:18.153Z",
   "sitemap": null,
   "feed": {
     "url": "https://weekly.thingelstad.com/podcast.xml",
     "title": "Weekly Thing",
-    "items": 354,
-    "newestPublished": "2026-10-10T12:00:00.000Z",
+    "items": 355,
+    "newestPublished": "2026-10-24T12:00:00.000Z",
     "months": [
       { "month": "2025-11", "count": 4 },
       { "month": "2025-12", "count": 2 },
@@ -17,7 +17,7 @@
       { "month": "2026-04", "count": 2 },
       { "month": "2026-05", "count": 4 },
       { "month": "2026-09", "count": 2 },
-      { "month": "2026-10", "count": 2 }
+      { "month": "2026-10", "count": 3 }
     ]
   }
 }

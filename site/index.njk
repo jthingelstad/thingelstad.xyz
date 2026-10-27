@@ -9,17 +9,19 @@ permalink: /
     {% for s in site.statuses %}<a class="status status-{{ s.status }}" href="/search/?status={{ s.status }}" title="{{ s.description }}">{{ s.label }} {{ s.count }}</a> {% endfor %}
   </p>
 </section>
+{#- Each list is an h-feed of its things' h-entries (thing-row.njk, feature-card.njk), named by its heading. A
+    featured thing is in its collection's feed too: the same entry in two feeds, never one inside another. #}
 {% if site.featured.length %}
-<section class="featured" aria-labelledby="featured">
-  <h2 id="featured">Featured</h2>
+<section class="featured h-feed" aria-labelledby="featured">
+  <h2 id="featured" class="p-name">Featured</h2>
   <ul class="feature-list">
     {% for feature in site.featured %}{% include "feature-card.njk" %}{% endfor %}
   </ul>
 </section>
 {% endif %}
 {% for collection in site.collections %}
-<section class="collection" id="{{ collection.name | slugify }}">
-  <h2>{{ collection.name }} <span class="count badge">{{ collection.things | length }}</span></h2>
+<section class="collection h-feed" id="{{ collection.name | slugify }}">
+  <h2><span class="p-name">{{ collection.name }}</span> <span class="count badge">{{ collection.things | length }}</span></h2>
   <ul class="thing-list">
     {% for thing in collection.things %}{% include "thing-row.njk" %}{% endfor %}
   </ul>

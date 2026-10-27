@@ -5,7 +5,7 @@ The application stays in `/Users/otto/Projects/thingelstad.xyz`, separate from t
 ## Resources
 
 - `thingelstad-xyz-certificate`: ACM certificate for the apex and `www`. Its initial creation waits for external DNS validation.
-- `thingelstad-xyz-site`: private versioned static bucket, CloudFront distribution with an Origin Access Control, a response headers policy, the directory-index CloudFront Function, and a 5xx alarm.
+- `thingelstad-xyz-site`: private versioned static bucket, CloudFront distribution with an Origin Access Control, a response headers policy, the directory-index CloudFront Function, a 5xx alarm, and the distribution's access logs.
 - `thingelstad-xyz-delivery`: repository-scoped GitHub OIDC application delivery role.
 - Templates are generated from `infra/templates.mjs` by `npm run templates` into the gitignored `infra/generated/`. The certificate is separate so its external validation cannot block hosting changes.
 - Each stack carries the standard tags in `infra/deployment.json` `stackTags`, and CloudFormation propagates them to the resources. Change sets that omit `Tags` keep them; pass them when creating a stack. Templates set no tags of their own.
@@ -26,7 +26,7 @@ npm run templates
 Pushing to `main` publishes (see GitHub Actions delivery below). To publish by hand, use `cloud-engineer` in `us-east-1`. Verify STS account `999153317627` and `assumed-role/ProjectsCloudEngineer/projects-cloud-engineer` before mutation. Agents use AWS MCP; human CLI commands use the same profile.
 
 1. Build. If `infra/templates.mjs` changed, validate the generated templates with cfn-lint, `infra/security.guard`, and a CloudFormation change set against the stack; inspect, execute, and wait for `UPDATE_COMPLETE`. Only then may the code change merge: the deploy refuses to publish while the live template differs from the generated one.
-2. Upload `_site/` in the order `scripts/publish-plan.mjs` gives: `assets/` (content-hashed stylesheet, script, and fonts) and the search index's content-named files under `pagefind/` with `Cache-Control: public,max-age=31536000,immutable`, then the other files and pages with `Cache-Control: no-cache`, the front page last. Every object gets an explicit content type with charset (`.md` is `text/markdown`). Keep old assets for already-open pages and rollback; nothing is deleted.
+2. Upload `_site/` in the order `scripts/publish-plan.mjs` gives: `assets/` (content-hashed stylesheet, script, and fonts) and the search index's content-named files under `pagefind/` with `Cache-Control: public,max-age=31536000,immutable`, then the other files and pages with `Cache-Control: no-cache`, the front page last. Every object gets an explicit content type with charset (`.md` is `text/markdown`; `feed.xml` and `activity.xml` are `application/rss+xml` and `feed.json` is `application/feed+json`, the types their head links name, while the sitemap and other JSON keep `application/xml` and `application/json`). Every file is copied on every deploy, so a changed type lands on the next one. Keep old assets for already-open pages and rollback; nothing is deleted.
 3. Invalidate `/*` on the stack’s distribution.
 4. Verify the front page and a thing page match the built bytes and a missing page returns 404.
 
@@ -45,6 +45,8 @@ Namecheap BasicDNS supports an apex `ALIAS` to the CloudFront hostname and DNSSE
 ## Operations
 
 `thingelstad-xyz-site-distribution-5xx` alarms when CloudFront returns more than 5% 5xx in two of three five-minute windows. It publishes to `weekly-thing-librarian-alarms`, the Thingelstad family topic that feeds the shared `projects-ops-alerts` queue, as thingy-web's 5xx alarm does. There is no application runtime: the site is files in a bucket.
+
+CloudFront access logs go to the CloudWatch Logs group `/thingelstad-xyz/web-access`, kept 14 days, through CloudFront standard logging (delivery source and destination `thingelstad-xyz-web-access`, JSON). The shape is the other sites' (`/links/web-access`, `/weekly/web-access`): time, method, path, status, bytes, range, timings, edge result and location, protocol, and user agent, with no client IP and no query string. Added through the reviewed change set `cloud-engineer-access-logs-20261026` on October 26, 2026.
 
 The site bucket is versioned, so rollback is restoring the previous object versions (or reverting the commit on `main` and letting delivery republish) and invalidating. Never delete objects; old hashed assets serve already-open pages.
 

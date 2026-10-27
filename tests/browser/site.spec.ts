@@ -1,10 +1,17 @@
 import { test, expect, type Page } from '@playwright/test';
 import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
+import { llmsShapeProblems } from '../llms-shape';
 
 type Thing = {
   id: string;
   title: string;
+  summary: string;
+  collection: string;
+  page: string;
+  started?: string | null;
+  ended?: string | null;
+  body?: string;
   status: string;
   topics: string[];
   sources: { kind: string }[];
@@ -327,6 +334,9 @@ test('history anchors, the timeline, and the machine outputs are reachable', asy
     const response = await page.request.get(path);
     expect(response.ok(), path).toBe(true);
   }
+  // llms.txt as the llmstxt.org reference parser reads it: prose only above the first heading (tests/llms-shape.ts).
+  const llms = await page.request.get('/llms.txt');
+  expect(llmsShapeProblems(await llms.text())).toEqual([]);
   const missing = await page.request.get('/things/nothing-here/');
   expect(missing.status()).toBe(404);
   expect(errors).toEqual([]);
@@ -396,6 +406,8 @@ test('every page names Jamie with the shared h-card and rel=me links', async ({ 
     await expect(card, 'identity links stay clean').toHaveAttribute('href', owner.url);
     await expect(card).toHaveAttribute('rel', 'me author');
     await expect(card.locator('.p-name')).toHaveText(owner.name);
+    // The u-photo stops mf2 parsers implying a url from the href, so the card names it.
+    await expect(card.locator('data.u-url')).toHaveAttribute('value', owner.url);
     await expect(card.locator('data.p-note')).toHaveAttribute('value', owner.note);
     const photo = card.locator('img.u-photo');
     await expect(photo).toHaveAttribute('src', owner.avatar);
@@ -414,6 +426,155 @@ test('every page names Jamie with the shared h-card and rel=me links', async ({ 
     expect(relMe).toEqual(owner.rel_me);
     expect(await fitsViewport(page), path).toBe(true);
   }
+});
+
+// The microformats on a page an mf2 parser reads as roots or as a feed's children (h-card, h-entry, h-feed, ...):
+// every h-* class except on a property's value, which here is only an entry's p-author h-card.
+const microformatRoots = (page: Page) =>
+  page.evaluate(() =>
+    [...document.querySelectorAll('[class]')]
+      .filter((element) => ![...element.classList].some((name) => /^(p|u|dt|e)-/.test(name)))
+      .flatMap((element) => [...element.classList].filter((name) => /^h-[a-z]+(-[a-z]+)*$/.test(name)))
+  );
+// What each entry says beyond its name, url and summary: its author, the owner's hidden h-card with the clean
+// identity URL, and no dt-* date (a thing's dates are when it started and ended, not when it was published).
+const entryExtras = (entries: Element[]) =>
+  entries.map((entry) => ({
+    author: [...entry.querySelectorAll('.h-card')].map((card) => ({
+      property: card.classList.contains('p-author') && card.parentElement === entry,
+      url: card.getAttribute('href'),
+      name: card.textContent!.trim(),
+      shown: card.checkVisibility()
+    })),
+    dates: [...entry.querySelectorAll('[class]')].flatMap((element) =>
+      [...element.classList].filter((name) => name.startsWith('dt-'))
+    )
+  }));
+const ownerAuthor = { author: [{ property: true, url: owner.url, name: owner.name, shown: false }], dates: [] };
+
+test('a thing page is one h-entry: its title, canonical address, author, summary and story', async ({ page }) => {
+  for (const thing of things) {
+    const path = new URL(thing.page).pathname;
+    await page.goto(path);
+    // The entry and the footer's h-card, nothing else, and neither inside the other.
+    expect((await microformatRoots(page)).toSorted(), path).toEqual(['h-card', 'h-entry']);
+    const entry = page.locator('article.h-entry');
+    await expect(page.locator('.h-card .h-entry'), path).toHaveCount(0);
+    expect(await entry.evaluateAll(entryExtras), path).toEqual([ownerAuthor]);
+    await expect(entry.locator('.p-name'), path).toHaveText(thing.title);
+    const canonical = await page.locator('link[rel="canonical"]').getAttribute('href');
+    expect(canonical, path).toBe(thing.page);
+    await expect(entry.locator('.u-url'), path).toHaveCount(1);
+    await expect(entry.locator('data.u-url'), path).toHaveAttribute('value', canonical!);
+    // The dates the page shows stay, as the record gives them.
+    for (const date of [thing.started, thing.ended].filter(Boolean))
+      await expect(entry.locator(`.facts time[datetime="${date}"]`), path).toBeVisible();
+    await expect(entry.locator('.p-summary'), path).toHaveText(thing.summary);
+    await expect(entry.locator('.e-content'), path).toHaveCount(thing.body?.trim() ? 1 : 0);
+  }
+});
+
+test('every list of things is an h-feed of h-entries, one level deep', async ({ page }) => {
+  const byPath = new Map(things.map((thing) => [new URL(thing.page).pathname, thing]));
+  const collections = [...new Set(things.map((thing) => thing.collection))];
+  await page.goto('/');
+  const siteTitle = await page.title(); // the front page's title is the site's own
+  const lists = [
+    { path: '/', feeds: ['Featured', ...collections], entries: featured.length + things.length },
+    { path: '/search/', feeds: [siteTitle], entries: things.length },
+    {
+      path: '/topics/agents/',
+      feeds: [topics.find((topic) => topic.id === 'agents')!.title],
+      entries: things.filter((thing) => thing.topics.includes('agents')).length
+    }
+  ];
+  for (const list of lists) {
+    await page.goto(list.path);
+    expect(new Set(await microformatRoots(page)), list.path).toEqual(new Set(['h-card', 'h-feed', 'h-entry']));
+    const shape = await page.evaluate(() => ({
+      // An entry's author is its one h-card, a property; any other microformat inside an entry or feed is nested.
+      nested: document.querySelectorAll(
+        '.h-entry .h-entry, .h-entry .h-feed, .h-feed .h-feed, .h-feed .h-card:not(.h-entry > .p-author)'
+      ).length,
+      loose: [...document.querySelectorAll('.h-entry')].filter((entry) => !entry.closest('.h-feed')).length,
+      plain: document.querySelectorAll('.thing-row:not(.h-entry), .feature:not(.h-entry)').length,
+      // Each feed's name: its one p-name outside its entries.
+      feeds: [...document.querySelectorAll('.h-feed')].map((feed) =>
+        [...feed.querySelectorAll('.p-name')]
+          .filter((name) => !name.closest('.h-entry'))
+          .map((name) => name.getAttribute('value') ?? name.textContent!.trim())
+      )
+    }));
+    expect(shape.nested, `${list.path}: nothing inside an entry or another feed`).toBe(0);
+    expect(shape.loose, `${list.path}: every entry is in a feed`).toBe(0);
+    expect(shape.plain, `${list.path}: every row and card is an entry`).toBe(0);
+    expect(
+      shape.feeds.every((names) => names.length === 1),
+      `${list.path}: each feed has one name`
+    ).toBe(true);
+    expect(shape.feeds.flat().toSorted(), list.path).toEqual(list.feeds.toSorted());
+    const entries = await page.locator('.h-entry').evaluateAll((items) =>
+      items.map((item) => ({
+        name: [...item.querySelectorAll('.p-name')].map((element) => element.textContent!.trim()),
+        url: [...item.querySelectorAll('.u-url')].map((element) => element.getAttribute('href')!),
+        summary: [...item.querySelectorAll('.p-summary')].map((element) => element.textContent!.trim())
+      }))
+    );
+    expect(entries, list.path).toHaveLength(list.entries);
+    for (const entry of entries) {
+      const thing = byPath.get(entry.url[0])!;
+      expect(thing, `${list.path}: ${entry.url[0]}`).toBeTruthy();
+      expect(entry, list.path).toEqual({
+        name: [thing.title],
+        url: [new URL(thing.page).pathname],
+        summary: [thing.summary]
+      });
+    }
+    for (const extras of await page.locator('.h-entry').evaluateAll(entryExtras))
+      expect(extras, list.path).toEqual(ownerAuthor);
+  }
+});
+
+test('each feed is served as the type its head link names, and the sitemap lists every page', async ({ page }) => {
+  // The local server sends each file with the type the publish gives it (scripts/publish-plan.mjs).
+  await page.goto('/things/weekly-thing/');
+  const alternates = await page
+    .locator('head link[rel="alternate"]')
+    .evaluateAll((links) =>
+      links.map((link) => ({ type: link.getAttribute('type')!, href: link.getAttribute('href')! }))
+    );
+  expect(alternates.map((link) => link.href)).toEqual([
+    '/feed.xml',
+    '/feed.json',
+    '/activity.xml',
+    '/things/weekly-thing.md'
+  ]);
+  for (const { type, href } of alternates) {
+    const response = await page.request.get(href);
+    expect(response.ok(), href).toBe(true);
+    expect(response.headers()['content-type'], href).toBe(`${type}; charset=utf-8`);
+  }
+  expect(alternates.map((link) => link.type)).toEqual([
+    'application/rss+xml',
+    'application/feed+json',
+    'application/rss+xml',
+    'text/markdown'
+  ]);
+  const sitemap = await page.request.get('/sitemap.xml');
+  expect(sitemap.headers()['content-type']).toBe('application/xml; charset=utf-8');
+  const pages = [...(await sitemap.text()).matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => new URL(match[1]).pathname);
+  expect(new Set(pages).size, 'each page once').toBe(pages.length);
+  // Every page the header links (search among them), every thing, every topic.
+  const header = await page
+    .locator('.site-header nav a')
+    .evaluateAll((links) => links.map((link) => link.getAttribute('href')!));
+  expect(header).toContain('/search/');
+  for (const path of [
+    ...header,
+    ...things.map((thing) => new URL(thing.page).pathname),
+    ...topics.map((topic) => `/topics/${topic.id}/`)
+  ])
+    expect(pages, path).toContain(path);
 });
 
 test('links to the other sites carry a ref, and story text keeps its links', async ({ page }) => {

@@ -43,7 +43,10 @@ description: Search everything I’ve built, and narrow it by status, the year i
     {% endfor %}
     <p class="facet-note muted">Written in is the top language GitHub reports for each repository.</p>
   </details>
-  <div class="search-results">
+  {#- Every thing, as an h-feed of h-entries (thing-row.njk). The page's heading is the search, so the feed is
+      named by an empty <data>, which takes no space. #}
+  <div class="search-results h-feed">
+    <data class="p-name" value="{{ site.title }}"></data>
     <div class="search-bar">
       <p class="search-status"><span role="status" data-search-status>Search needs JavaScript. Every thing I’ve built is listed below.</span> <button type="button" class="clear" data-search-clear hidden>Clear</button></p>
       <label class="sort" data-search-sort-label hidden>Sort
