@@ -1,54 +1,32 @@
-# Namecheap DNS for thingelstad.xyz
+# DNS for thingelstad.xyz
 
-Jamie selected Namecheap BasicDNS. Enter the relative **Host** values below in Advanced DNS; Namecheap appends `thingelstad.xyz`. Use TTL 5 minutes where available. DNS changes are made by Jamie.
+The `thingelstad.xyz` zone is a Route 53 hosted zone, and every record in it is code in the `dns-thingelstad-xyz` CloudFormation stack: `config/dns-thingelstad-xyz-stack.yaml` in `projects-sysadmin`. DNS moved there from Namecheap BasicDNS on October 27, 2026. Namecheap is still the registrar, and Jamie's lever to point the name servers back if AWS is ever unavailable, but it no longer serves the zone. The move's plan and status are in `projects-sysadmin/docs/DNS-MIGRATION.md`.
 
-## Required website records
+A record is changed by a pull request to that stack and a deploy, never in the Route 53 console and never at Namecheap. A site stack may own its own records where that is natural (an ACM certificate's `DomainValidationOptions` with `HostedZoneId`); until that follow-up lands, the record stays in the zone stack. The zone has no mail; if it ever gets mail records (MX, SPF, DKIM, DMARC, verification TXT), they change only with Jamie's approval line.
 
-| Type  | Host  | Value                           |
-| ----- | ----- | ------------------------------- |
-| ALIAS | `@`   | `d34njoaumjumim.cloudfront.net` |
-| CNAME | `www` | `d34njoaumjumim.cloudfront.net` |
+## This site's records
 
-Do not pin CloudFront's transient addresses in fixed A/AAAA records or leave parking/redirect records at these hosts.
+All of these are in the zone stack.
 
-## Required HTTPS validation records
+| Type    | Name                                    | Value                                                              |
+| ------- | --------------------------------------- | ------------------------------------------------------------------ |
+| A, AAAA | apex                                    | alias to `d34njoaumjumim.cloudfront.net`                           |
+| CNAME   | `www`                                   | `d34njoaumjumim.cloudfront.net`                                    |
+| CNAME   | `_fda64cb6192085deb8ef9ed397bb70cd`     | `_a454fe38f4f0fad84b1c46c7810fd29a.wzccmgtwzk.acm-validations.aws` |
+| CNAME   | `_cf193c77ededbed618e96a9876398376.www` | `_5c94a4067e45ab48ec540df231559efb.wzccmgtwzk.acm-validations.aws` |
+| TXT     | apex                                    | ENS (`ENS1 dnsname.ens.eth ...`) and `google-site-verification`    |
+| TXT     | `_ens`                                  | `a=0x2BdA946a7740b1dDB0fd5C226819170c4DD15720`                     |
 
-| Type  | Host                                    | Value                                                              |
-| ----- | --------------------------------------- | ------------------------------------------------------------------ |
-| CNAME | `_fda64cb6192085deb8ef9ed397bb70cd`     | `_a454fe38f4f0fad84b1c46c7810fd29a.wzccmgtwzk.acm-validations.aws` |
-| CNAME | `_cf193c77ededbed618e96a9876398376.www` | `_5c94a4067e45ab48ec540df231559efb.wzccmgtwzk.acm-validations.aws` |
+Keep both ACM CNAMEs for automatic renewal. Certificate ARN: `arn:aws:acm:us-east-1:999153317627:certificate/15e8b7f8-91c7-433a-8618-9cbf2498baf5`. Do not pin CloudFront's transient addresses in fixed A/AAAA records. The former `jamie` ENS TXT record is absent; restore it (in the zone stack) only if that ENS subdomain is wanted again.
 
-Keep both CNAMEs for automatic renewal. Certificate ARN: `arn:aws:acm:us-east-1:999153317627:certificate/15e8b7f8-91c7-433a-8618-9cbf2498baf5`.
+The zone also holds the records for the other `thingelstad.xyz` sites (`sync`, `links`, `poap`, `nnxyz`), which their own repositories describe.
 
-## Existing TXT records
+## DNSSEC
 
-The Google zone screenshot showed these values. Preserve them unless intentionally retiring their respective functions.
+Jamie turned DNSSEC off at Namecheap on October 27, 2026, before the move. The .xyz registry kept the old DS after Namecheap stopped signing, so validating resolvers failed for the site for up to an hour (about 3:50 to 4:50 PM Central). Route 53 signing is the zone stack's `Signing` parameter, turned on once the zone has answered cleanly for a day, after which Jamie adds the DS at Namecheap. See `DNS-MIGRATION.md` for the safe order.
 
-| Type | Host    | Value                                                                  |
-| ---- | ------- | ---------------------------------------------------------------------- |
-| TXT  | `_ens`  | `a=0x2BdA946a7740b1dDB0fd5C226819170c4DD15720`                         |
-| TXT  | `@`     | `ENS1 dnsname.ens.eth 0x2bda946a7740b1ddb0fd5c226819170c4dd15720`      |
-| TXT  | `jamie` | `ENS1 dnsname.ens.eth 0x2bda946a7740b1ddb0fd5c226819170c4dd15720`      |
-| TXT  | `@`     | `google-site-verification=mhFW5IUY8ZUu-kzEZvichOT_poRsBwgvmH9XHLoo1-Q` |
+## History
 
-Google's NS/SOA records should not be copied. Namecheap supplies its own.
-
-## DNSSEC and delegation
-
-The registrar's nameserver choice must be Namecheap BasicDNS, delegating to `dns1.registrar-servers.com` and `dns2.registrar-servers.com`. The old Google DS (key tag 16595, algorithm 8) must not remain as the only DS once Namecheap's keys serve the domain. Namecheap BasicDNS manages its own DNSSEC records automatically; do not reuse the old Google key. Keep the Google zone intact until the cutover is verified.
-
-Sources: [Namecheap BasicDNS](https://www.namecheap.com/support/knowledgebase/article.aspx/782/10/how-do-i-set-my-domain-to-use-namecheap-basicdns/), [Namecheap DNSSEC](https://www.namecheap.com/support/knowledgebase/article.aspx/9723/2232/managing-dnssec-for-domains-pointed-to-premium-or-basicdns/).
-
-## Verification snapshot: October 13, 2026, 11:25 AM Central
-
-- All three queried .xyz parent servers delegate to Namecheap and publish its DS: key tag 16725, algorithm 13, SHA-256.
-- Google and Cloudflare public resolvers return DNSSEC-authenticated apex A/AAAA records and www CNAME records.
-- Both ACM CNAMEs resolve publicly and the certificate is ISSUED.
-- CloudFront has both custom aliases and the ACM certificate with TLSv1.2_2021. The distribution is Deployed and the site stack is UPDATE_COMPLETE.
-- Both HTTPS domains return 200 with valid TLS. Browser checks pass at actual 1536px and 390px widths: all 49 graph nodes, project navigation, index and guide privacy copy, with no console or page errors.
-- Read-only API health, refusal before quota/model invocation, and blocked private source paths pass on both domains. No public model invocation was made.
-- Apex ENS/Google verification and _ens TXT records remain present. The former jamie TXT record is absent; restore only if retaining that ENS subdomain.
-
-The guide and its `/api/*` routes were retired on October 17, 2026, so the API health and refusal checks in the snapshot no longer apply; no DNS record changed.
-
-The Google validation and www CNAME records can remain during cache expiration. The apex is served through Namecheap, so no Google ALIAS is needed. Keep the Namecheap validation CNAMEs for automatic certificate renewal.
+- October 13, 2026: moved from Google's DNS to Namecheap BasicDNS with DNSSEC; both HTTPS names, the ACM certificate and desktop and phone browsing verified that day.
+- October 17, 2026: the guide and its `/api/*` routes were retired; no DNS record changed.
+- October 27, 2026: moved from Namecheap BasicDNS to Route 53 (`dns-thingelstad-xyz`).

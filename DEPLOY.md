@@ -1,6 +1,6 @@
 # Deploying thingelstad.xyz
 
-The application stays in `/Users/otto/Projects/thingelstad.xyz`, separate from the Thingelstad.com publishing repositories. Hosting is AWS in account `999153317627`, with application resources in `us-east-1`. DNS is hosted on Namecheap BasicDNS with DNSSEC. Public delegation and authenticated DNS answers were verified on October 13, 2026.
+The application stays in `/Users/otto/Projects/thingelstad.xyz`, separate from the Thingelstad.com publishing repositories. Hosting is AWS in account `999153317627`, with application resources in `us-east-1`. DNS is a Route 53 hosted zone owned by the `dns-thingelstad-xyz` stack in `projects-sysadmin` (moved from Namecheap BasicDNS on October 27, 2026; Namecheap remains the registrar). See `DNS.md`.
 
 ## Resources
 
@@ -38,9 +38,9 @@ The site is a tree of directories, each holding an `index.html`, and S3 behind O
 
 ## Connect the custom domain
 
-Add the two ACM validation CNAMEs from `DNS.md`; keep them for automatic certificate renewal. After ACM reaches `ISSUED` and the certificate stack completes, update the site stack’s `CertificateArn` to the certificate stack output. This enables both CloudFront aliases and HTTPS. The routing records in `DNS.md` are already present at Namecheap. Both HTTPS names and desktop/phone browsing passed on October 13, 2026; `infra/deployment.json` records the state.
+The two ACM validation CNAMEs and the apex and `www` routing records are in the `thingelstad.xyz` zone stack (`config/dns-thingelstad-xyz-stack.yaml` in `projects-sysadmin`); keep the CNAMEs for automatic certificate renewal. A new or changed record is a pull request to that stack and a deploy, never a console edit. If the certificate is ever replaced, add its validation CNAMEs to the zone stack (or give the certificate `DomainValidationOptions` with the zone's `HostedZoneId`), wait for ACM to reach `ISSUED` and the certificate stack to complete, then update the site stack's `CertificateArn` to the certificate stack output. Both HTTPS names and desktop/phone browsing passed on October 13, 2026; `infra/deployment.json` records the state.
 
-Namecheap BasicDNS supports an apex `ALIAS` to the CloudFront hostname and DNSSEC. Do not copy CloudFront’s current IP addresses into fixed A records. `www` uses an ordinary CNAME. DNS changes are made by Jamie. Current resource IDs and verification state are in `infra/deployment.json`.
+The apex is an alias A/AAAA to the CloudFront hostname. Do not copy CloudFront's current IP addresses into fixed A records. `www` uses an ordinary CNAME. Current resource IDs and verification state are in `infra/deployment.json`.
 
 ## Operations
 
