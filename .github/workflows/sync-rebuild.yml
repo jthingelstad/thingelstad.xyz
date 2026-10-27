@@ -1,0 +1,41 @@
+name: Publishing bus observation refresh
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: Rehearse without collecting or publishing observations
+        type: choice
+        options: ['true', 'false']
+        default: 'true'
+      repository:
+        description: Registered public repository whose evidence changed
+        type: string
+        default: ''
+permissions:
+  contents: read
+jobs:
+  rehearsal:
+    if: inputs.dry_run == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo 'Publishing subscriber rehearsal accepted. No credentials, observations or deployment.'
+  rebuild:
+    if: inputs.dry_run == 'false'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      actions: write
+    steps:
+      - name: Require the reviewed cutover
+        env:
+          ENABLED: ${{ vars.SYNC_REBUILD_ENABLED }}
+          REPOSITORY_SELECTOR: ${{ inputs.repository }}
+        run: |
+          test "$ENABLED" = true
+          [[ "$REPOSITORY_SELECTOR" =~ ^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$ ]]
+          test "$REPOSITORY_SELECTOR" != jthingelstad/thingelstad.xyz
+      - name: Use the existing collector and all its publication gates
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY_SELECTOR: ${{ inputs.repository }}
+        run: gh workflow run collect.yml --repo "$GITHUB_REPOSITORY" --ref main -f "repository=$REPOSITORY_SELECTOR" -f from_sync=true

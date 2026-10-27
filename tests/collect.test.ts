@@ -195,6 +195,51 @@ test('the collector observes each source once and writes only changed evidence',
   assert.ok(sameEvidence(saved[0], { ...saved[0], observedAt: later.toISOString() }));
 });
 
+test('a repository push refreshes its registered evidence without probing other sources', async () => {
+  const saved: Observation[] = [];
+  let reads = 0;
+  const result = await collect({
+    registry,
+    existing: [],
+    only: 'owner/example',
+    now,
+    github: async (endpoint) => {
+      assert.ok(endpoint.toLowerCase().includes('owner/example'));
+      reads++;
+      return fakeReader(endpoint);
+    },
+    web: async () => assert.fail('a repository event must not read websites'),
+    tinylytics: async () => assert.fail('a repository event must not read analytics'),
+    wayback: async () => assert.fail('a repository event must not read Wayback'),
+    screenshots: null,
+    git: null,
+    save: async (observation) => {
+      saved.push(observation);
+      return 'fixture';
+    },
+    log: () => {}
+  });
+  assert.deepEqual(result.failed, []);
+  assert.deepEqual(result.written, ['Owner/Example']);
+  assert.ok(reads > 0);
+  assert.equal(saved.length, 1);
+  const unknown = await collect({
+    registry,
+    existing: [],
+    only: 'private/not-registered',
+    now,
+    github: async () => assert.fail('unknown repositories are never read'),
+    web: async () => assert.fail('unknown repositories are never read'),
+    save: async () => assert.fail('unknown repositories are never saved'),
+    git: null,
+    tinylytics: null,
+    wayback: null,
+    screenshots: null,
+    log: () => {}
+  });
+  assert.deepEqual(unknown, { written: [], unchanged: [], failed: [] });
+});
+
 const tinylyticsReader: TinylyticsReader = async (endpoint) => {
   if (endpoint === 'sites')
     return {

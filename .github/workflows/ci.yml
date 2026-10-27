@@ -101,3 +101,5 @@ jobs:
         run: |
           test "$(gh api repos/jthingelstad/thingelstad.xyz/git/ref/heads/main --jq .object.sha)" = "$GITHUB_SHA"
       - run: npm run deploy
+        env:
+          SYNC_PUBLISHING_BUS: ${{ vars.SYNC_PUBLISHING_BUS }}

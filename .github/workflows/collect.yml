@@ -14,6 +14,15 @@ on:
   schedule:
     - cron: '17 11 * * *' # every day, 11:17 UTC (6:17 Central, 5:17 in winter)
   workflow_dispatch:
+    inputs:
+      repository:
+        description: Optional registered repository to refresh without other sources
+        type: string
+        default: ''
+      from_sync:
+        description: Bus refresh; requires a repository and never requests Wayback
+        type: boolean
+        default: false
 permissions:
   contents: write
   pull-requests: write
@@ -22,6 +31,7 @@ permissions:
 concurrency:
   group: collect-observations
   cancel-in-progress: false
+  queue: max
 jobs:
   collect:
     name: Collect
@@ -29,6 +39,8 @@ jobs:
     timeout-minutes: 45
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: main
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version-file: .nvmrc
@@ -37,17 +49,26 @@ jobs:
       # Chromium takes the monthly front-page screenshots. Without it the collector skips them. The collector
       # captures a site only when its screenshot is due, so most daily runs take none.
       - run: npx playwright install --with-deps chromium
+        if: inputs.repository == ''
       - name: Observe sources
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           TINYLYTICS_API_KEY: ${{ secrets.TINYLYTICS_API_KEY }} # read-only key; without it Tinylytics is skipped
+          REPOSITORY_SELECTOR: ${{ inputs.repository }}
+          FROM_SYNC: ${{ inputs.from_sync }}
         # A source that cannot be read keeps its previous evidence and fails this step, which the run
         # tolerates; the job summary lists what failed so a broken source is visible.
         run: |
           set -o pipefail
+          args=()
+          if [[ -n "$REPOSITORY_SELECTOR" ]]; then
+            [[ "$REPOSITORY_SELECTOR" =~ ^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$ ]] || exit 1
+            args+=("$REPOSITORY_SELECTOR")
+          fi
+          if [[ "$FROM_SYNC" = true && -z "$REPOSITORY_SELECTOR" ]]; then exit 1; fi
           wayback=--no-wayback
-          if [ "$(date -u +%u)" = 1 ] || [ "$GITHUB_EVENT_NAME" = workflow_dispatch ]; then wayback=; fi
-          npm run collect -- ${wayback:+"$wayback"} 2>&1 | tee "$RUNNER_TEMP/collect.log"
+          if [[ "$FROM_SYNC" != true ]] && { [ "$(date -u +%u)" = 1 ] || [ "$GITHUB_EVENT_NAME" = workflow_dispatch ]; }; then wayback=; fi
+          npm run collect -- "${args[@]}" ${wayback:+"$wayback"} 2>&1 | tee "$RUNNER_TEMP/collect.log"
         continue-on-error: true
       - name: Summarize
         if: always()
@@ -63,9 +84,12 @@ jobs:
       - name: Open, check, merge and deploy
         env:
           GH_TOKEN: ${{ github.token }}
+          REPOSITORY_SELECTOR: ${{ inputs.repository }}
         run: |
+          prefix=collect/
+          if [[ -n "$REPOSITORY_SELECTOR" ]]; then prefix="collect/repository/$REPOSITORY_SELECTOR/"; fi
           gh pr list --base main --state open --json number,headRefName \
-            --jq '.[] | select(.headRefName | startswith("collect/")) | .number' |
+            --jq ".[] | select(.headRefName | startswith(\"$prefix\")) | .number" |
             while read -r stale; do
               gh pr close "$stale" --delete-branch \
                 --comment "Superseded by $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID, which observes from main."
@@ -76,7 +100,7 @@ jobs:
             exit 0
           fi
           day="$(date -u +%Y-%m-%d)"
-          branch="collect/$day-$GITHUB_RUN_ID"
+          branch="$prefix$day-$GITHUB_RUN_ID"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git switch -c "$branch"

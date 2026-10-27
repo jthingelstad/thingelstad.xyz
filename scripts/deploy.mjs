@@ -4,6 +4,7 @@ import { readFileSync } from 'node:fs';
 import { isDeepStrictEqual } from 'node:util';
 import { setTimeout as delay } from 'node:timers/promises';
 import { cacheControlFor, contentTypeFor, publishOrder } from './publish-plan.mjs';
+import { registryRefresh } from '../collection/registry-refresh.ts';
 
 // AWS CLI runs only on the authenticated GitHub runner. Local agent deployments use AWS MCP.
 const deployment = JSON.parse(readFileSync('infra/deployment.json', 'utf8'));
@@ -44,6 +45,19 @@ if (
 ) {
   throw new Error('The site build is incomplete.');
 }
+const registryBus = process.env.SYNC_PUBLISHING_BUS?.trim() || '';
+const readRegistry = async () => {
+  try {
+    const response = await fetch(new URL('/things.json', deployment.publishedUrl), {
+      cache: 'no-store',
+      signal: AbortSignal.timeout(5000)
+    });
+    return response.ok ? await response.json() : null;
+  } catch {
+    return null;
+  }
+};
+const registryBefore = registryBus ? await readRegistry() : null;
 for (const key of keys) {
   run(
     's3',
@@ -81,11 +95,13 @@ const published = async (path) => {
   return { ok: response.ok, hash: sha256(Buffer.from(await response.arrayBuffer())) };
 };
 // The front page and one page below the root, which also proves the directory-index rewrite is live.
-const checks = ['index.html', keys.find((key) => /^things\/[^/]+\/index\.html$/.test(key))].map((key) => ({
-  key,
-  path: '/' + key.replace(/index\.html$/, ''),
-  hash: sha256(readFileSync(`${siteRoot}/${key}`))
-}));
+const checks = ['index.html', 'things.json', keys.find((key) => /^things\/[^/]+\/index\.html$/.test(key))].map(
+  (key) => ({
+    key,
+    path: '/' + key.replace(/index\.html$/, ''),
+    hash: sha256(readFileSync(`${siteRoot}/${key}`))
+  })
+);
 let verified = false;
 for (let attempt = 0; attempt < 6 && !verified; attempt++) {
   const results = await Promise.all(checks.map((check) => published(check.path)));
@@ -98,3 +114,34 @@ const missing = await fetch(new URL('/things/not-a-thing/', deployment.published
 });
 if (missing.status !== 404) throw new Error(`Expected 404 for a missing page, got ${missing.status}.`);
 console.log(`Verified ${process.env.GITHUB_SHA} at ${deployment.publishedUrl}`);
+if (registryBus) {
+  try {
+    const built = JSON.parse(readFileSync(`${siteRoot}/things.json`, 'utf8'));
+    const event = registryRefresh(
+      registryBefore,
+      built,
+      await readRegistry(),
+      new Date().toISOString().replace(/\.\d{3}Z$/, 'Z')
+    );
+    if (event) {
+      const result = aws(
+        'events',
+        'put-events',
+        '--entries',
+        JSON.stringify([
+          {
+            EventBusName: registryBus,
+            Source: event.source,
+            DetailType: event['detail-type'],
+            Time: event.detail.at,
+            Detail: JSON.stringify(event.detail)
+          }
+        ])
+      );
+      if (result.FailedEntryCount || !result.Entries?.[0]?.EventId) throw new Error('not acknowledged');
+      console.log('The verified registry revision was announced.');
+    }
+  } catch {
+    console.warn('The registry announcement was not acknowledged; the library clock remains the backstop.');
+  }
+}
