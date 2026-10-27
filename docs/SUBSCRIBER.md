@@ -27,3 +27,20 @@ to one workflow; the static connection endpoint and role do. Configure the
 rehearsal lane first. No value enters a session. Duplicate event delivery
 can request collection again; the existing collector serializes its runs
 and does nothing when its observations have not changed.
+
+## The downstream library hop
+
+After a healthy public deployment verifies things.json byte for byte, the
+optional producer can report xyz/refreshed with only the canonical document
+hash, public URL and verification time. It ignores the generated build
+clock, requires a known prior public registry, and sends nothing for an
+unchanged, missing or mismatched readback. This is a document revision, not
+an individual thing publication date. No content body enters the event.
+
+SYNC_PUBLISHING_BUS is empty by default. Enable it only after Jamie reviews
+the separate sync stack publisher-role grant (xyz, refreshed/ping, own bus)
+and the disabled RegistryLibrary subscriber targeting library-round.yml
+with only=things. No extra secret or dependency is needed: CI uses its
+existing OIDC role. This night applies neither the grant nor this producer.
+Reports are best effort; a failed announcement never undoes a healthy site
+deployment. The existing library clock remains until natural acceptance.
