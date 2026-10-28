@@ -2,8 +2,9 @@
   "kind": "publications",
   "url": "https://www.thingelstad.com/",
   "feed": "https://www.thingelstad.com/feed.json",
-  "observedAt": "2026-10-26T17:22:18.153Z",
+  "observedAt": "2026-10-28T17:10:27.363Z",
   "items": [
+    {"url":"https://www.thingelstad.com/2026/10/28/ive-moved-all-my-dns.html","title":null,"excerpt":"I’ve moved all my DNS zones from Namecheap to AWS (still registered with NameCheap). Claude did all…","date":"2026-10-28T05:14:09.000Z"},
     {"url":"https://www.thingelstad.com/2026/10/25/wt-a-museum-for-nnxyz.html","title":"WT354 — A museum for nnxyz art","date":"2026-10-25T20:08:12.000Z"},
     {"url":"https://www.thingelstad.com/2026/10/24/making-candles-for-the-things.html","title":null,"excerpt":"Making candles for the 2026 Things 4 Good Candle Fundraiser!","date":"2026-10-25T01:23:28.000Z"},
     {"url":"https://www.thingelstad.com/2026/10/24/release-notes-on-a-map.html","title":"Release Notes on a map!","date":"2026-10-25T01:19:54.000Z"},

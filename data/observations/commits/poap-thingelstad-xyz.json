@@ -2,9 +2,12 @@
   "kind": "commits",
   "repository": "jthingelstad/poap.thingelstad.xyz",
   "url": "https://github.com/jthingelstad/poap.thingelstad.xyz",
-  "observedAt": "2026-10-26T17:22:18.153Z",
+  "observedAt": "2026-10-28T17:10:27.363Z",
   "branch": "main",
   "commits": [
+    {"sha":"1893cb14051a","date":"2026-10-28T14:30:31.000Z","subject":"Keep CloudFront access logs for 24 months (#5)","pr":5,"by":"agent","agents":["claude"]},
+    {"sha":"1a18c2987b00","date":"2026-10-27T23:20:42.000Z","subject":"Docs: poap DNS records live in the thingelstad.xyz zone stack","pr":4,"by":"me"},
+    {"sha":"42816bf66989","date":"2026-10-27T23:14:29.000Z","subject":"Docs: poap DNS records are code in the thingelstad.xyz zone stack","by":"agent","agents":["claude"]},
     {"sha":"fa1c70135030","date":"2026-10-25T20:54:17.000Z","subject":"Update fast-uri to 3.1.9 for four advisories (#3)","pr":3,"by":"agent","agents":["claude"]},
     {"sha":"70351d691b6c","date":"2026-10-25T17:56:29.000Z","subject":"llms.txt the reference parser reads; legacy-root guard; plain bytes without Accept-Encoding (#2)","pr":2,"by":"agent","agents":["claude"]},
     {"sha":"b710e86fc1cc","date":"2026-10-25T16:02:28.000Z","subject":"Drop and token pages: rename the item class to detail (#1)","pr":1,"by":"agent","agents":["claude"]},

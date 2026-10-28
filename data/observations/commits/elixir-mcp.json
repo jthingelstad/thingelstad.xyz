@@ -2,9 +2,11 @@
   "kind": "commits",
   "repository": "jthingelstad/elixir-mcp",
   "url": "https://github.com/jthingelstad/elixir-mcp",
-  "observedAt": "2026-10-25T14:59:53.527Z",
+  "observedAt": "2026-10-28T17:10:27.363Z",
   "branch": "main",
   "commits": [
+    {"sha":"0aa4f4d78cd0","date":"2026-10-28T14:56:07.000Z","subject":"infra: retire the legacy CloudFront S3 edge log","by":"agent","agents":["claude"]},
+    {"sha":"7b3d10e21ba0","date":"2026-10-28T14:19:44.000Z","subject":"infra: CloudFront access logs to CloudWatch for 24 months","by":"agent","agents":["claude"]},
     {"sha":"eb3691cefdc0","date":"2026-10-24T16:54:12.000Z","subject":"privacy: what Elixir keeps when you connect Discord (#647)","pr":647,"by":"agent","agents":["claude"]},
     {"sha":"baffac04b6b8","date":"2026-10-24T16:25:36.000Z","subject":"infra: name discord_client_secret among the app secret's keys","by":"agent","agents":["claude"]},
     {"sha":"d7eba47a4180","date":"2026-10-24T16:25:36.000Z","subject":"docs: Discord as a way in, and what it tells an agent (#531)","pr":531,"by":"agent","agents":["claude"]},

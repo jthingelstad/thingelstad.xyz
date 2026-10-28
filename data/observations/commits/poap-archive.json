@@ -2,9 +2,10 @@
   "kind": "commits",
   "repository": "jthingelstad/poap-archive",
   "url": "https://github.com/jthingelstad/poap-archive",
-  "observedAt": "2026-10-23T22:33:13.535Z",
+  "observedAt": "2026-10-28T17:10:27.363Z",
   "branch": "main",
   "commits": [
+    {"sha":"1512053e49e8","date":"2026-10-28T03:08:03.000Z","subject":"Docs: thingelstad.xyz DNS is now a Route 53 zone stack (#1)","pr":1,"by":"agent","agents":["claude"]},
     {"sha":"57e7da32398f","date":"2026-10-17T13:59:57.000Z","subject":"Leave POAP Moments out of the time capsule","by":"agent","agents":["claude"]},
     {"sha":"68b755197378","date":"2026-10-17T13:54:43.000Z","subject":"Add a read-only finder for the moment photos in Photos","by":"agent","agents":["claude"]},
     {"sha":"19602747e71f","date":"2026-10-17T13:48:26.000Z","subject":"Add the site data export","by":"agent","agents":["claude"]},

@@ -2,9 +2,12 @@
   "kind": "commits",
   "repository": "jthingelstad/thingelstad.xyz",
   "url": "https://github.com/jthingelstad/thingelstad.xyz",
-  "observedAt": "2026-10-27T16:36:47.822Z",
+  "observedAt": "2026-10-28T17:10:27.363Z",
   "branch": "main",
   "commits": [
+    {"sha":"2ff5046c58e2","date":"2026-10-28T15:06:01.000Z","subject":"IndexNow: ping the pages each deploy changes (#68)","pr":68,"by":"agent","agents":["claude"]},
+    {"sha":"57a235e1d5fe","date":"2026-10-28T14:25:57.000Z","subject":"Keep CloudFront access logs for 24 months (#67)","pr":67,"by":"agent","agents":["claude"]},
+    {"sha":"2367a78598a3","date":"2026-10-27T23:21:02.000Z","subject":"Docs: thingelstad.xyz DNS is now Route 53, records are code (#66)","pr":66,"by":"agent","agents":["claude"]},
     {"sha":"11aa28209ed5","date":"2026-10-27T01:16:44.000Z","subject":"Sync: a record of its own, with its map and page (#60)","pr":60,"by":"agent","agents":["claude"]},
     {"sha":"010e621343e6","date":"2026-10-27T00:54:27.000Z","subject":"Access logs for the distribution: /thingelstad-xyz/web-access, kept 14 days (#59)","pr":59,"by":"agent","agents":["claude"]},
     {"sha":"4d14b75724d7","date":"2026-10-26T02:18:54.000Z","subject":"Sync sites.json: Things 4 Good listed, out of the strip (#57)","pr":57,"by":"agent","agents":["claude"]},

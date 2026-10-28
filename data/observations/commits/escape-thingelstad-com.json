@@ -2,9 +2,10 @@
   "kind": "commits",
   "repository": "jthingelstad/escape.thingelstad.com",
   "url": "https://github.com/jthingelstad/escape.thingelstad.com",
-  "observedAt": "2026-10-27T16:36:47.822Z",
+  "observedAt": "2026-10-28T17:10:27.363Z",
   "branch": "main",
   "commits": [
+    {"sha":"0392fbbffc09","date":"2026-10-28T14:15:04.000Z","subject":"Log CloudFront access to /escape/web-access for 24 months (#23)","pr":23,"by":"agent","agents":["claude"]},
     {"sha":"3fad0b571f54","date":"2026-10-27T00:28:28.000Z","subject":"Retire GitHub Pages: escape.thingelstad.com is on CloudFront","pr":22,"by":"me"},
     {"sha":"f86675e10e33","date":"2026-10-27T00:28:18.000Z","subject":"Retire GitHub Pages: escape.thingelstad.com is on CloudFront","by":"agent","agents":["claude"]},
     {"sha":"ff973163de09","date":"2026-10-27T00:10:55.000Z","subject":"Host on S3 and CloudFront, with real 301 redirects","pr":21,"by":"me"},

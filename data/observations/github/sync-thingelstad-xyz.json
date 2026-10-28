@@ -2,16 +2,16 @@
   "kind": "github",
   "repository": "jthingelstad/sync.thingelstad.xyz",
   "url": "https://github.com/jthingelstad/sync.thingelstad.xyz",
-  "observedAt": "2026-10-27T16:36:47.822Z",
+  "observedAt": "2026-10-28T17:10:27.363Z",
   "repositoryCreatedAt": "2026-10-26T21:53:11.000Z",
   "archived": false,
   "description": "The sync page: what each of Jamie Thingelstad's systems holds, how far behind each hop runs",
   "stars": 0,
   "forks": 0,
   "languages": [
-    { "name": "JavaScript", "bytes": 280599 },
-    { "name": "HTML", "bytes": 77153 },
-    { "name": "CSS", "bytes": 19318 },
+    { "name": "JavaScript", "bytes": 407889 },
+    { "name": "HTML", "bytes": 75586 },
+    { "name": "CSS", "bytes": 53073 },
     { "name": "Mermaid", "bytes": 18364 }
   ],
   "release": null,
@@ -20,13 +20,13 @@
       "path": null,
       "branch": "main",
       "since": "2026-07-01T00:00:00.000Z",
-      "until": "2026-10-27T16:36:47.822Z",
-      "count": 74,
+      "until": "2026-10-28T17:10:27.363Z",
+      "count": 89,
       "complete": true,
-      "months": [{ "month": "2026-10", "count": 74 }],
+      "months": [{ "month": "2026-10", "count": 89 }],
       "latestCommit": {
-        "date": "2026-10-27T16:11:08.000Z",
-        "url": "https://github.com/jthingelstad/sync.thingelstad.xyz/commit/dbf3caaac3584cb864aa18379676a4722298c0d4"
+        "date": "2026-10-28T15:53:43.000Z",
+        "url": "https://github.com/jthingelstad/sync.thingelstad.xyz/commit/47432d11edda15aaa40afa78be66c6d8ca3e8e83"
       }
     }
   ]

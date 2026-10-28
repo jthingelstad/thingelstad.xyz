@@ -2,9 +2,12 @@
   "kind": "commits",
   "repository": "jthingelstad/thingy.thingelstad.com",
   "url": "https://github.com/jthingelstad/thingy.thingelstad.com",
-  "observedAt": "2026-10-27T16:36:47.822Z",
+  "observedAt": "2026-10-28T17:10:27.363Z",
   "branch": "main",
   "commits": [
+    {"sha":"95f2a4cb1abf","date":"2026-10-28T14:13:38.000Z","subject":"Keep CloudFront access logs 24 months (#47)","pr":47,"by":"agent","agents":["claude"]},
+    {"sha":"6fb6e3eb3963","date":"2026-10-27T16:42:32.000Z","subject":"Remove the stub uv.lock now the dependency graph has re-read it","by":"agent","agents":["claude"]},
+    {"sha":"1f869121b822","date":"2026-10-27T16:41:07.000Z","subject":"Stub uv.lock so the dependency graph re-reads the ghost manifest","by":"agent","agents":["claude"]},
     {"sha":"0c2bda9d1a6c","date":"2026-10-27T12:08:25.000Z","subject":"The serving receipt merged; one ReceiverRoles list replaces the per-destination role.","by":"agent","agents":["claude"]},
     {"sha":"35909994c796","date":"2026-10-27T11:49:40.000Z","subject":"Serving receipts follow verified native corpus promotions.","pr":46,"by":"me"},
     {"sha":"d4c22fe1b064","date":"2026-10-27T08:45:39.000Z","subject":"Serving receipts follow verified native corpus promotions.","by":"agent"},

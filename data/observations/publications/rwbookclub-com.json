@@ -2,8 +2,9 @@
   "kind": "publications",
   "url": "https://rwbookclub.com/",
   "feed": "https://rwbookclub.com/feed.xml",
-  "observedAt": "2026-10-25T14:59:53.527Z",
+  "observedAt": "2026-10-28T17:10:27.363Z",
   "items": [
+    {"url":"https://rwbookclub.com/books/things-hidden-since-the-foundation-of-the-world/","title":"Things Hidden Since the Foundation of the World","date":"2026-10-27T12:00:00.000Z"},
     {"url":"https://rwbookclub.com/books/blindsight/","title":"Blindsight","date":"2026-07-28T12:00:00.000Z"},
     {"url":"https://rwbookclub.com/books/a-world-appears/","title":"A World Appears: A Journey into Consciousness","date":"2026-06-30T12:00:00.000Z"},
     {"url":"https://rwbookclub.com/books/patterns-in-nature/","title":"Patterns in Nature: Why the Natural World Looks the Way it Does","date":"2026-05-26T12:00:00.000Z"},

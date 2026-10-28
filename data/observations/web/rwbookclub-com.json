@@ -1,17 +1,18 @@
 {
   "kind": "web",
   "url": "https://rwbookclub.com/",
-  "observedAt": "2026-10-26T17:22:18.153Z",
+  "observedAt": "2026-10-28T17:10:27.363Z",
   "sitemap": {
     "url": "https://rwbookclub.com/sitemap.xml",
     "pages": 381,
-    "newestModified": "2026-07-28T00:00:00.000Z",
+    "newestModified": "2026-10-27T00:00:00.000Z",
     "months": [
       { "month": "2025-11", "count": 1 },
       { "month": "2026-01", "count": 1 },
       { "month": "2026-05", "count": 1 },
       { "month": "2026-06", "count": 1 },
-      { "month": "2026-07", "count": 1 }
+      { "month": "2026-07", "count": 1 },
+      { "month": "2026-10", "count": 1 }
     ],
     "complete": true
   },
@@ -19,13 +20,14 @@
     "url": "https://rwbookclub.com/feed.xml",
     "title": "R/W Book Club",
     "items": 20,
-    "newestPublished": "2026-07-28T12:00:00.000Z",
+    "newestPublished": "2026-10-27T12:00:00.000Z",
     "months": [
       { "month": "2025-11", "count": 1 },
       { "month": "2026-01", "count": 1 },
       { "month": "2026-05", "count": 1 },
       { "month": "2026-06", "count": 1 },
-      { "month": "2026-07", "count": 1 }
+      { "month": "2026-07", "count": 1 },
+      { "month": "2026-10", "count": 1 }
     ]
   }
 }
