@@ -334,6 +334,10 @@ test('history anchors, the timeline, and the machine outputs are reachable', asy
     const response = await page.request.get(path);
     expect(response.ok(), path).toBe(true);
   }
+  // The IndexNow key file is plain text whose body is exactly the key (scripts/indexnow.mjs).
+  const key = await page.request.get('/79f379d18599eeec9bebf34c9a2a5deb.txt');
+  expect(key.headers()['content-type']).toBe('text/plain; charset=utf-8');
+  expect(await key.text()).toBe('79f379d18599eeec9bebf34c9a2a5deb');
   // llms.txt as the llmstxt.org reference parser reads it: prose only above the first heading (tests/llms-shape.ts).
   const llms = await page.request.get('/llms.txt');
   expect(llmsShapeProblems(await llms.text())).toEqual([]);

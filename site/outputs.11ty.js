@@ -1,5 +1,6 @@
 // The machine-readable outputs: feeds of the ledger and of activity, llms.txt, and the things.json ingestion surface.
 import { activityRss, jsonFeed, llmsFullText, llmsText, rssFeed, thingsJson } from '../collection/site.ts';
+import { indexNowKey } from '../scripts/indexnow.mjs';
 
 const outputs = {
   '/feed.xml': (site) => rssFeed(site),
@@ -8,6 +9,8 @@ const outputs = {
   '/llms.txt': (site) => llmsText(site),
   '/llms-full.txt': (site) => llmsFullText(site),
   '/things.json': (site) => JSON.stringify(thingsJson(site), null, 2),
+  // The IndexNow key file (scripts/indexnow.mjs): its body is exactly the key. It is in no sitemap, feed or index.
+  [`/${indexNowKey}.txt`]: () => indexNowKey,
   '/robots.txt': (site) => `User-agent: *\nAllow: /\n\nSitemap: ${site.url}/sitemap.xml\n`,
   // Every page the header links, then each thing and topic. /search/ lists every thing without JavaScript, so
   // it is a page worth indexing; its filtered addresses (?status=...) are the same page and stay out.
