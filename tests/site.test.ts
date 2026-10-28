@@ -39,6 +39,7 @@ import type { CommitEntry, CommitLogObservation, PublicationsObservation } from 
 import { connectionDiagram, connectionSource, phoneWidth } from '../collection/diagram';
 import { parseSites, siteRef, sitesPath, withRef } from '../collection/sites';
 import { sitesStrip } from '../collection/sites-strip';
+import { sitemapEntries, sitemapXml, w3c } from '../collection/lastmod';
 
 const registry = await loadRegistry();
 const observations = await loadObservations();
@@ -711,4 +712,54 @@ test('activity reads as sentences, charts, and a feed of complete days', () => {
     assert.ok(rss.includes(`<guid isPermaLink="false">activity-${day.day}</guid>`));
     assert.ok(day.day < localDay(model.activity.collected!), 'a day is in the feed once it is over');
   }
+});
+
+test('every sitemap page carries the date its content last changed, never the build', () => {
+  const dates: Record<string, string> = {
+    'content/things/weekly-thing.md': '2026-10-01T09:00:00-05:00',
+    'content/topics.yaml': '2026-09-01T00:00:00Z',
+    'content/featured.yaml': '2026-10-24T00:00:00Z',
+    'content/history/2026.yaml': '2026-10-02T00:00:00Z'
+  };
+  const fileDate = (path: string) =>
+    dates[path] ??
+    Object.entries(dates)
+      .filter(([file]) => file.startsWith(`${path}/`))
+      .map(([, date]) => date)
+      .sort()
+      .at(-1) ??
+    (path.startsWith('content/things/') ? '2026-01-02T03:04:05Z' : null);
+  const entries = sitemapEntries(model, fileDate);
+  const xml = sitemapXml(entries);
+  const urls = [...xml.matchAll(/<url>([\s\S]*?)<\/url>/g)].map((match) => match[1]);
+  assert.equal(urls.length, 6 + model.things.length + model.topics.length);
+  for (const url of urls)
+    assert.match(
+      url,
+      /^<loc>https:\/\/thingelstad\.xyz\/[^<]*<\/loc><lastmod>\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z<\/lastmod>$/
+    );
+  assert.doesNotMatch(xml, /<priority>|<changefreq>/);
+  const lastmod = (page: string) => entries.find((entry) => entry.loc === `${siteUrl}${page}`)?.lastmod;
+  // A thing: its record's commit, its events and its newest evidence, whichever is newest. Never the build.
+  const weekly = model.things.find((thing) => thing.id === 'weekly-thing')!;
+  const expected = [
+    Date.parse('2026-10-01T14:00:00Z'),
+    Date.parse(weekly.latest?.date ?? '1970'),
+    ...weekly.events.map((e) => Date.parse(toInstant(e.date)))
+  ];
+  assert.equal(lastmod('/things/weekly-thing/'), w3c(new Date(Math.max(...expected)).toISOString()));
+  for (const entry of entries) assert.notEqual(entry.lastmod, w3c(model.generated), entry.loc);
+  // A list is as new as the newest thing it lists.
+  const newestThing = model.things
+    .map((thing) => lastmod(thing.page)!)
+    .sort()
+    .at(-1);
+  assert.equal(lastmod('/search/'), newestThing);
+  for (const topic of model.topics)
+    assert.equal(
+      lastmod(topic.page),
+      [w3c('2026-09-01T00:00:00Z'), ...topic.things.map((t) => lastmod(t.page)!)].sort().at(-1)
+    );
+  assert.equal(w3c('2026-10'), '2026-10-01T12:00:00Z');
+  assert.equal(w3c('2026-10-27T21:03:11-05:00'), '2026-10-28T02:03:11Z');
 });
