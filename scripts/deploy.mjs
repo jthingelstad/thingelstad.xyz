@@ -4,6 +4,7 @@ import { readFileSync } from 'node:fs';
 import { isDeepStrictEqual } from 'node:util';
 import { setTimeout as delay } from 'node:timers/promises';
 import { cacheControlFor, contentTypeFor, publishOrder } from './publish-plan.mjs';
+import { builtPageHashes, changedUrls, pingIndexNow } from './indexnow.mjs';
 
 // AWS CLI runs only on the authenticated GitHub runner. Local agent deployments use AWS MCP.
 const deployment = JSON.parse(readFileSync('infra/deployment.json', 'utf8'));
@@ -43,6 +44,28 @@ if (
   )
 ) {
   throw new Error('The site build is incomplete.');
+}
+// Before uploading, note which sitemap pages this deploy changes (new, or bytes that differ from the live object),
+// for the IndexNow ping after it is verified. A failed listing only skips the ping.
+const sitemapXml = readFileSync(`${siteRoot}/sitemap.xml`, 'utf8');
+let changedPages = null;
+try {
+  const listing = aws(
+    's3api',
+    'list-objects-v2',
+    '--bucket',
+    deployment.siteBucket,
+    '--query',
+    "Contents[?ends_with(Key, 'index.html')].[Key, ETag]"
+  );
+  changedPages = changedUrls({
+    sitemapXml,
+    siteUrl: deployment.publishedUrl,
+    built: builtPageHashes(siteRoot, sitemapXml, deployment.publishedUrl),
+    live: new Map(listing ?? [])
+  });
+} catch (error) {
+  console.log(`IndexNow: could not list the live pages (${error.message}); no ping this deploy.`);
 }
 for (const key of keys) {
   run(
@@ -98,3 +121,5 @@ const missing = await fetch(new URL('/things/not-a-thing/', deployment.published
 });
 if (missing.status !== 404) throw new Error(`Expected 404 for a missing page, got ${missing.status}.`);
 console.log(`Verified ${process.env.GITHUB_SHA} at ${deployment.publishedUrl}`);
+// Tell IndexNow which pages changed. It never fails the deploy (scripts/indexnow.mjs).
+if (changedPages) console.log(await pingIndexNow(changedPages, deployment.publishedUrl));

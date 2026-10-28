@@ -5,6 +5,16 @@ import { tmpdir } from 'node:os';
 import { dirname, join } from 'node:path';
 import { cacheControlFor, contentTypeFor, publishOrder } from '../scripts/publish-plan.mjs';
 import { viewerRequestCode } from '../infra/viewer-request.mjs';
+import {
+  changedUrls,
+  indexNowEndpoint,
+  indexNowKey,
+  indexNowPayload,
+  keyForUrl,
+  md5,
+  pingIndexNow,
+  sitemapUrls
+} from '../scripts/indexnow.mjs';
 
 test('the site is published assets first, pages after, the front page last, each with its content type', () => {
   const dir = mkdtempSync(join(tmpdir(), 'site-'));
@@ -90,4 +100,68 @@ test('the viewer-request function serves directory indexes, adds the slash, and 
     location(handler(request('WWW.thingelstad.xyz', '/history/', query))),
     'https://thingelstad.xyz/history/?utm_source=x&utm_source=y&flag'
   );
+});
+
+test('IndexNow pings only the sitemap pages a deploy adds or changes, on the canonical host', () => {
+  const site = 'https://thingelstad.xyz/';
+  const sitemapXml = [
+    'https://thingelstad.xyz/',
+    'https://thingelstad.xyz/things/elixir/',
+    'https://thingelstad.xyz/things/mb/',
+    'https://thingelstad.xyz/topics/clash-royale/',
+    'https://thingelstad.xyz/things/unbuilt/',
+    'https://www.thingelstad.xyz/things/elixir/'
+  ]
+    .map((url) => `  <url><loc>${url}</loc></url>`)
+    .join('\n');
+  assert.equal(sitemapUrls(sitemapXml).length, 6);
+  assert.equal(keyForUrl('https://thingelstad.xyz/', site), 'index.html');
+  assert.equal(keyForUrl('https://thingelstad.xyz/things/elixir/', site), 'things/elixir/index.html');
+  assert.equal(keyForUrl('https://www.thingelstad.xyz/things/elixir/', site), null);
+  const built = new Map([
+    ['index.html', md5('front, changed')],
+    ['things/elixir/index.html', md5('elixir')],
+    ['things/mb/index.html', md5('mb, new')],
+    ['topics/clash-royale/index.html', md5('topic')]
+  ]);
+  const live = new Map([
+    ['index.html', `"${md5('front')}"`],
+    ['things/elixir/index.html', `"${md5('elixir')}"`],
+    // A multipart upload's ETag is never an MD5 of the bytes, so the page counts as changed.
+    ['topics/clash-royale/index.html', '"0123456789abcdef0123456789abcdef-2"']
+  ]);
+  assert.deepEqual(changedUrls({ sitemapXml, siteUrl: site, built, live }), [
+    'https://thingelstad.xyz/',
+    'https://thingelstad.xyz/things/mb/',
+    'https://thingelstad.xyz/topics/clash-royale/'
+  ]);
+  // A deploy that changes nothing pings nothing.
+  const same = new Map([...built].map(([key, hash]) => [key, `"${hash}"`]));
+  assert.deepEqual(changedUrls({ sitemapXml, siteUrl: site, built, live: same }), []);
+  assert.deepEqual(indexNowPayload(['https://thingelstad.xyz/'], site), {
+    host: 'thingelstad.xyz',
+    key: indexNowKey,
+    keyLocation: `https://thingelstad.xyz/${indexNowKey}.txt`,
+    urlList: ['https://thingelstad.xyz/']
+  });
+});
+
+test('an IndexNow ping never fails the deploy, and sends nothing when nothing changed', async () => {
+  const site = 'https://thingelstad.xyz/';
+  const calls: string[] = [];
+  const answer = (status: number) =>
+    (async (url: string) => {
+      calls.push(url);
+      return new Response(null, { status });
+    }) as unknown as typeof fetch;
+  assert.match(await pingIndexNow([], site, { fetch: answer(200) }), /nothing to send/);
+  assert.equal(calls.length, 0);
+  assert.match(await pingIndexNow([site], site, { fetch: answer(202) }), /accepted \(202\)/);
+  assert.deepEqual(calls, [indexNowEndpoint]);
+  assert.match(await pingIndexNow([site], site, { fetch: answer(429) }), /not accepted \(429\)/);
+  const offline = (async () => {
+    throw new Error('network down');
+  }) as unknown as typeof fetch;
+  assert.match(await pingIndexNow([site], site, { fetch: offline }), /failed \(network down\)/);
+  assert.match(await pingIndexNow([site], site, { fetch: offline, dryRun: true }), /dry run/);
 });

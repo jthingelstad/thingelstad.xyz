@@ -48,6 +48,8 @@ The apex is an alias A/AAAA to the CloudFront hostname. Do not copy CloudFront's
 
 CloudFront access logs go to the CloudWatch Logs group `/thingelstad-xyz/web-access`, kept 24 months (731 days), through CloudFront standard logging (delivery source and destination `thingelstad-xyz-web-access`, JSON). The shape is the other sites' (`/links/web-access`, `/weekly/web-access`): time, method, path, status, bytes, range, timings, edge result and location, protocol, and user agent, with no client IP and no query string. Added through the reviewed change set `cloud-engineer-access-logs-20261026` on October 26, 2026.
 
+IndexNow: after the deploy is verified, `scripts/deploy.mjs` tells IndexNow (Bing, Yandex, Seznam, Naver, Yep) which pages that deploy changed (`scripts/indexnow.mjs`). Before uploading it lists the bucket's `index.html` objects with their ETags; a sitemap page on `thingelstad.xyz` whose object is missing or whose ETag differs from the MD5 of the built file is changed (the bucket is SSE-S3 and pages go up single-part, so the ETag is the MD5). No change, no ping. The key is public by design and served at `/79f379d18599eeec9bebf34c9a2a5deb.txt` (the key as its whole body, `text/plain`), shared with Jamie's other sites and kept out of the sitemap, feeds and search. A failed listing or ping is logged and never fails the deploy. By hand only `node scripts/indexnow.mjs --dry-run [live.json]` runs, which prints the payload and sends nothing.
+
 The site bucket is versioned, so rollback is restoring the previous object versions (or reverting the commit on `main` and letting delivery republish) and invalidating. Never delete objects; old hashed assets serve already-open pages.
 
 ## GitHub Actions delivery
