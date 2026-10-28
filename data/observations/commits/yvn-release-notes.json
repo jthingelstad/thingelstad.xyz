@@ -2,9 +2,12 @@
   "kind": "commits",
   "repository": "jthingelstad/yvn-release-notes",
   "url": "https://github.com/jthingelstad/yvn-release-notes",
-  "observedAt": "2026-10-27T16:36:47.822Z",
+  "observedAt": "2026-10-28T17:10:27.363Z",
   "branch": "main",
   "commits": [
+    {"sha":"0173e3e9d346","date":"2026-10-28T16:20:36.000Z","subject":"Today page: weeks and days lived, as in the email","by":"agent","agents":["claude"]},
+    {"sha":"abaf26881a7c","date":"2026-10-28T15:51:52.000Z","subject":"Daily email: weeks and days lived under the countdown","by":"agent","agents":["claude"]},
+    {"sha":"6afb662d6399","date":"2026-10-28T14:26:10.000Z","subject":"Keep CloudFront access logs for 24 months","by":"agent","agents":["claude"]},
     {"sha":"88ea54cd2424","date":"2026-10-27T01:38:32.000Z","subject":"Web access log: leave out the path, where a calendar link carries its token","by":"agent","agents":["claude"]},
     {"sha":"ab417b1975d3","date":"2026-10-27T01:38:32.000Z","subject":"Web distribution: access log to /yvn-release-notes/web-access, kept 14 days","by":"agent","agents":["claude"]},
     {"sha":"61917e9e92f7","date":"2026-10-27T01:01:16.000Z","subject":"Deploy role: let the service role make the web distribution's access log","by":"agent","agents":["claude"]},

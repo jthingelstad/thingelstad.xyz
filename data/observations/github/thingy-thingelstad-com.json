@@ -2,7 +2,7 @@
   "kind": "github",
   "repository": "jthingelstad/thingy.thingelstad.com",
   "url": "https://github.com/jthingelstad/thingy.thingelstad.com",
-  "observedAt": "2026-10-27T16:36:47.822Z",
+  "observedAt": "2026-10-28T17:10:27.363Z",
   "repositoryCreatedAt": "2026-06-03T23:20:15.000Z",
   "archived": false,
   "description": "Thingy — the standalone web home for Jamie Thingelstad's archive agent: a query surface over the Studio corpus, with a web app and a Discord bridge.",
@@ -20,18 +20,18 @@
       "path": null,
       "branch": "main",
       "since": "2026-07-01T00:00:00.000Z",
-      "until": "2026-10-27T16:36:47.822Z",
-      "count": 213,
+      "until": "2026-10-28T17:10:27.363Z",
+      "count": 216,
       "complete": true,
       "months": [
         { "month": "2026-07", "count": 19 },
         { "month": "2026-08", "count": 29 },
         { "month": "2026-09", "count": 93 },
-        { "month": "2026-10", "count": 72 }
+        { "month": "2026-10", "count": 75 }
       ],
       "latestCommit": {
-        "date": "2026-10-27T12:08:25.000Z",
-        "url": "https://github.com/jthingelstad/thingy.thingelstad.com/commit/0c2bda9d1a6c065946e166278fe738d5431d7e5a"
+        "date": "2026-10-28T14:13:38.000Z",
+        "url": "https://github.com/jthingelstad/thingy.thingelstad.com/commit/95f2a4cb1abf3fa727ac5509468e55d0f85f761a"
       }
     }
   ]

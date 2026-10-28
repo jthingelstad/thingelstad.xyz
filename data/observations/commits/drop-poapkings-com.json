@@ -2,9 +2,10 @@
   "kind": "commits",
   "repository": "jthingelstad/drop.poapkings.com",
   "url": "https://github.com/jthingelstad/drop.poapkings.com",
-  "observedAt": "2026-10-26T17:22:18.153Z",
+  "observedAt": "2026-10-28T17:10:27.363Z",
   "branch": "main",
   "commits": [
+    {"sha":"c7aa917775df","date":"2026-10-28T14:12:32.000Z","subject":"infra: keep CloudFront access logs 24 months","by":"agent","agents":["claude"]},
     {"sha":"5109945ae2e5","date":"2026-10-26T02:31:28.000Z","subject":"Lead accessible names with the visible text and lift the axe 4.13 hold","by":"agent","agents":["claude"]},
     {"sha":"40914275d1d6","date":"2026-10-26T01:53:52.000Z","subject":"test: unmount inside act so Preact 11's deferred cleanups flush","by":"agent","agents":["claude"]},
     {"sha":"4b3ffa7cae5b","date":"2026-10-26T01:53:52.000Z","subject":"deps: take Preact 11.0.2 and adapt to its types","by":"agent","agents":["claude"]},

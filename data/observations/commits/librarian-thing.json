@@ -2,9 +2,11 @@
   "kind": "commits",
   "repository": "jthingelstad/librarian-thing",
   "url": "https://github.com/jthingelstad/librarian-thing",
-  "observedAt": "2026-10-27T16:36:47.822Z",
+  "observedAt": "2026-10-28T17:10:27.363Z",
   "branch": "main",
   "commits": [
+    {"sha":"b189f4246552","date":"2026-10-28T14:13:46.000Z","subject":"Keep CloudFront access logs 24 months (#99)","pr":99,"by":"agent","agents":["claude"]},
+    {"sha":"2b66ec274cd9","date":"2026-10-28T10:18:02.000Z","subject":"Fix blog round alt retry guards","by":"agent"},
     {"sha":"e5612cfde4cf","date":"2026-10-27T12:09:10.000Z","subject":"The IAM note names the sync stack's ReceiverRoles grant.","by":"agent","agents":["claude"]},
     {"sha":"ea685d1a8f04","date":"2026-10-27T12:08:27.000Z","subject":"Receipts carry only ids, times and titles, stated plainly.","by":"agent","agents":["claude"]},
     {"sha":"e681a13ab7e9","date":"2026-10-27T11:51:02.000Z","subject":"Newly held public sources report after the library upload succeeds.","pr":97,"by":"me"},
