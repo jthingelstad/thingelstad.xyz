@@ -187,10 +187,10 @@ save(
         }
       },
       // Access logs, the same shape as the other sites' (/links/web-access, /weekly/web-access): CloudFront's
-      // standard logging into CloudWatch Logs, kept 14 days, with no client IP and no query string.
+      // standard logging into CloudWatch Logs, kept 24 months (731 days), with no client IP and no query string.
       AccessLogGroup: {
         Type: 'AWS::Logs::LogGroup',
-        Properties: { LogGroupName: '/thingelstad-xyz/web-access', RetentionInDays: 14 }
+        Properties: { LogGroupName: '/thingelstad-xyz/web-access', RetentionInDays: 731 }
       },
       AccessLogSource: {
         Type: 'AWS::Logs::DeliverySource',

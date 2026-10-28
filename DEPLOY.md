@@ -46,7 +46,7 @@ The apex is an alias A/AAAA to the CloudFront hostname. Do not copy CloudFront's
 
 `thingelstad-xyz-site-distribution-5xx` alarms when CloudFront returns more than 5% 5xx in two of three five-minute windows. It publishes to `weekly-thing-librarian-alarms`, the Thingelstad family topic that feeds the shared `projects-ops-alerts` queue, as thingy-web's 5xx alarm does. There is no application runtime: the site is files in a bucket.
 
-CloudFront access logs go to the CloudWatch Logs group `/thingelstad-xyz/web-access`, kept 14 days, through CloudFront standard logging (delivery source and destination `thingelstad-xyz-web-access`, JSON). The shape is the other sites' (`/links/web-access`, `/weekly/web-access`): time, method, path, status, bytes, range, timings, edge result and location, protocol, and user agent, with no client IP and no query string. Added through the reviewed change set `cloud-engineer-access-logs-20261026` on October 26, 2026.
+CloudFront access logs go to the CloudWatch Logs group `/thingelstad-xyz/web-access`, kept 24 months (731 days), through CloudFront standard logging (delivery source and destination `thingelstad-xyz-web-access`, JSON). The shape is the other sites' (`/links/web-access`, `/weekly/web-access`): time, method, path, status, bytes, range, timings, edge result and location, protocol, and user agent, with no client IP and no query string. Added through the reviewed change set `cloud-engineer-access-logs-20261026` on October 26, 2026.
 
 The site bucket is versioned, so rollback is restoring the previous object versions (or reverting the commit on `main` and letting delivery republish) and invalidating. Never delete objects; old hashed assets serve already-open pages.
 
