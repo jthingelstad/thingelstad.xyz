@@ -1,6 +1,7 @@
 // The machine-readable outputs: feeds of the ledger and of activity, llms.txt, and the things.json ingestion surface.
 import { activityRss, jsonFeed, llmsFullText, llmsText, rssFeed, thingsJson } from '../collection/site.ts';
 import { indexNowKey } from '../scripts/indexnow.mjs';
+import { gitFileDates, sitemapEntries, sitemapXml } from '../collection/lastmod.ts';
 
 const outputs = {
   '/feed.xml': (site) => rssFeed(site),
@@ -12,23 +13,9 @@ const outputs = {
   // The IndexNow key file (scripts/indexnow.mjs): its body is exactly the key. It is in no sitemap, feed or index.
   [`/${indexNowKey}.txt`]: () => indexNowKey,
   '/robots.txt': (site) => `User-agent: *\nAllow: /\n\nSitemap: ${site.url}/sitemap.xml\n`,
-  // Every page the header links, then each thing and topic. /search/ lists every thing without JavaScript, so
-  // it is a page worth indexing; its filtered addresses (?status=...) are the same page and stay out.
-  '/sitemap.xml': (site) => {
-    const pages = [
-      '/',
-      '/topics/',
-      '/history/',
-      '/activity/',
-      '/timeline/',
-      '/search/',
-      ...site.things.map((t) => t.page),
-      ...site.topics.map((t) => t.page)
-    ];
-    return `<?xml version="1.0" encoding="utf-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${pages
-      .map((p) => `  <url><loc>${site.url}${p}</loc></url>`)
-      .join('\n')}\n</urlset>\n`;
-  }
+  // Every page the header links, then each thing and topic, each with the date its content last changed
+  // (collection/lastmod.ts).
+  '/sitemap.xml': (site) => sitemapXml(sitemapEntries(site, gitFileDates()))
 };
 
 export const data = {

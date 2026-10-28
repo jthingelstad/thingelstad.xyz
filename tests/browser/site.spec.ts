@@ -566,8 +566,17 @@ test('each feed is served as the type its head link names, and the sitemap lists
   ]);
   const sitemap = await page.request.get('/sitemap.xml');
   expect(sitemap.headers()['content-type']).toBe('application/xml; charset=utf-8');
-  const pages = [...(await sitemap.text()).matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => new URL(match[1]).pathname);
+  const sitemapText = await sitemap.text();
+  const pages = [...sitemapText.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => new URL(match[1]).pathname);
   expect(new Set(pages).size, 'each page once').toBe(pages.length);
+  // Every page carries a W3C datetime of when its content last changed (collection/lastmod.ts).
+  const urls = [...sitemapText.matchAll(/<url>([\s\S]*?)<\/url>/g)].map((match) => match[1]);
+  expect(urls.length).toBe(pages.length);
+  for (const url of urls) {
+    const lastmod = url.match(/<lastmod>(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z)<\/lastmod>/)?.[1];
+    expect(lastmod, url).toBeTruthy();
+    expect(Date.parse(lastmod!), url).toBeLessThanOrEqual(Date.now());
+  }
   // Every page the header links (search among them), every thing, every topic.
   const header = await page
     .locator('.site-header nav a')
