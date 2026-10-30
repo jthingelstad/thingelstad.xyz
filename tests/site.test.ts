@@ -303,6 +303,37 @@ test('artifacts are published beside their thing, shown by an image where there 
   );
 });
 
+test('bundles group a thing’s artifacts in their order, and the twin and things.json carry them', () => {
+  const changelog = model.things.find((t) => t.id === 'changelog')!;
+  const record = registry.things.find((t) => t.id === 'changelog')!;
+  assert.deepEqual(
+    changelog.bundles.map((b) => b.id),
+    record.bundles!.map((b) => b.id)
+  );
+  // Each bundle holds its own artifacts in their listed order, and together they hold every one once.
+  for (const bundle of changelog.bundles)
+    assert.deepEqual(
+      bundle.artifacts.map((a) => a.file),
+      record.artifacts!.filter((a) => a.bundle === bundle.id).map((a) => a.file)
+    );
+  assert.equal(
+    changelog.bundles.reduce((n, b) => n + b.artifacts.length, 0),
+    changelog.artifacts.length
+  );
+  assert.equal(changelog.bundles[0].artifacts[0].src, '/things/changelog/artifacts/api-plan-2026-10-29.md');
+  assert.deepEqual(model.things.find((t) => t.id === 'velotweets')!.bundles, [], 'artifacts without bundles');
+
+  const { frontmatter } = splitFrontmatter(thingMarkdown(changelog), 'twin') as {
+    frontmatter: Record<string, unknown>;
+  };
+  assert.deepEqual(frontmatter.bundles, record.bundles, 'the twin carries the bundles as written');
+  assert.equal((frontmatter.artifacts as Record<string, unknown>[])[0].bundle, 'the-plan');
+  assert.ok(!thingMarkdown(model.things.find((t) => t.id === 'velotweets')!).includes('bundles:'));
+  const json = thingsJson(model).things.find((t) => t.id === 'changelog')!;
+  assert.deepEqual(json.bundles, record.bundles);
+  assert.equal(json.artifacts?.[0].bundle, 'the-plan');
+});
+
 test('the timeline and sparklines render without gaps in the data', () => {
   const { timeline } = model;
   assert.equal(timeline.years.length, timeline.lastYear - timeline.firstYear + 1);
