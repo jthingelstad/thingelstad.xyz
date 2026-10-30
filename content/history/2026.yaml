@@ -1,3 +1,12 @@
+- id: changelog-testflight
+  date: 2026-10-29
+  kind: milestone
+  title: Changelog on TestFlight
+  summary: The first build of Changelog, my iPhone app for Release Notes, goes to TestFlight the day I start it. It adds notes through Release Notes’ public API, as any app someone writes for it can.
+  source: https://github.com/jthingelstad/changelog-ios/pull/11
+  things:
+    - changelog
+    - release-notes
 - id: sync-launch
   date: 2026-10-26
   kind: launch
