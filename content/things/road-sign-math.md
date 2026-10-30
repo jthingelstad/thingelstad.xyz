@@ -52,6 +52,9 @@ bundles:
   - id: my-signs
     title: My signs
     caption: Photos of the signs I found myself, from the first site.
+  - id: first-site
+    title: From the first site
+    caption: The rules, the logos I made, and the poster Jim Bernard and Suzie Meredith made for me as a gift for the site’s first year.
 artifacts:
   - file: map-2005-2014.png
     bundle: archive
@@ -61,8 +64,14 @@ artifacts:
   - file: signs-2005-2014.csv
     bundle: archive
     title: The signs, as data
-    caption: 'One row per sign: its number on the old site, the day it was posted, its title and type, the numbers on it, the math as the site typeset it (TeX), where it is, whether a photo survives, and whether I found it. Taken out: the other players’ names, including one sign titled with its finder’s user name.'
+    caption: 'One row per sign: its number on the old site, the day it was posted, its title and type, the numbers on it, the math as the site typeset it (TeX), where it is, its photos in the ZIP, and who found it.'
     date: '2026-10-30'
+  - file: photos-2005-2014.zip
+    bundle: archive
+    title: Every photo, 2005 to 2014
+    caption: All 164 surviving photos of 157 signs, most of them sent in by the players who found the signs, named like the rows of the CSV, by the day the sign was posted and its name. Most are cut from the one-year anniversary poster; the rest come from the Internet Archive, an old backup drive and copies I had kept. Camera details are taken out.
+    date: '2026-10-30'
+    preview: photos-2005-2014.jpg
   - file: genesis-2005-03-07.jpg
     bundle: my-signs
     title: Genesis
@@ -71,8 +80,29 @@ artifacts:
   - file: my-signs-2005-2012.jpg
     bundle: my-signs
     title: My signs, 2005 to 2012
-    caption: The 23 signs I found for the first site whose photos survive, with the day I posted each one. Most are cut from the one-year anniversary poster and are as sharp as the site showed them.
+    caption: The 24 signs I found for the first site whose photos survive, with the day I posted each one. Most are cut from the one-year anniversary poster and are as sharp as the site showed them.
     date: '2026-10-30'
+  - file: rules-3rd-edition-2006.pdf
+    bundle: first-site
+    title: The rules, 3rd edition
+    caption: Revision B, from November 2006, with an example sign for every kind of sign. Typeset in October 2026 from the wiki’s copy, with six plus signs the wiki had lost put back. Two small pictures, a gold star and a pie, are lost.
+    date: '2006-11'
+    preview: rules-3rd-edition-2006.png
+  - file: logo-original.jpg
+    bundle: first-site
+    title: The original logo
+    caption: 'The first site’s logo, which I made: a guide sign that does its own math, 4 × 25 = 100.'
+  - file: logo-2011.pdf
+    bundle: first-site
+    title: The shield logo
+    caption: 'The wiki’s logo, which I made: an interstate shield in front of the Genesis sign. The vector original, saved as a PDF on February 21, 2011.'
+    date: '2011-02-21'
+    preview: logo-2011.png
+  - file: poster-2006.jpg
+    bundle: first-site
+    title: The one-year poster
+    caption: Jim Bernard and Suzie Meredith made me this 16 × 20 poster of the first year’s signs as a gift. Most of the photos in this archive were cut from its print file; this copy is half its size.
+    date: '2006'
 ---
 
 Road Sign Math is a driving game: find a road sign whose numbers make a valid equation, photograph it, and share it. It began with a sign on I-94 East toward the Twin Cities that I passed coming home from visiting family in North Dakota, which listed distances of 3, 33 and 99 miles: 3 times 33 equals 99. On [Open Loop #1](https://www.thingelstad.com/projects/open-loop/1-big-fuzzy-dead-cat/) I recalled that my friend Jim told me I should make a website, “and so that day I did a website.”
