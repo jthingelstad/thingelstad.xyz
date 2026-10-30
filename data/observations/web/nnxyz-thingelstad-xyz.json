@@ -1,12 +1,12 @@
 {
   "kind": "web",
   "url": "https://nnxyz.thingelstad.xyz/",
-  "observedAt": "2026-10-23T23:01:15.615Z",
+  "observedAt": "2026-10-30T17:00:48.696Z",
   "sitemap": {
     "url": "https://nnxyz.thingelstad.xyz/sitemap-index.xml",
     "pages": 723,
-    "newestModified": null,
-    "months": [],
+    "newestModified": "2026-10-23T12:46:31.000Z",
+    "months": [{ "month": "2026-10", "count": 723 }],
     "complete": true
   },
   "feed": null

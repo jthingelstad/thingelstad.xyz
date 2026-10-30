@@ -2,9 +2,10 @@
   "kind": "commits",
   "repository": "jthingelstad/librarian-thing",
   "url": "https://github.com/jthingelstad/librarian-thing",
-  "observedAt": "2026-10-28T17:10:27.363Z",
+  "observedAt": "2026-10-30T17:00:48.696Z",
   "branch": "main",
   "commits": [
+    {"sha":"297cbe9695ae","date":"2026-10-28T19:18:00.000Z","subject":"Record public registry revision on the uploaded library snapshot (#100)","pr":100,"by":"me"},
     {"sha":"b189f4246552","date":"2026-10-28T14:13:46.000Z","subject":"Keep CloudFront access logs 24 months (#99)","pr":99,"by":"agent","agents":["claude"]},
     {"sha":"2b66ec274cd9","date":"2026-10-28T10:18:02.000Z","subject":"Fix blog round alt retry guards","by":"agent"},
     {"sha":"e5612cfde4cf","date":"2026-10-27T12:09:10.000Z","subject":"The IAM note names the sync stack's ReceiverRoles grant.","by":"agent","agents":["claude"]},

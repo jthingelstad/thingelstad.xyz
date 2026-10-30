@@ -1,12 +1,15 @@
 {
   "kind": "web",
   "url": "https://yourversionnumber.com/",
-  "observedAt": "2026-10-17T13:16:08.424Z",
+  "observedAt": "2026-10-30T17:00:48.696Z",
   "sitemap": {
     "url": "https://yourversionnumber.com/sitemap.xml",
     "pages": 11,
-    "newestModified": null,
-    "months": [],
+    "newestModified": "2026-10-29T00:00:00.000Z",
+    "months": [
+      { "month": "2026-09", "count": 5 },
+      { "month": "2026-10", "count": 6 }
+    ],
     "complete": true
   },
   "feed": null

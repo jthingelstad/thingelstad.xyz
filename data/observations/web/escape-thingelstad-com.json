@@ -1,12 +1,18 @@
 {
   "kind": "web",
   "url": "https://escape.thingelstad.com/",
-  "observedAt": "2026-10-25T14:59:53.527Z",
+  "observedAt": "2026-10-30T17:00:48.696Z",
   "sitemap": {
     "url": "https://escape.thingelstad.com/sitemap.xml",
     "pages": 136,
-    "newestModified": null,
-    "months": [],
+    "newestModified": "2026-10-25T16:35:03.000Z",
+    "months": [
+      { "month": "2026-03", "count": 87 },
+      { "month": "2026-04", "count": 3 },
+      { "month": "2026-05", "count": 5 },
+      { "month": "2026-08", "count": 39 },
+      { "month": "2026-10", "count": 2 }
+    ],
     "complete": true
   },
   "feed": {

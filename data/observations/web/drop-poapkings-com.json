@@ -1,12 +1,16 @@
 {
   "kind": "web",
   "url": "https://drop.poapkings.com/",
-  "observedAt": "2026-10-18T10:38:59.915Z",
+  "observedAt": "2026-10-30T17:00:48.696Z",
   "sitemap": {
     "url": "https://drop.poapkings.com/sitemap.xml",
-    "pages": 12,
-    "newestModified": null,
-    "months": [],
+    "pages": 13,
+    "newestModified": "2026-10-13T02:18:57.000Z",
+    "months": [
+      { "month": "2026-08", "count": 6 },
+      { "month": "2026-09", "count": 4 },
+      { "month": "2026-10", "count": 3 }
+    ],
     "complete": true
   },
   "feed": {

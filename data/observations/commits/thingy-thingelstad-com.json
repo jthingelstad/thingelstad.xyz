@@ -2,9 +2,10 @@
   "kind": "commits",
   "repository": "jthingelstad/thingy.thingelstad.com",
   "url": "https://github.com/jthingelstad/thingy.thingelstad.com",
-  "observedAt": "2026-10-28T17:10:27.363Z",
+  "observedAt": "2026-10-30T17:00:48.696Z",
   "branch": "main",
   "commits": [
+    {"sha":"f402640413dd","date":"2026-10-28T18:21:18.000Z","subject":"Sitemap: build it with a real lastmod per page (#48)","pr":48,"by":"agent","agents":["claude"]},
     {"sha":"95f2a4cb1abf","date":"2026-10-28T14:13:38.000Z","subject":"Keep CloudFront access logs 24 months (#47)","pr":47,"by":"agent","agents":["claude"]},
     {"sha":"6fb6e3eb3963","date":"2026-10-27T16:42:32.000Z","subject":"Remove the stub uv.lock now the dependency graph has re-read it","by":"agent","agents":["claude"]},
     {"sha":"1f869121b822","date":"2026-10-27T16:41:07.000Z","subject":"Stub uv.lock so the dependency graph re-reads the ghost manifest","by":"agent","agents":["claude"]},

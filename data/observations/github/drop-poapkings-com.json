@@ -2,15 +2,15 @@
   "kind": "github",
   "repository": "jthingelstad/drop.poapkings.com",
   "url": "https://github.com/jthingelstad/drop.poapkings.com",
-  "observedAt": "2026-10-28T17:10:27.363Z",
+  "observedAt": "2026-10-30T17:00:48.696Z",
   "repositoryCreatedAt": "2026-06-13T13:16:27.000Z",
   "archived": false,
   "description": "Elixir Drop — a fast little game for learning Clash Royale cards and elixir costs, run by the POAP KINGS clan. A self-contained Preact/TypeScript single-page app.",
   "stars": 1,
   "forks": 0,
   "languages": [
-    { "name": "TypeScript", "bytes": 2927829 },
-    { "name": "JavaScript", "bytes": 331806 },
+    { "name": "TypeScript", "bytes": 2933997 },
+    { "name": "JavaScript", "bytes": 334336 },
     { "name": "CSS", "bytes": 248896 },
     { "name": "HTML", "bytes": 5261 },
     { "name": "Shell", "bytes": 4044 }
@@ -25,17 +25,17 @@
       "path": null,
       "branch": "main",
       "since": "2026-07-01T00:00:00.000Z",
-      "until": "2026-10-28T17:10:27.363Z",
+      "until": "2026-10-30T17:00:48.696Z",
       "count": 297,
       "complete": false,
       "months": [
-        { "month": "2026-08", "count": 197 },
+        { "month": "2026-08", "count": 196 },
         { "month": "2026-09", "count": 68 },
-        { "month": "2026-10", "count": 32 }
+        { "month": "2026-10", "count": 33 }
       ],
       "latestCommit": {
-        "date": "2026-10-28T14:12:32.000Z",
-        "url": "https://github.com/jthingelstad/drop.poapkings.com/commit/c7aa917775dfe28854c1edf53487db387e9b44cb"
+        "date": "2026-10-28T18:31:26.000Z",
+        "url": "https://github.com/jthingelstad/drop.poapkings.com/commit/6109669fc5fb5f0df58b7c1d6b76807ae97b10e6"
       }
     }
   ]

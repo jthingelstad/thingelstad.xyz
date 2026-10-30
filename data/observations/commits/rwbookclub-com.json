@@ -2,9 +2,10 @@
   "kind": "commits",
   "repository": "jthingelstad/rwbookclub.com",
   "url": "https://github.com/jthingelstad/rwbookclub.com",
-  "observedAt": "2026-10-28T17:10:27.363Z",
+  "observedAt": "2026-10-30T17:00:48.696Z",
   "branch": "main",
   "commits": [
+    {"sha":"a8794d1ee740","date":"2026-10-28T18:33:32.000Z","subject":"Sitemap: a lastmod on every url (#102)","pr":102,"by":"agent","agents":["claude"]},
     {"sha":"66d42e09f380","date":"2026-10-28T15:42:17.000Z","subject":"Stop reading check-ins once a member reports DNF (#100)","pr":100,"by":"agent","agents":["claude"],"paths":["agent"]},
     {"sha":"a6b424ecd47e","date":"2026-10-28T14:25:51.000Z","subject":"Keep CloudFront access logs for 24 months (#101)","pr":101,"by":"agent","agents":["claude"]},
     {"sha":"f2aa6f7791b4","date":"2026-10-28T11:21:00.000Z","subject":"Align Oliver automation launch workspace","by":"agent"},

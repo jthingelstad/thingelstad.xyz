@@ -1,12 +1,15 @@
 {
   "kind": "web",
   "url": "https://elixir.poapkings.com/",
-  "observedAt": "2026-10-25T14:59:53.527Z",
+  "observedAt": "2026-10-30T17:00:48.696Z",
   "sitemap": {
     "url": "https://elixir.poapkings.com/sitemap.xml",
     "pages": 981,
-    "newestModified": null,
-    "months": [],
+    "newestModified": "2026-10-28T18:40:22.000Z",
+    "months": [
+      { "month": "2026-09", "count": 514 },
+      { "month": "2026-10", "count": 467 }
+    ],
     "complete": true
   },
   "feed": {

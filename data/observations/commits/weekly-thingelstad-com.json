@@ -2,9 +2,11 @@
   "kind": "commits",
   "repository": "jthingelstad/weekly.thingelstad.com",
   "url": "https://github.com/jthingelstad/weekly.thingelstad.com",
-  "observedAt": "2026-10-28T17:10:27.363Z",
+  "observedAt": "2026-10-30T17:00:48.696Z",
   "branch": "main",
   "commits": [
+    {"sha":"86a796319eb8","date":"2026-10-28T18:52:51.000Z","subject":"Refresh librarian graph","by":"me"},
+    {"sha":"9ab54ae94cab","date":"2026-10-28T18:31:57.000Z","subject":"Give every sitemap page an accurate lastmod (#46)","pr":46,"by":"agent","agents":["claude"]},
     {"sha":"dc218684483e","date":"2026-10-28T15:05:03.000Z","subject":"Ping IndexNow with the pages each deploy changes (#45)","pr":45,"by":"agent","agents":["claude"]},
     {"sha":"cf0a189ccaf6","date":"2026-10-28T14:18:47.000Z","subject":"Keep CloudFront access logs 24 months (#44)","pr":44,"by":"agent","agents":["claude"]},
     {"sha":"8495f487cdeb","date":"2026-10-28T10:45:20.000Z","subject":"Refresh librarian graph","by":"me"},
