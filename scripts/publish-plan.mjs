@@ -36,7 +36,7 @@ export const immutable = 'public,max-age=31536000,immutable';
 export const revalidate = 'no-cache';
 
 // A thing's artifacts (/things/<id>/artifacts/<file>) can be any kind of file. Images, PDFs, ZIP archives and
-// text are served as what they are; everything else, HTML and SVG included, is served as bytes to download, so
+// text (Markdown included, as plain text) are served as what they are; everything else, HTML and SVG included, is served as bytes to download, so
 // an old project's page or script never runs as a page of this site.
 const artifactTypes = {
   '.png': 'image/png',
@@ -46,7 +46,8 @@ const artifactTypes = {
   '.webp': 'image/webp',
   '.pdf': 'application/pdf',
   '.zip': 'application/zip',
-  '.txt': 'text/plain; charset=utf-8'
+  '.txt': 'text/plain; charset=utf-8',
+  '.md': 'text/plain; charset=utf-8'
 };
 const isArtifact = (key) => /^things\/[^/]+\/artifacts\/[^/]+$/.test(key);
 

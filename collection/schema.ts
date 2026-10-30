@@ -60,6 +60,15 @@ export type Artifact = {
   date?: DatePrecision; // when the file was made, as far as it is known
   source?: string; // a public page that shows or describes it
   preview?: string; // an image in the same folder that shows a file a browser cannot
+  bundle?: string; // the id of the thing's bundle it belongs to; required once the thing has bundles
+};
+// A named group of a thing's artifacts, such as a plan, or the screens before and after a redesign. The page
+// shows each bundle under its own heading, in the order the thing lists them, with its artifacts in their
+// listed order.
+export type ArtifactBundle = {
+  id: string; // a lowercase, hyphenated id, the bundle's anchor on the page (#artifacts-<id>)
+  title: string;
+  caption?: string;
 };
 // What the loader read from each artifact file, keyed `<thing id>/<file>`: measured, never written by hand.
 export type ArtifactFile = { bytes: number; width?: number; height?: number };
@@ -77,6 +86,7 @@ export type Thing = {
   sources: ThingSource[];
   connections: Connection[];
   story?: Story;
+  bundles?: ArtifactBundle[];
   artifacts?: Artifact[];
   body: string; // Markdown. The project's story, if any.
 };

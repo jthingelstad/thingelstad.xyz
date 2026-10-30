@@ -3,6 +3,7 @@ import {
   eventKinds,
   statuses,
   type Artifact,
+  type ArtifactBundle,
   type Connection,
   type HistoryEvent,
   type Registry,
@@ -188,7 +189,7 @@ function artifactFile(value: unknown, where: string): string {
   return name;
 }
 function artifact(value: unknown, where: string): Artifact {
-  const item = record(value, ['file', 'title', 'caption', 'date', 'source', 'preview'], where);
+  const item = record(value, ['file', 'title', 'caption', 'date', 'source', 'preview', 'bundle'], where);
   const result: Artifact = {
     file: artifactFile(item.file, `${where}.file`),
     title: text(item.title, `${where}.title`, 160)
@@ -204,6 +205,17 @@ function artifact(value: unknown, where: string): Artifact {
     if (!isImage(result.preview))
       throw new ContentError(`${where}.preview`, 'A preview is a PNG, JPEG, GIF, or WebP image.');
   }
+  if (item.bundle !== undefined) result.bundle = identifier(item.bundle, `${where}.bundle`);
+  return result;
+}
+function bundle(value: unknown, where: string): ArtifactBundle {
+  const item = record(value, ['id', 'title', 'caption'], where);
+  const result: ArtifactBundle = {
+    id: identifier(item.id, `${where}.id`),
+    title: text(item.title, `${where}.title`, 160)
+  };
+  const caption = optionalText(item.caption, `${where}.caption`, 1000);
+  if (caption !== undefined) result.caption = caption;
   return result;
 }
 
@@ -219,6 +231,7 @@ const thingFields = [
   'sources',
   'connections',
   'story',
+  'bundles',
   'artifacts'
 ];
 export function thing(id: string, frontmatter: unknown, body: string, where: string): Thing {
@@ -253,6 +266,29 @@ export function thing(id: string, frontmatter: unknown, body: string, where: str
     artifacts.flatMap((a) => (a.preview ? [a.file, a.preview] : [a.file])),
     `${where}.artifacts`
   );
+  // Bundles are all or nothing: once a thing names one, every artifact is in one, and none is empty.
+  const bundles = list(item.bundles, `${where}.bundles`, 30).map((b, i) => bundle(b, `${where}.bundles[${i}]`));
+  unique(
+    bundles.map((b) => b.id),
+    `${where}.bundles`
+  );
+  if (bundles.length) {
+    result.bundles = bundles;
+    const ids = new Set(bundles.map((b) => b.id));
+    artifacts.forEach((a, i) => {
+      if (a.bundle === undefined)
+        throw new ContentError(`${where}.artifacts[${i}]`, 'This thing has bundles, so every artifact names one.');
+      if (!ids.has(a.bundle))
+        throw new ContentError(`${where}.artifacts[${i}].bundle`, `No bundle has the id ${a.bundle}.`);
+    });
+    bundles.forEach((b, i) => {
+      if (!artifacts.some((a) => a.bundle === b.id))
+        throw new ContentError(`${where}.bundles[${i}]`, `No artifact is in the bundle ${b.id}.`);
+    });
+  } else {
+    const named = artifacts.findIndex((a) => a.bundle !== undefined);
+    if (named >= 0) throw new ContentError(`${where}.artifacts[${named}].bundle`, 'This thing has no bundles to name.');
+  }
   if (result.story && !result.body) throw new ContentError(where, 'A story needs a body: the idea behind the thing.');
   if (result.body.length > 20000) throw new ContentError(where, 'The body is too long.');
   if (/\/Users\//.test(result.body) || [...result.body].some((c) => c.charCodeAt(0) < 9))

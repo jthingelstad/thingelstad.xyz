@@ -53,10 +53,12 @@ test('the site is published assets first, pages after, the front page last, each
   assert.equal(contentTypeFor('things.json'), 'application/json; charset=utf-8');
   assert.equal(contentTypeFor('pagefind/pagefind-entry.json'), 'application/json; charset=utf-8');
   assert.throws(() => contentTypeFor('mystery.bin'));
-  // A thing's artifacts can be any file. Images, PDFs and archives are served as what they are; anything else,
+  // A thing's artifacts can be any file. Images, PDFs, archives and text, Markdown as plain text, are served as
+  // what they are; anything else,
   // a page or a script among them, as bytes to download, so it never runs as a page of this site.
   assert.equal(contentTypeFor('things/velotweets/artifacts/masthead-logo.png'), 'image/png');
   assert.equal(contentTypeFor('things/velotweets/artifacts/jerseys.zip'), 'application/zip');
+  assert.equal(contentTypeFor('things/changelog/artifacts/first-readme.md'), 'text/plain; charset=utf-8');
   assert.equal(contentTypeFor('things/example/artifacts/design.ai'), 'application/octet-stream');
   assert.equal(contentTypeFor('things/example/artifacts/old-home.html'), 'application/octet-stream');
   assert.equal(contentTypeFor('things/example/artifacts/logo.svg'), 'application/octet-stream');

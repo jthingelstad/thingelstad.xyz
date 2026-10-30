@@ -777,9 +777,23 @@ h2 {
   object-fit: scale-down;
 }
 
-.artifact h3 {
+.artifact-title {
   font-size: var(--jt-size-base);
   margin: 12px 0 4px;
+}
+
+/* Bundles: a thing's artifacts in named groups, each a heading, a line or two, and its own grid. */
+.artifact-bundle {
+  margin-top: 36px;
+}
+
+.artifact-bundle h3 {
+  margin: 0 0 4px;
+}
+
+.artifact-bundle-caption {
+  margin: 4px 0 0;
+  max-width: 68ch;
 }
 
 .artifact-caption {

@@ -8,6 +8,7 @@ import {
   githubKey,
   websiteKey,
   type Artifact,
+  type ArtifactBundle,
   type ArtifactFile,
   type CommitLogObservation,
   type Connection,
@@ -126,6 +127,9 @@ const artifactRecord = ({ src, kind: _k, bytes: _b, size: _s, image: _i, ...arti
   ...artifact,
   url: `${siteUrl}${src}`
 });
+// A bundle as its page shows it, with its artifacts in their listed order.
+type SiteBundle = ArtifactBundle & { artifacts: SiteArtifact[] };
+const bundleRecord = ({ artifacts: _a, ...bundle }: SiteBundle) => bundle;
 // A small monogram "sticker" for each thing: its initials on a tinted tile, tilted a degree or two. The
 // hue and tilt come from the id, so a thing keeps its sticker from build to build.
 export type Sticker = { letters: string; hue: number; tilt: number };
@@ -137,7 +141,7 @@ export function sticker(id: string, title: string): Sticker {
   return { letters, hue: hash % 360, tilt: (hash % 7) - 3 };
 }
 
-export type SiteThing = Omit<Thing, 'sources' | 'artifacts'> & {
+export type SiteThing = Omit<Thing, 'sources' | 'bundles' | 'artifacts'> & {
   page: string;
   markdown: string;
   statusLabel: string;
@@ -151,6 +155,7 @@ export type SiteThing = Omit<Thing, 'sources' | 'artifacts'> & {
   months: MonthCount[]; // commits and publications per month, last twelve months
   screenshot: SiteScreenshot | null;
   artifacts: SiteArtifact[];
+  bundles: SiteBundle[]; // empty when its artifacts are not in bundles
   views: SiteViews | null;
   span: { start: number | null; end: number | null }; // years, for the timeline
   filters: ThingFilter[]; // its facet values, for /search/
@@ -432,6 +437,9 @@ export function buildSiteModel(registry: Registry, observations: Observation[], 
         : eventYears.length
           ? Math.max(...eventYears)
           : start;
+    const artifacts = (thing.artifacts ?? []).map((artifact) =>
+      siteArtifact(thing.id, artifact, registry.artifactFiles)
+    );
     return {
       ...thing,
       page: `/things/${thing.id}/`,
@@ -449,7 +457,11 @@ export function buildSiteModel(registry: Registry, observations: Observation[], 
       latest: evidence[0] ?? null,
       months: window.map((month) => ({ month, count: counts.get(month) ?? 0 })),
       screenshot: shot ? siteScreenshot(shot) : null,
-      artifacts: (thing.artifacts ?? []).map((artifact) => siteArtifact(thing.id, artifact, registry.artifactFiles)),
+      artifacts,
+      bundles: (thing.bundles ?? []).map((bundle) => ({
+        ...bundle,
+        artifacts: artifacts.filter((artifact) => artifact.bundle === bundle.id)
+      })),
       views: viewed ? { site: viewed.url, total: viewed.hits, until: viewed.until, months: viewMonths(viewed) } : null,
       span: { start, end },
       filters: thingFilters(thing, sources, topicById),
@@ -599,6 +611,7 @@ export function thingMarkdown(thing: SiteThing) {
     ),
     connections: thing.connections,
     ...(thing.story ? { story: thing.story } : {}),
+    ...(thing.bundles.length ? { bundles: thing.bundles.map(bundleRecord) } : {}),
     ...(thing.artifacts.length ? { artifacts: thing.artifacts.map(artifactRecord) } : {}),
     page: `${siteUrl}${thing.page}`
   };
@@ -683,6 +696,7 @@ export function thingsJson(model: SiteModel) {
           }
         : {}),
       ...(thing.story ? { story: thing.story } : {}),
+      ...(thing.bundles.length ? { bundles: thing.bundles.map(bundleRecord) } : {}),
       ...(thing.artifacts.length
         ? {
             artifacts: thing.artifacts.map((artifact) => ({

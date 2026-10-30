@@ -15,7 +15,8 @@ type Thing = {
   status: string;
   topics: string[];
   sources: { kind: string }[];
-  artifacts?: { file: string; url: string; preview?: string }[];
+  bundles?: { id: string; title: string; caption?: string }[];
+  artifacts?: { file: string; url: string; preview?: string; bundle?: string }[];
 };
 type Output = {
   featured: string[];
@@ -292,6 +293,39 @@ test('a thing’s artifacts are shown, linked, and served as the files they are'
   expect(await fitsViewport(page)).toBe(true);
   await page.goto('/things/elixir-bot/');
   await expect(page.locator('.artifacts')).toHaveCount(0);
+  expect(errors).toEqual([]);
+});
+
+test('a thing’s bundles each have a heading, an anchor and their own artifacts, in order', async ({
+  page,
+  request
+}) => {
+  const errors = watchErrors(page);
+  const { bundles, artifacts } = things.find((thing) => thing.id === 'changelog')!;
+  expect(bundles!.length).toBeGreaterThan(1);
+  await page.goto('/things/changelog/');
+  const sections = page.locator('.artifacts .artifact-bundle');
+  await expect(sections).toHaveCount(bundles!.length);
+  for (const [i, bundle] of bundles!.entries()) {
+    const section = sections.nth(i);
+    await expect(section).toHaveAttribute('id', `artifacts-${bundle.id}`);
+    await expect(section.locator('h3')).toHaveText(bundle.title);
+    const own = artifacts!.filter((artifact) => artifact.bundle === bundle.id);
+    await expect(section.locator('.artifact')).toHaveCount(own.length);
+    await expect(section.locator('.artifact h4')).toHaveCount(own.length);
+    const hrefs = await section
+      .locator('.artifact-meta a[download]')
+      .evaluateAll((links) => links.map((link) => link.getAttribute('href')));
+    expect(hrefs).toEqual(own.map((artifact) => new URL(artifact.url).pathname));
+  }
+  // A bundle's anchor is an address of its own.
+  await page.goto(`/things/changelog/#artifacts-${bundles![0].id}`);
+  await expect(sections.first()).toBeInViewport();
+  // Markdown is served as text, to read in the browser.
+  const plan = artifacts!.find((artifact) => artifact.file.endsWith('.md'))!;
+  const response = await request.get(new URL(plan.url).pathname);
+  expect(response.headers()['content-type']).toBe('text/plain; charset=utf-8');
+  expect(await fitsViewport(page)).toBe(true);
   expect(errors).toEqual([]);
 });
 

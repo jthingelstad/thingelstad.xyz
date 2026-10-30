@@ -152,6 +152,55 @@ test('artifacts are any kind of file, named plainly, with a preview only where a
   );
 });
 
+test('bundles group a thing’s artifacts: all of them or none, and never an empty one', () => {
+  const withBundles = (bundles: unknown, artifacts: unknown) =>
+    thing('example', { ...base, bundles, artifacts }, '', 'x');
+  const bundles = [
+    { id: 'the-plan', title: 'The plan', caption: 'What it set out to be.' },
+    { id: 'before', title: 'Before' }
+  ];
+  const ok = withBundles(bundles, [
+    { file: 'plan.md', title: 'The plan', bundle: 'the-plan' },
+    { file: 'log.png', title: 'Log', bundle: 'before' },
+    { file: 'scope.md', title: 'The scope', bundle: 'the-plan' }
+  ]);
+  assert.deepEqual(ok.bundles, bundles);
+  assert.deepEqual(
+    ok.artifacts?.map((a) => a.bundle),
+    ['the-plan', 'before', 'the-plan']
+  );
+  assert.equal(thing('example', { ...base, bundles: [] }, '', 'x').bundles, undefined, 'no bundles, no list');
+  assert.throws(
+    () =>
+      withBundles(bundles, [
+        { file: 'plan.md', title: 'p', bundle: 'the-plan' },
+        { file: 'log.png', title: 'l' }
+      ]),
+    /every artifact names one/
+  );
+  assert.throws(
+    () => withBundles(bundles, [{ file: 'plan.md', title: 'p', bundle: 'after' }]),
+    /No bundle has the id after/
+  );
+  assert.throws(
+    () => withBundles(bundles, [{ file: 'plan.md', title: 'p', bundle: 'the-plan' }]),
+    /No artifact is in the bundle before/
+  );
+  assert.throws(() => withBundles(bundles, []), /No artifact is in the bundle the-plan/);
+  assert.throws(
+    () => withBundles(undefined, [{ file: 'plan.md', title: 'p', bundle: 'the-plan' }]),
+    /has no bundles to name/
+  );
+  assert.throws(
+    () =>
+      withBundles([...bundles, { id: 'before', title: 'Again' }], [{ file: 'a.png', title: 'a', bundle: 'before' }]),
+    /Duplicate: before/
+  );
+  assert.throws(() => withBundles([{ id: 'The Plan', title: 't' }], []), /lowercase, hyphenated ID/);
+  assert.throws(() => withBundles([{ id: 'plan' }], []), /public text/);
+  assert.throws(() => withBundles([{ id: 'plan', title: 't', files: [] }], []), /Unknown field: files/);
+});
+
 // A one-pixel PNG: the eight-byte signature, then an IHDR chunk with the width and height.
 const png = (width: number, height: number) => {
   const bytes = Buffer.alloc(33);
