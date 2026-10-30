@@ -2,16 +2,16 @@
   "kind": "github",
   "repository": "jthingelstad/yourversionnumber.com",
   "url": "https://github.com/jthingelstad/yourversionnumber.com",
-  "observedAt": "2026-10-28T17:10:27.363Z",
+  "observedAt": "2026-10-30T17:00:48.696Z",
   "repositoryCreatedAt": "2026-05-01T05:46:33.000Z",
   "archived": false,
   "description": "Bookmarkable static page that shows a person's age as a v MAJOR.MINOR.PATCH version number.",
   "stars": 2,
   "forks": 0,
   "languages": [
-    { "name": "CSS", "bytes": 369374 },
+    { "name": "CSS", "bytes": 369657 },
     { "name": "HTML", "bytes": 118905 },
-    { "name": "JavaScript", "bytes": 101084 },
+    { "name": "JavaScript", "bytes": 102889 },
     { "name": "Shell", "bytes": 2374 }
   ],
   "release": null,
@@ -20,17 +20,17 @@
       "path": null,
       "branch": "main",
       "since": "2026-07-01T00:00:00.000Z",
-      "until": "2026-10-28T17:10:27.363Z",
-      "count": 72,
+      "until": "2026-10-30T17:00:48.696Z",
+      "count": 74,
       "complete": true,
       "months": [
         { "month": "2026-07", "count": 1 },
         { "month": "2026-09", "count": 63 },
-        { "month": "2026-10", "count": 8 }
+        { "month": "2026-10", "count": 10 }
       ],
       "latestCommit": {
-        "date": "2026-10-28T14:26:06.000Z",
-        "url": "https://github.com/jthingelstad/yourversionnumber.com/commit/d7f543fb659ff7209d8df5499e369c14ac466c33"
+        "date": "2026-10-29T12:52:23.000Z",
+        "url": "https://github.com/jthingelstad/yourversionnumber.com/commit/9a102ab1e7da66fbd91a93471c2dfa7f7a3b8504"
       }
     }
   ]

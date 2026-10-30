@@ -2,9 +2,10 @@
   "kind": "commits",
   "repository": "jthingelstad/poap.thingelstad.xyz",
   "url": "https://github.com/jthingelstad/poap.thingelstad.xyz",
-  "observedAt": "2026-10-28T17:10:27.363Z",
+  "observedAt": "2026-10-30T17:00:48.696Z",
   "branch": "main",
   "commits": [
+    {"sha":"8f8c22c55b31","date":"2026-10-28T18:28:45.000Z","subject":"Sitemap: lastmod from the archive content's last commit (#6)","pr":6,"by":"agent","agents":["claude"]},
     {"sha":"1893cb14051a","date":"2026-10-28T14:30:31.000Z","subject":"Keep CloudFront access logs for 24 months (#5)","pr":5,"by":"agent","agents":["claude"]},
     {"sha":"1a18c2987b00","date":"2026-10-27T23:20:42.000Z","subject":"Docs: poap DNS records live in the thingelstad.xyz zone stack","pr":4,"by":"me"},
     {"sha":"42816bf66989","date":"2026-10-27T23:14:29.000Z","subject":"Docs: poap DNS records are code in the thingelstad.xyz zone stack","by":"agent","agents":["claude"]},

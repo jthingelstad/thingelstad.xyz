@@ -2,9 +2,11 @@
   "kind": "commits",
   "repository": "jthingelstad/sync.thingelstad.xyz",
   "url": "https://github.com/jthingelstad/sync.thingelstad.xyz",
-  "observedAt": "2026-10-28T17:10:27.363Z",
+  "observedAt": "2026-10-30T17:00:48.696Z",
   "branch": "main",
   "commits": [
+    {"sha":"7f336fc5e0c5","date":"2026-10-28T19:31:32.000Z","subject":"Compare public registry revisions with stored archive snapshots (#31)","pr":31,"by":"me"},
+    {"sha":"362b0a09c557","date":"2026-10-28T18:04:36.000Z","subject":"Compare sampled public bookmark notes without exposing text (#30)","pr":30,"by":"me"},
     {"sha":"a9a09dfa0f30","date":"2026-10-28T17:12:37.000Z","subject":"Advance bookmark coverage without losing unresolved follow-ups (#29)","pr":29,"by":"me"},
     {"sha":"47432d11edda","date":"2026-10-28T15:53:43.000Z","subject":"Show per-item public bookmark movement beyond the newest star (#28)","pr":28,"by":"me"},
     {"sha":"002ae49757d0","date":"2026-10-28T15:21:43.000Z","subject":"Reconcile the flow contract with WT354’s verified arrival (#27)","pr":27,"by":"me"},

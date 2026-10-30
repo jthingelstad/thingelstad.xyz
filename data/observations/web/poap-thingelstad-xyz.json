@@ -1,12 +1,12 @@
 {
   "kind": "web",
   "url": "https://poap.thingelstad.xyz/",
-  "observedAt": "2026-10-18T10:38:59.915Z",
+  "observedAt": "2026-10-30T17:00:48.696Z",
   "sitemap": {
     "url": "https://poap.thingelstad.xyz/sitemap-index.xml",
     "pages": 1052,
-    "newestModified": null,
-    "months": [],
+    "newestModified": "2026-10-17T14:24:51.000Z",
+    "months": [{ "month": "2026-10", "count": 1052 }],
     "complete": true
   },
   "feed": null

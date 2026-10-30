@@ -2,9 +2,12 @@
   "kind": "commits",
   "repository": "jthingelstad/links.thingelstad.xyz",
   "url": "https://github.com/jthingelstad/links.thingelstad.xyz",
-  "observedAt": "2026-10-28T17:10:27.363Z",
+  "observedAt": "2026-10-30T17:00:48.696Z",
   "branch": "main",
   "commits": [
+    {"sha":"34be030bcf91","date":"2026-10-30T08:17:12.000Z","subject":"Nightly: sync and enrichment, 2026-10-30","by":"agent"},
+    {"sha":"e4986c6791b0","date":"2026-10-29T07:22:03.000Z","subject":"Nightly: sync and enrichment, 2026-10-29","by":"agent"},
+    {"sha":"c155ae93ac2d","date":"2026-10-28T18:28:41.000Z","subject":"Sitemap: lastmod on every page from the date its content changed (#35)","pr":35,"by":"agent","agents":["claude"]},
     {"sha":"7ce093e144a1","date":"2026-10-28T15:03:49.000Z","subject":"Submit changed pages to IndexNow after each deploy (#34)","pr":34,"by":"agent","agents":["claude"]},
     {"sha":"fd0c58a6cefc","date":"2026-10-28T14:30:27.000Z","subject":"Keep CloudFront access logs for 24 months (#33)","pr":33,"by":"agent","agents":["claude"]},
     {"sha":"139ff5989ac5","date":"2026-10-28T13:18:20.000Z","subject":"Join published issues from an isolated pinned Weekly main source (#32)","pr":32,"by":"me"},

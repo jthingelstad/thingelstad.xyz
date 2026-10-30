@@ -2,9 +2,10 @@
   "kind": "commits",
   "repository": "jthingelstad/another.thingelstad.com",
   "url": "https://github.com/jthingelstad/another.thingelstad.com",
-  "observedAt": "2026-10-28T17:10:27.363Z",
+  "observedAt": "2026-10-30T17:00:48.696Z",
   "branch": "main",
   "commits": [
+    {"sha":"ce36eae112d2","date":"2026-10-28T18:32:02.000Z","subject":"Give every sitemap url an accurate lastmod (#17)","pr":17,"by":"agent","agents":["claude"]},
     {"sha":"b1266dafe3e1","date":"2026-10-28T15:19:14.000Z","subject":"Deploys tell IndexNow which pages changed. (#16)","pr":16,"by":"agent","agents":["claude"]},
     {"sha":"8ebf95ea74ae","date":"2026-10-28T14:20:34.000Z","subject":"Log CloudFront access to /another/web-access for 24 months (#15)","pr":15,"by":"agent","agents":["claude"]},
     {"sha":"c203b9f29d13","date":"2026-10-27T12:08:23.000Z","subject":"The episode receipt merged; it waits on ReceiverRoles and its variable.","by":"agent","agents":["claude"]},

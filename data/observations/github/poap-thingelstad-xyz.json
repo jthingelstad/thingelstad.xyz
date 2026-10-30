@@ -2,7 +2,7 @@
   "kind": "github",
   "repository": "jthingelstad/poap.thingelstad.xyz",
   "url": "https://github.com/jthingelstad/poap.thingelstad.xyz",
-  "observedAt": "2026-10-28T17:10:27.363Z",
+  "observedAt": "2026-10-30T17:00:48.696Z",
   "repositoryCreatedAt": "2026-10-17T12:32:42.000Z",
   "archived": false,
   "description": "A time capsule and tribute to POAP through Jamie Thingelstad's collecting, issuing, and network",
@@ -10,10 +10,10 @@
   "forks": 0,
   "languages": [
     { "name": "Astro", "bytes": 59122 },
-    { "name": "JavaScript", "bytes": 41499 },
+    { "name": "JavaScript", "bytes": 42832 },
     { "name": "CSS", "bytes": 14952 },
     { "name": "TypeScript", "bytes": 11751 },
-    { "name": "Python", "bytes": 5824 }
+    { "name": "Python", "bytes": 7436 }
   ],
   "release": null,
   "activity": [
@@ -21,13 +21,13 @@
       "path": null,
       "branch": "main",
       "since": "2026-07-01T00:00:00.000Z",
-      "until": "2026-10-28T17:10:27.363Z",
-      "count": 20,
+      "until": "2026-10-30T17:00:48.696Z",
+      "count": 21,
       "complete": true,
-      "months": [{ "month": "2026-10", "count": 20 }],
+      "months": [{ "month": "2026-10", "count": 21 }],
       "latestCommit": {
-        "date": "2026-10-28T14:30:31.000Z",
-        "url": "https://github.com/jthingelstad/poap.thingelstad.xyz/commit/1893cb14051a259950fdd090fa42ba434fb71528"
+        "date": "2026-10-28T18:28:45.000Z",
+        "url": "https://github.com/jthingelstad/poap.thingelstad.xyz/commit/8f8c22c55b319c27f2e6af7c9bc096b76111af24"
       }
     }
   ]

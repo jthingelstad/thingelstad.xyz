@@ -2,17 +2,17 @@
   "kind": "github",
   "repository": "jthingelstad/thingelstad.xyz",
   "url": "https://github.com/jthingelstad/thingelstad.xyz",
-  "observedAt": "2026-10-28T17:10:27.363Z",
+  "observedAt": "2026-10-30T17:00:48.696Z",
   "repositoryCreatedAt": "2026-10-13T16:41:47.000Z",
   "archived": false,
   "description": "Things I've built. Jamie Thingelstad's interactive project gallery.",
   "stars": 1,
   "forks": 0,
   "languages": [
-    { "name": "TypeScript", "bytes": 300927 },
-    { "name": "JavaScript", "bytes": 43159 },
-    { "name": "CSS", "bytes": 42840 },
-    { "name": "Nunjucks", "bytes": 40367 }
+    { "name": "TypeScript", "bytes": 317344 },
+    { "name": "CSS", "bytes": 43098 },
+    { "name": "JavaScript", "bytes": 42850 },
+    { "name": "Nunjucks", "bytes": 41156 }
   ],
   "release": null,
   "activity": [
@@ -20,13 +20,13 @@
       "path": null,
       "branch": "main",
       "since": "2026-07-01T00:00:00.000Z",
-      "until": "2026-10-28T17:10:27.363Z",
-      "count": 53,
+      "until": "2026-10-30T17:00:48.696Z",
+      "count": 57,
       "complete": true,
-      "months": [{ "month": "2026-10", "count": 53 }],
+      "months": [{ "month": "2026-10", "count": 57 }],
       "latestCommit": {
-        "date": "2026-10-28T15:06:01.000Z",
-        "url": "https://github.com/jthingelstad/thingelstad.xyz/commit/2ff5046c58e26ac54288068fd0120cb0ed3155d9"
+        "date": "2026-10-30T13:03:05.000Z",
+        "url": "https://github.com/jthingelstad/thingelstad.xyz/commit/8e156b771ae9009909b94fe3d8d2a14a20a7b660"
       }
     }
   ]

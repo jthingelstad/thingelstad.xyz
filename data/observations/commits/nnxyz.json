@@ -2,9 +2,10 @@
   "kind": "commits",
   "repository": "jthingelstad/nnxyz",
   "url": "https://github.com/jthingelstad/nnxyz",
-  "observedAt": "2026-10-28T17:10:27.363Z",
+  "observedAt": "2026-10-30T17:00:48.696Z",
   "branch": "main",
   "commits": [
+    {"sha":"fe6d94932a45","date":"2026-10-28T18:38:17.000Z","subject":"Sitemap: lastmod from the archive content's last commit (#31)","pr":31,"by":"agent","agents":["claude"]},
     {"sha":"7b809bb7d91c","date":"2026-10-28T15:06:16.000Z","subject":"Store pages uncompressed and let CloudFront negotiate encoding (#30)","pr":30,"by":"agent","agents":["claude"]},
     {"sha":"326a1ba950c9","date":"2026-10-28T14:25:45.000Z","subject":"Keep CloudFront access logs for 24 months (#29)","pr":29,"by":"agent","agents":["claude"]},
     {"sha":"5457dd4410b9","date":"2026-10-27T23:20:51.000Z","subject":"Docs: nnxyz DNS records live in the thingelstad.xyz zone stack","pr":28,"by":"me"},

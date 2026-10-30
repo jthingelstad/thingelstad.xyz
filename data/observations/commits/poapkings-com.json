@@ -2,9 +2,11 @@
   "kind": "commits",
   "repository": "jthingelstad/poapkings.com",
   "url": "https://github.com/jthingelstad/poapkings.com",
-  "observedAt": "2026-10-28T17:10:27.363Z",
+  "observedAt": "2026-10-30T17:00:48.696Z",
   "branch": "main",
   "commits": [
+    {"sha":"fb21acbf4589","date":"2026-10-28T18:31:53.000Z","subject":"Date the FAQ by the clan data its join button reads","by":"agent","agents":["claude"]},
+    {"sha":"4ac713d9117c","date":"2026-10-28T18:31:53.000Z","subject":"Sitemap: date each page by its last real content change","by":"agent","agents":["claude"]},
     {"sha":"b613696ba9c0","date":"2026-10-28T14:19:33.000Z","subject":"infra: keep CloudFront access logs 24 months","by":"agent","agents":["claude"]},
     {"sha":"f7abf91b4c8f","date":"2026-10-27T19:05:41.000Z","subject":"Retire GitHub Pages: the site is served by CloudFront","by":"agent","agents":["claude"]},
     {"sha":"60d21c4d7e36","date":"2026-10-27T17:35:15.000Z","subject":"Name the test files: Node 24 does not take a directory","by":"agent","agents":["claude"]},

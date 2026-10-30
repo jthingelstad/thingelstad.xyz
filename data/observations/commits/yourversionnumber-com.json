@@ -2,9 +2,11 @@
   "kind": "commits",
   "repository": "jthingelstad/yourversionnumber.com",
   "url": "https://github.com/jthingelstad/yourversionnumber.com",
-  "observedAt": "2026-10-28T17:10:27.363Z",
+  "observedAt": "2026-10-30T17:00:48.696Z",
   "branch": "main",
   "commits": [
+    {"sha":"9a102ab1e7da","date":"2026-10-29T12:52:23.000Z","subject":"Birthday edition: link one person's page to Release Notes (#13)","pr":13,"by":"agent","agents":["claude"]},
+    {"sha":"5740168e22d5","date":"2026-10-28T18:21:01.000Z","subject":"Give every sitemap page its true lastmod, held to git (#12)","pr":12,"by":"agent","agents":["claude"]},
     {"sha":"d7f543fb659f","date":"2026-10-28T14:26:06.000Z","subject":"Keep CloudFront access logs for 24 months (#11)","pr":11,"by":"agent","agents":["claude"]},
     {"sha":"618546de0981","date":"2026-10-27T01:38:27.000Z","subject":"README: drop the access-log paragraph and its promise (#10)","pr":10,"by":"agent","agents":["claude"]},
     {"sha":"1ba8ea5bb1a4","date":"2026-10-27T00:50:37.000Z","subject":"Record the CloudFront access logs (#9)","pr":9,"by":"agent","agents":["claude"]},
