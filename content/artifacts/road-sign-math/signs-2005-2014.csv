@@ -1,0 +1,252 @@
+sign,posted,title,type,numbers,math,city,county,state,country,continent,latitude,longitude,photo,found_by
+1,2005-02-21,Three Types,Basic,1 35 36,36 - 35 = 1; 36 - 35 = 1,Center Point,Linn County,Iowa,United States,North America,42.159383,-91.758683,yes,Jamie Thingelstad
+2,2005-02-22,Simple Root,Advanced,4 2,\sqrt 4 = 2; \sqrt 4 = 2,Clear Lake,Cerro Gordo County,Iowa,United States,North America,43.10556,-93.2795,yes,Jamie Thingelstad
+3,2005-02-28,"Nine, Is A Magic Number",Basic,2 7 9,2 + 7 = 9,Grayson,Carter County,Kentucky,United States,North America,38.45781,-83.0668,no,another player
+4,2005-03-05,Chaos In Three Miles,Basic,1 2 3,1 + 2 = 3; 70 + 15 = 85,Frederick,Frederick,Maryland,United States,North America,39.36381,-77.3993,yes,another player
+6,2005-03-06,Genesis,Basic,3 33 99,3 \times 33 = 99,Melrose,Stearns County,Minnesota,United States,North America,45.68844444,-94.8642222,yes,Jamie Thingelstad
+5,2005-03-07,Complex Modulo,Advanced,76 77 78 10 1,(76 + 77 + 78) \bmod 10 = 1,Twin Brooks,Grant County,Minnesota,United States,North America,46.02825,-95.8153056,yes,another player
+7,2005-03-19,See Pennsylvania,Basic,11 13 24,11 + 13 = 24,Port Allegany,McKean County,Pennsylvania,United States,North America,41.80547222,-78.2770278,yes,another player
+8,2005-03-20,Give Me Liberty,Advanced,16 4,\sqrt{16} = 4,Canton,Bradford County,Pennsylvania,United States,North America,41.65297222,-76.85266667,yes,another player
+9,2005-04-10,Welcome To Omaha!,Basic,1 2 3,1 + 2 = 3,Omaha,Douglas County,Nebraska,United States,North America,41.22397222,-96.02355556,yes,Jamie Thingelstad
+10,2005-04-10,Square Pueblo,Advanced,5 25,\sqrt {25} = 5,Pecos,San Miguel County,New Mexico,United States,North America,35.50286111,-105.675,yes,Jamie Thingelstad
+11,2005-04-11,Tom Osborne Is Square,Advanced,4 16,\sqrt 16 = 4,Grand Island,Hall County,Nebraska,United States,North America,40.81738889,-98.37866667,yes,Jamie Thingelstad
+12,2005-04-12,Math In The Mountains,Advanced,36 6,\sqrt 36 = 6,Keenesburg,Weld County,Colorado,United States,North America,40.10969444,-104.54825,yes,Jamie Thingelstad
+13,2005-04-13,Triplets of Lincoln,Basic,2 4 6,2 + 4 = 6; 2 + 4 = 6; 2 + 4 = 6,Lincoln,Lancaster County,Nebraska,United States,North America,40.86308333,-96.7165,yes,Jamie Thingelstad
+14,2005-04-14,Even Addition,Basic,2 6 8,2 + 6 = 8,Waverly,Lancaster County,Nebraska,United States,North America,40.90247222,-96.53105556,yes,Jamie Thingelstad
+15,2005-04-14,Welcome To Albuquerque,Basic,1 2 3,1 + 2 = 3; 1 + 2 = 3,Albuquerque,Bernalillo County,New Mexico,United States,North America,35.14180556,-106.595,yes,Jamie Thingelstad
+16,2005-04-15,DaVinci Sign,Basic,3 14 34 27 5,3 + 2 = 5; { 14 \over 34 - 27 } = 2; 3 + { 14 \over 34 - 27 } = 5,Las Vegas,San Miguel County,New Mexico,United States,North America,35.56322222,-105.2233611,yes,Jamie Thingelstad
+17,2005-04-16,Blackjack,Basic,1 20 21,20 + 1 = 21,San Juan Pueblo,Rio Arriba County,New Mexico,United States,North America,36.04558333,-106.062,yes,Jamie Thingelstad
+18,2005-04-16,Math Bandito,Basic,3 6 18,3 \times 6 = 18,Penasco,Taos County,New Mexico,United States,North America,36.17713889,-105.6210278,yes,Jamie Thingelstad
+19,2005-04-23,Exit 20 To Haifa,Basic,20 20 5 5 2,{ 20 \over 20 } + { 5 \over 5 } = 2; ( 5 + 5 ) \times 2 = 20,Tel Aviv,Tel Aviv,,Israel,Asia,32.04,34.75,yes,another player
+20,2005-05-14,William English,Basic,10 15 25,10 + 15 = 25,Wharton,Potter County,Pennsylvania,United States,North America,41.49433333,-78.00311111,yes,another player
+21,2005-05-14,Salad Days,Basic,13 9 22,13 + 9 = 22,Pine,Lycoming County,Pennsylvania,United States,North America,41.45255556,-77.27697222,yes,another player
+22,2005-06-04,Jack Trice,Basic,2 2 1 4,( 2 + 2 ) \times 1 = 4,Ames,Story County,Iowa,United States,North America,42.01241667,-93.57194444,yes,another player
+23,2005-06-05,Black Dog,Basic,4 4 1 15,( 4 \times 4 ) -1 = 15,Burnsville,Dakota County,Minnesota,United States,North America,44.798,-93.28955556,yes,Jamie Thingelstad
+24,2005-06-09,Guthrie,Basic,6 6 1 2,{6 \over 6 } + 1 = 2,Des Moines,Polk County,Iowa,United States,North America,41.64202778,-93.57569444,yes,another player
+25,2005-06-11,Seeing Double,Basic,22 22 44,22 + 22 = 44,Millerton,Dutchess County,New York,United States,North America,41.95275,-73.51255556,yes,another player
+26,2005-06-12,Double Square,Advanced,16 2,\sqrt{\sqrt {16} } = 2,Colesville,Broome County,New York,United States,North America,42.18891667,-75.63722222,yes,another player
+27,2005-06-12,Amherst Mods,Advanced,63 15 3,63 \bmod 15 = 3,Montague,Franklin County,Massachusetts,United States,North America,42.577,-72.49525,yes,another player
+28,2005-06-26,Shiloh,Basic,3 12 36,3 \times 12 = 36,Warm Springs,Meriwether County,Georgia,United States,North America,32.85127778,-84.70030556,yes,another player
+29,2005-07-03,Even In NY,Basic,6 6 1,6 \times 1 = 6,Gardiner,Ulster County,New York,United States,North America,41.67452778,-74.13169444,yes,another player
+30,2005-07-03,Mod-gomery,Advanced,7 3 1,7 \bmod 3 = 1,Montgomery,Orange County,New York,United States,North America,41.52555556,-74.20077778,yes,another player
+31,2005-07-04,Hootenany,Advanced,27 4 3,27 \bmod 4 = 3,Washington,Wyoming County,Pennsylvania,United States,North America,41.58602778,-76.00544444,yes,another player
+32,2005-07-04,Math On The Serengeti,Basic,152 319 199 32 64 28,152 - ( 319 - 199 ) = 32 \bmod ( 64 + 28 ); { {\cos (152 + 28)^\circ} \over { \cos (319 - 199)^\circ} } = { 64 \over 32 } \rightarrow { \cos 180^\circ \over \cos 120^\circ } = 2 \rightarrow { -1 \over {- {1 \over 2} } } = 2 \rightarrow 2 = 2,Serengeti,Serengeti,Mara,Tanzania,Africa,-1.9265124273894,35.174845410937,yes,another player
+33,2005-07-06,Petersham Poly,Basic,122 32 12 3 10,{ 122 - 32 \over 12 - 3 } = 10,Petersham,Worcester County,Massachusetts,United States,North America,42.48333333,-72.19472222,yes,another player
+34,2005-07-07,Euler? Anybody?,Constant,20 12 8 8 10 5 3 6,{ { (20 \times 12 \times 8 ) + \bigl( 8 \times ( 10 - 5 ) \bigr) - 3 } \over 6! } =; { 1920 + 40 - 3 \over 720 } = { 1957 \over 720 } \approx 2.718 \approx e,Codorus,York County,Pennsylvania,United States,North America,39.74936111,-76.80480556,yes,another player
+35,2005-07-08,When In Rome,Basic,187 187 3 4 7,187 - 187 + 3 + 4 = 7,Wysox,Bradford County,Pennsylvania,United States,North America,41.77416667,-76.39925,yes,another player
+36,2005-07-09,Orange,Basic,4 2 2 6 1,{ ( 4 \times 2 ) - 2 \over 6 } = 1,Orange,Franklin County,Massachusetts,United States,North America,42.59622222,-72.33244444,yes,another player
+37,2005-07-10,Westfield Exponential,Advanced,14 202 20 10 10 10 6 202,14^{ {202 - {20 \over 10} } \over {10 \times 10} } + 6 = 202; {202 \over 202} + {10 \over 10} + 10 + 14 - 6 = 20,Westfield,Hampden County,Massachusetts,United States,North America,42.11905556,-72.74858333,yes,another player
+38,2005-07-12,Trigonometry In Alaska,Advanced,152 17 117 118,\tan ( 152 - 17 )^\circ = 117 - 118,Fairbanks,Fairbanks North Star Borough,Alaska,United States,North America,64.95927778,-147.6171667,yes,another player
+39,2005-07-13,Twenty To Hawley,Basic,2 10 20,2 \times 10 = 20,Milford,Pike County,Pennsylvania,United States,North America,41.35805556,-74.88838889,no,another player
+40,2005-07-14,Slice of π,Constant,44 7 7,{ 44 \over 7 + 7 } = { 22 \over 7 } \approx 3.142857 \approx 3.14 \approx \pi,North Canaan,Litchfield County,Connecticut,United States,North America,42.02416667,-73.32402778,yes,another player
+41,2005-07-17,Wellsboro,Basic,6 480 490 10 6 287 4002,"6 \times ( 480 + 490 - 10 - 6 - 287 ) = 4,002",Wellsboro,Tioga County,Pennsylvania,United States,North America,41.74944444,-77.29941667,yes,another player
+42,2005-07-18,Little White Sign,Advanced,6 720,6! = 720,Richmond,Tioga County,Pennsylvania,United States,North America,41.79316667,-77.12283333,yes,another player
+43,2005-07-19,Ansonia Pi,Constant,3007 660 300 8 220 210,"{ 3,007 \over 660 + 300 + 8 - ( 220 - 210 ) } = { 3,007 \over 958 } \approx 3.138831 \approx 3.14 \approx \pi",Wellsboro,Tioga County,Pennsylvania,United States,North America,41.74363889,-77.31383333,yes,another player
+44,2005-07-20,Mass Pike Root,Advanced,122 1 11,\sqrt { 122 - 1 } = 11,Grafton,Worcester County,Massachusetts,United States,North America,42.22333333,-71.71963889,yes,another player
+45,2005-08-05,China Root,Advanced,1 1,\sqrt{1} = 1,Qingdao,Qingdao,Shandong,China,Asia,36.083,120.3,yes,another player
+46,2005-08-06,UnlonelyOne,Advanced,1 1,\sqrt{1} = 1,Westbrook,Middlesex County,Connecticut,United States,North America,41.28594444,-72.44972222,yes,another player
+47,2005-08-11,Simplest Addition,Basic,1 1 2,1 + 1 = 2,Attleboro,Bristol County,Massachusetts,United States,North America,41.91377778,-71.33677778,yes,another player
+48,2005-08-12,Coventry,Basic,2 3 6,2 \times 3 = 6,West Greenwich,Kent County,Rhode Island,United States,North America,41.62969444,-71.63555556,yes,another player
+49,2005-08-13,West Warwick,Basic,2 2 4 8,2 + 2 + 4 = 8,East Greenwich,Kent County,Rhode Island,United States,North America,41.65986111,-71.53244444,yes,another player
+50,2005-08-14,Trout Pi,Constant,22 7,{22 \over 7} \approx 3.142857 \approx 3.14 \approx \pi,Cogan House,Lycoming County,Pennsylvania,United States,North America,41.45819444,-77.13211111,yes,another player
+51,2005-08-19,Flashing Root,Advanced,16 4,\sqrt {16} = 4,Newcastle,Weston County,Wyoming,United States,North America,43.84888889,-104.1839167,yes,another player
+52,2005-08-20,Presidential Addition,Basic,10 12 22,10 + 12 = 22,Hill City,Pennington County,South Dakota,United States,North America,43.94958333,-103.5129722,yes,another player
+53,2005-08-22,Wapiti Powell,Basic,24 44 68,24 + 44 = 68,Cody,Park County,Wyoming,United States,North America,44.47222222,-109.8833889,yes,another player
+54,2005-08-27,West Yellowstone,Advanced,100 10,\sqrt{100} = 10,West Yellowstone,Gallatin County,Montana,United States,North America,44.67452778,-111.2758611,yes,another player
+55,2005-09-08,Wisconsin Border,Basic,15 16 31,15 + 16 = 31,Roberts,St Croix County,Wisconsin,United States,North America,44.94191667,-92.44641667,yes,another player
+56,2005-09-09,No Sleep Till Fargo,Advanced,67 42 5,\sqrt{67 - 42} = 5,Dalton,Otter Tail County,Minnesota,United States,North America,46.19627778,-95.99680556,yes,Jamie Thingelstad
+57,2005-09-10,Switch Root,Advanced,25 5,\sqrt{25} = 5,Vernal,Uintah County,Utah,United States,North America,40.63227778,-109.4771944,yes,another player
+58,2005-09-12,Kettle Creek,Advanced,4 2,\sqrt{4} = 2,Manila,Daggett County,Utah,United States,North America,40.78119444,-109.4704722,yes,another player
+59,2005-09-13,North Dakota Root,Advanced,4 2,\sqrt{4} = 2,Larimore,Grand Forks County,North Dakota,United States,North America,47.94683333,-97.62366667,yes,Jamie Thingelstad
+60,2005-09-14,Odd Little Sign,Advanced,1659 1655 2,"\sqrt{1,659 - 1,655} = 2",Grand Forks,Grand Forks County,North Dakota,United States,North America,47.93313889,-97.18888889,yes,Jamie Thingelstad
+61,2005-09-16,Madrid Math,Advanced,5 1 2,\sqrt{5 - 1} = 2,Armuña de Tajuña,Guadalajara,Castille-La Mancha,Spain,Europe,40.50588889,-3.05225,yes,another player
+62,2005-09-18,Mayville,Basic,2 11 13,2 + 11 = 13,Cummings,Traill County,North Dakota,United States,North America,47.49916667,-97.08783333,yes,Jamie Thingelstad
+63,2005-09-23,Dinosaur Math,Basic,62 7 20 65 50 10 5 10,\matrix{62 - 7 + 20 = 65 + 50 + 10 - (5 \times 10)\cr \Downarrow\cr 55 + 20 = 125 - 50\cr \Downarrow\cr 75 = 75},Vernal,Uintah County,Utah,United States,North America,40.43661111,-109.3086944,yes,another player
+64,2005-10-01,Just The Numbers,Basic,36 205 241,36 + 205 = 241,St Michael,Wright County,Minnesota,United States,North America,45.22047222,-93.59958333,yes,another player
+65,2005-10-07,Little White Sign II,Basic,2005 2002 50 20 10,{2005 - 2002} = { {50-20} \over {10} },Liberty,Tioga County,Pennsylvania,United States,North America,41.55583333,-77.0975,yes,another player
+66,2005-10-08,East South West,Basic,2 3 2 2 3 60,( 2 + 3 ) \times 2 \times 2 \times 3 = 60,Arlington,Middlesex County,Massachusetts,United States,North America,42.41633333,-71.14986111,yes,another player
+67,2005-10-09,Oronoco,Advanced,16 4,\sqrt {16} = 4,Pine Island,Goodhue County,Minnesota,United States,North America,44.21672222,-92.64875,yes,another player
+68,2005-10-10,Cresco,Basic,9 13 22,9 + 13 = 22,Lime Springs,Howard County,Iowa,United States,North America,43.37102778,-92.29833333,yes,another player
+69,2005-10-11,Brandon,Basic,48 1 49,48 + 1 = 49,Brandon,Buchanan County,Iowa,United States,North America,42.32541667,-91.99344444,yes,another player
+70,2005-10-12,Northwest Incongruity,Basic,2 4 6 2 5 7,2 + 4 = 6; 2 + 5 = 7,Davenport,Scott County,Iowa,United States,North America,41.60358333,-90.66380556,yes,another player
+71,2005-10-21,Quincy,Advanced,4 9 18,\sqrt{4} \times 9 = 18,Stoneham,Middlesex County,Massachusetts,United States,North America,42.45497222,-71.10297222,yes,another player
+72,2005-10-22,Provincetown,Basic,2 3 6,2 \times 3 = 6,Plymouth,Plymouth County,Massachusetts,United States,North America,41.78136111,-70.61597222,yes,another player
+73,2005-10-23,Pleasant Math,Advanced,5 11 2 2,\sqrt {5 + 11} = 2^2,Arlington,Middlesex County,Massachusetts,United States,North America,42.40630556,-71.16330556,yes,another player
+74,2005-10-28,Triggly Wiggly,Advanced,2005 10 6 3 240 240 2026,2005+10+6+3-{{\tan {240^\circ}}\over{\sin{240^\circ}}}=2026,Blossburg,Tioga County,Pennsylvania,United States,North America,41.67388889,-77.07277778,yes,another player
+75,2005-11-02,Rolling Rock,Basic,35 35 3 11 33,(35 - 35) + (3 \times 11) = 33,Stacy,Chisago County,Minnesota,United States,North America,45.38169444,-92.99244444,yes,another player
+76,2005-11-08,Bullhead,Basic,4 17 9 10 40,4 + 17 + 9 + 10 = 40,Mohave Valley,Mohave County,Arizona,United States,North America,34.96791667,-114.5951111,yes,another player
+77,2005-11-08,Little White Sign III,Advanced,1009 10 70 70 1010,"1,009 + 10 ^ {70-70} = 1,010",Liberty,Tioga County,Pennsylvania,United States,North America,41.55472222,-77.09666667,no,another player
+78,2005-11-09,Sharon,Basic,14 2 10 1 132,(14 - 2) \times (10 + 1) = 132; (14 - 2) \times (10 + 1) = 132; ((14 -1) \times 10) + 2 = 132,Sharon,Windsor County,Vermont,United States,North America,43.76775,-72.44583333,yes,another player
+79,2005-11-10,New Hampshire 1-2-3,Basic,1 2 3,1 + 2 = 3,Hooksett,Merrimack County,New Hampshire,United States,North America,43.09727778,-71.47594444,yes,another player
+80,2005-11-10,Point Mugu,Basic,1 2 3,1 + 2 = 3,Oxnard,Ventura County,California,United States,North America,34.1575,-119.1302778,yes,another player
+81,2005-11-11,Steep Down,Basic,25 1 26,25 + 1 = 26; 25 + 1 = 26,Markleeville,Alpine County,California,United States,North America,38.33652778,-119.6467778,yes,another player
+82,2005-11-12,Big Math,Advanced,59 2 60 35 1 60,59 + 2 - \log \Bigl({{60}\over{\sqrt{35 + 1}}}\Bigl)=60,Belmont,Middlesex County,Massachusetts,United States,North America,42.40863889,-71.173,yes,another player
+83,2005-11-12,Bedford,Basic,4 56 1 225,( 4 \times 56 ) + 1 = 225,Belmont,Middlesex County,Massachusetts,United States,North America,42.41036111,-71.17994444,yes,another player
+84,2005-11-12,Pleasant Math II,Advanced,2 2 4 8,{{2^4} \over {2}} = 8,Belmont,Middlesex County,Massachusetts,United States,North America,42.40527778,-71.1645,yes,another player
+85,2005-11-12,"No Parking, Math OK",Advanced,3 2 1 8,3^2 - 1 = 8,Somerville,Middlesex County,Massachusetts,United States,North America,42.39638889,-71.12555556,yes,another player
+86,2005-11-12,"No Parking, Math OK II",Basic,1 1 6 12,(1 + 1) \times 6 = 12,Somerville,Middlesex County,Massachusetts,United States,North America,42.386,-71.09625,yes,another player
+87,2005-11-13,Outlet Center,Advanced,4 4 4 4 8,\sqrt{4} + \sqrt{4} + \sqrt{4} + \sqrt{4} = 8,Oxnard,Ventura County,California,United States,North America,34.21977778,-119.1421389,yes,another player
+88,2005-11-19,University Math,Advanced,36 18 4,{36 \over 18} = \sqrt{4},Minneapolis,Hennepin County,Minnesota,United States,North America,44.97988889,-93.24452778,yes,another player
+89,2005-11-19,Woodstock,Basic,41 3 4 4 24 10 4 4 4 2 2 2,41 + 3 + 4 + 4 = 24 + 10 + 4 + 4 + 4 + 2+ 2 + 2,Hartford,Windsor County,Vermont,United States,North America,43.66247222,-72.38644444,yes,another player
+90,2005-11-19,Canaan,Basic,4 4 1 17,(4 \times 4) + 1 = 17,Lebanon,Grafton County,New Hampshire,United States,North America,43.64147222,-72.22708333,yes,another player
+91,2005-11-19,Mass Weight Limit,Basic,10 17 27,10 + 17 = 27,West Brookfield,Worcester County,Massachusetts,United States,North America,42.22952190666783,-72.14656082820886,yes,another player
+96,2005-11-19,Charlotte's Web,Basic,24 27 51,24 + 27 = 51,Mint Hill,Mecklenburg County,North Carolina,United States,North America,35.22311111,-80.62930556,yes,another player
+92,2005-11-20,Burlington,Advanced,62 62 5 3 9,{62 \over 62} + 5 = 3 + \sqrt{9},Wilmington,Middlesex County,Massachusetts,United States,North America,42.57594444,-71.15361111,yes,another player
+93,2005-11-20,Taiwan Identity,Basic,1 1 1,1 \times 1 = 1,Tainan City,Tainan City,,Taiwan,Asia,22.98486667,120.2015333,yes,another player
+94,2005-11-20,No Standing Down Under,Basic,8 4 3 9,8 + 4 - 3 = 9,Stratford,,Victoria,Australia,Australia,-37.96792778,147.0848722,yes,another player
+95,2005-11-20,Arlington Bell Tower,Basic,60 60 2 3,{60 \over 60} + 2 = 3,Arlington,Middlesex County,Massachusetts,United States,North America,42.41561111,-71.15461111,yes,another player
+97,2005-11-20,Stacked Math,Basic,77 29 49 1 3 5 27 28,77 = 29 + 49 - \bigl( ( 1 + 3 - 5) \times (27 - 28) \bigl),Charlotte,Mecklenburg County,North Carolina,United States,North America,35.22538889,-80.84330556,yes,another player
+98,2005-11-20,Begin Blvd,Basic,2 3 5,2 + 3 = 5,Jerusalem,Jerusalem,,Israel,Asia,31.80246944,35.20229167,yes,another player
+99,2005-11-21,No Standing Down Under II,Basic,8 3 5,8 - 3 = 5,Melbourne,,Victoria,Australia,Australia,-37.83376111,144.9630972,yes,another player
+100,2005-11-22,Florida Twofer,Advanced,4 9 13 1 1 4,4 + 9 = 13; 1 + 1 = \sqrt{4},Sanford,Seminole County,Florida,United States,North America,28.81358333,-81.33736111,yes,another player
+101,2005-12-02,Cambridge Math,Advanced,5 9 2,5 - \sqrt{9} = 2,Belmont,Middlesex County,Massachusetts,United States,North America,42.41041667,-71.18108333,yes,another player
+102,2005-12-02,Dirty DC,Basic,50 1 50,50 \times 1 = 50,Washington,District of Columbia,"Washington, D.C.",United States,North America,38.90361111,-77.01986111,yes,another player
+103,2005-12-02,Castle Pi,Constant,896 273 141 95 202 141 5 1 7 9 13 3 5 5,{896\over273}-{{141-95}\over{202+141}}-{{5+1}\over{7\times9\times13}}+{3\over{5^5}} \approx 3.141574 \approx \pi,New Castle,New Castle County,Delaware,United States,North America,39.71638889,-75.58283333,yes,another player
+104,2005-12-03,Florida Walking Sign,Basic,2000 400 20 4,"2,000 \div 400 = 20 \div 4",Sanford,Seminole County,Florida,United States,North America,28.79397222,-81.26480556,yes,another player
+105,2005-12-03,Burlington Pi,Constant,44 21 7,{44 \over {21 - 7}} \approx 3.142857 \approx 3.14 \approx \pi,Lexington,Middlesex County,Massachusetts,United States,North America,42.45347222,-71.25677778,yes,another player
+106,2005-12-03,Florida Walking Sign II,Basic,300 3 900,300 \times 3 = 900,Sanford,Seminole County,Florida,United States,North America,28.80983333,-81.27625,yes,another player
+107,2005-12-11,Westminster,Advanced,8 140 140 21 5 2 2 2 2,\root 8 \of {140+140-21+5-(2\times2\times2)} =2,Westminster,Worcester County,Massachusetts,United States,North America,42.54216667,-71.89775,yes,another player
+108,2005-12-11,Little White Sign IV,Advanced,2022 100 40 90 2025,"2,022 + \sec (100 - 40) ^\circ + \sin 90^\circ = 2,025",Putnam,Tioga County,Pennsylvania,United States,North America,41.744472,-77.0808055,yes,another player
+109,2005-12-11,Cambridge Math Backside,Basic,2 2 5 9,(2 \times 2) + 5 = 9,Belmont,Middlesex County,Massachusetts,United States,North America,42.41041666,-71.181083,no,another player
+110,2005-12-11,Sebring,Basic,2 15 2005 140 140 2023 4,2-15-2005-{140\over140}+2023=4,Liberty,Tioga County,Pennsylvania,United States,North America,41.62244444,-77.11736111,yes,another player
+111,2005-12-17,Clam Box,Basic,13 17 30,13 + 17 = 30,Brookfield,Worcester County,Massachusetts,United States,North America,42.21119444,-72.086388,yes,another player
+112,2005-12-17,Garden State,Basic,9 2 11,9 + 2 = 11,Woodbridge,Middlesex County,New Jersey,United States,North America,40.5676111,-74.255444,yes,Jamie Thingelstad
+113,2005-12-18,Brunswick Math,Basic,9 2 1 18,9 \times 2 \times 1 = 18,Edison,Middlesex County,New Jersey,United States,North America,40.50619444,-74.376194,yes,Jamie Thingelstad
+114,2005-12-18,Phoenix,Basic,17 10 17 10,17 + 10 - 17 = 10,Phoenix,Maricopa County,Arizona,United States,North America,33.441222,-112.06977,yes,another player
+115,2005-12-18,Kelso,Basic,36 18 35 15 40,(36 \div 18) \times (35 - 15) = 40,Baker,San Bernardino County,California,United States,North America,35.0118888,-115.654138,yes,another player
+116,2005-12-31,Welcome To New Hampshire,Advanced,12 16 10,12 - 10 = \sqrt{\sqrt{16}},Cornish,Sullivan County,New Hampshire,United States,North America,43.47386,-72.38359,yes,another player
+117,2005-12-31,Framingham Pi,Basic,12 9 1 7,{ { 12 + 9 + 1} \over 7 } \approx \pi,Southborough,Worcester County,Massachusetts,United States,North America,42.28472,-71.50069,yes,another player
+118,2006-01-01,Gerry's Landing,Basic,2 16 16 3,2 + ( 16 \div 16 ) = 3,Cambridge,Middlesex County,Massachusetts,United States,North America,42.37487,-71.13778,yes,another player
+119,2006-01-01,Somerville,Basic,2 3 16 4 5,2 \times 4 \times (5 - 3) = 16,Cambridge,Middlesex County,Massachusetts,United States,North America,42.38006,-71.14453,yes,another player
+120,2006-01-01,Rodeo,Basic,20 30 50,20 + 30 = 50,Hachita,Grant County,New Mexico,United States,North America,31.91889,-108.32494,yes,another player
+121,2006-01-15,Rhododendron,Basic,6 8 14,8 + 6 = 14,Fitzwilliam,Cheshire County,New Hampshire,United States,North America,42.78166,-72.14131,yes,another player
+122,2006-01-15,Montague Pi,Constant,47 15 1 5,(47 \div 15) + (1 \div 5!) \approx \pi,Montague,Franklin County,Massachusetts,United States,North America,42.51884,-72.5311,yes,another player
+123,2006-01-15,Montague Flipside,Basic,63 47 15 5 11,63 + 47 = (15 - 5) \times 11,Montague,Franklin County,Massachusetts,United States,North America,42.51884,-72.5311,yes,another player
+124,2006-01-15,Farewell 2005,Constant,2017 280 260 250 9 2005 40,"{{2,017} \over { 280 + 260 + 250 + \ln 9 - {{2,005} \over {40}} } } \approx 2.71806 \approx e",Blossburg,Tioga County,Pennsylvania,United States,North America,41.68278,-77.06556,yes,another player
+125,2006-01-15,Oahu Cancelation,Basic,83 83 0,83 - 83 = 0,Honolulu,Honolulu County,Hawaii,United States,North America,21.57762,-158.10566,yes,another player
+126,2006-01-16,Daytona Beach,Basic,17 92 4 436,( 17 + 92 ) \times 4 = 436,Altamonte Springs,Seminole County,Florida,United States,North America,28.662,-81.38907,yes,another player
+127,2006-01-16,Birds Of Prey,Advanced,4 2 1,\sqrt{4} \div 2 = 1,Winter Park,Orange County,Florida,United States,North America,28.60404,-81.38599,yes,another player
+128,2006-01-16,Carpools Only,Advanced,9 5 7 3,\sqrt{9 - 5} = \sqrt{7 - 3},Fremont,Alameda County,California,United States,North America,37.5093,-121.96996,yes,another player
+129,2006-01-16,Mineta Airport,Advanced,3 1 4,3-1=\sqrt{4},San Jose,Santa Clara County,California,United States,North America,37.36325,-121.90243,yes,another player
+130,2006-01-16,Dos Horas,Basic,2 10 4 16 1 0 0,{{2 + 10 + 4} \over {16}} + 0 + 0 = 1,Douglas,Cochise County,Arizona,United States,North America,31.34447,-109.55197,yes,another player
+131,2006-01-17,Minneapolis No Parking,Advanced,9 4 7 6,\sqrt{9} - \sqrt{4} = 7 - 6,Minneapolis,Hennepin County,Minnesota,United States,North America,44.93323,-93.288,yes,another player
+132,2006-01-17,Westin,Advanced,20 4 3 20 12,\left( \sqrt{ \sqrt{ 20 - 4} } \right) ^ 3 = 20 - 12,Weston,Middlesex County,Massachusetts,United States,North America,42.36675,-71.29647,yes,another player
+133,2006-01-17,Hixton,Basic,95 105 9 1,95 + 1 + 9 = 105,Hixton,Jackson County,Wisconsin,United States,North America,44.38819,-91.00532,yes,another player
+134,2006-01-17,Jasper,Advanced,78 78 69 4 5,\tan (78 + 78 + 69)^\circ + 4 = 5,Jasper,Walker County,Alabama,United States,North America,33.83959,-87.23314,yes,another player
+135,2006-01-18,Ravenna,Basic,14 6 4 80,( 14 + 6 ) \times 4 = 80,Twinsburg,Summit County,Ohio,United States,North America,41.29263,-81.42386,yes,another player
+136,2006-01-18,Lake Oswego,Basic,289 290 1,290 - 1 = 289,Tualatin,Washington County,Oregon,United States,North America,45.37798,-122.75386,yes,another player
+137,2006-01-19,Swan Island,Basic,303 304 1,303 + 1 = 304,Portland,Multnomah County,Oregon,United States,North America,45.54069,-122.67138,yes,another player
+138,2006-01-19,Going Street,Basic,3 2 6,3 \times 2 = 6,Portland,Multnomah County,Oregon,United States,North America,45.55515,-122.67837,yes,another player
+139,2006-01-19,Clackamas Estacada,Basic,224 212 12,224 - 212 = 12,Clackamas,Clackamas County,Oregon,United States,North America,45.41063,-122.57225,yes,another player
+140,2006-02-05,Willow Root,Advanced,2 4,\sqrt{4} = 2,Crockett,Contra Costa County,California,United States,North America,38.04325,-122.24038,yes,another player
+141,2006-02-05,Emeryville,Constant,880 600 80 3 10 10 14 7 5 580,{{880 + 600 + (80 \times 3) + (10 \times 10) + 14 - 7 - 5 } \over {580}} \approx 3.141 \approx \pi,Oakland,Alameda County,California,United States,North America,37.82696,-122.2983,yes,another player
+142,2006-02-05,San Fran Pi,Constant,880 280,{{880} \div {280}} \approx 3.141 \approx \pi,San Jose,Santa Clara County,California,United States,North America,37.31719,-121.93998,yes,another player
+143,2006-02-05,Dade City,Advanced,11 4 3 9,11 - \sqrt{4} = 3 \times \sqrt{9},San Antonio,Pasco County,Florida,United States,North America,28.32493,-82.32445,yes,another player
+144,2006-03-31,Downtown Mansfield,Basic,38 13 6 6 15,38 + 13 = 6 \times 6 + 15,Mansfield,Tioga County,Pennsylvania,United States,North America,41.80778,-77.07861,no,another player
+145,2006-03-31,Lazy Gecko,Advanced,6 9 2 32,\sum_{n=6}^{9}n + 2 = 32,De Pere,Brown County,Wisconsin,United States,North America,44.44651,-88.07029,no,another player
+146,2006-03-31,Westboro Pike,Constant,495 11 6 1,\sqrt { 495 - 11 } \div ( 6 + 1 ) \approx \pi,Hopkinton,Middlesex County,Massachusetts,United States,North America,42.25307,-71.58318,no,another player
+147,2006-03-31,Tempe Math,Basic,1 2 3,1 + 2 = 3,Tempe,Maricopa County,Arizona,United States,North America,33.43616,-111.90878,no,another player
+148,2006-04-02,Golden Providence,Constant,395 95 76,\ln 395 - \sqrt{95 - 76} \approx 1.61998 \approx \varphi,East Lyme,New London County,Connecticut,United States,North America,41.37291,-72.19757,no,another player
+149,2006-04-02,Oxford Ratio,Constant,3 4 5,\sqrt{4 ^ {ln (5 - 3) } } \approx 1.6168 \approx \varphi,Auburn,Worcester County,Massachusetts,United States,North America,42.16998,-71.84437,no,another player
+150,2006-04-02,Stop Math,Basic,11 100 1100,"11 \times 100 = 1,100",Tempe,Maricopa County,Arizona,United States,North America,33.41749,-111.9424,no,another player
+151,2006-04-02,Milbury,Constant,10 146 20,\ln \sqrt{140 - 122} + \ln \sqrt{30} \approx 3.1458 \approx \pi,Grafton,Worcester County,Massachusetts,United States,North America,42.22968,-71.70967,no,another player
+152,2006-04-02,Carpool Math,Basic,9 3 5 7,9+3 = 5+7,Mountain View,Santa Clara County,California,United States,North America,37.375026,-122.067912,no,another player
+153,2006-04-02,Carpool Math 2,Basic,9 3 5 7,9-7 = 5-3,Sunnyvale,Santa Clara County,California,United States,North America,37.41109,-121.989967,no,another player
+154,2006-04-02,Excelsior,Advanced,3 1 5,3! - 1 = 5,Edina,Hennepin County,Minnesota,United States,North America,44.90959,-93.40108,no,another player
+155,2006-04-05,Buckeye,Advanced,32 34 64 10,\sqrt{64} + 34 - 32 = 10,Gila Bend,Maricopa County,Arizona,United States,North America,32.93575,-112.73342,no,another player
+156,2006-04-05,Mary Had A Little Lamb,Advanced,140 62 13 3 6,\bigl({{140-62}\over{13}}-3\bigr)!=6,Sterling,Worcester County,Massachusetts,United States,North America,42.43328,-71.81221,no,another player
+157,2006-04-05,Euler Returns,Constant,202 122 26 13 5,{{202 + 122 + {{26}\over{13}}} \over {5!}} \rightarrow {{326}\over{120}} \approx 2.716666 \approx e,New Salem,Franklin County,Massachusetts,United States,North America,42.51615,-72.26377,no,another player
+158,2006-04-05,Euler Returns 2,Constant,4 2005 660 660 45 2005 380 370 1 390,{{4\times(2005-660-660)\times\tan{45^\circ}} \over {(2005+380-370+1)\times\sin{390^\circ}}} \rightarrow {{2740}\over{1008}} \approx 2.718253 \approx e,Covington,Tioga County,Pennsylvania,United States,North America,41.75806,-77.08278,no,another player
+159,2006-04-07,Avon Trig,Advanced,390 390 5 20,\sin(390\times5)^\circ = \cos(390\times20)^\circ,Avon,Livingston County,New York,United States,North America,42.90519,-77.6929,no,another player
+160,2006-04-07,Avon Algebra,Advanced,20 5 20 5 390 15,(20-5)\times(20+5) = 390-15,Avon,Livingston County,New York,United States,North America,42.90923,-77.70639,no,another player
+161,2006-04-07,Henrietta,Advanced,390 15 15,\sin(390-15)^\circ = \sin 15^\circ,Henrietta,Monroe County,New York,United States,North America,43.08713,-77.60927,no,another player
+162,2006-04-07,Silver Springs,Basic,3 7 10,3 + 7 = 10,Castile,Wyoming County,New York,United States,North America,42.6222,-78.06383,no,another player
+163,2006-04-08,Lombardi,Basic,1 2 3 54 29 32,(29+32)-(3\times2+1)=54,Ashwaubenon,Brown County,Wisconsin,United States,North America,44.49154,-88.08086,no,another player
+164,2006-04-08,Green Bay,Basic,19 50 69,19 + 59 = 69; 19 + 59 = 69,Abrams,Oconto County,Wisconsin,United States,North America,44.78591,-88.04616,no,another player
+165,2006-04-08,Winter Park,Advanced,24 9 5,\sqrt{24 + \cos((\sqrt{9})!)!} = 5; \sqrt{24 + \cos((\sqrt{9})!)!} = 5,Winter Park,Grand County,Colorado,United States,North America,39.87429,-105.75138,no,another player
+166,2006-04-09,Avogadro,Constant,22 6 10 1 23 146,\ln \bigl( ( \sqrt { \sqrt {146 + 6 } } ) ^{(\sqrt{22 +1})} \bigl) \times 10^{23} \rightarrow 6.02 \times 10^{23} \rightarrow N_A,Providence,Providence County,Rhode Island,United States,North America,41.84122,-71.41105,no,another player
+167,2006-04-09,Flagler,Basic,2 3 5,3 + 2 = 5,Palm Coast,Flagler County,Florida,United States,North America,29.47632,-81.18454,no,another player
+168,2006-04-09,Plane Geometry,Advanced,12 16 4,\sqrt{12 + 4} = \sqrt{16},Orlando,Orange County,Florida,United States,North America,28.37367,-81.29174,no,another player
+169,2006-04-09,V Math,Advanced,1 5 9 81,1 + 5 + \sqrt{9} = \sqrt{81},Happy Jack,Coconino County,Arizona,United States,North America,34.65208,-111.37351,no,another player
+170,2006-04-09,Salt River Canyon,Basic,21 16 7 4 26,21 + 16 - 7 - 4 = 26,Peridot,Gila County,Arizona,United States,North America,33.79681,-110.49897,no,another player
+171,2006-04-14,Fontana Factorials,Advanced,20 9 5,20 \times (\sqrt{9})! = 5!,Fontana,San Bernardino County,California,United States,North America,34.13621,-117.48913,no,another player
+172,2006-04-14,Inaugural Series,Series,6 10 15,{1\over2}n(n+1),Rancho Cucamonga,San Bernardino County,California,United States,North America,34.13641,-117.54337,no,another player
+173,2006-04-14,Absolute Pi,Constant,210 15 5,{{15}\over{5}}! \times \arctan ( \tan 210^\circ ) = \pi,Rancho Cucamonga,San Bernardino County,California,United States,North America,34.13625,-117.52459,no,another player
+174,2006-04-14,Absolute Pi 2,Constant,4 210 15,4 \times \arctan ( \tan ( 210^\circ + 15^\circ) ) = \pi,Rancho Cucamonga,San Bernardino County,California,United States,North America,34.13615,-117.51179,no,another player
+175,2006-04-14,Sutton Lake,Basic,4 15 19,15 + 4 = 19,Sutton,Braxton County,West Virginia,United States,North America,38.70359,-80.66364,no,another player
+176,2006-04-15,Smell Of Math In The Morning,Advanced,90 5 60,\cos 90^\circ = \sin (5! + 60)^\circ,Dunkirk,Chautauqua County,New York,United States,North America,42.4882,-79.3294,no,another player
+177,2006-04-15,Port Jarvis,Basic,84 84 6 23 17,84 + 6 + 17 = 84 + 23,Deerpark,Orange County,New York,United States,North America,41.35657,-74.68171,no,another player
+178,2006-04-15,Silver Creek,Advanced,20 5 5,\sqrt{20 + 5} = 5,Hanover,Chautauqua County,New York,United States,North America,42.54882,-79.15004,no,another player
+179,2006-04-15,Paris USA,Advanced,50 10 21 17 62,50 + 10 + \sqrt{21 - 17} = 62,Boyce,Clarke County,Virginia,United States,North America,39.09097,-78.09714,no,another player
+180,2006-04-15,Illinois Golden Ratio,Constant,84 20,\log{\sqrt{85 \times 20}} \approx 1.61265 \approx \varphi,Elizabeth,Jo Daviess County,Illinois,United States,North America,42.32297,-90.26854,no,another player
+181,2006-04-16,Big House,Advanced,10 6 24,(10 - 6)! = 24,Bapchule,Pinal County,Arizona,United States,North America,33.2012,-111.84093,no,another player
+182,2006-04-16,Watch Your Head,Advanced,10 3 13,10 + 3 = 13,Clinton,Middlesex County,Connecticut,United States,North America,41.29102,-72.49685,no,another player
+183,2006-04-16,Watch Your Head 2,Constant,10 13 2,\sqrt{2} + \sqrt{13-10} \approx 3.1463 \approx \pi,Westbrook,Middlesex County,Connecticut,United States,North America,41.2942,-72.4834,no,another player
+184,2006-04-16,Tempe Pi,Constant,2200 700,2200 \div 700 \approx 3.142857 \approx \pi,Tempe,Maricopa County,Arizona,United States,North America,33.45341,-111.92772,no,another player
+185,2006-04-16,RSM Addiction,Advanced,172 165 57 45 41 43 172 165,\sqrt{172-165+57} = \sqrt{45-41} + \sqrt{43-(172-165)},Ashwaubenon,Brown County,Wisconsin,United States,North America,44.49267,-88.08136,no,another player
+186,2006-04-22,Hinton To Alderson,Advanced,3 3 12,3! + 3! = 12,Hinton,Summers County,West Virginia,United States,North America,37.64002,-80.80526,no,another player
+187,2006-04-22,Martinsburg,Basic,16 14 2 13 9,(16-14) + 2 = 13 - 9,Martinsburg,Berkeley County,West Virginia,United States,North America,39.474,-77.98602,no,another player
+188,2006-04-22,Grayson,Advanced,1 7 64,1 + 7 = \sqrt{64},Grayson,Carter County,Kentucky,United States,North America,38.35134,-82.93995,no,another player
+189,2006-07-30,Tompkinsville 1,Basic,100 163 63,100 + 63 = 163,Tompkinsville,Monroe County,Kentucky,United States,North America,36.70215,-85.69156,no,another player
+190,2006-07-30,Tompkinsvile 2,Basic,100 163 63,100 + 63 = 163,Tompkinsville,Monroe County,Kentucky,United States,North America,36.70279,-85.69096,no,another player
+191,2006-07-30,Tompkinsville 3,Basic,100 163 63,100 + 63 = 163,Tompkinsville,Monroe County,Kentucky,United States,North America,36.70159,-85.69066,no,another player
+192,2006-07-30,Carlisle,Basic,68 36 32,32 + 36 = 68,Carlisle,Nicholas County,Kentucky,United States,North America,38.31407,-84.03857,no,another player
+193,2006-07-30,Ohio Pi,Constant,22 7,22 \div 7 \approx \pi,Steubenville,Jefferson County,Ohio,United States,North America,40.38013,-80.61861,no,another player
+194,2006-07-30,Lanesboro,Basic,4 14 18,4 + 14 = 18,Lanesboro,Fillmore County,Minnesota,United States,North America,43.72139,-91.96147,no,Jamie Thingelstad
+195,2006-07-30,Woodbridge,Basic,12 20 32,12 + 20 = 32,South Brunswick,Middlesex County,New Jersey,United States,North America,40.36738,-74.59443,no,Jamie Thingelstad
+196,2006-07-31,Decatur,Basic,237 235 74 72 1 3,(237 - 235) + (74 - 72) - 1 = 3,Champaign,Champaign County,Illinois,United States,North America,40.10958,-88.3048,no,another player
+197,2006-07-31,Rim Country,Constant,504 1 260 52,{{504 + 1}\over{260 + 52}} \approx 1.61858974 \approx \varphi,Heber,Navajo County,Arizona,United States,North America,34.43922,-110.61889,no,another player
+198,2006-07-31,Extreme Roots,Advanced,2 20 24 1600,\sqrt{\sqrt{20 - \sqrt{\sqrt{1600} - 24}}} = 2,Tempe,Maricopa County,Arizona,United States,North America,33.41854,-111.94242,no,another player
+199,2006-07-31,Drive By Shooting,Advanced,9 14 15 69,((\sqrt{9})! \times 14) - 15 = 69,Des Moines,Polk County,Iowa,United States,North America,41.59613,-93.63407,no,another player
+200,2006-08-03,Bancroft's Tower,Basic,15 10 5 1,(5 + 10) \div 1 = 15,Shrewsbury,Worcester County,Massachusetts,United States,North America,42.27717,-71.68267,no,another player
+201,2006-08-03,Knights of Columbus,Basic,91 7 7 3 3 1 1 1 95 12 7,91 + 7 + 7 + 3 + 3 + 1 + 1 + 1 = 95 + 12 + 7,New Haven,New Haven County,Connecticut,United States,North America,41.30057,-72.92699,no,another player
+202,2006-08-03,Breakdown Lane,Basic,6 7 10 3,6 + 7 = 10 + 3,Westwood,Norfolk County,Massachusetts,United States,North America,42.22411,-71.17361,no,another player
+203,2006-08-04,Clarksburg,Basic,1 19 20,20 - 1 = 19,Clarksburg,Harrison County,West Virginia,United States,North America,39.2839,-80.34366,no,another player
+204,2006-08-04,Higganum,Advanced,81 9,\sqrt{81} = 9,Haddam,Middlesex County,Connecticut,United States,North America,41.47005,-72.55412,no,another player
+205,2006-08-04,Bush Highway,Advanced,87 14 10 4 9,\sqrt{87 - 14 + 10 - \sqrt{4}} = 9,Mesa,Maricopa County,Arizona,United States,North America,33.51588,-111.6771,no,another player
+206,2006-08-05,Illinois Cancellation,Basic,45 45 1,45 \times 1 = 45,Norris City,White County,Illinois,United States,North America,37.96583,-88.32862,no,another player
+207,2006-08-05,Rocky Hill,Basic,99 91 18 9 4,99 - 91 =  ( 18 \div 9 ) \times 4,Cromwell,Middlesex County,Connecticut,United States,North America,41.58103,-72.64888,no,another player
+208,2006-08-05,Klamath Falls,Basic,35 62 97,35 + 62 = 97,Chemult,Klamath County,Oregon,United States,North America,43.04817,-121.82551,no,another player
+209,2006-08-06,No Trucks,Advanced,3 9,\sqrt{9} = 3,Mars Hill,Madison County,North Carolina,United States,North America,35.93846,-82.56097,no,another player
+210,2006-08-06,Gate City,Basic,6 12 72,6 \times 12 = 72,Fort Blackmore,Scott County,Virginia,United States,North America,36.77008,-82.58202,no,another player
+211,2006-08-06,Berlin Turnpike,Basic,5 15 2 84 84 91 89,91 + 89 - 84 - 84 - 2 = 15 - 5,Hartford,Hartford County,Connecticut,United States,North America,41.74495,-72.66113,no,another player
+212,2006-08-13,Sylvan Beach,Advanced,12 4 4,12 \times \sqrt{4} = 4!,Lenox,Madison County,New York,United States,North America,43.15601,-75.74387,no,another player
+213,2006-08-13,Candlepin Bowling,Advanced,8 63 8 45 2 40,8 \times \sqrt{63 - 8 + 45} = 2 \times 40,Erving,Franklin County,Massachusetts,United States,North America,42.58241,-72.48912,no,another player
+214,2006-08-13,Entering Minnesota,Advanced,1 5 2,\sqrt{5-1}=2,Twin Lakes,Freeborn County,Minnesota,United States,North America,43.52215,-93.35433,no,Jamie Thingelstad
+215,2006-08-16,Martinsville,Advanced,81 9,\sqrt{81} = 9,Martinsburg,Berkeley County,West Virginia,United States,North America,39.44139,-77.9665,no,another player
+216,2006-08-16,Weedsport,Basic,34 3071 3105,"34 + 3,071 = 3,105",Weedsport,Cayuga County,New York,United States,North America,43.055,-76.55805,no,another player
+217,2006-08-16,Two Factorials,Advanced,13 10 6 660 660 287,{{13!}\over{10!\times6}}+{660\over660}=287,Wellsboro,Tioga County,Pennsylvania,United States,North America,41.74944,-77.29917,no,another player
+218,2006-08-16,Middlesex,Advanced,8 2 14 20 2 100,8^2 + 14 + 20 + 2 = 100,Middlesex,Washington County,Vermont,United States,North America,44.29709,-72.68658,no,another player
+219,2006-11-25,DC Math,Basic,700 100 7 7 295 30 30 9 395 6 4,(( 700 \div 100 + 7)  \div  7 ) \times ( 295 + ( (30 \times 30) \div 9 ) )  = 395 \times ( 6 - 4 ),Washington,District of Columbia,"Washington, D.C.",United States,North America,38.891955,-77.022024,no,another player
+220,2006-11-25,Pontotoc,Basic,6 9 15,9 + 6 = 15,Pontotoc,Pontotoc County,Mississippi,United States,North America,34.247337,-89.01787,no,another player
+,2006-11-25,Bellevue Thirteens,Advanced,13 13 13 8 4 35,,Bellevue,King County,Washington,United States,North America,47.610458,-122.188228,no,another player
+222,2006-11-26,Pineville,Advanced,4 9 25,\sqrt{25 - 9} = 4,Anderson,McDonald's County,Missouri,United States,North America,36.64029,-94.419438,yes,another player
+223,2006-11-26,Waitsfield,Advanced,16 4 5 6 5,\sqrt{16} \times 4 = 5 + 6 + 5,Waitsfield,Washington County,Vermont,United States,North America,44.182896,-72.838819,no,another player
+224,2006-11-26,Rivera,Advanced,7 9 3 6,3^{7-6} = \sqrt{9}; 7 - \sqrt{9} \div 3 = 6; 7 + 6 \div 3 = 9; \int_3^6 {(x \cdot x) dx } = 7 \cdot 9; \int_3^6 {(x \cdot x) dx } = \int_3^6 {x^2}dx = {1 \over 3}x^3\big|_3^6 =; {1 \over 3 } (6^3 - 3^3) = {1 \over 3}(216 - 27) = {1 \over 3} (189) = 63 = 7 \cdot 9,Pico Rivera,Los Angeles County,California,United States,North America,33.982625,-118.08796,no,another player
+225,2006-11-26,Sweet Sixteen,Basic,16 32 64,"64 \div 32 = \sqrt{\sqrt{16}}; 2^4, 2^5, 2^6",Auburn,Placer County,California,United States,North America,38.895353,-121.081659,no,another player
+226,2006-11-26,Kellog Interchange,Advanced,57 42 71 10 4,57 - 42 + \sqrt{71 + 10} = 4!; 57 - 42 + \sqrt{71 + 10} = 4!,Pomona,Los Angeles County,California,United States,North America,34.063662,-117.814924,no,another player
+227,2006-11-26,Simple Math,Basic,17 1 18,17 + 1 = 18,Issaquah,King County,Washington,United States,North America,47.542647,-122.04119,no,another player
+,2007-10-06,Gantry Math In Bellevue,Basic,2 5 7 12 8,12 = 8 + (7 - 5 ) + 2,Bellevue,King County,Washington,United States,North America,47.606033,-122.186852,yes,another player
+,2007-10-09,Buses Only,Advanced,3 26 17 30 26 45 30 20 367 226 6576 2001 45 7 2 866 8 1 3,3 \times (26-17) \times ( (30-26) - ( (45+30+20) - ( (367-226) - ( {{6576-2001} \over { {{45} \over {7+2}} }} - 866 ) ) ) ) = (8+1) \times 3; 3 \times 9 \times ( 4 - ( 95 - ( 141 - ( {4575 \over { 5 }} - 866 ) ) ) ) = (8+1) \times 3; 3 \times 9 \times ( 4 - ( 95 - ( 141 - 49 ) ) ) = (8+1) \times 3; 3 \times 9 \times 1 = (8+1) \times 3; 27 = 27,Millville,Cumberland County,New Jersey,United States,North America,39.417853,-75.040022,yes,another player
+,2011-02-19,Simple Canada 1,Basic,1 352 352,352 \times 1 = 352,North Norfolk,Manitoba,Manitoba,Canada,North America,49.901462,-99.089212,no,Jamie Thingelstad
+,2011-05-15,Top Gear Math,Advanced,5 25,\sqrt{25} = 5,Micanopy,Marion County,Florida,United States,North America,29.421058433894054,-82.25807189941406,yes,Jamie Thingelstad
+,2011-05-16,Multiplication Table Math,Basic,3 9 27,3 \times 9 = 27,Le Mars,Plymouth County,Iowa,United States,North America,42.839729839713,-96.150249479106,yes,another player
+,2011-08-15,Village Creek,Basic,3 13 13 19 14 14 8,(19 - 3) \div 8 = (14 - 13) + (14 - 13); (19 - 3) \div 8 = (14/14) + (13/13),Lansing,Allamakee County,Iowa,United States,North America,43.35127891247866,-91.20908540571281,yes,Jamie Thingelstad
+,2011-10-10,Grand Rapids Addition,Basic,1 75 76,1 + 75 = 76,Byron,Kent County,Michigan,United States,North America,42.84085008472563,-85.67783860397333,yes,another player
+,2011-10-21,East Lansing Simple Addition,Basic,2 4 6,2+4=6,Alaiedon,Ingham County,Michigan,United States,North America,42.640487592896,-84.461596290588,yes,another player
+,2011-10-21,Holt and Meridian,Basic,43 36 5 6 7,43-7=36^{(6-5)}; 43-7=36^{(6-5)}; \sqrt{36} \times 5 + 6 + 7 = 43,Wheatfield,Ingham County,Michigan,United States,North America,42.643944337979,-84.362960736275,yes,another player
+,2012-10-19,Bifröst,Advanced,1 6 37,\sqrt{37-1} = 6; \sqrt{37-1} = 6,Borgarbyggð,Vesturland,,Iceland,Europe,64.7906176095,-21.4968969953,yes,Jamie Thingelstad
+,2012-10-19,Clear Math,Basic,13 14 63 64,14-13=64-63; 64-14 = 63-13,New Richmond,St Croix County,Wisconsin,United States,North America,45.136174,-92.382823,yes,Jamie Thingelstad
+,2012-12-01,Gloucester Bound,Basic,45 128 1 44 129 1,45+128+1 = 44+129+1,Lynnfield,Essex County,Massachusetts,United States,North America,42.51656,-70.999105,no,another player
+,2013-01-23,Black Mountain,Advanced,1 9 64,\sqrt{64} = 9 - 1,,,North Carolina,United States,North America,35.618930589036324,-82.3055362701416,no,Jamie Thingelstad
+,2013-01-23,Blythewood,Advanced,5 25,\sqrt{25} = 5,,,South Carolina,United States,North America,34.275889504978046,-80.99773406982422,no,Jamie Thingelstad
+,2013-01-23,Centreville,Basic,1 28 29,28 + 1 = 29,Centreville,,Virginia,United States,North America,38.838537661978,-77.436661720276,no,Jamie Thingelstad
+,2013-01-23,Simple Canada 2,Basic,1 242 242,242 \div 242 = 1,,,Manitoba,Canada,North America,49.974575205281,-98.631906509399,no,Jamie Thingelstad
+,2013-03-24,Surry 64,Advanced,64 45 27 10,45 - 27 - 10 = \sqrt{64}; 45-27-10 = sqrt {64},Hopewell,Prince George,Virginia,United States,North America,37.28614,-77.2254,yes,another player
+,2013-09-16,Pennsville,Basic,18 28 46,18+28=46; 18+28=46,,,,,,40.03812939078128,-74.84298706054688,no,Jamie Thingelstad
+,2014-01-07,Cloutierville,Basic,119 119 1,,Cloutierville,Natchitoches,Louisiana,United States,North America,31.521107365021,-92.921225521713,yes,another player
+,2014-01-08,Arkansas Multiplication,Basic,11 40 440,40 \cdot 11 = 440; 40 \cdot 11=440,North Little Rock,,Arkansas,United States,North America,34.770674,-92.1618,yes,another player
+,2014-01-08,Balch Springs,Basic,1 2 3,3-1=2; 3-1=2,Balch Springs,,Texas,United States,North America,32.730518,-96.612921,yes,another player
+,2014-02-19,[a player's name],Basic,12 144,sqrt(144) = 12,Bellevue,King,Washington,United States,North America,47.621091120292,-122.14834570885,yes,another player
+,2014-05-20,NY Thruway Split,Advanced,90 25 61 90 88 90 87 23 1 87 87,"det({[[90,87][87,90]]}) = (\sqrt{61-25})!-63*\sqrt{\sqrt{88-1-(90-87)!}}; 90*90-87*87 = (\sqrt{36})!-63*\sqrt{\sqrt{87-3!}}; 8100-7569 = 6!-63*\sqrt{\sqrt{81}}; 531 = 720-63*3; 531 = 531; ",Albany,Albany County,New York,United States,North America,42.699321,-73.843741,yes,another player
+,2014-05-21,"Post Falls, ID",Basic,1 3 4 41,\sqrt{41-4-1} = 3!,Post Falls,,Idaho,United States,North America,47.709352,-116.871438,yes,another player
