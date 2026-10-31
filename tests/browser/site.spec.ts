@@ -256,7 +256,7 @@ test('a thing’s artifacts are shown, linked, and served as the files they are'
   const errors = watchErrors(page);
   const { artifacts } = things.find((thing) => thing.id === 'velotweets')!;
   await page.goto('/things/velotweets/');
-  await expect(page.locator('.artifacts h2')).toHaveText('Artifacts');
+  await expect(page.locator('.artifacts h2')).toHaveText('Artifacts #');
   await expect(page.locator('.artifact')).toHaveCount(artifacts!.length);
   // An image is shown as itself; a file a browser cannot show, by its preview; a file with neither, by its name.
   const shown = artifacts!.filter((a) => /\.(png|jpe?g|gif|webp)$/.test(a.file) || a.preview);
@@ -309,7 +309,7 @@ test('a thing’s bundles each have a heading, an anchor and their own artifacts
   for (const [i, bundle] of bundles!.entries()) {
     const section = sections.nth(i);
     await expect(section).toHaveAttribute('id', `artifacts-${bundle.id}`);
-    await expect(section.locator('h3')).toHaveText(bundle.title);
+    await expect(section.locator('h3')).toHaveText(`${bundle.title} #`);
     const own = artifacts!.filter((artifact) => artifact.bundle === bundle.id);
     await expect(section.locator('.artifact')).toHaveCount(own.length);
     await expect(section.locator('.artifact h4')).toHaveCount(own.length);
@@ -325,6 +325,56 @@ test('a thing’s bundles each have a heading, an anchor and their own artifacts
   const plan = artifacts!.find((artifact) => artifact.file.endsWith('.md'))!;
   const response = await request.get(new URL(plan.url).pathname);
   expect(response.headers()['content-type']).toBe('text/plain; charset=utf-8');
+  expect(await fitsViewport(page)).toBe(true);
+  expect(errors).toEqual([]);
+});
+
+test('every section and artifact of a thing has an address, and its # link copies it', async ({ page }) => {
+  const errors = watchErrors(page);
+  const { id, artifacts, bundles } = things.find((thing) => thing.id === 'road-sign-math')!;
+  await page.goto(`/things/${id}/`);
+  // The sections are fixed words, never a heading's text, so a retitle never breaks a link someone sent.
+  for (const section of ['story', 'build', 'artifacts', 'sources', 'connections', 'related', 'history'])
+    await expect(page.locator(`.thing > section[id="${section}"]`), section).toHaveCount(1);
+  // Each artifact is named by its file, the same name as its own address, and its # link is that anchor.
+  const cards = page.locator('.artifact');
+  await expect(cards).toHaveCount(artifacts!.length);
+  for (const [i, artifact] of artifacts!.entries()) {
+    const card = cards.nth(i);
+    await expect(card).toHaveAttribute('id', `artifact-${artifact.file}`);
+    const link = card.locator('.artifact-title .permalink');
+    await expect(link).toHaveAttribute('href', `#artifact-${artifact.file}`);
+    await expect(link).toHaveAccessibleName(
+      `Link to ${(await card.locator('.artifact-title').textContent())!.replace(/\s*#\s*$/, '').trim()}`
+    );
+  }
+  for (const bundle of bundles!)
+    await expect(page.locator(`[id="artifacts-${bundle.id}"] h3 .permalink`)).toHaveAttribute(
+      'href',
+      `#artifacts-${bundle.id}`
+    );
+  // No id is used twice, and every # link on the page lands on something.
+  const { duplicates, missing } = await page.evaluate(() => {
+    const ids = [...document.querySelectorAll('[id]')].map((element) => element.id);
+    const links = [...document.querySelectorAll('a[href^="#"]')].map((a) => a.getAttribute('href')!.slice(1));
+    return {
+      duplicates: ids.filter((value, i) => ids.indexOf(value) !== i),
+      missing: links.filter((value) => value && !ids.includes(value))
+    };
+  });
+  expect(duplicates).toEqual([]);
+  expect(missing).toEqual([]);
+  // A link to one artifact opens on it, marked on the soft ground, with its # showing.
+  const target = artifacts!.at(-1)!;
+  await page.goto(`/things/${id}/#artifact-${target.file}`);
+  const card = page.locator(`[id="artifact-${target.file}"]`);
+  await expect(card).toBeInViewport();
+  expect(await card.evaluate((element) => element.matches(':target'))).toBe(true);
+  expect(await card.evaluate((element) => getComputedStyle(element).backgroundColor)).not.toBe('rgba(0, 0, 0, 0)');
+  await expect(card.locator('.permalink')).toHaveCSS('opacity', '1');
+  // A link to a section opens on its heading, in the green.
+  await page.goto(`/things/${id}/#history`);
+  await expect(page.locator('#history h2')).toBeInViewport();
   expect(await fitsViewport(page)).toBe(true);
   expect(errors).toEqual([]);
 });
@@ -397,7 +447,7 @@ test('activity shows who made the commits, week by week, and each thing keeps it
   const entry = page.locator('.activity-entry .activity-thing').first();
   const title = (await entry.innerText()).trim();
   await entry.click();
-  await expect(page.locator('.thing-activity h2')).toHaveText('Activity');
+  await expect(page.locator('.thing-activity h2')).toHaveText('Activity #');
   await expect(page.getByRole('heading', { level: 1 })).toContainText(title);
   await page.goto('/things/jamie-thingelstad-blog/');
   await expect(page.locator('.thing-activity .year-chart svg')).toHaveAttribute('aria-label', /commits per year from/);

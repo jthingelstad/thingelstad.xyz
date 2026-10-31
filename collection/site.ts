@@ -95,8 +95,10 @@ export const screenshotAsset = (observation: ScreenshotObservation) =>
   `/assets/screenshots/${observation.image.replace(/\.jpg$/, '')}-${observation.sha256.slice(0, 10)}.jpg`;
 type InboundConnection = Connection & { from: string };
 // An artifact as its page shows it: where it is published, what kind of file it is and how big, and the image
-// that shows it, which is the file itself or its preview (null for a file with neither).
+// that shows it, which is the file itself or its preview (null for a file with neither). Its anchor is its
+// address on the page (#artifact-<file>), named by its file, which never changes, so a link to it stays good.
 type SiteArtifact = Artifact & {
+  anchor: string;
   src: string;
   kind: string;
   bytes: number;
@@ -115,6 +117,7 @@ function siteArtifact(id: string, artifact: Artifact, files: Map<string, Artifac
   const image = shown ? measured(shown) : null;
   return {
     ...artifact,
+    anchor: `artifact-${artifact.file}`,
     src: artifactPath(id, artifact.file),
     kind: artifactKind(artifact.file),
     bytes,
@@ -123,7 +126,7 @@ function siteArtifact(id: string, artifact: Artifact, files: Map<string, Artifac
   };
 }
 // The artifact as its record has it, with its address: what the Markdown twin and things.json carry.
-const artifactRecord = ({ src, kind: _k, bytes: _b, size: _s, image: _i, ...artifact }: SiteArtifact) => ({
+const artifactRecord = ({ src, anchor: _a, kind: _k, bytes: _b, size: _s, image: _i, ...artifact }: SiteArtifact) => ({
   ...artifact,
   url: `${siteUrl}${src}`
 });
