@@ -1,50 +1,57 @@
 ---
-title: Road Sign Math
-summary: A game of finding road signs whose numbers form an equation, begun as a blog in 2005, rebooted as a wiki in 2011 and as a blog again in 2023.
+title: Road Sign Math (2005)
+summary: The first Road Sign Math, at roadsignmath.com from 2005 to 2016, where 40 players posted 251 road signs whose numbers make an equation, first on a blog and from 2011 on a wiki.
 collection: Games and communities
-status: active
-url: https://www.roadsignmath.xyz/
+status: retired
+url: https://web.archive.org/web/20151209013747/http://roadsignmath.com/wiki/Main_Page
 started: '2005-02-13'
+ended: '2016'
 topics:
   - mediawiki
   - play
   - archives
 sources:
   - kind: website
-    url: https://www.roadsignmath.xyz/
-    role: website
-    sitemap: https://www.roadsignmath.xyz/sitemap.xml
-    feed: https://www.roadsignmath.xyz/feed.xml
+    url: https://web.archive.org/web/20151209013747/http://roadsignmath.com/wiki/Main_Page
+    role: archive
+  - kind: website
+    url: https://www.thingelstad.com/2010/02/13/010000.html
+    role: reference
   - kind: website
     url: https://www.thingelstad.com/2023/10/21/road-sign-math.html
     role: reference
   - kind: website
     url: https://www.thingelstad.com/projects/road-sign-math/
     role: reference
-  - kind: github
-    repository: jthingelstad/rsm.thingelstad.com
-    role: historical
-connections: []
+connections:
+  - kind: lineage
+    to: road-sign-math-2021
+    label: was succeeded by
+    detail: Five years after I let roadsignmath.com go, a sign Tammy found near Phoenix brought the game back as a blog of just my family’s signs, with “Just my signs. No scoring system or leaderboards.”
+    source: https://www.thingelstad.com/2023/10/21/road-sign-math.html
 story:
   color: '#287454'
   introduction: A little mathematics. A lot of looking around.
   engineering:
-    - The original site, launched in 2005, had rules for play, a scoring system and scoreboards for players and states.
+    - The site launched in 2005 as a blog of signs on .Text and moved to WordPress in 2007. As other people sent in their own signs it gained rules for play, a scoring system and scoreboards for players and states.
     - In 2011 it moved from a blog to a wiki so players could submit and maintain their own signs.
-    - The 2023 reboot is a simple blog on Micro.blog that typesets each sign’s equation with MathJax.
+    - In October 2026 I rebuilt it from a 2016 MediaWiki backup, as Markdown with each sign’s math in TeX, and recovered its photos from a poster, the Internet Archive, an old backup drive and copies I had kept.
   stack:
-    - Micro.blog
-    - MathJax
+    - .Text
+    - WordPress
     - MediaWiki
-  source: https://www.roadsignmath.xyz/
-  sourceLabel: See the signs
+  source: https://web.archive.org/web/20151209013747/http://roadsignmath.com/wiki/Main_Page
+  sourceLabel: See the wiki in the Internet Archive
   related:
+    - road-sign-math-2021
+    - road-sign-math-2026
     - planet-kubb
     - open-loop
   started: Played since 2005
   questions:
     - How did Road Sign Math start?
-    - Why was Road Sign Math rebooted instead of relaunched?
+    - Why did the first Road Sign Math site move from a blog to a wiki?
+    - What happened to the signs players sent in from 2005 to 2014?
 bundles:
   - id: archive
     title: The first site, rebuilt
@@ -107,8 +114,8 @@ artifacts:
 
 Road Sign Math is a driving game: find a road sign whose numbers make a valid equation, photograph it, and share it. It began with a sign on I-94 East toward the Twin Cities that I passed coming home from visiting family in North Dakota, which listed distances of 3, 33 and 99 miles: 3 times 33 equals 99. On [Open Loop #1](https://www.thingelstad.com/projects/open-loop/1-big-fuzzy-dead-cat/) I recalled that my friend Jim told me I should make a website, “and so that day I did a website.”
 
-I [launched the site](https://www.thingelstad.com/2010/02/13/010000.html) on February 13, 2005, as a blog of signs on .Text, moved it to [WordPress](https://www.thingelstad.com/2007/08/17/t212185032.html) in August 2007, and as other people sent in their own it gained rules, a scoring system and scoreboards for players and states. Signs came from all 50 states and most continents, including one from the Serengeti; by 2012 there were over 200. In 2011 I rebooted it for the first time, as a wiki, so players could maintain their own signs; an iOS app for capturing signs was considered but never built. In 2016, during a round of [technical downsizing](https://www.thingelstad.com/2016/05/03/technical-downsizing.html), I shut the site down and let roadsignmath.com expire ([Road Sign Math Rebooted](https://www.thingelstad.com/2023/10/21/road-sign-math.html)).
-
-In 2017 I started a Jekyll site for the signs, [rsm.thingelstad.com](https://github.com/jthingelstad/rsm.thingelstad.com), on a stock theme. Two spin-offs, Road Sign Wordplay and Road Sign Bingo, never got going, and I [shut both down](https://www.thingelstad.com/2012/02/08/shutting-down-some.html) in February 2012 with other “ideas that I set up and then never took anywhere.” In March 2021 a sign Tammy found near Phoenix gave Road Sign Math “a breath of new life” at roadsignmath.thingelstad.com ([Weekly Thing 177](https://weekly.thingelstad.com/archive/177/)), and that summer we found ten more on a [Vermont road trip](https://www.thingelstad.com/2021/08/15/varmont-road-trip.html). I registered roadsignmath.xyz in 2021, and in October 2023 I [rebooted](https://www.thingelstad.com/2023/10/21/road-sign-math.html) Road Sign Math a second time, back to a simple blog: “Just my signs. No scoring system or leaderboards.” New signs still appear, such as one in [September 2025](https://www.thingelstad.com/2025/09/01/it-always-makes-me-smile.html).
+I [launched the site](https://www.thingelstad.com/2010/02/13/010000.html) on February 13, 2005, as a blog of signs on .Text, moved it to [WordPress](https://www.thingelstad.com/2007/08/17/t212185032.html) in August 2007, and as other people sent in their own it gained rules, a scoring system and scoreboards for players and states. Signs came from all 50 states and most continents, including one from the Serengeti; by 2012 there were over 200. In 2011 I rebooted it for the first time, as a wiki, so players could maintain their own signs; an iOS app for capturing signs was considered but never built. Two spin-offs, Road Sign Wordplay and Road Sign Bingo, never got going, and I [shut both down](https://www.thingelstad.com/2012/02/08/shutting-down-some.html) in February 2012 with other “ideas that I set up and then never took anywhere.” In 2016, during a round of [technical downsizing](https://www.thingelstad.com/2016/05/03/technical-downsizing.html), I shut the site down and let roadsignmath.com expire ([Road Sign Math Rebooted](https://www.thingelstad.com/2023/10/21/road-sign-math.html)).
 
 In October 2026 I rebuilt the first site from a 2016 MediaWiki backup: 251 signs found by 40 players from 2005 to 2014, with photos for 157 of them recovered from the one-year anniversary poster, the Internet Archive, an old backup drive and copies I had kept.
+
+The game came back twice: as a blog of my family’s signs from 2021, and in 2026 as an iPhone app with a new roadsignmath.xyz.

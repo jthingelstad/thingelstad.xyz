@@ -1,3 +1,20 @@
+- id: rsm-public-beta
+  date: 2026-10-31
+  kind: milestone
+  title: Road Sign Math’s public beta
+  summary: The Road Sign Math iPhone app goes to Apple for a public TestFlight beta, and roadsignmath.xyz links anyone with an iPhone to it.
+  source: https://github.com/jthingelstad/roadsignmath.xyz/pull/22
+  things:
+    - road-sign-math-2026
+- id: rsm-app-launch
+  date: 2026-10-30
+  kind: launch
+  title: Road Sign Math reboots as an iPhone app
+  summary: The third reboot makes Road Sign Math an iPhone app that is the whole game, and a new roadsignmath.xyz, the map of every sign, replaces the blog. Its first 16 signs are the blog’s.
+  source: https://roadsignmath.xyz/
+  things:
+    - road-sign-math-2026
+    - road-sign-math-2021
 - id: changelog-testflight
   date: 2026-10-29
   kind: milestone

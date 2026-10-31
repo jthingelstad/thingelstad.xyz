@@ -1,0 +1,143 @@
+{
+	"version": "https://jsonfeed.org/version/1",
+	"title": "Road Sign Math",
+	"icon": "<no value>",
+	"home_page_url": "https://www.roadsignmath.xyz/",
+	"feed_url": "https://www.roadsignmath.xyz/feed.json",
+	"items": [
+		
+			{
+				"id": "http://roadsignmath.micro.blog/2025/09/01/tyler-found-this-one-driving.html",
+				
+				"content_html": "<p><a href=\"https://tyler.thingelstad.com\">Tyler</a> found this one driving up I-35W.</p>\n<p>$${(90-82) \\over 8 } \\times 1 \\times 2 = {6 \\over {10 - 7}}$$</p>\n<img src=\"uploads/2025/img-8017.jpg\" width=\"600\" height=\"450\" alt=\"\">\n",
+				"content_text": "[Tyler](https://tyler.thingelstad.com) found this one driving up I-35W.\n\n$${(90-82) \\over 8 } \\times 1 \\times 2 = {6 \\over {10 - 7}}$$\n\n\n<img src=\"uploads/2025/img-8017.jpg\" width=\"600\" height=\"450\" alt=\"\">\n",
+				"date_published": "2025-09-01T19:00:13-05:00",
+				"url": "https://www.roadsignmath.xyz/2025/09/01/tyler-found-this-one-driving.html"
+			},
+			{
+				"id": "http://roadsignmath.micro.blog/2025/08/06/in-vermont-on-the-way.html",
+				
+				"content_html": "<p>In Vermont on the way to the airport.</p>\n<p>$$ { \\left( 25 - 1 \\right) \\over 8 } = 4 - { 3 \\over 3 } $$</p>\n<img src=\"uploads/2025/90991d546d.jpg\" width=\"600\" height=\"600\" alt=\"\">\n",
+				"content_text": "In Vermont on the way to the airport.\n\n$$ { \\left( 25 - 1 \\right) \\over 8 } = 4 - { 3 \\over 3 } $$\n\n<img src=\"uploads/2025/90991d546d.jpg\" width=\"600\" height=\"600\" alt=\"\">\n",
+				"date_published": "2025-08-06T20:02:54-05:00",
+				"url": "https://www.roadsignmath.xyz/2025/08/06/in-vermont-on-the-way.html"
+			},
+			{
+				"id": "http://roadsignmath.micro.blog/2025/06/19/strategy-here-is-to-cancel.html",
+				
+				"content_html": "<p>Strategy here is to cancel a bunch of the numbers out and your left with a pretty simple winner. <a href=\"https://tyler.thingelstad.com\">Tyler</a> got this one.</p>\n<p>$$ \\underbrace{\\left(  \\frac {35} {7} \\times 10 + 12 \\right) - 62}_0 + 6 + 3 + 2 = 11 $$</p>\n<img src=\"uploads/2025/c4a04bf7e6.jpg\" width=\"600\" height=\"450\" alt=\"\">\n",
+				"content_text": "Strategy here is to cancel a bunch of the numbers out and your left with a pretty simple winner. [Tyler](https://tyler.thingelstad.com) got this one. \n\n$$ \\underbrace{\\left(  \\frac {35} {7} \\times 10 + 12 \\right) - 62}_0 + 6 + 3 + 2 = 11 $$\n\n\n<img src=\"uploads/2025/c4a04bf7e6.jpg\" width=\"600\" height=\"450\" alt=\"\">\n",
+				"date_published": "2025-06-19T21:34:29-05:00",
+				"url": "https://www.roadsignmath.xyz/2025/06/19/strategy-here-is-to-cancel.html"
+			},
+			{
+				"id": "http://roadsignmath.micro.blog/2023/10/22/153816.html",
+				
+				"content_html": "<p>$$ \\sqrt { 5 - 1 } = 2 $$</p>\n<img src=\"uploads/2023/ce1919904e.jpg\" width=\"600\" height=\"450\" alt=\"\">\n",
+				"content_text": "$$ \\sqrt { 5 - 1 } = 2 $$\n\n<img src=\"uploads/2023/ce1919904e.jpg\" width=\"600\" height=\"450\" alt=\"\">\n",
+				"date_published": "2023-10-22T15:38:16-05:00",
+				"url": "https://www.roadsignmath.xyz/2023/10/22/153816.html",
+				"tags": ["Minnesota"]
+			},
+			{
+				"id": "http://roadsignmath.micro.blog/2023/10/22/153704.html",
+				"title": "Mason Math",
+				"content_html": "<p>$$ 105 - 5 = 136 - 36 $$</p>\n<img src=\"uploads/2023/f2054552bf.jpg\" width=\"600\" height=\"337\" alt=\"\">\n",
+				"content_text": "$$ 105 - 5 = 136 - 36 $$\n\n<img src=\"uploads/2023/f2054552bf.jpg\" width=\"600\" height=\"337\" alt=\"\">\n",
+				"date_published": "2023-10-22T15:37:04-05:00",
+				"url": "https://www.roadsignmath.xyz/2023/10/22/153704.html",
+				"tags": ["Minnesota"]
+			},
+			{
+				"id": "http://roadsignmath.micro.blog/2023/10/22/125959.html",
+				"title": "Iconium",
+				"content_html": "<p>$$ 7 + 12 = 19 $$</p>\n<img src=\"uploads/2023/48b1a5d7fe.jpg\" width=\"600\" height=\"449\" alt=\"\">\n",
+				"content_text": "$$ 7 + 12 = 19 $$\n\n<img src=\"uploads/2023/48b1a5d7fe.jpg\" width=\"600\" height=\"449\" alt=\"\">\n",
+				"date_published": "2023-10-22T12:59:59-05:00",
+				"url": "https://www.roadsignmath.xyz/2023/10/22/125959.html"
+			},
+			{
+				"id": "http://roadsignmath.micro.blog/2023/10/22/125900.html",
+				
+				"content_html": "<p>$$ 5 + 1 = 6 $$</p>\n<img src=\"uploads/2023/0492d2d7dd.jpg\" width=\"600\" height=\"449\" alt=\"\">\n",
+				"content_text": "$$ 5 + 1 = 6 $$\n\n<img src=\"uploads/2023/0492d2d7dd.jpg\" width=\"600\" height=\"449\" alt=\"\">\n",
+				"date_published": "2023-10-22T12:59:00-05:00",
+				"url": "https://www.roadsignmath.xyz/2023/10/22/125900.html"
+			},
+			{
+				"id": "http://roadsignmath.micro.blog/2023/10/22/sqrt.html",
+				
+				"content_html": "<p>$$ 10 + \\sqrt 4 = 12 $$</p>\n<img src=\"uploads/2023/193f6da5bf.jpg\" width=\"600\" height=\"449\" alt=\"\">\n",
+				"content_text": "$$ 10 + \\sqrt 4 = 12 $$\n\n<img src=\"uploads/2023/193f6da5bf.jpg\" width=\"600\" height=\"449\" alt=\"\">\n",
+				"date_published": "2023-10-22T12:58:09-05:00",
+				"url": "https://www.roadsignmath.xyz/2023/10/22/sqrt.html"
+			},
+			{
+				"id": "http://roadsignmath.micro.blog/2023/10/21/genesis.html",
+				"title": "Genesis (2023)",
+				"content_html": "<p>All things have a beginning and the quest for mathematically significant road signs starts with this very sign.</p>\n<p>$$ 3 \\times 33 = 99 $$</p>\n<img src=\"uploads/2023/img-7222.jpeg\" width=\"600\" height=\"450\" alt=\"\">\n<p>This sign is on I-94 East as you drive toward the Twin Cities. Each time I would drive by it when returning from North Dakota I would see the math before I would see the cities on the sign.</p>\n<p>&ldquo;I wonder how many road signs have mathematical relationships like that?&rdquo;</p>\n<p>And thus Road Sign Math was born.</p>\n<p>Given the importance of this sign, I pulled over and got a selfie with the sign itself.</p>\n<img src=\"uploads/2023/img-7224.jpeg\" width=\"600\" height=\"450\" alt=\"\">\n<p>Also see <a href=\"https://www.thingelstad.com/2023/10/21/road-sign-math.html\">Road Sign Math Rebooted</a>!</p>\n",
+				"content_text": "All things have a beginning and the quest for mathematically significant road signs starts with this very sign.\n\n$$ 3 \\times 33 = 99 $$\n\n<img src=\"uploads/2023/img-7222.jpeg\" width=\"600\" height=\"450\" alt=\"\">\n\nThis sign is on I-94 East as you drive toward the Twin Cities. Each time I would drive by it when returning from North Dakota I would see the math before I would see the cities on the sign. \n\n\"I wonder how many road signs have mathematical relationships like that?\"\n\nAnd thus Road Sign Math was born.\n\nGiven the importance of this sign, I pulled over and got a selfie with the sign itself.\n\n<img src=\"uploads/2023/img-7224.jpeg\" width=\"600\" height=\"450\" alt=\"\">\n\nAlso see [Road Sign Math Rebooted](https://www.thingelstad.com/2023/10/21/road-sign-math.html)!\n",
+				"date_published": "2023-10-21T07:56:35-05:00",
+				"url": "https://www.roadsignmath.xyz/2023/10/21/genesis.html",
+				"tags": ["Minnesota"]
+			},
+			{
+				"id": "http://roadsignmath.micro.blog/2023/10/19/sqrt-sqrt.html",
+				"title": "Fair Play",
+				"content_html": "<p>$$ \\sqrt { 83 - \\sqrt 4 } = 6 + 3 $$</p>\n<img src=\"uploads/2023/56ce8b2bec.jpg\" width=\"600\" height=\"449\" alt=\"\">\n",
+				"content_text": "$$ \\sqrt { 83 - \\sqrt 4 } = 6 + 3 $$\n\n<img src=\"uploads/2023/56ce8b2bec.jpg\" width=\"600\" height=\"449\" alt=\"\">\n",
+				"date_published": "2023-10-19T14:50:20-05:00",
+				"url": "https://www.roadsignmath.xyz/2023/10/19/sqrt-sqrt.html"
+			},
+			{
+				"id": "http://roadsignmath.micro.blog/2023/10/19/sqrt.html",
+				"title": "Fair Grove",
+				"content_html": "<p>$$ 11 + \\sqrt 4 = 13 $$</p>\n<img src=\"uploads/2023/c36314a605.jpg\" width=\"600\" height=\"449\" alt=\"\">\n",
+				"content_text": "$$ 11 + \\sqrt 4 = 13 $$\n\n<img src=\"uploads/2023/c36314a605.jpg\" width=\"600\" height=\"449\" alt=\"\">\n",
+				"date_published": "2023-10-19T14:41:41-05:00",
+				"url": "https://www.roadsignmath.xyz/2023/10/19/sqrt.html",
+				"tags": ["Missouri"]
+			},
+			{
+				"id": "http://roadsignmath.micro.blog/2021/08/05/saratoga.html",
+				"title": "Saratoga",
+				"content_html": "<p>Simple math on the way to Saratoga.</p>\n<p>$$ 14 + 10 = 24 $$</p>\n<img src=\"uploads/2023/3cb329c817.jpg\" width=\"600\" height=\"600\" alt=\"\">\n",
+				"content_text": "Simple math on the way to Saratoga.\n\n$$ 14 + 10 = 24 $$\n\n<img src=\"uploads/2023/3cb329c817.jpg\" width=\"600\" height=\"600\" alt=\"\">\n",
+				"date_published": "2021-08-05T00:00:00-05:00",
+				"url": "https://www.roadsignmath.xyz/2021/08/05/saratoga.html"
+			},
+			{
+				"id": "http://roadsignmath.micro.blog/2021/08/04/greenbush.html",
+				"title": "Greenbush",
+				"content_html": "<p>$$ 9 + 11 = 20 $$</p>\n<img src=\"uploads/2023/3e556bfbf6.jpg\" width=\"600\" height=\"600\" alt=\"\">\n",
+				"content_text": "$$ 9 + 11 = 20 $$\n\n<img src=\"uploads/2023/3e556bfbf6.jpg\" width=\"600\" height=\"600\" alt=\"\">\n",
+				"date_published": "2021-08-04T00:00:00-05:00",
+				"url": "https://www.roadsignmath.xyz/2021/08/04/greenbush.html"
+			},
+			{
+				"id": "http://roadsignmath.micro.blog/2021/08/02/wurtsboro.html",
+				"title": "Wurtsboro",
+				"content_html": "<p>We found this sign while driving back from visiting the Woodstock site and driving back to Accord, NY.</p>\n<p>$$ 12 + 1 = 13 $$</p>\n<img src=\"uploads/2023/fd1726dfcd.jpg\" width=\"600\" height=\"450\" alt=\"\">\n",
+				"content_text": "We found this sign while driving back from visiting the Woodstock site and driving back to Accord, NY.\n\n$$ 12 + 1 = 13 $$\n\n<img src=\"uploads/2023/fd1726dfcd.jpg\" width=\"600\" height=\"450\" alt=\"\">\n",
+				"date_published": "2021-08-02T00:00:00-05:00",
+				"url": "https://www.roadsignmath.xyz/2021/08/02/wurtsboro.html"
+			},
+			{
+				"id": "http://roadsignmath.micro.blog/2021/07/31/gross-vehicle-weight.html",
+				"title": "Gross Vehicle Weight",
+				"content_html": "<p>Some fun math along I-80/I-90.</p>\n<p>$$ ( 70 \\div ( 90 - 80 ) ) + 13 = 65 - 45 $$</p>\n<img src=\"uploads/2023/b30e0c6d95.jpg\" width=\"600\" height=\"450\" alt=\"\">\n",
+				"content_text": "Some fun math along I-80/I-90.\n\n$$ ( 70 \\div ( 90 - 80 ) ) + 13 = 65 - 45 $$\n\n<img src=\"uploads/2023/b30e0c6d95.jpg\" width=\"600\" height=\"450\" alt=\"\">\n",
+				"date_published": "2021-07-31T00:00:00-05:00",
+				"url": "https://www.roadsignmath.xyz/2021/07/31/gross-vehicle-weight.html"
+			},
+			{
+				"id": "http://roadsignmath.micro.blog/2021/03/04/phoenix-math.html",
+				"title": "Phoenix Math",
+				"content_html": "<p><a href=\"https://tammy.thingelstad.com\">Tammy</a> found this amazing Road Sign Math winner on Highway 101 in Phoenix, Arizona! This is the first winning sign found in years to <strong>reboot</strong> the great game of finding math equations in road signs!</p>\n<p>$$ 7 + 7 + ( 3 \\times 2 ) = 19 + 1 $$</p>\n<img src=\"uploads/2023/image.jpg\" width=\"600\" height=\"450\" alt=\"\">\n",
+				"content_text": "[Tammy](https://tammy.thingelstad.com) found this amazing Road Sign Math winner on Highway 101 in Phoenix, Arizona! This is the first winning sign found in years to **reboot** the great game of finding math equations in road signs!\n\n$$ 7 + 7 + ( 3 \\times 2 ) = 19 + 1 $$\n\n<img src=\"uploads/2023/image.jpg\" width=\"600\" height=\"450\" alt=\"\">\n",
+				"date_published": "2021-03-04T01:00:00-05:00",
+				"url": "https://www.roadsignmath.xyz/2021/03/04/phoenix-math.html",
+				"tags": ["Arizona"]
+			}
+	]
+}
