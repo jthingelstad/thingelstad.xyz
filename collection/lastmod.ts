@@ -11,7 +11,8 @@ import { toInstant, type SiteModel } from './site.ts';
 // The commit date of a content file, as an instant, or null when git has none (a file not yet committed).
 export type FileDate = (path: string) => string | null;
 
-// The newest commit date of every file under content/, from one `git log` pass. A shallow clone would date every
+// The newest commit date of every file under content/, and of the pages written by hand under site/ (the about
+// page), from one `git log` pass. A shallow clone would date every
 // file by its one commit, so it is refused: CI checks out the full history (fetch-depth: 0).
 export function gitFileDates(root = process.cwd()): FileDate {
   const git = (...args: string[]) => execFileSync('git', args, { cwd: root, encoding: 'utf8', maxBuffer: 64 << 20 });
@@ -19,7 +20,15 @@ export function gitFileDates(root = process.cwd()): FileDate {
     throw new Error('The sitemap dates pages by their git history; fetch the full history (fetch-depth: 0).');
   const dates = new Map<string, string>();
   let current = '';
-  for (const line of git('log', '--format=@%cI', '--name-only', '--no-renames', '--', 'content').split('\n')) {
+  for (const line of git(
+    'log',
+    '--format=@%cI',
+    '--name-only',
+    '--no-renames',
+    '--',
+    'content',
+    'site/about.njk'
+  ).split('\n')) {
     if (line.startsWith('@')) current = line.slice(1);
     else if (line && !dates.has(line)) dates.set(line, current); // newest first, so the first date is the latest
   }
