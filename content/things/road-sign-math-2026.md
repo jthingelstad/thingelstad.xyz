@@ -72,6 +72,11 @@ artifacts:
     title: The sign-in email
     caption: Under a “Driving + Math = Fun” sign, a button that signs in on the iPhone and a six-digit code to type instead. The code and link here are examples.
     date: '2026-10-30'
+  - file: home.png
+    bundle: the-app
+    title: Home
+    caption: 'The Latest feed, newest first: Tyler’s I-35W at 82nd Street sign from September 2025, its math, (90 − 82) ÷ 8 × 1 × 2 = 6 ÷ (10 − 7), and a button to find another way.'
+    date: '2026-10-31'
   - file: map.png
     bundle: the-app
     title: The Map
@@ -86,6 +91,11 @@ artifacts:
     bundle: the-app
     title: Capture
     caption: The camera in Passenger mode, after a shot of the sample sign. Every number it read has a yellow box, and it says it got five.
+    date: '2026-10-30'
+  - file: check-the-numbers.png
+    bundle: the-app
+    title: Check the numbers
+    caption: Every number the camera read on the I-35W sign, boxed in yellow on the photo and listed below to keep or drop. It read 12, including the 902 on the minivan’s plate.
     date: '2026-10-30'
   - file: fix-a-number.png
     bundle: the-app
@@ -133,6 +143,11 @@ artifacts:
     caption: '“Find a sign. Make the math true.” The map of every sign on the US, with a card for Minnesota’s two signs, and who’s playing: me, Tyler and Tammy.'
     date: '2026-10-31'
     source: https://github.com/jthingelstad/roadsignmath.xyz/pull/18
+  - file: website-sign.png
+    bundle: the-website
+    title: A sign
+    caption: 'Tyler’s I-35W at 82nd Street sign on the website: the photo, the math, the ways found so far, the numbers, a map pinned on the town, and nearby signs.'
+    date: '2026-10-31'
   - file: website-player.png
     bundle: the-website
     title: A player’s page
