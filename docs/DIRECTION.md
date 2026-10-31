@@ -68,6 +68,26 @@ The body is the idea behind the thing, in Markdown.
 
 The site is Jamie speaking about his own work. Summaries, bodies, connection details and ledger summaries are written in the first person (I, my, we), never “Jamie” or “he”. Quotations stay verbatim; only their attribution changes. The `story.questions` are a reader’s, so they stay in the third person.
 
+### Stories
+
+A story (`content/stories/<id>.md`) is one idea told across several things, for a reader who would otherwise meet them one at a time: Road Sign Math across its three sites and twenty-one years, three runs at a links site, Your Version Number growing into Release Notes and Changelog, how the Weekly Thing gets made. It is told in Jamie’s voice from the records and his published writing, and adds no fact the records do not have.
+
+```yaml
+---
+title: Twenty-one years of Road Sign Math
+summary: One sign on I-94 in 2005 became a website, then a wiki, ... Three things, one game.
+things: # in the order the story tells them; at least two
+  - road-sign-math
+  - road-sign-math-2021
+  - road-sign-math-2026
+started: '2005-02-13' # otherwise the earliest of its things
+# ended: when the story has; otherwise it is still going while any of its things is
+---
+The story, in Markdown.
+```
+
+The page lists the things in that order, then the story, then every history event of those things, oldest first. A thing’s facts link the stories it is in. The front page and `/stories/` show the cards, the story with the newest event first. Stories are in the sitemap, `llms.txt` and `things.json`. A story never sets a status or adds an event: it reads the ledger, it does not write it.
+
 ### Voice
 
 Jamie asked on 2026-10-31 for the writing to read as his own, and allowed the about page to say that it is not typed by him. The register, from his blog and the Weekly Thing:

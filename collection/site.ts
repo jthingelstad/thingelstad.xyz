@@ -20,6 +20,7 @@ import {
   type Registry,
   type ScreenshotObservation,
   type Status,
+  type Storyline,
   type Thing,
   type ThingSource,
   type TinylyticsObservation,
@@ -163,7 +164,9 @@ export type SiteThing = Omit<Thing, 'sources' | 'bundles' | 'artifacts'> & {
   span: { start: number | null; end: number | null }; // years, for the timeline
   filters: ThingFilter[]; // its facet values, for /search/
   activity: ThingRecord | null; // its commits and publications over its life, from the logs
+  stories: StoryLink[]; // the stories it is part of
 };
+type StoryLink = { id: string; title: string; page: string };
 // The facets of /search/. Each thing's row carries its values (data-filters), and the search page lists every
 // value with how many things carry it. A value is a stable slug for the address (?topic=mediawiki); its label
 // is what a reader sees. The language is the top one GitHub reports for each of the thing's repositories:
@@ -179,6 +182,15 @@ const facetSlug = (label: string) =>
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-+|-+$/g, '');
 type SiteTopic = Topic & { page: string; things: SiteThing[] };
+// A story with its things in the order it tells them, the events of those things oldest first (a story reads
+// forward), and its span: as written, or else from its things. It is still going while any of them is.
+type SiteStoryline = Storyline & {
+  page: string;
+  cast: SiteThing[];
+  events: HistoryEvent[];
+  span: { started: string | null; ended: string | null; ongoing: boolean };
+  latest: string | null; // the newest event date among its things: what orders the stories
+};
 type SiteCollection = { name: string; things: SiteThing[] };
 type SiteYear = { year: string; events: HistoryEvent[] };
 export type TimelineRow = {
@@ -224,6 +236,7 @@ export type SiteModel = {
   featured: SiteFeature[];
   collections: SiteCollection[];
   topics: SiteTopic[];
+  stories: SiteStoryline[];
   history: HistoryEvent[];
   years: SiteYear[];
   timeline: Timeline;
@@ -468,7 +481,10 @@ export function buildSiteModel(registry: Registry, observations: Observation[], 
       views: viewed ? { site: viewed.url, total: viewed.hits, until: viewed.until, months: viewMonths(viewed) } : null,
       span: { start, end },
       filters: thingFilters(thing, sources, topicById),
-      activity: activity.things.get(thing.id) ?? null
+      activity: activity.things.get(thing.id) ?? null,
+      stories: registry.stories
+        .filter((story) => story.things.includes(thing.id))
+        .map((story) => ({ id: story.id, title: story.title, page: `/stories/${story.id}/` }))
     };
   });
   const byId = new Map(things.map((thing) => [thing.id, thing]));
@@ -490,6 +506,29 @@ export function buildSiteModel(registry: Registry, observations: Observation[], 
     page: `/topics/${topic.id}/`,
     things: sortedThings.filter((thing) => thing.topics.includes(topic.id))
   }));
+  const stories: SiteStoryline[] = registry.stories
+    .map((story) => {
+      const cast = story.things.map((id) => byId.get(id)!);
+      const events = registry.history
+        .filter((event) => event.things.some((id) => story.things.includes(id)))
+        .toSorted((a, b) => a.date.localeCompare(b.date) || a.id.localeCompare(b.id));
+      const starts = cast.map((t) => t.started).filter((d): d is string => !!d);
+      const ongoing = !story.ended && cast.some((t) => t.status === 'active' || t.status === 'dormant');
+      const ends = cast.map((t) => t.ended).filter((d): d is string => !!d);
+      return {
+        ...story,
+        page: `/stories/${story.id}/`,
+        cast,
+        events,
+        span: {
+          started: story.started ?? (starts.length ? starts.toSorted()[0] : null),
+          ended: story.ended ?? (ongoing || !ends.length ? null : ends.toSorted().at(-1)!),
+          ongoing
+        },
+        latest: events.at(-1)?.date ?? null
+      };
+    })
+    .toSorted((a, b) => (b.latest ?? '').localeCompare(a.latest ?? '') || a.title.localeCompare(b.title));
   const years: SiteYear[] = [];
   for (const event of registry.history) {
     const y = event.date.slice(0, 4);
@@ -581,6 +620,7 @@ export function buildSiteModel(registry: Registry, observations: Observation[], 
     }),
     collections,
     topics,
+    stories,
     history: registry.history,
     years,
     timeline: {
@@ -656,6 +696,14 @@ export function llmsText(model: SiteModel) {
     '',
     ...model.topics.map((topic) => `- [${llmsName(topic.title)}](${model.url}${topic.page}): ${topic.description}`),
     '',
+    ...(model.stories.length
+      ? [
+          '## Stories',
+          '',
+          ...model.stories.map((story) => `- [${llmsName(story.title)}](${model.url}${story.page}): ${story.summary}`),
+          ''
+        ]
+      : []),
     '## Optional',
     '',
     `- [History](${model.url}/history/): every sourced event, newest first`,
@@ -714,6 +762,14 @@ export function thingsJson(model: SiteModel) {
       latest: thing.latest
     })),
     topics: model.topics.map(({ things, ...topic }) => ({ ...topic, things: things.map((t) => t.id) })),
+    stories: model.stories.map(({ events, ...story }) => ({
+      ...story,
+      cast: undefined,
+      latest: undefined,
+      page: `${model.url}${story.page}`,
+      body: story.body.trim(),
+      events: events.map((event) => event.id)
+    })),
     history: model.history
   };
 }

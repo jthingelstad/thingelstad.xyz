@@ -8,6 +8,7 @@ import {
   type HistoryEvent,
   type Registry,
   type Story,
+  type Storyline,
   type Thing,
   type ThingSource,
   type Topic
@@ -316,6 +317,24 @@ export function topic(value: unknown, where: string): Topic {
     description: text(item.description, `${where}.description`)
   };
 }
+// A story's front matter is title, summary, the things it tells in order (at least two), and when it began
+// and ended, as far as the record says; its body is the story. Everything else about it comes from its things.
+export function storyline(id: string, frontmatter: unknown, body: string, where: string): Storyline {
+  const item = record(frontmatter, ['title', 'summary', 'things', 'started', 'ended'], where);
+  const things = list(item.things, `${where}.things`, 50).map((t, i) => identifier(t, `${where}.things[${i}]`));
+  if (things.length < 2) throw new ContentError(`${where}.things`, 'A story runs through at least two things.');
+  unique(things, `${where}.things`);
+  const result: Storyline = {
+    id: identifier(id, where),
+    title: text(item.title, `${where}.title`, 200),
+    summary: text(item.summary, `${where}.summary`, 1000),
+    things,
+    body: text(body, `${where}.body`, 30000)
+  };
+  if (item.started !== undefined) result.started = preciseDate(item.started, `${where}.started`);
+  if (item.ended !== undefined) result.ended = preciseDate(item.ended, `${where}.ended`);
+  return result;
+}
 export function featuredEntry(value: unknown, where: string): string {
   const item = record(value, ['thing'], where);
   return identifier(item.thing, `${where}.thing`);
@@ -360,6 +379,11 @@ export function checkReferences(registry: Registry) {
     for (const related of item.story?.related ?? []) reference(related, `${where}.story.related`);
   }
   for (const event of registry.history) for (const id of event.things) reference(id, `history/${event.id}`);
+  unique(
+    registry.stories.map((s) => s.id),
+    'stories'
+  );
+  for (const story of registry.stories) for (const id of story.things) reference(id, `stories/${story.id}.things`);
   unique(registry.featured, 'featured.yaml');
   if (registry.featured.length > featuredMax)
     throw new ContentError('featured.yaml', `Feature at most ${featuredMax} things, so the shelf stays a choice.`);

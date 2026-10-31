@@ -23,8 +23,9 @@ type Output = {
   things: Thing[];
   topics: { id: string; title: string }[];
   history: { id: string; title: string }[];
+  stories: { id: string; title: string; page: string; things: string[]; events: string[] }[];
 };
-const { featured, things, topics, history } = JSON.parse(readFileSync('_site/things.json', 'utf8')) as Output;
+const { featured, things, topics, history, stories } = JSON.parse(readFileSync('_site/things.json', 'utf8')) as Output;
 type SharedSite = { id: string; strip_label: string; url: string; in_sites_strip: boolean };
 type Owner = { name: string; url: string; avatar: string; note: string; rel_me: string[] };
 const shared = JSON.parse(readFileSync('data/sites.json', 'utf8')) as { owner: Owner; sites: SharedSite[] };
@@ -391,6 +392,31 @@ test('connections link both ways and topics gather their things', async ({ page 
   await expect(page.locator('.thing-row')).toHaveCount(members.length);
   await page.goto('/topics/');
   await expect(page.locator('.topic-list > li')).toHaveCount(topics.length);
+});
+
+test('a story tells an idea across several things in order, and each thing links its stories', async ({ page }) => {
+  const errors = watchErrors(page);
+  await page.goto('/stories/');
+  await expect(page.locator('.story-card')).toHaveCount(stories.length);
+  const first = stories[0];
+  const path = new URL(first.page).pathname;
+  await page.locator('.story-card h3 a').first().click();
+  await expect(page).toHaveURL(new RegExp(`${path}$`));
+  await expect(page.locator('h1')).toHaveText(first.title);
+  const rows = page.locator('.cast-list .thing-row');
+  await expect(rows).toHaveCount(first.things.length);
+  await expect(rows.locator('.thing-title')).toHaveText(
+    first.things.map((id) => things.find((thing) => thing.id === id)!.title)
+  );
+  await expect(page.locator('.story-body p').first()).not.toBeEmpty();
+  await expect(page.locator('.event-list > li')).toHaveCount(first.events.length);
+  expect(await fitsViewport(page)).toBe(true);
+  await page.goto(new URL(things.find((thing) => thing.id === first.things[0])!.page).pathname);
+  await page.locator('.facts .thing-stories').getByRole('link', { name: first.title }).click();
+  await expect(page).toHaveURL(new RegExp(`${path}$`));
+  await page.goto('/');
+  await expect(page.locator('.stories .story-card')).toHaveCount(stories.length);
+  expect(errors).toEqual([]);
 });
 
 test('history anchors, the timeline, and the machine outputs are reachable', async ({ page }) => {

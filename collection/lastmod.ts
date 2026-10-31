@@ -59,6 +59,9 @@ export type SitemapEntry = { loc: string; lastmod: string };
 // Every page the header links, then each thing and topic. /search/ lists every thing without JavaScript, so it is
 // a page worth indexing; its filtered addresses (?status=...) are the same page and stay out.
 export function sitemapEntries(model: SiteModel, fileDate: FileDate): SitemapEntry[] {
+  // A story's file dates every page that shows the story: its own page, the thing pages that name it, and the
+  // front page's cards.
+  const storyFileDates = new Map(model.stories.map((story) => [story.id, fileDate(`content/stories/${story.id}.md`)]));
   const thingDates = new Map(
     model.things.map((thing) => [
       thing.id,
@@ -66,10 +69,12 @@ export function sitemapEntries(model: SiteModel, fileDate: FileDate): SitemapEnt
         fileDate(`content/things/${thing.id}.md`),
         fileDate(`content/artifacts/${thing.id}`),
         thing.latest?.date,
-        ...thing.events.map((event) => event.date)
+        ...thing.events.map((event) => event.date),
+        ...thing.stories.map((story) => storyFileDates.get(story.id))
       ])
     ])
   );
+  const allStories = latest([...storyFileDates.values()]);
   const allThings = latest([...thingDates.values()]);
   const topicDates = model.topics.map((topic) => ({
     page: topic.page,
@@ -80,14 +85,22 @@ export function sitemapEntries(model: SiteModel, fileDate: FileDate): SitemapEnt
     ...model.activity.days.map((day) => day.last),
     ...model.activity.weeks.flatMap((week) => week.things.map((thing) => thing.last))
   ]);
+  const storyDates = model.stories.map((story) => ({
+    page: story.page,
+    date: latest([storyFileDates.get(story.id), ...story.cast.map((thing) => thingDates.get(thing.id))])
+  }));
   const pages: [string, string | null][] = [
-    ['/', latest([allThings, fileDate('content/featured.yaml')])],
+    ['/', latest([allThings, allStories, fileDate('content/featured.yaml')])],
     ['/topics/', latest(topicDates.map((topic) => topic.date))],
     ['/history/', history],
     ['/activity/', activity],
     ['/timeline/', latest([allThings, history])],
     ['/search/', allThings],
     ['/about/', latest([fileDate('site/about.njk'), fileDate('content/things/things-ive-built.md')])],
+    ...(storyDates.length
+      ? [['/stories/', latest(storyDates.map((story) => story.date))] as [string, string | null]]
+      : []),
+    ...storyDates.map((story) => [story.page, story.date] as [string, string | null]),
     ...model.things.map((thing): [string, string | null] => [thing.page, thingDates.get(thing.id) ?? null]),
     ...topicDates.map((topic): [string, string | null] => [topic.page, topic.date])
   ];

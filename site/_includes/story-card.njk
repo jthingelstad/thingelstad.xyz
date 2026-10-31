@@ -1,0 +1,9 @@
+{#- A story as a card (the front page, /stories/): its title, its summary, its span, and its things in order. #}
+<li class="story-card">
+  <h3><a href="{{ story.page }}">{{ story.title }}</a></h3>
+  <p class="story-span muted">
+    {%- if story.span.started %}{{ story.span.started | date }} to {% if story.span.ongoing %}now{% elif story.span.ended %}{{ story.span.ended | date }}{% else %}?{% endif %}{% endif -%}
+  </p>
+  <p>{{ story.summary }}</p>
+  <p class="story-cast">{% for thing in story.cast %}<a class="tag" href="{{ thing.page }}">{{ thing.title }}</a> {% endfor %}</p>
+</li>

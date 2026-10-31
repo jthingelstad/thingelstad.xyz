@@ -93,6 +93,19 @@ export type Thing = {
 
 export type Topic = { id: string; title: string; description: string };
 
+// A story (content/stories/<id>.md, /stories/<id>/): one idea told across several things, in the order they
+// came, with its own Markdown. Jamie asked for them on 2026-10-31: the third Road Sign Math, 21 years after the
+// first sign, "feels like a Story". `Story` above is the older per-thing build block; this is the narrative.
+export type Storyline = {
+  id: string; // from the file name
+  title: string;
+  summary: string;
+  things: string[]; // the things it tells, in the order it tells them; at least two
+  started?: DatePrecision; // when the story begins; otherwise the earliest of its things
+  ended?: DatePrecision; // when it ended, if it has; otherwise it is still going while any of its things is
+  body: string; // Markdown. The story itself.
+};
+
 export type EventKind = 'launch' | 'milestone' | 'retirement' | 'archive' | 'development';
 export const eventKinds: EventKind[] = ['launch', 'milestone', 'retirement', 'archive', 'development'];
 export type HistoryEvent = {
@@ -110,6 +123,7 @@ export type Registry = {
   topics: Topic[];
   history: HistoryEvent[];
   featured: string[]; // content/featured.yaml: thing ids, in the order the front page shows them
+  stories: Storyline[]; // content/stories/<id>.md
   artifactFiles?: Map<string, ArtifactFile>; // set by loadRegistry
 };
 
