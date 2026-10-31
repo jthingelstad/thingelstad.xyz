@@ -2,14 +2,14 @@
   "kind": "github",
   "repository": "jthingelstad/rwbookclub.com",
   "url": "https://github.com/jthingelstad/rwbookclub.com",
-  "observedAt": "2026-10-30T17:00:48.696Z",
+  "observedAt": "2026-10-31T16:05:04.522Z",
   "repositoryCreatedAt": "2026-04-09T23:16:42.000Z",
   "archived": false,
   "description": "Monorepo for the R/W Book Club: the public website, the shared knowledge corpus, and Oliver — the club's Discord agent.",
   "stars": 1,
   "forks": 0,
   "languages": [
-    { "name": "Python", "bytes": 1553851 },
+    { "name": "Python", "bytes": 1556897 },
     { "name": "JavaScript", "bytes": 126094 },
     { "name": "Nunjucks", "bytes": 61971 },
     { "name": "HTML", "bytes": 52461 },
@@ -26,36 +26,36 @@
       "path": null,
       "branch": "main",
       "since": "2026-07-01T00:00:00.000Z",
-      "until": "2026-10-30T17:00:48.696Z",
-      "count": 167,
+      "until": "2026-10-31T16:05:04.522Z",
+      "count": 168,
       "complete": true,
       "months": [
         { "month": "2026-07", "count": 119 },
         { "month": "2026-08", "count": 21 },
         { "month": "2026-09", "count": 10 },
-        { "month": "2026-10", "count": 17 }
+        { "month": "2026-10", "count": 18 }
       ],
       "latestCommit": {
-        "date": "2026-10-28T18:33:32.000Z",
-        "url": "https://github.com/jthingelstad/rwbookclub.com/commit/a8794d1ee740dc2a2b31f49faa355c5a70585b19"
+        "date": "2026-10-30T23:10:04.000Z",
+        "url": "https://github.com/jthingelstad/rwbookclub.com/commit/9b1a53529ce4b6b75bd1bfc831385d410f304453"
       }
     },
     {
       "path": "agent",
       "branch": "main",
       "since": "2026-07-01T00:00:00.000Z",
-      "until": "2026-10-30T17:00:48.696Z",
-      "count": 111,
+      "until": "2026-10-31T16:05:04.522Z",
+      "count": 112,
       "complete": true,
       "months": [
         { "month": "2026-07", "count": 91 },
         { "month": "2026-08", "count": 11 },
         { "month": "2026-09", "count": 5 },
-        { "month": "2026-10", "count": 4 }
+        { "month": "2026-10", "count": 5 }
       ],
       "latestCommit": {
-        "date": "2026-10-28T15:42:17.000Z",
-        "url": "https://github.com/jthingelstad/rwbookclub.com/commit/66d42e09f3801a2e91c74edd20c67d451811a1dc"
+        "date": "2026-10-30T23:10:04.000Z",
+        "url": "https://github.com/jthingelstad/rwbookclub.com/commit/9b1a53529ce4b6b75bd1bfc831385d410f304453"
       }
     }
   ]

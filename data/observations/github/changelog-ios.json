@@ -2,14 +2,14 @@
   "kind": "github",
   "repository": "jthingelstad/changelog-ios",
   "url": "https://github.com/jthingelstad/changelog-ios",
-  "observedAt": "2026-10-30T17:00:48.696Z",
+  "observedAt": "2026-10-31T16:05:04.522Z",
   "repositoryCreatedAt": "2026-10-29T12:43:23.000Z",
   "archived": false,
   "description": "Changelog: a fast iPhone app for sending notes, photos and dates into Release Notes",
   "stars": 1,
   "forks": 0,
   "languages": [
-    { "name": "Swift", "bytes": 530793 },
+    { "name": "Swift", "bytes": 533905 },
     { "name": "Shell", "bytes": 10176 }
   ],
   "release": null,
@@ -18,13 +18,13 @@
       "path": null,
       "branch": "main",
       "since": "2026-07-01T00:00:00.000Z",
-      "until": "2026-10-30T17:00:48.696Z",
-      "count": 75,
+      "until": "2026-10-31T16:05:04.522Z",
+      "count": 76,
       "complete": true,
-      "months": [{ "month": "2026-10", "count": 75 }],
+      "months": [{ "month": "2026-10", "count": 76 }],
       "latestCommit": {
-        "date": "2026-10-30T11:13:47.000Z",
-        "url": "https://github.com/jthingelstad/changelog-ios/commit/974deb406d010f9980ec4203cf0393bb5065e7c8"
+        "date": "2026-10-30T18:11:35.000Z",
+        "url": "https://github.com/jthingelstad/changelog-ios/commit/53c4aac414bade02241b8cca047c5a657ffb1c36"
       }
     }
   ]
