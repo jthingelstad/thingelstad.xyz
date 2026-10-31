@@ -913,6 +913,59 @@ h4:hover > .permalink,
   margin: 16px 0;
 }
 
+/* Stories (site/stories.njk, site/story.njk, story-card.njk): cards on the front page and the list, each a title,
+   a span, a summary and its things in order; on a story's page the things are rows, then the story, then the
+   events of those things. */
+.story-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
+  margin: 12px 0 8px;
+  padding: 0;
+  list-style: none;
+}
+
+.story-card {
+  padding: 18px 20px 14px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--soft);
+}
+
+.story-card h3 {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: var(--jt-size-h3);
+  font-weight: var(--weight-heading);
+  letter-spacing: var(--jt-tracking-heading);
+  line-height: 1.15;
+}
+
+.story-card p {
+  margin: 8px 0;
+}
+
+.story-card .story-span {
+  margin-top: 4px;
+  font-size: var(--jt-size-small);
+}
+
+.story-cast {
+  margin-bottom: 0;
+}
+
+.storyline .story-span {
+  margin: -8px 0 0;
+}
+
+.cast-list {
+  margin: 8px 0 0;
+}
+
+.story-body {
+  margin-top: 32px;
+}
+
 /* The about page (site/about.njk): headings between the paragraphs, and the status words as a list. */
 .about h2 {
   margin: 32px 0 8px;

@@ -131,6 +131,7 @@ const registry: Registry = {
   topics: [],
   history: [],
   featured: [],
+  stories: [],
   things: [
     thing('a', [{ kind: 'github', repository: 'owner/example', role: 'implementation', path: 'packages/a' }]),
     thing('b', [

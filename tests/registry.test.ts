@@ -6,7 +6,15 @@ import { join } from 'node:path';
 import { artifactKind, formatBytes, imageSize } from '../collection/artifacts';
 import { loadRegistry, measureArtifacts, splitFrontmatter } from '../collection/load';
 import type { ScreenshotObservation } from '../collection/schema';
-import { checkReferences, featuredEntry, featuredMax, thing, historyEvent, preciseDate } from '../collection/validate';
+import {
+  checkReferences,
+  featuredEntry,
+  featuredMax,
+  thing,
+  historyEvent,
+  preciseDate,
+  storyline
+} from '../collection/validate';
 
 const registry = await loadRegistry();
 
@@ -69,7 +77,7 @@ test('thing front matter is validated strictly', () => {
 test('references between files are checked after loading', () => {
   const a = thing('a', { ...base, topics: ['missing'] }, '', 'x');
   assert.throws(
-    () => checkReferences({ things: [a], topics: [], history: [], featured: [] }),
+    () => checkReferences({ things: [a], topics: [], history: [], featured: [], stories: [] }),
     /Unknown topic: missing/
   );
   const b = thing(
@@ -78,7 +86,10 @@ test('references between files are checked after loading', () => {
     '',
     'x'
   );
-  assert.throws(() => checkReferences({ things: [b], topics: [], history: [], featured: [] }), /Unknown thing: c/);
+  assert.throws(
+    () => checkReferences({ things: [b], topics: [], history: [], featured: [], stories: [] }),
+    /Unknown thing: c/
+  );
   const event = historyEvent(
     {
       id: 'e',
@@ -92,7 +103,7 @@ test('references between files are checked after loading', () => {
     'x'
   );
   assert.throws(
-    () => checkReferences({ things: [], topics: [], history: [event], featured: [] }),
+    () => checkReferences({ things: [], topics: [], history: [event], featured: [], stories: [] }),
     /Unknown thing: nobody/
   );
   assert.throws(() => historyEvent({ ...event, things: [] }, 'x'), /at least one thing/);
@@ -107,13 +118,33 @@ test('the featured shelf names a few active things, once each', () => {
   assert.throws(() => featuredEntry('example', 'x'), /Expected/);
   const things = ['a', 'b', 'c', 'd', 'e', 'f', 'g'].map((id) => thing(id, base, '', 'x'));
   const check = (featured: string[], list = things) =>
-    checkReferences({ things: list, topics: [], history: [], featured });
+    checkReferences({ things: list, topics: [], history: [], featured, stories: [] });
   assert.deepEqual(check(['b', 'a']).featured, ['b', 'a'], 'the shelf keeps the file’s order');
   assert.throws(() => check(['a', 'a']), /Duplicate: a/);
   assert.throws(() => check(['nobody']), /Unknown thing: nobody/);
   assert.throws(() => check(['a', 'b', 'c', 'd', 'e', 'f', 'g']), /at most 6/);
   const retired = thing('old', { ...base, status: 'retired', ended: '2020' }, '', 'x');
   assert.throws(() => check(['old'], [...things, retired]), /Only active things are featured; old is not/);
+});
+
+test('a story runs through at least two known things, in its order, with a body', () => {
+  const base = { title: 'T', summary: 'S', collection: 'C', status: 'active', url: null };
+  const things = ['a', 'b', 'c'].map((id) => thing(id, base, '', 'x'));
+  const front = { title: 'Two runs', summary: 'A then B.', things: ['b', 'a'], started: '2005-02-13' };
+  const story = storyline('two-runs', front, 'The story.', 'stories/two-runs.md');
+  assert.deepEqual(story.things, ['b', 'a'], 'the order is the story’s');
+  assert.equal(story.started, '2005-02-13');
+  assert.equal(story.ended, undefined);
+  const check = (stories = [story], list = things) =>
+    checkReferences({ things: list, topics: [], history: [], featured: [], stories });
+  assert.equal(check().stories.length, 1);
+  assert.throws(() => check([story], things.slice(1)), /Unknown thing: a/);
+  assert.throws(() => check([story, story]), /Duplicate: two-runs/);
+  assert.throws(() => storyline('one', { ...front, things: ['a'] }, 'x', 'w'), /at least two things/);
+  assert.throws(() => storyline('dup', { ...front, things: ['a', 'a'] }, 'x', 'w'), /Duplicate: a/);
+  assert.throws(() => storyline('empty', front, '  ', 'w'), /public text/);
+  assert.throws(() => storyline('extra', { ...front, color: 'red' }, 'x', 'w'), /Unknown field: color/);
+  assert.throws(() => storyline('when', { ...front, ended: 'someday' }, 'x', 'w'), /YYYY/);
 });
 
 test('front matter splitting keeps the Markdown body intact', () => {

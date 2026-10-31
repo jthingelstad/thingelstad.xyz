@@ -19,6 +19,15 @@ permalink: /
   </ul>
 </section>
 {% endif %}
+{% if site.stories.length %}
+<section class="stories" aria-labelledby="stories">
+  <h2 id="stories">Stories</h2>
+  <p class="muted">Ideas I kept coming back to, told across the things they became.</p>
+  <ul class="story-list">
+    {% for story in site.stories %}{% include "story-card.njk" %}{% endfor %}
+  </ul>
+</section>
+{% endif %}
 {% for collection in site.collections %}
 <section class="collection h-feed" id="{{ collection.name | slugify }}">
   <h2><span class="p-name">{{ collection.name }}</span> <span class="count badge">{{ collection.things | length }}</span></h2>

@@ -1,0 +1,53 @@
+---
+layout: layout.njk
+pagination:
+  data: site.stories
+  size: 1
+  alias: story
+permalink: '{{ story.page }}'
+eleventyComputed:
+  title: '{{ story.title }}'
+  description: '{{ story.summary }}'
+---
+{#- A story (content/stories/<id>.md): one idea across several things. The things come first, in the order the
+    story tells them, as rows of an h-feed (thing-row.njk); then the story; then every event of those things,
+    oldest first, because a story reads forward. The rows and the events are out of search, so a story page
+    is found by its own words. #}
+<article class="storyline">
+  <header class="intro">
+    <p class="crumbs"><a href="/stories/">Stories</a></p>
+    <h1>{{ story.title }}</h1>
+    <p class="lede">{{ story.summary }}</p>
+    <p class="story-span muted">
+      {%- if story.span.started %}{{ story.span.started | date }} to {% if story.span.ongoing %}now{% elif story.span.ended %}{{ story.span.ended | date }}{% else %}?{% endif %} · {% endif -%}
+      {{ story.cast | length }} things
+    </p>
+  </header>
+  <section class="cast h-feed" aria-labelledby="cast">
+    <h2 id="cast">In order</h2>
+    <ol class="thing-list cast-list">
+      {% for thing in story.cast %}{% include "thing-row.njk" %}{% endfor %}
+    </ol>
+  </section>
+  <section class="story story-body" id="story">
+    {{ story.body | md | safe }}
+  </section>
+  {% if story.events | length %}
+  <section class="events" id="history" aria-labelledby="what-happened">
+    <h2 id="what-happened">What happened when</h2>
+    <ol class="event-list">
+      {% for event in story.events %}
+      <li>
+        <time datetime="{{ event.date }}">{{ event.date | date }}</time>
+        <span class="kind kind-{{ event.kind }}">{{ event.kind }}</span>
+        <a href="/history/#{{ event.id }}"><strong>{{ event.title }}</strong></a>
+        <p>{{ event.summary }} <a href="{{ event.source | ref("source") }}">Source</a></p>
+      </li>
+      {% endfor %}
+    </ol>
+  </section>
+  {% endif %}
+  <footer class="thing-footer">
+    <p class="muted"><a href="/stories/">All stories</a> · <a href="{{ site.repository }}/blob/main/content/stories/{{ story.id }}.md">Edit the story</a></p>
+  </footer>
+</article>

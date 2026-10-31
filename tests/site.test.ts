@@ -763,7 +763,10 @@ test('every sitemap page carries the date its content last changed, never the bu
   const entries = sitemapEntries(model, fileDate);
   const xml = sitemapXml(entries);
   const urls = [...xml.matchAll(/<url>([\s\S]*?)<\/url>/g)].map((match) => match[1]);
-  assert.equal(urls.length, 7 + model.things.length + model.topics.length);
+  assert.equal(
+    urls.length,
+    7 + model.things.length + model.topics.length + (model.stories.length ? 1 + model.stories.length : 0)
+  );
   for (const url of urls)
     assert.match(
       url,

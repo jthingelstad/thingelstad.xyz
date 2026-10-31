@@ -80,6 +80,10 @@ export function sitemapEntries(model: SiteModel, fileDate: FileDate): SitemapEnt
     ...model.activity.days.map((day) => day.last),
     ...model.activity.weeks.flatMap((week) => week.things.map((thing) => thing.last))
   ]);
+  const storyDates = model.stories.map((story) => ({
+    page: story.page,
+    date: latest([fileDate(`content/stories/${story.id}.md`), ...story.cast.map((thing) => thingDates.get(thing.id))])
+  }));
   const pages: [string, string | null][] = [
     ['/', latest([allThings, fileDate('content/featured.yaml')])],
     ['/topics/', latest(topicDates.map((topic) => topic.date))],
@@ -88,6 +92,10 @@ export function sitemapEntries(model: SiteModel, fileDate: FileDate): SitemapEnt
     ['/timeline/', latest([allThings, history])],
     ['/search/', allThings],
     ['/about/', latest([fileDate('site/about.njk'), fileDate('content/things/things-ive-built.md')])],
+    ...(storyDates.length
+      ? [['/stories/', latest(storyDates.map((story) => story.date))] as [string, string | null]]
+      : []),
+    ...storyDates.map((story) => [story.page, story.date] as [string, string | null]),
     ...model.things.map((thing): [string, string | null] => [thing.page, thingDates.get(thing.id) ?? null]),
     ...topicDates.map((topic): [string, string | null] => [topic.page, topic.date])
   ];
