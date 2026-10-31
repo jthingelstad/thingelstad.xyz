@@ -2,9 +2,10 @@
   "kind": "commits",
   "repository": "jthingelstad/changelog-ios",
   "url": "https://github.com/jthingelstad/changelog-ios",
-  "observedAt": "2026-10-30T17:00:48.696Z",
+  "observedAt": "2026-10-31T16:05:04.522Z",
   "branch": "main",
   "commits": [
+    {"sha":"53c4aac414ba","date":"2026-10-30T18:11:35.000Z","subject":"Hashtags in any script, as Release Notes reads them since API 1.7.0","by":"agent","agents":["claude"]},
     {"sha":"974deb406d01","date":"2026-10-30T11:13:47.000Z","subject":"Held-note tests put the keyboard away before choosing","by":"agent","agents":["claude"]},
     {"sha":"ece98fb19105","date":"2026-10-30T11:13:47.000Z","subject":"Ask the account a held write moves to afresh, refusal and all","by":"agent","agents":["claude"]},
     {"sha":"b68269764939","date":"2026-10-30T11:13:47.000Z","subject":"Hold another account's waiting notes; mine by token id","by":"agent","agents":["claude"]},

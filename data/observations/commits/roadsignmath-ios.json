@@ -1,0 +1,29 @@
+{
+  "kind": "commits",
+  "repository": "jthingelstad/roadsignmath-ios",
+  "url": "https://github.com/jthingelstad/roadsignmath-ios",
+  "observedAt": "2026-10-31T16:05:04.522Z",
+  "branch": "main",
+  "commits": [
+    {"sha":"821c307c390e","date":"2026-10-31T14:26:46.000Z","subject":"Docs: player links open the app; the public beta's steps as they stand (#18)","pr":18,"by":"agent","agents":["claude"]},
+    {"sha":"505c24edb17d","date":"2026-10-31T13:41:57.000Z","subject":"Profile photos: choose, take or remove one, and see them on every avatar (#17)","pr":17,"by":"agent","agents":["claude"]},
+    {"sha":"775e72065a76","date":"2026-10-31T08:24:39.000Z","subject":"Find another way: write a new way on a posted sign (#16)","pr":16,"by":"agent","agents":["claude"]},
+    {"sha":"49d562f6a411","date":"2026-10-31T07:57:54.000Z","subject":"Player pages: a finder opens their page, in You's shape (#15)","pr":15,"by":"agent","agents":["claude"]},
+    {"sha":"36c9487b3961","date":"2026-10-31T03:44:35.000Z","subject":"Badges in the app: shelves on You, the Posted! moment, players' rows (#14)","pr":14,"by":"agent","agents":["claude"]},
+    {"sha":"337edcf7cb0f","date":"2026-10-31T02:53:11.000Z","subject":"Outbox: look for a maybe-posted sign instead of asking the player (#13)","pr":13,"by":"agent","agents":["claude"]},
+    {"sha":"78d9f289abbf","date":"2026-10-31T02:39:46.000Z","subject":"Me: Home's timeline, newest posted first; passenger mode always on (#11)","pr":11,"by":"agent","agents":["claude"]},
+    {"sha":"896a73a80dd6","date":"2026-10-31T02:32:48.000Z","subject":"Post it: name it, place it, the outbox, and the done screen (step 2.5) (#12)","pr":12,"by":"agent","agents":["claude"]},
+    {"sha":"32d19b90761e","date":"2026-10-31T01:54:17.000Z","subject":"Me: your profile, your signs as photos or math, and settings (step 2.6) (#10)","pr":10,"by":"agent","agents":["claude"]},
+    {"sha":"34b7e326a587","date":"2026-10-31T01:40:23.000Z","subject":"Solve: the math on a sign, tiles that check off, a keypad, \"It works\" (step 2.4) (#9)","pr":9,"by":"agent","agents":["claude"]},
+    {"sha":"11614bf45201","date":"2026-10-31T01:33:28.000Z","subject":"TestFlight: the upload script, the phone test and the road to the App Store (step 2.7) (#8)","pr":8,"by":"agent","agents":["claude"]},
+    {"sha":"5d89e0b83f08","date":"2026-10-31T01:32:17.000Z","subject":"Check the numbers: a close-up per number, one word why, a title sideways (#7)","pr":7,"by":"agent","agents":["claude"]},
+    {"sha":"d40e4c297255","date":"2026-10-31T01:17:49.000Z","subject":"Capture and Check the numbers (step 2.3) (#6)","pr":6,"by":"agent","agents":["claude"]},
+    {"sha":"6560f9c51831","date":"2026-10-31T00:07:31.000Z","subject":"The Map searches its pins and gains a Mine chip (#5)","pr":5,"by":"agent","agents":["claude"]},
+    {"sha":"cc7587a76555","date":"2026-10-31T00:02:55.000Z","subject":"Sign in: email, a code or the link, a name, and You (#4)","pr":4,"by":"agent","agents":["claude"]},
+    {"sha":"1362f53a0839","date":"2026-10-30T23:21:41.000Z","subject":"The app: Home, a sign's page and the Map (#3)","pr":3,"by":"agent","agents":["claude"]},
+    {"sha":"6d6238fcb1be","date":"2026-10-30T22:57:05.000Z","subject":"Equation: the server's equation checker, ported to Swift (#2)","pr":2,"by":"agent","agents":["claude"]},
+    {"sha":"f143b196237f","date":"2026-10-30T21:03:45.000Z","subject":"Number-reading spike: SignReading and the eval (#1)","pr":1,"by":"agent","agents":["claude"]},
+    {"sha":"1f34e5d27e99","date":"2026-10-30T17:56:46.000Z","subject":"Start the repo: README, MIT license and .gitignore","by":"agent","agents":["claude"]}
+  ],
+  "tags": []
+}
