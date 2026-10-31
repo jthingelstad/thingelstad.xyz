@@ -72,7 +72,7 @@ eleventyComputed:
   {% if thing.screenshot %}
   <figure class="screenshot" data-pagefind-ignore>
     <a href="{{ thing.screenshot.site | ref("thing") }}"><img src="{{ thing.screenshot.src }}" width="{{ thing.screenshot.width }}" height="{{ thing.screenshot.height }}" alt="{{ thing.screenshot.alt }}" loading="lazy" decoding="async" /></a>
-    <figcaption>{{ thing.screenshot.host }} on {{ thing.screenshot.date | date }}. The collector captures the front page once a month.</figcaption>
+    <figcaption>{{ thing.screenshot.host }} on {{ thing.screenshot.date | date }}. My collector grabs the front page once a month.</figcaption>
   </figure>
   {% endif %}
 
@@ -118,7 +118,7 @@ eleventyComputed:
   {% if thing.artifacts | length %}
   <section class="artifacts" id="artifacts">
     <h2>Artifacts {{ permalink("artifacts", "Artifacts") }}</h2>
-    <p class="muted">Files from the project itself, as they were kept.</p>
+    <p class="muted">Files from the project itself, kept as they were.</p>
     {% if thing.bundles | length %}
     {% for bundle in thing.bundles %}
     <section class="artifact-bundle" id="artifacts-{{ bundle.id }}" aria-labelledby="artifacts-{{ bundle.id }}-title">
@@ -167,7 +167,7 @@ eleventyComputed:
   {% if thing.sources | length %}
   <section class="sources" id="sources" data-pagefind-ignore>
     <h2>Sources and evidence {{ permalink("sources", "Sources and evidence") }}</h2>
-    <p class="muted">Observed daily from GitHub, sitemaps, feeds, the Internet Archive, and Tinylytics. Evidence never sets a status.</p>
+    <p class="muted">Checked every day from GitHub, sitemaps, feeds, the Internet Archive, and Tinylytics. Evidence never sets a status. That is my call.</p>
     <ul class="source-list">
       {% for source in thing.sources %}
       <li class="source">
@@ -181,7 +181,7 @@ eleventyComputed:
         {% set o = source.observation %}
         {% if o.description %}<p class="source-description">{{ o.description }}</p>{% endif %}
         <ul class="evidence">
-          <li>Repository created {{ o.repositoryCreatedAt | day }} <span class="muted">(a development record, not a launch date)</span></li>
+          <li>Repository created {{ o.repositoryCreatedAt | day }} <span class="muted">(when the code started, not when it launched)</span></li>
           {% set reached = o | reach %}
           {% if reached %}<li>{{ reached }}</li>{% endif %}
           {% if o.languages | length %}<li>{{ o.languages | languages }}</li>{% endif %}

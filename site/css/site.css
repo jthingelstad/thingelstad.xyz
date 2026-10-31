@@ -913,6 +913,21 @@ h4:hover > .permalink,
   margin: 16px 0;
 }
 
+/* The about page (site/about.njk): headings between the paragraphs, and the status words as a list. */
+.about h2 {
+  margin: 32px 0 8px;
+}
+
+.about-statuses {
+  padding-left: 0;
+  margin: 12px 0 16px;
+  list-style: none;
+}
+
+.about-statuses li {
+  margin: 6px 0;
+}
+
 .build ul,
 .evidence {
   padding-left: 20px;

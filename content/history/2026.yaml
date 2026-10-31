@@ -64,7 +64,7 @@
   date: 2026-10-13
   kind: development
   title: 'NNXYZ: recorded development'
-  summary: A public repository records development of the artwork gallery. This is development evidence, not its launch date.
+  summary: The artwork gallery’s repository goes public. That is when the code shows up, not when the site opened.
   source: https://github.com/jthingelstad/nnxyz/commit/826089753b46f7f4d4ae5d994243feb73cb4c299
   things:
     - nnxyz
@@ -89,7 +89,7 @@
   date: 2026-10-07
   kind: development
   title: 'Release Notes: recorded development begins'
-  summary: The earliest commit in this repository is a development record; the project or idea may predate it.
+  summary: The first commit to the Release Notes repository. The idea came before the code.
   source: https://github.com/jthingelstad/yvn-release-notes/commit/76f54b3e4a49c39c94c8e28ba0354f3023e79981
   things:
     - release-notes
@@ -126,7 +126,7 @@
   date: 2026-09-07
   kind: development
   title: 'Elixir Discord: recorded development begins'
-  summary: The earliest commit in this repository is a development record; the project or idea may predate it.
+  summary: The first commit to the Elixir Discord repository. The idea came before the code.
   source: https://github.com/jthingelstad/elixir-mcp-discord/commit/1479a4601af90658fc3cd57cbdb269884a54f49d
   things:
     - elixir-mcp-discord
@@ -143,7 +143,7 @@
   date: 2026-09-03
   kind: development
   title: 'Elixir: recorded development begins'
-  summary: The earliest commit in this repository is a development record; the project or idea may predate it.
+  summary: The first commit to the Elixir repository. The idea came before the code.
   source: https://github.com/jthingelstad/elixir-mcp/commit/e2e126a9dc1b150db9ee64213fc48224f8c09ba2
   things:
     - elixir
@@ -151,7 +151,7 @@
   date: 2026-07-26
   kind: development
   title: 'WT Builder: recorded development begins'
-  summary: The earliest commit in this repository is a development record; the project or idea may predate it.
+  summary: The first commit to the WT Builder repository. The idea came before the code.
   source: https://github.com/jthingelstad/wt-builder/commit/918b6fea5b489773738ac64a89765864574b0ee3
   things:
     - wt-builder
@@ -159,7 +159,7 @@
   date: 2026-06-13
   kind: development
   title: 'Elixir Drop: recorded development begins'
-  summary: The earliest commit in this repository is a development record; the project or idea may predate it.
+  summary: The first commit to the Elixir Drop repository. The idea came before the code.
   source: https://github.com/jthingelstad/drop.poapkings.com/commit/4476c93f92f7f997582e3726d0d72eaba6516c25
   things:
     - elixir-drop
@@ -167,7 +167,7 @@
   date: 2026-06-03
   kind: development
   title: 'Things 4 Good: recorded development begins'
-  summary: The earliest commit in this repository is a development record; the project or idea may predate it.
+  summary: The first commit to the Things 4 Good repository. The idea came before the code.
   source: https://github.com/jthingelstad/things4good.xyz/commit/cec22f314718ff19c8b99247cb09ea43c87eea77
   things:
     - things-4-good
@@ -175,7 +175,7 @@
   date: 2026-05-14
   kind: development
   title: 'Thingy: recorded development begins'
-  summary: The earliest commit in this repository is a development record; the project or idea may predate it.
+  summary: The first commit to the Thingy repository. The idea came before the code.
   source: https://github.com/jthingelstad/thingy.thingelstad.com/commit/8167c8fdb7a4f9edd30cd4d8087fb34982e6c5ba
   things:
     - thingy
@@ -183,7 +183,7 @@
   date: 2026-05-01
   kind: development
   title: 'Your Version Number: recorded development begins'
-  summary: The earliest commit in this repository is a development record; the project or idea may predate it.
+  summary: The first commit to the Your Version Number repository. The idea came before the code.
   source: https://github.com/jthingelstad/yourversionnumber.com/commit/b2f68c8bc83cdde695b925d0aa3d37b796dd944a
   things:
     - your-version-number
@@ -191,7 +191,7 @@
   date: 2026-04-09
   kind: development
   title: 'Another Thing: recorded development begins'
-  summary: The earliest commit in this repository is a development record; the project or idea may predate it.
+  summary: The first commit to the Another Thing repository. The idea came before the code.
   source: https://github.com/jthingelstad/another.thingelstad.com/commit/0ef36d2472cfa45e39e1dc831a8f5553fb005822
   things:
     - another-thing
@@ -199,7 +199,7 @@
   date: 2026-04-09
   kind: development
   title: 'R/W Book Club: recorded development begins'
-  summary: The earliest commit in this repository is a development record; the project or idea may predate it.
+  summary: The first commit to the R/W Book Club repository. The idea came before the code.
   source: https://github.com/jthingelstad/rwbookclub.com/commit/25852563166cc04650a451f4bb3bdf27c83c4424
   things:
     - r-w-book-club
@@ -207,7 +207,7 @@
   date: 2026-04-07
   kind: development
   title: 'Librarian: recorded development begins'
-  summary: The earliest commit in Librarian, the archive API behind Thingy, is a development record; the project or idea may predate it.
+  summary: The first commit to Librarian, the archive API behind Thingy. The idea came before the code.
   source: https://github.com/jthingelstad/librarian-thing/commit/95fed22aba9a066a74df067d2072ae0ca6cf2690
   things:
     - thingy
@@ -215,7 +215,7 @@
   date: 2026-04-07
   kind: development
   title: 'Weekly Thing: recorded development begins'
-  summary: The earliest commit in this repository is a development record; the project or idea may predate it.
+  summary: The first commit to the Weekly Thing repository. The idea came before the code.
   source: https://github.com/jthingelstad/weekly.thingelstad.com/commit/e5074139a6e6fb37a0c83713e8808878e6af3205
   things:
     - weekly-thing
@@ -223,7 +223,7 @@
   date: 2026-03-01
   kind: development
   title: 'mb: recorded development begins'
-  summary: The earliest commit in this repository is a development record; the project or idea may predate it.
+  summary: The first commit to the mb repository. The idea came before the code.
   source: https://github.com/jthingelstad/mb/commit/2b20c09c6350db018860bc026f88b839da296346
   things:
     - mb
@@ -231,7 +231,7 @@
   date: 2026-02-27
   kind: development
   title: 'Elixir Bot: recorded development begins'
-  summary: The earliest commit in this repository is a development record; the project or idea may predate it.
+  summary: The first commit to the Elixir Bot repository. The idea came before the code.
   source: https://github.com/jthingelstad/elixir-bot/commit/161b7f4e0c98d2acb84bb770981a12ba256bebc8
   things:
     - elixir-bot
@@ -239,7 +239,7 @@
   date: 2026-02-11
   kind: development
   title: 'Escaping Things: recorded development begins'
-  summary: The earliest commit in this repository is a development record; the project or idea may predate it.
+  summary: The first commit to the Escaping Things repository. The idea came before the code.
   source: https://github.com/jthingelstad/escape.thingelstad.com/commit/1cab836b57c32990f4f2a7b815d1bb3c6a0cfe4c
   things:
     - escaping-things
@@ -247,7 +247,7 @@
   date: 2026-02-04
   kind: development
   title: 'POAP KINGS: recorded development begins'
-  summary: The earliest commit in this repository is a development record; the project or idea may predate it.
+  summary: The first commit to the POAP KINGS repository. The idea came before the code.
   source: https://github.com/jthingelstad/poapkings.com/commit/0716a099e57528016fa3a2cd8d86d6dd18e1e313
   things:
     - poap-kings
@@ -272,7 +272,7 @@
   date: 2026-10-13
   kind: development
   title: 'Things I’ve built: recorded development'
-  summary: A public repository records development of the project index. This is development evidence, not its launch date.
+  summary: The first commit to this site’s repository. The idea came before the code.
   source: https://github.com/jthingelstad/thingelstad.xyz
   things:
     - things-ive-built
@@ -380,7 +380,7 @@
   date: 2026-07-24
   kind: retirement
   title: Flight Path retired
-  summary: A week before POAP’s shutdown, I replace the globe with a sunset notice and archived the repository.
+  summary: A week before POAP’s shutdown, I replace the globe with a sunset notice and archive the repository.
   source: https://github.com/jthingelstad/flightpath.poaprally.com/commit/fea8eac46878b7ab9afa418c48193b4139d8a06b
   things:
     - flight-path
@@ -404,7 +404,7 @@
   date: 2026-05-03
   kind: launch
   title: Your Version Number site
-  summary: First shared in WT346.
+  summary: I share the site for the first time in Weekly Thing 346.
   source: https://weekly.thingelstad.com/archive/346/
   things:
     - your-version-number
@@ -445,7 +445,7 @@
   date: 2026-10-17
   kind: milestone
   title: Static site replaces the gallery
-  summary: Eleventy site from the registry.
+  summary: I replace the gallery with an Eleventy site built straight from the registry.
   source: https://github.com/jthingelstad/thingelstad.xyz/pull/6
   things:
     - things-ive-built
@@ -453,7 +453,7 @@
   date: 2026-10-06
   kind: milestone
   title: Every issue in audio
-  summary: I restructure the Weekly Thing archive and renders every issue in audio, so the podcast feed reaches back to the first issue.
+  summary: I restructure the Weekly Thing archive and render every issue in audio, so the podcast feed reaches back to the first issue.
   source: https://www.thingelstad.com/2026/10/06/weekly-thing-archive-improved.html
   things:
     - weekly-thing
@@ -461,7 +461,7 @@
   date: 2026-10-03
   kind: milestone
   title: A new generation of Otto
-  summary: I set up Otto on OpenAI’s dots and interviews it for the job of driving Elixir.
+  summary: I set up Otto on OpenAI’s dots and interview it for the job of driving Elixir.
   source: https://weekly.thingelstad.com/archive/352/
   things:
     - otto
@@ -502,7 +502,7 @@
   date: 2026-05-27
   kind: development
   title: 'Oliver: recorded development begins'
-  summary: The book club repository becomes a monorepo of website, corpus and Oliver. This is development evidence, not a launch date.
+  summary: The book club repository becomes a monorepo of website, corpus, and Oliver. That is Oliver’s first code, not the day it joined the club.
   source: https://github.com/jthingelstad/rwbookclub.com/commit/bdb72521adb776b3a9897f1ae3c0f0f41c62ccfb
   things:
     - oliver

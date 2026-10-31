@@ -1,36 +1,36 @@
 - id: agents
   title: Agents
-  description: Software that observes, remembers, and acts. A thread from personal tools to community companions.
+  description: Software that observes, remembers, and acts. It started as tools for me and grew into companions for whole communities.
 - id: mediawiki
   title: MediaWiki
-  description: 'Wikis as a place to build: communities, extensions, skins, and structured knowledge.'
+  description: 'I spent years building on MediaWiki: communities, extensions, skins, and knowledge with structure.'
 - id: semantic-mediawiki
   title: Semantic MediaWiki
-  description: A wiki can be a database, too. Structured properties make knowledge queryable.
+  description: A wiki can be a database too. Semantic MediaWiki let me ask a wiki questions, and that changed how I built on wikis.
 - id: poap
   title: POAP
-  description: Proof of participation, collected memories, and tools that connect tokens to the open web.
+  description: Proof of participation. Collected memories, and the tools I built to connect those tokens to the open web.
 - id: crypto
   title: Crypto
-  description: Experiments with onchain participation and digital collectibles, through the POAP ecosystem.
+  description: My experiments with onchain participation and digital collectibles, almost all of them through POAP.
 - id: mcp
   title: MCP
-  description: Giving agents a useful interface to recorded knowledge and everyday tools.
+  description: Agents need a good way into what I’ve recorded and the tools I use every day. MCP is how I give it to them.
 - id: open-web
   title: The open web
-  description: Publishing, feeds, archives, and tools that keep information portable.
+  description: Publishing, feeds, archives, and tools that keep what I make portable and mine.
 - id: play
   title: Play
-  description: Games, playful arithmetic, and the communities that form around them.
+  description: Games, playful arithmetic, and the communities that form around them. Kubb, Clash Royale, and math on road signs.
 - id: archives
   title: Archives
-  description: Preserving content, collections, and the evidence behind them.
+  description: Keeping content, collections, and the evidence behind them, so they are still there years from now.
 - id: reading
   title: Reading
-  description: Books, reading, and the ways a family or community shares them.
+  description: Books, reading, and the ways my family and my book club share them.
 - id: making
   title: Making
-  description: Things made by hand, often as a family. Candles, puzzles, and a carved tree.
+  description: Things made by hand, usually as a family. Candles, puzzles, and a carved tree.
 - id: automation
   title: Automation
-  description: Shortcuts, bots, and scripts that take over the repetitive parts.
+  description: Shortcuts, bots, and scripts that take the repetitive parts off my plate.

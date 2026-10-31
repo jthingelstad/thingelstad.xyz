@@ -68,13 +68,24 @@ The body is the idea behind the thing, in Markdown.
 
 The site is Jamie speaking about his own work. Summaries, bodies, connection details and ledger summaries are written in the first person (I, my, we), never “Jamie” or “he”. Quotations stay verbatim; only their attribution changes. The `story.questions` are a reader’s, so they stay in the third person.
 
+### Voice
+
+Jamie asked on 2026-10-31 for the writing to read as his own, and allowed the about page to say that it is not typed by him. The register, from his blog and the Weekly Thing:
+
+- Open with the thing and what it meant, not with the record of it. “I built X because Y” beats “X was a Y, recorded in Z”.
+- Short declarative sentences. Contractions. One idea per sentence, and no semicolon chains.
+- Enthusiasm and candor where he wrote them: “Let’s go!”, “a ton of”, “Ugh.”, “the code was ugly”. Never invent a feeling; quote or paraphrase one he published, or leave it out.
+- Links sit on natural phrases inside the sentence. Dates are words (“October 2026”, “May 3, 2026”), never ISO in prose.
+- Facts, links and quotations stay exactly as sourced. What changes is the hedging: not “no public source says when it ended” but “it went away quietly, and I never wrote about shutting it down”.
+- Page ledes, status words, the footer and the 404 follow the same voice. `/about/` (site/about.njk) explains how the site is kept and that agents write the words from Jamie’s public writing, with Jamie reviewing.
+
 Status words:
 
-- **active**: being built or operated.
-- **dormant**: not currently worked on, and may return.
-- **retired**: deliberately ended.
-- **abandoned**: tried, and given up before it worked out. Jamie decides this one, like every status.
-- **archived**: complete and preserved as it is. Books, events, and one-time projects.
+- **active**: I’m building or running it.
+- **dormant**: not being worked on right now. It may come back.
+- **retired**: I ended it on purpose.
+- **abandoned**: I tried it and gave up before it worked out. Jamie decides this one, like every status.
+- **archived**: finished, and kept as it is. Books, events, and one-time projects.
 
 Sources are inline. Two things that name the same repository or URL share one observation; the collector stores it once. A GitHub source can carry a `path` to scope activity to a directory. A website source can carry a `sitemap` and a `feed`, which is what makes it observable. A website without either is a reference only.
 

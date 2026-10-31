@@ -2,14 +2,14 @@
 layout: layout.njk
 permalink: /activity/
 title: Activity
-description: What landed in the things I build, week by week. Commits to their public repositories and posts in their feeds, collected daily.
+description: What landed in my things each week. Commits to their public repositories and posts in their feeds, collected daily.
 ---
 {#- The activity model is collection/activity.ts: commits from the commit logs, publications from the feed logs,
     days and weeks in US Central. Evidence, like the rest of the observations: it never sets a status. #}
 {% set a = site.activity %}
 <section class="intro">
   <h1>Activity</h1>
-  <p class="lede">What landed in the things I build, week by week: commits to their public repositories and posts in their own feeds. Most of my commits are now made with an agent, and each commit says who made it.</p>
+  <p class="lede">What landed in my things each week: commits to their public repositories and posts in their own feeds. Most of my commits are made with an agent now, and every commit says who made it.</p>
   {% if a.collected %}<p class="muted">Collected daily, most recently {{ a.collected | localDay | day }}. Follow along: <a href="/activity.xml">RSS</a>, one item for each day with activity.</p>{% endif %}
 </section>
 

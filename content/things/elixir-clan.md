@@ -1,6 +1,6 @@
 ---
 title: Elixir Clan
-summary: Clan management on Elixir, where a clan’s own written policy is run against the record to guide its leaders’ calls.
+summary: Clan management on Elixir. A clan writes its own policy, and Elixir reads the record against it to guide the leaders’ calls.
 collection: Games and communities
 status: active
 url: https://elixir.poapkings.com/clan
@@ -37,7 +37,7 @@ connections:
     source: https://poapkings.com/elixir/
 ---
 
-Elixir Clan is the part of Elixir for running a Clash Royale clan. Any player on a person’s Elixir account is a member of that player’s clan, and leaders who [verify their player](https://elixir.poapkings.com/docs/bring-your-clan) act in their in-game role. Each clan writes its own policy, and Elixir reads every week against it: [standing and the Elder band](https://elixir.poapkings.com/docs/standing), the [actions](https://elixir.poapkings.com/docs/clan-actions) waiting for a leader (promotions, welcomes, removals), season [awards](https://elixir.poapkings.com/docs/clan-awards), recruiting, and scouting. Decisions stay with the leaders.
+Elixir Clan is the part of Elixir for running a Clash Royale clan. Any player on a person’s Elixir account is a member of that player’s clan, and leaders who [verify their player](https://elixir.poapkings.com/docs/bring-your-clan) act in their in-game role. Each clan writes its own policy, and Elixir reads every week against it: [standing and the Elder band](https://elixir.poapkings.com/docs/standing), the [actions](https://elixir.poapkings.com/docs/clan-actions) waiting for a leader (promotions, welcomes, removals), season [awards](https://elixir.poapkings.com/docs/clan-awards), recruiting, and scouting. The decisions stay with the leaders. Elixir just makes sure they have the record in front of them.
 
 I built it to take the clan management features I had built into [Elixir Bot](https://github.com/jthingelstad/elixir-bot) for POAP KINGS and turn them into [a proper product that anyone can use](https://weekly.thingelstad.com/archive/351/). It began in September 2026 as a separate app at clan.poapkings.com, in its own [repository](https://github.com/jthingelstad/clan.poapkings.com), with Sign in with Elixir.
 
