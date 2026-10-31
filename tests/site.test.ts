@@ -750,7 +750,8 @@ test('every sitemap page carries the date its content last changed, never the bu
     'content/things/weekly-thing.md': '2026-10-01T09:00:00-05:00',
     'content/topics.yaml': '2026-09-01T00:00:00Z',
     'content/featured.yaml': '2026-10-24T00:00:00Z',
-    'content/history/2026.yaml': '2026-10-02T00:00:00Z'
+    'content/history/2026.yaml': '2026-10-02T00:00:00Z',
+    'content/stories/weekly-thing-tools.md': '2026-11-20T00:00:00Z'
   };
   const fileDate = (path: string) =>
     dates[path] ??
@@ -781,7 +782,16 @@ test('every sitemap page carries the date its content last changed, never the bu
     Date.parse(weekly.latest?.date ?? '1970'),
     ...weekly.events.map((e) => Date.parse(toInstant(e.date)))
   ];
-  assert.equal(lastmod('/things/weekly-thing/'), w3c(new Date(Math.max(...expected)).toISOString()));
+  assert.ok(
+    weekly.stories.some((story) => story.id === 'weekly-thing-tools'),
+    'the fixture names a story it is in'
+  );
+  // A story it is in dates its page too, as the page shows the story's title; here the story file is the newest.
+  assert.equal(lastmod('/things/weekly-thing/'), '2026-11-20T00:00:00Z');
+  assert.ok(Math.max(...expected) < Date.parse('2026-11-20T00:00:00Z'));
+  assert.equal(lastmod('/stories/weekly-thing-tools/'), '2026-11-20T00:00:00Z');
+  assert.equal(lastmod('/stories/'), '2026-11-20T00:00:00Z');
+  assert.equal(lastmod('/'), '2026-11-20T00:00:00Z', 'the front page shows the story cards');
   for (const entry of entries) assert.notEqual(entry.lastmod, w3c(model.generated), entry.loc);
   // A list is as new as the newest thing it lists.
   const newestThing = model.things
