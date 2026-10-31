@@ -24,6 +24,11 @@ eleventyComputed:
     (rel="me author"), and this says the entry is Jamie's too. It is the only microformat inside the entry, and
     Pagefind leaves it out. The entry has no dt-published: the dates a thing shows are when it started and ended,
     not when its page was published. #}
+{#- Anchors: every section of the page and every artifact has an address of its own, so a link can point at
+    one (/things/<id>/#artifacts, #artifact-<file>, #artifacts-<bundle>). The ids are fixed words and file names,
+    never a heading's text, so a retitle never breaks a link someone sent. Each heading carries a small # link
+    to its own address, the way to copy it; it is out of search and has a spoken name. #}
+{% macro permalink(id, label) %}<a class="permalink" href="#{{ id }}" aria-label="Link to {{ label }}" data-pagefind-ignore>#</a>{% endmacro %}
 <article class="thing h-entry" data-pagefind-body>
   <span hidden data-pagefind-meta="image:"></span>
   <data class="u-url" value="{{ site.url }}{{ page.url }}"></data>
@@ -72,15 +77,15 @@ eleventyComputed:
   {% endif %}
 
   {% if thing.body | trim %}
-  <section class="story e-content">
+  <section class="story e-content" id="story">
     {{ thing.body | md | safe }}
   </section>
   {% endif %}
 
   {% if thing.story %}
-  <section class="build">
+  <section class="build" id="build">
     {% if thing.story.engineering | length %}
-    <h2>The build</h2>
+    <h2>The build {{ permalink("build", "The build") }}</h2>
     <ul>{% for item in thing.story.engineering %}<li>{{ item }}</li>{% endfor %}</ul>
     {% endif %}
     {% if thing.story.stack | length %}
@@ -97,11 +102,11 @@ eleventyComputed:
       them in bundles, each under its own heading with its introduction. The titles and captions are the
       thing's words and are indexed; the file names and sizes are not. #}
   {% macro artifactCard(artifact, heading) %}
-      <li class="artifact">
+      <li class="artifact" id="{{ artifact.anchor }}">
         {% if artifact.image %}
         <a class="artifact-image" href="{{ artifact.image.src }}" data-pagefind-ignore><img src="{{ artifact.image.src }}" width="{{ artifact.image.width }}" height="{{ artifact.image.height }}" alt="{{ artifact.title }}" loading="lazy" decoding="async" /></a>
         {% endif %}
-        <{{ heading }} class="artifact-title">{{ artifact.title }}</{{ heading }}>
+        <{{ heading }} class="artifact-title">{{ artifact.title }} {{ permalink(artifact.anchor, artifact.title) }}</{{ heading }}>
         {% if artifact.caption %}<p class="artifact-caption">{{ artifact.caption }}</p>{% endif %}
         <p class="artifact-meta muted" data-pagefind-ignore>
           <a href="{{ artifact.src }}" download>{{ artifact.file }}</a> · {{ artifact.kind }}, {{ artifact.size }}
@@ -111,13 +116,13 @@ eleventyComputed:
       </li>
   {% endmacro %}
   {% if thing.artifacts | length %}
-  <section class="artifacts">
-    <h2>Artifacts</h2>
+  <section class="artifacts" id="artifacts">
+    <h2>Artifacts {{ permalink("artifacts", "Artifacts") }}</h2>
     <p class="muted">Files from the project itself, as they were kept.</p>
     {% if thing.bundles | length %}
     {% for bundle in thing.bundles %}
     <section class="artifact-bundle" id="artifacts-{{ bundle.id }}" aria-labelledby="artifacts-{{ bundle.id }}-title">
-      <h3 id="artifacts-{{ bundle.id }}-title">{{ bundle.title }}</h3>
+      <h3 id="artifacts-{{ bundle.id }}-title">{{ bundle.title }} {{ permalink("artifacts-" + bundle.id, bundle.title) }}</h3>
       {% if bundle.caption %}<p class="artifact-bundle-caption">{{ bundle.caption }}</p>{% endif %}
       <ul class="artifact-list">
         {% for artifact in bundle.artifacts %}{{ artifactCard(artifact, "h4") }}{% endfor %}
@@ -134,8 +139,8 @@ eleventyComputed:
 
   {% if thing.activity %}
   {% set record = thing.activity %}
-  <section class="thing-activity" data-pagefind-ignore>
-    <h2>Activity</h2>
+  <section class="thing-activity" id="activity" data-pagefind-ignore>
+    <h2>Activity {{ permalink("activity", "Activity") }}</h2>
     {% if record.total %}<p>{{ { total: record.total, who: record.who } | activitySummary }}, {{ 'on' if record.total == 1 else 'the first on' }} {{ record.firstCommit | day }}.</p>{% endif %}
     {% if record.publications %}<p>{{ record.publications | number }} {{ 'publication' if record.publications == 1 else 'publications' }} collected from its feeds, the oldest from {{ record.firstPublication | day }}.</p>{% endif %}
     {% set columns = record | yearColumns(thing.title) %}
@@ -160,8 +165,8 @@ eleventyComputed:
   {% endif %}
 
   {% if thing.sources | length %}
-  <section class="sources" data-pagefind-ignore>
-    <h2>Sources and evidence</h2>
+  <section class="sources" id="sources" data-pagefind-ignore>
+    <h2>Sources and evidence {{ permalink("sources", "Sources and evidence") }}</h2>
     <p class="muted">Observed daily from GitHub, sitemaps, feeds, the Internet Archive, and Tinylytics. Evidence never sets a status.</p>
     <ul class="source-list">
       {% for source in thing.sources %}
@@ -227,8 +232,8 @@ eleventyComputed:
   {% endif %}
 
   {% if thing.connections | length or thing.inbound | length %}
-  <section class="connections">
-    <h2>Connections</h2>
+  <section class="connections" id="connections">
+    <h2>Connections {{ permalink("connections", "Connections") }}</h2>
     {% set diagram = thing | connectionDiagram(site) %}
     {% if diagram %}
     <figure class="connection-diagram{% if not diagram.narrow %} wide-only{% endif %}" data-pagefind-ignore>
@@ -256,15 +261,15 @@ eleventyComputed:
   {% endif %}
 
   {% if thing.story and thing.story.related | length %}
-  <section class="related">
-    <h2>Related</h2>
+  <section class="related" id="related">
+    <h2>Related {{ permalink("related", "Related") }}</h2>
     <p>{% for id in thing.story.related %}{% set other = site | thing(id) %}{% if other %}<a class="tag" href="{{ other.page }}">{{ other.title }}</a> {% endif %}{% endfor %}</p>
   </section>
   {% endif %}
 
   {% if thing.events | length %}
-  <section class="events">
-    <h2>History</h2>
+  <section class="events" id="history">
+    <h2>History {{ permalink("history", "History") }}</h2>
     <ol class="event-list">
       {% for event in thing.events %}
       <li>

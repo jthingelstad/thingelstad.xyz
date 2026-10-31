@@ -422,7 +422,7 @@ h2 {
 }
 
 .site-main p a:not(.tag, .status),
-.site-main li a:not(.tag, .thing-title),
+.site-main li a:not(.tag, .thing-title, .permalink),
 .site-main dd a:not(.tag) {
   text-decoration: underline;
   text-decoration-color: var(--underline);
@@ -805,6 +805,54 @@ h2 {
   margin: 4px 0;
   font-size: var(--jt-size-meta);
   overflow-wrap: anywhere;
+}
+
+/* Anchors (thing.njk): every section, bundle and artifact of a thing page has an address of its own, and its
+   heading's # link is the way to copy it. The # stays quiet until its heading is hovered or it has focus, and
+   is always shown where there is no hover, as on a phone. The section or artifact a link opens on is marked
+   the way the history ledger marks its event: the heading in the green, an artifact on the soft ground. */
+.permalink {
+  margin-left: 0.1em;
+  color: var(--muted);
+  font-weight: 600;
+  text-decoration: none;
+  opacity: 0;
+}
+
+h2:hover > .permalink,
+h3:hover > .permalink,
+h4:hover > .permalink,
+:target > h2 > .permalink,
+:target > h3 > .permalink,
+:target > h4 > .permalink,
+.permalink:focus-visible {
+  opacity: 1;
+}
+
+.permalink:hover {
+  color: var(--accent-text);
+}
+
+@media (hover: none) {
+  .permalink {
+    opacity: 1;
+  }
+}
+
+.thing > section[id],
+.artifact-bundle,
+.artifact {
+  scroll-margin-top: 16px;
+}
+
+.thing > section:target > h2,
+.artifact-bundle:target > h3 {
+  color: var(--accent-text);
+}
+
+.artifact:target {
+  background: var(--soft);
+  box-shadow: 0 0 0 12px var(--soft);
 }
 
 .topic-cloud a,
