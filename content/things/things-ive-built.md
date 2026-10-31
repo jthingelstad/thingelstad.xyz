@@ -1,6 +1,6 @@
 ---
 title: Things I’ve built
-summary: An index and archive of my projects, including the ones I have stepped away from.
+summary: The index of everything I’ve built, including the things I’ve stepped away from.
 collection: Art & archives
 status: active
 url: https://thingelstad.xyz/
@@ -24,6 +24,8 @@ connections:
     source: https://github.com/jthingelstad/thingelstad.xyz
 ---
 
-I keep thingelstad.xyz for point-in-time project things. This site is the index: every project, active or retired, with its sources, its connections to other projects, and a sourced history of what happened when. The registry is written as Markdown and YAML in a public repository, evidence is collected weekly from GitHub, sitemaps, and feeds, and the result is a static site with an RSS feed and llms.txt.
+thingelstad.xyz is where I keep the point-in-time things I make, and this site is the index of all of them. Every project, active or long retired, with its sources, how it connects to the other projects, and a sourced history of what happened when. The registry is Markdown and YAML in a public repository. Evidence comes in every day from GitHub, sitemaps, feeds, the Internet Archive, and Tinylytics, and the whole thing builds to a static site with an RSS feed and llms.txt.
 
-I started the repository in October 2026 as a project gallery with an AI guide. On [October 17, 2026](https://github.com/jthingelstad/thingelstad.xyz/pull/6) it became a static site built with Eleventy from the Markdown registry, and the AI guide, private editor and React application were [retired](https://github.com/jthingelstad/thingelstad.xyz/pull/8). Thingy's archive [indexes](https://github.com/jthingelstad/thingelstad.xyz/pull/9) the published things.json, so it can answer questions about the projects.
+I started the repository in October 2026 as a project gallery with an AI guide. On [October 17, 2026](https://github.com/jthingelstad/thingelstad.xyz/pull/6) it became a static site built with Eleventy from the Markdown registry, and the AI guide, private editor and React application were [retired](https://github.com/jthingelstad/thingelstad.xyz/pull/8). Thingy’s archive [indexes](https://github.com/jthingelstad/thingelstad.xyz/pull/9) the published things.json, so you can ask Thingy about any of these projects.
+
+The words on this site are written as me, but I don’t type most of them. The [about page](https://thingelstad.xyz/about/) explains how that works.

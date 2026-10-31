@@ -44,7 +44,7 @@ import {
 export const siteUrl = 'https://thingelstad.xyz';
 const siteTitle = 'Things I’ve built.';
 const siteDescription =
-  'An index and archive of my projects, including the ones I’ve stepped away from. By Jamie Thingelstad.';
+  'Everything I’ve built, in one place: the things I run today and the ones I’ve stepped away from. By Jamie Thingelstad.';
 const repositoryUrl = 'https://github.com/jthingelstad/thingelstad.xyz';
 
 const statusLabels: Record<Status, string> = {
@@ -55,11 +55,11 @@ const statusLabels: Record<Status, string> = {
   archived: 'Archived'
 };
 const statusDescriptions: Record<Status, string> = {
-  active: 'Being built or operated.',
-  dormant: 'Not currently worked on, and may return.',
-  retired: 'Deliberately ended.',
-  abandoned: 'Tried, and given up before it worked out.',
-  archived: 'Complete and preserved as it is.'
+  active: 'I’m building or running it.',
+  dormant: 'Not being worked on right now. It may come back.',
+  retired: 'I ended it on purpose.',
+  abandoned: 'I tried it and gave up before it worked out.',
+  archived: 'Finished, and kept as it is.'
 };
 const collectionOrder = [
   'Publishing',
@@ -640,7 +640,7 @@ export function llmsText(model: SiteModel) {
     '',
     ...(model.featured.length
       ? [
-          'Featured lists the things I most want a visitor to see now, in the order the front page shows them.',
+          'Featured is the short list of things I most want you to see right now, in the order the front page shows them.',
           '',
           '## Featured',
           '',
@@ -661,6 +661,7 @@ export function llmsText(model: SiteModel) {
     `- [History](${model.url}/history/): every sourced event, newest first`,
     `- [Activity](${model.url}/activity/): the commits and publications that landed in each thing, week by week; ${model.url}/activity.xml has one item a day`,
     `- [Full text](${model.url}/llms-full.txt): every thing's record and story in one file`,
+    `- [About](${model.url}/about/): what this site is, how it is kept, and who writes the words`,
     ''
   ];
   return lines.join('\n');
@@ -756,7 +757,7 @@ export function jsonFeed(model: SiteModel) {
     title: `${model.title} History`,
     home_page_url: `${model.url}/`,
     feed_url: `${model.url}/feed.json`,
-    description: 'What changed in what I’ve built. Sourced events, newest first.',
+    description: 'What changed in the things I’ve built, newest first, each with its source.',
     authors: [{ name: 'Jamie Thingelstad', url: 'https://www.thingelstad.com/' }],
     items: feedItems(model).map((item) => ({
       id: item.id,
@@ -801,7 +802,7 @@ ${item.things.map((thing) => `      <category>${escapeHtml(thing.title)}</catego
     <title>${escapeHtml(model.title)} History</title>
     <link>${model.url}/</link>
     <atom:link href="${model.url}/feed.xml" rel="self" type="application/rss+xml"/>
-    <description>What changed in what I’ve built. Sourced events, newest first.</description>
+    <description>What changed in the things I’ve built, newest first, each with its source.</description>
     <language>en-us</language>
     <lastBuildDate>${rfc822(newest)}</lastBuildDate>
 ${entries}

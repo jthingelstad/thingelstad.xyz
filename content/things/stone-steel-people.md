@@ -22,6 +22,6 @@ connections:
     source: https://www.thingelstad.com/2012/07/01/website-for-my.html
 ---
 
-Stone/Steel/People is my [first photo book](https://www.thingelstad.com/2010/12/05/first-photo-book.html). I made it after Layne Kennedy’s 72 Hours workshop at the Minneapolis Photo Center, and named it for what I photographed there. Two weeks before it came out I wrote about [editing it down](https://www.thingelstad.com/2010/11/15/editing-a-book.html) to the pictures that belonged.
+Stone/Steel/People is my [first photo book](https://www.thingelstad.com/2010/12/05/first-photo-book.html). I made it after Layne Kennedy’s 72 Hours workshop at the Minneapolis Photo Center, and the name is what I photographed there: stone, steel, and people. Two weeks before it came out I wrote about [editing it down](https://www.thingelstad.com/2010/11/15/editing-a-book.html) to the pictures that belonged.
 
-The book is square, with one image to a page and “a little over 30 pictures,” and I reckoned it took “between 10 and 15 hours.” I published it through Blurb, where it is [still for sale](https://www.blurb.com/b/1813441-stone-steel-people).
+The book is square, one image to a page, “a little over 30 pictures,” and it took me “between 10 and 15 hours” to put together. I published it through Blurb, where it is [still for sale](https://www.blurb.com/b/1813441-stone-steel-people).

@@ -6,7 +6,7 @@ description: Every dated thing I’ve built, by the year it started, newest firs
 ---
 <section class="intro">
   <h1>Timeline</h1>
-  <p class="lede">Every dated thing I’ve built, by the year it started, newest first. The bar under each year counts what was alive then. Each thing’s strip runs from {{ site.timeline.firstYear }} to {{ site.timeline.lastYear }}: its span is the bar, its sourced events are the dots. Bars are decisions; dots are evidence.</p>
+  <p class="lede">Every dated thing I’ve built, by the year it started, newest first. The bar under each year counts what was alive then. Each thing’s strip runs from {{ site.timeline.firstYear }} to {{ site.timeline.lastYear }}: the bar is how long it lived, the dots are the events I have a source for. The bars are my decisions. The dots are evidence.</p>
   <p class="legend">
     {% for s in site.statuses %}<span class="status status-{{ s.status }}">{{ s.label }}</span> {% endfor %}
   </p>
@@ -47,7 +47,7 @@ description: Every dated thing I’ve built, by the year it started, newest firs
 {% if site.timeline.undated | length %}
 <section class="undated">
   <h2>Not yet dated</h2>
-  <p class="muted">These things have no sourced start date or event yet.</p>
+  <p class="muted">I haven’t found a sourced start date or event for these yet.</p>
   <p>{% for thing in site.timeline.undated %}<a class="tag" href="{{ thing.page }}">{{ thing.title }}</a> {% endfor %}</p>
 </section>
 {% endif %}

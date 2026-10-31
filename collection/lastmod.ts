@@ -78,6 +78,7 @@ export function sitemapEntries(model: SiteModel, fileDate: FileDate): SitemapEnt
     ['/activity/', activity],
     ['/timeline/', latest([allThings, history])],
     ['/search/', allThings],
+    ['/about/', latest([fileDate('site/about.njk'), fileDate('content/things/things-ive-built.md')])],
     ...model.things.map((thing): [string, string | null] => [thing.page, thingDates.get(thing.id) ?? null]),
     ...topicDates.map((topic): [string, string | null] => [topic.page, topic.date])
   ];

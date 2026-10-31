@@ -1,0 +1,30 @@
+---
+layout: layout.njk
+permalink: /about/
+title: About
+description: What this site is, how it is kept, and who writes the words.
+---
+{#- The one page about the site itself. The status list comes from the model, so it never drifts from the
+    legend or the facets. The last section is the disclosure Jamie asked for (2026-10-31): the words are
+    written as Jamie, assembled with agents from Jamie's public writing. #}
+<section class="intro">
+  <h1 class="title">About this <span class="accent">site</span><span class="dot">.</span></h1>
+  <p class="lede">Everything I’ve built, in one place. Websites, newsletters, bots, wiki extensions, a podcast, a few games, and a long list of things I’ve stepped away from.</p>
+</section>
+<section class="story about">
+  <p>I make a lot of things. Some of them last twenty years and some of them last a weekend, and until this site I had no single place that remembered all of them. Now every project gets a page with what it is, why I made it, what it connects to, and what happened to it. The ones that ended get the same care as the ones I run today.</p>
+
+  <h2>How it works</h2>
+  <p>The whole site is a folder of Markdown and YAML in a <a href="{{ site.repository }}">public repository</a>. Every thing is one file. Every event in the <a href="/history/">history</a> links to a public source, and the dates stay as exact as that source lets them be. Once a day a collector checks GitHub, sitemaps, feeds, the Internet Archive, and Tinylytics, and writes down what it finds. That is the <a href="/activity/">activity</a> you see on these pages, and it is evidence, not memory.</p>
+  <p>The status on each thing is different. That one is my decision, and no amount of evidence changes it.</p>
+  <ul class="about-statuses">
+    {% for s in site.statuses %}<li><span class="status status-{{ s.status }}">{{ s.label }}</span> {{ s.description }}</li>
+    {% endfor %}
+  </ul>
+  <p>The <a href="/#featured">featured shelf</a> on the front page is my decision too: the few things I most want you to see right now.</p>
+  <p>Everything here is open. Each thing has a Markdown twin one click from its page, the whole registry is <a href="/things.json">things.json</a>, the history is an <a href="/feed.xml">RSS feed</a>, and <a href="/llms.txt">llms.txt</a> gives an agent the lay of the land. <a href="https://thingy.thingelstad.com/?ref=xyz-about">Thingy</a> reads the same registry, so you can ask it about any of these projects.</p>
+
+  <h2>Who writes this</h2>
+  <p>The words on this site are written as me, in my voice, but I don’t type most of them. Agents draft and maintain these pages from my public writing: <a href="https://www.thingelstad.com/?ref=xyz-about">the blog</a>, the <a href="https://weekly.thingelstad.com/?ref=xyz-about">Weekly Thing</a>, the podcast, and the commit history of the projects themselves. I set the direction, decide what is featured and what status each thing gets, and read what goes out. When you see a quotation, those are my words exactly, with a link to where I wrote them.</p>
+  <p>If a page gets something wrong, the fix is close by. Every thing has an “Edit the record” link to its file on GitHub, and an <a href="{{ site.repository }}/issues">issue</a> works too. I’d like to know.</p>
+</section>

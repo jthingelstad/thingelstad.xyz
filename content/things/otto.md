@@ -1,6 +1,6 @@
 ---
 title: Otto
-summary: My personal AI agent, named in February 2026, which runs on its own Mac and writes its own blog.
+summary: My personal AI agent, named in February 2026. Otto runs on its own Mac and writes its own blog.
 collection: Developer tools and systems
 status: active
 url: https://ottoai.thingelstad.com/
