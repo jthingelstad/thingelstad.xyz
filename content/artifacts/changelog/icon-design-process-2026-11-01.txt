@@ -1,0 +1,30 @@
+Release Notes and Changelog: the icon design study
+October 31, 2026; record prepared November 1, 2026
+
+Jamie explored the icons with Codex using the built-in image generator.
+The two applications had shared an icon on his phone.
+
+The first direction was one ivory paper v with a tangerine period on a
+cobalt field. It was initially proposed for Changelog, then assigned to
+Release Notes. Its curled paper terminal connects the letterform and the
+journal material. A literal open-journal direction for Release Notes was
+set aside.
+
+Changelog then took the idea of multiple versions. Two studies followed:
+three curled paper slips called Entries, and three folded v marks called
+Versions. Jamie chose Versions. The refinement gave the stack more space
+around its edges and simpler fold shading, then checked it at 60 pixels
+beside the single-v Release Notes mark.
+
+Paper, Copper, Terminal and Afterglow explore the same Changelog geometry
+in different colors and materials. They are intended as alternative app
+icons for Supporting Members of the Weekly Thing.
+
+For Release Notes, Flat and Micro Fold simplify the same v and dot for a
+browser tab. Both were checked at 16 and 32 pixels alongside the original
+Full Fold. Flat was the recommendation for browser tabs, while the full
+paper fold remained the PWA direction.
+
+The files are design studies. This exercise did not install icons or
+change application code. The archives preserve source PNGs, generation
+prompts and small-size previews for continuing the design work.
