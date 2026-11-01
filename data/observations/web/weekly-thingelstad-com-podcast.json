@@ -1,7 +1,7 @@
 {
   "kind": "web",
   "url": "https://weekly.thingelstad.com/podcast/",
-  "observedAt": "2026-10-26T17:22:18.153Z",
+  "observedAt": "2026-11-01T17:07:29.419Z",
   "sitemap": null,
   "feed": {
     "url": "https://weekly.thingelstad.com/podcast.xml",
@@ -9,7 +9,6 @@
     "items": 355,
     "newestPublished": "2026-10-24T12:00:00.000Z",
     "months": [
-      { "month": "2025-11", "count": 4 },
       { "month": "2025-12", "count": 2 },
       { "month": "2026-01", "count": 2 },
       { "month": "2026-02", "count": 3 },

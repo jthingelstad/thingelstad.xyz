@@ -1,12 +1,11 @@
 {
   "kind": "tinylytics",
   "url": "https://poapkings.com/",
-  "observedAt": "2026-10-20T17:57:36.612Z",
-  "since": "2025-10-01",
-  "until": "2026-09-30",
-  "hits": 3160,
+  "observedAt": "2026-11-01T17:07:29.419Z",
+  "since": "2025-11-01",
+  "until": "2026-10-31",
+  "hits": 3277,
   "months": [
-    { "month": "2025-10", "count": 0 },
     { "month": "2025-11", "count": 0 },
     { "month": "2025-12", "count": 0 },
     { "month": "2026-01", "count": 0 },
@@ -17,6 +16,7 @@
     { "month": "2026-06", "count": 217 },
     { "month": "2026-07", "count": 245 },
     { "month": "2026-08", "count": 210 },
-    { "month": "2026-09", "count": 149 }
+    { "month": "2026-09", "count": 149 },
+    { "month": "2026-10", "count": 117 }
   ]
 }

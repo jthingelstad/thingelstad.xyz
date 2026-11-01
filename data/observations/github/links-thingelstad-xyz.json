@@ -2,18 +2,18 @@
   "kind": "github",
   "repository": "jthingelstad/links.thingelstad.xyz",
   "url": "https://github.com/jthingelstad/links.thingelstad.xyz",
-  "observedAt": "2026-10-31T16:05:04.522Z",
+  "observedAt": "2026-11-01T17:07:29.419Z",
   "repositoryCreatedAt": "2026-10-23T20:39:28.000Z",
   "archived": false,
   "description": "Linking Things: every link Jamie has saved since 2005, searchable and connected.",
   "stars": 0,
   "forks": 0,
   "languages": [
-    { "name": "Python", "bytes": 605652 },
-    { "name": "TypeScript", "bytes": 356267 },
-    { "name": "JavaScript", "bytes": 333669 },
-    { "name": "Astro", "bytes": 110445 },
-    { "name": "CSS", "bytes": 60477 },
+    { "name": "Python", "bytes": 610750 },
+    { "name": "TypeScript", "bytes": 378299 },
+    { "name": "JavaScript", "bytes": 345313 },
+    { "name": "Astro", "bytes": 136439 },
+    { "name": "CSS", "bytes": 71255 },
     { "name": "Shell", "bytes": 9830 }
   ],
   "release": null,
@@ -21,14 +21,17 @@
     {
       "path": null,
       "branch": "main",
-      "since": "2026-07-01T00:00:00.000Z",
-      "until": "2026-10-31T16:05:04.522Z",
-      "count": 139,
+      "since": "2026-08-01T00:00:00.000Z",
+      "until": "2026-11-01T17:07:29.419Z",
+      "count": 147,
       "complete": true,
-      "months": [{ "month": "2026-10", "count": 139 }],
+      "months": [
+        { "month": "2026-10", "count": 146 },
+        { "month": "2026-11", "count": 1 }
+      ],
       "latestCommit": {
-        "date": "2026-10-31T15:58:12.000Z",
-        "url": "https://github.com/jthingelstad/links.thingelstad.xyz/commit/c56bdbb0b245abafcb149abf091f1e68722e956b"
+        "date": "2026-11-01T07:11:34.000Z",
+        "url": "https://github.com/jthingelstad/links.thingelstad.xyz/commit/41312c3f067991635106bc946b074914cbd97c5e"
       }
     }
   ]

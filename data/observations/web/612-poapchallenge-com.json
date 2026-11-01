@@ -1,13 +1,12 @@
 {
   "kind": "web",
   "url": "https://612.poapchallenge.com/",
-  "observedAt": "2026-10-18T10:38:59.915Z",
+  "observedAt": "2026-11-01T17:07:29.419Z",
   "sitemap": {
     "url": "https://612.poapchallenge.com/sitemap.xml",
     "pages": 484,
     "newestModified": "2026-01-08T18:21:26.000Z",
     "months": [
-      { "month": "2025-11", "count": 1 },
       { "month": "2025-12", "count": 2 },
       { "month": "2026-01", "count": 1 }
     ],

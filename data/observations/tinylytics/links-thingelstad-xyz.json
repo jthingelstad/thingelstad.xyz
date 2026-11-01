@@ -1,12 +1,11 @@
 {
   "kind": "tinylytics",
   "url": "https://links.thingelstad.xyz/",
-  "observedAt": "2026-10-24T14:31:08.251Z",
-  "since": "2025-10-01",
-  "until": "2026-09-30",
-  "hits": 0,
+  "observedAt": "2026-11-01T17:07:29.419Z",
+  "since": "2025-11-01",
+  "until": "2026-10-31",
+  "hits": 317,
   "months": [
-    { "month": "2025-10", "count": 0 },
     { "month": "2025-11", "count": 0 },
     { "month": "2025-12", "count": 0 },
     { "month": "2026-01", "count": 0 },
@@ -17,6 +16,7 @@
     { "month": "2026-06", "count": 0 },
     { "month": "2026-07", "count": 0 },
     { "month": "2026-08", "count": 0 },
-    { "month": "2026-09", "count": 0 }
+    { "month": "2026-09", "count": 0 },
+    { "month": "2026-10", "count": 317 }
   ]
 }

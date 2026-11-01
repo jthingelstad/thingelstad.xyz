@@ -2,7 +2,7 @@
   "kind": "github",
   "repository": "jthingelstad/POAP2RSS",
   "url": "https://github.com/jthingelstad/POAP2RSS",
-  "observedAt": "2026-10-20T17:57:36.612Z",
+  "observedAt": "2026-11-01T17:07:29.419Z",
   "repositoryCreatedAt": "2025-07-01T03:53:32.000Z",
   "archived": true,
   "description": "POAP2RSS creates a standard RSS feed for any POAP event. Drop an event ID in the URL and you have a live feed of new claims ready for any reader or automation platform. POAP2RSS makes POAPs more open, programmable, and connected to the wider web.",
@@ -20,11 +20,11 @@
     {
       "path": null,
       "branch": "main",
-      "since": "2026-07-01T00:00:00.000Z",
-      "until": "2026-10-20T17:57:36.612Z",
-      "count": 6,
+      "since": "2026-08-01T00:00:00.000Z",
+      "until": "2026-11-01T17:07:29.419Z",
+      "count": 0,
       "complete": true,
-      "months": [{ "month": "2026-07", "count": 6 }],
+      "months": [],
       "latestCommit": {
         "date": "2026-07-24T16:07:21.000Z",
         "url": "https://github.com/jthingelstad/POAP2RSS/commit/b50f2d2a8595f474263bf7e6ddd816ec88657c44"
