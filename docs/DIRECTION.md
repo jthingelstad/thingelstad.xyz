@@ -70,7 +70,7 @@ The site is Jamie speaking about his own work. Summaries, bodies, connection det
 
 ### Stories
 
-A story (`content/stories/<id>.md`) is one idea told across several things, for a reader who would otherwise meet them one at a time: Road Sign Math across its three sites and twenty-one years, three runs at a links site, Your Version Number growing into Release Notes and Changelog, how the Weekly Thing gets made. It is told in Jamie’s voice from the records and his published writing, and adds no fact the records do not have.
+A story (`content/stories/<id>.md`) is one idea told across several things, for a reader who would otherwise meet them one at a time: Road Sign Math across its three sites and twenty-one years, three runs at a links site, Your Version Number growing into Release Notes and Changelog, how the Weekly Thing gets made. It is told in Thingy’s voice, in the third person, from the records and Jamie’s published writing, and adds no fact the records do not have.
 
 ```yaml
 ---
@@ -112,6 +112,8 @@ Status words, Jamie’s own from questions 3 and 28 of the interview:
 ### Interviews
 
 An interview (`content/interviews/<id>.md`, `/interviews/<id>/`) is Thingy asking and Jamie answering by voice, published as he spoke it. The first, `jamie-october-2026`, is thirty-five questions over two days (2026-10-31 and 2026-11-01); the brief that ran it is `docs/INTERVIEW.md`. It exists so the site can quote Jamie on why he built things without putting words in his mouth: every “why” on a page is a quotation linked to its question.
+
+Jamie called everything in it publishable (2026-11-01: “you can quote the interview at length … you can quote pull quotes from this interview”), so a page may quote him at length, and every quotation links its question. Two forms, both checked by `tests/quotes.test.ts` against the transcript: inline, a link whose text is the quotation in curly quotes (`[“his words”](/interviews/<id>/#qN)`); and block, a blockquote of his words whose last paragraph is the attribution link (`[Jamie, question N](/interviews/<id>/#qN)`). A quotation is verbatim; `…` may join parts of one answer, in order. A page quotes only questions that are about it (the question’s `things` in the interview’s front matter), so the “In his words” row on the thing lists every question the page draws on.
 
 ```yaml
 ---

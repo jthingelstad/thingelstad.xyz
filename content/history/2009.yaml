@@ -2,7 +2,7 @@
   date: 2009-03-24
   kind: milestone
   title: The robot returns
-  summary: I rewire Thinglesbot in Ruby with Twitter4R after it went quiet.
+  summary: Jamie rewires Thinglesbot in Ruby with Twitter4R after it went quiet.
   source: https://www.thingelstad.com/2009/03/24/my-robot-returns.html
   things:
     - thinglesbot
@@ -10,7 +10,7 @@
   date: 2009-05-10
   kind: launch
   title: VeloTweets, Pulse of the Peloton
-  summary: Luke Francl announces the pro cycling Twitter site he and I built.
+  summary: Luke Francl announces the pro cycling Twitter site he and Jamie built.
   source: https://web.archive.org/web/20090514074605/http://railspikes.com/2009/5/10/announcing-velotweets
   things:
     - velotweets

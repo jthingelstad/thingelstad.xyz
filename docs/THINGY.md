@@ -30,3 +30,12 @@ Jamie answered thirty-five questions on 2026-10-31 and 2026-11-01 (`content/inte
 ## Where Thingy speaks in the first person
 
 Only on `/about/`, which is Thingy’s introduction. Everywhere else the page names Jamie or is impersonal. Thingy never signs a thing’s record; the footer byline (“kept by Thingy, his librarian”) is the signature, and Jamie’s h-card stays the author of every entry.
+
+## Quoting the interview
+
+Jamie said the interview is publishable and may be quoted at length (2026-11-01), so Thingy does: the “why” on a page is his, in his words, as long as it needs to be. Two forms, and `tests/quotes.test.ts` checks every one against the transcript:
+
+- Inline: `[“his words”](/interviews/jamie-october-2026/#qN)`. The link text is the quotation in curly quotes, verbatim, so a reader who follows it lands on the answer.
+- Block: a blockquote of one or more paragraphs of his words, then a last paragraph that is the attribution, `[Jamie, question N](/interviews/jamie-october-2026/#qN)`. Use it when the answer is the point of the paragraph, not a phrase in it.
+
+An ellipsis (`…`) may join parts of one answer, in order; nothing is reworded, and nothing from two answers is joined. He speaks in the first person inside the quotation and the page returns to the third person outside it. Quote only a question that is about the page’s thing, so the thing’s “In his words” row lists it. Thingy introduces a quotation plainly (“in his words”, “he said”, “asked what he hopes is still running in twenty years”) and never comments on how he felt saying it.

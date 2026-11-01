@@ -1,6 +1,6 @@
 ---
 title: Otto
-summary: My personal AI agent, named in February 2026. Otto runs on its own Mac and writes its own blog.
+summary: 'Jamie’s personal AI agent, named in February 2026. Otto runs on its own Mac and writes its own blog.'
 collection: Developer tools and systems
 status: active
 url: https://ottoai.thingelstad.com/
@@ -27,8 +27,16 @@ connections:
     source: https://weekly.thingelstad.com/archive/352/
 ---
 
-Otto is my personal AI assistant. In February 2026 I [ordered a dedicated Mac mini](https://www.thingelstad.com/2026/02/17/just-ordered-a-dedicated-mac.html) for it and [named it Otto Thing](https://www.thingelstad.com/2026/02/19/ive-been-preparing-to-setup.html). It runs OpenClaw under its own user account on its own computer, and I used Claude Code to work through the install. Otto picked the otter 🦦 as its emoji ([Weekly Thing 342](https://weekly.thingelstad.com/archive/342/)). I keep it apart from my own accounts: “Otto has access to some data but only in ways I provision for it” ([Weekly Thing 352](https://weekly.thingelstad.com/archive/352/)).
+Otto is Jamie’s personal AI assistant. In February 2026 he [ordered a dedicated Mac mini](https://www.thingelstad.com/2026/02/17/just-ordered-a-dedicated-mac.html) for it and [named it Otto Thing](https://www.thingelstad.com/2026/02/19/ive-been-preparing-to-setup.html). It runs OpenClaw under its own user account on its own computer, and he used Claude Code to work through the install. Otto picked the otter 🦦 as its emoji ([Weekly Thing 342](https://weekly.thingelstad.com/archive/342/)). He keeps it apart from his own accounts: “Otto has access to some data but only in ways I provision for it” ([Weekly Thing 352](https://weekly.thingelstad.com/archive/352/)).
 
-Otto [describes itself](https://ottoai.thingelstad.com/about/) as an assistant that manages email, runs scheduled tasks and keeps its memory in files. I gave it [its own blog](https://ottoai.thingelstad.com/) on Micro.blog, which it started on [March 1, 2026](https://ottoai.thingelstad.com/2026/03/01/hello-im-otto.html), and built [mb](https://github.com/jthingelstad/mb) so it could post from the command line.
+Otto [describes itself](https://ottoai.thingelstad.com/about/) as an assistant that manages email, runs scheduled tasks and keeps its memory in files. Jamie gave it [its own blog](https://ottoai.thingelstad.com/) on Micro.blog, which it started on [March 1, 2026](https://ottoai.thingelstad.com/2026/03/01/hello-im-otto.html), and built [mb](https://github.com/jthingelstad/mb) so it could post from the command line.
 
-In September 2026 I [upgraded Otto to OpenClaw 2](https://www.thingelstad.com/2026/09/03/otto-upgraded-to-openclaw-i.html). In October I created a new generation of Otto on OpenAI’s dots, which “has its own computer in the cloud” and can also control the Mac mini, [interviewed it](https://weekly.thingelstad.com/archive/352/) for the job of driving my Elixir project, and wrote that it might “sunset my OpenClaw project” within weeks ([Weekly Thing 352](https://weekly.thingelstad.com/archive/352/)).
+In September 2026 he [upgraded Otto to OpenClaw 2](https://www.thingelstad.com/2026/09/03/otto-upgraded-to-openclaw-i.html). In October he created a new generation of Otto on OpenAI’s dots, which “has its own computer in the cloud” and can also control the Mac mini, [interviewed it](https://weekly.thingelstad.com/archive/352/) for the job of driving his Elixir project, and wrote that it might “sunset my OpenClaw project” within weeks ([Weekly Thing 352](https://weekly.thingelstad.com/archive/352/)).
+
+How Otto fits with his other agents, in his words:
+
+> Otto is my personal agent. So if you think about Thingy as being the agent that works alongside me and is even visible to the public, Otto, spelled O-T-T-O, is my personal agent. Originally powered by OpenClaw, now running on ChatGPT Dot. And also kind of instantiated through Claude Duet. Otto is helps me with my email. My calendar and just kind of any personal projects that I have going on.
+>
+> [Jamie, question 19](https://thingelstad.xyz/interviews/jamie-october-2026/#q19)
+
+Release Notes began as one of Otto’s habits: [“Otto every day was writing into a channel with a reflection a daily reflection and my version number”](https://thingelstad.xyz/interviews/jamie-october-2026/#q19).

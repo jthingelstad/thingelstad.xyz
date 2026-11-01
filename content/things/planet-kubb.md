@@ -1,6 +1,6 @@
 ---
 title: Planet Kubb
-summary: A Kubb community network Garrick van Buren and I built in 2012, with a feed aggregator, a wiki, a Q&A site and club sites.
+summary: 'A Kubb community network Garrick van Buren and Jamie built in 2012, with a feed aggregator, a wiki, a Q&A site and club sites.'
 collection: Games and communities
 status: dormant
 url: https://planetkubb.com/
@@ -36,8 +36,14 @@ connections:
     source: https://www.thingelstad.com/projects/open-loop/1-big-fuzzy-dead-cat/
 ---
 
-Garrick van Buren and I built Planet Kubb together. It began in 2012, when I bought planetkubb.com and set it up as a planet-style aggregator of Kubb content, built on rawdog with a Bootstrap theme, that collected Kubb videos from YouTube and posts from club blogs. More sites followed: Ask Planet Kubb for questions and answers, the [Planet Kubb Wiki](https://web.archive.org/web/20120512222332/http://wiki.planetkubb.com/wiki/Main_Page) for clubs, teams and tournaments, and The Pitch, a WordPress P2 chat site at pitch.planetkubb.com that I put up within a day of a player from Des Moines asking for one. I told the story on [Open Loop #1](https://www.thingelstad.com/projects/open-loop/1-big-fuzzy-dead-cat/), and said I had gone to great lengths to show it was not an attempt “to monetize the Kubb universe.” The [Planet Kubb GitHub organization](https://github.com/Planet-Kubb) describes the aim as “growing, connecting and supporting the worldwide Kubb community.”
+Garrick van Buren and Jamie built Planet Kubb together. It began in 2012, when Jamie bought planetkubb.com and set it up as a planet-style aggregator of Kubb content, built on rawdog with a Bootstrap theme, that collected Kubb videos from YouTube and posts from club blogs. More sites followed: Ask Planet Kubb for questions and answers, the [Planet Kubb Wiki](https://web.archive.org/web/20120512222332/http://wiki.planetkubb.com/wiki/Main_Page) for clubs, teams and tournaments, and The Pitch, a WordPress P2 chat site at pitch.planetkubb.com that he put up within a day of a player from Des Moines asking for one. He told the story on [Open Loop #1](https://www.thingelstad.com/projects/open-loop/1-big-fuzzy-dead-cat/), and said he had gone to great lengths to show it was not an attempt “to monetize the Kubb universe.” The [Planet Kubb GitHub organization](https://github.com/Planet-Kubb) describes the aim as “growing, connecting and supporting the worldwide Kubb community.”
 
-I played Kubb on the Kubbchucks. At the [2013 US Nationals](https://www.thingelstad.com/2013/07/21/pictures-from-us.html) I spent Sunday “scoring games for Planet Kubb and running the final parts of the Planet Kubb Club Championship.” Club sites joined the network, like the [Chippewa Valley Kubb League](https://www.thingelstad.com/2013/10/06/another-planetkubb-network.html) in 2013, and Garrick and I created a notation and scoring system for recording games (see Planet Kubb Score).
+Jamie played Kubb on the Kubbchucks. At the [2013 US Nationals](https://www.thingelstad.com/2013/07/21/pictures-from-us.html) he spent Sunday “scoring games for Planet Kubb and running the final parts of the Planet Kubb Club Championship.” Club sites joined the network, like the [Chippewa Valley Kubb League](https://www.thingelstad.com/2013/10/06/another-planetkubb-network.html) in 2013, and Garrick and Jamie created a notation and scoring system for recording games (see Planet Kubb Score).
 
-I stepped away from it later. Garrick still runs the server, and planetkubb.com is online as an aggregator [maintained by him](https://planetkubb.com/about/). Its feed was last updated in June 2017. The wiki, Ask Planet Kubb and the club subdomains no longer answer, and live on in Wayback Machine captures.
+He stepped away from it later. Garrick still runs the server, and planetkubb.com is online as an aggregator [maintained by him](https://planetkubb.com/about/). Its feed was last updated in June 2017. The wiki, Ask Planet Kubb and the club subdomains no longer answer, and live on in Wayback Machine captures.
+
+On Garrick, in Jamie’s words:
+
+> Garrick is just a person that is similarly passionate about technology. Similarly passionate about thinking broadly about things, exploring concepts. He’s a builder. And so he and I enjoyed building things together for many years and had a lot of fun doing it.
+>
+> [Jamie, question 17](https://thingelstad.xyz/interviews/jamie-october-2026/#q17)

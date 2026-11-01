@@ -1,24 +1,24 @@
 - id: agents
   title: Agents
-  description: Software that observes, remembers, and acts. It started as tools for me and grew into companions for whole communities.
+  description: Software that observes, remembers, and acts. It started as tools for Jamie and grew into companions for whole communities.
 - id: mediawiki
   title: MediaWiki
-  description: 'I spent years building on MediaWiki: communities, extensions, skins, and knowledge with structure.'
+  description: 'Jamie spent years building on MediaWiki: communities, extensions, skins, and knowledge with structure.'
 - id: semantic-mediawiki
   title: Semantic MediaWiki
-  description: A wiki can be a database too. Semantic MediaWiki let me ask a wiki questions, and that changed how I built on wikis.
+  description: A wiki can be a database too. Semantic MediaWiki let Jamie ask a wiki questions, and that changed how he built on wikis.
 - id: poap
   title: POAP
-  description: Proof of participation. Collected memories, and the tools I built to connect those tokens to the open web.
+  description: Proof of participation. Collected memories, and the tools Jamie built to connect those tokens to the open web.
 - id: crypto
   title: Crypto
-  description: My experiments with onchain participation and digital collectibles, almost all of them through POAP.
+  description: Jamie’s experiments with onchain participation and digital collectibles, almost all of them through POAP.
 - id: mcp
   title: MCP
-  description: Agents need a good way into what I’ve recorded and the tools I use every day. MCP is how I give it to them.
+  description: Agents need a good way into what Jamie has recorded and the tools he uses every day. MCP is how he gives it to them.
 - id: open-web
   title: The open web
-  description: Publishing, feeds, archives, and tools that keep what I make portable and mine.
+  description: Publishing, feeds, archives, and tools that keep what Jamie makes portable and his.
 - id: play
   title: Play
   description: Games, playful arithmetic, and the communities that form around them. Kubb, Clash Royale, and math on road signs.
@@ -27,10 +27,10 @@
   description: Keeping content, collections, and the evidence behind them, so they are still there years from now.
 - id: reading
   title: Reading
-  description: Books, reading, and the ways my family and my book club share them.
+  description: Books, reading, and the ways his family and his book club share them.
 - id: making
   title: Making
   description: Things made by hand, usually as a family. Candles, puzzles, and a carved tree.
 - id: automation
   title: Automation
-  description: Shortcuts, bots, and scripts that take the repetitive parts off my plate.
+  description: Shortcuts, bots, and scripts that take the repetitive parts off Jamie’s plate.

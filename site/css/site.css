@@ -920,6 +920,23 @@ h4:hover > .permalink,
   margin: 16px 0;
 }
 
+/* A quotation from Jamie set as a block: his words, then a last line that names him and links the question or post
+   it came from (docs/THINGY.md, "Quoting the interview"). */
+.story blockquote {
+  margin: 20px 0;
+  padding-left: 20px;
+  border-left: 3px solid var(--accent);
+}
+
+.story blockquote p {
+  margin: 8px 0;
+}
+
+.story blockquote p:last-child {
+  font-size: var(--jt-size-small);
+  color: var(--muted);
+}
+
 /* Stories (site/stories.njk, site/story.njk, story-card.njk): cards on the front page and the list, each a title,
    a span, a summary and its things in order; on a story's page the things are rows, then the story, then the
    events of those things. */

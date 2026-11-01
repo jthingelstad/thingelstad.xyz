@@ -86,6 +86,7 @@ questions:
   - n: 17
     things:
       - planet-kubb
+      - planet-kubb-score
       - ask-planet-kubb
       - open-loop
 

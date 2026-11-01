@@ -161,8 +161,16 @@ artifacts:
     source: https://github.com/jthingelstad/roadsignmath.xyz/pull/22
 ---
 
-In October 2026 I rebooted Road Sign Math a third time, 21 years after the first sign, as the iPhone app I had wanted since 2011. The app is the whole game. You photograph a sign from the passenger seat, the app boxes every number it can read, you check them, write your math on a keypad made for it, and post it. Everyone’s signs land on a feed, a map and a page for each player, and anyone can find another way to make a posted sign true. The first 16 signs are the ones from the blog, found by me, Tyler and Tammy from 2021 to 2025.
+In October 2026 Jamie rebooted Road Sign Math a third time, 21 years after the first sign, as the iPhone app he had wanted since 2011. The app is the whole game. You photograph a sign from the passenger seat, the app boxes every number it can read, you check them, write your math on a keypad made for it, and post it. Everyone’s signs land on a feed, a map and a page for each player, and anyone can find another way to make a posted sign true. The first 16 signs are the ones from the blog, found by Jamie, Tyler and Tammy from 2021 to 2025.
 
-There are still no scores. I said so when we planned it: “The point system wasn’t a good idea. So I want to keep to the root which is a fun road trip game based on math and finding signs.” Instead there are badges, little road signs for a first sign, new states, a × in a way, all four seasons, and a few secrets.
+There are still no scores. He said so when the app was planned: “The point system wasn’t a good idea. So I want to keep to the root which is a fun road trip game based on math and finding signs.” Instead there are badges, little road signs for a first sign, new states, a × in a way, all four seasons, and a few secrets.
 
-roadsignmath.xyz is the window onto the game for anyone without the app: the map of every sign, a page for each sign and each player, and no sign-in. It went live on October 30, 2026, replacing the blog, and on October 31 I submitted the app to Apple for a public TestFlight beta. Both the website and the app are open source. Let’s go find some signs!
+roadsignmath.xyz is the window onto the game for anyone without the app: the map of every sign, a page for each sign and each player, and no sign-in. It went live on October 30, 2026, replacing the blog, and on October 31 he submitted the app to Apple for a public TestFlight beta. Both the website and the app are open source.
+
+Why now, after fifteen years of wanting an app:
+
+> It’s entirely different because of AI, because I could not create the experience that I always envisioned creating. So now, with the help of Claude and AI, I felt I could poss possibly realize that mobile vision that I always had in mind for this project.
+>
+> [Jamie, question 10](https://thingelstad.xyz/interviews/jamie-october-2026/#q10)
+
+Road Sign Math is, he said, [“a thing that I have a fond appreciation for and has always been something that I wanted to come back to”](https://thingelstad.xyz/interviews/jamie-october-2026/#q5). Building the app was [“one of the last things on my list”](https://thingelstad.xyz/interviews/jamie-october-2026/#q33).
