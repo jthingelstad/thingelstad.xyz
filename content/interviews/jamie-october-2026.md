@@ -174,6 +174,7 @@ questions:
       - road-sign-math-2026
       - linking-things
       - thingy
+      - thingy-model
 
   - n: 34
     things:

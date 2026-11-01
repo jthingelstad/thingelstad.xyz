@@ -82,6 +82,7 @@ story:
     - weekly-thing
     - jamie-thingelstad-blog
     - another-thing
+    - thingy-model
   started: Launched May 2026
   questions:
     - What can Thingy answer?
@@ -103,4 +104,4 @@ The same tools Thingy uses are offered as an MCP server at `librarian.thingelsta
 
 Since [Weekly Thing 350](https://weekly.thingelstad.com/archive/350/), Thingy also writes two sections of each issue: Supporting Membership and Echoes, which connects the week’s topics to earlier issues. That is as far as the writing goes, under [“my mandate that my words are my words and that AI isn’t writing for me”](https://thingelstad.xyz/interviews/jamie-october-2026/#q18). Since November 2026 Thingy also keeps this site, in its own voice, and the [about page](https://thingelstad.xyz/about/) says how.
 
-Asked about things he wants to build, he said [“Thingy should actually be a 3D model and be able to move around and engage with people”](https://thingelstad.xyz/interviews/jamie-october-2026/#q33). Asked what he hopes is running in twenty years: [“The Thingy agent, for sure, getting increasingly more intelligent and capable to interface with everything that I’ve created over the years.”](https://thingelstad.xyz/interviews/jamie-october-2026/#q35)
+Asked about things he wants to build, he said [“Thingy should actually be a 3D model and be able to move around and engage with people”](https://thingelstad.xyz/interviews/jamie-october-2026/#q33). That work now has its own record, [Thingy Model](https://thingelstad.xyz/things/thingy-model/), with the body, outfits, and renders from successive modeling passes. Asked what he hopes is running in twenty years: [“The Thingy agent, for sure, getting increasingly more intelligent and capable to interface with everything that I’ve created over the years.”](https://thingelstad.xyz/interviews/jamie-october-2026/#q35)
