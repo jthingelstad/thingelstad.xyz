@@ -1,3 +1,12 @@
+- id: thingy-model-first-studies
+  date: 2026-11-01
+  kind: development
+  title: Thingy takes shape in three dimensions
+  summary: Jamie builds an editable Blender character from Thingy’s illustration, with a shared skeleton, four outfits, and short animation studies. The record keeps the prototypes, lighting tests, and successive corrections to its ears.
+  source: https://thingelstad.xyz/things/thingy-model/#artifacts
+  things:
+    - thingy-model
+    - thingy
 - id: rsm-public-beta
   date: 2026-10-31
   kind: milestone
