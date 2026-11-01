@@ -1,6 +1,6 @@
 ---
 title: Road Sign Math (2021)
-summary: Road Sign Math as a simple blog of the signs my family found from 2021 to 2025, first at roadsignmath.thingelstad.com and from 2023 on Micro.blog at roadsignmath.xyz.
+summary: 'Road Sign Math as a simple blog of the signs Jamie’s family found from 2021 to 2025, first at roadsignmath.thingelstad.com and from 2023 on Micro.blog at roadsignmath.xyz.'
 collection: Games and communities
 status: retired
 url: https://web.archive.org/web/20260909070315/https://www.roadsignmath.xyz/
@@ -66,8 +66,14 @@ artifacts:
     date: '2026-10-30'
 ---
 
-I let Road Sign Math’s first site go in 2016. In 2017 I started a Jekyll site for the signs, [rsm.thingelstad.com](https://github.com/jthingelstad/rsm.thingelstad.com), on a stock theme. It never got past the theme’s sample posts. In March 2021 a sign Tammy found near Phoenix gave Road Sign Math “a breath of new life” at roadsignmath.thingelstad.com ([Weekly Thing 177](https://weekly.thingelstad.com/archive/177/)), and that summer we found ten more on a [Vermont road trip](https://www.thingelstad.com/2021/08/15/varmont-road-trip.html).
+Jamie let Road Sign Math’s first site go in 2016. In 2017 he started a Jekyll site for the signs, [rsm.thingelstad.com](https://github.com/jthingelstad/rsm.thingelstad.com), on a stock theme. It never got past the theme’s sample posts. In March 2021 a sign Tammy found near Phoenix gave Road Sign Math “a breath of new life” at roadsignmath.thingelstad.com ([Weekly Thing 177](https://weekly.thingelstad.com/archive/177/)), and that summer the family found ten more on a [Vermont road trip](https://www.thingelstad.com/2021/08/15/varmont-road-trip.html).
 
-I registered roadsignmath.xyz in 2021, and in October 2023 I [rebooted](https://www.thingelstad.com/2023/10/21/road-sign-math.html) Road Sign Math a second time, as a simple blog on Micro.blog: “Just my signs. No scoring system or leaderboards.” New signs kept turning up, like one in [September 2025](https://www.thingelstad.com/2025/09/01/it-always-makes-me-smile.html), the last of 16.
+He registered roadsignmath.xyz in 2021, and in October 2023 [rebooted](https://www.thingelstad.com/2023/10/21/road-sign-math.html) Road Sign Math a second time, as a simple blog on Micro.blog: “Just my signs. No scoring system or leaderboards.” New signs kept turning up, like one in [September 2025](https://www.thingelstad.com/2025/09/01/it-always-makes-me-smile.html), the last of 16.
 
-On October 30, 2026, the new roadsignmath.xyz replaced the blog, and its 16 signs became the first signs in the Road Sign Math iPhone app. The blog did its job. It kept the game alive until I was ready to build the real thing.
+Why the second version was a simple blog, in his words:
+
+> So the second version was a direct response to us making a three-day road trip to Arizona. And Tammy made these envelopes of activities that the kids could do to keep them busy. One of them was to play Road Sign Math, and there was a prize if they were able to find signs. And it was just, I loved it because it brought this thing that I had built back into our family. … So I decided to bring it back with a blog and just keep it simple and focus on just having fun.
+>
+> [Jamie, question 10](https://thingelstad.xyz/interviews/jamie-october-2026/#q10)
+
+On October 30, 2026, the new roadsignmath.xyz replaced the blog, and its 16 signs became the first signs in the Road Sign Math iPhone app. The blog kept the game alive until he was ready to build the app.

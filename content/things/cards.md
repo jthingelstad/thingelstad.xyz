@@ -1,6 +1,6 @@
 ---
 title: Cards
-summary: The share image for pages on my sites, a 1200 by 630 card drawn from the page itself and made on demand at cards.thingelstad.com.
+summary: 'The share image for pages on Jamie’s sites, a 1200 by 630 card drawn from the page itself and made on demand at cards.thingelstad.com.'
 collection: Publishing
 status: active
 url: https://github.com/jthingelstad/cards.thingelstad.com
@@ -51,8 +51,8 @@ artifacts:
     source: https://links.thingelstad.xyz/links/dec34be50cef/
 ---
 
-Cards makes the share image for pages on my sites: the 1200 by 630 picture that appears when a link is shared on Mastodon, Bluesky, Slack, or iMessage. Each card is drawn from the page itself. A blog post shows its title or opening words, its date and categories, and its first photo, and a short post with a wide photo sets its words over the photo. A Weekly Thing issue sits on its cover photo with its summary and its count of links and journal entries. An Another Thing episode shows its number and running time. A saved link on Linking Things shows its title, its site, and the issues that carried it, with my note when the note is mine.
+Cards makes the share image for pages on Jamie’s sites: the 1200 by 630 picture that appears when a link is shared on Mastodon, Bluesky, Slack, or iMessage. Each card is drawn from the page itself. A blog post shows its title or opening words, its date and categories, and its first photo, and a short post with a wide photo sets its words over the photo. A Weekly Thing issue sits on its cover photo with its summary and its count of links and journal entries. An Another Thing episode shows its number and running time. A saved link on Linking Things shows its title, its site, and the issues that carried it, with his note when the note is his.
 
-I built it with coding agents on October 24, 2026, after deciding against Micro.blog’s own card styles. I wanted the full canvas, no photo of me, and the blog’s type in black and white. Now every page on my sites shows up well when someone shares it, which is a small thing that makes me happy every time I see it. The blog came first, that same day. Weekly Thing, Another Thing, and Linking Things followed on October 25, each with a card of its own.
+He built it with coding agents on October 24, 2026, after deciding against Micro.blog’s own card styles: the full canvas, no photo of him, and the blog’s type in black and white. The blog came first, that same day. Weekly Thing, Another Thing, and Linking Things followed on October 25, each with a card of its own.
 
 Each page names its card in its share-image tag, with a short hash of what the card shows, so an edited page gets a new card. The first request for a card runs a Lambda function that reads the page, lays the card out with Satori, and renders it with resvg; CloudFront then keeps it for a year. It draws only the card a page actually names, so it cannot be used to make any other image. Cards with a photo are JPEG, to stay under Bluesky’s 1 MB limit, and emoji are drawn from Twemoji.

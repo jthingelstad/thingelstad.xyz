@@ -1,6 +1,6 @@
 ---
 title: Elixir
-summary: A service that records Clash Royale history and serves it to players, clans, and their AI agents over MCP.
+summary: 'A service that records Clash Royale history and serves it to players, clans, and their AI agents over MCP.'
 collection: Games and communities
 status: active
 url: https://elixir.poapkings.com/
@@ -59,6 +59,14 @@ story:
 
 The Clash Royale API gives you a current snapshot and a short, rotating battle log of about 30 battles, and then it is gone. Elixir records observations continuously so players, clans, and their agents can ask questions about the history: battles, rosters, river races, and seasons.
 
-I built it by turning [Elixir Bot](https://github.com/jthingelstad/elixir-bot), the POAP KINGS clan agent, “upside-down.” Instead of one bot keeping its own database, the record became a service that any agent can use over MCP. Claude and I wrote the specification, then I put Claude Code in a loop. [Six hours later](https://www.thingelstad.com/2026/09/03/i-had-an-idea-to.html) there was a working system, which still amazes me, and [Elixir MCP launched](https://elixir.poapkings.com/updates/2026-09-03-elixir-mcp-launches) on September 3, 2026. The next day the old bot’s archive was [replayed into the recorder](https://elixir.poapkings.com/updates/2026-09-04-four-months-of-history-imported), bringing battles back to mid-May.
+Jamie built it by turning [Elixir Bot](https://github.com/jthingelstad/elixir-bot), the POAP KINGS clan agent, “upside-down.” Instead of one bot keeping its own database, the record became a service that any agent can use over MCP. Claude and he wrote the specification, then he put Claude Code in a loop. [Six hours later](https://www.thingelstad.com/2026/09/03/i-had-an-idea-to.html) there was a working system, and [Elixir MCP launched](https://elixir.poapkings.com/updates/2026-09-03-elixir-mcp-launches) on September 3, 2026. The next day the old bot’s archive was [replayed into the recorder](https://elixir.poapkings.com/updates/2026-09-04-four-months-of-history-imported), bringing battles back to mid-May.
 
 In the browser, Elixir is the Console for a player’s own history and the [Ladder](https://elixir.poapkings.com/ladder) for exploring ladder results. Elixir Clan runs in the same application, and Elixir Drop signs its players in with Elixir. Volunteer collectors do all of the fetching. Elixir is free for anyone, and its [updates feed](https://elixir.poapkings.com/updates) records every user-visible change.
+
+Elixir is also the thing Jamie named when asked about wrong turns. For a while he had pointed it at the play of the top 200 players in the game, and [“I realized that I had taken the wrong turn and turned the project into something that was no longer fun and about community”](https://thingelstad.xyz/interviews/jamie-october-2026/#q3). Undoing it took days. The lesson he took from it:
+
+> you really need to understand like what’s the vision of what you’re building and why are you building it? so that you can realize, oh, this is a wrong turn as soon as possible.
+>
+> [Jamie, question 3](https://thingelstad.xyz/interviews/jamie-october-2026/#q3)
+
+He does not expect it to last the way the blog will: [“I’m sure 20 years from now, Elixir will be done.”](https://thingelstad.xyz/interviews/jamie-october-2026/#q35)

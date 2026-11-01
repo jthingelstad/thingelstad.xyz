@@ -1,6 +1,6 @@
 ---
 title: Filament
-summary: A MediaWiki skin on Yahoo’s Pure CSS framework, written mostly by Garrick van Buren with me in 2013.
+summary: 'A MediaWiki skin on Yahoo’s Pure CSS framework, written mostly by Garrick van Buren with Jamie in 2013.'
 collection: Historical projects
 status: retired
 url: https://github.com/jthingelstad/filament
@@ -22,8 +22,8 @@ connections:
     kind: lineage
 ---
 
-Filament is a MediaWiki skin built on Yahoo’s [Pure](https://purecss.io/) CSS framework. The README calls it “a MediaWiki skin that focuses on your content,” which was the same goal as Foreground, just on a lighter framework than Zurb Foundation. Like Foreground it was a WikiWonders project, the MediaWiki business I never got off the ground, and it shipped under that name with a 2-clause BSD license.
+Filament is a MediaWiki skin built on Yahoo’s [Pure](https://purecss.io/) CSS framework. The README calls it “a MediaWiki skin that focuses on your content,” which was the same goal as Foreground, just on a lighter framework than Zurb Foundation. Like Foreground it was a WikiWonders project, the MediaWiki business Jamie never got off the ground, and it shipped under that name with a 2-clause BSD license.
 
-Garrick van Buren wrote most of it. The repository carries Foreground’s early history, and on June 6, 2013 Garrick [began the Pure version](https://github.com/jthingelstad/filament/commit/b18787ce6bace0ff6e065a0656a0c13d44f08ff7). I updated it to Pure 0.2.0 and fixed asset paths. Karsten Hoffmeyer added a German translation and license fixes in [November 2013](https://github.com/jthingelstad/filament/pull/11), and that was the last change to the code.
+Garrick van Buren wrote most of it. The repository carries Foreground’s early history, and on June 6, 2013 Garrick [began the Pure version](https://github.com/jthingelstad/filament/commit/b18787ce6bace0ff6e065a0656a0c13d44f08ff7). Jamie updated it to Pure 0.2.0 and fixed asset paths. Karsten Hoffmeyer added a German translation and license fixes in [November 2013](https://github.com/jthingelstad/filament/pull/11), and that was the last change to the code.
 
-A demo wiki ran on my wiki farm at filament.thingelstad.com. By March 2014 its [main page](https://web.archive.org/web/20140302063203/http://filament.thingelstad.com/wiki/Main_Page) said the demo was blank and pointed people to GitHub. The repository is archived.
+A demo wiki ran on Jamie’s wiki farm at filament.thingelstad.com. By March 2014 its [main page](https://web.archive.org/web/20140302063203/http://filament.thingelstad.com/wiki/Main_Page) said the demo was blank and pointed people to GitHub. The repository is archived. In the interview he set the two skins together: [“Foreground and Filament are fun because it reminds me of the MediaWiki era and really focusing on building something compelling around that.”](https://thingelstad.xyz/interviews/jamie-october-2026/#q26)

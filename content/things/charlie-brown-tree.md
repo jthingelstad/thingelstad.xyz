@@ -1,6 +1,6 @@
 ---
 title: Charlie Brown Tree
-summary: A tree stump at Magic Pines on Cannon Lake, carved into Peanuts characters under Snoopy’s doghouse by Adam Gale of Rust n’ Grain.
+summary: 'A tree stump at Magic Pines on Cannon Lake, carved into Peanuts characters under Snoopy’s doghouse by Adam Gale of Rust n’ Grain.'
 collection: Historical projects
 status: archived
 url: https://www.thingelstad.com/magic-pines/charlie-brown-tree/
@@ -28,6 +28,8 @@ connections:
     source: https://www.thingelstad.com/2025/05/31/poap-challenge-collect-them-now.html
 ---
 
-The Charlie Brown Tree, which we also call the Peanuts Tree, is a tall tree stump at Magic Pines, our place on Cannon Lake, carved with Peanuts characters climbing toward Snoopy’s red doghouse on top. Adam Gale of [Rust n’ Grain](https://rustngraincom.wordpress.com/) carved it. I posted [the carving in progress](https://www.thingelstad.com/2020/05/24/little-snippet-of.html), Charlie Brown holding Snoopy emerging from the wood, on May 24, 2020, and the tree in the snow in [Weekly Thing 163](https://weekly.thingelstad.com/archive/163/) that October. The [project page](https://www.thingelstad.com/magic-pines/charlie-brown-tree/) has videos.
+The Charlie Brown Tree, which Jamie’s family also calls the Peanuts Tree, is a tall tree stump at Magic Pines, their place on Cannon Lake, carved with Peanuts characters climbing toward Snoopy’s red doghouse on top. Adam Gale of [Rust n’ Grain](https://rustngraincom.wordpress.com/) carved it. Jamie posted [the carving in progress](https://www.thingelstad.com/2020/05/24/little-snippet-of.html), Charlie Brown holding Snoopy emerging from the wood, on May 24, 2020, and the tree in the snow in [Weekly Thing 163](https://weekly.thingelstad.com/archive/163/) that October. The [project page](https://www.thingelstad.com/magic-pines/charlie-brown-tree/) has videos.
 
-The logs left over from the tree became Escher-inspired [carved log tables](https://www.thingelstad.com/2021/06/12/i-love-our.html) for the fire area in 2021, another Rust n’ Grain project. In May 2025 I made the tree the site of [my first location-based POAP](https://www.thingelstad.com/2025/05/25/i-created-my-very-first.html), which visitors could mint by standing beside it.
+The logs left over from the tree became Escher-inspired [carved log tables](https://www.thingelstad.com/2021/06/12/i-love-our.html) for the fire area in 2021, another Rust n’ Grain project. In May 2025 he made the tree the site of [his first location-based POAP](https://www.thingelstad.com/2025/05/25/i-created-my-very-first.html), which visitors could mint by standing beside it.
+
+It is archived because it is finished. In the interview he called it [“a very finite project”](https://thingelstad.xyz/interviews/jamie-october-2026/#q28), carved [“out of a dead tree at our cabin”](https://thingelstad.xyz/interviews/jamie-october-2026/#q28), and [“an amazing piece of art”](https://thingelstad.xyz/interviews/jamie-october-2026/#q28).

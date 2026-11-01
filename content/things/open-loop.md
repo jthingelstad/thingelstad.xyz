@@ -1,6 +1,6 @@
 ---
 title: Open Loop
-summary: A nine-episode podcast with Garrick van Buren in 2012 and 2013, archived with transcripts and a feed.
+summary: 'A nine-episode podcast Jamie made with Garrick van Buren in 2012 and 2013, archived with transcripts and a feed.'
 collection: Historical projects
 status: archived
 url: https://www.thingelstad.com/projects/open-loop/
@@ -33,6 +33,12 @@ connections:
     source: https://www.thingelstad.com/projects/open-loop/3-kubb-fever/
 ---
 
-Open Loop was a podcast I made with Garrick van Buren. We recorded nine episodes, numbered 0 to 8, from [June 1, 2012](https://www.thingelstad.com/projects/open-loop/0-but-no-shoes/) to April 12, 2013, talking about Kubb, beer and the technology side projects we were tinkering with. It was my first experiment with podcasting ([Open Loop](https://www.thingelstad.com/projects/open-loop/)), and it began when I emailed Garrick to ask “why aren’t we doing a podcast?” ([Open Loop #0](https://www.thingelstad.com/projects/open-loop/0-but-no-shoes/)). Eric Goplin, director of Minnesota Kubb, joined us for [episode 6](https://www.thingelstad.com/projects/open-loop/6-loppet-2013/).
+Open Loop was a podcast Jamie made with Garrick van Buren. They recorded nine episodes, numbered 0 to 8, from [June 1, 2012](https://www.thingelstad.com/projects/open-loop/0-but-no-shoes/) to April 12, 2013, talking about Kubb, beer and the technology projects they were tinkering with. It was Jamie’s first experiment with podcasting ([Open Loop](https://www.thingelstad.com/projects/open-loop/)), and it began when he emailed Garrick to ask “why aren’t we doing a podcast?” ([Open Loop #0](https://www.thingelstad.com/projects/open-loop/0-but-no-shoes/)). Eric Goplin, director of Minnesota Kubb, joined them for [episode 6](https://www.thingelstad.com/projects/open-loop/6-loppet-2013/).
 
-On [episode 1](https://www.thingelstad.com/projects/open-loop/1-big-fuzzy-dead-cat/) I told the origin stories of Road Sign Math and Planet Kubb, and on [episode 7](https://www.thingelstad.com/projects/open-loop/7-turtle-turtle-turtle/) the story of WikiApiary, three weeks after it began. I [put the archive back online](https://www.thingelstad.com/2017/06/10/put-the-archive.html) in June 2017, and in October 2026 I republished it as a complete [podcast feed](https://files.thingelstad.com/projects/openloop/podcast.xml), with speaker-labelled transcripts that were machine transcribed and cleaned up with AI. Thirteen years later, it is fun to hear us talk about projects that are on this site.
+On [episode 1](https://www.thingelstad.com/projects/open-loop/1-big-fuzzy-dead-cat/) Jamie told the origin stories of Road Sign Math and Planet Kubb, and on [episode 7](https://www.thingelstad.com/projects/open-loop/7-turtle-turtle-turtle/) the story of WikiApiary, three weeks after it began. He [put the archive back online](https://www.thingelstad.com/2017/06/10/put-the-archive.html) in June 2017, and in October 2026 republished it as a complete [podcast feed](https://files.thingelstad.com/projects/openloop/podcast.xml), with speaker-labelled transcripts that were machine transcribed and cleaned up with AI. Thirteen years on, the two of them talk about projects that are on this site.
+
+How it ended, in his words: [“Open Loop was a podcast that Garrick and I did, and we decided that it was time for that to come to a landing.”](https://thingelstad.xyz/interviews/jamie-october-2026/#q28) Of the friendship behind it:
+
+> Garrick and I had a run for a long time where we built a number of projects together. It was kind of combined with when I was exploring Semantic MediaWiki. We were really digging into Kubb. Like he and I and Jim Bernard played Kubb together a ton.
+>
+> [Jamie, question 17](https://thingelstad.xyz/interviews/jamie-october-2026/#q17)

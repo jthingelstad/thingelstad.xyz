@@ -19,7 +19,7 @@
   date: 2026-10-29
   kind: milestone
   title: Changelog on TestFlight
-  summary: The first build of Changelog, my iPhone app for Release Notes, goes to TestFlight the day I start it. It adds notes through Release Notes’ public API, as any app someone writes for it can.
+  summary: The first build of Changelog, Jamie’s iPhone app for Release Notes, goes to TestFlight the day he starts it. It adds notes through Release Notes’ public API, as any app someone writes for it can.
   source: https://github.com/jthingelstad/changelog-ios/pull/11
   things:
     - changelog
@@ -28,7 +28,7 @@
   date: 2026-10-26
   kind: launch
   title: Sync goes live
-  summary: A page that shows what each of my systems holds and how far behind each hop between them runs, built from a shared map of every flow.
+  summary: A page that shows what each of Jamie’s systems holds and how far behind each hop between them runs, built from a shared map of every flow.
   source: https://sync.thingelstad.xyz/
   things:
     - sync
@@ -56,7 +56,7 @@
   date: 2026-10-23
   kind: launch
   title: Linking Things goes live
-  summary: Every link I have saved since 2005, 16,524 of them, gets a page of its own, joined to the Weekly Thing issues that carried them.
+  summary: Every link Jamie has saved since 2005, 16,524 of them, gets a page of its own, joined to the Weekly Thing issues that carried them.
   source: https://links.thingelstad.xyz/
   things:
     - linking-things
@@ -264,7 +264,7 @@
   date: 2026-02-25
   kind: launch
   title: Flight Path takes off
-  summary: I build Flight Path, extending the POAP Airport Rally, entirely on an iPhone with Claude Code.
+  summary: Jamie builds Flight Path, extending the POAP Airport Rally, entirely on an iPhone with Claude Code.
   source: https://www.thingelstad.com/2026/02/25/it-is-bonkers-to-me.html
   things:
     - flight-path
@@ -280,7 +280,7 @@
   date: 2026-07-24
   kind: retirement
   title: POAP2RSS retires with the POAP API
-  summary: POAP was winding down its platform on July 31, 2026. POAP2RSS read live claim activity through the POAP API, so a week earlier I retired it and archived the repository.
+  summary: POAP was winding down its platform on July 31, 2026. POAP2RSS read live claim activity through the POAP API, so a week earlier Jamie retired it and archived the repository.
   source: https://github.com/jthingelstad/POAP2RSS/commit/22798583f396bd59771b0e4ee320d20c51d18f20
   things:
     - poap2rss
@@ -304,7 +304,7 @@
   date: 2026-05-02
   kind: milestone
   title: Elixir at Minnebar 20
-  summary: Tyler and I present "Elixir - Creating an AI Agent for our Clash Royale Clan."
+  summary: Tyler and Jamie present "Elixir - Creating an AI Agent for our Clash Royale Clan."
   source: https://sessions.minnestar.org/sessions/2094
   things:
     - elixir-bot
@@ -354,7 +354,7 @@
   date: 2026-05-07
   kind: launch
   title: New Weekly Thing site and Thingy
-  summary: I build a new Weekly Thing website that puts all nine years and 345 issues of the archive on show, with Thingy as its librarian.
+  summary: Jamie builds a new Weekly Thing website that puts all nine years and 345 issues of the archive on show, with Thingy as its librarian.
   source: https://www.thingelstad.com/2026/05/07/massive-weekly-thing-website-build.html
   things:
     - weekly-thing
@@ -363,7 +363,7 @@
   date: 2026-06-07
   kind: milestone
   title: Thingy Evolved
-  summary: Thingy moves to its own site and learns my blog and Another Thing as well as the Weekly Thing.
+  summary: Thingy moves to its own site and learns his blog and Another Thing as well as the Weekly Thing.
   source: https://www.thingelstad.com/2026/06/07/thingy-evolved.html
   things:
     - thingy
@@ -380,7 +380,7 @@
   date: 2026-07-24
   kind: retirement
   title: Flight Path retired
-  summary: A week before POAP’s shutdown, I replace the globe with a sunset notice and archive the repository.
+  summary: A week before POAP’s shutdown, Jamie replaces the globe with a sunset notice and archive the repository.
   source: https://github.com/jthingelstad/flightpath.poaprally.com/commit/fea8eac46878b7ab9afa418c48193b4139d8a06b
   things:
     - flight-path
@@ -388,7 +388,7 @@
   date: 2026-10-17
   kind: launch
   title: Proof of a Person launches
-  summary: My POAP time capsule goes live.
+  summary: Jamie’s POAP time capsule goes live.
   source: https://poap.thingelstad.xyz/about/
   things:
     - proof-of-a-person
@@ -404,7 +404,7 @@
   date: 2026-05-03
   kind: launch
   title: Your Version Number site
-  summary: I share the site for the first time in Weekly Thing 346.
+  summary: Jamie shares the site for the first time in Weekly Thing 346.
   source: https://weekly.thingelstad.com/archive/346/
   things:
     - your-version-number
@@ -421,7 +421,7 @@
   date: 2026-02-19
   kind: launch
   title: Otto is named
-  summary: I name my agent Otto Thing.
+  summary: Jamie names his agent Otto Thing.
   source: https://www.thingelstad.com/2026/02/19/ive-been-preparing-to-setup.html
   things:
     - otto
@@ -445,7 +445,7 @@
   date: 2026-10-17
   kind: milestone
   title: Static site replaces the gallery
-  summary: I replace the gallery with an Eleventy site built straight from the registry.
+  summary: Jamie replaces the gallery with an Eleventy site built straight from the registry.
   source: https://github.com/jthingelstad/thingelstad.xyz/pull/6
   things:
     - things-ive-built
@@ -453,7 +453,7 @@
   date: 2026-10-06
   kind: milestone
   title: Every issue in audio
-  summary: I restructure the Weekly Thing archive and render every issue in audio, so the podcast feed reaches back to the first issue.
+  summary: Jamie restructures the Weekly Thing archive and render every issue in audio, so the podcast feed reaches back to the first issue.
   source: https://www.thingelstad.com/2026/10/06/weekly-thing-archive-improved.html
   things:
     - weekly-thing
@@ -461,7 +461,7 @@
   date: 2026-10-03
   kind: milestone
   title: A new generation of Otto
-  summary: I set up Otto on OpenAI’s dots and interview it for the job of driving Elixir.
+  summary: Jamie sets up Otto on OpenAI’s dots and interview it for the job of driving Elixir.
   source: https://weekly.thingelstad.com/archive/352/
   things:
     - otto
@@ -478,7 +478,7 @@
   date: 2026-09-03
   kind: milestone
   title: Thingy called complete
-  summary: I call Thingy complete after adding photos and shared conversations.
+  summary: Jamie calls Thingy complete after adding photos and shared conversations.
   source: https://www.thingelstad.com/2026/09/03/im-ready-to-call-thingy.html
   things:
     - thingy
@@ -494,7 +494,7 @@
   date: 2026-06-22
   kind: milestone
   title: An agentic product team for Elixir
-  summary: I set up six automations, from Data Analyst to Product Manager, to drive Elixir’s development on their own.
+  summary: Jamie sets up six automations, from Data Analyst to Product Manager, to drive Elixir’s development on their own.
   source: https://www.thingelstad.com/2026/06/22/elixirs-agentic-product-team.html
   things:
     - elixir-bot
@@ -519,7 +519,7 @@
   date: 2026-05-12
   kind: launch
   title: The Weekly Thing Team
-  summary: I introduce four Discord agents, Eddy, Linky, Marky and Patty, to help edit, research, promote and fund the Weekly Thing.
+  summary: Jamie introduces four Discord agents, Eddy, Linky, Marky and Patty, to help edit, research, promote and fund the Weekly Thing.
   source: https://www.thingelstad.com/2026/05/12/the-weekly-thing-team.html
   things:
     - weekly-thing-workshop
@@ -535,7 +535,7 @@
   date: 2026-03-07
   kind: milestone
   title: Making Elixir smarter
-  summary: Codex redesigns Elixir’s data model and tools, tested against 50 questions I wrote with Claude.
+  summary: Codex redesigns Elixir’s data model and tools, tested against 50 questions Jamie wrote with Claude.
   source: https://www.thingelstad.com/2026/03/07/making-elixir-smarter.html
   things:
     - elixir-bot
