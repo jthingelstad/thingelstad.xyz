@@ -817,7 +817,8 @@ test('every sitemap page carries the date its content last changed, never the bu
     'content/topics.yaml': '2026-09-01T00:00:00Z',
     'content/featured.yaml': '2026-10-24T00:00:00Z',
     'content/history/2026.yaml': '2026-10-02T00:00:00Z',
-    'content/stories/weekly-thing-tools.md': '2026-11-20T00:00:00Z'
+    'content/stories/weekly-thing-tools.md': '2026-11-20T00:00:00Z',
+    'content/interviews/jamie-october-2026.md': '2026-11-05T00:00:00Z'
   };
   const fileDate = (path: string) =>
     dates[path] ??
@@ -862,6 +863,14 @@ test('every sitemap page carries the date its content last changed, never the bu
   assert.equal(lastmod('/stories/weekly-thing-tools/'), '2026-11-20T00:00:00Z');
   assert.equal(lastmod('/stories/'), '2026-11-20T00:00:00Z');
   assert.equal(lastmod('/'), '2026-11-20T00:00:00Z', 'the front page shows the story cards');
+  // An interview is dated by its own file and its cast's record files, never by the cast's stories, events or
+  // evidence: none of that is on its page. Weekly Thing is in the cast, and its story file is newer.
+  const interview = model.interviews.find((item) => item.id === 'jamie-october-2026')!;
+  assert.ok(interview.cast.some((thing) => thing.id === 'weekly-thing'));
+  assert.equal(lastmod(interview.page), '2026-11-05T00:00:00Z');
+  assert.equal(lastmod('/interviews/'), '2026-11-05T00:00:00Z');
+  assert.equal(lastmod('/about/'), '2026-11-05T00:00:00Z', 'the about page quotes the interview');
+  assert.equal(lastmod('/things/weekly-thing/'), '2026-11-20T00:00:00Z', 'the thing page still shows its story');
   for (const entry of entries) assert.notEqual(entry.lastmod, w3c(model.generated), entry.loc);
   // A list is as new as the newest thing it lists.
   const newestThing = model.things

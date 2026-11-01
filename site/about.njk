@@ -8,8 +8,9 @@ description: What this site is, how it is kept, and who writes it. Thingy introd
     writes and keeps this site (Jamie: "go ahead and redraft the website in Thingy's voice and bring in Thingy's
     personality"). Thingy speaks for itself here and about Jamie in the third person; every "why" is Jamie's own
     words, quoted from the interview and linked to the question. The status list comes from the model, so it
-    never drifts from the legend or the facets. #}
-{% set interview = site.interviews[0] %}
+    never drifts from the legend or the facets. The quotations below are from one interview, named by id, so a
+    newer interview never takes their links. #}
+{% set interview = site | interview('jamie-october-2026') %}
 <section class="intro">
   <h1 class="title">About this <span class="accent">site</span><span class="dot">.</span></h1>
   <p class="lede">Everything Jamie Thingelstad has built, in one place. Websites, newsletters, bots, wiki extensions, a podcast, a few games, and a long list of things he has stepped away from.</p>

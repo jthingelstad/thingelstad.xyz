@@ -94,9 +94,14 @@ export function sitemapEntries(model: SiteModel, fileDate: FileDate): SitemapEnt
     page: story.page,
     date: latest([storyFileDates.get(story.id), ...story.cast.map((thing) => thingDates.get(thing.id))])
   }));
+  // An interview's page shows its transcript and notes and its cast's titles, so only those files date it. A cast
+  // thing's activity and events are not on the page and do not.
   const interviewDates = model.interviews.map((item) => ({
     page: item.page,
-    date: latest([interviewFileDates.get(item.id), ...item.cast.map((thing) => thingDates.get(thing.id))])
+    date: latest([
+      interviewFileDates.get(item.id),
+      ...item.cast.map((thing) => fileDate(`content/things/${thing.id}.md`))
+    ])
   }));
   const pages: [string, string | null][] = [
     ['/', latest([allThings, allStories, fileDate('content/featured.yaml')])],
