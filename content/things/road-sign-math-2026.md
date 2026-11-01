@@ -60,10 +60,13 @@ bundles:
   - id: the-website
     title: The website
     caption: The new roadsignmath.xyz on October 31, 2026, where every sign posted from the app shows up, with no sign-in.
+  - id: logo-development
+    title: Logo development
+    caption: Concept sheets from Jamie’s design session with Codex on October 31, 2026, followed by the approved five-icon collection and matching wordmark. The green Radical Route mark became the default direction, with four alternatives for players to choose from.
 artifacts:
   - file: app-icon.png
     bundle: the-app
-    title: The icon
+    title: The first app icon
     caption: 'The math from the Twin Lakes sign, √(5 − 1) = 2, on a green guide sign.'
     date: '2026-10-30'
     source: https://github.com/jthingelstad/roadsignmath-ios/pull/3
@@ -159,6 +162,62 @@ artifacts:
     caption: The website’s section for the app, with a link to join the iPhone beta through TestFlight.
     date: '2026-10-31'
     source: https://github.com/jthingelstad/roadsignmath.xyz/pull/22
+  - file: logo-first-directions.png
+    bundle: logo-development
+    title: 'The first three directions'
+    caption: 'Radical Route combines a square-root symbol with an exit arrow. Genesis Sign uses 3 × 33 = 99 from the first road sign. Math Crossing puts crossing roads inside a yellow diamond.'
+    date: '2026-10-31'
+  - file: logo-color-exploration.png
+    bundle: logo-development
+    title: 'Green and yellow'
+    caption: 'Radical Route in highway green and sign yellow, alongside an upright crossing symbol. Jamie chose green for the default icon and kept yellow as an alternative.'
+    date: '2026-10-31'
+  - file: logo-operator-exploration.png
+    bundle: logo-development
+    title: 'Division, factorial, and four operators'
+    caption: 'Three more alternatives: a division symbol with an exit arrow, a 3! route shield, and addition, subtraction, multiplication, and division on one green sign.'
+    date: '2026-10-31'
+  - file: logo-polished-collection.png
+    bundle: logo-development
+    title: 'The polished collection'
+    caption: 'Highway, Sunshine, Division, Factorial, and Four Ways, redrawn as vector artwork. The sheet includes the matching Overpass wordmark, light and dark logo treatments, and checks at 64, 40, and 24 pixels.'
+    date: '2026-10-31'
+  - file: logo-highway.png
+    bundle: logo-development
+    title: 'Highway, the default icon'
+    caption: 'The white Radical Route mark on highway green, combining a square-root radical with an exit arrow.'
+    date: '2026-10-31'
+  - file: logo-sunshine.png
+    bundle: logo-development
+    title: 'Sunshine'
+    caption: 'The same Radical Route geometry in deep green on sign yellow.'
+    date: '2026-10-31'
+  - file: logo-division.png
+    bundle: logo-development
+    title: 'Division'
+    caption: 'A division symbol whose horizontal bar becomes an exit arrow, in deep green on yellow.'
+    date: '2026-10-31'
+  - file: logo-factorial.png
+    bundle: logo-development
+    title: 'Factorial'
+    caption: 'White 3! lettering inside a green route shield on yellow.'
+    date: '2026-10-31'
+  - file: logo-four-ways.png
+    bundle: logo-development
+    title: 'Four Ways'
+    caption: 'Addition, subtraction, multiplication, and division inside a white sign border on green.'
+    date: '2026-10-31'
+  - file: logo-wordmark.png
+    bundle: logo-development
+    title: 'The matching wordmark'
+    caption: 'The Radical Route mark beside Road Sign Math in Overpass, the highway-inspired typeface already used by the app.'
+    date: '2026-10-31'
+  - file: logo-identity-v1.zip
+    bundle: logo-development
+    title: 'Identity artwork and exports'
+    caption: 'The complete design package: five square PNG icons, editable SVG masters, separate layers, wordmarks and logo arrangements, size previews, and the Overpass font with its license.'
+    date: '2026-10-31'
+    preview: logo-identity-v1-preview.png
 ---
 
 In October 2026 Jamie rebooted Road Sign Math a third time, 21 years after the first sign, as the iPhone app he had wanted since 2011. The app is the whole game. You photograph a sign from the passenger seat, the app boxes every number it can read, you check them, write your math on a keypad made for it, and post it. Everyone’s signs land on a feed, a map and a page for each player, and anyone can find another way to make a posted sign true. The first 16 signs are the ones from the blog, found by Jamie, Tyler and Tammy from 2021 to 2025.
