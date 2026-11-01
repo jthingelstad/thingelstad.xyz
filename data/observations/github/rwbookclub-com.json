@@ -2,7 +2,7 @@
   "kind": "github",
   "repository": "jthingelstad/rwbookclub.com",
   "url": "https://github.com/jthingelstad/rwbookclub.com",
-  "observedAt": "2026-10-31T16:05:04.522Z",
+  "observedAt": "2026-11-01T17:07:29.419Z",
   "repositoryCreatedAt": "2026-04-09T23:16:42.000Z",
   "archived": false,
   "description": "Monorepo for the R/W Book Club: the public website, the shared knowledge corpus, and Oliver — the club's Discord agent.",
@@ -25,12 +25,11 @@
     {
       "path": null,
       "branch": "main",
-      "since": "2026-07-01T00:00:00.000Z",
-      "until": "2026-10-31T16:05:04.522Z",
-      "count": 168,
+      "since": "2026-08-01T00:00:00.000Z",
+      "until": "2026-11-01T17:07:29.419Z",
+      "count": 49,
       "complete": true,
       "months": [
-        { "month": "2026-07", "count": 119 },
         { "month": "2026-08", "count": 21 },
         { "month": "2026-09", "count": 10 },
         { "month": "2026-10", "count": 18 }
@@ -43,12 +42,11 @@
     {
       "path": "agent",
       "branch": "main",
-      "since": "2026-07-01T00:00:00.000Z",
-      "until": "2026-10-31T16:05:04.522Z",
-      "count": 112,
+      "since": "2026-08-01T00:00:00.000Z",
+      "until": "2026-11-01T17:07:29.419Z",
+      "count": 21,
       "complete": true,
       "months": [
-        { "month": "2026-07", "count": 91 },
         { "month": "2026-08", "count": 11 },
         { "month": "2026-09", "count": 5 },
         { "month": "2026-10", "count": 5 }

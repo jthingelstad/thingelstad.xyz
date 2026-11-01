@@ -2,26 +2,29 @@
   "kind": "github",
   "repository": "jthingelstad/cards.thingelstad.com",
   "url": "https://github.com/jthingelstad/cards.thingelstad.com",
-  "observedAt": "2026-10-28T17:10:27.363Z",
+  "observedAt": "2026-11-01T17:07:29.419Z",
   "repositoryCreatedAt": "2026-10-24T17:10:58.000Z",
   "archived": false,
   "description": "Social cards for Jamie Thingelstad's sites, drawn from each post",
   "stars": 0,
   "forks": 0,
-  "languages": [{ "name": "JavaScript", "bytes": 147581 }],
+  "languages": [{ "name": "JavaScript", "bytes": 210354 }],
   "release": null,
   "activity": [
     {
       "path": null,
       "branch": "main",
-      "since": "2026-07-01T00:00:00.000Z",
-      "until": "2026-10-28T17:10:27.363Z",
-      "count": 30,
+      "since": "2026-08-01T00:00:00.000Z",
+      "until": "2026-11-01T17:07:29.419Z",
+      "count": 40,
       "complete": true,
-      "months": [{ "month": "2026-10", "count": 30 }],
+      "months": [
+        { "month": "2026-10", "count": 37 },
+        { "month": "2026-11", "count": 3 }
+      ],
       "latestCommit": {
-        "date": "2026-10-28T14:13:42.000Z",
-        "url": "https://github.com/jthingelstad/cards.thingelstad.com/commit/4f2aa5d215e7ff7a23366497603388ac0f7f5df7"
+        "date": "2026-11-01T06:53:24.000Z",
+        "url": "https://github.com/jthingelstad/cards.thingelstad.com/commit/d303d14e497a5e5ffd44aab375368f5ccf6af404"
       }
     }
   ]
