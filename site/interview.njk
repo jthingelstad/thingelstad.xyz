@@ -1,0 +1,48 @@
+---
+layout: layout.njk
+pagination:
+  data: site.interviews
+  size: 1
+  alias: interview
+permalink: '{{ interview.page }}'
+eleventyComputed:
+  title: '{{ interview.title }}'
+  description: '{{ interview.summary }}'
+---
+{#- An interview (content/interviews/<id>.md): what was done to the transcript, the questions as a list, the things
+    it is about, then the transcript itself. Every question has the address #qN and a # link to copy it, and the
+    questions that are about particular things show them as tags (anchorQuestions in collection/site.ts). The
+    transcript is Jamie's words and keeps its emphasis, like a thing's story. #}
+<article class="interview">
+  <header class="intro">
+    <p class="crumbs"><a href="/interviews/">Interviews</a></p>
+    <h1>{{ interview.title }}</h1>
+    <p class="lede">{{ interview.summary }}</p>
+    <p class="story-span muted">Recorded {{ interview.started | date }}{% if interview.ended != interview.started %} to {{ interview.ended | date }}{% endif %} · {{ interview.index | length }} questions · {{ interview.cast | length }} things</p>
+  </header>
+  <section class="interview-notes" id="notes" aria-labelledby="about-this-transcript">
+    <h2 id="about-this-transcript">About this transcript</h2>
+    <p>Thingy asked the questions and Jamie answered them out loud. What follows is the transcript, as he spoke it. Where the site quotes him, it quotes this.</p>
+    <ul>
+      {% for note in interview.notes %}<li>{{ note }}</li>
+      {% endfor %}
+    </ul>
+  </section>
+  <section class="interview-index" id="questions" aria-labelledby="the-questions">
+    <h2 id="the-questions">The questions</h2>
+    <ol class="question-index">
+      {% for q in interview.index %}<li value="{{ q.n }}"><a href="#q{{ q.n }}">{{ q.text }}</a></li>
+      {% endfor %}
+    </ol>
+  </section>
+  <section class="interview-cast" id="things" aria-labelledby="things-he-talks-about">
+    <h2 id="things-he-talks-about">Things he talks about</h2>
+    <p>{% for thing in interview.cast %}<a class="tag" href="{{ thing.page }}">{{ thing.title }}</a> {% endfor %}</p>
+  </section>
+  <section class="story interview-body" id="transcript">
+    {{ interview | interviewHtml | safe }}
+  </section>
+  <footer class="thing-footer">
+    <p class="muted"><a href="/interviews/">All interviews</a> · <a href="{{ site.repository }}/blob/main/content/interviews/{{ interview.id }}.md">The transcript file</a></p>
+  </footer>
+</article>

@@ -5,6 +5,7 @@ import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import markdownIt from 'markdown-it';
 import {
   aliveBar,
+  anchorQuestions,
   formatDate,
   lifespan,
   reach,
@@ -58,6 +59,8 @@ export default function (eleventyConfig: EleventyConfig) {
   eleventyConfig.addGlobalData('owner', sites.owner);
   eleventyConfig.addFilter('ref', siteRef(sites.sites));
   eleventyConfig.addPassthroughCopy({ 'public/favicon.svg': 'favicon.svg' });
+  // Thingy's portrait, at the footer's size and the about page's (public/img/, from thingy.thingelstad.com).
+  eleventyConfig.addPassthroughCopy({ 'public/img': 'img' });
   eleventyConfig.addPassthroughCopy({
     'site/css/site.css': assets.css.slice(1),
     'site/js/search.js': assets.search.slice(1),
@@ -81,6 +84,9 @@ export default function (eleventyConfig: EleventyConfig) {
   eleventyConfig.addFilter('date', (value: string) => formatDate(value));
   eleventyConfig.addFilter('day', (value: string) => formatDate(value.slice(0, 10)));
   eleventyConfig.addFilter('md', (value: string) => markdown.render(value ?? ''));
+  eleventyConfig.addFilter('interviewHtml', (item: SiteModel['interviews'][number]) =>
+    anchorQuestions(markdown.render(item.body), item)
+  );
   eleventyConfig.addFilter('sparkline', (months: MonthCount[], label: string, variant?: string) =>
     sparkline(months, label, variant)
   );

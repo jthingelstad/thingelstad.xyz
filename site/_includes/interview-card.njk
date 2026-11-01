@@ -1,0 +1,7 @@
+{#- An interview as a card (/interviews/): its title, when it was recorded, its summary, and the things it is about. #}
+<li class="story-card interview-card">
+  <h3><a href="{{ interview.page }}">{{ interview.title }}</a></h3>
+  <p class="story-span muted">{{ interview.started | date }}{% if interview.ended != interview.started %} to {{ interview.ended | date }}{% endif %} · {{ interview.index | length }} questions</p>
+  <p>{{ interview.summary }}</p>
+  <p class="story-cast">{% for thing in interview.cast %}<a class="tag" href="{{ thing.page }}">{{ thing.title }}</a> {% endfor %}</p>
+</li>

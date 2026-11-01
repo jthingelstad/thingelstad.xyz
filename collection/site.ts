@@ -14,6 +14,7 @@ import {
   type Connection,
   type GitHubObservation,
   type HistoryEvent,
+  type Interview,
   type MonthCount,
   type Observation,
   type PublicationsObservation,
@@ -45,7 +46,7 @@ import {
 export const siteUrl = 'https://thingelstad.xyz';
 const siteTitle = 'Things I’ve built.';
 const siteDescription =
-  'Everything I’ve built, in one place: the things I run today and the ones I’ve stepped away from. By Jamie Thingelstad.';
+  'Everything Jamie Thingelstad has built, in one place: the things he runs today and the ones he has stepped away from. Kept by Thingy, his librarian.';
 const repositoryUrl = 'https://github.com/jthingelstad/thingelstad.xyz';
 
 const statusLabels: Record<Status, string> = {
@@ -55,12 +56,15 @@ const statusLabels: Record<Status, string> = {
   abandoned: 'Abandoned',
   archived: 'Archived'
 };
+// The status words are Jamie's, from questions 3 and 28 of his interview (content/interviews/jamie-october-2026.md):
+// retired is no longer available, dormant is still available but not worked on, abandoned is a project he left,
+// archived came to a natural conclusion. Status is his decision, and evidence never sets one.
 const statusDescriptions: Record<Status, string> = {
-  active: 'I’m building or running it.',
-  dormant: 'Not being worked on right now. It may come back.',
-  retired: 'I ended it on purpose.',
-  abandoned: 'I tried it and gave up before it worked out.',
-  archived: 'Finished, and kept as it is.'
+  active: 'Jamie is building or running it.',
+  dormant: 'Still available, but Jamie is not working on it right now. It may come back.',
+  retired: 'No longer available. Jamie ended it on purpose.',
+  abandoned: 'Jamie left it before it worked out.',
+  archived: 'Finished. It came to a natural conclusion and is kept as it is.'
 };
 const collectionOrder = [
   'Publishing',
@@ -165,8 +169,10 @@ export type SiteThing = Omit<Thing, 'sources' | 'bundles' | 'artifacts'> & {
   filters: ThingFilter[]; // its facet values, for /search/
   activity: ThingRecord | null; // its commits and publications over its life, from the logs
   stories: StoryLink[]; // the stories it is part of
+  interviews: InterviewLink[]; // the interviews with a question about it, and which questions
 };
 type StoryLink = { id: string; title: string; page: string };
+type InterviewLink = { id: string; title: string; page: string; questions: number[] };
 // The facets of /search/. Each thing's row carries its values (data-filters), and the search page lists every
 // value with how many things carry it. A value is a stable slug for the address (?topic=mediawiki); its label
 // is what a reader sees. The language is the top one GitHub reports for each of the thing's repositories:
@@ -190,6 +196,14 @@ type SiteStoryline = Storyline & {
   events: HistoryEvent[];
   span: { started: string | null; ended: string | null; ongoing: boolean };
   latest: string | null; // the newest event date among its things: what orders the stories
+};
+// An interview with its questions resolved to things, the things it is about in the order they first come up,
+// and its index: every question heading in the transcript, numbered, for the list at the top of the page.
+type SiteInterview = Omit<Interview, 'questions'> & {
+  page: string;
+  cast: SiteThing[];
+  questions: { n: number; things: SiteThing[] }[];
+  index: { n: number; text: string }[];
 };
 type SiteCollection = { name: string; things: SiteThing[] };
 type SiteYear = { year: string; events: HistoryEvent[] };
@@ -237,6 +251,7 @@ export type SiteModel = {
   collections: SiteCollection[];
   topics: SiteTopic[];
   stories: SiteStoryline[];
+  interviews: SiteInterview[];
   history: HistoryEvent[];
   years: SiteYear[];
   timeline: Timeline;
@@ -484,7 +499,11 @@ export function buildSiteModel(registry: Registry, observations: Observation[], 
       activity: activity.things.get(thing.id) ?? null,
       stories: registry.stories
         .filter((story) => story.things.includes(thing.id))
-        .map((story) => ({ id: story.id, title: story.title, page: `/stories/${story.id}/` }))
+        .map((story) => ({ id: story.id, title: story.title, page: `/stories/${story.id}/` })),
+      interviews: registry.interviews.flatMap((item) => {
+        const questions = item.questions.filter((q) => q.things.includes(thing.id)).map((q) => q.n);
+        return questions.length ? [{ id: item.id, title: item.title, page: `/interviews/${item.id}/`, questions }] : [];
+      })
     };
   });
   const byId = new Map(things.map((thing) => [thing.id, thing]));
@@ -530,6 +549,17 @@ export function buildSiteModel(registry: Registry, observations: Observation[], 
     })
     .toSorted((a, b) => (b.latest ?? '').localeCompare(a.latest ?? '') || a.title.localeCompare(b.title));
   const years: SiteYear[] = [];
+  const interviews: SiteInterview[] = registry.interviews
+    .map((item) => {
+      const questions = item.questions.map((q) => ({ n: q.n, things: q.things.map((id) => byId.get(id)!) }));
+      const cast = [...new Set(questions.flatMap((q) => q.things))];
+      const index = [...item.body.matchAll(/^### (\d+)\. (.+)$/gm)].map((match) => ({
+        n: Number(match[1]),
+        text: match[2].trim()
+      }));
+      return { ...item, page: `/interviews/${item.id}/`, cast, questions, index };
+    })
+    .toSorted((a, b) => b.started.localeCompare(a.started) || a.id.localeCompare(b.id));
   for (const event of registry.history) {
     const y = event.date.slice(0, 4);
     const bucket = years.find((b) => b.year === y) ?? (years.push({ year: y, events: [] }), years.at(-1)!);
@@ -621,6 +651,7 @@ export function buildSiteModel(registry: Registry, observations: Observation[], 
     collections,
     topics,
     stories,
+    interviews,
     history: registry.history,
     years,
     timeline: {
@@ -680,7 +711,7 @@ export function llmsText(model: SiteModel) {
     '',
     ...(model.featured.length
       ? [
-          'Featured is the short list of things I most want you to see right now, in the order the front page shows them.',
+          'Featured is the short list of things Jamie most wants you to see right now, in the order the front page shows them.',
           '',
           '## Featured',
           '',
@@ -704,12 +735,20 @@ export function llmsText(model: SiteModel) {
           ''
         ]
       : []),
+    ...(model.interviews.length
+      ? [
+          '## Interviews',
+          '',
+          ...model.interviews.map((item) => `- [${llmsName(item.title)}](${model.url}${item.page}): ${item.summary}`),
+          ''
+        ]
+      : []),
     '## Optional',
     '',
     `- [History](${model.url}/history/): every sourced event, newest first`,
     `- [Activity](${model.url}/activity/): the commits and publications that landed in each thing, week by week; ${model.url}/activity.xml has one item a day`,
     `- [Full text](${model.url}/llms-full.txt): every thing's record and story in one file`,
-    `- [About](${model.url}/about/): what this site is, how it is kept, and who writes the words`,
+    `- [About](${model.url}/about/): what this site is, how it is kept, and who writes it`,
     ''
   ];
   return lines.join('\n');
@@ -748,6 +787,9 @@ export function thingsJson(model: SiteModel) {
           }
         : {}),
       ...(thing.story ? { story: thing.story } : {}),
+      ...(thing.interviews.length
+        ? { interviews: thing.interviews.map(({ id, questions }) => ({ id, questions })) }
+        : {}),
       ...(thing.bundles.length ? { bundles: thing.bundles.map(bundleRecord) } : {}),
       ...(thing.artifacts.length
         ? {
@@ -770,8 +812,36 @@ export function thingsJson(model: SiteModel) {
       body: story.body.trim(),
       events: events.map((event) => event.id)
     })),
+    interviews: model.interviews.map(({ cast: _c, index: _i, ...item }) => ({
+      ...item,
+      page: `${model.url}${item.page}`,
+      questions: item.questions.map((q) => ({
+        n: q.n,
+        url: `${model.url}${item.page}#q${q.n}`,
+        things: q.things.map((thing) => thing.id)
+      })),
+      body: item.body.trim()
+    })),
     history: model.history
   };
+}
+
+// An interview's transcript as HTML, with an address on every question (#qN) and session (#session-N), a # link
+// to copy it, and under each question that is about particular things, those things as tags. The headings are
+// the transcript's own; the ids are the numbers, so a reworded question keeps its address.
+export function anchorQuestions(html: string, item: SiteInterview) {
+  const byNumber = new Map(item.questions.map((q) => [q.n, q.things]));
+  return html
+    .replace(/<h2>Session (\d+)<\/h2>/g, '<h2 id="session-$1">Session $1</h2>')
+    .replace(/<h3>(\d+)\. ([\s\S]*?)<\/h3>/g, (_match, n: string, rest: string) => {
+      const things = byNumber.get(Number(n)) ?? [];
+      const tags = things.length
+        ? `\n<p class="question-things">About ${things
+            .map((thing) => `<a class="tag" href="${thing.page}">${escapeHtml(thing.title)}</a>`)
+            .join(' ')}</p>`
+        : '';
+      return `<h3 id="q${n}">${n}. ${rest} <a class="permalink" href="#q${n}" aria-label="Link to question ${n}">#</a></h3>${tags}`;
+    });
 }
 
 // The ledger as a feed: what changed in what Jamie has built, newest first.
@@ -813,7 +883,7 @@ export function jsonFeed(model: SiteModel) {
     title: `${model.title} History`,
     home_page_url: `${model.url}/`,
     feed_url: `${model.url}/feed.json`,
-    description: 'What changed in the things I’ve built, newest first, each with its source.',
+    description: 'What changed in the things Jamie Thingelstad has built, newest first, each with its source.',
     authors: [{ name: 'Jamie Thingelstad', url: 'https://www.thingelstad.com/' }],
     items: feedItems(model).map((item) => ({
       id: item.id,
@@ -858,7 +928,7 @@ ${item.things.map((thing) => `      <category>${escapeHtml(thing.title)}</catego
     <title>${escapeHtml(model.title)} History</title>
     <link>${model.url}/</link>
     <atom:link href="${model.url}/feed.xml" rel="self" type="application/rss+xml"/>
-    <description>What changed in the things I’ve built, newest first, each with its source.</description>
+    <description>What changed in the things Jamie Thingelstad has built, newest first, each with its source.</description>
     <language>en-us</language>
     <lastBuildDate>${rfc822(newest)}</lastBuildDate>
 ${entries}
@@ -920,7 +990,7 @@ ${item.things.map((thing) => `      <category>${escapeHtml(thing)}</category>`).
     <title>${escapeHtml(model.title)} Activity</title>
     <link>${model.url}/activity/</link>
     <atom:link href="${model.url}${activityFeedPath}" rel="self" type="application/rss+xml"/>
-    <description>What landed in what I’ve built, one item a day: commits to each thing’s public repositories, with who made them, and what its feeds published.</description>
+    <description>What landed in what Jamie Thingelstad has built, one item a day: commits to each thing’s public repositories, with who made them, and what its feeds published.</description>
     <language>en-us</language>
     <lastBuildDate>${rfc822(newest)}</lastBuildDate>
 ${entries}

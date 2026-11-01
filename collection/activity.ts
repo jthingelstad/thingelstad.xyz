@@ -60,14 +60,14 @@ function whoText(who: Who) {
     who.claude ? `${n(who.claude)} with Claude` : '',
     who.codex ? `${n(who.codex)} with Codex` : '',
     unnamed ? `${n(unnamed)} with ${who.claude || who.codex ? 'another agent' : 'an agent'}` : '',
-    who.me ? `${n(who.me)} by me` : '',
+    who.me ? `${n(who.me)} by Jamie` : '',
     who.others ? `${n(who.others)} by others` : ''
   ]
     .filter(Boolean)
     .join(', ');
 }
 
-// "48 commits (46 with Claude, 2 by me) and 2 publications", or "134 commits, all with Claude", for a
+// "48 commits (46 with Claude, 2 by Jamie) and 2 publications", or "134 commits, all with Claude", for a
 // thing, a week or a day.
 export function activitySummary(entry: {
   commits?: number;
@@ -87,7 +87,7 @@ export function activitySummary(entry: {
       : one
         ? `${plural(count, 'commit')}, all ${by}`
         : `${plural(count, 'commit')}${who ? ` (${who})` : ''}`;
-  // "44 commits, all by me, and 65 publications": the comma keeps "all by me" off the publications.
+  // "44 commits, all by Jamie, and 65 publications": the comma keeps "all by Jamie" off the publications.
   return [count ? commits : '', published ? plural(published, 'publication') : '']
     .filter(Boolean)
     .join(one && count > 1 ? ', and ' : ' and ');
@@ -463,7 +463,7 @@ export function activityMonths(
 const escape = (value: string) =>
   value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 const order: CommitAuthor[] = ['me', 'agent', 'others'];
-const label: Record<CommitAuthor, string> = { me: 'by me', agent: 'with an agent', others: 'by others' };
+const label: Record<CommitAuthor, string> = { me: 'by Jamie', agent: 'with an agent', others: 'by others' };
 // A bar whose far end is rounded and whose baseline end is square.
 const rightRounded = (x: number, y: number, w: number, h: number) => {
   const r = Math.min(4, w, h / 2);

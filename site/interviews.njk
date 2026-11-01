@@ -1,0 +1,15 @@
+---
+layout: layout.njk
+permalink: /interviews/
+title: Interviews
+description: Jamie in his own words. Thingy asks, Jamie answers by voice, and the transcript is published as he spoke it.
+---
+{#- The interviews (content/interviews/<id>.md): Thingy's questions and Jamie's answers. The transcript is a source,
+    the way a post is: the pages quote it and link the question, and never rewrite it. #}
+<section class="intro">
+  <h1>Interviews</h1>
+  <p class="lede">Jamie in his own words. Thingy asks, Jamie answers by voice, and the transcript is published as he spoke it, filler words aside. When a page on this site says why he built something, it points at the question where he said so.</p>
+</section>
+<ul class="story-list interview-list">
+  {% for interview in site.interviews %}{% include "interview-card.njk" %}{% endfor %}
+</ul>
