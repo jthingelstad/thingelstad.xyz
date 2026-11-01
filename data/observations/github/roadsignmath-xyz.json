@@ -2,14 +2,14 @@
   "kind": "github",
   "repository": "jthingelstad/roadsignmath.xyz",
   "url": "https://github.com/jthingelstad/roadsignmath.xyz",
-  "observedAt": "2026-10-31T16:05:04.522Z",
+  "observedAt": "2026-11-01T17:07:29.419Z",
   "repositoryCreatedAt": "2026-10-30T17:57:49.000Z",
   "archived": false,
   "description": "Road Sign Math: the website and the server behind it. Driving + Math = Fun.",
   "stars": 1,
   "forks": 0,
   "languages": [
-    { "name": "TypeScript", "bytes": 626506 },
+    { "name": "TypeScript", "bytes": 1012912 },
     { "name": "Shell", "bytes": 13871 }
   ],
   "release": null,
@@ -17,14 +17,17 @@
     {
       "path": null,
       "branch": "main",
-      "since": "2026-07-01T00:00:00.000Z",
-      "until": "2026-10-31T16:05:04.522Z",
-      "count": 25,
+      "since": "2026-08-01T00:00:00.000Z",
+      "until": "2026-11-01T17:07:29.419Z",
+      "count": 38,
       "complete": true,
-      "months": [{ "month": "2026-10", "count": 25 }],
+      "months": [
+        { "month": "2026-10", "count": 31 },
+        { "month": "2026-11", "count": 7 }
+      ],
       "latestCommit": {
-        "date": "2026-10-31T14:49:09.000Z",
-        "url": "https://github.com/jthingelstad/roadsignmath.xyz/commit/6e7a75315e97593eb8a9995a6894a4eb5cb1b667"
+        "date": "2026-11-01T06:46:58.000Z",
+        "url": "https://github.com/jthingelstad/roadsignmath.xyz/commit/ca7ce0401ad1ae983cea6a32238333ee4691bcdf"
       }
     }
   ]
