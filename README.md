@@ -1,6 +1,6 @@
 # Things I’ve built.
 
-Everything Jamie Thingelstad has built, in one place, written in Jamie’s voice. The content tree under `content/` is the source of truth; Eleventy builds the static site from it, and GitHub Actions publishes the build to S3 behind CloudFront.
+Everything Jamie Thingelstad has built, in one place, written and kept by Thingy, his librarian, in the third person and quoting Jamie where he said why (see `docs/DIRECTION.md`, “Voice”). The content tree under `content/` is the source of truth; Eleventy builds the static site from it, and GitHub Actions publishes the build to S3 behind CloudFront.
 
 ## Run locally
 
@@ -14,7 +14,7 @@ npm run site:serve   # the same, with a local server on http://localhost:8080/
 
 ## Static site
 
-`site/eleventy.config.ts` and the templates in `site/` read the typed model in `collection/site.ts`, which joins the registry with the latest observation for every source. Pages: the index grouped by status, `/things/<id>/`, `/topics/<id>/`, `/stories/` and `/stories/<id>/`, `/history/`, `/timeline/`, `/search/`, and `/about/`. Outputs: `feed.json` (the whole ledger, newest first) and `feed.xml` (its newest 30 entries), `llms.txt` and `llms-full.txt`, a Markdown twin of every thing at `/things/<id>.md`, `things.json` for Librarian, `robots.txt`, and `sitemap.xml`. Status comes from the registry only; activity comes from observations only. `tests/site.test.ts` checks the model and the outputs.
+`site/eleventy.config.ts` and the templates in `site/` read the typed model in `collection/site.ts`, which joins the registry with the latest observation for every source. Pages: the index grouped by status, `/things/<id>/`, `/topics/<id>/`, `/stories/` and `/stories/<id>/`, `/interviews/` and `/interviews/<id>/`, `/history/`, `/timeline/`, `/search/`, and `/about/`. Outputs: `feed.json` (the whole ledger, newest first) and `feed.xml` (its newest 30 entries), `llms.txt` and `llms-full.txt`, a Markdown twin of every thing at `/things/<id>.md`, `things.json` for Librarian, `robots.txt`, and `sitemap.xml`. Status comes from the registry only; activity comes from observations only. `tests/site.test.ts` checks the model and the outputs.
 
 Every page opens with the sites strip that all of Jamie’s sites share (`site/_includes/sites-strip.njk`), rendered at build time with no script. Its list is `data/sites.json`, a committed byte-for-byte copy of `shared/sites.json` in the thingelstad.com repository, whose `AGENTS.md` also holds the strip’s markup and values. `npm run sites:sync` refreshes the copy from the sibling checkout (`../thingelstad.com`, or `SITES_SOURCE`); `npm run sites:check` fails when it drifts, and where there is no sibling, as in CI, checks only the committed copy. The same commands vendor the type Jamie’s sites share, `shared/tokens.css` and `shared/fonts/`, into `site/css/shared/` (see AGENTS.md, “Shared type”).
 

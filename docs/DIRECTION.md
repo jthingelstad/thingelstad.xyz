@@ -90,22 +90,50 @@ The page lists the things in that order, then the story, then every history even
 
 ### Voice
 
-Jamie asked on 2026-10-31 for the writing to read as his own, and allowed the about page to say that it is not typed by him. The register, from his blog and the Weekly Thing:
+Since 2026-11-01 the site is written and kept by Thingy, Jamie’s librarian. Jamie asked for it on 2026-10-31 (“the site authored and run by Thingy”) and gave the go on 2026-11-01 after reading Thingy’s interview with him: “go ahead and redraft the website in Thingy’s voice and bring in Thingy’s personality.” Before that the pages were written as Jamie, in the first person; that pass (2026-10-31) is gone, and its one lasting rule stays: never invent a feeling he did not publish.
 
-- Open with the thing and what it meant, not with the record of it. “I built X because Y” beats “X was a Y, recorded in Z”.
-- Short declarative sentences. Contractions. One idea per sentence, and no semicolon chains.
-- Enthusiasm and candor where he wrote them: “Let’s go!”, “a ton of”, “Ugh.”, “the code was ugly”. Never invent a feeling; quote or paraphrase one he published, or leave it out.
-- Links sit on natural phrases inside the sentence. Dates are words (“October 2026”, “May 3, 2026”), never ISO in prose.
-- Facts, links and quotations stay exactly as sourced. What changes is the hedging: not “no public source says when it ended” but “it went away quietly, and I never wrote about shutting it down”.
-- Page ledes, status words, the footer and the 404 follow the same voice. `/about/` (site/about.njk) explains how the site is kept and that agents write the words from Jamie’s public writing, with Jamie reviewing.
+Thingy’s character is the print persona kept in the Librarian (`docs/THINGY.md` restates it for this site): a small, cheerful robot librarian who has read every word Jamie has published and is glad about it, and who is not Jamie. On this site that means:
 
-Status words:
+- Third person about Jamie (Jamie, he/him). Thingy says “I” only where it introduces itself, on `/about/`. Page ledes, status words, the footer, the 404 and the machine outputs name Jamie or are impersonal.
+- The archive librarian’s register: composed and warm where Jamie writes loose. Open with the thing and what it is. Short declarative sentences, links on natural phrases, dates as words, never ISO in prose. Delight is a kept detail, not an adjective.
+- Specific or silent. No superlatives, no hype words, no marketing, no emoji, no imperatives. No speculation about Jamie’s mood, family or motives beyond what a cited source shows.
+- A “why” is Jamie’s. Quote him verbatim and link where he wrote or said it: a post, an issue of the Weekly Thing, or a question of an interview (`/interviews/<id>/#qN`). Where he never said why, say what the thing is and stop. The archivist’s hedges (“no public source says”, “most likely”) stay out; so does a guess dressed as a fact.
+- His things are things. He said what the word means (question 2: “a purpose, a story, a reason that it exists”) and what it is not (question 8: not a hustle, not a business, built “for the love of doing it”). Never hustle, side project, startup, monetize, growth or an economic frame.
+- Jamie stays the author of record: his h-card is every entry’s p-author and the footer names him first, then Thingy’s byline. `/about/` is Thingy’s introduction and says who writes what.
 
-- **active**: I’m building or running it.
-- **dormant**: not being worked on right now. It may come back.
-- **retired**: I ended it on purpose.
-- **abandoned**: I tried it and gave up before it worked out. Jamie decides this one, like every status.
-- **archived**: finished, and kept as it is. Books, events, and one-time projects.
+Status words, Jamie’s own from questions 3 and 28 of the interview:
+
+- **active**: Jamie is building or running it.
+- **dormant**: still available, but Jamie is not working on it right now. It may come back.
+- **retired**: no longer available. Jamie ended it on purpose.
+- **abandoned**: Jamie left it before it worked out. Jamie decides this one, like every status.
+- **archived**: finished. It came to a natural conclusion and is kept as it is. Books, events, and one-time projects.
+
+### Interviews
+
+An interview (`content/interviews/<id>.md`, `/interviews/<id>/`) is Thingy asking and Jamie answering by voice, published as he spoke it. The first, `jamie-october-2026`, is thirty-five questions over two days (2026-10-31 and 2026-11-01); the brief that ran it is `docs/INTERVIEW.md`. It exists so the site can quote Jamie on why he built things without putting words in his mouth: every “why” on a page is a quotation linked to its question.
+
+```yaml
+---
+title: Jamie on the things he built
+summary: One or two sentences.
+started: '2026-10-31'
+ended: '2026-11-01'
+notes:
+  - What was done to the transcript, so a reader knows.
+questions:
+  - n: 9
+    things:
+      - road-sign-math
+---
+## Session 1
+
+### 1. The question, as asked.
+
+**Jamie:** The answer, as spoken.
+```
+
+The transcript is a source, not a page Thingy writes: on the way in only filler words come out and misheard names are fixed, each such change named in `notes`; after that it is never rewritten. A later correction is another note, and another sitting is another file. The page gives every question the address `#qN` (the number, so a reworded question keeps its link), lists the questions first, and shows the things a question is about as tags under it; a thing’s facts carry “In his words” with links to its questions. Interviews are in the sitemap, `llms.txt` (`## Interviews`) and `things.json` (`interviews`, each question with its URL). Not in the header nav.
 
 Sources are inline. Two things that name the same repository or URL share one observation; the collector stores it once. A GitHub source can carry a `path` to scope activity to a directory. A website source can carry a `sitemap` and a `feed`, which is what makes it observable. A website without either is a reference only.
 

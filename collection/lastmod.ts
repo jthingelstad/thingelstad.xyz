@@ -62,6 +62,10 @@ export function sitemapEntries(model: SiteModel, fileDate: FileDate): SitemapEnt
   // A story's file dates every page that shows the story: its own page, the thing pages that name it, and the
   // front page's cards.
   const storyFileDates = new Map(model.stories.map((story) => [story.id, fileDate(`content/stories/${story.id}.md`)]));
+  // An interview's file dates its page and the thing pages that point at its questions.
+  const interviewFileDates = new Map(
+    model.interviews.map((item) => [item.id, fileDate(`content/interviews/${item.id}.md`)])
+  );
   const thingDates = new Map(
     model.things.map((thing) => [
       thing.id,
@@ -70,7 +74,8 @@ export function sitemapEntries(model: SiteModel, fileDate: FileDate): SitemapEnt
         fileDate(`content/artifacts/${thing.id}`),
         thing.latest?.date,
         ...thing.events.map((event) => event.date),
-        ...thing.stories.map((story) => storyFileDates.get(story.id))
+        ...thing.stories.map((story) => storyFileDates.get(story.id)),
+        ...thing.interviews.map((item) => interviewFileDates.get(item.id))
       ])
     ])
   );
@@ -89,6 +94,15 @@ export function sitemapEntries(model: SiteModel, fileDate: FileDate): SitemapEnt
     page: story.page,
     date: latest([storyFileDates.get(story.id), ...story.cast.map((thing) => thingDates.get(thing.id))])
   }));
+  // An interview's page shows its transcript and notes and its cast's titles, so only those files date it. A cast
+  // thing's activity and events are not on the page and do not.
+  const interviewDates = model.interviews.map((item) => ({
+    page: item.page,
+    date: latest([
+      interviewFileDates.get(item.id),
+      ...item.cast.map((thing) => fileDate(`content/things/${thing.id}.md`))
+    ])
+  }));
   const pages: [string, string | null][] = [
     ['/', latest([allThings, allStories, fileDate('content/featured.yaml')])],
     ['/topics/', latest(topicDates.map((topic) => topic.date))],
@@ -96,11 +110,22 @@ export function sitemapEntries(model: SiteModel, fileDate: FileDate): SitemapEnt
     ['/activity/', activity],
     ['/timeline/', latest([allThings, history])],
     ['/search/', allThings],
-    ['/about/', latest([fileDate('site/about.njk'), fileDate('content/things/things-ive-built.md')])],
+    [
+      '/about/',
+      latest([
+        fileDate('site/about.njk'),
+        fileDate('content/things/things-ive-built.md'),
+        ...interviewDates.map((item) => item.date)
+      ])
+    ],
     ...(storyDates.length
       ? [['/stories/', latest(storyDates.map((story) => story.date))] as [string, string | null]]
       : []),
     ...storyDates.map((story) => [story.page, story.date] as [string, string | null]),
+    ...(interviewDates.length
+      ? [['/interviews/', latest(interviewDates.map((item) => item.date))] as [string, string | null]]
+      : []),
+    ...interviewDates.map((item) => [item.page, item.date] as [string, string | null]),
     ...model.things.map((thing): [string, string | null] => [thing.page, thingDates.get(thing.id) ?? null]),
     ...topicDates.map((topic): [string, string | null] => [topic.page, topic.date])
   ];

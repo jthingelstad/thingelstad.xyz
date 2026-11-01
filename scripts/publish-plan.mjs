@@ -15,6 +15,7 @@ export const contentTypes = {
   '.md': 'text/markdown; charset=utf-8',
   '.svg': 'image/svg+xml',
   '.jpg': 'image/jpeg',
+  '.png': 'image/png', // Thingy's portrait (public/img/)
   '.woff2': 'font/woff2',
   // The search index. Pagefind gzips these itself and reads them as bytes, so they are stored as they are.
   '.pagefind': 'application/octet-stream',

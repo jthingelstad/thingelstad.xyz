@@ -6,6 +6,7 @@ import {
   type ArtifactBundle,
   type Connection,
   type HistoryEvent,
+  type Interview,
   type Registry,
   type Story,
   type Storyline,
@@ -335,6 +336,45 @@ export function storyline(id: string, frontmatter: unknown, body: string, where:
   if (item.ended !== undefined) result.ended = preciseDate(item.ended, `${where}.ended`);
   return result;
 }
+// An interview's front matter is title, summary, when it was recorded (started and ended), notes on the
+// transcript, and the questions that are about particular things, each by its number and the things it names.
+// The body is the transcript, with one `### N. ` heading per question; a question named in the front matter
+// must have its heading, and no number is used twice.
+export function interview(id: string, frontmatter: unknown, body: string, where: string): Interview {
+  const item = record(frontmatter, ['title', 'summary', 'started', 'ended', 'notes', 'questions'], where);
+  const transcript = text(body, `${where}.body`, 200000);
+  const numbers = [...transcript.matchAll(/^### (\d+)\. /gm)].map((match) => match[1]);
+  if (!numbers.length) throw new ContentError(`${where}.body`, 'An interview has at least one "### N. " question.');
+  unique(numbers, `${where}.body`);
+  const questions = list(item.questions, `${where}.questions`, 200).map((entry, index) => {
+    const at = `${where}.questions[${index}]`;
+    const question = record(entry, ['n', 'things'], at);
+    if (typeof question.n !== 'number' || !Number.isInteger(question.n) || question.n < 1)
+      throw new ContentError(`${at}.n`, 'Use the question number.');
+    if (!numbers.includes(String(question.n)))
+      throw new ContentError(`${at}.n`, `The body has no "### ${question.n}. " heading.`);
+    const things = list(question.things, `${at}.things`, 50).map((t, i) => identifier(t, `${at}.things[${i}]`));
+    if (!things.length) throw new ContentError(`${at}.things`, 'Name at least one thing the question is about.');
+    unique(things, `${at}.things`);
+    return { n: question.n, things };
+  });
+  unique(
+    questions.map((question) => String(question.n)),
+    `${where}.questions`
+  );
+  const result: Interview = {
+    id: identifier(id, where),
+    title: text(item.title, `${where}.title`, 200),
+    summary: text(item.summary, `${where}.summary`, 1000),
+    started: preciseDate(item.started, `${where}.started`),
+    ended: preciseDate(item.ended, `${where}.ended`),
+    notes: texts(item.notes, `${where}.notes`, 20),
+    questions,
+    body: transcript
+  };
+  if (result.ended < result.started) throw new ContentError(where, 'An interview cannot end before it started.');
+  return result;
+}
 export function featuredEntry(value: unknown, where: string): string {
   const item = record(value, ['thing'], where);
   return identifier(item.thing, `${where}.thing`);
@@ -384,6 +424,13 @@ export function checkReferences(registry: Registry) {
     'stories'
   );
   for (const story of registry.stories) for (const id of story.things) reference(id, `stories/${story.id}.things`);
+  unique(
+    registry.interviews.map((i) => i.id),
+    'interviews'
+  );
+  for (const item of registry.interviews)
+    for (const question of item.questions)
+      for (const id of question.things) reference(id, `interviews/${item.id}.questions[${question.n}]`);
   unique(registry.featured, 'featured.yaml');
   if (registry.featured.length > featuredMax)
     throw new ContentError('featured.yaml', `Feature at most ${featuredMax} things, so the shelf stays a choice.`);

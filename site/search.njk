@@ -2,7 +2,7 @@
 layout: layout.njk
 permalink: /search/
 title: Search
-description: Search everything I’ve built, and narrow it by status, the year it started, topic, collection, and language.
+description: Search everything Jamie has built, and narrow it by status, the year it started, topic, collection, and language.
 ---
 {#- Search and facets. The page lists every thing, as the index does, so it works without JavaScript.
     site/js/search.js loads the Pagefind index (collection/search-index.ts) for the words, then narrows and
@@ -10,7 +10,7 @@ description: Search everything I’ve built, and narrow it by status, the year i
     and filters in the address. The values and their counts come from the model (collection/site.ts); the
     script updates the counts as the list narrows. #}
 <section class="intro search-intro">
-  <h1 class="title">Search what I’ve <span class="accent">built</span><span class="dot">.</span></h1>
+  <h1 class="title">Search what Jamie <span class="accent">built</span><span class="dot">.</span></h1>
   <form class="search-form" role="search" action="/search/" data-search-form hidden>
     <label class="search-label" for="search-query">Search the words of every thing, or narrow the list with the filters.</label>
     <div class="search-row">
@@ -48,7 +48,7 @@ description: Search everything I’ve built, and narrow it by status, the year i
   <div class="search-results h-feed">
     <data class="p-name" value="{{ site.title }}"></data>
     <div class="search-bar">
-      <p class="search-status"><span role="status" data-search-status>Search needs JavaScript. Every thing I’ve built is listed below.</span> <button type="button" class="clear" data-search-clear hidden>Clear</button></p>
+      <p class="search-status"><span role="status" data-search-status>Search needs JavaScript. Every thing Jamie has built is listed below.</span> <button type="button" class="clear" data-search-clear hidden>Clear</button></p>
       <label class="sort" data-search-sort-label hidden>Sort
         <select data-search-sort>
           <option value="match">Best match</option>

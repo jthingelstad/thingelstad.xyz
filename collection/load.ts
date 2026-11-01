@@ -4,7 +4,16 @@ import { basename, join } from 'node:path';
 import { parse } from 'yaml';
 import { artifactMaxBytes, imageSize, isImage } from './artifacts';
 import type { ArtifactFile, Registry, Thing } from './schema';
-import { checkReferences, ContentError, featuredEntry, historyEvent, storyline, thing, topic } from './validate';
+import {
+  checkReferences,
+  ContentError,
+  featuredEntry,
+  historyEvent,
+  interview,
+  storyline,
+  thing,
+  topic
+} from './validate';
 
 const contentRoot = 'content';
 
@@ -41,6 +50,17 @@ export async function loadRegistry(root = contentRoot): Promise<Registry> {
       return storyline(basename(name, '.md'), frontmatter, body, where);
     })
   );
+  const interviewsDirectory = join(root, 'interviews');
+  const interviewFiles = existsSync(interviewsDirectory)
+    ? (await readdir(interviewsDirectory)).filter((name) => name.endsWith('.md')).sort()
+    : [];
+  const interviews = await Promise.all(
+    interviewFiles.map(async (name) => {
+      const where = `interviews/${name}`;
+      const { frontmatter, body } = splitFrontmatter(await readFile(join(interviewsDirectory, name), 'utf8'), where);
+      return interview(basename(name, '.md'), frontmatter, body, where);
+    })
+  );
   const historyDirectory = join(root, 'history');
   const historyFiles = (await readdir(historyDirectory)).filter((name) => /^\d{4}\.yaml$/.test(name)).sort();
   const history = (
@@ -63,7 +83,7 @@ export async function loadRegistry(root = contentRoot): Promise<Registry> {
     .flat()
     .sort((a, b) => b.date.localeCompare(a.date) || a.id.localeCompare(b.id));
   return {
-    ...checkReferences({ things, topics, history, featured, stories }),
+    ...checkReferences({ things, topics, history, featured, stories, interviews }),
     artifactFiles: await measureArtifacts(root, things)
   };
 }

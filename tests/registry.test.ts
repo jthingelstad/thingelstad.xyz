@@ -12,6 +12,7 @@ import {
   featuredMax,
   thing,
   historyEvent,
+  interview,
   preciseDate,
   storyline
 } from '../collection/validate';
@@ -77,7 +78,7 @@ test('thing front matter is validated strictly', () => {
 test('references between files are checked after loading', () => {
   const a = thing('a', { ...base, topics: ['missing'] }, '', 'x');
   assert.throws(
-    () => checkReferences({ things: [a], topics: [], history: [], featured: [], stories: [] }),
+    () => checkReferences({ things: [a], topics: [], history: [], featured: [], stories: [], interviews: [] }),
     /Unknown topic: missing/
   );
   const b = thing(
@@ -87,7 +88,7 @@ test('references between files are checked after loading', () => {
     'x'
   );
   assert.throws(
-    () => checkReferences({ things: [b], topics: [], history: [], featured: [], stories: [] }),
+    () => checkReferences({ things: [b], topics: [], history: [], featured: [], stories: [], interviews: [] }),
     /Unknown thing: c/
   );
   const event = historyEvent(
@@ -103,7 +104,7 @@ test('references between files are checked after loading', () => {
     'x'
   );
   assert.throws(
-    () => checkReferences({ things: [], topics: [], history: [event], featured: [], stories: [] }),
+    () => checkReferences({ things: [], topics: [], history: [event], featured: [], stories: [], interviews: [] }),
     /Unknown thing: nobody/
   );
   assert.throws(() => historyEvent({ ...event, things: [] }, 'x'), /at least one thing/);
@@ -118,7 +119,7 @@ test('the featured shelf names a few active things, once each', () => {
   assert.throws(() => featuredEntry('example', 'x'), /Expected/);
   const things = ['a', 'b', 'c', 'd', 'e', 'f', 'g'].map((id) => thing(id, base, '', 'x'));
   const check = (featured: string[], list = things) =>
-    checkReferences({ things: list, topics: [], history: [], featured, stories: [] });
+    checkReferences({ things: list, topics: [], history: [], featured, stories: [], interviews: [] });
   assert.deepEqual(check(['b', 'a']).featured, ['b', 'a'], 'the shelf keeps the file’s order');
   assert.throws(() => check(['a', 'a']), /Duplicate: a/);
   assert.throws(() => check(['nobody']), /Unknown thing: nobody/);
@@ -136,7 +137,7 @@ test('a story runs through at least two known things, in its order, with a body'
   assert.equal(story.started, '2005-02-13');
   assert.equal(story.ended, undefined);
   const check = (stories = [story], list = things) =>
-    checkReferences({ things: list, topics: [], history: [], featured: [], stories });
+    checkReferences({ things: list, topics: [], history: [], featured: [], stories, interviews: [] });
   assert.equal(check().stories.length, 1);
   assert.throws(() => check([story], things.slice(1)), /Unknown thing: a/);
   assert.throws(() => check([story, story]), /Duplicate: two-runs/);
@@ -145,6 +146,49 @@ test('a story runs through at least two known things, in its order, with a body'
   assert.throws(() => storyline('empty', front, '  ', 'w'), /public text/);
   assert.throws(() => storyline('extra', { ...front, color: 'red' }, 'x', 'w'), /Unknown field: color/);
   assert.throws(() => storyline('when', { ...front, ended: 'someday' }, 'x', 'w'), /YYYY/);
+});
+
+test('an interview is a transcript with numbered questions, each named question about known things', () => {
+  const base = { title: 'T', summary: 'S', collection: 'C', status: 'active', url: null };
+  const things = ['a', 'b'].map((id) => thing(id, base, '', 'x'));
+  const front = {
+    title: 'Jamie on a and b',
+    summary: 'Two questions.',
+    started: '2026-10-31',
+    ended: '2026-11-01',
+    notes: ['Filler words removed.'],
+    questions: [{ n: 2, things: ['b', 'a'] }]
+  };
+  const body = '## Session 1\n\n### 1. Why a?\n\n**Jamie:** Because.\n\n### 2. Why b?\n\n**Jamie:** Also because.\n';
+  const item = interview('jamie-october-2026', front, body, 'interviews/jamie-october-2026.md');
+  assert.deepEqual(item.questions, [{ n: 2, things: ['b', 'a'] }]);
+  assert.equal(item.started, '2026-10-31');
+  const check = (interviews = [item], list = things) =>
+    checkReferences({ things: list, topics: [], history: [], featured: [], stories: [], interviews });
+  assert.equal(check().interviews.length, 1);
+  assert.throws(() => check([item], things.slice(1)), /Unknown thing: a/);
+  assert.throws(() => check([item, item]), /Duplicate: jamie-october-2026/);
+  const make = (changes: Record<string, unknown>, text = body) => interview('i', { ...front, ...changes }, text, 'w');
+  assert.throws(() => make({ questions: [{ n: 3, things: ['a'] }] }), /no "### 3\. " heading/);
+  assert.throws(() => make({ questions: [{ n: 1, things: [] }] }), /at least one thing/);
+  assert.throws(() => make({ questions: [{ n: 1, things: ['a', 'a'] }] }), /Duplicate: a/);
+  assert.throws(
+    () =>
+      make({
+        questions: [
+          { n: 1, things: ['a'] },
+          { n: 1, things: ['b'] }
+        ]
+      }),
+    /Duplicate: 1/
+  );
+  assert.throws(() => make({ questions: [{ n: 'one', things: ['a'] }] }), /question number/);
+  assert.throws(() => make({ questions: [{ n: 1, things: ['a'], why: 'x' }] }), /Unknown field: why/);
+  assert.throws(() => make({}, 'No headings at all.'), /at least one "### N\. " question/);
+  assert.throws(() => make({}, `${body}\n### 2. Again?\n`), /Duplicate: 2/);
+  assert.throws(() => make({ ended: '2026-10-30' }), /cannot end before/);
+  assert.throws(() => make({ color: 'red' }), /Unknown field: color/);
+  assert.throws(() => make({ started: 'someday' }), /YYYY/);
 });
 
 test('front matter splitting keeps the Markdown body intact', () => {

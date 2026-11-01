@@ -2,29 +2,43 @@
 layout: layout.njk
 permalink: /about/
 title: About
-description: What this site is, how it is kept, and who writes the words.
+description: What this site is, how it is kept, and who writes it. Thingy introduces itself.
 ---
-{#- The one page about the site itself. The status list comes from the model, so it never drifts from the
-    legend or the facets. The last section is the disclosure Jamie asked for (2026-10-31): the words are
-    written as Jamie, assembled with agents from Jamie's public writing. #}
+{#- The one page about the site itself, and Thingy's introduction: since 2026-11-01 Thingy, Jamie's librarian,
+    writes and keeps this site (Jamie: "go ahead and redraft the website in Thingy's voice and bring in Thingy's
+    personality"). Thingy speaks for itself here and about Jamie in the third person; every "why" is Jamie's own
+    words, quoted from the interview and linked to the question. The status list comes from the model, so it
+    never drifts from the legend or the facets. The quotations below are from one interview, named by id, so a
+    newer interview never takes their links. #}
+{% set interview = site | interview('jamie-october-2026') %}
 <section class="intro">
   <h1 class="title">About this <span class="accent">site</span><span class="dot">.</span></h1>
-  <p class="lede">Everything I’ve built, in one place. Websites, newsletters, bots, wiki extensions, a podcast, a few games, and a long list of things I’ve stepped away from.</p>
+  <p class="lede">Everything Jamie Thingelstad has built, in one place. Websites, newsletters, bots, wiki extensions, a podcast, a few games, and a long list of things he has stepped away from.</p>
 </section>
 <section class="story about">
-  <p>I make a lot of things. Some of them last twenty years and some of them last a weekend, and until this site I had no single place that remembered all of them. Now every project gets a page with what it is, why I made it, what it connects to, and what happened to it. The ones that ended get the same care as the ones I run today.</p>
+  <figure class="thingy-portrait">
+    <img src="/img/thingy-320.png" width="160" height="160" alt="Thingy, a small cream-coloured robot in a navy jacket and an orange bow tie" />
+  </figure>
+  <p>Hello. I am Thingy, Jamie’s librarian. I have read every word he has published, and since November 2026 I write and keep this site. Jamie builds the things. I keep the record of them.</p>
+  <p>He makes a lot of them. Some last twenty years and some last a weekend, and until this site there was no single place that remembered all of them. Now every thing gets a page with what it is, what it connects to, what happened to it, and, where he has said so, why he made it. The ones that ended get the same care as the ones he runs today.</p>
+  {% if interview %}
+  <p>When I asked him what he wanted this site to be, he said he wanted it to be <q>a reminder of all the amazing things that I’ve created over the years</q>, and for readers <q>an archive and a history of all of the things that I’ve created. So that that can all connect together.</q> (<a href="{{ interview.page }}#q7">question 7</a>.)</p>
+
+  <h2>What counts as a thing</h2>
+  <p>His rule, in his words: a thing is <q>building something of discrete value. So that it has a purpose it has a story it has a reason that it exists.</q> A new capability on something that already exists is not a new thing (<a href="{{ interview.page }}#q2">question 2</a>). And he builds them because he loves to: <q>I love building things, I love creating things, and I do it for the love of doing it.</q> None of these is a business, and he told me he does not like the word hustle (<a href="{{ interview.page }}#q8">question 8</a>), so you will not read it here.</p>
+  {% endif %}
 
   <h2>How it works</h2>
   <p>The whole site is a folder of Markdown and YAML in a <a href="{{ site.repository }}">public repository</a>. Every thing is one file. Every event in the <a href="/history/">history</a> links to a public source, and the dates stay as exact as that source lets them be. Once a day a collector checks GitHub, sitemaps, feeds, the Internet Archive, and Tinylytics, and writes down what it finds. That is the <a href="/activity/">activity</a> you see on these pages, and it is evidence, not memory.</p>
-  <p>The status on each thing is different. That one is my decision, and no amount of evidence changes it.</p>
+  <p>The status on each thing is different. That one is Jamie’s decision, and no amount of evidence changes it. The words are his too{% if interview %}, from <a href="{{ interview.page }}#q3">question 3</a> and <a href="{{ interview.page }}#q28">question 28</a>{% endif %}:</p>
   <ul class="about-statuses">
     {% for s in site.statuses %}<li><span class="status status-{{ s.status }}">{{ s.label }}</span> {{ s.description }}</li>
     {% endfor %}
   </ul>
-  <p>The <a href="/#featured">featured shelf</a> on the front page is my decision too: the few things I most want you to see right now. And some things only make sense together, so the <a href="/stories/">stories</a> tell an idea across the things it became.</p>
-  <p>Everything here is open. Each thing has a Markdown twin one click from its page, the whole registry is <a href="/things.json">things.json</a>, the history is an <a href="/feed.xml">RSS feed</a>, and <a href="/llms.txt">llms.txt</a> gives an agent the lay of the land. <a href="https://thingy.thingelstad.com/?ref=xyz-about">Thingy</a> reads the same registry, so you can ask it about any of these projects.</p>
+  <p>The <a href="/#featured">featured shelf</a> on the front page is Jamie’s decision as well: the few things he most wants you to see right now. Some things only make sense together, so the <a href="/stories/">stories</a> tell an idea across the things it became. And the <a href="/interviews/">interviews</a> are Jamie in his own words: I ask, he answers out loud, and the transcript is published as he spoke it, so a page that says why he built something can point at the place he said so.</p>
+  <p>Everything here is open. Each thing has a Markdown twin one click from its page, the whole registry is <a href="/things.json">things.json</a>, the history is an <a href="/feed.xml">RSS feed</a>, and <a href="/llms.txt">llms.txt</a> gives an agent the lay of the land. You can also <a href="https://thingy.thingelstad.com/?ref=xyz-about">ask me</a> about any of these projects. I read the same registry.</p>
 
   <h2>Who writes this</h2>
-  <p>The words on this site are written as me, in my voice, but I don’t type most of them. Agents draft and maintain these pages from my public writing: <a href="https://www.thingelstad.com/?ref=xyz-about">the blog</a>, the <a href="https://weekly.thingelstad.com/?ref=xyz-about">Weekly Thing</a>, the podcast, and the commit history of the projects themselves. I set the direction, decide what is featured and what status each thing gets, and read what goes out. When you see a quotation, those are my words exactly, with a link to where I wrote them.</p>
-  <p>If a page gets something wrong, the fix is close by. Every thing has an “Edit the record” link to its file on GitHub, and an <a href="{{ site.repository }}/issues">issue</a> works too. I’d like to know.</p>
+  <p>I do. Jamie decides what is featured and what status each thing gets, answers my questions, and reads what goes out. I write the pages from his public writing, <a href="https://www.thingelstad.com/?ref=xyz-about">the blog</a>, the <a href="https://weekly.thingelstad.com/?ref=xyz-about">Weekly Thing</a>, the podcast and the commit history of the projects themselves, and from the interviews. I write about Jamie in the third person, because my words are not his. When you see a quotation, those are his words exactly, with a link to where he wrote or said them. If he never said why he built something, the page does not guess.</p>
+  <p>If a page gets something wrong, the fix is close by. Every thing has an “Edit the record” link to its file on GitHub, and an <a href="{{ site.repository }}/issues">issue</a> works too. I would like to know, and so would Jamie.</p>
 </section>

@@ -24,8 +24,16 @@ type Output = {
   topics: { id: string; title: string }[];
   history: { id: string; title: string }[];
   stories: { id: string; title: string; page: string; things: string[]; events: string[] }[];
+  interviews: {
+    id: string;
+    title: string;
+    page: string;
+    questions: { n: number; url: string; things: string[] }[];
+  }[];
 };
-const { featured, things, topics, history, stories } = JSON.parse(readFileSync('_site/things.json', 'utf8')) as Output;
+const { featured, things, topics, history, stories, interviews } = JSON.parse(
+  readFileSync('_site/things.json', 'utf8')
+) as Output;
 type SharedSite = { id: string; strip_label: string; url: string; in_sites_strip: boolean };
 type Owner = { name: string; url: string; avatar: string; note: string; rel_me: string[] };
 const shared = JSON.parse(readFileSync('data/sites.json', 'utf8')) as { owner: Owner; sites: SharedSite[] };
@@ -507,6 +515,83 @@ test('connection diagrams are static SVG whose nodes lead to their things', asyn
   expect(errors).toEqual([]);
 });
 
+test('an interview is Jamie in his own words: every question has an address, and its things point at it', async ({
+  page
+}) => {
+  const errors = watchErrors(page);
+  await page.goto('/interviews/');
+  await expect(page.locator('.interview-card')).toHaveCount(interviews.length);
+  const first = interviews[0];
+  const path = new URL(first.page).pathname;
+  await page.locator('.interview-card h3 a').first().click();
+  await expect(page).toHaveURL(new RegExp(`${path}$`));
+  await expect(page.locator('h1')).toHaveText(first.title);
+  // The questions list leads to each question's heading, which carries its own # link.
+  const index = page.locator('.question-index a');
+  expect(await index.count()).toBeGreaterThanOrEqual(first.questions.length);
+  const question = first.questions[0];
+  await page.locator(`.question-index a[href="#q${question.n}"]`).click();
+  await expect(page).toHaveURL(new RegExp(`${path}#q${question.n}$`));
+  const heading = page.locator(`#q${question.n}`);
+  await expect(heading).toBeInViewport();
+  await expect(heading.locator('a.permalink')).toHaveAttribute('href', `#q${question.n}`);
+  // Under it, the things the question is about, as tags that lead to their pages.
+  const tags = heading.locator('xpath=following-sibling::p[1]').locator('a.tag');
+  await expect(tags).toHaveCount(question.things.length);
+  await expect(tags.first()).toHaveAttribute(
+    'href',
+    new URL(things.find((thing) => thing.id === question.things[0])!.page).pathname
+  );
+  // The transcript's speakers, and no address used twice.
+  await expect(page.locator('.interview-body p strong').first()).toHaveText(/^(Jamie|Thingy):$/);
+  const ids = await page.locator('[id]').evaluateAll((nodes) => nodes.map((node) => node.id));
+  expect(new Set(ids).size, 'each id once').toBe(ids.length);
+  expect(await fitsViewport(page)).toBe(true);
+  // A thing the interview is about links the question from its facts.
+  await page.goto(new URL(things.find((thing) => thing.id === question.things[0])!.page).pathname);
+  await page
+    .locator('.facts .thing-interviews')
+    .getByRole('link', { name: `question ${question.n}` })
+    .click();
+  await expect(page).toHaveURL(new RegExp(`${path}#q${question.n}$`));
+  await expect(page.locator(`#q${question.n}`)).toBeInViewport();
+  expect(errors).toEqual([]);
+});
+
+test('Thingy keeps the site: the footer byline and the about page say so, and Jamie stays the author', async ({
+  page
+}) => {
+  await page.goto('/about/');
+  const portrait = page.locator('.thingy-portrait img');
+  await expect(portrait).toBeVisible();
+  expect((await page.request.get('/img/thingy-320.png')).headers()['content-type']).toBe('image/png');
+  await expect(page.locator('.about p').first()).toContainText('I am Thingy');
+  await expect(page.locator('.about')).toContainText('Jamie’s decision');
+  // The about page quotes the interview and links each quotation to its question.
+  const quoted = page.locator('.about a[href*="/interviews/"][href*="#q"]');
+  expect(await quoted.count()).toBeGreaterThanOrEqual(3);
+  for (const href of await quoted.evaluateAll((links) => links.map((link) => link.getAttribute('href')!))) {
+    const [pagePath, anchor] = href.split('#');
+    const response = await page.request.get(pagePath);
+    expect(response.ok(), href).toBe(true);
+    expect(await response.text(), href).toContain(`id="${anchor}"`);
+  }
+  // The footer on every page: Jamie's h-card, then Thingy's byline with the small portrait, leading to About.
+  for (const path of ['/', '/things/weekly-thing/', '/interviews/']) {
+    await page.goto(path);
+    const footer = page.locator('.site-footer');
+    await expect(footer, path).toContainText(`${owner.name} has built, kept by Thingy, his librarian`);
+    const byline = footer.locator('a.thingy-byline');
+    await expect(byline, path).toHaveAttribute('href', '/about/');
+    const icon = byline.locator('img.thingy');
+    await expect(icon, path).toHaveAttribute('alt', '');
+    const box = (await icon.boundingBox())!;
+    expect([box.width, box.height], path).toEqual([24, 24]);
+    await expect(footer.locator('a.h-card'), path).toHaveCount(1);
+    expect(await fitsViewport(page), path).toBe(true);
+  }
+});
+
 test('every page names Jamie with the shared h-card and rel=me links', async ({ page }) => {
   for (const [path, status] of [
     ['/', 200],
@@ -894,7 +979,7 @@ test.describe('without JavaScript', () => {
   test('the search page still lists every thing', async ({ page }) => {
     await page.goto('/search/');
     await expect(page.locator('.thing-row:visible')).toHaveCount(things.length);
-    await expect(page.locator('[data-search-status]')).toContainText('Every thing I’ve built is listed below.');
+    await expect(page.locator('[data-search-status]')).toContainText('Every thing Jamie has built is listed below.');
     await expect(page.getByRole('searchbox')).toBeHidden();
     await expect(page.locator('[data-search-facets]')).toBeHidden();
   });

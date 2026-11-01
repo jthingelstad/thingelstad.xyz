@@ -4,6 +4,7 @@ import { readFileSync } from 'node:fs';
 import { loadRegistry } from '../collection/load';
 import { loadObservations } from '../collection/observations';
 import {
+  anchorQuestions,
   buildSiteModel,
   formatDate,
   jsonFeed,
@@ -712,14 +713,14 @@ test('activity reads as sentences, charts, and a feed of complete days', () => {
   const who = { me: 2, agent: 46, others: 0, claude: 40, codex: 1 };
   assert.equal(
     activitySummary({ commits: 48, who, publications: 2 }),
-    '48 commits (40 with Claude, 1 with Codex, 5 with another agent, 2 by me) and 2 publications'
+    '48 commits (40 with Claude, 1 with Codex, 5 with another agent, 2 by Jamie) and 2 publications'
   );
   const claude = { me: 0, agent: 9, others: 0, claude: 9, codex: 0 };
   assert.equal(
     activitySummary({ total: 9, who: claude, publications: 1 }),
     '9 commits, all with Claude, and 1 publication'
   );
-  assert.equal(activitySummary({ commits: 1, who: { ...claude, agent: 0, claude: 0, me: 1 } }), '1 commit by me');
+  assert.equal(activitySummary({ commits: 1, who: { ...claude, agent: 0, claude: 0, me: 1 } }), '1 commit by Jamie');
   assert.equal(
     activitySummary({ commits: 0, who: { ...claude, agent: 0, claude: 0 }, publicationCount: 3 }),
     '3 publications'
@@ -745,13 +746,79 @@ test('activity reads as sentences, charts, and a feed of complete days', () => {
   }
 });
 
+test('an interview is a source: its questions are addressed, point at their things, and the things point back', () => {
+  assert.ok(model.interviews.length >= 1, 'the registry has an interview');
+  const item = model.interviews[0];
+  assert.equal(item.page, `/interviews/${item.id}/`);
+  assert.ok(item.index.length >= item.questions.length, 'every question in the front matter has a heading');
+  for (const question of item.questions) assert.ok(item.index.some((q) => q.n === question.n));
+  assert.deepEqual(
+    item.cast.map((thing) => thing.id),
+    [...new Set(item.questions.flatMap((q) => q.things.map((thing) => thing.id)))],
+    'the cast is the things in the order they first come up'
+  );
+  // Each thing the interview is about lists the interview and the numbers of its questions.
+  for (const question of item.questions)
+    for (const thing of question.things) {
+      const link = thing.interviews.find((i) => i.id === item.id)!;
+      assert.ok(link, `${thing.id} points at the interview`);
+      assert.ok(link.questions.includes(question.n), `${thing.id} points at question ${question.n}`);
+    }
+  assert.ok(
+    model.things.some((thing) => !thing.interviews.length),
+    'a thing no question is about has no link'
+  );
+  // The transcript's headings get their addresses, a # link, and the things as tags; prose is untouched.
+  const first = item.questions[0];
+  const html = anchorQuestions(
+    `<h2>Session 1</h2>\n<h3>${first.n}. Why?</h3>\n<p><strong>Jamie:</strong> Because &lt;3.</p>\n<h3>999. Untagged?</h3>`,
+    item
+  );
+  assert.ok(html.includes('<h2 id="session-1">Session 1</h2>'));
+  assert.ok(
+    html.includes(
+      `<h3 id="q${first.n}">${first.n}. Why? <a class="permalink" href="#q${first.n}" aria-label="Link to question ${first.n}">#</a></h3>`
+    )
+  );
+  for (const thing of first.things) assert.ok(html.includes(`<a class="tag" href="${thing.page}">`));
+  assert.ok(html.includes('<h3 id="q999">999. Untagged?'), 'a question about no thing still has its address');
+  assert.ok(
+    !html.includes(
+      '<h3 id="q999">999. Untagged? <a class="permalink" href="#q999" aria-label="Link to question 999">#</a></h3>\n<p class="question-things">'
+    )
+  );
+  assert.ok(html.includes('<p><strong>Jamie:</strong> Because &lt;3.</p>'));
+  // llms.txt and things.json carry it; the things.json record keeps the transcript and the question addresses.
+  assert.ok(llmsText(model).includes(`## Interviews\n\n- [${item.title}](${siteUrl}${item.page}): ${item.summary}`));
+  assert.deepEqual(llmsShapeProblems(llmsText(model)), []);
+  const json = thingsJson(model) as unknown as {
+    interviews: { id: string; page: string; body: string; questions: { n: number; url: string; things: string[] }[] }[];
+  };
+  const record = json.interviews.find((i) => i.id === item.id)!;
+  assert.equal(record.page, `${siteUrl}${item.page}`);
+  assert.equal(record.body, item.body.trim());
+  assert.deepEqual(record.questions[0], {
+    n: first.n,
+    url: `${siteUrl}${item.page}#q${first.n}`,
+    things: first.things.map((thing) => thing.id)
+  });
+  assert.ok(!('cast' in record) && !('index' in record));
+  // Each thing's record names the interviews it is in and the question numbers; a thing in none has no key.
+  const records = (json as unknown as { things: { id: string; interviews?: { id: string; questions: number[] }[] }[] })
+    .things;
+  const about = records.find((thing) => thing.id === first.things[0].id)!;
+  assert.ok(about.interviews!.some((i) => i.id === item.id && i.questions.includes(first.n)));
+  assert.ok(records.some((thing) => !('interviews' in thing)));
+});
+
 test('every sitemap page carries the date its content last changed, never the build', () => {
   const dates: Record<string, string> = {
     'content/things/weekly-thing.md': '2026-10-01T09:00:00-05:00',
     'content/topics.yaml': '2026-09-01T00:00:00Z',
     'content/featured.yaml': '2026-10-24T00:00:00Z',
     'content/history/2026.yaml': '2026-10-02T00:00:00Z',
-    'content/stories/weekly-thing-tools.md': '2026-11-20T00:00:00Z'
+    'content/stories/weekly-thing-tools.md': '2026-11-20T00:00:00Z',
+    'content/interviews/jamie-october-2026.md': '2026-11-05T00:00:00Z'
   };
   const fileDate = (path: string) =>
     dates[path] ??
@@ -766,7 +833,11 @@ test('every sitemap page carries the date its content last changed, never the bu
   const urls = [...xml.matchAll(/<url>([\s\S]*?)<\/url>/g)].map((match) => match[1]);
   assert.equal(
     urls.length,
-    7 + model.things.length + model.topics.length + (model.stories.length ? 1 + model.stories.length : 0)
+    7 +
+      model.things.length +
+      model.topics.length +
+      (model.stories.length ? 1 + model.stories.length : 0) +
+      (model.interviews.length ? 1 + model.interviews.length : 0)
   );
   for (const url of urls)
     assert.match(
@@ -792,6 +863,14 @@ test('every sitemap page carries the date its content last changed, never the bu
   assert.equal(lastmod('/stories/weekly-thing-tools/'), '2026-11-20T00:00:00Z');
   assert.equal(lastmod('/stories/'), '2026-11-20T00:00:00Z');
   assert.equal(lastmod('/'), '2026-11-20T00:00:00Z', 'the front page shows the story cards');
+  // An interview is dated by its own file and its cast's record files, never by the cast's stories, events or
+  // evidence: none of that is on its page. Weekly Thing is in the cast, and its story file is newer.
+  const interview = model.interviews.find((item) => item.id === 'jamie-october-2026')!;
+  assert.ok(interview.cast.some((thing) => thing.id === 'weekly-thing'));
+  assert.equal(lastmod(interview.page), '2026-11-05T00:00:00Z');
+  assert.equal(lastmod('/interviews/'), '2026-11-05T00:00:00Z');
+  assert.equal(lastmod('/about/'), '2026-11-05T00:00:00Z', 'the about page quotes the interview');
+  assert.equal(lastmod('/things/weekly-thing/'), '2026-11-20T00:00:00Z', 'the thing page still shows its story');
   for (const entry of entries) assert.notEqual(entry.lastmod, w3c(model.generated), entry.loc);
   // A list is as new as the newest thing it lists.
   const newestThing = model.things

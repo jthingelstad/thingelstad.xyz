@@ -106,6 +106,22 @@ export type Storyline = {
   body: string; // Markdown. The story itself.
 };
 
+// An interview (content/interviews/<id>.md, /interviews/<id>/): Thingy's questions and Jamie's answers, as he
+// spoke them. The first was recorded on 2026-10-31 and 2026-11-01, when Thingy became the author of this site.
+// The body is the transcript. Each `### N. ` heading is a question, with the address #qN on the page, and the
+// front matter says which things each question is about, so a thing's page can point at Jamie's own words.
+// The transcript is a source like a post: quoted, never rewritten.
+export type Interview = {
+  id: string; // from the file name
+  title: string;
+  summary: string;
+  started: DatePrecision; // the first sitting
+  ended: DatePrecision; // the last
+  notes: string[]; // what was done to the transcript on the way in, so a reader knows
+  questions: { n: number; things: string[] }[]; // the questions that are about particular things
+  body: string; // Markdown. The transcript.
+};
+
 export type EventKind = 'launch' | 'milestone' | 'retirement' | 'archive' | 'development';
 export const eventKinds: EventKind[] = ['launch', 'milestone', 'retirement', 'archive', 'development'];
 export type HistoryEvent = {
@@ -124,6 +140,7 @@ export type Registry = {
   history: HistoryEvent[];
   featured: string[]; // content/featured.yaml: thing ids, in the order the front page shows them
   stories: Storyline[]; // content/stories/<id>.md
+  interviews: Interview[]; // content/interviews/<id>.md
   artifactFiles?: Map<string, ArtifactFile>; // set by loadRegistry
 };
 

@@ -323,18 +323,25 @@ select:focus-visible,
   color: var(--ink);
 }
 
-/* Jamie's h-card: the round photo beside the name, inside the sentence, without opening up the line. */
-.site-footer .h-card {
+/* Jamie's h-card and Thingy's byline: the round photo and the small robot beside their names, inside the
+   sentence, without opening up the line. */
+.site-footer .h-card,
+.site-footer .thingy-byline {
   white-space: nowrap;
 }
 
-.site-footer .h-card .u-photo {
+.site-footer .h-card .u-photo,
+.site-footer .thingy {
   width: 24px;
   height: 24px;
   margin: -4px 6px -4px 0;
   border-radius: 50%;
   object-fit: cover;
   vertical-align: middle;
+}
+
+.site-footer .thingy {
+  border-radius: 0;
 }
 
 h1,
@@ -966,8 +973,66 @@ h4:hover > .permalink,
   margin-top: 32px;
 }
 
-/* The about page (site/about.njk): headings between the paragraphs, and the status words as a list. */
+/* Interviews (site/interviews.njk, site/interview.njk, interview-card.njk): cards like the stories'; on the page,
+   the notes, the questions as a numbered list, the things as tags, then the transcript. Each speaker's label is
+   the paragraph's opening bold, set in the muted ink; each question heading carries its # link. */
+.interview-notes ul,
+.question-index {
+  max-width: var(--measure);
+  padding-left: 20px;
+  margin: 8px 0;
+}
+
+.interview-notes ul li,
+.question-index li {
+  margin: 6px 0;
+}
+
+.interview-cast p {
+  margin: 8px 0 0;
+}
+
+.interview h2 {
+  margin: 32px 0 8px;
+}
+
+.interview-body h2 {
+  margin: 48px 0 8px;
+}
+
+.interview-body h3 {
+  margin: 36px 0 8px;
+}
+
+.interview-body h4 {
+  margin: 24px 0 8px;
+  color: var(--muted);
+}
+
+.interview-body p > strong:first-child {
+  color: var(--muted);
+}
+
+.interview-body .question-things {
+  margin: 4px 0 12px;
+}
+
+/* The about page (site/about.njk): Thingy's portrait beside the opening, headings between the paragraphs, and
+   the status words as a list. */
+.thingy-portrait {
+  float: right;
+  width: 120px;
+  margin: 0 0 8px 24px;
+}
+
+.thingy-portrait img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
 .about h2 {
+  clear: both;
   margin: 32px 0 8px;
 }
 

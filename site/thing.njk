@@ -58,6 +58,10 @@ eleventyComputed:
       <dt>{{ 'Story' if (thing.stories | length) == 1 else 'Stories' }}</dt>
       <dd class="thing-stories">{% for story in thing.stories %}<a href="{{ story.page }}">{{ story.title }}</a>{% if not loop.last %} · {% endif %}{% endfor %}</dd>
       {% endif %}
+      {%- if thing.interviews | length %}
+      <dt>In his words</dt>
+      <dd class="thing-interviews">{% for i in thing.interviews %}<a href="{{ i.page }}">{{ i.title }}</a>, {% for n in i.questions %}<a href="{{ i.page }}#q{{ n }}">question {{ n }}</a>{% if not loop.last %}{% if loop.revindex == 2 %} and {% else %}, {% endif %}{% endif %}{% endfor %}{% if not loop.last %} · {% endif %}{% endfor %}</dd>
+      {% endif %}
       {% if thing.topicList | length %}
       <dt>Topics</dt>
       <dd>{% for topic in thing.topicList %}<a class="tag" href="{{ topic.page }}">{{ topic.title }}</a> {% endfor %}</dd>
@@ -76,7 +80,7 @@ eleventyComputed:
   {% if thing.screenshot %}
   <figure class="screenshot" data-pagefind-ignore>
     <a href="{{ thing.screenshot.site | ref("thing") }}"><img src="{{ thing.screenshot.src }}" width="{{ thing.screenshot.width }}" height="{{ thing.screenshot.height }}" alt="{{ thing.screenshot.alt }}" loading="lazy" decoding="async" /></a>
-    <figcaption>{{ thing.screenshot.host }} on {{ thing.screenshot.date | date }}. My collector grabs the front page once a month.</figcaption>
+    <figcaption>{{ thing.screenshot.host }} on {{ thing.screenshot.date | date }}. The collector grabs the front page once a month.</figcaption>
   </figure>
   {% endif %}
 
@@ -171,7 +175,7 @@ eleventyComputed:
   {% if thing.sources | length %}
   <section class="sources" id="sources" data-pagefind-ignore>
     <h2>Sources and evidence {{ permalink("sources", "Sources and evidence") }}</h2>
-    <p class="muted">Checked every day from GitHub, sitemaps, feeds, the Internet Archive, and Tinylytics. Evidence never sets a status. That is my call.</p>
+    <p class="muted">Checked every day from GitHub, sitemaps, feeds, the Internet Archive, and Tinylytics. Evidence never sets a status. That is Jamie’s call.</p>
     <ul class="source-list">
       {% for source in thing.sources %}
       <li class="source">
