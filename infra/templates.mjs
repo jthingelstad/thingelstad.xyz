@@ -126,6 +126,8 @@ save(
             PriceClass: 'PriceClass_100',
             IPV6Enabled: true,
             HttpVersion: 'http2and3',
+            // The shared web ACL from projects-sysadmin's edge-waf stack, counting only until tuned.
+            WebACLId: { 'Fn::ImportValue': 'edge-waf-WebAclArn' },
             DefaultRootObject: 'index.html',
             Aliases: yes(['thingelstad.xyz', 'www.thingelstad.xyz'], ref('AWS::NoValue')),
             ViewerCertificate: yes(

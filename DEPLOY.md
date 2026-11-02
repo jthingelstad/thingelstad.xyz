@@ -5,7 +5,7 @@ The application stays in `/Users/otto/Projects/thingelstad.xyz`, separate from t
 ## Resources
 
 - `thingelstad-xyz-certificate`: ACM certificate for the apex and `www`. Its initial creation waits for external DNS validation.
-- `thingelstad-xyz-site`: private versioned static bucket, CloudFront distribution with an Origin Access Control, a response headers policy, the directory-index CloudFront Function, a 5xx alarm, and the distribution's access logs.
+- `thingelstad-xyz-site`: private versioned static bucket, CloudFront distribution with an Origin Access Control, a response headers policy, the directory-index CloudFront Function, a 5xx alarm, and the distribution's access logs. The distribution uses the shared `edge` web ACL, imported from projects-sysadmin's `edge-waf` stack (rules count only until tuned), through the reviewed change set `cloud-engineer-edge-waf-20261102` on November 2, 2026.
 - `thingelstad-xyz-delivery`: repository-scoped GitHub OIDC application delivery role.
 - Templates are generated from `infra/templates.mjs` by `npm run templates` into the gitignored `infra/generated/`. The certificate is separate so its external validation cannot block hosting changes.
 - Each stack carries the standard tags in `infra/deployment.json` `stackTags`, and CloudFormation propagates them to the resources. Change sets that omit `Tags` keep them; pass them when creating a stack. Templates set no tags of their own.
