@@ -16,7 +16,7 @@
     "collect": "tsx scripts/collect.ts",
     "sites:sync": "tsx scripts/sync-sites.ts",
     "sites:check": "tsx scripts/sync-sites.ts --check",
-    "site:build": "NODE_OPTIONS=--import=tsx eleventy --config=site/eleventy.config.ts",
+    "site:build": "NODE_OPTIONS=--import=tsx eleventy --config=site/eleventy.config.ts && node scripts/check-publish-plan.mjs",
     "site:serve": "NODE_OPTIONS=--import=tsx eleventy --config=site/eleventy.config.ts --serve --port=8080"
   },
   "keywords": [],
