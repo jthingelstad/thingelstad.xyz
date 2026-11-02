@@ -2,9 +2,10 @@
   "kind": "commits",
   "repository": "jthingelstad/thing-hugo",
   "url": "https://github.com/jthingelstad/thing-hugo",
-  "observedAt": "2026-11-01T17:07:29.419Z",
+  "observedAt": "2026-11-02T20:45:50.833Z",
   "branch": "main",
   "commits": [
+    {"sha":"60c962356347","date":"2026-11-02T01:45:08.000Z","subject":"2.0.40: Related removed","by":"agent","agents":["claude"]},
     {"sha":"4334e9132355","date":"2026-11-01T07:04:28.000Z","subject":"2.0.39: Related under a post; trip card and Earlier / Later styled again","by":"agent","agents":["claude"]},
     {"sha":"16fec7450db2","date":"2026-11-01T07:04:20.000Z","subject":"Related under a post, from data/related.json","by":"agent","agents":["claude"]},
     {"sha":"d6f48cf7c79b","date":"2026-11-01T07:04:20.000Z","subject":"Move Keep going's pick into its own partial","by":"agent","agents":["claude"]},

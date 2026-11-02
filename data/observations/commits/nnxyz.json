@@ -2,9 +2,10 @@
   "kind": "commits",
   "repository": "jthingelstad/nnxyz",
   "url": "https://github.com/jthingelstad/nnxyz",
-  "observedAt": "2026-10-30T17:00:48.696Z",
+  "observedAt": "2026-11-02T20:45:50.833Z",
   "branch": "main",
   "commits": [
+    {"sha":"7525e6b03d9c","date":"2026-11-02T14:33:31.000Z","subject":"Attach the shared edge web ACL to the distribution (#32)","pr":32,"by":"agent","agents":["claude"]},
     {"sha":"fe6d94932a45","date":"2026-10-28T18:38:17.000Z","subject":"Sitemap: lastmod from the archive content's last commit (#31)","pr":31,"by":"agent","agents":["claude"]},
     {"sha":"7b809bb7d91c","date":"2026-10-28T15:06:16.000Z","subject":"Store pages uncompressed and let CloudFront negotiate encoding (#30)","pr":30,"by":"agent","agents":["claude"]},
     {"sha":"326a1ba950c9","date":"2026-10-28T14:25:45.000Z","subject":"Keep CloudFront access logs for 24 months (#29)","pr":29,"by":"agent","agents":["claude"]},

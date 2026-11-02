@@ -2,9 +2,11 @@
   "kind": "commits",
   "repository": "jthingelstad/yourversionnumber.com",
   "url": "https://github.com/jthingelstad/yourversionnumber.com",
-  "observedAt": "2026-10-30T17:00:48.696Z",
+  "observedAt": "2026-11-02T20:45:50.833Z",
   "branch": "main",
   "commits": [
+    {"sha":"d297a8765e5e","date":"2026-11-02T15:36:48.000Z","subject":"Own the site's AWS resources in a CloudFormation stack (#15)","pr":15,"by":"agent","agents":["claude"]},
+    {"sha":"f997390cf366","date":"2026-11-02T14:49:46.000Z","subject":"Keep the shared edge web ACL on the distribution (#14)","pr":14,"by":"agent","agents":["claude"]},
     {"sha":"9a102ab1e7da","date":"2026-10-29T12:52:23.000Z","subject":"Birthday edition: link one person's page to Release Notes (#13)","pr":13,"by":"agent","agents":["claude"]},
     {"sha":"5740168e22d5","date":"2026-10-28T18:21:01.000Z","subject":"Give every sitemap page its true lastmod, held to git (#12)","pr":12,"by":"agent","agents":["claude"]},
     {"sha":"d7f543fb659f","date":"2026-10-28T14:26:06.000Z","subject":"Keep CloudFront access logs for 24 months (#11)","pr":11,"by":"agent","agents":["claude"]},

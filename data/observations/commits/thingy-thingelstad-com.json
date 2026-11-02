@@ -2,9 +2,12 @@
   "kind": "commits",
   "repository": "jthingelstad/thingy.thingelstad.com",
   "url": "https://github.com/jthingelstad/thingy.thingelstad.com",
-  "observedAt": "2026-10-30T17:00:48.696Z",
+  "observedAt": "2026-11-02T20:45:50.833Z",
   "branch": "main",
   "commits": [
+    {"sha":"ca682a905970","date":"2026-11-02T15:04:24.000Z","subject":"Attach the shared edge WAF web ACL to the distribution (#52)","pr":52,"by":"agent","agents":["claude"]},
+    {"sha":"7da13deddb10","date":"2026-11-02T13:18:30.000Z","subject":"Bump seroval to 1.7.6 for GHSA-7rv5-mrxv-xcr9","by":"agent","agents":["claude"]},
+    {"sha":"e191e61ef26b","date":"2026-11-02T13:10:41.000Z","subject":"Sync the vendored Librarian contract (4.19.0) and MCP surface (2.11.0)","by":"agent","agents":["claude"]},
     {"sha":"f402640413dd","date":"2026-10-28T18:21:18.000Z","subject":"Sitemap: build it with a real lastmod per page (#48)","pr":48,"by":"agent","agents":["claude"]},
     {"sha":"95f2a4cb1abf","date":"2026-10-28T14:13:38.000Z","subject":"Keep CloudFront access logs 24 months (#47)","pr":47,"by":"agent","agents":["claude"]},
     {"sha":"6fb6e3eb3963","date":"2026-10-27T16:42:32.000Z","subject":"Remove the stub uv.lock now the dependency graph has re-read it","by":"agent","agents":["claude"]},

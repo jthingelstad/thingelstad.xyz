@@ -2,9 +2,12 @@
   "kind": "commits",
   "repository": "jthingelstad/cr-agent-api-docs",
   "url": "https://github.com/jthingelstad/cr-agent-api-docs",
-  "observedAt": "2026-10-23T22:33:13.535Z",
+  "observedAt": "2026-11-02T20:45:50.833Z",
   "branch": "main",
   "commits": [
+    {"sha":"a8881ba71f18","date":"2026-11-02T14:08:31.000Z","subject":"docs-build: guard the s138-roll profile-to-roll mappings","by":"agent","agents":["claude"]},
+    {"sha":"92a8d915c036","date":"2026-11-02T14:06:07.000Z","subject":"players: map each s138-roll profile roll to its profile","by":"agent","agents":["claude"]},
+    {"sha":"aceacc18f1fc","date":"2026-11-02T14:03:36.000Z","subject":"Season roll S137 -> S138, measured with crprobe","by":"agent","agents":["claude"]},
     {"sha":"bcd8ddcbe134","date":"2026-10-21T04:16:22.000Z","subject":"leagues: prove 1/0 with battle logs, name a rated best, guard every row","by":"agent","agents":["claude"]},
     {"sha":"6ec153f23cc1","date":"2026-10-21T04:11:49.000Z","subject":"deps: certifi 2026.10.19 and katex 0.18.11 for two advisories","by":"agent","agents":["claude"]},
     {"sha":"2fb4880d9b5c","date":"2026-10-21T03:57:41.000Z","subject":"Ranked: only Ultimate Champion is rated, and 1 at 0 is also not playing","by":"agent","agents":["claude"]},

@@ -1,28 +1,29 @@
 {
   "kind": "web",
   "url": "https://drop.poapkings.com/",
-  "observedAt": "2026-10-30T17:00:48.696Z",
+  "observedAt": "2026-11-02T20:45:50.833Z",
   "sitemap": {
     "url": "https://drop.poapkings.com/sitemap.xml",
     "pages": 13,
-    "newestModified": "2026-10-13T02:18:57.000Z",
+    "newestModified": "2026-11-02T18:31:40.000Z",
     "months": [
-      { "month": "2026-08", "count": 6 },
-      { "month": "2026-09", "count": 4 },
-      { "month": "2026-10", "count": 3 }
+      { "month": "2026-08", "count": 4 },
+      { "month": "2026-09", "count": 2 },
+      { "month": "2026-11", "count": 7 }
     ],
     "complete": true
   },
   "feed": {
     "url": "https://drop.poapkings.com/feed.xml",
     "title": "Elixir Drop Updates",
-    "items": 61,
-    "newestPublished": "2026-09-15T00:33:20.000Z",
+    "items": 63,
+    "newestPublished": "2026-11-02T19:03:17.000Z",
     "months": [
       { "month": "2026-06", "count": 6 },
       { "month": "2026-07", "count": 16 },
       { "month": "2026-08", "count": 31 },
-      { "month": "2026-09", "count": 8 }
+      { "month": "2026-09", "count": 8 },
+      { "month": "2026-11", "count": 2 }
     ]
   }
 }
