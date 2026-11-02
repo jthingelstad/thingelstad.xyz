@@ -1034,6 +1034,46 @@ h4:hover > .permalink,
   margin: 4px 0 12px;
 }
 
+/* Workshop Builder poses are versioned stills from the character home. They need no WebGL or JavaScript. */
+.has-character {
+  position: relative;
+  min-height: 170px;
+  padding-right: 190px;
+}
+
+.thingy-companion {
+  position: absolute;
+  top: -12px;
+  right: 0;
+  width: 170px;
+}
+
+.thingy-companion img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+@media (width <= 40rem) {
+  .has-character {
+    min-height: 100px;
+    padding-right: 96px;
+  }
+
+  .thingy-companion {
+    top: 0;
+    width: 88px;
+  }
+
+  .search-intro.has-character {
+    padding-right: 0;
+  }
+
+  .search-intro.has-character .title {
+    padding-right: 96px;
+  }
+}
+
 /* The about page (site/about.njk): Thingy's portrait beside the opening, headings between the paragraphs, and
    the status words as a list. */
 .thingy-portrait {
