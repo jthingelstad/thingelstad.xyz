@@ -2,9 +2,12 @@
   "kind": "commits",
   "repository": "jthingelstad/yvn-release-notes",
   "url": "https://github.com/jthingelstad/yvn-release-notes",
-  "observedAt": "2026-11-01T17:07:29.419Z",
+  "observedAt": "2026-11-02T20:45:50.833Z",
   "branch": "main",
   "commits": [
+    {"sha":"eab5c27eded5","date":"2026-11-02T15:01:01.000Z","subject":"Put notes.yourversionnumber.com behind the account's shared web ACL","by":"agent","agents":["claude"]},
+    {"sha":"335af31414bf","date":"2026-11-02T12:46:44.000Z","subject":"Move the operations dashboard to Grafana; count capture failures, unsubscribes and restarts","by":"agent","agents":["claude"]},
+    {"sha":"9d6d4d9fdc0c","date":"2026-11-02T01:11:43.000Z","subject":"Retire redundant worker alarms while preserving final-failure controls","by":"agent"},
     {"sha":"c34a53f2575f","date":"2026-11-01T14:47:29.000Z","subject":"Avoid census field alias cycles in dashboard log queries","by":"agent"},
     {"sha":"a056bd98da10","date":"2026-11-01T14:43:29.000Z","subject":"Keep census counts in logs and publish only delivery outcome metric","by":"agent"},
     {"sha":"af70b1473723","date":"2026-11-01T09:27:51.000Z","subject":"Changelog guide: the week and day, and the Versions mark inside, in 0.0.3","by":"agent","agents":["claude"]},

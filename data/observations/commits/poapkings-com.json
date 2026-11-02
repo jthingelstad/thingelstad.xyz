@@ -2,9 +2,12 @@
   "kind": "commits",
   "repository": "jthingelstad/poapkings.com",
   "url": "https://github.com/jthingelstad/poapkings.com",
-  "observedAt": "2026-10-30T17:00:48.696Z",
+  "observedAt": "2026-11-02T20:45:50.833Z",
   "branch": "main",
   "commits": [
+    {"sha":"6b1273a7d44f","date":"2026-11-02T18:08:47.000Z","subject":"Drop the Elixir Drop Free Pass Challenge from the site","by":"agent","agents":["claude"]},
+    {"sha":"74ad9fe21e25","date":"2026-11-02T14:51:43.000Z","subject":"Attach the shared edge web ACL to the distribution","by":"agent","agents":["claude"]},
+    {"sha":"a6b64d820cd2","date":"2026-11-02T13:55:57.000Z","subject":"Refresh Clash Royale data","by":"agent"},
     {"sha":"fb21acbf4589","date":"2026-10-28T18:31:53.000Z","subject":"Date the FAQ by the clan data its join button reads","by":"agent","agents":["claude"]},
     {"sha":"4ac713d9117c","date":"2026-10-28T18:31:53.000Z","subject":"Sitemap: date each page by its last real content change","by":"agent","agents":["claude"]},
     {"sha":"b613696ba9c0","date":"2026-10-28T14:19:33.000Z","subject":"infra: keep CloudFront access logs 24 months","by":"agent","agents":["claude"]},

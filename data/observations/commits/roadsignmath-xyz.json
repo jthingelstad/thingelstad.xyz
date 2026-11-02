@@ -2,9 +2,11 @@
   "kind": "commits",
   "repository": "jthingelstad/roadsignmath.xyz",
   "url": "https://github.com/jthingelstad/roadsignmath.xyz",
-  "observedAt": "2026-11-01T17:07:29.419Z",
+  "observedAt": "2026-11-02T20:45:50.833Z",
   "branch": "main",
   "commits": [
+    {"sha":"547eb46aedee","date":"2026-11-02T14:52:51.000Z","subject":"Put the site behind the account's shared web ACL (#40)","pr":40,"by":"agent","agents":["claude"]},
+    {"sha":"121c8a1e5ac1","date":"2026-11-02T12:59:34.000Z","subject":"Website: keep pages at the edge until they change (#39)","pr":39,"by":"agent","agents":["claude"]},
     {"sha":"ca7ce0401ad1","date":"2026-11-01T06:46:58.000Z","subject":"Website: the Highway identity, logo, icons and BIMI logo (#37)","pr":37,"by":"agent","agents":["claude"]},
     {"sha":"48771fb363ff","date":"2026-11-01T02:00:00.000Z","subject":"API 1.10.0: feedback by email and what's new on your signs (#36)","pr":36,"by":"agent","agents":["claude"]},
     {"sha":"0e81871bfda3","date":"2026-11-01T00:50:11.000Z","subject":"Website: the sign and player pages from the 10-31 design (#35)","pr":35,"by":"agent","agents":["claude"]},

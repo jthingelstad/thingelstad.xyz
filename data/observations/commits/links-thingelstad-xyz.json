@@ -2,9 +2,11 @@
   "kind": "commits",
   "repository": "jthingelstad/links.thingelstad.xyz",
   "url": "https://github.com/jthingelstad/links.thingelstad.xyz",
-  "observedAt": "2026-11-01T17:07:29.419Z",
+  "observedAt": "2026-11-02T20:45:50.833Z",
   "branch": "main",
   "commits": [
+    {"sha":"06fa5ba4e93b","date":"2026-11-02T14:38:50.000Z","subject":"Attach the shared edge web ACL to the distribution (#48)","pr":48,"by":"agent","agents":["claude"]},
+    {"sha":"a9d9118e1bbb","date":"2026-11-02T08:10:09.000Z","subject":"Nightly: sync and enrichment, 2026-11-02","by":"agent"},
     {"sha":"41312c3f0679","date":"2026-11-01T07:11:34.000Z","subject":"Nightly: sync and enrichment, 2026-11-01","by":"agent"},
     {"sha":"003783f121d8","date":"2026-10-31T19:32:04.000Z","subject":"Sky share cards on every lens page","pr":47,"by":"me"},
     {"sha":"7aff218e0338","date":"2026-10-31T19:24:13.000Z","subject":"Sky share cards on every lens page","by":"agent","agents":["claude"]},

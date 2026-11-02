@@ -2,9 +2,11 @@
   "kind": "commits",
   "repository": "jthingelstad/wt-builder",
   "url": "https://github.com/jthingelstad/wt-builder",
-  "observedAt": "2026-11-01T17:07:29.419Z",
+  "observedAt": "2026-11-02T20:45:50.833Z",
   "branch": "main",
   "commits": [
+    {"sha":"dfb86ddbd456","date":"2026-11-02T04:17:32.000Z","subject":"Retire the daily back catalogue job","pr":13,"by":"me"},
+    {"sha":"91916cd02166","date":"2026-11-02T04:10:52.000Z","subject":"Retire the daily back catalogue job","by":"agent","agents":["claude"]},
     {"sha":"6b8be67aecc0","date":"2026-11-01T03:59:32.000Z","subject":"Buttondown emails name the member benefits","pr":12,"by":"me"},
     {"sha":"610c3b9f759e","date":"2026-11-01T03:38:09.000Z","subject":"Buttondown emails name the member benefits","by":"agent","agents":["claude"]},
     {"sha":"9a53ab29000a","date":"2026-11-01T03:32:14.000Z","subject":"Membership drafts may name one member benefit","pr":11,"by":"me"},
