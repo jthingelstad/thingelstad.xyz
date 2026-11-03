@@ -90,6 +90,11 @@ test('the index lists every thing with its status and leads to its page', async 
   expect(await fitsViewport(page)).toBe(true);
   expect(errors).toEqual([]);
   expect(analyticsRequests).toBeGreaterThan(0);
+  // One shared Tinylytics script, keyed by data-site, with no query parameters.
+  await expect(page.locator('script[src*="tinylytics.app"]')).toHaveCount(1);
+  await expect(
+    page.locator('script[src="https://tinylytics.app/js/script.js"][data-site="jyQF-tKd4sG-MEeyxvik"][defer]')
+  ).toHaveCount(1);
 });
 
 test('the featured shelf leads the front page, its links measured where Tinylytics counts the site', async ({
