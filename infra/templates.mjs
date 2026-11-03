@@ -4,8 +4,6 @@ const ref = (name) => ({ Ref: name });
 const sub = (value) => ({ 'Fn::Sub': value });
 const get = (name, field) => ({ 'Fn::GetAtt': [name, field] });
 const yes = (a, b) => ({ 'Fn::If': ['CustomDomain', a, b] });
-// The Thingelstad family alarm topic, subscribed to the shared projects-ops-alerts queue (as thingy-web's 5xx alarm is).
-const alarmTopic = sub('arn:${AWS::Partition}:sns:us-east-1:${AWS::AccountId}:weekly-thing-librarian-alarms');
 const bucket = () => ({
   Type: 'AWS::S3::Bucket',
   DeletionPolicy: 'Retain',
@@ -57,28 +55,6 @@ save(
     'Thingelstad.xyz static site',
     {
       SiteBucket: bucket(),
-      DistributionErrorAlarm: {
-        Type: 'AWS::CloudWatch::Alarm',
-        Properties: {
-          AlarmName: sub('${AWS::StackName}-distribution-5xx'),
-          AlarmDescription:
-            'CloudFront returned more than 5% 5xx responses for thingelstad.xyz in two of three five-minute windows.',
-          Namespace: 'AWS/CloudFront',
-          MetricName: '5xxErrorRate',
-          Dimensions: [
-            { Name: 'DistributionId', Value: ref('Distribution') },
-            { Name: 'Region', Value: 'Global' }
-          ],
-          Statistic: 'Average',
-          Period: 300,
-          EvaluationPeriods: 3,
-          DatapointsToAlarm: 2,
-          Threshold: 5,
-          ComparisonOperator: 'GreaterThanThreshold',
-          TreatMissingData: 'notBreaching',
-          AlarmActions: [alarmTopic]
-        }
-      },
       OriginAccess: {
         Type: 'AWS::CloudFront::OriginAccessControl',
         Properties: {

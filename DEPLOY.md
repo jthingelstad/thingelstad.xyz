@@ -5,7 +5,7 @@ The application stays in `/Users/otto/Projects/thingelstad.xyz`, separate from t
 ## Resources
 
 - `thingelstad-xyz-certificate`: ACM certificate for the apex and `www`. Its initial creation waits for external DNS validation.
-- `thingelstad-xyz-site`: private versioned static bucket, CloudFront distribution with an Origin Access Control, a response headers policy, the directory-index CloudFront Function, a 5xx alarm, and the distribution's access logs. The distribution uses the shared `edge` web ACL, imported from projects-sysadmin's `edge-waf` stack (rules count only until tuned), through the reviewed change set `cloud-engineer-edge-waf-20261102` on November 2, 2026.
+- `thingelstad-xyz-site`: private versioned static bucket, CloudFront distribution with an Origin Access Control, a response headers policy, the directory-index CloudFront Function, and the distribution's access logs (no alarm since November 3, 2026). The distribution uses the shared `edge` web ACL, imported from projects-sysadmin's `edge-waf` stack (rules count only until tuned), through the reviewed change set `cloud-engineer-edge-waf-20261102` on November 2, 2026.
 - `thingelstad-xyz-delivery`: repository-scoped GitHub OIDC application delivery role.
 - Templates are generated from `infra/templates.mjs` by `npm run templates` into the gitignored `infra/generated/`. The certificate is separate so its external validation cannot block hosting changes.
 - Each stack carries the standard tags in `infra/deployment.json` `stackTags`, and CloudFormation propagates them to the resources. Change sets that omit `Tags` keep them; pass them when creating a stack. Templates set no tags of their own.
@@ -44,7 +44,7 @@ The apex is an alias A/AAAA to the CloudFront hostname. Do not copy CloudFront's
 
 ## Operations
 
-`thingelstad-xyz-site-distribution-5xx` alarms when CloudFront returns more than 5% 5xx in two of three five-minute windows. It publishes to `weekly-thing-librarian-alarms`, the Thingelstad family topic that feeds the shared `projects-ops-alerts` queue, as thingy-web's 5xx alarm does. There is no application runtime: the site is files in a bucket.
+The site has no CloudWatch alarm: `thingelstad-xyz-site-distribution-5xx` was retired through the reviewed change set `cloud-engineer-remove-alarms-20261103` on November 3, 2026, when Jamie cut the account to a handful of alarms, none here. There is no application runtime: the site is files in a bucket.
 
 CloudFront access logs go to the CloudWatch Logs group `/thingelstad-xyz/web-access`, kept 24 months (731 days), through CloudFront standard logging (delivery source and destination `thingelstad-xyz-web-access`, JSON). The shape is the other sites' (`/links/web-access`, `/weekly/web-access`): time, method, path, status, bytes, range, timings, edge result and location, protocol, and user agent, with no client IP and no query string. Added through the reviewed change set `cloud-engineer-access-logs-20261026` on October 26, 2026.
 
