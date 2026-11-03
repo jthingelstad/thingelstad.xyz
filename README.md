@@ -45,7 +45,7 @@ The collector uses `GITHUB_TOKEN` when present (GitHub Actions) and the GitHub C
 
 ## Analytics
 
-Tinylytics loads once from the page layout (`site/_includes/layout.njk`) using embed code `jyQF-tKd4sG-MEeyxvik`. Every page is a plain document load, so no route hooks are needed. Browser tests intercept the collector request rather than writing test visits to live analytics. Follow [Tinylytics embed guidance](https://tinylytics.app/docs/getting-started/embed) when changing the integration.
+Tinylytics loads once from the page layout (`site/_includes/layout.njk`) as the shared script, `<script defer src="https://tinylytics.app/js/script.js" data-site="jyQF-tKd4sG-MEeyxvik"></script>`, with no query parameters; widgets and options are set in the site's Tinylytics settings. Every page is a plain document load, so no route hooks are needed. Browser tests intercept the collector request rather than writing test visits to live analytics. Follow [Tinylytics embed guidance](https://tinylytics.app/docs/getting-started/embed) when changing the integration.
 
 ## Design
 
