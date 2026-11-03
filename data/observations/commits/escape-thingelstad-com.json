@@ -2,9 +2,12 @@
   "kind": "commits",
   "repository": "jthingelstad/escape.thingelstad.com",
   "url": "https://github.com/jthingelstad/escape.thingelstad.com",
-  "observedAt": "2026-11-02T20:45:50.833Z",
+  "observedAt": "2026-11-03T18:25:46.099Z",
   "branch": "main",
   "commits": [
+    {"sha":"a813c0877471","date":"2026-11-03T16:55:07.000Z","subject":"Retire the escape-site-distribution-5xx alarm","pr":27,"by":"me"},
+    {"sha":"35ead46d47ca","date":"2026-11-03T16:48:40.000Z","subject":"Retire the escape-site-distribution-5xx alarm","by":"agent","agents":["claude"]},
+    {"sha":"3ba78f20bb7f","date":"2026-11-03T03:30:52.000Z","subject":"Switch to the new Tinylytics script tag (#26)","pr":26,"by":"agent","agents":["claude"]},
     {"sha":"ae4f2a726a7c","date":"2026-11-02T14:42:21.000Z","subject":"Attach the shared edge web ACL to the distribution (#25)","pr":25,"by":"agent","agents":["claude"]},
     {"sha":"afa238241af0","date":"2026-10-28T18:26:42.000Z","subject":"Give every sitemap url an accurate lastmod (#24)","pr":24,"by":"agent","agents":["claude"]},
     {"sha":"0392fbbffc09","date":"2026-10-28T14:15:04.000Z","subject":"Log CloudFront access to /escape/web-access for 24 months (#23)","pr":23,"by":"agent","agents":["claude"]},

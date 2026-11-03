@@ -2,9 +2,12 @@
   "kind": "commits",
   "repository": "jthingelstad/drop.poapkings.com",
   "url": "https://github.com/jthingelstad/drop.poapkings.com",
-  "observedAt": "2026-11-02T20:45:50.833Z",
+  "observedAt": "2026-11-03T18:25:46.099Z",
   "branch": "main",
   "commits": [
+    {"sha":"2ccdeb28217e","date":"2026-11-03T16:42:00.000Z","subject":"Keep one CloudWatch alarm: refresh age","by":"agent","agents":["claude"]},
+    {"sha":"5ac55e2ec2c2","date":"2026-11-03T11:49:59.000Z","subject":"Retire referee-cohort, referee-feed and referee-decisions","by":"agent","agents":["claude"]},
+    {"sha":"29b27875a659","date":"2026-11-03T03:37:14.000Z","subject":"Switch Tinylytics to the one script.js embed","by":"agent","agents":["claude"]},
     {"sha":"6a2e63d76afa","date":"2026-11-02T20:14:08.000Z","subject":"Dispatch the deploy too when the catch-up validates main","by":"agent","agents":["claude"]},
     {"sha":"165f2413e720","date":"2026-11-02T20:14:08.000Z","subject":"Answer every recovered read in the API outage test","by":"agent","agents":["claude"]},
     {"sha":"c99abbba4e28","date":"2026-11-02T19:19:37.000Z","subject":"Catch up a main head that no push validated","by":"agent","agents":["claude"]},

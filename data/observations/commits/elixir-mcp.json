@@ -2,9 +2,11 @@
   "kind": "commits",
   "repository": "jthingelstad/elixir-mcp",
   "url": "https://github.com/jthingelstad/elixir-mcp",
-  "observedAt": "2026-11-02T20:45:50.833Z",
+  "observedAt": "2026-11-03T18:25:46.099Z",
   "branch": "main",
   "commits": [
+    {"sha":"0baa4ee14726","date":"2026-11-03T16:43:49.000Z","subject":"Cut the stack's alarms to three","by":"agent","agents":["claude"]},
+    {"sha":"f7f8ac36b2f7","date":"2026-11-03T03:57:48.000Z","subject":"Move Tinylytics to the one script.js embed","by":"agent","agents":["claude"],"paths":["packages/clan-web"]},
     {"sha":"bdd61a84ad22","date":"2026-11-02T14:30:17.000Z","subject":"infra: the distribution carries the shared edge web ACL","by":"agent","agents":["claude"]},
     {"sha":"61627760dff8","date":"2026-11-02T12:25:22.000Z","subject":"infra: retire the elixir-mcp CloudWatch dashboard for Grafana on Otto","by":"agent","agents":["claude"]},
     {"sha":"95c491e5aead","date":"2026-11-02T12:25:22.000Z","subject":"tests: seed the current season where two tools tests read one","by":"agent","agents":["claude"]},

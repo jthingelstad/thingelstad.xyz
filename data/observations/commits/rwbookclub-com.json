@@ -2,9 +2,12 @@
   "kind": "commits",
   "repository": "jthingelstad/rwbookclub.com",
   "url": "https://github.com/jthingelstad/rwbookclub.com",
-  "observedAt": "2026-11-02T20:45:50.833Z",
+  "observedAt": "2026-11-03T18:25:46.099Z",
   "branch": "main",
   "commits": [
+    {"sha":"aca38ba8bd37","date":"2026-11-03T16:44:20.000Z","subject":"Alarm cut: remove the site 5xx alarm","pr":106,"by":"me"},
+    {"sha":"c7a5acbec5bf","date":"2026-11-03T16:38:43.000Z","subject":"Alarm cut: remove the site distribution 5xx alarm","by":"agent","agents":["claude"]},
+    {"sha":"8cd6fdcd07d0","date":"2026-11-03T03:35:30.000Z","subject":"Switch to the new Tinylytics embed (#105)","pr":105,"by":"agent","agents":["claude"]},
     {"sha":"8dd11a3e3380","date":"2026-11-02T14:48:47.000Z","subject":"Attach the shared edge web ACL to the distribution (#104)","pr":104,"by":"agent","agents":["claude"]},
     {"sha":"6e133a70729d","date":"2026-11-02T14:27:47.000Z","subject":"Override minimatch to 11.0.4 for the globparts advisory","by":"agent","agents":["claude"]},
     {"sha":"b69694eb066f","date":"2026-11-02T14:27:47.000Z","subject":"Move Oliver's weekly health email into the Otto Ops morning digest","by":"agent","agents":["claude"],"paths":["agent"]},

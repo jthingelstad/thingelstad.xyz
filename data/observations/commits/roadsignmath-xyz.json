@@ -2,9 +2,12 @@
   "kind": "commits",
   "repository": "jthingelstad/roadsignmath.xyz",
   "url": "https://github.com/jthingelstad/roadsignmath.xyz",
-  "observedAt": "2026-11-02T20:45:50.833Z",
+  "observedAt": "2026-11-03T18:25:46.099Z",
   "branch": "main",
   "commits": [
+    {"sha":"d419d515e678","date":"2026-11-03T17:04:23.000Z","subject":"Feeds: each sign as a short post, so micro.blog cross-posts it whole","by":"agent","agents":["claude"]},
+    {"sha":"c25c3e1491ad","date":"2026-11-03T16:41:50.000Z","subject":"Remove the stack's four CloudWatch alarms","by":"agent","agents":["claude"]},
+    {"sha":"53a426e2a55d","date":"2026-11-03T16:41:09.000Z","subject":"Website: link the Mastodon and Bluesky accounts new signs go to","by":"agent","agents":["claude"]},
     {"sha":"547eb46aedee","date":"2026-11-02T14:52:51.000Z","subject":"Put the site behind the account's shared web ACL (#40)","pr":40,"by":"agent","agents":["claude"]},
     {"sha":"121c8a1e5ac1","date":"2026-11-02T12:59:34.000Z","subject":"Website: keep pages at the edge until they change (#39)","pr":39,"by":"agent","agents":["claude"]},
     {"sha":"ca7ce0401ad1","date":"2026-11-01T06:46:58.000Z","subject":"Website: the Highway identity, logo, icons and BIMI logo (#37)","pr":37,"by":"agent","agents":["claude"]},
