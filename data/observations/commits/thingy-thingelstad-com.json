@@ -2,9 +2,12 @@
   "kind": "commits",
   "repository": "jthingelstad/thingy.thingelstad.com",
   "url": "https://github.com/jthingelstad/thingy.thingelstad.com",
-  "observedAt": "2026-11-02T20:45:50.833Z",
+  "observedAt": "2026-11-03T18:25:46.099Z",
   "branch": "main",
   "commits": [
+    {"sha":"260479bd86a1","date":"2026-11-03T16:55:10.000Z","subject":"Retire the thingy-web-distribution-5xx alarm","pr":54,"by":"me"},
+    {"sha":"3f243c5362a1","date":"2026-11-03T16:47:50.000Z","subject":"Retire the thingy-web-distribution-5xx alarm","by":"agent","agents":["claude"]},
+    {"sha":"82e5b6094de9","date":"2026-11-03T03:30:48.000Z","subject":"Load the new Tinylytics script with data-site (#53)","pr":53,"by":"agent","agents":["claude"]},
     {"sha":"ca682a905970","date":"2026-11-02T15:04:24.000Z","subject":"Attach the shared edge WAF web ACL to the distribution (#52)","pr":52,"by":"agent","agents":["claude"]},
     {"sha":"7da13deddb10","date":"2026-11-02T13:18:30.000Z","subject":"Bump seroval to 1.7.6 for GHSA-7rv5-mrxv-xcr9","by":"agent","agents":["claude"]},
     {"sha":"e191e61ef26b","date":"2026-11-02T13:10:41.000Z","subject":"Sync the vendored Librarian contract (4.19.0) and MCP surface (2.11.0)","by":"agent","agents":["claude"]},

@@ -2,9 +2,11 @@
   "kind": "commits",
   "repository": "jthingelstad/thingelstad.xyz",
   "url": "https://github.com/jthingelstad/thingelstad.xyz",
-  "observedAt": "2026-11-02T20:45:50.833Z",
+  "observedAt": "2026-11-03T18:25:46.099Z",
   "branch": "main",
   "commits": [
+    {"sha":"c9067bfd5958","date":"2026-11-03T17:05:12.000Z","subject":"Retire the thingelstad-xyz-site-distribution-5xx alarm (#99)","pr":99,"by":"agent","agents":["claude"]},
+    {"sha":"31e4ef2acfdf","date":"2026-11-03T03:42:25.000Z","subject":"Load Tinylytics from the shared script.js with data-site (#98)","pr":98,"by":"agent","agents":["claude"]},
     {"sha":"46dde3fd23d7","date":"2026-11-02T14:57:17.000Z","subject":"Attach the shared edge web ACL to the distribution (#96)","pr":96,"by":"agent","agents":["claude"]},
     {"sha":"88e12ee19842","date":"2026-11-02T00:15:45.000Z","subject":"Validate all published types and serve WebP images (#95)","pr":95,"by":"agent","agents":["codex"]},
     {"sha":"072592a1a465","date":"2026-11-02T00:06:52.000Z","subject":"Bring Workshop Builder Thingy into the site (#94)","pr":94,"by":"agent","agents":["codex"]},

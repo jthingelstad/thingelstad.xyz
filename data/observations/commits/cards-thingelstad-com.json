@@ -2,9 +2,11 @@
   "kind": "commits",
   "repository": "jthingelstad/cards.thingelstad.com",
   "url": "https://github.com/jthingelstad/cards.thingelstad.com",
-  "observedAt": "2026-11-02T20:45:50.833Z",
+  "observedAt": "2026-11-03T18:25:46.099Z",
   "branch": "main",
   "commits": [
+    {"sha":"d435b40265be","date":"2026-11-03T16:42:06.000Z","subject":"Retire the card maker's three CloudWatch alarms","pr":22,"by":"me"},
+    {"sha":"a7d06ec15232","date":"2026-11-03T16:30:43.000Z","subject":"Retire the card maker's three CloudWatch alarms","by":"agent","agents":["claude"]},
     {"sha":"7795f9098f4c","date":"2026-11-02T14:34:21.000Z","subject":"Attach the shared edge web ACL to the distribution (#21)","pr":21,"by":"agent","agents":["claude"]},
     {"sha":"d303d14e497a","date":"2026-11-01T06:53:24.000Z","subject":"Road Sign Math cards: Highway as the logo","pr":20,"by":"me"},
     {"sha":"8c2499586f6c","date":"2026-11-01T06:40:27.000Z","subject":"AGENTS.md: Road Sign Math cards carry Highway","by":"agent","agents":["claude"]},

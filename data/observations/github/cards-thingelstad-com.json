@@ -2,7 +2,7 @@
   "kind": "github",
   "repository": "jthingelstad/cards.thingelstad.com",
   "url": "https://github.com/jthingelstad/cards.thingelstad.com",
-  "observedAt": "2026-11-02T20:45:50.833Z",
+  "observedAt": "2026-11-03T18:25:46.099Z",
   "repositoryCreatedAt": "2026-10-24T17:10:58.000Z",
   "archived": false,
   "description": "Social cards for Jamie Thingelstad's sites, drawn from each post",
@@ -15,16 +15,16 @@
       "path": null,
       "branch": "main",
       "since": "2026-08-01T00:00:00.000Z",
-      "until": "2026-11-02T20:45:50.833Z",
-      "count": 41,
+      "until": "2026-11-03T18:25:46.099Z",
+      "count": 43,
       "complete": true,
       "months": [
         { "month": "2026-10", "count": 37 },
-        { "month": "2026-11", "count": 4 }
+        { "month": "2026-11", "count": 6 }
       ],
       "latestCommit": {
-        "date": "2026-11-02T14:34:21.000Z",
-        "url": "https://github.com/jthingelstad/cards.thingelstad.com/commit/7795f9098f4c1ee818366a6c03f7d0fe7e1dae37"
+        "date": "2026-11-03T16:42:06.000Z",
+        "url": "https://github.com/jthingelstad/cards.thingelstad.com/commit/d435b40265be1918fac4b3d58820d3200a000664"
       }
     }
   ]

@@ -2,9 +2,12 @@
   "kind": "commits",
   "repository": "jthingelstad/another.thingelstad.com",
   "url": "https://github.com/jthingelstad/another.thingelstad.com",
-  "observedAt": "2026-11-02T20:45:50.833Z",
+  "observedAt": "2026-11-03T18:25:46.099Z",
   "branch": "main",
   "commits": [
+    {"sha":"9b3901466ca6","date":"2026-11-03T16:54:59.000Z","subject":"Retire the another-site-distribution-5xx alarm","pr":20,"by":"me"},
+    {"sha":"c95242686aae","date":"2026-11-03T16:44:32.000Z","subject":"Retire the another-site-distribution-5xx alarm","by":"agent","agents":["claude"]},
+    {"sha":"149e0dd96647","date":"2026-11-03T03:30:08.000Z","subject":"Load Tinylytics through the new shared script (#19)","pr":19,"by":"agent","agents":["claude"]},
     {"sha":"7e1b5c0cb95d","date":"2026-11-02T14:39:37.000Z","subject":"Attach the shared edge web ACL to the distribution (#18)","pr":18,"by":"agent","agents":["claude"]},
     {"sha":"ce36eae112d2","date":"2026-10-28T18:32:02.000Z","subject":"Give every sitemap url an accurate lastmod (#17)","pr":17,"by":"agent","agents":["claude"]},
     {"sha":"b1266dafe3e1","date":"2026-10-28T15:19:14.000Z","subject":"Deploys tell IndexNow which pages changed. (#16)","pr":16,"by":"agent","agents":["claude"]},

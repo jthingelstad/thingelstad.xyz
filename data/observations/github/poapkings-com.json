@@ -2,15 +2,15 @@
   "kind": "github",
   "repository": "jthingelstad/poapkings.com",
   "url": "https://github.com/jthingelstad/poapkings.com",
-  "observedAt": "2026-11-02T20:45:50.833Z",
+  "observedAt": "2026-11-03T18:25:46.099Z",
   "repositoryCreatedAt": "2026-02-05T04:14:14.000Z",
   "archived": false,
   "description": "Proof of Arena Push — the official website for the POAP KINGS Clash Royale clan (#J2RGCRVG). Eleventy static site on GitHub Pages.",
   "stars": 1,
   "forks": 0,
   "languages": [
-    { "name": "JavaScript", "bytes": 163929 },
-    { "name": "Nunjucks", "bytes": 104554 },
+    { "name": "JavaScript", "bytes": 164747 },
+    { "name": "Nunjucks", "bytes": 104484 },
     { "name": "CSS", "bytes": 80587 },
     { "name": "Shell", "bytes": 2409 }
   ],
@@ -20,18 +20,18 @@
       "path": null,
       "branch": "main",
       "since": "2026-08-01T00:00:00.000Z",
-      "until": "2026-11-02T20:45:50.833Z",
-      "count": 95,
+      "until": "2026-11-03T18:25:46.099Z",
+      "count": 97,
       "complete": true,
       "months": [
         { "month": "2026-08", "count": 46 },
         { "month": "2026-09", "count": 35 },
         { "month": "2026-10", "count": 11 },
-        { "month": "2026-11", "count": 3 }
+        { "month": "2026-11", "count": 5 }
       ],
       "latestCommit": {
-        "date": "2026-11-02T18:08:47.000Z",
-        "url": "https://github.com/jthingelstad/poapkings.com/commit/6b1273a7d44f3b357271b230be81327d1b5686ce"
+        "date": "2026-11-03T16:43:13.000Z",
+        "url": "https://github.com/jthingelstad/poapkings.com/commit/1a4ba6fc73c822517feecb6071689fac44195871"
       }
     }
   ]
