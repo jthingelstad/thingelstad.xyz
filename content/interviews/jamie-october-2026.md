@@ -8,7 +8,7 @@ notes:
   - On ingest Thingy removed the filler words “um” and “uh”, nothing else, and corrected names the transcriber misheard, among them TinyLetter, Buttondown, MathJax, Kubb, Road Sign Math, nnxyz, Charlie Brown Tree, TOSRedux, Things 4 Good and Day One. Every other word is as transcribed, repetitions and false starts included.
   - Part of the answer to question 10 was lost in recording. Thingy said so at the time and Jamie said it again; both are kept.
   - Jamie confirmed on November 1, 2026 that the Weekly Thing Studio named in question 27 is the Weekly Thing Workshop under its final name, and that the answer about Otto in question 19 is as he said it.
-  - On November 3, 2026, when Jamie approved Thingy’s persona, Thingy’s own lines that named himself as “Thingy” were put into the first person, the way he now speaks when he asks a question. As asked, question 18 was “Thingy is a librarian for your own archive, and you wrote that you had wanted an agent like this for over a year. What did you want it to do that search never could?”, its follow-up was “What does Thingy's presence in the Weekly Thing actually look like for a reader?”, question 29 began “The Weekly Thing GPT was replaced by Thingy.”, and the close of session two said “starting with Thingy”. Jamie’s answers are unchanged.
+  - Thingy asked these questions before Jamie approved his persona on November 3, 2026. In question 18, its follow-up, question 29 and the close of session two he named himself “Thingy” and, in question 18, “it”; since then he says “I” when he asks a question. The transcript keeps every question as it was asked.
 questions:
   - n: 2
     things:
@@ -315,17 +315,17 @@ Having a conversation over breakfast. Like he and I used to meet pretty regularl
 
 **Jamie:** Let's call it there for today.
 
-**Thingy:** Sounds good. We'll pick up next time with session three, starting with me. Bye for now, Jamie!
+**Thingy:** Sounds good. We'll pick up next time with session three, starting with Thingy. Bye for now, Jamie!
 
 ## Session 3, the featured shelf and the active things
 
 Recorded November 1, 2026.
 
-### 18. I am a librarian for your own archive, and you wrote that you had wanted an agent like this for over a year. What did you want me to do that search never could?
+### 18. Thingy is a librarian for your own archive, and you wrote that you had wanted an agent like this for over a year. What did you want it to do that search never could?
 
 **Jamie:** I think the main thing is to have it kind of express more of a agentic personality or opinion. or offer insight or explore. You know, search is a great way to browse, but it's not a way to like identify paths that you didn't consider. And so Thingy was born from the idea that I really want something that a person can converse with my writing over two decades and explore concepts and ideas. And I think The current incarnation of it does it actually really quite well. It's been interesting that as I've continued to work with Thingy and have it engage with me alongside with me on different projects, it's the first agent that I'm allowing and, and actively bringing into other projects. So, you know, Thingy now has a presence in the Weekly Thing. And it's helping me actually explore agentic solutions. At the same time that I adhere to my mandate that my words are my words and that AI isn't writing for me.
 
-#### Follow-up: What does my presence in the Weekly Thing actually look like for a reader?
+#### Follow-up: What does Thingy's presence in the Weekly Thing actually look like for a reader?
 
 **Jamie:** It's clearly demarked into its own area and clearly headered with from Thingy, my agentic librarian. And Interestingly, in the podcast, in the audio version of the newsletter, I even use a different voice to render Thingy so it doesn't sound, it sounds like another character I'm currently working on actually bringing Thingy into my blog so that very intelligently powered related articles will be offered by Thingy in the blog itself.
 
@@ -377,7 +377,7 @@ Recorded November 1, 2026.
 
 **Jamie:** Well, these projects all came to a natural conclusion. Open Loop was a podcast that Garrick and I did, and we decided that it was time for that to come to a landing. The Charlie Brown Tree was a very finite project. We had a had that carved out of a dead tree at our cabin, and it's an amazing piece of art. Jiggy Thing Puzzles was a funny one because that we we realized how hard it is to make a jigsaw puzzle. It took a tremendous amount of effort for us to design the jigsaw puzzle. And then the cost of actually producing a jigsaw puzzle, you know, at subscale are just crazy. You know, we were essentially, we realized that by trying to make puzzles, we were spending The same amount of money we were raising because if you buy in quantities of less than a thousand, the costs are just way too high. So all of them just had natural kind of landing points or it became obvious that they weren't worth pursuing.
 
-### 29. The Weekly Thing GPT was replaced by me. What did the GPT teach you about what a real agent needed to be?
+### 29. The Weekly Thing GPT was replaced by Thingy. What did the GPT teach you about what a real agent needed to be?
 
 **Jamie:** Yeah, it, it taught me that the, it taught me two things. One, it taught me that just sending a bunch of data into that system both was not going to give me the kind of experience that I wanted, but it gave me enough of a taste that there was something here and that if I could build a real agent around it, that that could be meaningful. But but the kind of like very basic ability to just kind of like copy paste a ton of files or a, a ton of JSON into the GPT just wasn't robust enough for what I really wanted.
 
