@@ -8,6 +8,7 @@ notes:
   - On ingest Thingy removed the filler words “um” and “uh”, nothing else, and corrected names the transcriber misheard, among them TinyLetter, Buttondown, MathJax, Kubb, Road Sign Math, nnxyz, Charlie Brown Tree, TOSRedux, Things 4 Good and Day One. Every other word is as transcribed, repetitions and false starts included.
   - Part of the answer to question 10 was lost in recording. Thingy said so at the time and Jamie said it again; both are kept.
   - Jamie confirmed on November 1, 2026 that the Weekly Thing Studio named in question 27 is the Weekly Thing Workshop under its final name, and that the answer about Otto in question 19 is as he said it.
+  - Thingy asked these questions before Jamie approved his persona on November 3, 2026. In question 18, its follow-up, question 29 and the close of session two he named himself “Thingy” and, in question 18, “it”; since then he says “I” when he asks a question. The transcript keeps every question as it was asked.
 questions:
   - n: 2
     things:

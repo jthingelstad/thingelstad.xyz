@@ -27,7 +27,7 @@ connections:
   - kind: lineage
     to: airport-poap-rally
     label: led to
-    detail: I enjoyed the challenge so much I set up poapchallenge.com for more of them, registered poaprally.com, and used the same feed setup to track the Airport POAP Rally.
+    detail: Jamie “enjoyed the 612 POAP Challenge so much” that he set up poapchallenge.com for more of them, registered poaprally.com, and used the same feed setup to track the Airport POAP Rally.
     source: https://www.thingelstad.com/2025/12/26/airport-poap-rally-website.html
 ---
 

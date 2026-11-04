@@ -2,6 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
+import { parse } from 'yaml';
 import { splitFrontmatter } from '../collection/load';
 
 // Every quotation of Jamie's interview on the site is his words, verbatim, linked to the question he said them in
@@ -145,6 +146,53 @@ test('the pages speak of Jamie in the third person outside his quotations', () =
       .replace(/\([^)]*\)/g, (m) => (m.includes('http') ? '' : m));
     const firstPerson = outside.match(/\b(I|I’m|I’ve|I’d|I’ll|my|me|mine|myself)\b(?!-\d)/g);
     if (firstPerson) problems.push(`${page.file}: ${firstPerson.join(', ')}`);
+  }
+  assert.deepEqual(problems, []);
+});
+
+// Front matter is page text too: summaries, connection details, story introductions and engineering lines, bundle
+// and artifact titles and captions, and the ledger's titles and summaries are in Thingy's voice, the third person
+// about Jamie (docs/THINGY.md, "Where Thingy says “I”"). Left out: addresses and file names, which are not prose;
+// ids, which anchors keep even when the title changes; a thing's story.questions, which are a reader's; and the
+// site's own name, Things I’ve built, which is Jamie's.
+const notProse = new Set(['url', 'source', 'repository', 'path', 'sitemap', 'feed', 'file', 'preview', 'id', 'bundle']);
+
+function strings(value: unknown, path: string, out: { path: string; text: string }[]) {
+  if (typeof value === 'string') out.push({ path, text: value });
+  else if (Array.isArray(value)) value.forEach((item, i) => strings(item, `${path}[${i}]`, out));
+  else if (value && typeof value === 'object') {
+    for (const [key, item] of Object.entries(value)) {
+      if (notProse.has(key) || key === 'sources' || `${path}.${key}` === '.story.questions') continue;
+      strings(item, `${path}.${key}`, out);
+    }
+  }
+  return out;
+}
+
+function firstPerson(text: string) {
+  const outside = text
+    .replace(/Things I’ve built/gi, '')
+    .replace(/“[^”]*”/g, '')
+    .replace(/"[^"]*"/g, '');
+  return outside.match(/\b(I|I’m|I’ve|I’d|I’ll|[Mm]y|[Mm]e|[Mm]ine|[Mm]yself)\b(?!-\d)/g);
+}
+
+test('front matter speaks of Jamie in the third person outside his quotations', () => {
+  const problems: string[] = [];
+  for (const page of [...things, ...stories]) {
+    for (const { path, text } of strings(page.data, '', [])) {
+      const found = firstPerson(text);
+      if (found) problems.push(`${page.file} ${path.slice(1)}: ${found.join(', ')}`);
+    }
+  }
+  for (const name of readdirSync(join(root, 'content/history')).filter((n) => n.endsWith('.yaml'))) {
+    const events = parse(readFileSync(join(root, 'content/history', name), 'utf8')) as Record<string, unknown>[];
+    events.forEach((event, i) => {
+      for (const { path, text } of strings(event, '', [])) {
+        const found = firstPerson(text);
+        if (found) problems.push(`content/history/${name} [${i}]${path}: ${found.join(', ')}`);
+      }
+    });
   }
   assert.deepEqual(problems, []);
 });

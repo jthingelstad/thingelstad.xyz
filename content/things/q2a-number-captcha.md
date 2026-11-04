@@ -14,7 +14,7 @@ sources:
 connections:
   - to: ask-planet-kubb
     label: protected
-    detail: I wrote the plugin to stop spam registrations on Ask Planet Kubb, the Question2Answer site I ran.
+    detail: Jamie wrote the plugin to stop spam registrations on Ask Planet Kubb, the Question2Answer site he ran.
     source: https://www.thingelstad.com/2014/11/16/questionanswer-number-captcha.html
 ---
 

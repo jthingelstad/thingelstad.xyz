@@ -88,7 +88,7 @@ artifacts:
   - file: sign.png
     bundle: the-app
     title: A sign
-    caption: '“On the way to the airport,” my sign from August 2025 near Burlington, Vermont: its photo, its math, (25 − 1) ÷ 8 = 4 − 3 ÷ 3, and the ways found so far.'
+    caption: '“On the way to the airport,” Jamie’s sign from August 2025 near Burlington, Vermont: its photo, its math, (25 − 1) ÷ 8 = 4 − 3 ÷ 3, and the ways found so far.'
     date: '2026-10-30'
   - file: capture.png
     bundle: the-app
@@ -128,7 +128,7 @@ artifacts:
   - file: player-page.png
     bundle: the-app
     title: A player’s page, in dark mode
-    caption: My page in the app, with 13 signs in 5 states since 2021, my badges, and my signs as photos.
+    caption: Jamie’s page in the app, with 13 signs in 5 states since 2021, his badges, and his signs as photos.
     date: '2026-10-31'
   - file: find-another-way.png
     bundle: the-app
@@ -143,7 +143,7 @@ artifacts:
   - file: website-home.png
     bundle: the-website
     title: Home
-    caption: '“Find a sign. Make the math true.” The map of every sign on the US, with a card for Minnesota’s two signs, and who’s playing: me, Tyler and Tammy.'
+    caption: '“Find a sign. Make the math true.” The map of every sign on the US, with a card for Minnesota’s two signs, and who’s playing: Jamie, Tyler and Tammy.'
     date: '2026-10-31'
     source: https://github.com/jthingelstad/roadsignmath.xyz/pull/18
   - file: website-sign.png
@@ -154,7 +154,7 @@ artifacts:
   - file: website-player.png
     bundle: the-website
     title: A player’s page
-    caption: My page on the website, with my badges and my signs on the map.
+    caption: Jamie’s page on the website, with his badges and his signs on the map.
     date: '2026-10-31'
   - file: website-beta.png
     bundle: the-website

@@ -23,7 +23,7 @@ sources:
 connections:
   - to: poap2rss
     label: tells the story of
-    detail: The capsule’s writing traces POAP2RSS back to my 2023 POAP Wishlist, where I asked POAP for RSS feeds. “RSS never came from POAP, so Jamie built it.”
+    detail: The capsule’s writing traces POAP2RSS back to Jamie’s 2023 POAP Wishlist, where he asked POAP for RSS feeds. “RSS never came from POAP, so Jamie built it.”
     source: https://poap.thingelstad.xyz/
   - to: 612-poap-challenge
     label: preserves

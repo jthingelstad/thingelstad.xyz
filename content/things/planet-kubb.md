@@ -32,7 +32,7 @@ sources:
 connections:
   - to: ask-planet-kubb
     label: included
-    detail: 'On Open Loop #1 I described Ask Planet Kubb as the network’s question-and-answer site, added after the planet feed.'
+    detail: 'On Open Loop #1 Jamie described Ask Planet Kubb as the network’s question-and-answer site, added after the planet feed.'
     source: https://www.thingelstad.com/projects/open-loop/1-big-fuzzy-dead-cat/
 ---
 

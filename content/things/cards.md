@@ -26,7 +26,7 @@ connections:
     source: https://github.com/jthingelstad/another.thingelstad.com/pull/6
   - to: linking-things
     label: draws the share cards for
-    detail: Since October 25, 2026, each saved link’s page shares a card with its title, its site, the day I saved it, the Weekly Thing issues that carried it, and my note when the note is my own.
+    detail: Since October 25, 2026, each saved link’s page shares a card with its title, its site, the day Jamie saved it, the Weekly Thing issues that carried it, and his note when the note is his own.
     source: https://github.com/jthingelstad/links.thingelstad.xyz/pull/21
 artifacts:
   - file: red-leaves.jpg
@@ -46,7 +46,7 @@ artifacts:
     source: https://another.thingelstad.com/2025/10/05/how-do-you-start-a.html
   - file: linking-things-link.png
     title: A saved link
-    caption: A link on Linking Things with its site, the day I saved it, the issue that carried it, and my note.
+    caption: A link on Linking Things with its site, the day Jamie saved it, the issue that carried it, and his note.
     date: '2026-10-25'
     source: https://links.thingelstad.xyz/links/dec34be50cef/
 ---
