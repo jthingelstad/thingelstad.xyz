@@ -585,7 +585,7 @@ test('Thingy keeps the site: the footer byline and the about page say so, and Ja
   for (const path of ['/', '/things/weekly-thing/', '/interviews/']) {
     await page.goto(path);
     const footer = page.locator('.site-footer');
-    await expect(footer, path).toContainText(`${owner.name} has built, kept by Thingy, his librarian`);
+    await expect(footer, path).toContainText(`${owner.name} has built, kept by Thingy, his sidekick`);
     const byline = footer.locator('a.thingy-byline');
     await expect(byline, path).toHaveAttribute('href', '/about/');
     const icon = byline.locator('img.thingy');
@@ -944,7 +944,7 @@ test('search narrows the list by its words and facets, and keeps them in the add
 
   // Pagefind shortens a word it does not know until something matches; a nonsense word matches nothing here.
   await page.getByRole('searchbox').fill('avatars');
-  await expect(status).toHaveText('Nothing I’ve built matches “avatars”.');
+  await expect(status).toHaveText('Nothing Jamie has built matches “avatars”.');
   await expect(rows).toHaveCount(0);
 
   // The address carries a search: Python things, newest first, and a bar of the histogram adds a year.

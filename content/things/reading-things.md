@@ -21,7 +21,7 @@ sources:
 connections:
   - to: weekly-thing
     label: was announced in
-    detail: I teased Reading Things in Weekly Thing 177 and announced it in Weekly Thing 186, a week after the first issue went out.
+    detail: Jamie teased Reading Things in Weekly Thing 177 and announced it in Weekly Thing 186, a week after the first issue went out.
     source: https://weekly.thingelstad.com/archive/186/
 ---
 

@@ -17,15 +17,15 @@ sources:
 connections:
   - to: thingy
     label: gives a body to
-    detail: The librarian’s original illustration becomes an editable character with a skeleton, clothing, and gestures.
+    detail: Thingy’s original illustration becomes an editable character with a skeleton, clothing, and gestures.
     source: https://thingelstad.xyz/things/thingy-model/#artifacts
   - to: things-ive-built
-    label: depicts the librarian of
-    detail: Thingy keeps this site. The model gives its librarian poses and outfits for different settings.
+    label: depicts the keeper of
+    detail: Thingy keeps this site, in the workshop builder’s vest. The model gives him poses and outfits for different settings.
     source: https://thingelstad.xyz/about/
 story:
   color: '#df8541'
-  introduction: The librarian, from more than one angle.
+  introduction: Thingy, from more than one angle.
   engineering:
     - An editable Blender master holds the body, articulated hands, clothing, props, and a shared 40-bone skeleton.
     - Four outfits switch on the same rig. The concert outfit replaces the standard ear housings with over-ear headphones.
@@ -218,7 +218,7 @@ artifacts:
     date: '2026-11-03'
 ---
 
-Thingy Model is an editable three-dimensional version of [Jamie’s librarian](https://thingelstad.xyz/things/thingy/). The cream robot, navy coat, orange bow tie, and raised finger come from the original illustration. A body beneath the clothes gives the character joints that can be posed and animated.
+Thingy Model is an editable three-dimensional version of [Thingy](https://thingelstad.xyz/things/thingy/), Jamie’s agent sidekick. The cream robot, navy coat, orange bow tie, and raised finger come from the original illustration. A body beneath the clothes gives the character joints that can be posed and animated.
 
 Jamie described the idea in his interview: [“Thingy should actually be a 3D model and be able to move around and engage with people”](https://thingelstad.xyz/interviews/jamie-october-2026/#q33). He began building the model with Codex in November 2026, reviewing renders and the character live in Blender. From v0.11, on the third of November, Claude Code carried the work forward in Blender 5.2. The original image stayed beside the work. The artifacts below keep the intermediate models as well as the corrections.
 

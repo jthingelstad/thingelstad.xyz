@@ -108,7 +108,7 @@ async function start(root) {
     await pagefind.options({ excerptLength: 26 });
     pagefind.init();
   } catch {
-    status.textContent = 'Search could not load. Every thing I’ve built is listed below.';
+    status.textContent = 'Search could not load. Every thing Jamie has built is listed below.';
     return;
   }
   form.hidden = false;
@@ -200,7 +200,7 @@ async function start(root) {
       ? term || choices
         ? `${shown.length} of ${plural(things.length, 'thing')}${term ? ` match “${term}”` : ''}`
         : `All ${plural(things.length, 'thing')}`
-      : `Nothing I’ve built matches${term ? ` “${term}”` : ''}${choices ? ' with these filters' : ''}.`;
+      : `Nothing Jamie has built matches${term ? ` “${term}”` : ''}${choices ? ' with these filters' : ''}.`;
   }
 
   let typing;

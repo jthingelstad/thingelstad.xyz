@@ -23,7 +23,7 @@ connections:
     source: https://ottoai.thingelstad.com/2026/03/01/hello-im-otto.html
   - to: elixir
     label: was hired to drive
-    detail: In October 2026 I set up a new generation of Otto on OpenAI’s dots to drive my Elixir project, and interviewed it for the job before it started working with Codex.
+    detail: In October 2026 Jamie set up a new generation of Otto on OpenAI’s dots to drive his Elixir project, and interviewed it for the job before it started working with Codex.
     source: https://weekly.thingelstad.com/archive/352/
 ---
 

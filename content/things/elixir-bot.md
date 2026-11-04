@@ -50,7 +50,7 @@ connections:
   - kind: lineage
     to: weekly-thing-workshop
     label: led to
-    detail: Running Elixir showed me that “Discord is a reasonable place for an agent to run,” so I put the Weekly Thing Workshop’s agents there.
+    detail: Jamie wrote that Elixir had shown him “Discord is a reasonable place for an agent to run,” and he put the Weekly Thing Workshop’s agents there.
     source: https://www.thingelstad.com/2026/05/12/the-weekly-thing-team.html
 ---
 

@@ -27,7 +27,7 @@ connections:
   - kind: lineage
     to: flight-path
     label: led to
-    detail: Flight Path, built two months later on the same poaprally.com domain, drew its globe from the CSV of rally airports and drop IDs I had made for “another project I had done.”
+    detail: Flight Path, built two months later on the same poaprally.com domain, drew its globe from a CSV of rally airports and drop IDs that Jamie already had from “another project I had done.”
     source: https://weekly.thingelstad.com/archive/342/
 ---
 

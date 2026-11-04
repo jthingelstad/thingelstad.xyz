@@ -33,7 +33,7 @@ connections:
     source: https://github.com/jthingelstad/roadsignmath.xyz/pull/2
 story:
   color: '#287454'
-  introduction: Just my signs.
+  introduction: Just the family’s signs.
   engineering:
     - The blog runs on Micro.blog, with one post per sign, its photo, and the math typeset with MathJax from TeX in the post.
     - The 2021 posts keep their 2021 dates on Micro.blog, though their photos were uploaded there in 2023.
@@ -62,7 +62,7 @@ artifacts:
   - file: posts-2021-2025.json
     bundle: the-blog
     title: Every post, as Micro.blog exported it
-    caption: All 16 posts from March 2021 to September 2025 as a JSON Feed, with each post’s words, its math in TeX, the name of its photo and its date. Thirteen are my signs, two are Tyler’s and one is Tammy’s, in six states.
+    caption: All 16 posts from March 2021 to September 2025 as a JSON Feed, with each post’s words, its math in TeX, the name of its photo and its date. Thirteen are Jamie’s signs, two are Tyler’s and one is Tammy’s, in six states.
     date: '2026-10-30'
 ---
 
