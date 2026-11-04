@@ -1,15 +1,12 @@
 {
   "kind": "web",
   "url": "https://thingy.thingelstad.com/",
-  "observedAt": "2026-11-02T20:45:50.833Z",
+  "observedAt": "2026-11-04T18:39:15.949Z",
   "sitemap": {
     "url": "https://thingy.thingelstad.com/sitemap.xml",
     "pages": 4,
-    "newestModified": "2026-11-02T13:10:41.000Z",
-    "months": [
-      { "month": "2026-10", "count": 3 },
-      { "month": "2026-11", "count": 1 }
-    ],
+    "newestModified": "2026-11-04T11:44:51.000Z",
+    "months": [{ "month": "2026-11", "count": 4 }],
     "complete": true
   },
   "feed": null

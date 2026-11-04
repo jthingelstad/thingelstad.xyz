@@ -2,9 +2,10 @@
   "kind": "commits",
   "repository": "jthingelstad/poap-archive",
   "url": "https://github.com/jthingelstad/poap-archive",
-  "observedAt": "2026-11-03T18:25:46.099Z",
+  "observedAt": "2026-11-04T18:39:15.949Z",
   "branch": "main",
   "commits": [
+    {"sha":"0612479a5074","date":"2026-11-04T15:35:49.000Z","subject":"Point the big snapshot files at the archive bucket (#3)","pr":3,"by":"agent","agents":["claude"]},
     {"sha":"837ef90d8e67","date":"2026-11-03T03:49:32.000Z","subject":"DESIGN: Tinylytics now loads the shared script.js with data-site (#2)","pr":2,"by":"agent","agents":["claude"]},
     {"sha":"1512053e49e8","date":"2026-10-28T03:08:03.000Z","subject":"Docs: thingelstad.xyz DNS is now a Route 53 zone stack (#1)","pr":1,"by":"agent","agents":["claude"]},
     {"sha":"57e7da32398f","date":"2026-10-17T13:59:57.000Z","subject":"Leave POAP Moments out of the time capsule","by":"agent","agents":["claude"]},
