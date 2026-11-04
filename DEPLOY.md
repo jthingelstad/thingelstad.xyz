@@ -1,6 +1,6 @@
 # Deploying thingelstad.xyz
 
-The application stays in `/Users/otto/Projects/thingelstad.xyz`, separate from the Thingelstad.com publishing repositories. Hosting is AWS in account `999153317627`, with application resources in `us-east-1`. DNS is a Route 53 hosted zone owned by the `dns-thingelstad-xyz` stack in `projects-sysadmin` (moved from Namecheap BasicDNS on October 27, 2026; Namecheap remains the registrar). See `DNS.md`.
+The application stays in `/Users/otto/Projects/thingelstad.xyz`, separate from the Thingelstad.com publishing repositories. Hosting is AWS in account `<account>`, with application resources in `us-east-1`. DNS is a Route 53 hosted zone owned by the `dns-thingelstad-xyz` stack in `projects-sysadmin` (moved from Namecheap BasicDNS on October 27, 2026; Namecheap remains the registrar). See `DNS.md`.
 
 ## Resources
 
@@ -23,7 +23,7 @@ npm run templates
 
 ## Publish an update
 
-Pushing to `main` publishes (see GitHub Actions delivery below). To publish by hand, use `cloud-engineer` in `us-east-1`. Verify STS account `999153317627` and `assumed-role/ProjectsCloudEngineer/projects-cloud-engineer` before mutation. Agents use AWS MCP; human CLI commands use the same profile.
+Pushing to `main` publishes (see GitHub Actions delivery below). To publish by hand, use `cloud-engineer` in `us-east-1`. Verify STS account `<account>` and `assumed-role/ProjectsCloudEngineer/projects-cloud-engineer` before mutation. Agents use AWS MCP; human CLI commands use the same profile.
 
 1. Build. If `infra/templates.mjs` changed, validate the generated templates with cfn-lint, `infra/security.guard`, and a CloudFormation change set against the stack; inspect, execute, and wait for `UPDATE_COMPLETE`. Only then may the code change merge: the deploy refuses to publish while the live template differs from the generated one.
 2. Upload `_site/` in the order `scripts/publish-plan.mjs` gives: `assets/` (content-hashed stylesheet, script, and fonts) and the search index's content-named files under `pagefind/` with `Cache-Control: public,max-age=31536000,immutable`, then the other files and pages with `Cache-Control: no-cache`, the front page last. Every object gets an explicit content type with charset (`.md` is `text/markdown`; `feed.xml` and `activity.xml` are `application/rss+xml` and `feed.json` is `application/feed+json`, the types their head links name, while the sitemap and other JSON keep `application/xml` and `application/json`). Every file is copied on every deploy, so a changed type lands on the next one. Keep old assets for already-open pages and rollback; nothing is deleted.

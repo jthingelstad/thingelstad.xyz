@@ -17,7 +17,7 @@ All of these are in the zone stack.
 | TXT     | apex                                    | ENS (`ENS1 dnsname.ens.eth ...`) and `google-site-verification`    |
 | TXT     | `_ens`                                  | `a=0x2BdA946a7740b1dDB0fd5C226819170c4DD15720`                     |
 
-Keep both ACM CNAMEs for automatic renewal. Certificate ARN: `arn:aws:acm:us-east-1:999153317627:certificate/15e8b7f8-91c7-433a-8618-9cbf2498baf5`. Do not pin CloudFront's transient addresses in fixed A/AAAA records. The former `jamie` ENS TXT record is absent; restore it (in the zone stack) only if that ENS subdomain is wanted again.
+Keep both ACM CNAMEs for automatic renewal. Certificate ARN: `arn:aws:acm:us-east-1:<account>:certificate/15e8b7f8-91c7-433a-8618-9cbf2498baf5`. Do not pin CloudFront's transient addresses in fixed A/AAAA records. The former `jamie` ENS TXT record is absent; restore it (in the zone stack) only if that ENS subdomain is wanted again.
 
 The zone also holds the records for the other `thingelstad.xyz` sites (`sync`, `links`, `poap`, `nnxyz`), which their own repositories describe.
 
