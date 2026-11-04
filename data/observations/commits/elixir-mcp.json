@@ -2,9 +2,11 @@
   "kind": "commits",
   "repository": "jthingelstad/elixir-mcp",
   "url": "https://github.com/jthingelstad/elixir-mcp",
-  "observedAt": "2026-11-03T18:25:46.099Z",
+  "observedAt": "2026-11-04T18:39:15.949Z",
   "branch": "main",
   "commits": [
+    {"sha":"aec40303a4c4","date":"2026-11-03T19:26:46.000Z","subject":"A sitting names each trophy mode's own net (MCP 11.15.0)","by":"agent","agents":["claude"]},
+    {"sha":"a482da791fa0","date":"2026-11-03T18:34:14.000Z","subject":"Move the database storage alarm to Dagu","by":"agent","agents":["claude"]},
     {"sha":"0baa4ee14726","date":"2026-11-03T16:43:49.000Z","subject":"Cut the stack's alarms to three","by":"agent","agents":["claude"]},
     {"sha":"f7f8ac36b2f7","date":"2026-11-03T03:57:48.000Z","subject":"Move Tinylytics to the one script.js embed","by":"agent","agents":["claude"],"paths":["packages/clan-web"]},
     {"sha":"bdd61a84ad22","date":"2026-11-02T14:30:17.000Z","subject":"infra: the distribution carries the shared edge web ACL","by":"agent","agents":["claude"]},
