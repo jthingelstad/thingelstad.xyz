@@ -22,11 +22,11 @@ sources:
 connections:
   - to: jamie-thingelstad-blog
     label: works with its platform
-    detail: mb is a CLI and MCP interface for Micro.blog, the platform on which I publish my blog.
+    detail: mb is a CLI and MCP interface for Micro.blog, the platform on which Jamie publishes his blog.
     source: https://github.com/jthingelstad/mb
   - to: otto
     label: was built for
-    detail: I built mb so Otto could post to its own Micro.blog blog. Otto was the user giving feedback, and it uses mb through a Skill.
+    detail: Jamie built mb so Otto could post to its own Micro.blog blog. Otto was the user giving feedback, and it uses mb through a Skill.
     source: https://weekly.thingelstad.com/archive/342/
 story:
   color: '#24272d'

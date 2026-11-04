@@ -2,9 +2,10 @@
   "kind": "commits",
   "repository": "jthingelstad/yvn-release-notes",
   "url": "https://github.com/jthingelstad/yvn-release-notes",
-  "observedAt": "2026-11-03T18:25:46.099Z",
+  "observedAt": "2026-11-04T18:39:15.949Z",
   "branch": "main",
   "commits": [
+    {"sha":"20870f33ca5c","date":"2026-11-04T12:59:43.000Z","subject":"Bump seroval for Dependabot alerts 5 and 6","by":"agent","agents":["claude"]},
     {"sha":"76f74d863010","date":"2026-11-03T16:41:55.000Z","subject":"Keep two CloudWatch alarms: failed-queue and overdue","by":"agent","agents":["claude"]},
     {"sha":"eab5c27eded5","date":"2026-11-02T15:01:01.000Z","subject":"Put notes.yourversionnumber.com behind the account's shared web ACL","by":"agent","agents":["claude"]},
     {"sha":"335af31414bf","date":"2026-11-02T12:46:44.000Z","subject":"Move the operations dashboard to Grafana; count capture failures, unsubscribes and restarts","by":"agent","agents":["claude"]},

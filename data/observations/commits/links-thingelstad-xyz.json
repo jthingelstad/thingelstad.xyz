@@ -2,9 +2,10 @@
   "kind": "commits",
   "repository": "jthingelstad/links.thingelstad.xyz",
   "url": "https://github.com/jthingelstad/links.thingelstad.xyz",
-  "observedAt": "2026-11-03T18:25:46.099Z",
+  "observedAt": "2026-11-04T18:39:15.949Z",
   "branch": "main",
   "commits": [
+    {"sha":"845164b8456c","date":"2026-11-04T08:07:49.000Z","subject":"Nightly: sync and enrichment, 2026-11-04","by":"agent"},
     {"sha":"f1e3cc3c0ef9","date":"2026-11-03T17:05:01.000Z","subject":"Retire the links-site and links-mcp CloudWatch alarms","pr":51,"by":"me"},
     {"sha":"a52a2a62fb1d","date":"2026-11-03T16:58:47.000Z","subject":"Retire the links-site and links-mcp CloudWatch alarms","by":"agent","agents":["claude"]},
     {"sha":"c8aacc92f8e8","date":"2026-11-03T16:35:39.000Z","subject":"Invalidate the distribution with one wildcard path per deploy (#50)","pr":50,"by":"agent","agents":["claude"]},

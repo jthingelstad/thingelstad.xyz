@@ -2,8 +2,10 @@
   "kind": "publications",
   "url": "https://elixir.poapkings.com/",
   "feed": "https://elixir.poapkings.com/feed.xml",
-  "observedAt": "2026-10-25T14:59:53.527Z",
+  "observedAt": "2026-11-04T18:39:15.949Z",
   "items": [
+    {"url":"https://elixir.poapkings.com/updates/2026-11-03-a-sitting-says-which-trophies-it-moved","title":"A sitting says which trophies it moved","date":"2026-11-03T12:00:00.000Z"},
+    {"url":"https://elixir.poapkings.com/updates/2026-11-03-contract-11-15-0","title":"Contract 11.15.0","date":"2026-11-03T12:00:00.000Z"},
     {"url":"https://elixir.poapkings.com/updates/2026-10-24-connect-discord-and-sign-in-with-it","title":"Connect Discord, and sign in with it","date":"2026-10-24T12:00:00.000Z"},
     {"url":"https://elixir.poapkings.com/updates/2026-10-24-contract-11-14-0","title":"Contract 11.14.0","date":"2026-10-24T12:00:00.000Z"},
     {"url":"https://elixir.poapkings.com/updates/2026-10-24-the-privacy-page-covers-connecting-discord","title":"The privacy page covers connecting Discord","date":"2026-10-24T12:00:00.000Z"},

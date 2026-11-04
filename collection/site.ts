@@ -46,7 +46,7 @@ import {
 export const siteUrl = 'https://thingelstad.xyz';
 const siteTitle = 'Things I’ve built.';
 const siteDescription =
-  'Everything Jamie Thingelstad has built, in one place: the things he runs today and the ones he has stepped away from. Kept by Thingy, his librarian.';
+  'Everything Jamie Thingelstad has built, in one place: the things he runs today and the ones he has stepped away from. Kept by Thingy, his sidekick.';
 const repositoryUrl = 'https://github.com/jthingelstad/thingelstad.xyz';
 
 const statusLabels: Record<Status, string> = {

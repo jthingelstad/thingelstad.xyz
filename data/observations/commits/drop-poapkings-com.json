@@ -2,9 +2,10 @@
   "kind": "commits",
   "repository": "jthingelstad/drop.poapkings.com",
   "url": "https://github.com/jthingelstad/drop.poapkings.com",
-  "observedAt": "2026-11-03T18:25:46.099Z",
+  "observedAt": "2026-11-04T18:39:15.949Z",
   "branch": "main",
   "commits": [
+    {"sha":"f41277176ec5","date":"2026-11-04T16:27:37.000Z","subject":"Move Drop's credentials to the runtime secret only, and fail closed","by":"agent","agents":["claude"]},
     {"sha":"2ccdeb28217e","date":"2026-11-03T16:42:00.000Z","subject":"Keep one CloudWatch alarm: refresh age","by":"agent","agents":["claude"]},
     {"sha":"5ac55e2ec2c2","date":"2026-11-03T11:49:59.000Z","subject":"Retire referee-cohort, referee-feed and referee-decisions","by":"agent","agents":["claude"]},
     {"sha":"29b27875a659","date":"2026-11-03T03:37:14.000Z","subject":"Switch Tinylytics to the one script.js embed","by":"agent","agents":["claude"]},

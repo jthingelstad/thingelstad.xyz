@@ -2,7 +2,7 @@
   "kind": "github",
   "repository": "jthingelstad/things4good.xyz",
   "url": "https://github.com/jthingelstad/things4good.xyz",
-  "observedAt": "2026-11-03T18:25:46.099Z",
+  "observedAt": "2026-11-04T18:39:15.949Z",
   "repositoryCreatedAt": "2026-06-04T03:37:10.000Z",
   "archived": false,
   "description": "Things 4 Good — a handmade candle fundraiser site. Built with Eleventy.",
@@ -19,18 +19,18 @@
       "path": null,
       "branch": "main",
       "since": "2026-08-01T00:00:00.000Z",
-      "until": "2026-11-03T18:25:46.099Z",
-      "count": 38,
+      "until": "2026-11-04T18:39:15.949Z",
+      "count": 39,
       "complete": true,
       "months": [
         { "month": "2026-08", "count": 2 },
         { "month": "2026-09", "count": 2 },
         { "month": "2026-10", "count": 14 },
-        { "month": "2026-11", "count": 20 }
+        { "month": "2026-11", "count": 21 }
       ],
       "latestCommit": {
-        "date": "2026-11-03T16:44:24.000Z",
-        "url": "https://github.com/jthingelstad/things4good.xyz/commit/7be14cea6c542605c8fac94320a2dbd4d363f40e"
+        "date": "2026-11-04T13:02:04.000Z",
+        "url": "https://github.com/jthingelstad/things4good.xyz/commit/14d7932a70c5efc7c3629aa1a7fc0fd13548f1c1"
       }
     }
   ]

@@ -21,7 +21,7 @@ sources:
 connections:
   - to: foreground
     label: is skinned with
-    detail: WikiApiary’s distinctive look came from the Foreground skin, which I worked on for WikiApiary.
+    detail: WikiApiary’s distinctive look came from the Foreground skin, which Garrick van Buren built and Jamie worked on for WikiApiary.
     source: https://www.thingelstad.com/2013/12/22/one-year-for.html
 ---
 

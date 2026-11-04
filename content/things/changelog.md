@@ -41,7 +41,7 @@ story:
 bundles:
   - id: the-plan
     title: The plan
-    caption: Before any code, two documents written for my review on the morning of October 29, and kept up to date through the day as I answered their questions. One is the API Release Notes would need, the other the app that would use it, and each was checked against the other. They are here as they were, lightly redacted.
+    caption: Before any code, two documents written for Jamie’s review on the morning of October 29, and kept up to date through the day as he answered their questions. One is the API Release Notes would need, the other the app that would use it, and each was checked against the other. They are here as they were, lightly redacted.
   - id: first-scaffold
     title: The first scaffold
     caption: From the repository’s first half hour.
@@ -64,7 +64,7 @@ artifacts:
   - file: api-plan-2026-10-29.md
     bundle: the-plan
     title: The API plan
-    caption: 'Tokens, a public API and Changelog as one idea with two doors: what the API would do, the order to build it in, and my calls on each question, quoted as I gave them. Every phase of it was built that day. Taken out: a cousin’s name, an email address, and one sentence.'
+    caption: 'Tokens, a public API and Changelog as one idea with two doors: what the API would do, the order to build it in, and Jamie’s calls on each question, quoted as he gave them. Every phase of it was built that day. Taken out: a cousin’s name, an email address, and one sentence.'
     date: '2026-10-29'
   - file: app-scope-2026-10-29.md
     bundle: the-plan
@@ -101,7 +101,7 @@ artifacts:
   - file: add-a-date-2026-10-29.png
     bundle: before
     title: Adding a date
-    caption: A birthday, anniversary, trip or event, whether it goes in the morning email, and when the phone reminds me.
+    caption: A birthday, anniversary, trip or event, whether it goes in the morning email, and when the phone sends its reminder.
     date: '2026-10-29'
   - file: activity-2026-10-29.png
     bundle: before
@@ -116,7 +116,7 @@ artifacts:
   - file: sign-in-2026-10-30.png
     bundle: after
     title: Signing in
-    caption: By now Changelog signs in with Release Notes itself, which asks me to name the token it keeps and choose what it may do. A pasted token still works.
+    caption: By now Changelog signs in with Release Notes itself, which asks the person signing in to name the token it keeps and choose what it may do. A pasted token still works.
     date: '2026-10-30'
   - file: log-2026-10-30.png
     bundle: after
@@ -136,7 +136,7 @@ artifacts:
   - file: activity-2026-10-30.png
     bundle: after
     title: Activity on the paper
-    caption: With a line marking where I last looked, so what is new since is on top.
+    caption: With a line marking the last visit, so what is new since is on top.
     date: '2026-10-30'
   - file: settings-2026-10-30.png
     bundle: after

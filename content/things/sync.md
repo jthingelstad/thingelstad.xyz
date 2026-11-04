@@ -76,12 +76,12 @@ story:
   started: Live since October 26, 2026
   questions:
     - Is the newest Weekly Thing in Thingy yet?
-    - Which hop between my systems is running late?
+    - Which hop between Jamie’s systems is running late?
     - What does each system hold right now?
 artifacts:
   - file: sync-map.png
     title: The map, the first evening
-    caption: Every hop between my systems on October 26, 2026, coloured by its state. Weekly Thing 354 had reached the Librarian and Thingy and had not reached Linking Things, the gap the page was built to show.
+    caption: Every hop between Jamie’s systems on October 26, 2026, coloured by its state. Weekly Thing 354 had reached the Librarian and Thingy and had not reached Linking Things, the gap the page was built to show.
     date: '2026-10-26'
     source: https://sync.thingelstad.xyz/
   - file: sync-page.png

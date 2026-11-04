@@ -23,7 +23,7 @@ connections:
   - kind: lineage
     to: wt-builder
     label: was succeeded by
-    detail: Weekly Thing 350, in September 2026, was the first issue made in WT Builder, after a summer in which my Agent Studio work “kind of blew up my own publishing process.”
+    detail: Weekly Thing 350, in September 2026, was the first issue made in WT Builder, after a summer in which Jamie rebuilt the website, added the audio edition and worked on an Agent Studio, and, in his words, “kind of blew up my own publishing process.”
     source: https://weekly.thingelstad.com/archive/350/
 ---
 
