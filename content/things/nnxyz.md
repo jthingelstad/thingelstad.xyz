@@ -19,7 +19,7 @@ sources:
 connections: []
 story:
   color: '#8062a8'
-  introduction: Art I collected, hung with room to look closely.
+  introduction: Art Jamie collected, hung with room to look closely.
   engineering:
     - Static artwork pages are built from a structured collection catalog.
     - Native SVG and archived stroke data let visitors inspect and replay how a drawing was made.

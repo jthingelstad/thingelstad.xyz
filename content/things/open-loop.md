@@ -17,19 +17,19 @@ sources:
 connections:
   - to: planet-kubb
     label: discussed
-    detail: On Open Loop #1 I told how I started Planet Kubb, its wiki, Ask Planet Kubb and The Pitch.
+    detail: 'On Open Loop #1 Jamie told how he started Planet Kubb, its wiki, Ask Planet Kubb and The Pitch.'
     source: https://www.thingelstad.com/projects/open-loop/1-big-fuzzy-dead-cat/
   - to: road-sign-math
     label: discussed
-    detail: Open Loop #1 opened its notes with Road Sign Math, and I told how the game and its website began.
+    detail: 'The notes of Open Loop #1 list Road Sign Math, and Jamie told how the game and its website began.'
     source: https://www.thingelstad.com/projects/open-loop/1-big-fuzzy-dead-cat/
   - to: wikiapiary
     label: discussed
-    detail: Episode 7, in January 2013, told how I built WikiApiary in about three days and how Garrick named it.
+    detail: Episode 7, in January 2013, told how Jamie built WikiApiary in about three days and how Garrick named it.
     source: https://www.thingelstad.com/projects/open-loop/7-turtle-turtle-turtle/
   - to: planet-kubb-score
     label: discussed
-    detail: Episode 3, Kubb Fever, linked the Planet Kubb notation and scoresheet and talked through how Garrick van Buren and I record games.
+    detail: Episode 3, Kubb Fever, linked the Planet Kubb notation and scoresheet and talked through how Garrick van Buren and Jamie record games.
     source: https://www.thingelstad.com/projects/open-loop/3-kubb-fever/
 ---
 

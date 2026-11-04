@@ -26,14 +26,14 @@ sources:
 connections:
   - to: weekly-thing
     label: posts are syndicated in
-    detail: Weekly Thing republishes my blog posts, connecting the newsletter to my ongoing personal writing.
+    detail: Weekly Thing republishes Jamie’s blog posts, connecting the newsletter to his ongoing personal writing.
     source: https://weekly.thingelstad.com/
 story:
   color: '#a36852'
   introduction: A personal life, written in public.
   engineering:
     - The blog has run on .Text, WordPress, Pelican, Squarespace, Jekyll, and Micro.blog.
-    - Micro.blog is the current publishing authority. Thing Hugo is the theme I am building for it.
+    - Micro.blog is the current publishing authority. Thing Hugo is the theme Jamie is building for it.
     - Every post shares as its own card, a 1200 by 630 image drawn from the post itself (its title or opening words, date, categories, and first photo), made on demand at cards.thingelstad.com.
     - Longer writing, shorter updates, and photographs share one personal archive.
     - Weekly Thing republishes blog posts as part of the newsletter.

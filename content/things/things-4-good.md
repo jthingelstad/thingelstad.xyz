@@ -30,7 +30,7 @@ sources:
 connections:
   - to: jiggy-thing-puzzles
     label: sold
-    detail: The first sale in 2021 introduced Jiggy Thing Puzzle #001 alongside the candles, and the 2022 sale offered it again.
+    detail: 'The first sale in 2021 introduced Jiggy Thing Puzzle #001 alongside the candles, and the 2022 sale offered it again.'
     source: https://www.thingelstad.com/2021/11/09/things-good-fall.html
 story:
   color: '#dda73f'

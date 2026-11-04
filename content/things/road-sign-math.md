@@ -27,7 +27,7 @@ connections:
   - kind: lineage
     to: road-sign-math-2021
     label: was succeeded by
-    detail: Five years after I let roadsignmath.com go, a sign Tammy found near Phoenix brought the game back as a blog of just my family’s signs, with “Just my signs. No scoring system or leaderboards.”
+    detail: Five years after Jamie let roadsignmath.com go, a sign Tammy found near Phoenix brought the game back as a blog of just his family’s signs, or as he put it, “Just my signs. No scoring system or leaderboards.”
     source: https://www.thingelstad.com/2023/10/21/road-sign-math.html
 story:
   color: '#287454'
@@ -35,7 +35,7 @@ story:
   engineering:
     - The site launched in 2005 as a blog of signs on .Text and moved to WordPress in 2007. As other people sent in their own signs it gained rules for play, a scoring system and scoreboards for players and states.
     - In 2011 it moved from a blog to a wiki so players could submit and maintain their own signs.
-    - In October 2026 I rebuilt it from a 2016 MediaWiki backup, as Markdown with each sign’s math in TeX, and recovered its photos from a poster, the Internet Archive, an old backup drive and copies I had kept.
+    - In October 2026 Jamie rebuilt it from a 2016 MediaWiki backup, as Markdown with each sign’s math in TeX, and recovered its photos from a poster, the Internet Archive, an old backup drive and copies he had kept.
   stack:
     - .Text
     - WordPress
@@ -55,18 +55,18 @@ story:
 bundles:
   - id: archive
     title: The first site, rebuilt
-    caption: In October 2026 I rebuilt the first site, 2005 to 2014, from a 2016 MediaWiki backup, with photos recovered from the one-year anniversary poster, the Internet Archive, an old backup drive and copies I had kept. Of its 251 signs, 157 have a photo again.
+    caption: In October 2026 Jamie rebuilt the first site, 2005 to 2014, from a 2016 MediaWiki backup, with photos recovered from the one-year anniversary poster, the Internet Archive, an old backup drive and copies he had kept. Of its 251 signs, 157 have a photo again.
   - id: my-signs
-    title: My signs
-    caption: Photos of the signs I found myself, from the first site.
+    title: Jamie’s signs
+    caption: Photos of the signs Jamie found himself, from the first site.
   - id: first-site
     title: From the first site
-    caption: The rules, the logos I made, and the poster Jim Bernard and Suzie Meredith made for me as a gift for the site’s first year.
+    caption: The rules, the logos Jamie made, and the poster Jim Bernard and Suzie Meredith made for him as a gift for the site’s first year.
 artifacts:
   - file: map-2005-2014.png
     bundle: archive
     title: Every sign, 2005 to 2014
-    caption: All 251 signs, mine in yellow and other players’ in blue. 240 are in 44 states and Washington, D.C., none from Indiana, Kansas, Maine, Nevada, Oklahoma or Tennessee, and 11 are in eight other countries, one of them in the Serengeti.
+    caption: All 251 signs, Jamie’s in yellow and other players’ in blue. 240 are in 44 states and Washington, D.C., none from Indiana, Kansas, Maine, Nevada, Oklahoma or Tennessee, and 11 are in eight other countries, one of them in the Serengeti.
     date: '2026-10-30'
   - file: signs-2005-2014.csv
     bundle: archive
@@ -76,18 +76,18 @@ artifacts:
   - file: photos-2005-2014.zip
     bundle: archive
     title: Every photo, 2005 to 2014
-    caption: All 164 surviving photos of 157 signs, most of them sent in by the players who found the signs, named like the rows of the CSV, by the day the sign was posted and its name. Most are cut from the one-year anniversary poster; the rest come from the Internet Archive, an old backup drive and copies I had kept. Camera details are taken out.
+    caption: All 164 surviving photos of 157 signs, most of them sent in by the players who found the signs, named like the rows of the CSV, by the day the sign was posted and its name. Most are cut from the one-year anniversary poster; the rest come from the Internet Archive, an old backup drive and copies Jamie had kept. Camera details are taken out.
     date: '2026-10-30'
     preview: photos-2005-2014.jpg
   - file: genesis-2005-03-07.jpg
     bundle: my-signs
     title: Genesis
-    caption: The sign that started it, on I-94 near Melrose, Minnesota, heading east toward the Twin Cities. Melrose 3, St Cloud 33, Minneapolis 99, and 3 × 33 = 99. The full-size frame from my Canon PowerShot G3, found on an old backup drive in 2026; the site only ever showed a small copy.
+    caption: The sign that started it, on I-94 near Melrose, Minnesota, heading east toward the Twin Cities. Melrose 3, St Cloud 33, Minneapolis 99, and 3 × 33 = 99. The full-size frame from Jamie’s Canon PowerShot G3, found on an old backup drive in 2026; the site only ever showed a small copy.
     date: '2005-03-07'
   - file: my-signs-2005-2012.jpg
     bundle: my-signs
-    title: My signs, 2005 to 2012
-    caption: The 24 signs I found for the first site whose photos survive, with the day I posted each one. Most are cut from the one-year anniversary poster and are as sharp as the site showed them.
+    title: Jamie’s signs, 2005 to 2012
+    caption: The 24 signs Jamie found for the first site whose photos survive, with the day he posted each one. Most are cut from the one-year anniversary poster and are as sharp as the site showed them.
     date: '2026-10-30'
   - file: rules-3rd-edition-2006.pdf
     bundle: first-site
@@ -98,17 +98,17 @@ artifacts:
   - file: logo-original.jpg
     bundle: first-site
     title: The original logo
-    caption: 'The first site’s logo, which I made: a guide sign that does its own math, 4 × 25 = 100.'
+    caption: 'The first site’s logo, which Jamie made: a guide sign that does its own math, 4 × 25 = 100.'
   - file: logo-2011.pdf
     bundle: first-site
     title: The shield logo
-    caption: 'The wiki’s logo, which I made: an interstate shield in front of the Genesis sign. The vector original, saved as a PDF on February 21, 2011.'
+    caption: 'The wiki’s logo, which Jamie made: an interstate shield in front of the Genesis sign. The vector original, saved as a PDF on February 21, 2011.'
     date: '2011-02-21'
     preview: logo-2011.png
   - file: poster-2006.jpg
     bundle: first-site
     title: The one-year poster
-    caption: Jim Bernard and Suzie Meredith made me this 16 × 20 poster of the first year’s signs as a gift. Most of the photos in this archive were cut from its print file; this copy is half its size.
+    caption: Jim Bernard and Suzie Meredith made Jamie this 16 × 20 poster of the first year’s signs as a gift. Most of the photos in this archive were cut from its print file; this copy is half its size.
     date: '2006'
 ---
 

@@ -23,7 +23,7 @@ sources:
 connections:
   - to: jamie-thingelstad-blog
     label: posts claims to
-    detail: I configured Micro.blog so that each POAP I mint becomes a post on my blog, from my POAP2RSS feed.
+    detail: Jamie configured Micro.blog so that each POAP he minted became a post on his blog, from his POAP2RSS feed.
     source: https://weekly.thingelstad.com/archive/326/
 ---
 

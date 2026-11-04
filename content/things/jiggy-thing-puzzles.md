@@ -18,7 +18,7 @@ sources:
 connections:
   - to: things-4-good
     label: was sold at
-    detail: Jiggy Thing Puzzle #001 was introduced at the first Things 4 Good Fall Fundraiser in 2021 and sold again in 2022, with proceeds going to the causes our family chose.
+    detail: 'Jiggy Thing Puzzle #001 was introduced at the first Things 4 Good Fall Fundraiser in 2021 and sold again in 2022, with proceeds going to the causes the family chose.'
     source: https://www.thingelstad.com/2021/11/09/things-good-fall.html
 ---
 
