@@ -20,7 +20,7 @@ sources:
 connections:
   - to: thingy
     label: publishes a catalog for
-    detail: The registry is published as things.json and llms.txt so Thingy can answer questions about my projects without this site running a model.
+    detail: The registry is published as things.json and llms.txt so Thingy can answer questions about Jamie’s projects without this site running a model.
     source: https://github.com/jthingelstad/thingelstad.xyz
 ---
 

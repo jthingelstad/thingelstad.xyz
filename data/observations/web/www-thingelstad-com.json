@@ -1,11 +1,11 @@
 {
   "kind": "web",
   "url": "https://www.thingelstad.com/",
-  "observedAt": "2026-11-02T20:45:50.833Z",
+  "observedAt": "2026-11-04T18:39:15.949Z",
   "sitemap": {
     "url": "https://www.thingelstad.com/sitemap.xml",
-    "pages": 10503,
-    "newestModified": "2026-11-02T01:58:19.000Z",
+    "pages": 10505,
+    "newestModified": "2026-11-03T22:20:59.000Z",
     "months": [
       { "month": "2025-12", "count": 41 },
       { "month": "2026-01", "count": 51 },
@@ -18,7 +18,7 @@
       { "month": "2026-08", "count": 19 },
       { "month": "2026-09", "count": 34 },
       { "month": "2026-10", "count": 56 },
-      { "month": "2026-11", "count": 5 }
+      { "month": "2026-11", "count": 7 }
     ],
     "complete": true
   },
@@ -26,10 +26,10 @@
     "url": "https://www.thingelstad.com/feed.json",
     "title": "Jamie Thingelstad",
     "items": 25,
-    "newestPublished": "2026-11-02T01:58:19.000Z",
+    "newestPublished": "2026-11-03T22:20:59.000Z",
     "months": [
-      { "month": "2026-10", "count": 20 },
-      { "month": "2026-11", "count": 5 }
+      { "month": "2026-10", "count": 18 },
+      { "month": "2026-11", "count": 7 }
     ]
   }
 }

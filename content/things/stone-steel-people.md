@@ -18,7 +18,7 @@ sources:
 connections:
   - to: thingelstad-photography
     label: drew on the same work as
-    detail: Both come from my photography of the early 2010s, which the portfolio site showed by subject.
+    detail: Both come from Jamie’s photography of the early 2010s, which the portfolio site showed by subject.
     source: https://www.thingelstad.com/2012/07/01/website-for-my.html
 ---
 

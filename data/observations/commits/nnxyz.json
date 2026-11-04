@@ -2,9 +2,10 @@
   "kind": "commits",
   "repository": "jthingelstad/nnxyz",
   "url": "https://github.com/jthingelstad/nnxyz",
-  "observedAt": "2026-11-03T18:25:46.099Z",
+  "observedAt": "2026-11-04T18:39:15.949Z",
   "branch": "main",
   "commits": [
+    {"sha":"10936206368f","date":"2026-11-04T15:35:45.000Z","subject":"Record that collection and media left the Mac (#37)","pr":37,"by":"agent","agents":["claude"]},
     {"sha":"647d51b0fb63","date":"2026-11-03T17:04:53.000Z","subject":"Retire the nnxyz-site-distribution-5xx alarm","pr":36,"by":"me"},
     {"sha":"14c139bf5f1f","date":"2026-11-03T16:58:01.000Z","subject":"Format the alarm check with prettier","by":"agent","agents":["claude"]},
     {"sha":"9e038447522b","date":"2026-11-03T16:57:09.000Z","subject":"Retire the nnxyz-site-distribution-5xx alarm","by":"agent","agents":["claude"]},

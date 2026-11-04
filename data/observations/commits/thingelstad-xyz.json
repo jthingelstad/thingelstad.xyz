@@ -2,9 +2,11 @@
   "kind": "commits",
   "repository": "jthingelstad/thingelstad.xyz",
   "url": "https://github.com/jthingelstad/thingelstad.xyz",
-  "observedAt": "2026-11-03T18:25:46.099Z",
+  "observedAt": "2026-11-04T18:39:15.949Z",
   "branch": "main",
   "commits": [
+    {"sha":"2f79921295e5","date":"2026-11-04T01:50:09.000Z","subject":"Roll out Thingy's persona: sidekick, he/him, third-person front matter (#103)","pr":103,"by":"agent","agents":["claude"]},
+    {"sha":"e3346098cafd","date":"2026-11-03T20:58:15.000Z","subject":"Add Thingy Model v0.11 to v0.13 artifacts: screen face, tools, cloth pass (#101)","pr":101,"by":"agent","agents":["claude"]},
     {"sha":"c9067bfd5958","date":"2026-11-03T17:05:12.000Z","subject":"Retire the thingelstad-xyz-site-distribution-5xx alarm (#99)","pr":99,"by":"agent","agents":["claude"]},
     {"sha":"31e4ef2acfdf","date":"2026-11-03T03:42:25.000Z","subject":"Load Tinylytics from the shared script.js with data-site (#98)","pr":98,"by":"agent","agents":["claude"]},
     {"sha":"46dde3fd23d7","date":"2026-11-02T14:57:17.000Z","subject":"Attach the shared edge web ACL to the distribution (#96)","pr":96,"by":"agent","agents":["claude"]},

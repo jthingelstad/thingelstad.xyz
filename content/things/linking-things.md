@@ -29,12 +29,12 @@ connections:
   - kind: lineage
     to: link-blog
     label: succeeds
-    detail: In Weekly Thing 274 I wrote that if I made a link blog again, I wanted it “to not be blog-date-centric but instead content-keyword-search centric.” Linking Things is built around search, not dates.
+    detail: In Weekly Thing 274 Jamie wrote that if he made a link blog again, he wanted it “to not be blog-date-centric but instead content-keyword-search centric.” Linking Things is built around search, not dates.
     source: https://weekly.thingelstad.com/archive/274/
   - kind: lineage
     to: links-thing
     label: follows
-    detail: links_thing gave each of just under 4,000 bookmarks its own wiki page in 2012. Linking Things gives every link I have saved its own page again.
+    detail: links_thing gave each of just under 4,000 bookmarks its own wiki page in 2012. Linking Things gives every link Jamie has saved its own page again.
     source: https://www.thingelstad.com/2012/07/01/bookmarking-with-semantic.html
 ---
 

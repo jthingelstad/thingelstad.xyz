@@ -2,9 +2,11 @@
   "kind": "commits",
   "repository": "jthingelstad/cards.thingelstad.com",
   "url": "https://github.com/jthingelstad/cards.thingelstad.com",
-  "observedAt": "2026-11-03T18:25:46.099Z",
+  "observedAt": "2026-11-04T18:39:15.949Z",
   "branch": "main",
   "commits": [
+    {"sha":"aea833fe0996","date":"2026-11-04T12:59:24.000Z","subject":"Give the card function a full vCPU","pr":23,"by":"me"},
+    {"sha":"3c24c0a35241","date":"2026-11-04T12:55:49.000Z","subject":"Give the card function a full vCPU","by":"agent","agents":["claude"]},
     {"sha":"d435b40265be","date":"2026-11-03T16:42:06.000Z","subject":"Retire the card maker's three CloudWatch alarms","pr":22,"by":"me"},
     {"sha":"a7d06ec15232","date":"2026-11-03T16:30:43.000Z","subject":"Retire the card maker's three CloudWatch alarms","by":"agent","agents":["claude"]},
     {"sha":"7795f9098f4c","date":"2026-11-02T14:34:21.000Z","subject":"Attach the shared edge web ACL to the distribution (#21)","pr":21,"by":"agent","agents":["claude"]},

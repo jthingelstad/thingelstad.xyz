@@ -24,7 +24,7 @@ connections:
   - kind: lineage
     to: 612-poap-challenge
     label: led to
-    detail: The Peanuts Tree was my first location POAP in May 2025. Six days later I announced the 612 POAP Challenge, built on the same feature.
+    detail: The Peanuts Tree was Jamie’s first location POAP, in May 2025. Six days later he announced the 612 POAP Challenge, built on the same feature.
     source: https://www.thingelstad.com/2025/05/31/poap-challenge-collect-them-now.html
 ---
 

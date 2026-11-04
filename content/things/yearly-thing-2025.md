@@ -23,7 +23,7 @@ sources:
 connections:
   - to: weekly-thing
     label: collects a year of
-    detail: All 324 links I commented on across 31 issues of the Weekly Thing in 2025, reorganized into ten topic chapters, in print and eBook form. Proceeds support the Weekly Thing Supporting Membership program.
+    detail: All 324 links Jamie commented on across 31 issues of the Weekly Thing in 2025, reorganized into ten topic chapters, in print and eBook form. Proceeds support the Weekly Thing Supporting Membership program.
     source: https://www.thingelstad.com/2026/01/20/i-made-a-book-yearly.html
 ---
 

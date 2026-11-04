@@ -2,9 +2,10 @@
   "kind": "commits",
   "repository": "jthingelstad/things4good.xyz",
   "url": "https://github.com/jthingelstad/things4good.xyz",
-  "observedAt": "2026-11-03T18:25:46.099Z",
+  "observedAt": "2026-11-04T18:39:15.949Z",
   "branch": "main",
   "commits": [
+    {"sha":"14d7932a70c5","date":"2026-11-04T13:02:04.000Z","subject":"Bump recursive-copy override to clear minimatch alert 7 (#36)","pr":36,"by":"agent","agents":["claude"]},
     {"sha":"7be14cea6c54","date":"2026-11-03T16:44:24.000Z","subject":"Alarm cut: remove the site 5xx alarm","pr":35,"by":"me"},
     {"sha":"eea4c1e22f21","date":"2026-11-03T16:38:45.000Z","subject":"Alarm cut: remove the site distribution 5xx alarm","by":"agent","agents":["claude"]},
     {"sha":"b89c8fcdb189","date":"2026-11-03T04:40:44.000Z","subject":"Sale logistics: pickup anytime, Jamie's email, this year's causes slot (#34)","pr":34,"by":"agent","agents":["claude"]},
