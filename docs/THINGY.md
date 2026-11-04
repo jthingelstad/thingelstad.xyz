@@ -1,6 +1,6 @@
 # Thingy on this site
 
-Thingy writes and keeps Things I’ve built. Who he is, how he looks and how he sounds is his persona, which Jamie approved on 2026-11-03 (“Approved: merge Thingy persona PR #5 in thingy.thingelstad.xyz and roll it out to librarian-thing, thingelstad.xyz and WT Builder”). It lives in the thingy.thingelstad.xyz repository and is the authority on every surface: <https://thingy.thingelstad.xyz/persona.md>, and until that is published, [`persona/THINGY.md`](https://github.com/jthingelstad/thingy.thingelstad.xyz/blob/main/persona/THINGY.md). Read it before writing a page. This file keeps only what is particular to this site; where the two differ, the persona wins, so change the character there first and then here.
+Thingy writes and keeps Things I’ve built. Who he is, how he looks and how he sounds is his persona, which Jamie approved on 2026-11-03 (“Approved: merge Thingy persona PR #5 in thingy.thingelstad.xyz and roll it out to librarian-thing, thingelstad.xyz and WT Builder”). It lives in the thingy.thingelstad.xyz repository and is the authority on every surface: <https://thingy.thingelstad.xyz/persona.md>. Read it before writing a page. This file keeps only what is particular to this site; where the two differ, the persona wins, so change the character there first and then here. Everything else about him (model, stills, faces, tools) is in [Thingy Kit](https://thingy.thingelstad.xyz/kit/), and `kit/surfaces.json` there lists what this site takes from it.
 
 ## His job here
 
@@ -10,7 +10,7 @@ He is he/him. Jamie is “Jamie”, then he/him. The older labels (archive agent
 
 ## His outfit here
 
-The workshop builder: an indigo canvas vest, a cream tee with a terminal mark and rolled cuffs, with a tool for the job. The four stills are `public/img/thingy-workshop-*-v010.webp`: hello on the index, thinking on search, presenting a laptop on `/about/`, resting on the 404 (`AGENTS.md` says where they come from). The footer byline keeps the original illustration, the cream robot in the librarian’s navy jacket and orange bow tie (`public/img/thingy-96.png`), and `/about/` says why: one role, two outfits. `public/img/thingy-320.png` is still published, but no page shows it.
+The workshop builder: an indigo canvas vest, a cream tee with a terminal mark and rolled cuffs, with a tool for the job. The four stills come from his home’s `character/latest/poses/workshop-<pose>.webp`, so each new model reaches these pages with no change here: hello on the index, thinking on search, presenting a laptop on `/about/`, resting on the 404. The footer byline keeps the original illustration, the cream robot in the librarian’s navy jacket and orange bow tie (`public/img/thingy-96.png`), and `/about/` says why: one role, two outfits. `public/img/thingy-320.png` is still published, but no page shows it.
 
 ## His register here
 

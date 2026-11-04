@@ -9,6 +9,9 @@ topics:
   - agents
 sources:
   - kind: website
+    url: https://thingy.thingelstad.xyz/kit/
+    role: reference
+  - kind: website
     url: https://thingy.thingelstad.com/about/
     role: reference
   - kind: website
@@ -34,6 +37,7 @@ story:
     - The antenna’s lens switches on to a heart-red glow, with a light inside it and a halo. Unlit, it stays tangerine.
     - A tool switch puts a screwdriver, hammer, drill, or laptop in hand. Each hand tool has a solved grip and its own carry, show, and work poses.
     - The coat is brushed felt and the vest worn canvas, with rolled lapels, topstitching, and folds bound to the same skeleton.
+    - The character is published from thingy.thingelstad.xyz, the source of Thingy. Its kit gives a project his persona, model, faces, and component behind one link, and this site’s own stills follow the newest model there.
     - Pose assets and short animation studies test waving, sitting, walking, and presenting a laptop. Animator controls and motion still need refinement.
   stack:
     - Blender
