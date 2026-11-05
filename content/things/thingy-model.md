@@ -57,7 +57,7 @@ story:
   questions:
     - How did Thingy’s illustration become a model?
     - Which Scenes share the same skeleton?
-    - What still needs work before animation and printing?
+    - What still needs work before animation?
 bundles:
   - id: foundations
     title: From illustration to body
@@ -83,6 +83,9 @@ bundles:
   - id: scenes
     title: Scenes and accessories
     caption: At v0.15 the outfits became Scenes, the pack and headphones came off, and the other three Scenes’ cloth came up to the Library’s.
+  - id: first-print
+    title: The first print
+    caption: The v0.13 print figure, off the screen and on a counter.
   - id: two-sites
     title: The librarian and the builder
     caption: The v0.13 checkpoint in the two outfits meant for Jamie’s sites, the librarian for Ask Thingy and the workshop builder for this one.
@@ -238,6 +241,11 @@ artifacts:
     title: The other Scenes’ cloth · v0.14 and v0.15
     caption: v0.14 above and v0.15 below. Outdoors and Concert gained folds and topstitching, and all three gained a weave coarse enough to survive the web model’s texture.
     date: '2026-11-04'
+  - file: thingy-printed-v013.jpg
+    bundle: first-print
+    title: Thingy in plastic · v0.13
+    caption: One colour, standing on his oval base. The face and antenna came through clearly; the raised hand and badge lettering softened the most. The bowl behind him has been retouched out of the photo.
+    date: '2026-11-03'
   - file: librarian-thinking-v013.png
     bundle: two-sites
     title: The librarian, thinking · v0.13
