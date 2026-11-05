@@ -58,7 +58,7 @@ eleventyComputed:
       </div>
       <section class="session-about" id="about" aria-labelledby="about-this-session">
         <h2 id="about-this-session">About this session</h2>
-        <p>Jamie answered out loud on {{ interview.started | date }}. I asked the questions and wrote the point at the top. His answers are his own words, lightly edited because speech and writing are different things. Where I have added a fact to one, it is marked as mine and it says where the fact came from.</p>
+        <p>Jamie answered out loud on {{ interview.started | date }}. I asked the questions and wrote the point at the top. His answers are his own words, edited because speech and writing are different things. Where I have added a fact to one, it is marked as mine and it says where the fact came from.</p>
         {% if interview.notes | length %}<ul>
           {% for note in interview.notes %}<li>{{ note }}</li>
           {% endfor %}

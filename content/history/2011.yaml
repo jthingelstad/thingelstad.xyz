@@ -1,8 +1,8 @@
 - id: numbers2words-recorded-development
   date: 2011-07-20
   kind: development
-  title: 'Numbers2Words: recorded development begins'
-  summary: The first commit to the Numbers2Words repository. The idea came before the code.
+  title: 'Numbers2Words: the code begins'
+  summary: The first commit to the Numbers2Words repository.
   source: https://github.com/jthingelstad/Number2Words/commit/3e486a7424544d3d9dad9915f236b615a7c8fd86
   things:
     - numbers2words

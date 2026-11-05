@@ -10,7 +10,7 @@ started: '2018-02-24'
 
 Jamie’s friend David Hussman gave his age as a version number. In February 2018 Jamie wrote it up as [Your Version Number](https://www.thingelstad.com/2018/02/24/your-version-number.html) and mapped it onto semantic versioning: decades are the major version, years into the decade the minor, and days since your last birthday the patch. He was v4.6.52 that day. David died that August. The arithmetic is his, and the [site’s About page](https://yourversionnumber.com/about/) says so.
 
-> the idea came from a conversation I was having with my friend David Hussman, and he and I were talking about this idea of software versions and talking about like, you know, having a major version, a minor version, and every day. And we were just riffing on this idea and really both just jamming on it being a really fun concept.
+> The idea came from a conversation with my friend David Hussman. We were talking about software versions, about having a major version, a minor version, and every day, and we were riffing on it and both really jamming on what a fun concept it was.
 >
 > [Jamie, question 12](https://thingelstad.xyz/interviews/session-2/#q12)
 

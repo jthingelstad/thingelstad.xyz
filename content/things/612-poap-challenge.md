@@ -35,7 +35,7 @@ The 612 POAP Challenge was a citywide scavenger hunt that ran from the end of Ma
 
 Jamie [announced it on May 31, 2025](https://www.thingelstad.com/2025/05/31/poap-challenge-collect-them-now.html). It joined geocaching with the [612 Series](https://www.thingelstad.com/2023/04/05/complete-collection-of.html) of Minneapolis NFTs by Erik Halaas and StayNftyMpls, which he collected in full and whose creator he had [interviewed](https://www.thingelstad.com/2024/01/15/interview-with-series.html) in 2024. Six days earlier he had made [his first location POAP](https://www.thingelstad.com/2025/05/25/i-created-my-very-first.html), at his family’s Charlie Brown Tree, and he wanted to build something bigger with the new feature. The challenge’s tokens were illustrated in the spirit of the 612 Series. “I love that I was able to create an entire activity on the POAP platform,” he wrote. In the interview he placed the challenge at the end of a longer habit:
 
-> I’ve always had a collector mentality. As a kid, I loved collecting things. I still remember when I collected every single M\*A\*S\*H figurine, for example. And POAPs were a way of collecting. And so the 612 POAP Challenge was kind of the culmination of that, if you will. The idea of creating a game that ran on the POAP ecosystem that I could pull people into and play in the real world.
+> I’ve also always had a collector mentality. As a kid, I loved collecting things. I still remember collecting every single M\*A\*S\*H figurine, for example. POAPs were a way of collecting, and the 612 POAP Challenge was the culmination of that: a game that ran on the POAP ecosystem, that I could pull people into and play in the real world.
 >
 > [Jamie, question 15](https://thingelstad.xyz/interviews/session-2/#q15)
 

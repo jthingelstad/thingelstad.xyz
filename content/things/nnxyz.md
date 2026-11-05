@@ -26,7 +26,7 @@ story:
   engineering:
     - Static artwork pages are built from a structured collection catalog.
     - Native SVG and archived stroke data let visitors inspect and replay how a drawing was made.
-    - Saved curatorial readings and related works support exploration without a live model call.
+    - Curatorial readings and related works are saved ahead of time, so exploring needs no live model call.
   stack:
     - Astro
     - TypeScript
@@ -47,8 +47,8 @@ The collector’s introduction on the front page is Jamie’s. The [About page](
 
 Why this art got a museum, in his words:
 
-> I felt like his work had a lot of emotion and movement and feeling, and I felt like it told a story. That’s why I bought the collections when I had the opportunity…
+> I felt like his work had a lot of emotion and movement and feeling, and I felt like it told a story. That’s why I bought the collections when I had the opportunity, and why I collected the pieces.
 >
 > [Jamie, question 23](https://thingelstad.xyz/interviews/session-3/#q23)
 
-Buying on Nifty Ink was, for a family that buys art at art fairs, [“the crypto version of what we always do at art fairs”](https://thingelstad.xyz/interviews/session-3/#q23). And the museum is for him first: [“even if nobody else came there, the fact that I can now visit that museum and explore and see the art is to me really valuable”](https://thingelstad.xyz/interviews/session-3/#q23). He counts it, with Proof of a Person, as [“a new class of thing, something where it’s an activity I did, and I kind of created that as a capstone that will just exist in perpetuity”](https://thingelstad.xyz/interviews/session-5/#q35).
+Buying on Nifty Ink was, for a family that buys art at art fairs, [“the crypto version of what we always do at art fairs”](https://thingelstad.xyz/interviews/session-3/#q23). And the museum is for him first: [“Even if nobody else came, the fact that I can now visit that museum and explore the art is really valuable to me”](https://thingelstad.xyz/interviews/session-3/#q23). He counts it, with Proof of a Person, as [“a new class of thing, an activity I did, with a capstone I created that will just exist in perpetuity”](https://thingelstad.xyz/interviews/session-5/#q35).

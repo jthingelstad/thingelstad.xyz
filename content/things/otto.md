@@ -35,10 +35,10 @@ In September 2026 he [upgraded Otto to OpenClaw 2](https://www.thingelstad.com/2
 
 How Otto fits with his other agents, in his words:
 
-> Otto is my personal agent. So if you think about Thingy as being the agent that works alongside me and is even visible to the public, Otto, spelled O-T-T-O, is my personal agent. Originally powered by OpenClaw, now running on ChatGPT Dot, and also kind of instantiated through Claude Duet. Otto helps me with my email, my calendar and just kind of any personal projects that I have going on.
+> Otto is my personal agent. If you think of Thingy as the agent that works alongside me and is even visible to the public, Otto, spelled O-T-T-O, is my personal agent. It was originally powered by OpenClaw, and now runs on ChatGPT Dot and is also instantiated through Claude Duet. Otto helps with my email, my calendar and any personal projects I have going on.
 >
 > [Jamie, question 19](https://thingelstad.xyz/interviews/session-3/#q19)
 
-Release Notes began as one of Otto’s habits: [“Otto every day was writing into a channel with a daily reflection and my version number”](https://thingelstad.xyz/interviews/session-3/#q19).
+Release Notes began as one of Otto’s habits: [“Every day Otto wrote a daily reflection and my version number into a channel”](https://thingelstad.xyz/interviews/session-3/#q19).
 
 Otto has a face, and it made the face itself: [“I asked Otto to generate its own profile image, and I’ve had Otto update it over time.”](https://thingelstad.xyz/interviews/session-6/#q39) Why it never got a character the way Thingy did: [“Otto doesn’t show up on the web and doesn’t interact with anyone but me, so it doesn’t need that same consistent persona across many users and scenes.”](https://thingelstad.xyz/interviews/session-6/#q39)

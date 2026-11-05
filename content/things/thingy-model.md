@@ -34,7 +34,7 @@ story:
   introduction: Thingy, from more than one angle.
   engineering:
     - An editable Blender master holds the body, articulated hands, clothing, props, and a shared 40-bone skeleton.
-    - Four Scenes switch on the same rig. Each declares its accessories, the workshop’s tools, the Outdoors daypack, the Concert headphones, and a new Scene is one more entry in that list.
+    - Four Scenes switch on the same rig. Each declares its accessories (the workshop’s tools, the Outdoors daypack, the Concert headphones), and a new Scene is one more entry in that list.
     - Taking the headphones off brings the standard ear housings back; the daypack’s straps go with it.
     - The bow tie’s dots and the name badge’s lettering are packed image textures on their surfaces.
     - The face is an image on the screen. One atlas holds the original expression, the four Ask Thingy moods, six more faces, and their blinks; a single control picks one.
@@ -224,7 +224,7 @@ artifacts:
   - file: six-new-faces-v014.jpg
     bundle: screen-face
     title: Six more faces · v0.14
-    caption: Delighted, curious, proud, eager, sympathetic, and sheepish join the original and the four moods. Each had its meaning settled before it was drawn, using the same stroke and colour as the original.
+    caption: Delighted, curious, proud, eager, sympathetic, and sheepish join the original and the four moods. Each had its meaning settled before it was drawn, using the same stroke and color as the original.
     date: '2026-11-03'
   - file: scenes-v015.jpg
     bundle: scenes
@@ -244,7 +244,7 @@ artifacts:
   - file: thingy-printed-v013.jpg
     bundle: first-print
     title: Thingy in plastic · v0.13
-    caption: One colour, standing on his oval base. The face and antenna came through clearly; the raised hand and badge lettering softened the most. The bowl behind him has been retouched out of the photo.
+    caption: One color, standing on his oval base. The face and antenna came through clearly; the raised hand and badge lettering softened the most. The bowl behind him has been retouched out of the photo.
     date: '2026-11-03'
   - file: librarian-thinking-v013.png
     bundle: two-sites
@@ -274,6 +274,6 @@ At v0.14 six more faces joined the moods, each with its meaning settled before i
 
 The character lives at [thingy.thingelstad.xyz](https://thingy.thingelstad.xyz/), the source of Thingy. [Thingy Kit](https://thingy.thingelstad.xyz/kit/) gives a project his persona, model, faces, and component behind one link, and following it means a new model reaches every site that does: Ask Thingy and this site both do. Everything there is licensed [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/), and [its repository](https://github.com/jthingelstad/thingy.thingelstad.xyz) is public. The Blender masters stay in a private repository.
 
-The latest checkpoint is v0.15. The rig and short performance studies are working prototypes, and more animation controls, facial acting, and clothing adjustments remain. A one-colour 180 mm [print figure](https://thingy.thingelstad.xyz/print/) for Jamie’s Bambu P2S, made from v0.13, is on the site, and on November 4, 2026 he said [“I printed the 3D model last night, so there’s now a physical print of Thingy.”](https://thingelstad.xyz/interviews/session-6/#q39)
+The latest checkpoint is v0.15. The rig and short performance studies are working prototypes, and more animation controls, facial acting, and clothing adjustments remain. A one-color 180 mm [print figure](https://thingy.thingelstad.xyz/print/) for Jamie’s Bambu P2S, made from v0.13, is on the site, and on November 4, 2026 he said [“I printed the 3D model last night, so there’s now a physical print of Thingy.”](https://thingelstad.xyz/interviews/session-6/#q39)
 
 He did not plan for it to go this far: [“I never meant to create thingy.thingelstad.xyz or what has now become Thingy Kit.”](https://thingelstad.xyz/interviews/session-6/#q39) [“What started as a 3D model so I could pose Thingy differently has become a complete definition of Thingy’s character and persona: Thingy Kit.”](https://thingelstad.xyz/interviews/session-6/#q39)

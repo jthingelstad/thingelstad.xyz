@@ -52,8 +52,8 @@ artifacts:
     date: '2009-05'
     source: https://www.thingelstad.com/2009/05/12/introducing-velotweets-the.html
   - file: color-palette.ase
-    title: The colour palette
-    caption: 'The site’s colours as Adobe swatches: light blue #A0D3F2, slate blue #56779A, dark brown #261802, yellow #FFFF00, and white.'
+    title: The color palette
+    caption: 'The site’s colors as Adobe swatches: light blue #A0D3F2, slate blue #56779A, dark brown #261802, yellow #FFFF00, and white.'
   - file: jerseys.zip
     preview: jerseys.png
     title: Jersey icons
@@ -70,6 +70,6 @@ The last Internet Archive capture of the working site is from [March 2010](https
 
 He still has the project’s files: its source code at the last commit, on March 21, 2010, and the design files from the launch. The artifacts below come from them and from his launch post. Among them are icons for the yellow, green, polka dot and white jerseys that never appeared on the site. The team wanted to show how many of each jersey a rider had won, but never found a free source for that data. It is a project he had lost track of until this site brought it back: [“There were a handful of projects like VeloTweets that I had totally forgotten about, and it was delightful to see that come back to life.”](https://thingelstad.xyz/interviews/session-5/#q34)
 
-> VeloTweets made me smile a lot because I had kind of forgotten about that project. But it really reminded me of the best of times for Twitter. When there were tons of professional cyclists using it, Twitter was just fun. … And it was a great, fun project that I built with a couple of friends.
+> VeloTweets made me smile a lot, because I had forgotten about that project. It reminded me of the best of times for Twitter. When there were tons of professional cyclists using it, Twitter was just fun. … It was a great, fun project I built with a couple of friends.
 >
 > [Jamie, question 26](https://thingelstad.xyz/interviews/session-4/#q26)

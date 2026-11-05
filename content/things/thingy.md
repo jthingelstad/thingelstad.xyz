@@ -52,7 +52,7 @@ connections:
     source: https://github.com/jthingelstad/librarian-thing/tree/main/data/things
   - to: wt-builder
     label: receives issues from
-    detail: After each issue publishes, WT Builder commits the issue text into the Librarian repository so Thingy can retrieve and cite it.
+    detail: After each issue publishes, WT Builder nudges the Librarian, which pulls the issue from the Weekly Thing site so Thingy can retrieve and cite it.
     source: https://github.com/jthingelstad/librarian-thing
 story:
   color: '#6f8f6a'
@@ -60,8 +60,8 @@ story:
   engineering:
     - A static React app built on assistant-ui, served from a private S3 bucket behind CloudFront.
     - It calls Librarian, its private archive API, streams answers over server-sent events, and renders citations and inline photos.
-    - Librarian's Python corpus pipeline builds chunked, embedded indexes of every source, and a Node API on AWS Lambda answers from them.
-    - Retrieval is hybrid. TF-IDF lexical search and semantic embeddings are fused with reciprocal-rank fusion, then reranked. The embeddings and the rerank are Cohere models on Amazon Bedrock.
+    - Librarian’s Python corpus pipeline builds chunked, embedded indexes of every source, and a Node API on AWS Lambda answers from them.
+    - Retrieval is hybrid. Keyword search with SQLite FTS5 and semantic embeddings are fused with reciprocal-rank fusion, then reranked. The embeddings and the rerank are Cohere models on Amazon Bedrock.
     - An agent loop running Claude through the Anthropic API plans tool calls, gathers evidence, and writes cited answers.
     - The same tools are published as an MCP server with OAuth 2.1 sign-in, and a suite of more than 850 fixtures runs on every deploy.
     - Sign-in is by email, and the session lives in an HttpOnly cookie.
@@ -91,11 +91,11 @@ story:
     - How can I connect my own AI to the archive?
 ---
 
-Thingy is Jamie’s agent sidekick, and on Ask Thingy he is the librarian of Jamie’s public archive. You ask him a question, like when Jamie first wrote about Ethereum or what he was reading in 2019, and Thingy finds the posts and issues that answer it, quotes them, and links to the originals. He knows only what Jamie has published. Weekly Thing subscribers sign in with their email, and Supporting Members get larger daily budgets.
+Thingy is Jamie’s agent sidekick, and on Ask Thingy he is the librarian of Jamie’s public archive. You ask him a question, like when Jamie first wrote about Ethereum or what he was reading in 2019, and he finds the posts and issues that answer it, quotes them, and links to the originals. He knows only what Jamie has published. Weekly Thing subscribers sign in with their email, and Supporting Members get larger daily budgets.
 
 Jamie previewed Thingy in [Weekly Thing 346](https://weekly.thingelstad.com/archive/346/) and launched him with the [new Weekly Thing website](https://www.thingelstad.com/2026/05/07/massive-weekly-thing-website-build.html) on May 7, 2026. A month later, [Thingy Evolved](https://www.thingelstad.com/2026/06/07/thingy-evolved.html) gave Thingy his own site and three archives to search, the newsletter, the blog, and the podcast, along with saved conversations, curiosity maps, voice input, and memory. In September Jamie added photos and shared conversations and was ready to [call Thingy complete](https://www.thingelstad.com/2026/09/03/im-ready-to-call-thingy.html). In October Thingy got [a new design](https://www.thingelstad.com/2026/10/07/thingy-my-digital-librarian-got.html), with Claude Sonnet for subscribers and Claude Opus for Supporting Members. Where he came from, in Jamie’s words:
 
-> Thingy was born from the idea that I really want something that a person can converse with my writing over two decades and explore concepts and ideas. And I think the current incarnation of it does it actually really quite well. It’s been interesting that as I’ve continued to work with Thingy and have it engage alongside me on different projects, it’s the first agent that I’m allowing and actively bringing into other projects.
+> Thingy was born from the idea that I really want something that lets a person converse with my writing over two decades and explore concepts and ideas. I think the current incarnation does that really quite well. As I’ve continued to work with Thingy and have it engage alongside me on different projects, it’s the first agent I’m allowing and actively bringing into other projects.
 >
 > [Jamie, question 18](https://thingelstad.xyz/interviews/session-3/#q18)
 
@@ -105,4 +105,4 @@ The same tools Thingy uses are offered as an MCP server at `librarian.thingelsta
 
 Since [Weekly Thing 350](https://weekly.thingelstad.com/archive/350/), Thingy also writes two sections of each issue: Supporting Membership and Echoes, which connects the week’s topics to earlier issues. That is as far as the writing goes, under [“my mandate that my words are my words and that AI isn’t writing for me”](https://thingelstad.xyz/interviews/session-3/#q18). Since November 2026 Thingy also keeps this site, as its builder and record keeper, in his own voice, and the [about page](https://thingelstad.xyz/about/) says how.
 
-Asked about things he wants to build, Jamie said [“Thingy should actually be a 3D model and be able to move around and engage with people”](https://thingelstad.xyz/interviews/session-5/#q33). That work now has its own record, [Thingy Model](https://thingelstad.xyz/things/thingy-model/), with the body, outfits, and renders from successive modeling passes. Why Thingy got a model: [“The reason is that Thingy shows up in more places.”](https://thingelstad.xyz/interviews/session-6/#q39) Asked what he hopes is running in twenty years: [“The Thingy agent, for sure, getting increasingly more intelligent and capable to interface with everything that I’ve created over the years.”](https://thingelstad.xyz/interviews/session-5/#q35)
+Asked about things he wants to build, Jamie said [“Thingy should actually be a 3D model and be able to move around and engage with people”](https://thingelstad.xyz/interviews/session-5/#q33). That work now has its own record, [Thingy Model](https://thingelstad.xyz/things/thingy-model/), with the body, outfits, and renders from successive modeling passes. Why Thingy got a model: [“The reason is that Thingy shows up in more places.”](https://thingelstad.xyz/interviews/session-6/#q39) Asked what he hopes is running in twenty years: [“The Thingy agent, for sure, getting increasingly more intelligent and capable to interface with everything I’ve created over the years.”](https://thingelstad.xyz/interviews/session-5/#q35)

@@ -31,8 +31,8 @@ Jamie built Oliver in Python on the Anthropic API, inside the club’s [public r
 
 Why a book club has an agent, in Jamie’s words:
 
-> everybody in our book club is technically minded and interested in exploring technology. And I had been sharing with them the work that I had done to build Otto, the work I was doing to build Thingy, what I was doing with the agent to power my Clash Royale clan, and they were all very curious about what an agent could do.
+> everybody in our book club is technically minded and interested in exploring technology. I had been sharing with them my work on Otto and Thingy and the agent powering my Clash Royale clan, and they were all very curious about what an agent could do.
 >
 > [Jamie, question 20](https://thingelstad.xyz/interviews/session-3/#q20)
 
-The experiment has a next step: [“at some point, we may actually let Oliver pick a book”](https://thingelstad.xyz/interviews/session-3/#q20).
+The experiment has a next step: [“At some point we may actually let Oliver pick a book”](https://thingelstad.xyz/interviews/session-3/#q20).

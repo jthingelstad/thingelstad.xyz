@@ -48,7 +48,7 @@ eleventyComputed:
     {% for tile in y.tiles %}<div class="work-tile"><span class="work-count">{{ tile.count | number }}</span><span class="small">{{ tile.label }}</span></div>
     {% endfor %}
   </div>
-  <p class="meta">A commit is with an agent when an agent authored it or signed it with a co-author line, or when one of Jamie’s agents made it under its own name. Codex seldom signs its commits, so much of its work counts as Jamie’s here. Bots’ commits, dependency updates and the collector’s own, are left out.{% if y.weeks.length %} <a href="#weeks">Week by week</a>.{% endif %}</p>
+  <p class="meta">A commit is with an agent when an agent authored it or signed it with a co-author line, or when one of Jamie’s agents made it under its own name. Codex seldom signs its commits, so much of its work counts as Jamie’s here. Bots’ commits, meaning dependency updates and the collector’s own, are left out.{% if y.weeks.length %} <a href="#weeks">Week by week</a>.{% endif %}</p>
   {% if y.work.things.length %}
   <p class="activity-tally">
     {%- for t in y.work.things %}<a href="{{ t.page }}">{{ t.title }}</a> <span class="muted">{% if t.commits %}{{ t.commits | number }}{% if t.publications %} + {{ t.publications | number }}{% endif %}{% else %}{{ t.publications | number }} {{ 'post' if t.publications == 1 else 'posts' }}{% endif %}</span>{% if not loop.last %} · {% endif %}{% endfor -%}

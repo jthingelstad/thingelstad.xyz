@@ -481,7 +481,7 @@ test('artifacts gather on one page, each leading to its place on its thing’s p
   await page.goto('/artifacts/');
   await expect(page.locator('.site-header nav a[aria-current="page"]')).toHaveText('Artifacts');
   const total = things.reduce((sum, thing) => sum + (thing.artifacts?.length ?? 0), 0);
-  await expect(page.locator('.lede')).toContainText(`${total} things kept from the building`);
+  await expect(page.locator('.lede')).toContainText(`${total} pieces kept from the building`);
   expect(await fitsViewport(page)).toBe(true);
   const shelf = page.locator('[data-shelf]').first();
   const track = shelf.locator('.shelf-track');
@@ -1117,7 +1117,7 @@ test.describe('without JavaScript', () => {
   test('the search page still lists every thing', async ({ page }) => {
     await page.goto('/search/');
     await expect(page.locator('.thing-row:visible')).toHaveCount(things.length);
-    await expect(page.locator('[data-search-status]')).toContainText('Every thing Jamie has built is listed below.');
+    await expect(page.locator('[data-search-status]')).toContainText('The things Jamie has built are listed below.');
     await expect(page.getByRole('searchbox')).toBeHidden();
     await expect(page.locator('[data-search-facets]')).toBeHidden();
   });
