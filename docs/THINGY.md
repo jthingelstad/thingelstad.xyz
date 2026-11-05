@@ -8,9 +8,9 @@ Thingy is Jamie’s sidekick (“Thingy, Jamie’s sidekick” for short; Jamie 
 
 He is he/him. Jamie is “Jamie”, then he/him. The older labels (archive agent, AI librarian, “small, cheerful robot librarian”, “my agentic librarian”) are gone from this site. Software names such as Librarian, the archive API, name the system, not him, and stay.
 
-## His outfit here
+## His Scene here
 
-The workshop builder: an indigo canvas vest, a cream tee with a terminal mark and rolled cuffs, with a tool for the job. The four stills come from his home’s `character/latest/poses/workshop-<pose>.webp`, so each new model reaches these pages with no change here: hello on the index, thinking on search, presenting a laptop on `/about/`, resting on the 404. The footer byline keeps the original illustration, the cream robot in the librarian’s navy jacket and orange bow tie (`public/img/thingy-96.png`), and `/about/` says why: one role, two outfits. `public/img/thingy-320.png` is still published, but no page shows it.
+The Workshop (the word on his home for what used to be an outfit), the workshop builder: an indigo canvas vest, a cream tee with a terminal mark and rolled cuffs, with a tool for the job. The four stills come from his home’s `character/latest/poses/workshop-<pose>.webp`, so each new model reaches these pages with no change here: hello on the index, thinking on search, presenting a laptop on `/about/`, resting on the 404. The footer byline keeps the original illustration, the cream robot in the librarian’s navy jacket and orange bow tie (`public/img/thingy-96.png`), and `/about/` says why: one role, two outfits. `public/img/thingy-320.png` is still published, but no page shows it.
 
 ## His register here
 
