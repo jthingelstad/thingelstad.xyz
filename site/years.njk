@@ -1,0 +1,71 @@
+---
+layout: layout.njk
+permalink: /years/
+title: Years
+description: Jamie Thingelstad’s projects year by year, with what started, what ended, what happened, and the work behind it.
+---
+{% from "macros.njk" import shelf %}
+{#- Timeline, History and Activity became this page and the year pages (collection/years.ts). Each row prints its
+    numbers, so the rows are the chart's table view. The old pages redirect here keeping their #fragment
+    (infra/viewer-request.mjs), and the script below takes a fragment that isn't on this page to the year it names:
+    #2026 from History, #things-2026 and #w-2026-10-26 from Activity, an event's id by way of feed.json. #}
+<section class="intro has-character">
+  <a class="thingy-companion" href="/things/thingy-model/" aria-label="Meet Thingy’s character"><img src="https://thingy.thingelstad.xyz/character/latest/poses/workshop-drill-work.webp" width="170" height="170" alt="Thingy, the Workshop Builder, at work with a drill" /></a>
+  <h1>Years</h1>
+  <p class="lede">Jamie’s projects year by year, since the book club’s website in {{ site.timeline.firstYear }}. Open a year for what started, what ended, what happened, and the work behind it.</p>
+  <p class="year-key"><span class="key"><span class="key-already"></span>Already alive</span> <span class="key"><span class="key-new"></span>New that year</span></p>
+</section>
+<section class="year-rows" aria-label="Things alive each year">
+  {% for y in site.years %}
+  <a class="year-row" id="y{{ y.year }}" href="{{ y.page }}" title="{{ y.year }}: {{ y.row }}">
+    <span class="year-row-year">{{ y.year }}</span>
+    <span class="year-bars" style="width: {{ y.share }}%" role="img" aria-label="{{ y.row }}">
+      {%- if y.already.length %}<span class="bar-already" style="flex: {{ y.already.length }} 1 0"></span>{% endif %}
+      {%- if y.started.length %}<span class="bar-new" style="flex: {{ y.started.length }} 1 0"></span>{% endif -%}
+    </span>
+    <span class="year-row-line">{{ y.row }}</span>
+    {% if y.names %}<span class="year-row-names muted">{{ y.names }}</span>{% endif %}
+  </a>
+  {% endfor %}
+</section>
+{% if site.timeline.undated | length %}
+<section class="undated">
+  <h2>Not yet dated</h2>
+  <p class="muted">No sourced start date or event for these yet.</p>
+  <p>{% for thing in site.timeline.undated %}<a class="tag" href="{{ thing.page }}">{{ thing.title }}</a> {% endfor %}</p>
+</section>
+{% endif %}
+{% if site.stories.length %}
+{% call shelf("threads", "Threads across the years", "The Stories run across the years, so they sit beside them.", 300, "/stories/", "All stories") %}
+  {% for story in site.stories %}<a class="shelf-card is-short" href="{{ story.page }}">{% if story.span.started %}<span class="meta">From {{ story.span.started | truncate(4, true, "") }}</span>{% endif %}<h3>{{ story.title }}</h3></a>
+  {% endfor %}
+{% endcall %}
+{% endif %}
+<p class="note"><b>Where the old pages went:</b> Timeline’s bars are this chart. History’s sourced events are each year’s ledger. Activity’s commit counts are each year’s work.</p>
+<p class="muted">Follow along: <a href="/feed.xml">RSS</a> or <a href="/feed.json">JSON Feed</a> for the events, <a href="/activity.xml">RSS</a> for what lands each day.</p>
+<script>
+  (function () {
+    var hash = location.hash.slice(1);
+    if (!hash || document.getElementById(hash)) return;
+    var go = function (path) {
+      location.replace(path);
+    };
+    var year = /^\d{4}$/.exec(hash);
+    if (year) return go('/years/' + hash + '/');
+    var things = /^things-(\d{4})$/.exec(hash);
+    if (things) return go('/years/' + things[1] + '/#work');
+    var week = /^w-(\d{4})-\d{2}-\d{2}$/.exec(hash);
+    if (week) return go('/years/' + week[1] + '/#' + hash);
+    fetch('/feed.json')
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (feed) {
+        var item = feed.items.find(function (entry) {
+          return entry.id === hash;
+        });
+        if (item) go(new URL(item.url).pathname + '#' + hash);
+      });
+  })();
+</script>
+<script type="module" src="{{ assets.enhance }}"></script>

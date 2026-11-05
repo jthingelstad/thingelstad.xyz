@@ -1,9 +1,9 @@
-{#- One thing's commits and publications in a week (a ThingPeriod in collection/activity.ts). On /activity/ it
-    leads with the thing; on a thing's page (weekHead) with the week, linked to it on /activity/ while it is there. #}
+{#- One thing's commits and publications in a week (a ThingPeriod in collection/activity.ts). On a year's page it
+    leads with the thing; on a thing's page (weekHead) with the week, linked to it on its year's page while it is there. #}
 <li class="activity-entry">
   <p class="activity-head">
     {% if weekHead %}
-    {% if entry.week %}<a class="activity-week" href="/activity/#{{ entry.week }}">Week of {{ entry.period | day }}</a>{% else %}<span class="activity-week">Week of {{ entry.period | day }}</span>{% endif %}
+    {% if entry.week %}<a class="activity-week" href="{{ entry.week | weekPage }}">Week of {{ entry.period | day }}</a>{% else %}<span class="activity-week">Week of {{ entry.period | day }}</span>{% endif %}
     {% else %}
     {% set other = site | thing(entry.id) %}
     <a class="activity-thing" href="{{ entry.page }}">{% if other %}{% set thing = other %}{% include "sticker.njk" %}{% endif %}<span>{{ entry.title }}</span></a>

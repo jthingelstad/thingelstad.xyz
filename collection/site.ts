@@ -34,6 +34,7 @@ import { artifactKind, formatBytes, isImage } from './artifacts';
 import { rootOrigin, siteKey } from './adapters/tinylytics';
 import { currentSite, withRef } from './sites';
 import { parseTranscript, type Turn } from './interviews';
+import { buildYearPages, eventPage, weekPage, type YearPage } from './years';
 import {
   activityMonths,
   countsAsActivity,
@@ -188,6 +189,8 @@ const facetSlug = (label: string) =>
     .replace(/&/g, ' and ')
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-+|-+$/g, '');
+// A topic is a filter on /things/, and this is its address. /topics/<id>/ redirects here (infra/viewer-request.mjs).
+const topicPage = (id: string) => `/things/?topic=${id}`;
 type SiteTopic = Topic & { page: string; things: SiteThing[] };
 // A story with its things in the order it tells them, the events of those things oldest first (a story reads
 // forward), and its span: as written, or else from its things. It is still going while any of them is.
@@ -210,27 +213,16 @@ type SiteInterview = Omit<Interview, 'questions'> & {
   next?: { page: string; name: string; session: number; title: string };
 };
 type SiteCollection = { name: string; things: SiteThing[] };
-type SiteYear = { year: string; events: HistoryEvent[] };
 export type TimelineRow = {
   thing: SiteThing;
   start: number;
   end: number;
   events: { event: HistoryEvent; year: number }[];
 };
-export type TimelineYear = {
-  year: number;
-  alive: { status: Status; count: number }[]; // things whose span covers the year, by status
-  total: number;
-  started: TimelineRow[]; // newest start first
-  ended: TimelineRow[]; // things that ended this year after starting earlier
-  events: number;
-};
 export type Timeline = {
   firstYear: number;
   lastYear: number;
   rows: TimelineRow[];
-  years: TimelineYear[]; // newest first
-  mostAlive: number;
   undated: SiteThing[];
 };
 // A card on the front page's featured shelf, in the order of content/featured.yaml. Its links to the thing's
@@ -242,6 +234,30 @@ type SiteFeature = {
   href: string | null; // the thing's own address
   cover: string | null; // where the cover leads: the captured site, or the thing's address
 };
+
+// A thing's artifacts on /artifacts/: how many, and a few to show. The picks take turns across its bundles, so a
+// shelf shows the range of what was kept, and leave out a file with no image to show.
+const picksShown = 8;
+const bundleWords = ['', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'];
+type ArtifactSet = { thing: SiteThing; count: number; note: string; picks: SiteArtifact[] };
+function artifactSet(thing: SiteThing): ArtifactSet {
+  const shown = thing.artifacts.filter((artifact) => artifact.image);
+  const groups = thing.bundles.length
+    ? thing.bundles.map((bundle) => bundle.artifacts.filter((artifact) => artifact.image))
+    : [shown];
+  const longest = Math.max(0, ...groups.map((group) => group.length));
+  const turns = Array.from({ length: longest }, (_, i) => groups.flatMap((group) => group[i] ?? []));
+  const bundles = thing.bundles.length;
+  return {
+    thing,
+    count: thing.artifacts.length,
+    note:
+      bundles > 1
+        ? `${thing.artifacts.length}, in ${bundleWords[bundles] ?? bundles} bundles`
+        : `${thing.artifacts.length}`,
+    picks: turns.flat().slice(0, picksShown)
+  };
+}
 
 export type SiteModel = {
   url: string;
@@ -258,8 +274,11 @@ export type SiteModel = {
   interviews: SiteInterview[];
   stillToAsk: SiteThing[];
   history: HistoryEvent[];
-  years: SiteYear[];
   timeline: Timeline;
+  years: YearPage[]; // newest first
+  artifactSets: ArtifactSet[]; // the things with artifacts, most first
+  artifactTotal: number;
+  thingFilters: Facet[]; // the filters of /things/
   statuses: { status: Status; label: string; description: string; count: number }[];
   facets: Facet[];
   activity: Activity;
@@ -488,7 +507,7 @@ export function buildSiteModel(registry: Registry, observations: Observation[], 
       inbound: inbound.get(thing.id) ?? [],
       topicList: thing.topics.flatMap((id) => {
         const topic = topicById.get(id);
-        return topic ? [{ ...topic, page: `/topics/${topic.id}/` }] : [];
+        return topic ? [{ ...topic, page: topicPage(topic.id) }] : [];
       }),
       latest: evidence[0] ?? null,
       months: window.map((month) => ({ month, count: counts.get(month) ?? 0 })),
@@ -529,7 +548,7 @@ export function buildSiteModel(registry: Registry, observations: Observation[], 
   const collections = names.map((name) => ({ name, things: sortedThings.filter((t) => t.collection === name) }));
   const topics: SiteTopic[] = registry.topics.map((topic) => ({
     ...topic,
-    page: `/topics/${topic.id}/`,
+    page: topicPage(topic.id),
     things: sortedThings.filter((thing) => thing.topics.includes(topic.id))
   }));
   const stories: SiteStoryline[] = registry.stories
@@ -555,7 +574,6 @@ export function buildSiteModel(registry: Registry, observations: Observation[], 
       };
     })
     .toSorted((a, b) => (b.latest ?? '').localeCompare(a.latest ?? '') || a.title.localeCompare(b.title));
-  const years: SiteYear[] = [];
   const sessions = registry.interviews.toSorted((a, b) => a.session - b.session);
   const neighbor = (item?: Interview) =>
     item && {
@@ -593,12 +611,6 @@ export function buildSiteModel(registry: Registry, observations: Observation[], 
   // The things no question has been about yet. It is computed, so the list shrinks as sessions are added.
   const asked = new Set(interviews.flatMap((item) => item.cast.map((thing) => thing.id)));
   const stillToAsk = things.filter((thing) => !asked.has(thing.id));
-  for (const event of registry.history) {
-    const y = event.date.slice(0, 4);
-    const bucket = years.find((b) => b.year === y) ?? (years.push({ year: y, events: [] }), years.at(-1)!);
-    bucket.events.push(event);
-  }
-
   const dated = things.filter((thing) => thing.span.start !== null);
   const rows: TimelineRow[] = dated
     .map((thing) => ({
@@ -610,25 +622,6 @@ export function buildSiteModel(registry: Registry, observations: Observation[], 
     .sort((a, b) => a.start - b.start || a.thing.title.localeCompare(b.thing.title));
   const firstYear = rows.length ? Math.min(...rows.map((row) => row.start)) : now.getUTCFullYear();
   const lastYear = now.getUTCFullYear();
-  const startedOn = (row: TimelineRow) => row.thing.started ?? String(row.start);
-  const timelineYears: TimelineYear[] = Array.from({ length: lastYear - firstYear + 1 }, (_, i) => {
-    const y = lastYear - i;
-    const alive = rows.filter((row) => row.start <= y && row.end >= y);
-    return {
-      year: y,
-      alive: (Object.keys(statusLabels) as Status[])
-        .map((status) => ({ status, count: alive.filter((row) => row.thing.status === status).length }))
-        .filter((s) => s.count > 0),
-      total: alive.length,
-      started: rows
-        .filter((row) => row.start === y)
-        .toSorted((a, b) => startedOn(b).localeCompare(startedOn(a)) || a.thing.title.localeCompare(b.thing.title)),
-      ended: rows.filter(
-        (row) => row.end === y && row.start < y && row.thing.status !== 'active' && row.thing.status !== 'dormant'
-      ),
-      events: registry.history.filter((event) => year(event.date) === y).length
-    };
-  });
   const statuses = (Object.keys(statusLabels) as Status[]).map((status) => ({
     status,
     label: statusLabels[status],
@@ -668,6 +661,17 @@ export function buildSiteModel(registry: Registry, observations: Observation[], 
     facet('collection', 'Collection', inOrder(counted('collection'), names.map(facetSlug))),
     facet('language', 'Written in', byCount(counted('language')))
   ];
+  const facetOf = (name: FacetName, label: string) => ({ ...facets.find((f) => f.name === name)!, label });
+  const timeline: Timeline = {
+    firstYear,
+    lastYear,
+    rows,
+    undated: sortedThings.filter((thing) => thing.span.start === null)
+  };
+  const artifactSets = sortedThings
+    .filter((thing) => thing.artifacts.length)
+    .map(artifactSet)
+    .toSorted((a, b) => b.count - a.count || a.thing.title.localeCompare(b.thing.title));
   return {
     url: siteUrl,
     title: siteTitle,
@@ -687,15 +691,11 @@ export function buildSiteModel(registry: Registry, observations: Observation[], 
     interviews,
     stillToAsk,
     history: registry.history,
-    years,
-    timeline: {
-      firstYear,
-      lastYear,
-      rows,
-      years: timelineYears,
-      mostAlive: Math.max(1, ...timelineYears.map((y) => y.total)),
-      undated: sortedThings.filter((thing) => !byId.get(thing.id)?.span.start && thing.span.start === null)
-    },
+    timeline,
+    years: buildYearPages(timeline, registry.history, activity.activity),
+    artifactSets,
+    artifactTotal: artifactSets.reduce((sum, set) => sum + set.count, 0),
+    thingFilters: [facetOf('status', 'Status'), facetOf('collection', 'Kind'), facetOf('topic', 'Topic')],
     statuses,
     facets,
     activity: activity.activity
@@ -779,8 +779,8 @@ export function llmsText(model: SiteModel) {
       : []),
     '## Optional',
     '',
-    `- [History](${model.url}/history/): every sourced event, newest first`,
-    `- [Activity](${model.url}/activity/): the commits and publications that landed in each thing, week by week; ${model.url}/activity.xml has one item a day`,
+    `- [Years](${model.url}/years/): every year, with what started and ended, its sourced events, and the commits and publications behind them; ${model.url}/activity.xml has one item a day`,
+    `- [Artifacts](${model.url}/artifacts/): the sketches, screenshots and files kept from the building`,
     `- [Full text](${model.url}/llms-full.txt): every thing's record and story in one file`,
     `- [About](${model.url}/about/): what this site is, how it is kept, and who writes it`,
     ''
@@ -899,7 +899,7 @@ function feedItems(model: SiteModel): FeedItem[] {
     const links = things.map((t) => `<a href="${t.page}">${escapeHtml(t.title)}</a>`).join(', ');
     return {
       id: event.id,
-      url: `${model.url}/history/#${event.id}`,
+      url: `${model.url}${eventPage(event)}`,
       title: event.title,
       summary: event.summary,
       html: `<p>${escapeHtml(event.summary)}</p><p>${formatDate(event.date)} · ${event.kind} · ${links}</p><p><a href="${escapeHtml(event.source)}">Source</a></p>`,
@@ -938,7 +938,7 @@ function escapeHtml(value: string) {
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&#39;');
 }
-// RSS carries the newest events, enough for a reader to catch up; feed.json and /history/ carry them all.
+// RSS carries the newest events, enough for a reader to catch up; feed.json and the year pages carry them all.
 export const rssItems = 30;
 export function rssFeed(model: SiteModel) {
   const items = feedItems(model).slice(0, rssItems);
@@ -995,7 +995,7 @@ function activityItem(model: SiteModel, day: ActivityDay) {
     .join('');
   return {
     title,
-    url: `${model.url}/activity/#${day.week}`,
+    url: `${model.url}${weekPage(day.week)}`,
     id: `activity-${day.day}`,
     instant: day.last,
     html: `<p>${escapeHtml(activitySummary(day))}.</p><ul>${things}</ul>`,
@@ -1021,7 +1021,7 @@ ${item.things.map((thing) => `      <category>${escapeHtml(thing)}</category>`).
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>${escapeHtml(model.title)} Activity</title>
-    <link>${model.url}/activity/</link>
+    <link>${model.url}/years/</link>
     <atom:link href="${model.url}${activityFeedPath}" rel="self" type="application/rss+xml"/>
     <description>What landed in what Jamie Thingelstad has built, one item a day: commits to each thing’s public repositories, with who made them, and what its feeds published.</description>
     <language>en-us</language>
@@ -1064,21 +1064,4 @@ export function lifespan(row: TimelineRow, timeline: Timeline) {
     .join('');
   const label = `${thing.title}: ${span}, ${row.events.length} sourced ${row.events.length === 1 ? 'event' : 'events'}`;
   return `<svg class="lifespan" viewBox="0 0 ${width} ${height}" width="${width}" height="${height}" role="img" aria-label="${escapeHtml(label)}"><title>${escapeHtml(label)}</title><rect x="0" y="${height / 2 - 1}" width="${width}" height="2" rx="1" class="ls-track"/><rect x="${x(row.start)}" y="2" width="${x(row.end) + step - x(row.start)}" height="${height - 4}" rx="3" class="ls-bar ls-${thing.status}"/>${dots}</svg>`;
-}
-
-// How many things were alive in a year, as one bar split by status, scaled to the busiest year.
-export function aliveBar(year: TimelineYear, timeline: Timeline) {
-  const width = 240;
-  const height = 8;
-  let x = 0;
-  const parts = year.alive
-    .map(({ status, count }) => {
-      const w = (count / timeline.mostAlive) * width;
-      const rect = `<rect x="${x.toFixed(1)}" y="0" width="${w.toFixed(1)}" height="${height}" class="ls-${status}"><title>${count} ${statusLabels[status].toLowerCase()}</title></rect>`;
-      x += w;
-      return rect;
-    })
-    .join('');
-  const label = `${year.total} ${year.total === 1 ? 'thing' : 'things'} alive in ${year.year}`;
-  return `<svg class="alive" viewBox="0 0 ${width} ${height}" preserveAspectRatio="none" role="img" aria-label="${label}">${parts}</svg>`;
 }

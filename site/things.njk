@@ -1,0 +1,61 @@
+---
+layout: layout.njk
+permalink: /things/
+title: Things
+description: Every project Jamie Thingelstad has built, the ones he runs today and the ones he has stepped away from, by status, kind and topic.
+---
+{#- Every thing, by collection, each collection an h-feed of h-entries. The whole list reads with no script;
+    site/js/enhance.js shows the filters and narrows the list by the values each line carries (data-filters), and
+    keeps them in the address (?status=, ?collection=, ?topic=). A topic's address is one of those: /topics/<id>/
+    redirects to it. A topic's description is a sentence here for whoever filters by it, and the list at the end
+    keeps every topic readable without the script. #}
+<section class="intro has-character">
+  <a class="thingy-companion" href="/things/thingy-model/" aria-label="Meet Thingy’s character"><img src="https://thingy.thingelstad.xyz/character/latest/poses/workshop-screwdriver-carry.webp" width="170" height="170" alt="Thingy, the Workshop Builder, carrying a screwdriver" /></a>
+  <h1>Things</h1>
+  <p class="lede">All {{ site.things | length }}, the ones he runs today and the ones he has stepped away from. <span data-enhanced hidden>Narrow it down by status, kind or topic.</span> Status is always Jamie’s call.</p>
+</section>
+<div data-filter-scope>
+  <section class="filters" aria-label="Filters" data-enhanced hidden>
+    {% for facet in site.thingFilters %}
+    <div class="filter-row">
+      <span class="label" id="filter-{{ facet.name }}">{{ facet.label }}</span>
+      <div class="filter-chips" role="group" aria-labelledby="filter-{{ facet.name }}" data-filter-axis="{{ facet.name }}">
+        <button class="filter-chip" type="button" data-value="" aria-pressed="true">All</button>
+        {% for v in facet.values %}<button class="filter-chip" type="button" data-value="{{ v.value }}" aria-pressed="false">{{ v.label }} <span class="count">{{ v.count }}</span></button>
+        {% endfor %}
+      </div>
+    </div>
+    {% endfor %}
+    <p class="meta filter-status"><span role="status" data-filter-status>Showing {{ site.things | length }} of {{ site.things | length }}</span></p>
+    {% for topic in site.topics %}<p class="filter-note" data-filter-when="topic:{{ topic.id }}" hidden>{{ topic.description }}</p>
+    {% endfor %}
+  </section>
+  {% for collection in site.collections %}
+  <section class="things-group h-feed" id="{{ collection.name | slugify }}" data-filter-group>
+    <h2><span class="p-name">{{ collection.name }}</span> <span class="meta">{{ collection.things | length }}</span></h2>
+    <ul class="thing-lines">
+      {% for thing in collection.things %}
+      <li class="thing-line h-entry" data-filter-item data-filters="{% for f in thing.filters %}{{ f.name }}:{{ f.value }} {% endfor %}">
+        <a class="p-author h-card" href="{{ owner.url }}" hidden>{{ owner.name }}</a>
+        <a class="thing-line-title p-name u-url" href="{{ thing.page }}">{{ thing.title }}</a>
+        <span class="thing-line-summary small p-summary" title="{{ thing.summary }}">{{ thing.summary }}</span>
+        <span class="status-dot{% if thing.status == 'active' %} is-active{% endif %}" title="{{ thing.statusDescription }}">{{ thing.statusLabel }}</span>
+        <span class="meta thing-line-year">{% if thing.started %}<time datetime="{{ thing.started }}">{{ thing.started | truncate(4, true, "") }}</time>{% endif %}</span>
+      </li>
+      {% endfor %}
+    </ul>
+  </section>
+  {% endfor %}
+  <p class="note" data-filter-none hidden>Nothing matches all of those. Try clearing one.</p>
+</div>
+<section class="topics-list" aria-labelledby="topics">
+  <h2 id="topics">Topics</h2>
+  <p class="muted">The threads that run through more than one thing. Each thing names its own topics, so these lists write themselves.</p>
+  <dl>
+    {% for topic in site.topics %}
+    <dt id="topic-{{ topic.id }}"><a href="{{ topic.page }}">{{ topic.title }}</a> <span class="meta">{{ topic.things | length }}</span></dt>
+    <dd>{{ topic.description }}</dd>
+    {% endfor %}
+  </dl>
+</section>
+<script type="module" src="{{ assets.enhance }}"></script>

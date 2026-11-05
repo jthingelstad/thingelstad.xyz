@@ -17,7 +17,6 @@ import {
   sparkline,
   thingMarkdown,
   thingsJson,
-  aliveBar,
   lifespan,
   toInstant,
   sticker,
@@ -69,7 +68,7 @@ test('the model keeps status as a decision and activity as evidence', () => {
     assert.equal(thing.page, `/things/${thing.id}/`);
     assert.equal(thing.markdown, `/things/${thing.id}.md`);
     assert.equal(thing.months.length, 12);
-    for (const topic of thing.topicList) assert.equal(topic.page, `/topics/${topic.id}/`);
+    for (const topic of thing.topicList) assert.equal(topic.page, `/things/?topic=${topic.id}`);
     if (thing.latest) assert.ok(thing.sources.some((s) => s.evidence.includes(thing.latest!)));
   }
   const weekly = model.things.find((t) => t.id === 'weekly-thing')!;
@@ -89,9 +88,6 @@ test('inbound connections and events are attached to the thing they concern', ()
   const elixir = model.things.find((t) => t.id === 'elixir')!;
   assert.ok(elixir.inbound.some((edge) => edge.from === 'elixir-bot'));
   assert.ok(elixir.events.every((event) => event.things.includes('elixir')));
-  const flat = model.years.flatMap((y) => y.events);
-  assert.equal(flat.length, registry.history.length);
-  for (const bucket of model.years) for (const event of bucket.events) assert.ok(event.date.startsWith(bucket.year));
 });
 
 test('the Markdown twin is valid front matter that carries the registry record', () => {
@@ -335,18 +331,25 @@ test('bundles group a thing’s artifacts in their order, and the twin and thing
   assert.equal(json.artifacts?.[0].bundle, 'the-plan');
 });
 
-test('the timeline and sparklines render without gaps in the data', () => {
-  const { timeline } = model;
-  assert.equal(timeline.years.length, timeline.lastYear - timeline.firstYear + 1);
-  assert.equal(timeline.years[0].year, timeline.lastYear, 'newest year first');
-  assert.equal(timeline.years.flatMap((y) => y.started).length, timeline.rows.length, 'each thing starts once');
-  for (const y of timeline.years) {
-    assert.equal(
-      y.total,
-      y.alive.reduce((sum, s) => sum + s.count, 0)
-    );
-    assert.doesNotMatch(aliveBar(y, timeline), /NaN|undefined/);
+test('the years and sparklines render without gaps in the data', () => {
+  const { timeline, years } = model;
+  assert.equal(years.length, timeline.lastYear - timeline.firstYear + 1);
+  assert.equal(years[0].year, timeline.lastYear, 'newest year first');
+  assert.equal(years.flatMap((y) => y.started).length, timeline.rows.length, 'each thing starts once');
+  assert.equal(years.flatMap((y) => y.events).length, registry.history.length, 'each event is in one year');
+  for (const y of years) {
+    assert.equal(y.total, y.started.length + y.already.length, `${y.year}: alive is new plus already alive`);
+    assert.ok(y.share > 0 && y.share <= 100, `${y.year}: its bar fits`);
+    assert.match(y.row, new RegExp(`^${y.total} alive`));
+    assert.equal(y.older, y.year > timeline.firstYear ? y.year - 1 : null);
+    assert.equal(y.newer, y.year < timeline.lastYear ? y.year + 1 : null);
+    for (const week of y.weeks) assert.ok(week.start.startsWith(String(y.year)), week.id);
+    for (const event of y.events) assert.ok(event.date.startsWith(String(y.year)), event.id);
   }
+  assert.ok(
+    years.some((y) => y.tiles.length),
+    'the logs give some year its work'
+  );
   for (const row of timeline.rows) assert.doesNotMatch(lifespan(row, timeline), /NaN|undefined/, row.thing.id);
   assert.ok(model.timeline.rows.length + model.timeline.undated.length === model.things.length);
   for (const row of model.timeline.rows) assert.ok(row.start <= row.end, row.thing.id);
@@ -699,7 +702,7 @@ test('activity groups commits and posts by Central day and Monday week, counting
   );
   assert.deepEqual(recordA.peak, { year: 2026, total: 3 });
   assert.equal(recordA.recent[0].week, 'w-2026-10-19');
-  assert.equal(recordA.recent.at(-1)!.week, null, 'a week no longer on /activity/ has no anchor');
+  assert.equal(recordA.recent.at(-1)!.week, null, 'a week no longer shown has no anchor');
   const recordB = things.get('b')!;
   assert.deepEqual(
     recordB.years.map((y) => y.year),
@@ -885,9 +888,9 @@ test('every sitemap page carries the date its content last changed, never the bu
   const urls = [...xml.matchAll(/<url>([\s\S]*?)<\/url>/g)].map((match) => match[1]);
   assert.equal(
     urls.length,
-    7 +
+    6 +
+      model.years.length +
       model.things.length +
-      model.topics.length +
       (model.stories.length ? 1 + model.stories.length : 0) +
       (model.interviews.length ? 1 + model.interviews.length : 0)
   );
@@ -930,11 +933,11 @@ test('every sitemap page carries the date its content last changed, never the bu
     .sort()
     .at(-1);
   assert.equal(lastmod('/search/'), newestThing);
-  for (const topic of model.topics)
-    assert.equal(
-      lastmod(topic.page),
-      [w3c('2026-09-01T00:00:00Z'), ...topic.things.map((t) => lastmod(t.page)!)].sort().at(-1)
-    );
+  assert.equal(lastmod('/things/'), newestThing);
+  // A year's page is as new as its file, its events and the records of its things.
+  const quiet = model.years.find((y) => y.year === 2026)!;
+  assert.ok(Date.parse(lastmod(quiet.page)!) >= Date.parse('2026-10-02T00:00:00Z'));
+  assert.equal(entries.filter((entry) => entry.loc.includes('/topics/')).length, 0, 'a topic is a filter, not a page');
   assert.equal(w3c('2026-10'), '2026-10-01T12:00:00Z');
   assert.equal(w3c('2026-10-27T21:03:11-05:00'), '2026-10-28T02:03:11Z');
 });

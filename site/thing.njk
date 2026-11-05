@@ -34,7 +34,7 @@ eleventyComputed:
   <data class="u-url" value="{{ site.url }}{{ page.url }}"></data>
   <a class="p-author h-card" href="{{ owner.url }}" hidden data-pagefind-ignore>{{ owner.name }}</a>
   <header class="thing-header"{% if thing.story %} style="--accent: {{ thing.story.color }}"{% endif %}>
-    <p class="crumbs" data-pagefind-ignore><a href="/">Things</a> · <a href="/#{{ thing.collection | slugify }}">{{ thing.collection }}</a></p>
+    <p class="crumbs" data-pagefind-ignore><a href="/things/">Things</a> · <a href="/things/#{{ thing.collection | slugify }}">{{ thing.collection }}</a></p>
     <h1 class="with-sticker">{% include "sticker.njk" %}<span class="p-name">{{ thing.title }}</span></h1>
     <p class="lede p-summary">{{ thing.summary }}</p>
     {% if thing.story %}<p class="introduction">{{ thing.story.introduction }}</p>{% endif %}
@@ -168,7 +168,7 @@ eleventyComputed:
       {% for entry in record.recent %}{% include "activity-entry.njk" %}{% endfor %}
     </ul>
     {% endif %}
-    <p class="muted"><a href="/activity/">All activity</a>, week by week. Who made each commit is from its author and co-author lines.</p>
+    <p class="muted"><a href="/years/">Year by year</a>, all of it. Who made each commit is from its author and co-author lines.</p>
   </section>
   {% endif %}
 
@@ -283,7 +283,7 @@ eleventyComputed:
       <li>
         <time datetime="{{ event.date }}">{{ event.date | date }}</time>
         <span class="kind kind-{{ event.kind }}">{{ event.kind }}</span>
-        <a href="/history/#{{ event.id }}"><strong>{{ event.title }}</strong></a>
+        <a href="{{ event | eventPage }}"><strong>{{ event.title }}</strong></a>
         <p>{{ event.summary }} <a href="{{ event.source | ref("source") }}">Source</a></p>
       </li>
       {% endfor %}

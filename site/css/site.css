@@ -62,6 +62,10 @@
   --who-others: #1baf7a;
   --story-mix: 0%;
 
+  /* The Years chart: one hue, the site's green, already-alive lighter and new darker. */
+  --year-already: #3fb778;
+  --year-new: #1d7348;
+
   /* Frame: every site's 1120px (--jt-frame) with the shared gutters inside it, 24px (16px on phones), so the
      strip, header, content and footer share one left edge with the blog's. The reading column is the blog's
      720px measure. */
@@ -95,6 +99,8 @@
     --archived-soft: #26204a;
     --accent-text: #74d3a0;
     --who-agent: #e8652f;
+    --year-already: #1b6f46;
+    --year-new: #3aa96f;
     --underline: #57524a;
     --field: #0f0e0c;
     --shadow: rgb(0 0 0 / 35%);
@@ -536,7 +542,6 @@ h2 {
 }
 
 .thing-list,
-.topic-list,
 .source-list,
 .connection-list,
 .event-list {
@@ -867,20 +872,6 @@ h4:hover > .permalink,
   margin-right: 8px;
 }
 
-.topic-list li {
-  padding: 16px 0;
-  border-top: 1px solid var(--line);
-}
-
-.topic-list h2 {
-  font-size: 1.625rem;
-  margin: 0 0 6px;
-}
-
-.topic-list p {
-  margin: 4px 0;
-}
-
 .thing-header {
   border-left: 5px solid color-mix(in oklab, var(--accent), var(--ink) var(--story-mix));
   border-radius: 3px;
@@ -1054,6 +1045,16 @@ h4:hover > .permalink,
   height: auto;
 }
 
+/* The kit: he is made for a light page, and on a very dark one his legs and shadow sink into it. So he stands on a
+   pale plate in dark mode. */
+@media (prefers-color-scheme: dark) {
+  .thingy-companion,
+  .thingy-portrait {
+    border-radius: 999px;
+    background: radial-gradient(circle at 50% 54%, #efeadf 0 60%, transparent 61%);
+  }
+}
+
 @media (width <= 40rem) {
   .has-character {
     min-height: 100px;
@@ -1175,35 +1176,10 @@ h4:hover > .permalink,
   border-radius: 3px;
 }
 
-.who-years {
-  list-style: none;
-  margin: 16px 0;
-  padding: 0;
-}
-
-.who-years li {
-  display: grid;
-  grid-template-columns: 56px minmax(0, 360px) minmax(0, 1fr);
-  align-items: center;
-  gap: 4px 16px;
-  padding: 6px 0;
-  border-top: 1px solid var(--line);
-}
-
-.who-year {
-  font-family: var(--font-heading);
-  font-weight: var(--weight-heading);
-}
-
 .who-bar {
   display: block;
   max-width: 100%;
   height: auto;
-}
-
-.who-numbers {
-  font-size: var(--jt-size-small);
-  color: var(--muted);
 }
 
 .week {
@@ -1211,7 +1187,6 @@ h4:hover > .permalink,
 }
 
 .week h3,
-.activity-year h3,
 .thing-activity h3 {
   font-size: var(--jt-size-h3);
   margin: 32px 0 4px;
@@ -1436,96 +1411,6 @@ h4:hover > .permalink,
 .thing-footer {
   margin-top: 40px;
   font-size: var(--jt-size-small);
-}
-
-.tl-years {
-  list-style: none;
-  margin: 24px 0 0;
-  padding: 0;
-}
-
-.tl-year {
-  display: grid;
-  grid-template-columns: 72px minmax(0, 1fr);
-  gap: 0 16px;
-  padding: 14px 0;
-  border-top: 1px solid var(--line);
-}
-
-.tl-year.is-quiet {
-  padding: 6px 0;
-}
-
-.tl-year-label {
-  position: sticky;
-  top: 0;
-  align-self: start;
-  margin: 0;
-  font-size: var(--jt-size-h3);
-  line-height: 1.3;
-  background: var(--paper);
-}
-
-.tl-year.is-quiet .tl-year-label {
-  font-size: 1.0625rem;
-  color: var(--muted);
-}
-
-.tl-alive {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 4px 12px;
-  font-size: var(--jt-size-label);
-  min-height: 26px;
-}
-
-.alive {
-  display: block;
-  width: min(240px, 100%);
-  height: 8px;
-  border-radius: 4px;
-  background: var(--line);
-  overflow: hidden;
-}
-
-.tl-things {
-  columns: 360px;
-  column-gap: 24px;
-  list-style: none;
-  margin: 8px 0 0;
-  padding: 0;
-}
-
-.tl-things li {
-  break-inside: avoid;
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  align-items: center;
-  gap: 10px;
-  padding: 4px 0;
-}
-
-.tl-thing {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 2px 8px;
-}
-
-.tl-things .thing-title {
-  margin-right: 0;
-}
-
-.tl-things .dates {
-  flex-basis: 100%;
-  font-size: var(--jt-size-meta);
-  line-height: 1.3;
-  color: var(--muted);
-}
-
-.tl-ended {
-  margin: 6px 0 0;
 }
 
 .lifespan {
@@ -1953,25 +1838,6 @@ h4:hover > .permalink,
   }
 }
 
-@media (width <= 560px) {
-  .tl-year {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
-  .tl-year-label {
-    padding: 2px 0 6px;
-    z-index: 1;
-  }
-
-  .tl-year.is-quiet {
-    grid-template-columns: 56px minmax(0, 1fr);
-  }
-
-  .tl-year.is-quiet .tl-year-label {
-    padding: 0;
-  }
-}
-
 /* Phones: the sites strip is one row that scrolls sideways, without its label. */
 @media (width <= 40rem) {
   .sites-strip__inner,
@@ -2034,14 +1900,6 @@ h4:hover > .permalink,
 
   .event-list li {
     grid-template-columns: 1fr;
-  }
-
-  .who-years li {
-    grid-template-columns: 48px minmax(0, 1fr);
-  }
-
-  .who-numbers {
-    grid-column: 2;
   }
 
   .event-list .kind,
@@ -2170,4 +2028,650 @@ h4:hover > .permalink,
   display: block;
   font-size: 15px;
   font-weight: 600;
+}
+
+/* Round 2: shelves, filters, Years and Artifacts. A shelf scrolls sideways by swipe, trackpad or keyboard; its
+   arrows come with the script (site/js/enhance.js). */
+.small {
+  font-size: var(--jt-size-small);
+  line-height: 1.5;
+}
+
+.meta {
+  color: var(--muted);
+  font-size: var(--jt-size-small);
+}
+
+.label {
+  color: var(--muted);
+  font-size: var(--jt-size-label);
+  font-weight: 600;
+}
+
+.note {
+  padding: 12px 16px;
+  border-radius: 10px;
+  background: var(--soft);
+  font-size: var(--jt-size-small);
+  line-height: 1.5;
+}
+
+.more {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  margin-right: 8px;
+  font-size: var(--jt-size-small);
+}
+
+.clamp,
+.clamp-two {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.clamp-two {
+  -webkit-line-clamp: 2;
+}
+
+.status-dot {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--muted);
+  font-size: var(--jt-size-label);
+}
+
+.status-dot::before {
+  width: 8px;
+  height: 8px;
+  border-radius: 9px;
+  background: var(--retired);
+  content: '';
+}
+
+.status-dot.is-active {
+  color: var(--active);
+  font-weight: 600;
+}
+
+.status-dot.is-active::before {
+  background: var(--active);
+}
+
+.shelf {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 48px;
+  scroll-margin-top: 16px;
+}
+
+.shelf-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 16px;
+}
+
+.shelf-title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 14px;
+}
+
+.shelf-title h2,
+.shelf-head h2 {
+  margin: 0;
+}
+
+.shelf-controls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.shelf-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-ui);
+  font-size: 19px;
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.shelf-arrow[hidden] {
+  display: none;
+}
+
+.shelf-arrow:hover {
+  background: var(--soft);
+}
+
+.shelf-track {
+  display: grid;
+  grid-auto-columns: min(var(--card), 82vw);
+  grid-auto-flow: column;
+  gap: 20px;
+  padding: 2px 2px 12px;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  scrollbar-color: var(--line) transparent;
+  scrollbar-width: thin;
+}
+
+.shelf-track > * {
+  min-width: 0;
+  scroll-snap-align: start;
+}
+
+.shelf-card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-height: 150px;
+  padding: 14px 16px;
+  border-radius: 12px;
+  background: var(--soft);
+  color: inherit;
+  text-decoration: none;
+}
+
+.shelf-card.is-short {
+  min-height: 110px;
+}
+
+.shelf-card h3 {
+  margin: 0;
+  font-size: var(--jt-size-base);
+}
+
+.shelf-card:hover h3 {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+/* /things/: the filters, then a line for each thing. */
+.filters {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px 0;
+  border-top: 2px solid var(--ink);
+}
+
+.filters[hidden] {
+  display: none;
+}
+
+.filter-row {
+  display: grid;
+  grid-template-columns: 84px minmax(0, 1fr);
+  gap: 8px;
+  align-items: start;
+}
+
+.filter-row .label {
+  padding-top: 12px;
+}
+
+.filter-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.filter-chips[hidden] {
+  display: none;
+}
+
+.filter-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  padding: 4px 14px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-ui);
+  font-size: var(--jt-size-label);
+  font-weight: 500;
+  cursor: pointer;
+}
+
+/* An event's kind is one lowercase word in the record; the others are titles and stay as written. */
+[data-filter-axis='kind'] .filter-chip {
+  text-transform: capitalize;
+}
+
+.filter-chip:hover {
+  background: var(--soft);
+}
+
+.filter-chip[aria-pressed='true'] {
+  border-color: var(--ink);
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.filter-chip .count {
+  margin: 0;
+  color: inherit;
+  font-size: var(--jt-size-label);
+  font-weight: 400;
+}
+
+.filter-status,
+.filter-note {
+  margin: 4px 0 0;
+}
+
+.things-group {
+  margin-top: 28px;
+  scroll-margin-top: 16px;
+}
+
+.things-group h2 {
+  margin: 0 0 8px;
+  font-size: var(--jt-size-h3);
+}
+
+.thing-lines {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.thing-line {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 2.4fr) 92px 62px;
+  gap: 4px 20px;
+  align-items: baseline;
+  padding: 10px 0;
+  border-top: 1px solid var(--line);
+}
+
+.thing-line[hidden],
+.things-group[hidden] {
+  display: none;
+}
+
+.thing-line-title {
+  color: inherit;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.thing-line-title:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.thing-line-summary {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.thing-line-year {
+  text-align: right;
+}
+
+.topics-list {
+  margin-top: 48px;
+}
+
+.topics-list dt {
+  margin-top: 14px;
+  font-weight: 600;
+  scroll-margin-top: 16px;
+}
+
+.topics-list dd {
+  margin: 2px 0 0;
+  font-size: var(--jt-size-small);
+}
+
+@media (width <= 40rem) {
+  .filter-row {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .filter-row .label {
+    padding-top: 0;
+  }
+
+  .thing-line {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .thing-line-summary {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    display: -webkit-box;
+    white-space: normal;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+
+  .thing-line-year {
+    display: none;
+  }
+}
+
+/* /years/: a row a year. The numbers are always printed, so colour never carries them alone. */
+.year-key {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+  margin: 12px 0 0;
+}
+
+.key {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--muted);
+  font-size: var(--jt-size-label);
+}
+
+.key span {
+  display: block;
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+}
+
+.key-already,
+.bar-already {
+  background: var(--year-already);
+}
+
+.key-new,
+.bar-new {
+  background: var(--year-new);
+}
+
+.year-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-top: 12px;
+  margin-top: 16px;
+  border-top: 2px solid var(--ink);
+}
+
+.year-row {
+  display: grid;
+  grid-template-columns: 56px minmax(0, 1fr) 220px;
+  gap: 2px 16px;
+  align-items: center;
+  min-height: 44px;
+  padding: 4px;
+  border-radius: 6px;
+  color: inherit;
+  font-size: var(--jt-size-small);
+  text-decoration: none;
+  scroll-margin-top: 16px;
+}
+
+.year-row:hover,
+.year-row:target {
+  background: var(--soft);
+}
+
+.year-row-year {
+  font-weight: 600;
+}
+
+.year-bars {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  min-width: 4px;
+  height: 16px;
+}
+
+.year-bars span {
+  display: block;
+  height: 16px;
+  border-radius: 2px;
+}
+
+.year-row-names {
+  grid-column: 2 / -1;
+  font-size: var(--jt-size-label);
+}
+
+@media (width <= 40rem) {
+  .year-row {
+    grid-template-columns: 48px minmax(0, 1fr);
+  }
+
+  .year-row-line,
+  .year-row-names {
+    grid-column: 2;
+  }
+}
+
+/* /years/<year>/ */
+.year-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 8px 0 16px;
+}
+
+.year-number {
+  margin: 0;
+  font-size: 120px;
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+}
+
+@media (width <= 40rem) {
+  .year-number {
+    font-size: 72px;
+  }
+}
+
+.year-nav {
+  display: flex;
+  gap: 6px;
+}
+
+.year-chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 4px 14px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: inherit;
+  font-size: var(--jt-size-label);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.year-chip:hover {
+  background: var(--soft);
+}
+
+.year-section {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 48px;
+  scroll-margin-top: 16px;
+}
+
+.year-section h2 {
+  margin: 0;
+}
+
+.year-section .meta,
+.year-section p {
+  margin: 0;
+}
+
+.year-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0;
+}
+
+.work-tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 12px;
+}
+
+.work-tile {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 16px;
+  border-radius: 12px;
+  background: var(--soft);
+}
+
+.work-count {
+  font-family: var(--font-heading);
+  font-size: 40px;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.ledger {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.ledger-event {
+  display: grid;
+  grid-template-columns: 110px minmax(0, 1fr);
+  gap: 4px 20px;
+  padding: 14px 0;
+  border-top: 1px solid var(--line);
+  scroll-margin-top: 16px;
+}
+
+.ledger-event[hidden] {
+  display: none;
+}
+
+.ledger-event:target {
+  background: var(--soft);
+}
+
+.ledger-event h3 {
+  margin: 0 0 4px;
+  font-size: var(--jt-size-base);
+}
+
+.ledger-event .small {
+  margin: 0 0 6px;
+}
+
+.ledger-when {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: 0;
+  font-size: var(--jt-size-small);
+  font-weight: 600;
+}
+
+.ledger-when .meta {
+  font-weight: 400;
+}
+
+@media (width <= 40rem) {
+  .ledger-event {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* /artifacts/ */
+.pull-quote {
+  margin: 8px 0 0;
+  max-width: var(--measure);
+  font-family: var(--font-heading);
+  font-size: var(--jt-size-h3);
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.pull-quote a {
+  display: block;
+  margin-top: 8px;
+  font-family: var(--font-ui);
+  font-size: var(--jt-size-small);
+  font-weight: 500;
+}
+
+.artifact-figure {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+
+.artifact-figure figure {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+}
+
+.artifact-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--artifact-ground);
+  object-fit: cover;
+  object-position: top;
+}
+
+.artifact-figure figcaption {
+  font-size: var(--jt-size-small);
+  line-height: 1.45;
+}
+
+.artifact-figure b {
+  display: block;
+  font-weight: 600;
+}
+
+.artifact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.artifact-grid .more {
+  margin: 0;
 }

@@ -18,7 +18,7 @@ import {
 } from './schema';
 
 const activityZone = 'America/Chicago';
-const weeksShown = 12; // on /activity/, the week of the newest collection and the eleven before it
+const weeksShown = 12; // on the year pages, the week of the newest collection and the eleven before it
 const daysInFeed = 30; // in activity.xml, the newest complete days with something in them
 const headlinesShown = 3;
 const publicationsShown = 3;
@@ -135,7 +135,7 @@ type ActivityWeek = {
 };
 export type ActivityDay = {
   day: string;
-  week: string; // its week's anchor on /activity/
+  week: string; // its week's anchor on its year's page
   last: string;
   commits: number;
   who: Who;
@@ -158,7 +158,7 @@ export type ThingRecord = {
   publications: number;
   years: { year: number; total: number; who: Who }[]; // every year from the first to the last
   peak: { year: number; total: number } | null; // the year with the most commits, unless years tie
-  recent: (ThingPeriod & { week: string | null })[]; // week: its anchor on /activity/, while it is shown there
+  recent: (ThingPeriod & { week: string | null })[]; // week: its anchor on its year's page, while it is shown there
 };
 export type Activity = {
   collected: string | null; // the newest commit or publication log
