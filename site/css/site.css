@@ -1911,7 +1911,7 @@ h4:hover > .permalink,
 }
 
 /* Phones: the six links keep to one row, spread across it with less room around each. They fit at 17px from
-   440px wide, 15px from 390px and 14px from 350px; narrower than that the row scrolls sideways like the sites
+   440px wide, 15px from 410px and 14px from 360px; narrower than that the row scrolls sideways like the sites
    strip. It never breaks onto a second line. */
 @media (width <= 560px) {
   .site-header nav {
@@ -1937,7 +1937,7 @@ h4:hover > .permalink,
   }
 }
 
-@media (width < 390px) {
+@media (width < 410px) {
   .site-header nav a {
     font-size: var(--jt-size-label);
   }
@@ -1953,7 +1953,7 @@ h4:hover > .permalink,
   }
 }
 
-@media (width < 350px) {
+@media (width < 360px) {
   .site-header nav {
     overflow-x: auto;
   }
@@ -2175,6 +2175,11 @@ h4:hover > .permalink,
 .shelf-track > * {
   min-width: 0;
   scroll-snap-align: start;
+}
+
+/* A thing's card sits in its h-entry; the card's link fills the shelf's row. */
+.shelf-entry {
+  display: grid;
 }
 
 .shelf-card {

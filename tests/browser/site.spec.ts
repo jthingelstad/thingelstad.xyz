@@ -209,10 +209,10 @@ test('dark mode follows the system: a dark paper, light ink, and the strip in it
   );
 });
 
-test('the header links keep to one row at every width, scrolling only below 350px', async ({ page }) => {
+test('the header links keep to one row at every width, scrolling only below 360px', async ({ page }) => {
   await page.goto('/search/');
   await page.evaluate(() => document.fonts.ready);
-  for (const width of [1536, 820, 500, 430, 390, 375, 360, 320]) {
+  for (const width of [1536, 820, 500, 430, 410, 409, 390, 375, 360, 350, 320]) {
     await page.setViewportSize({ width, height: 800 });
     const nav = await page.evaluate(() => {
       const nav = document.querySelector('.site-header nav')!;
@@ -220,7 +220,7 @@ test('the header links keep to one row at every width, scrolling only below 350p
       return { rows: new Set(tops).size, overflow: nav.scrollWidth - nav.clientWidth };
     });
     expect(nav.rows, `${width}px: one row`).toBe(1);
-    if (width >= 350) expect(nav.overflow, `${width}px: every link fits`).toBeLessThanOrEqual(0);
+    if (width >= 360) expect(nav.overflow, `${width}px: every link fits`).toBeLessThanOrEqual(0);
     expect(await fitsViewport(page), `${width}px`).toBe(true);
   }
 });
@@ -797,7 +797,12 @@ test('every list of things is an h-feed of h-entries, one level deep', async ({ 
   const lists = [
     { path: '/', feeds: ['Featured', ...collections], entries: featured.length + things.length },
     { path: '/search/', feeds: [siteTitle], entries: things.length },
-    { path: '/things/', feeds: collections, entries: things.length }
+    { path: '/things/', feeds: collections, entries: things.length },
+    {
+      path: '/years/2026/',
+      feeds: ['Started in 2026'],
+      entries: things.filter((thing) => thing.started?.startsWith('2026')).length
+    }
   ];
   for (const list of lists) {
     await page.goto(list.path);
