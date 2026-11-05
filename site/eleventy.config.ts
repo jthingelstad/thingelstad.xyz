@@ -4,7 +4,6 @@ import { createHash } from 'node:crypto';
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import markdownIt from 'markdown-it';
 import {
-  aliveBar,
   formatDate,
   lifespan,
   reach,
@@ -12,8 +11,7 @@ import {
   sparkline,
   type SiteModel,
   type Timeline,
-  type TimelineRow,
-  type TimelineYear
+  type TimelineRow
 } from '../collection/site';
 import type { MonthCount, ScreenshotObservation } from '../collection/schema';
 import { activitySummary, localDay, whoBar, yearColumns } from '../collection/activity';
@@ -22,6 +20,7 @@ import { parseSites, siteRef, sitesPath } from '../collection/sites';
 import { sitesStrip } from '../collection/sites-strip';
 import { sharedTypeAssets, sharedTypeDir } from '../collection/shared-type';
 import { writeSearchIndex } from '../collection/search-index';
+import { eventPage, weekPage } from '../collection/years';
 
 const markdown = markdownIt({ html: false, linkify: true, typographer: true });
 
@@ -45,6 +44,7 @@ export default function (eleventyConfig: EleventyConfig) {
   const assets = {
     css: `/assets/site-${hashed('site/css/site.css')}.css`,
     search: `/assets/search-${hashed('site/js/search.js')}.js`,
+    enhance: `/assets/enhance-${hashed('site/js/enhance.js')}.js`,
     tokens: shared.tokens,
     fontPreloads: shared.preloads,
     favicon: hashed('public/favicon.svg')
@@ -63,6 +63,7 @@ export default function (eleventyConfig: EleventyConfig) {
   eleventyConfig.addPassthroughCopy({
     'site/css/site.css': assets.css.slice(1),
     'site/js/search.js': assets.search.slice(1),
+    'site/js/enhance.js': assets.enhance.slice(1),
     [sharedTypeDir]: shared.base.slice(1)
   });
   // Each front-page screenshot is published under /assets/ with its hash in the name (see screenshotAsset).
@@ -88,7 +89,8 @@ export default function (eleventyConfig: EleventyConfig) {
     sparkline(months, label, variant)
   );
   eleventyConfig.addFilter('lifespan', (row: TimelineRow, timeline: Timeline) => lifespan(row, timeline));
-  eleventyConfig.addFilter('aliveBar', (year: TimelineYear, timeline: Timeline) => aliveBar(year, timeline));
+  eleventyConfig.addFilter('eventPage', eventPage);
+  eleventyConfig.addFilter('weekPage', weekPage);
   eleventyConfig.addFilter('thing', (site: SiteModel, id: string) => site.things.find((t) => t.id === id));
   eleventyConfig.addFilter('displayUrl', (value: string) => value.replace(/^https:\/\//, '').replace(/\/$/, ''));
   eleventyConfig.addFilter('number', (value: number) => new Intl.NumberFormat('en-US').format(value));

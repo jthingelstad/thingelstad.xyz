@@ -1,0 +1,35 @@
+{#- A shelf: a row of cards that scrolls sideways. It works by swipe, trackpad and keyboard with no script;
+    site/js/enhance.js shows the arrows. Fill it with {% call shelf(...) %}. A shelf of things is a feed: the
+    h-feed its entries sit in, named by its heading. #}
+{% macro shelf(id, title, note, width, moreHref, moreLabel, feed) %}
+<section class="shelf{% if feed %} h-feed{% endif %}" id="{{ id }}" data-shelf aria-labelledby="{{ id }}-heading">
+  <div class="shelf-head">
+    <div class="shelf-title"><h2 id="{{ id }}-heading"{% if feed %} class="p-name"{% endif %}>{{ title }}</h2>{% if note %}<span class="meta">{{ note }}</span>{% endif %}</div>
+    <div class="shelf-controls">
+      {%- if moreHref %}<a class="more" href="{{ moreHref }}">{{ moreLabel }}</a>{% endif %}
+      <button class="shelf-arrow" type="button" data-shelf-move="-1" aria-label="Earlier in {{ title }}" hidden>←</button>
+      <button class="shelf-arrow" type="button" data-shelf-move="1" aria-label="Later in {{ title }}" hidden>→</button>
+    </div>
+  </div>
+  <div class="shelf-track" style="--card: {{ width or 300 }}px" tabindex="0" role="group" aria-label="{{ title }}">
+    {{ caller() }}
+  </div>
+</section>
+{% endmacro %}
+
+{#- A thing as a small card on a shelf, an h-entry of the shelf's h-feed like thing-row.njk: its link is the whole
+    card, and the owner's hidden h-card stands beside it because a link cannot hold another. #}
+{% macro thingCard(thing, owner) %}
+<div class="shelf-entry h-entry">
+  <a class="p-author h-card" href="{{ owner.url }}" hidden>{{ owner.name }}</a>
+  <a class="shelf-card u-url" href="{{ thing.page }}"><span class="status-dot{% if thing.status == 'active' %} is-active{% endif %}">{{ thing.statusLabel }}</span><h3 class="p-name">{{ thing.title }}</h3><span class="small clamp p-summary">{{ thing.summary }}</span></a>
+</div>
+{% endmacro %}
+
+{#- An artifact as a figure that leads to its place on its thing's page. #}
+{% macro artifactFigure(thing, artifact) %}
+<a class="artifact-figure" href="{{ thing.page }}#{{ artifact.anchor }}"><figure>
+  <img src="{{ artifact.image.src }}" alt="{{ artifact.alt or artifact.title }}" width="{{ artifact.image.width }}" height="{{ artifact.image.height }}" loading="lazy" decoding="async" />
+  <figcaption><b>{{ artifact.title }}</b>{% if artifact.caption %}<span class="muted clamp-two">{{ artifact.caption }}</span>{% endif %}</figcaption>
+</figure></a>
+{% endmacro %}

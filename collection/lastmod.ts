@@ -1,9 +1,9 @@
 // The sitemap's <lastmod> for every page: when the page's content last really changed, never when it was built.
 // A thing's page changes when its record or artifacts change (the newest commit touching content/things/<id>.md
 // or content/artifacts/<id>/), when a history event about it is dated, and when its newest evidence is (the
-// latest commit, publication or page change the page shows). A page that lists things (the front page, a topic,
-// search, the timeline) changed when the newest of them did, or when its own file did (featured.yaml,
-// topics.yaml). /history/ changed with the history files and its newest event, /activity/ with its newest entry.
+// latest commit, publication or page change the page shows). A page that lists things (the front page, /things/,
+// search, /years/, /artifacts/) changed when the newest of them did, or when its own file did (featured.yaml,
+// topics.yaml). A year's page changed with its history file, its events, its things and its newest activity.
 // Daily counters (page views, stars) are not counted: they move every collection and are not the page's content.
 import { execFileSync } from 'node:child_process';
 import { toInstant, type SiteModel } from './site.ts';
@@ -81,15 +81,21 @@ export function sitemapEntries(model: SiteModel, fileDate: FileDate): SitemapEnt
   );
   const allStories = latest([...storyFileDates.values()]);
   const allThings = latest([...thingDates.values()]);
-  const topicDates = model.topics.map((topic) => ({
-    page: topic.page,
-    date: latest([fileDate('content/topics.yaml'), ...topic.things.map((thing) => thingDates.get(thing.id))])
-  }));
   const history = latest([fileDate('content/history'), ...model.history.map((event) => event.date)]);
   const activity = latest([
     ...model.activity.days.map((day) => day.last),
     ...model.activity.weeks.flatMap((week) => week.things.map((thing) => thing.last))
   ]);
+  // A year's page shows its things' titles and summaries, its events, and its weeks.
+  const yearDates = model.years.map((item) => ({
+    page: item.page,
+    date: latest([
+      fileDate(`content/history/${item.year}.yaml`),
+      ...item.events.map((event) => event.date),
+      ...[...item.started, ...item.ended, ...item.already].map((thing) => fileDate(`content/things/${thing.id}.md`)),
+      ...item.weeks.flatMap((week) => week.things.map((thing) => thing.last))
+    ])
+  }));
   const storyDates = model.stories.map((story) => ({
     page: story.page,
     date: latest([storyFileDates.get(story.id), ...story.cast.map((thing) => thingDates.get(thing.id))])
@@ -105,10 +111,22 @@ export function sitemapEntries(model: SiteModel, fileDate: FileDate): SitemapEnt
   }));
   const pages: [string, string | null][] = [
     ['/', latest([allThings, allStories, fileDate('content/featured.yaml')])],
-    ['/topics/', latest(topicDates.map((topic) => topic.date))],
-    ['/history/', history],
-    ['/activity/', activity],
-    ['/timeline/', latest([allThings, history])],
+    ['/things/', latest([allThings, fileDate('content/topics.yaml')])],
+    ['/years/', latest([allThings, history, activity])],
+    ...yearDates.map((item): [string, string | null] => [item.page, item.date]),
+    ...(model.artifactSets.length
+      ? [
+          [
+            '/artifacts/',
+            latest(
+              model.artifactSets.flatMap(({ thing }) => [
+                fileDate(`content/artifacts/${thing.id}`),
+                fileDate(`content/things/${thing.id}.md`)
+              ])
+            )
+          ] as [string, string | null]
+        ]
+      : []),
     ['/search/', allThings],
     [
       '/about/',
@@ -126,8 +144,7 @@ export function sitemapEntries(model: SiteModel, fileDate: FileDate): SitemapEnt
       ? [['/interviews/', latest(interviewDates.map((item) => item.date))] as [string, string | null]]
       : []),
     ...interviewDates.map((item) => [item.page, item.date] as [string, string | null]),
-    ...model.things.map((thing): [string, string | null] => [thing.page, thingDates.get(thing.id) ?? null]),
-    ...topicDates.map((topic): [string, string | null] => [topic.page, topic.date])
+    ...model.things.map((thing): [string, string | null] => [thing.page, thingDates.get(thing.id) ?? null])
   ];
   // Only a page with no dated source at all (uncommitted content in a local build) falls back to the build.
   return pages.map(([page, date]) => ({ loc: `${model.url}${page}`, lastmod: w3c(date ?? model.generated) }));

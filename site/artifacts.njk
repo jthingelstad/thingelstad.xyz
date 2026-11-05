@@ -1,0 +1,32 @@
+---
+layout: layout.njk
+permalink: /artifacts/
+title: Artifacts
+description: The sketches, screenshots and files kept from building Jamie Thingelstad’s projects. Each one belongs to its project and stays on its page.
+---
+{% from "macros.njk" import shelf, artifactFigure %}
+{#- A shelf for each thing with a large set, a figure for each with a small one. The picks and counts are in
+    collection/site.ts (artifactSet). Every figure leads to the artifact's own address on its thing's page. #}
+<section class="intro has-character">
+  <a class="thingy-companion" href="/things/thingy-model/" aria-label="Meet Thingy’s character"><img src="https://thingy.thingelstad.xyz/character/latest/poses/workshop-hammer-show.webp" width="170" height="170" alt="Thingy, the Workshop Builder, holding up a hammer" /></a>
+  <h1>Artifacts</h1>
+  <p class="lede">{{ site.artifactTotal }} things kept from the building: first sketches, icon studies, screenshots from the first day, a poster, a sign. They belong to the projects, and every one of them stays on its project’s page too.</p>
+</section>
+<blockquote class="pull-quote"><q>I absolutely adore the idea that Things I’ve built has these artifacts where I can capture artifacts that are part of the building process</q> <a href="/interviews/session-5/#q34">Jamie, question 34</a></blockquote>
+{% for set in site.artifactSets %}{% if set.count >= 9 %}
+{% call shelf("artifacts-" + set.thing.id, set.thing.title, set.note, 300, set.thing.page + "#artifacts", "See all " + set.count) %}
+  {% for artifact in set.picks %}{{ artifactFigure(set.thing, artifact) }}{% endfor %}
+{% endcall %}
+{% endif %}{% endfor %}
+<section class="year-section" id="smaller-sets">
+  <h2>Smaller sets</h2>
+  <div class="artifact-grid">
+    {% for set in site.artifactSets %}{% if set.count < 9 and set.picks.length %}
+    <div>
+      {{ artifactFigure(set.thing, set.picks[0]) }}
+      <a class="more" href="{{ set.thing.page }}#artifacts">{{ set.thing.title }}, {{ set.count }}</a>
+    </div>
+    {% endif %}{% endfor %}
+  </div>
+</section>
+<script type="module" src="{{ assets.enhance }}"></script>

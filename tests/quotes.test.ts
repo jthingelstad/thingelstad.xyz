@@ -97,17 +97,20 @@ const things = pages('content/things');
 const stories = pages('content/stories');
 
 // The about page's quotations: each <q> belongs to the next question link after it.
-function aboutQuotations(): Quote[] {
-  const html = readFileSync(join(root, 'site/about.njk'), 'utf8');
+// The site's own pages quote in <q>, each followed by a link to its question.
+function pageQuotations(file: string): Quote[] {
+  const html = readFileSync(join(root, file), 'utf8');
   return [...html.matchAll(/<q>([^<]*)<\/q>/g)].map((m) => {
     const question = html.slice(m.index).match(/\/interviews\/session-(\d+)\/#q(\d+)/);
-    assert.ok(question, `about: a quotation links its question: ${m[1]}`);
-    return { file: 'site/about.njk', question: Number(question[2]), session: Number(question[1]), text: m[1] };
+    assert.ok(question, `${file}: a quotation links its question: ${m[1]}`);
+    return { file, question: Number(question[2]), session: Number(question[1]), text: m[1] };
   });
 }
 
 test('every quotation of an interview session is what the transcript says, linked to its question', () => {
-  const all = [...things, ...stories].flatMap((page) => quotations(page.file, page.body)).concat(aboutQuotations());
+  const all = [...things, ...stories]
+    .flatMap((page) => quotations(page.file, page.body))
+    .concat(pageQuotations('site/about.njk'), pageQuotations('site/artifacts.njk'));
   assert.ok(all.length >= 60, `the site quotes the interview (${all.length} quotations)`);
   const problems: string[] = [];
   for (const quote of all) {

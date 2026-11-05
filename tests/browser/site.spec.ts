@@ -22,7 +22,7 @@ type Output = {
   featured: string[];
   things: Thing[];
   topics: { id: string; title: string }[];
-  history: { id: string; title: string }[];
+  history: { id: string; title: string; date: string; kind: string }[];
   stories: { id: string; title: string; page: string; things: string[]; events: string[] }[];
   interviews: {
     id: string;
@@ -188,7 +188,7 @@ const darkStripColours = {
 
 test('dark mode follows the system: a dark paper, light ink, and the strip in its dark values', async ({ page }) => {
   await page.emulateMedia({ colorScheme: 'dark' });
-  for (const path of ['/', '/things/mb/', '/search/', '/activity/']) {
+  for (const path of ['/', '/things/mb/', '/search/', '/years/2026/']) {
     await page.goto(path);
     await expect(page.locator('html'), path).toHaveCSS('background-color', 'rgb(23, 21, 18)');
     await expect(page.locator('html'), path).toHaveCSS('color', 'rgb(236, 231, 220)');
@@ -209,10 +209,10 @@ test('dark mode follows the system: a dark paper, light ink, and the strip in it
   );
 });
 
-test('the header links keep to one row at every width, scrolling only below 350px', async ({ page }) => {
+test('the header links keep to one row at every width, scrolling only below 360px', async ({ page }) => {
   await page.goto('/search/');
   await page.evaluate(() => document.fonts.ready);
-  for (const width of [1536, 820, 500, 430, 390, 375, 360, 320]) {
+  for (const width of [1536, 820, 500, 430, 410, 409, 390, 375, 360, 350, 320]) {
     await page.setViewportSize({ width, height: 800 });
     const nav = await page.evaluate(() => {
       const nav = document.querySelector('.site-header nav')!;
@@ -220,7 +220,7 @@ test('the header links keep to one row at every width, scrolling only below 350p
       return { rows: new Set(tops).size, overflow: nav.scrollWidth - nav.clientWidth };
     });
     expect(nav.rows, `${width}px: one row`).toBe(1);
-    if (width >= 350) expect(nav.overflow, `${width}px: every link fits`).toBeLessThanOrEqual(0);
+    if (width >= 360) expect(nav.overflow, `${width}px: every link fits`).toBeLessThanOrEqual(0);
     expect(await fitsViewport(page), `${width}px`).toBe(true);
   }
 });
@@ -257,7 +257,7 @@ test('a website thing shows its front page and page views', async ({ page }) => 
   await expect(page.locator('meta[property="og:image"]')).toHaveCount(0);
   await expect(page.locator('meta[name="twitter:card"]')).toHaveAttribute('content', 'summary');
   // A page that is no thing's own shares this site's front page.
-  for (const path of ['/', '/activity/', '/topics/']) {
+  for (const path of ['/', '/years/', '/things/']) {
     await page.goto(path);
     await expect(page.locator('meta[property="og:image"]'), path).toHaveAttribute(
       'content',
@@ -401,11 +401,113 @@ test('connections link both ways and topics gather their things', async ({ page 
   await expect(page).toHaveURL(/\/things\/elixir\/$/);
   await expect(page.locator('.connection-list')).toContainText('Elixir Bot');
   await page.locator('.facts').getByRole('link', { name: 'Agents' }).click();
-  await expect(page).toHaveURL(/\/topics\/agents\/$/);
+  await expect(page).toHaveURL(/\/things\/\?topic=agents$/);
   const members = things.filter((thing) => thing.topics.includes('agents'));
-  await expect(page.locator('.thing-row')).toHaveCount(members.length);
-  await page.goto('/topics/');
-  await expect(page.locator('.topic-list > li')).toHaveCount(topics.length);
+  await expect(page.locator('.thing-line:visible')).toHaveCount(members.length);
+  await expect(page.locator('[data-filter-axis="topic"] [data-value="agents"]')).toHaveAttribute(
+    'aria-pressed',
+    'true'
+  );
+  await expect(page.locator('[data-filter-when="topic:agents"]')).toBeVisible();
+  await expect(page.locator('.topics-list dt')).toHaveCount(topics.length);
+});
+
+test('things are listed by collection and narrow by status, kind and topic, kept in the address', async ({ page }) => {
+  const errors = watchErrors(page);
+  await page.goto('/things/');
+  await expect(page.locator('.site-header nav a[aria-current="page"]')).toHaveText('Things');
+  await expect(page.locator('.thing-line')).toHaveCount(things.length);
+  await expect(page.locator('[data-filter-status]')).toHaveText(`Showing ${things.length} of ${things.length}`);
+  expect(await fitsViewport(page)).toBe(true);
+  const dormant = things.filter((thing) => thing.status === 'dormant');
+  await page.locator('[data-filter-axis="status"] [data-value="dormant"]').click();
+  await expect(page).toHaveURL(/\?status=dormant$/);
+  await expect(page.locator('.thing-line:visible')).toHaveCount(dormant.length);
+  await expect(page.locator('[data-filter-status]')).toHaveText(`Showing ${dormant.length} of ${things.length}`);
+  await expect(page.locator('.things-group:visible')).toHaveCount(new Set(dormant.map((t) => t.collection)).size);
+  // A combination nothing matches says so, and clearing one brings the list back.
+  await page.locator('[data-filter-axis="topic"] [data-value="mediawiki"]').click();
+  await expect(page).toHaveURL(/\?status=dormant&topic=mediawiki$/);
+  if ((await page.locator('.thing-line:visible').count()) === 0)
+    await expect(page.locator('[data-filter-none]')).toBeVisible();
+  await page.locator('[data-filter-axis="status"] [data-value=""]').click();
+  await page.locator('[data-filter-axis="topic"] [data-value=""]').click();
+  await expect(page).toHaveURL(/\/things\/$/);
+  await expect(page.locator('.thing-line:visible')).toHaveCount(things.length);
+  // An address with an unknown value shows everything rather than nothing.
+  await page.goto('/things/?topic=not-a-topic');
+  await expect(page.locator('.thing-line:visible')).toHaveCount(things.length);
+  expect(errors).toEqual([]);
+});
+
+test('years chart the record, and each year opens what started, ended and happened', async ({ page }) => {
+  const errors = watchErrors(page);
+  await page.goto('/years/');
+  await expect(page.locator('.site-header nav a[aria-current="page"]')).toHaveText('Years');
+  const now = new Date().getUTCFullYear();
+  const rows = page.locator('.year-row');
+  await expect(rows.first()).toHaveAttribute('id', `y${now}`);
+  await expect(rows.first().locator('.year-row-line')).toContainText(/^\d+ alive/);
+  await expect(rows.first().locator('.year-bars')).toHaveAttribute('aria-label', /^\d+ alive/);
+  for (const bar of ['.bar-already', '.bar-new'])
+    expect((await rows.first().locator(bar).boundingBox())!.width, `${bar} is drawn`).toBeGreaterThan(4);
+  expect(await fitsViewport(page)).toBe(true);
+  await page.goto('/years/2026/');
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('2026');
+  await expect(page.locator('#started .shelf-card').first()).toBeVisible();
+  await expect(page.locator('#work .work-tile').first()).toContainText('commits');
+  const events = history.filter((event) => event.date.startsWith('2026'));
+  await expect(page.locator('.ledger-event')).toHaveCount(events.length);
+  expect(await fitsViewport(page)).toBe(true);
+  const kind = events[0].kind;
+  await page.locator(`[data-filter-axis="kind"] [data-value="${kind}"]`).click();
+  await expect(page.locator('.ledger-event:visible')).toHaveCount(events.filter((e) => e.kind === kind).length);
+  await page.locator('.year-nav a[rel="prev"]').click();
+  await expect(page).toHaveURL(/\/years\/2025\/$/);
+  await page.goto('/years/2003/');
+  await expect(page.locator('.year-nav a[rel="prev"]')).toHaveCount(0);
+  expect(errors).toEqual([]);
+});
+
+test('the old pages’ fragments reach the year they name', async ({ page }) => {
+  // CloudFront redirects /history/, /timeline/ and /activity/ to /years/ and the browser keeps the fragment
+  // (tests/deployment.test.ts covers the redirects, which the local server does not run).
+  const event = history[0];
+  const year = event.date.slice(0, 4);
+  await page.goto(`/years/#${event.id}`);
+  await expect(page).toHaveURL(new RegExp(`/years/${year}/#${event.id}$`));
+  await expect(page.locator(`[id="${event.id}"]`)).toBeInViewport();
+  await page.goto('/years/#2013');
+  await expect(page).toHaveURL(/\/years\/2013\/$/);
+  await page.goto('/years/#things-2026');
+  await expect(page).toHaveURL(/\/years\/2026\/#work$/);
+  await page.goto('/years/#y2013');
+  await expect(page).toHaveURL(/\/years\/#y2013$/);
+  await expect(page.locator('#y2013')).toBeInViewport();
+  await page.goto('/years/#no-such-event');
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Years');
+});
+
+test('artifacts gather on one page, each leading to its place on its thing’s page', async ({ page }) => {
+  const errors = watchErrors(page);
+  await page.goto('/artifacts/');
+  await expect(page.locator('.site-header nav a[aria-current="page"]')).toHaveText('Artifacts');
+  const total = things.reduce((sum, thing) => sum + (thing.artifacts?.length ?? 0), 0);
+  await expect(page.locator('.lede')).toContainText(`${total} things kept from the building`);
+  expect(await fitsViewport(page)).toBe(true);
+  const shelf = page.locator('[data-shelf]').first();
+  const track = shelf.locator('.shelf-track');
+  await expect(track).toHaveAttribute('tabindex', '0');
+  const before = await track.evaluate((element) => element.scrollLeft);
+  await shelf.getByRole('button', { name: /^Later in/ }).click();
+  await expect.poll(() => track.evaluate((element) => element.scrollLeft)).toBeGreaterThan(before);
+  const figure = shelf.locator('.artifact-figure').first();
+  const href = (await figure.getAttribute('href'))!;
+  expect(href).toMatch(/^\/things\/[a-z0-9-]+\/#artifact-/);
+  await figure.click();
+  await expect(page).toHaveURL(new RegExp(`${href.replace(/[.*+?^$()|[\]\\]/g, '\\$&')}$`));
+  await expect(page.locator(`[id="${decodeURIComponent(href.split('#')[1])}"]`)).toBeVisible();
+  expect(errors).toEqual([]);
 });
 
 test('a story tells an idea across several things in order, and each thing links its stories', async ({ page }) => {
@@ -433,19 +535,13 @@ test('a story tells an idea across several things in order, and each thing links
   expect(errors).toEqual([]);
 });
 
-test('history anchors, the timeline, and the machine outputs are reachable', async ({ page }) => {
+test('a thing’s events lead to their year, and the machine outputs are reachable', async ({ page }) => {
   const errors = watchErrors(page);
   await page.goto('/things/weekly-thing/');
   await page.locator('.event-list').getByRole('link').first().click();
-  await expect(page).toHaveURL(/\/history\/#[a-z0-9-]+$/);
+  await expect(page).toHaveURL(/\/years\/\d{4}\/#[a-z0-9-]+$/);
   const anchor = new URL(page.url()).hash.slice(1);
   await expect(page.locator(`#${anchor}`)).toBeInViewport();
-  await expect(page.locator('.event-list > li')).toHaveCount(history.length);
-  await page.goto('/timeline/');
-  await expect(page.locator('.tl-things > li')).toHaveCount(things.length);
-  await expect(page.locator('.tl-year').first()).toHaveAttribute('id', `y${new Date().getUTCFullYear()}`);
-  await expect(page.locator('.tl-things .lifespan').first()).toBeVisible();
-  expect(await fitsViewport(page)).toBe(true);
   for (const path of [
     '/feed.xml',
     '/feed.json',
@@ -470,19 +566,14 @@ test('history anchors, the timeline, and the machine outputs are reachable', asy
   expect(errors).toEqual([]);
 });
 
-test('activity shows who made the commits, week by week, and each thing keeps its own', async ({ page }) => {
+test('a year shows who made the commits, week by week, and each thing keeps its own', async ({ page }) => {
   const errors = watchErrors(page);
-  await page.goto('/activity/');
-  await expect(page.getByRole('heading', { level: 1 })).toHaveAccessibleName('Activity');
-  await expect(page.locator('.site-header nav a[aria-current="page"]')).toHaveText('Activity');
-  const years = page.locator('.who-years > li');
-  expect(await years.count()).toBeGreaterThan(1);
-  await expect(years.first().locator('svg.who-bar')).toHaveAttribute('aria-label', /^\d{4}: /);
-  await expect(page.locator('.activity-years .who-legend')).toContainText('With an agent');
-  await expect(page.locator('.week')).toHaveCount(12);
+  await page.goto('/years/2026/');
+  await expect(page.locator('#work')).toContainText('with Claude');
+  await expect(page.locator('#work')).toContainText('by Jamie');
   const week = page.locator('.week').first();
   await expect(week).toHaveAttribute('id', /^w-\d{4}-\d{2}-\d{2}$/);
-  await expect(week.locator('h3')).toContainText('so far');
+  await expect(week.locator('h3')).toContainText('Week of');
   expect(await fitsViewport(page)).toBe(true);
   const entry = page.locator('.activity-entry .activity-thing').first();
   const title = (await entry.innerText()).trim();
@@ -493,9 +584,9 @@ test('activity shows who made the commits, week by week, and each thing keeps it
   await expect(page.locator('.thing-activity .year-chart svg')).toHaveAttribute('aria-label', /commits per year from/);
   const recent = page.locator('.thing-activity a.activity-week').first();
   const anchor = (await recent.getAttribute('href'))!;
-  expect(anchor).toMatch(/^\/activity\/#w-\d{4}-\d{2}-\d{2}$/);
+  expect(anchor).toMatch(/^\/years\/\d{4}\/#w-\d{4}-\d{2}-\d{2}$/);
   await recent.click();
-  await expect(page.locator(anchor.slice('/activity/'.length))).toBeInViewport();
+  await expect(page.locator(anchor.slice(anchor.indexOf('#')))).toBeInViewport();
   const feed = await page.request.get('/activity.xml');
   expect(feed.ok()).toBe(true);
   expect(await feed.text()).toContain('<guid isPermaLink="false">activity-');
@@ -706,10 +797,11 @@ test('every list of things is an h-feed of h-entries, one level deep', async ({ 
   const lists = [
     { path: '/', feeds: ['Featured', ...collections], entries: featured.length + things.length },
     { path: '/search/', feeds: [siteTitle], entries: things.length },
+    { path: '/things/', feeds: collections, entries: things.length },
     {
-      path: '/topics/agents/',
-      feeds: [topics.find((topic) => topic.id === 'agents')!.title],
-      entries: things.filter((thing) => thing.topics.includes('agents')).length
+      path: '/years/2026/',
+      feeds: ['Started in 2026'],
+      entries: things.filter((thing) => thing.started?.startsWith('2026')).length
     }
   ];
   for (const list of lists) {
@@ -721,7 +813,8 @@ test('every list of things is an h-feed of h-entries, one level deep', async ({ 
         '.h-entry .h-entry, .h-entry .h-feed, .h-feed .h-feed, .h-feed .h-card:not(.h-entry > .p-author)'
       ).length,
       loose: [...document.querySelectorAll('.h-entry')].filter((entry) => !entry.closest('.h-feed')).length,
-      plain: document.querySelectorAll('.thing-row:not(.h-entry), .feature:not(.h-entry)').length,
+      plain: document.querySelectorAll('.thing-row:not(.h-entry), .thing-line:not(.h-entry), .feature:not(.h-entry)')
+        .length,
       // Each feed's name: its one p-name outside its entries.
       feeds: [...document.querySelectorAll('.h-feed')].map((feed) =>
         [...feed.querySelectorAll('.p-name')]
@@ -797,16 +890,12 @@ test('each feed is served as the type its head link names, and the sitemap lists
     expect(lastmod, url).toBeTruthy();
     expect(Date.parse(lastmod!), url).toBeLessThanOrEqual(Date.now());
   }
-  // Every page the header links (search among them), every thing, every topic.
+  // Every page the header links (search among them), every thing.
   const header = await page
     .locator('.site-header nav a')
     .evaluateAll((links) => links.map((link) => link.getAttribute('href')!));
   expect(header).toContain('/search/');
-  for (const path of [
-    ...header,
-    ...things.map((thing) => new URL(thing.page).pathname),
-    ...topics.map((topic) => `/topics/${topic.id}/`)
-  ])
+  for (const path of [...header, '/years/2026/', ...things.map((thing) => new URL(thing.page).pathname)])
     expect(pages, path).toContain(path);
 });
 
@@ -820,8 +909,7 @@ test('links to the other sites carry a ref, and story text keeps its links', asy
     '/things/weekly-thing/',
     '/things/jamie-thingelstad-blog/',
     '/things/thingy/',
-    '/history/',
-    '/activity/'
+    '/years/2026/'
   ]) {
     await page.goto(path);
     const links = await page.locator('a[href^="https://"]').evaluateAll((anchors) =>
@@ -861,10 +949,10 @@ test('the shared type: Inter Tight headings, Inter text, nothing under 14px, no 
     ['/things/elixir-bot/', 200],
     ['/things/velotweets/', 200],
     ['/things/yearly-thing-2025/', 200],
-    ['/topics/', 200],
-    ['/history/', 200],
-    ['/timeline/', 200],
-    ['/activity/', 200],
+    ['/things/', 200],
+    ['/years/', 200],
+    ['/years/2026/', 200],
+    ['/artifacts/', 200],
     ['/search/?q=wiki', 200],
     ['/things/nothing-here/', 404]
   ] as const) {
@@ -1007,5 +1095,17 @@ test.describe('without JavaScript', () => {
     await expect(page.locator('[data-search-status]')).toContainText('Every thing Jamie has built is listed below.');
     await expect(page.getByRole('searchbox')).toBeHidden();
     await expect(page.locator('[data-search-facets]')).toBeHidden();
+  });
+  test('the new pages read in full, with no controls that need a script', async ({ page }) => {
+    await page.goto('/things/');
+    await expect(page.locator('.thing-line:visible')).toHaveCount(things.length);
+    await expect(page.locator('.filters')).toBeHidden();
+    await expect(page.locator('.topics-list dt:visible')).toHaveCount(topics.length);
+    await page.goto('/years/2026/');
+    await expect(page.locator('.ledger-event:visible')).toHaveCount(
+      history.filter((event) => event.date.startsWith('2026')).length
+    );
+    await expect(page.locator('.shelf-arrow:visible')).toHaveCount(0);
+    await expect(page.locator('#started .shelf-card').first()).toBeVisible();
   });
 });

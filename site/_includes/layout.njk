@@ -43,12 +43,9 @@
     <header class="site-header">
       <a class="wordmark" href="/"><span class="mark" aria-hidden="true">T</span>{{ site.title }}</a>
       <nav aria-label="Site">
-        <a href="/"{% if page.url == '/' %} aria-current="page"{% endif %}>Things</a>
-        <a href="/topics/"{% if page.url.startsWith('/topics/') %} aria-current="page"{% endif %}>Topics</a>
-        <a href="/history/"{% if page.url == '/history/' %} aria-current="page"{% endif %}>History</a>
-        <a href="/activity/"{% if page.url == '/activity/' %} aria-current="page"{% endif %}>Activity</a>
-        <a href="/timeline/"{% if page.url == '/timeline/' %} aria-current="page"{% endif %}>Timeline</a>
-        <a href="/search/"{% if page.url == '/search/' %} aria-current="page"{% endif %}>Search</a>
+        {%- for link in [["Things", "/things/"], ["Stories", "/stories/"], ["Interviews", "/interviews/"], ["Artifacts", "/artifacts/"], ["Years", "/years/"], ["Search", "/search/"]] %}
+        <a href="{{ link[1] }}"{% if page.url.startsWith(link[1]) %} aria-current="page"{% endif %}>{{ link[0] }}</a>
+        {%- endfor %}
       </nav>
     </header>
     <main id="main" class="site-main">
@@ -63,8 +60,7 @@
         <a href="{{ site.repository }}">Markdown and YAML</a>. Status is Jamie’s decision. Activity is evidence. Some of it makes a <a href="/stories/">story</a>, and he says why <a href="/interviews/">in his own words</a>. <a href="/about/">About this site</a>.
       </p>
       <p>
-        <a href="/feed.xml">RSS</a> · <a href="/feed.json">JSON Feed</a> · <a href="/activity.xml">Activity RSS</a> · <a href="/llms.txt">llms.txt</a> ·
-        <a href="/things.json">things.json</a> · <a href="{{ site.repository }}">Source</a>
+        <a href="/about/">About</a> · <a href="/about/#feeds">Feeds</a> · <a href="/about/#agents">For agents</a> · <a href="{{ site.repository }}">Source</a>
       </p>
     </footer>
     <script defer src="https://tinylytics.app/js/script.js" data-site="jyQF-tKd4sG-MEeyxvik"></script>

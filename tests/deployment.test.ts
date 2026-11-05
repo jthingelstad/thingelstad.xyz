@@ -99,9 +99,27 @@ test('the viewer-request function serves directory indexes, adds the slash, and 
   assert.equal(location(handler(request('www.thingelstad.xyz', '/feed.xml'))), 'https://thingelstad.xyz/feed.xml');
   const query = { utm_source: { value: 'x', multiValue: [{ value: 'x' }, { value: 'y' }] }, flag: { value: '' } };
   assert.equal(
-    location(handler(request('WWW.thingelstad.xyz', '/history/', query))),
-    'https://thingelstad.xyz/history/?utm_source=x&utm_source=y&flag'
+    location(handler(request('WWW.thingelstad.xyz', '/stories/', query))),
+    'https://thingelstad.xyz/stories/?utm_source=x&utm_source=y&flag'
   );
+  // The pages the redesign merged answer with one redirect, from any form of their address.
+  for (const [path, target] of [
+    ['/timeline/', '/years/'],
+    ['/history/', '/years/'],
+    ['/history', '/years/'],
+    ['/activity/', '/years/'],
+    ['/topics/', '/things/'],
+    ['/topics/agents/', '/things/?topic=agents'],
+    ['/topics/open-web', '/things/?topic=open-web']
+  ])
+    assert.equal(location(handler(request('thingelstad.xyz', path))), target, path);
+  assert.equal(location(handler(request('www.thingelstad.xyz', '/activity'))), 'https://thingelstad.xyz/years/');
+  assert.equal(
+    location(handler(request('thingelstad.xyz', '/topics/agents/', { ref: { value: 'x' } }))),
+    '/things/?topic=agents&ref=x'
+  );
+  assert.equal(location(handler(request('thingelstad.xyz', '/history/', { ref: { value: 'x' } }))), '/years/?ref=x');
+  assert.equal(handler(request('thingelstad.xyz', '/things/agents/')).uri, '/things/agents/index.html', 'others pass');
 });
 
 test('IndexNow pings only the sitemap pages a deploy adds or changes, on the canonical host', () => {

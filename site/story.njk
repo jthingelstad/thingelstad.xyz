@@ -40,7 +40,7 @@ eleventyComputed:
       <li>
         <time datetime="{{ event.date }}">{{ event.date | date }}</time>
         <span class="kind kind-{{ event.kind }}">{{ event.kind }}</span>
-        <a href="/history/#{{ event.id }}"><strong>{{ event.title }}</strong></a>
+        <a href="{{ event | eventPage }}"><strong>{{ event.title }}</strong></a>
         <p>{{ event.summary }} <a href="{{ event.source | ref("source") }}">Source</a></p>
       </li>
       {% endfor %}
