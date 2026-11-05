@@ -1,6 +1,6 @@
 ---
 title: Thingy Model
-summary: A poseable Blender character built from Thingy’s original illustration, with a shared skeleton, four Scenes and their accessories, a screen face with moods, and a kit that puts him on any site.
+summary: A poseable Blender character built from Thingy’s original illustration, with a shared skeleton, seven Scenes and their accessories, a screen face with moods, and a kit that puts him on any site.
 collection: Art & archives
 status: active
 started: '2026-11-01'
@@ -34,12 +34,13 @@ story:
   introduction: Thingy, from more than one angle.
   engineering:
     - An editable Blender master holds the body, articulated hands, clothing, props, and a shared 40-bone skeleton.
-    - Four Scenes switch on the same rig. Each declares its accessories (the workshop’s tools, the Outdoors daypack, the Concert headphones), and a new Scene is one more entry in that list.
+    - Seven Scenes switch on the same rig. Each declares its accessories (the workshop’s tools, the Outdoors daypack, the Concert headphones, the Kitchen grill), and a new Scene is one more entry in that list.
     - Taking the headphones off brings the standard ear housings back; the daypack’s straps go with it.
     - The bow tie’s dots and the name badge’s lettering are packed image textures on their surfaces.
     - The face is an image on the screen. One atlas holds the original expression, the four Ask Thingy moods, six more faces, and their blinks; a single control picks one.
     - The antenna’s lens switches on to a heart-red glow, with a light inside it and a halo. Unlit, it stays tangerine.
     - A tool switch puts a screwdriver, hammer, drill, or laptop in hand. Each hand tool has a solved grip and its own carry, show, and work poses.
+    - Larger accessories stand beside him with a switch of their own, like the green egg grill in the Kitchen and the 3D printer in the Workshop.
     - The coat is brushed felt, the shell a forest twill, the vest worn canvas, and the jacket washed denim, each at a scale the web model’s texture can hold, with topstitching and folds bound to the same skeleton.
     - The character is published from thingy.thingelstad.xyz, the source of Thingy. Thingy Kit gives a project his persona, model, faces, and component behind one link, and this site’s own stills follow the newest model there.
     - The site and everything it publishes, the model and print files included, are licensed CC BY-NC 4.0, and its repository is public.
@@ -83,6 +84,9 @@ bundles:
   - id: scenes
     title: Scenes and accessories
     caption: At v0.15 the outfits became Scenes, the pack and headphones came off, and the other three Scenes’ cloth came up to the Library’s.
+  - id: wardrobe-v017
+    title: Seven Scenes, and props of his own
+    caption: v0.16 and v0.17 brought the tools in front of him, three new Scenes, and accessories taken from what Jamie makes and uses.
   - id: first-print
     title: The first print
     caption: The v0.13 print figure, off the screen and on a counter.
@@ -241,6 +245,16 @@ artifacts:
     title: The other Scenes’ cloth · v0.14 and v0.15
     caption: v0.14 above and v0.15 below. Outdoors and Concert gained folds and topstitching, and all three gained a weave coarse enough to survive the web model’s texture.
     date: '2026-11-04'
+  - file: scenes-v017.jpg
+    bundle: wardrobe-v017
+    title: The seven Scenes · v0.17
+    caption: Library, Outdoors, Workshop, Concert, Kitchen, Winter, and Cabin, each in its present pose.
+    date: '2026-11-05'
+  - file: props-v017.jpg
+    bundle: wardrobe-v017
+    title: Props of his own · v0.16 and v0.17
+    caption: The Yearly Thing, the Road Sign Math mug, a Kubb baton, a build plate with a tiny Thingy beside the 3D printer, the iPhone held up, tongs at the green egg grill, and a stocking hat with the scarf.
+    date: '2026-11-05'
   - file: thingy-printed-v013.jpg
     bundle: first-print
     title: Thingy in plastic · v0.13
@@ -264,7 +278,7 @@ Jamie described the idea in his interview: [“Thingy should actually be a 3D mo
 
 The first prototype established the clothed character. Then the work went underneath the jacket: shorter mechanical legs, ankle collars, shallower feet, and arms built from the same vocabulary. Later passes returned to the head and hands, separated the shirt from the lapels, lowered the bow tie, and fitted the pockets to the coat. Lighting studies made the navy fabric easier to read. The bow tie’s dots and the badge’s letters became images wrapped onto their surfaces.
 
-Four Scenes now share one skeleton. In the Library he wears the navy coat. Outdoors he has a forest-green shell, folded map, and an orange daypack that comes off. In the Workshop he wears an indigo canvas vest and can hold a tool: a screwdriver, hammer, drill, or laptop. At a Concert he has a charcoal denim jacket, orange sound-wave shirt, wristband, and over-ear headphones that give way to the usual ears when they come off. The antenna light can be switched on or off.
+Seven Scenes now share one skeleton. In the Library he wears the navy coat. Outdoors he has a forest-green shell, folded map, and an orange daypack that comes off. In the Workshop he wears an indigo canvas vest and can hold a tool: a screwdriver, hammer, drill, or laptop. At a Concert he has a charcoal denim jacket, orange sound-wave shirt, wristband, and over-ear headphones that give way to the usual ears when they come off. In the Kitchen he has a cream tee and a butcher-stripe apron. In Winter he has a mustard parka, tangerine mittens, and a fallen hood. At the Cabin he has a red buffalo-check flannel over a cream tee. The antenna light can be switched on or off.
 
 At v0.10 the standard ears took a continuous tapered shape and moved out to sit against the head’s surface. At v0.11 the face became a picture on the screen. Beside the original expression are the four moods Ask Thingy uses, and the pose and the face are chosen separately: the librarian for Ask Thingy, the workshop builder for this site. At v0.12 the laptop gave way to a switch of tools, each with a grip solved so every finger closes on the handle, and the lit antenna turned heart red.
 
@@ -272,8 +286,10 @@ A study then showed why the clothes read flat. Lights meant to brighten the navy
 
 At v0.14 six more faces joined the moods, each with its meaning settled before it was drawn. At v0.15 the outfits became Scenes, and what he carries became Accessories: the daypack and headphones separated from their outfits, alongside the tools. The same pass gave the other three Scenes a cloth of their own at the scale the web model can hold, with folds and topstitching for Outdoors and Concert, and left the Library alone.
 
+At v0.16 the tools came around in front of him, and the laptop can turn its screen to him so he can work on it. Two new props arrived: a build plate holding a tiny printed Thingy, and an iPhone for the Concert that he checks and holds up. Its screen shows this page. At v0.17 the Kitchen, Winter, and Cabin Scenes joined, and the accessories turned personal. The book he reads is the Yearly Thing, and the mug carries the Road Sign Math logo. There’s a Kubb baton, tongs and a whisk beside a green ceramic egg grill, a stocking hat and a scarf, a 3D printer in the Workshop, a microphone, a neck camera, a helmet, and a candle.
+
 The character lives at [thingy.thingelstad.xyz](https://thingy.thingelstad.xyz/), the source of Thingy. [Thingy Kit](https://thingy.thingelstad.xyz/kit/) gives a project his persona, model, faces, and component behind one link, and following it means a new model reaches every site that does: Ask Thingy and this site both do. Everything there is licensed [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/), and [its repository](https://github.com/jthingelstad/thingy.thingelstad.xyz) is public. The Blender masters stay in a private repository.
 
-The latest checkpoint is v0.15. The rig and short performance studies are working prototypes, and more animation controls, facial acting, and clothing adjustments remain. A one-color 180 mm [print figure](https://thingy.thingelstad.xyz/print/) for Jamie’s Bambu P2S, made from v0.13, is on the site, and on November 4, 2026 he said [“I printed the 3D model last night, so there’s now a physical print of Thingy.”](https://thingelstad.xyz/interviews/session-6/#q39)
+The latest checkpoint is v0.17. The rig and short performance studies are working prototypes, and more animation controls, facial acting, and clothing adjustments remain. A one-color 180 mm [print figure](https://thingy.thingelstad.xyz/print/) for Jamie’s Bambu P2S, made from v0.13, is on the site, and on November 4, 2026 he said [“I printed the 3D model last night, so there’s now a physical print of Thingy.”](https://thingelstad.xyz/interviews/session-6/#q39)
 
 He did not plan for it to go this far: [“I never meant to create thingy.thingelstad.xyz or what has now become Thingy Kit.”](https://thingelstad.xyz/interviews/session-6/#q39) [“What started as a 3D model so I could pose Thingy differently has become a complete definition of Thingy’s character and persona: Thingy Kit.”](https://thingelstad.xyz/interviews/session-6/#q39)
