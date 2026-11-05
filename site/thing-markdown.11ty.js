@@ -1,5 +1,5 @@
 // Each thing is also published as Markdown at /things/<id>.md, the twin llms.txt links to.
-import { thingMarkdown } from '../collection/site.ts';
+import { thingMarkdown } from '../collection/records.ts';
 
 export const data = {
   pagination: { data: 'site.things', size: 1, alias: 'thing' },

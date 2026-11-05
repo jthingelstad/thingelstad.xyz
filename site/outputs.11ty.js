@@ -1,5 +1,6 @@
 // The machine-readable outputs: feeds of the ledger and of activity, llms.txt, and the things.json ingestion surface.
-import { activityRss, jsonFeed, llmsFullText, llmsText, rssFeed, thingsJson } from '../collection/site.ts';
+import { activityRss, jsonFeed, rssFeed } from '../collection/feeds.ts';
+import { llmsFullText, llmsText, thingsJson } from '../collection/records.ts';
 import { indexNowKey } from '../scripts/indexnow.mjs';
 import { gitFileDates, sitemapEntries, sitemapXml } from '../collection/lastmod.ts';
 

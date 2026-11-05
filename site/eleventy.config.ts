@@ -5,14 +5,13 @@ import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import markdownIt from 'markdown-it';
 import {
   formatDate,
-  lifespan,
   reach,
   screenshotAsset,
-  sparkline,
   type SiteModel,
   type Timeline,
   type TimelineRow
 } from '../collection/site';
+import { lifespan, sparkline } from '../collection/charts';
 import type { MonthCount, ScreenshotObservation } from '../collection/schema';
 import { activitySummary, localDay, whoBar, yearColumns } from '../collection/activity';
 import { connectionDiagram } from '../collection/diagram';
