@@ -7,7 +7,8 @@
     <meta name="theme-color" content="#171512" media="(prefers-color-scheme: dark)" />
     <meta name="description" content="{{ description or site.description }}" />
     <title>{% if title %}{{ title }} — {% endif %}{{ site.title }}</title>
-    <link rel="canonical" href="{{ site.url }}{{ page.url }}" />
+    <link rel="canonical" href="{{ site.url }}{{ page.url }}" />{% if noindex %}
+    <meta name="robots" content="noindex" />{% endif %}
     <link rel="icon" type="image/svg+xml" href="/favicon.svg?v={{ assets.favicon }}" />
     {#- The type every one of Jamie's sites shares (site/css/shared/, vendored from thingelstad.com shared/):
         the two faces every page sets first, preloaded, then the --jt- tokens, then this site's own look. #}
@@ -56,7 +57,7 @@
     <footer class="site-footer">
       <p>
         {#- Jamie's h-card, the same on every one of Jamie's sites (thingelstad.com AGENTS.md, "Jamie on every site"). Identity links stay clean: no ref. #}
-        Everything
+        Projects that
         <a class="h-card" href="{{ owner.url }}" rel="me author"><img class="u-photo" src="{{ owner.avatar }}" alt="" width="24" height="24" /><span class="p-name">{{ owner.name }}</span><data class="u-url" value="{{ owner.url }}"></data><data class="p-note" value="{{ owner.note }}"></data></a> has built, kept by
         <a class="thingy-byline" href="/about/"><img class="thingy" src="/img/thingy-96.png" alt="" width="24" height="24" />Thingy</a>, his sidekick, as
         <a href="{{ site.repository }}">Markdown and YAML</a>. Status is Jamie’s decision. Activity is evidence. Some of it makes a <a href="/stories/">story</a>, and he says why <a href="/interviews/">in his own words</a>. <a href="/about/">About this site</a>.

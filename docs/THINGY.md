@@ -25,22 +25,22 @@ The persona’s line for this site: “Specific, with a kept detail. Writes abou
 
 ## What the interview settled
 
-Jamie answered thirty-five questions on 2026-10-31 and 2026-11-01 (`content/interviews/jamie-october-2026.md`). Four of his answers are rules for every page:
+Jamie answered the first thirty-five questions on 2026-10-31 and 2026-11-01, sessions 1 to 5 (`content/interviews/session-N.md`). Four of his answers are rules for every page:
 
 - **A thing** (question 2) is “building something of discrete value. So that it has a purpose it has a story it has a reason that it exists.” A new capability on an existing thing is not a new thing.
 - **How to talk about him** (question 8): “a very passionate technologist”, who builds “for the love of doing it”. Never hustle, side project, startup, monetize, growth or any economic frame. These are things, not businesses and not projects in the startup sense.
 - **Status words** (questions 3 and 28): retired is no longer available; dormant is still available but not worked on; abandoned is a project he left; archived came to a natural conclusion. The site’s status descriptions (`collection/site.ts`) are these in a sentence each.
-- **Why** is his to say. Every “why” on a page is a quotation linked to its question (`/interviews/jamie-october-2026/#qN`) or to a post. Where he never said, the page says what the thing is and stops.
+- **Why** is his to say. Every “why” on a page is a quotation linked to its question (`/interviews/session-K/#qN`) or to a post. Where he never said, the page says what the thing is and stops.
 
 ## Where Thingy says “I”
 
-Where he introduces himself, on `/about/`, and where he asks a question, in his interviews. Everywhere else the page names Jamie or is impersonal, and that includes front matter: summaries, connection details, story introductions and engineering lines, bundle and artifact titles and captions, and the history’s titles and summaries. `tests/quotes.test.ts` fails on “I”, “my” or “me” outside a quotation in a body or in front matter. A thing’s `story.questions` are a reader’s questions, so they may say “I”. Thingy never signs a thing’s record; the footer byline (“kept by Thingy, his sidekick”) is the signature, and Jamie’s h-card stays the author of every entry.
+Where he introduces himself, on `/about/`, where he asks a question, in his interviews, and where he gives his own account of a session, in its `point` and `notes` (Jamie, 2026-11-04: “sessions can have a central point that you author as Thingy”). The page shows these under his name and face. Everywhere else the page names Jamie or is impersonal, and that includes front matter: summaries, connection details, story introductions and engineering lines, bundle and artifact titles and captions, and the history’s titles and summaries. `tests/quotes.test.ts` fails on “I”, “my” or “me” outside a quotation in a body or in front matter. A thing’s `story.questions` are a reader’s questions, so they may say “I”. Thingy never signs a thing’s record; the footer byline (“kept by Thingy, his sidekick”) is the signature, and Jamie’s h-card stays the author of every entry.
 
 ## Quoting the interview
 
 Jamie said the interview is publishable and may be quoted at length (2026-11-01), so Thingy does: the “why” on a page is his, in his words, as long as it needs to be. Two forms, and `tests/quotes.test.ts` checks every one against the transcript:
 
-- Inline: `[“his words”](/interviews/jamie-october-2026/#qN)`. The link text is the quotation in curly quotes, verbatim, so a reader who follows it lands on the answer.
-- Block: a blockquote of one or more paragraphs of his words, then a last paragraph that is the attribution, `[Jamie, question N](/interviews/jamie-october-2026/#qN)`. Use it when the answer is the point of the paragraph, not a phrase in it.
+- Inline: `[“his words”](/interviews/session-K/#qN)`. The link text is the quotation in curly quotes, as the transcript has it, so a reader who follows it lands on the answer.
+- Block: a blockquote of one or more paragraphs of his words, then a last paragraph that is the attribution, `[Jamie, question N](/interviews/session-K/#qN)`. Use it when the answer is the point of the paragraph, not a phrase in it.
 
 An ellipsis (`…`) may join parts of one answer, in order; nothing is reworded, and nothing from two answers is joined. He speaks in the first person inside the quotation and the page returns to the third person outside it. Quote only a question that is about the page’s thing, so the thing’s “In his words” row lists it. Thingy introduces a quotation plainly (“in his words”, “he said”, “asked what he hopes is still running in twenty years”) and never comments on how he felt saying it.

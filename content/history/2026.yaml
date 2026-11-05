@@ -518,8 +518,8 @@
 - id: workshop-first-issue
   date: 2026-05-23
   kind: milestone
-  title: WT349 made in the Workshop
-  summary: The first Weekly Thing made start to finish in the Weekly Thing Workshop.
+  title: WT349 credited to the Workshop
+  summary: Weekly Thing 349 called itself the first issue made start to finish in the Workshop. Jamie says the Workshop never generated an issue.
   source: https://weekly.thingelstad.com/archive/349/
   things:
     - weekly-thing-workshop

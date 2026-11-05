@@ -28,7 +28,8 @@ type Output = {
     id: string;
     title: string;
     page: string;
-    questions: { n: number; url: string; things: string[] }[];
+    session: number;
+    questions: { n: number; title: string; url: string; things: string[] }[];
   }[];
 };
 const { featured, things, topics, history, stories, interviews } = JSON.parse(
@@ -520,47 +521,66 @@ test('connection diagrams are static SVG whose nodes lead to their things', asyn
   expect(errors).toEqual([]);
 });
 
-test('an interview is Jamie in his own words: every question has an address, and its things point at it', async ({
+test('an interview session is Jamie in his own words: every question has an address, and its things point at it', async ({
   page
 }) => {
   const errors = watchErrors(page);
   await page.goto('/interviews/');
   await expect(page.locator('.interview-card')).toHaveCount(interviews.length);
-  const first = interviews[0];
+  await expect(page.locator('.still-to-ask a.tag').first()).toBeVisible();
+  const first = interviews.find((session) => session.questions.some((q) => q.things.length))!;
   const path = new URL(first.page).pathname;
-  await page.locator('.interview-card h3 a').first().click();
+  await page.locator(`.interview-card h3 a[href="${path}"]`).click();
   await expect(page).toHaveURL(new RegExp(`${path}$`));
   await expect(page.locator('h1')).toHaveText(first.title);
-  // The questions list leads to each question's heading, which carries its own # link.
+  await expect(page.locator('main')).not.toContainText('as he spoke');
+  // The questions list leads to each question, which carries its own # link.
   const index = page.locator('.question-index a');
-  expect(await index.count()).toBeGreaterThanOrEqual(first.questions.length);
-  const question = first.questions[0];
+  expect(await index.count()).toBe(first.questions.length);
+  const question = first.questions.find((q) => q.things.length)!;
   await page.locator(`.question-index a[href="#q${question.n}"]`).click();
   await expect(page).toHaveURL(new RegExp(`${path}#q${question.n}$`));
-  const heading = page.locator(`#q${question.n}`);
-  await expect(heading).toBeInViewport();
-  await expect(heading.locator('a.permalink')).toHaveAttribute('href', `#q${question.n}`);
+  const block = page.locator(`#q${question.n}`);
+  await expect(block.locator('h2')).toBeInViewport();
+  await expect(block.locator('h2')).toContainText(question.title);
+  await expect(block.locator('a.permalink')).toHaveAttribute('href', `#q${question.n}`);
   // Under it, the things the question is about, as tags that lead to their pages.
-  const tags = heading.locator('xpath=following-sibling::p[1]').locator('a.tag');
+  const tags = block.locator('.question-things a.tag');
   await expect(tags).toHaveCount(question.things.length);
   await expect(tags.first()).toHaveAttribute(
     'href',
     new URL(things.find((thing) => thing.id === question.things[0])!.page).pathname
   );
   // The transcript's speakers, and no address used twice.
-  await expect(page.locator('.interview-body p strong').first()).toHaveText(/^(Jamie|Thingy):$/);
+  await expect(page.locator('.interview-body .turn-who strong').first()).toHaveText(/^(Jamie|Thingy):$/);
   const ids = await page.locator('[id]').evaluateAll((nodes) => nodes.map((node) => node.id));
   expect(new Set(ids).size, 'each id once').toBe(ids.length);
   expect(await fitsViewport(page)).toBe(true);
-  // A thing the interview is about links the question from its facts.
+  // The session has a Markdown twin.
+  const twin = await page.request.get(`/interviews/${first.id}.md`);
+  expect(twin.ok()).toBe(true);
+  expect(await twin.text()).toContain(`### ${question.n}. `);
+  // A thing the session is about links the question from its facts.
   await page.goto(new URL(things.find((thing) => thing.id === question.things[0])!.page).pathname);
   await page
     .locator('.facts .thing-interviews')
     .getByRole('link', { name: `question ${question.n}` })
     .click();
   await expect(page).toHaveURL(new RegExp(`${path}#q${question.n}$`));
-  await expect(page.locator(`#q${question.n}`)).toBeInViewport();
+  await expect(page.locator(`#q${question.n} h2`)).toBeInViewport();
   expect(errors).toEqual([]);
+});
+
+test('the first interview’s old address still reaches each question', async ({ page }) => {
+  await page.goto('/interviews/jamie-october-2026/#q9');
+  await expect(page).toHaveURL(/\/interviews\/session-2\/#q9$/);
+  await expect(page.locator('#q9 h2')).toBeVisible();
+  await page.goto('/interviews/jamie-october-2026/#session-4');
+  await expect(page).toHaveURL(/\/interviews\/session-4\/$/);
+  // With nothing to go on it is a list of the sessions, and it asks not to be indexed.
+  await page.goto('/interviews/jamie-october-2026/');
+  await expect(page.locator('.interview-moved a')).toHaveCount(interviews.length);
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex');
 });
 
 test('Thingy keeps the site: the footer byline and the about page say so, and Jamie stays the author', async ({

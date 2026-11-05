@@ -18,7 +18,7 @@ sources:
     url: https://thingy.thingelstad.com/about/
     role: reference
   - kind: website
-    url: https://thingelstad.xyz/interviews/jamie-october-2026/#q33
+    url: https://thingelstad.xyz/interviews/session-5/#q33
     role: reference
 connections:
   - to: thingy
@@ -48,7 +48,7 @@ story:
     - Blender
     - Python
     - Image textures
-  source: https://thingelstad.xyz/interviews/jamie-october-2026/#q33
+  source: https://thingelstad.xyz/interviews/session-5/#q33
   sourceLabel: Jamie on Thingy in three dimensions
   related:
     - thingy
@@ -252,7 +252,7 @@ artifacts:
 
 Thingy Model is an editable three-dimensional version of [Thingy](https://thingelstad.xyz/things/thingy/), Jamie’s agent sidekick. The cream robot, navy coat, orange bow tie, and raised finger come from the original illustration. A body beneath the clothes gives the character joints that can be posed and animated.
 
-Jamie described the idea in his interview: [“Thingy should actually be a 3D model and be able to move around and engage with people”](https://thingelstad.xyz/interviews/jamie-october-2026/#q33). He began building the model with Codex in November 2026, reviewing renders and the character live in Blender. From v0.11, on the third of November, Claude Code carried the work forward in Blender 5.2. The original image stayed beside the work. The artifacts below keep the intermediate models as well as the corrections.
+Jamie described the idea in his interview: [“Thingy should actually be a 3D model and be able to move around and engage with people”](https://thingelstad.xyz/interviews/session-5/#q33). He began building the model with Codex in November 2026, reviewing renders and the character live in Blender. From v0.11, on the third of November, Claude Code carried the work forward in Blender 5.2. The original image stayed beside the work. The artifacts below keep the intermediate models as well as the corrections.
 
 The first prototype established the clothed character. Then the work went underneath the jacket: shorter mechanical legs, ankle collars, shallower feet, and arms built from the same vocabulary. Later passes returned to the head and hands, separated the shirt from the lapels, lowered the bow tie, and fitted the pockets to the coat. Lighting studies made the navy fabric easier to read. The bow tie’s dots and the badge’s letters became images wrapped onto their surfaces.
 
@@ -266,4 +266,6 @@ At v0.14 six more faces joined the moods, each with its meaning settled before i
 
 The character lives at [thingy.thingelstad.xyz](https://thingy.thingelstad.xyz/), the source of Thingy. [Thingy Kit](https://thingy.thingelstad.xyz/kit/) gives a project his persona, model, faces, and component behind one link, and following it means a new model reaches every site that does: Ask Thingy and this site both do. Everything there is licensed [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/), and [its repository](https://github.com/jthingelstad/thingy.thingelstad.xyz) is public. The Blender masters stay in a private repository.
 
-The latest checkpoint is v0.15. The rig and short performance studies are working prototypes, and more animation controls, facial acting, and clothing adjustments remain. A one-colour 180 mm [print figure](https://thingy.thingelstad.xyz/print/) for Jamie’s Bambu P2S, made from v0.13, is on the site; it has not been test-printed yet.
+The latest checkpoint is v0.15. The rig and short performance studies are working prototypes, and more animation controls, facial acting, and clothing adjustments remain. A one-colour 180 mm [print figure](https://thingy.thingelstad.xyz/print/) for Jamie’s Bambu P2S, made from v0.13, is on the site, and on November 4, 2026 he said [“I printed the 3D model last night, so there’s now a physical print of Thingy.”](https://thingelstad.xyz/interviews/session-6/#q39)
+
+He did not plan for it to go this far: [“I never meant to create thingy.thingelstad.xyz or what has now become Thingy Kit.”](https://thingelstad.xyz/interviews/session-6/#q39) [“What started as a 3D model so I could pose Thingy differently has become a complete definition of Thingy’s character and persona: Thingy Kit.”](https://thingelstad.xyz/interviews/session-6/#q39)

@@ -37,8 +37,8 @@ Open Loop was a podcast Jamie made with Garrick van Buren. They recorded nine ep
 
 On [episode 1](https://www.thingelstad.com/projects/open-loop/1-big-fuzzy-dead-cat/) Jamie told the origin stories of Road Sign Math and Planet Kubb, and on [episode 7](https://www.thingelstad.com/projects/open-loop/7-turtle-turtle-turtle/) the story of WikiApiary, three weeks after it began. He [put the archive back online](https://www.thingelstad.com/2017/06/10/put-the-archive.html) in June 2017, and in October 2026 republished it as a complete [podcast feed](https://files.thingelstad.com/projects/openloop/podcast.xml), with speaker-labelled transcripts that were machine transcribed and cleaned up with AI. Thirteen years on, the two of them talk about projects that are on this site.
 
-How it ended, in his words: [“Open Loop was a podcast that Garrick and I did, and we decided that it was time for that to come to a landing.”](https://thingelstad.xyz/interviews/jamie-october-2026/#q28) Of the friendship behind it:
+How it ended, in his words: [“Open Loop was a podcast that Garrick and I did, and we decided that it was time for that to come to a landing.”](https://thingelstad.xyz/interviews/session-4/#q28) Of the friendship behind it:
 
-> Garrick and I had a run for a long time where we built a number of projects together. It was kind of combined with when I was exploring Semantic MediaWiki. We were really digging into Kubb. Like he and I and Jim Bernard played Kubb together a ton.
+> Garrick and I had a run for a long time where we built a number of projects together. It was kind of combined with when I was exploring Semantic MediaWiki. We were really digging into Kubb. He and I and Jim Bernard played Kubb together a ton.
 >
-> [Jamie, question 17](https://thingelstad.xyz/interviews/jamie-october-2026/#q17)
+> [Jamie, question 17](https://thingelstad.xyz/interviews/session-2/#q17)

@@ -5,7 +5,6 @@ import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import markdownIt from 'markdown-it';
 import {
   aliveBar,
-  anchorQuestions,
   formatDate,
   lifespan,
   reach,
@@ -84,18 +83,13 @@ export default function (eleventyConfig: EleventyConfig) {
   eleventyConfig.addFilter('date', (value: string) => formatDate(value));
   eleventyConfig.addFilter('day', (value: string) => formatDate(value.slice(0, 10)));
   eleventyConfig.addFilter('md', (value: string) => markdown.render(value ?? ''));
-  eleventyConfig.addFilter('interviewHtml', (item: SiteModel['interviews'][number]) =>
-    anchorQuestions(markdown.render(item.body), item)
-  );
+  eleventyConfig.addFilter('mdInline', (value: string) => markdown.renderInline(value ?? ''));
   eleventyConfig.addFilter('sparkline', (months: MonthCount[], label: string, variant?: string) =>
     sparkline(months, label, variant)
   );
   eleventyConfig.addFilter('lifespan', (row: TimelineRow, timeline: Timeline) => lifespan(row, timeline));
   eleventyConfig.addFilter('aliveBar', (year: TimelineYear, timeline: Timeline) => aliveBar(year, timeline));
   eleventyConfig.addFilter('thing', (site: SiteModel, id: string) => site.things.find((t) => t.id === id));
-  eleventyConfig.addFilter('interview', (site: SiteModel, id: string) =>
-    site.interviews.find((item) => item.id === id)
-  );
   eleventyConfig.addFilter('displayUrl', (value: string) => value.replace(/^https:\/\//, '').replace(/\/$/, ''));
   eleventyConfig.addFilter('number', (value: number) => new Intl.NumberFormat('en-US').format(value));
   eleventyConfig.addFilter('reach', reach);

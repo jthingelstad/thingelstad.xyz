@@ -96,3 +96,11 @@ Jamie’s writing moves through a lot of systems. An issue of the Weekly Thing i
 The first step was a map. A single shared file now names every hop between the systems, what moves across it, what starts it, how long it should take, and how to check that it arrived. The second step was this page, which reads a fact from each system every half hour and shows, for the newest item of each kind, who has it and who does not. The page is public because it holds only ids and times, never a reader.
 
 The first thing it showed was a gap he already suspected. Linking Things learned which links an issue carried from a copy of the newsletter on his Mac, so Weekly Thing 354 had not joined its links. The page reads that hop as late and leaves it that way until the hop itself is fixed. That is the point: the page shows the state and does not touch anything.
+
+Why it exists, in his words:
+
+> It’s an operational consistency issue. I have a number of projects that pull and share information between each other, and there’s an uneasiness about it. Have the blog posts reached Librarian so Ask Thingy has them? When I publish the newsletter, is it now visible on links.thingelstad.xyz? There’s a decent amount of data moving between my properties, so it’s a real problem, and Sync is how I understand it.
+>
+> [Jamie, question 41](https://thingelstad.xyz/interviews/session-6/#q41)
+
+And why it looks the way it does: [“Sync could have had no personality, since it essentially tracks how information moves between my websites. Instead I gave it one: a fairy-tale-style map with buildings for the different properties and projects, and things moving between them.”](https://thingelstad.xyz/interviews/session-6/#q41)

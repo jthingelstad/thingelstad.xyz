@@ -31,7 +31,7 @@ connections:
     source: https://weekly.thingelstad.com/archive/342/
 ---
 
-In December 2025 POAP announced the [Airport POAP Rally 2026](https://collections.poap.xyz/collections/airport-poap-rally-2026/26246), a year of location POAPs at 100 airports around the world. Jamie [set up a site to track it](https://www.thingelstad.com/2025/12/26/airport-poap-rally-website.html) at airport.poaprally.com. The rally was POAP’s. The tracker was his. What he saw in POAP, he said later, was [“a completely non-economic use case of crypto”](https://thingelstad.xyz/interviews/jamie-october-2026/#q15).
+In December 2025 POAP announced the [Airport POAP Rally 2026](https://collections.poap.xyz/collections/airport-poap-rally-2026/26246), a year of location POAPs at 100 airports around the world. Jamie [set up a site to track it](https://www.thingelstad.com/2025/12/26/airport-poap-rally-website.html) at airport.poaprally.com. The rally was POAP’s. The tracker was his. What he saw in POAP, he said later, was [“a completely non-economic use case of crypto”](https://thingelstad.xyz/interviews/session-2/#q15).
 
 He built it the same way as the [612 POAP Challenge](https://612.poapchallenge.com/) feed: POAP2RSS feeds for every airport, merged with rssrssrssrss and imported into Micro.blog, so each claim became a post like “POAP 7586561 claimed by noah.savedsouls.eth at I passed through Minneapolis-Saint Paul International Airport (MSP) in 2026.” The posts were syndicated to @poapchallenge on Mastodon and @poapchallenge.com on Bluesky, and he planned rally updates on r/POAP. [Weekly Thing 337](https://weekly.thingelstad.com/archive/337/) pointed readers to “Follow the Rally.”
 

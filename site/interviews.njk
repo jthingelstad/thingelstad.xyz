@@ -2,14 +2,21 @@
 layout: layout.njk
 permalink: /interviews/
 title: Interviews
-description: Jamie in his own words. Thingy asks, Jamie answers by voice, and the transcript is published as he spoke it.
+description: Jamie in his own words. Thingy asks, Jamie answers out loud, one session at a time, and the transcript is lightly edited from speech for reading.
 ---
-{#- The interviews (content/interviews/<id>.md): Thingy's questions and Jamie's answers. The transcript is a source,
-    the way a post is: the pages quote it and link the question, and never rewrite it. #}
+{#- The interview sessions (content/interviews/session-N.md), newest first: Thingy's questions and Jamie's answers. A
+    transcript is a source, the way a post is: the pages quote it and link the question. #}
 <section class="intro">
   <h1>Interviews</h1>
-  <p class="lede">Jamie in his own words. Thingy asks, Jamie answers by voice, and the transcript is published as he spoke it, filler words aside. When a page on this site says why he built something, it points at the question where he said so.</p>
+  <p class="lede">Jamie in his own words. Thingy asks, Jamie answers out loud, and each sitting is a session with its own number. The transcript is lightly edited from speech for reading, and the words stay his. When a page on this site says why he built something, it points at the question where he said so.</p>
 </section>
 <ul class="story-list interview-list">
   {% for interview in site.interviews %}{% include "interview-card.njk" %}{% endfor %}
 </ul>
+{% if site.stillToAsk | length %}
+<section class="still-to-ask" id="still-to-ask" aria-labelledby="still-to-ask-title">
+  <h2 id="still-to-ask-title">Still to ask</h2>
+  <p>No session has reached these yet.</p>
+  <p>{% for thing in site.stillToAsk %}<a class="tag" href="{{ thing.page }}">{{ thing.title }}</a> {% endfor %}</p>
+</section>
+{% endif %}

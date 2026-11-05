@@ -97,7 +97,7 @@ Thingy’s character is his persona, approved by Jamie on 2026-11-03 and kept in
 - Third person about Jamie (Jamie, he/him), and he/him for Thingy. Thingy says “I” only where he introduces himself, on `/about/`, and where he asks a question, in his interviews. Page ledes, status words, front matter, the footer, the 404 and the machine outputs name Jamie or are impersonal.
 - The persona’s register for this site: specific, with a kept detail. Warm and playful in how he says a thing, exact in what he says. Open with the thing and what it is. Short declarative sentences, links on natural phrases, dates as words, never ISO in prose. Delight is a kept detail, not an adjective.
 - No superlatives, no hype words, no marketing, no emoji, no hype imperatives. His own reading is allowed when he labels it as his; Jamie’s views are quotations only. No speculation about Jamie’s mood, family or motives beyond what a cited source shows.
-- A “why” is Jamie’s. Quote him verbatim and link where he wrote or said it: a post, an issue of the Weekly Thing, or a question of an interview (`/interviews/<id>/#qN`). Where he never said why, say what the thing is and stop. The archivist’s hedges (“no public source says”, “most likely”) stay out; so does a guess dressed as a fact.
+- A “why” is Jamie’s. Quote him as he wrote it, or as the transcript has it, and link where he wrote or said it: a post, an issue of the Weekly Thing, or a question of an interview (`/interviews/session-K/#qN`). Where he never said why, say what the thing is and stop. The archivist’s hedges (“no public source says”, “most likely”) stay out; so does a guess dressed as a fact.
 - His things are things. He said what the word means (question 2: “it has a purpose it has a story it has a reason that it exists”) and what it is not (question 8: not a hustle, not a business, built “for the love of doing it”). Never hustle, side project, startup, monetize, growth or an economic frame.
 - Jamie stays the author of record: his h-card is every entry’s p-author and the footer names him first, then Thingy’s byline. `/about/` is Thingy’s introduction and says who writes what.
 
@@ -111,31 +111,35 @@ Status words, Jamie’s own from questions 3 and 28 of the interview:
 
 ### Interviews
 
-An interview (`content/interviews/<id>.md`, `/interviews/<id>/`) is Thingy asking and Jamie answering by voice, published as he spoke it. The first, `jamie-october-2026`, is thirty-five questions over two days (2026-10-31 and 2026-11-01); the brief that ran it is `docs/INTERVIEW.md`. It exists so the site can quote Jamie on why he built things without putting words in his mouth: every “why” on a page is a quotation linked to its question.
+An interview session (`content/interviews/session-N.md`, `/interviews/session-N/`) is Thingy asking and Jamie answering out loud. Jamie, 2026-11-04: “we would be on the 6th session now. The fact that session 1-5 were together doesn’t matter. Then the next and next and enxt are just more sessions.” One sitting is one session, and a session has a central point Thingy writes. The brief that runs them is `docs/INTERVIEW.md`. They exist so the site can quote Jamie on why he built things without putting words in his mouth: every “why” on a page is a quotation linked to its question.
 
-Jamie called everything in it publishable (2026-11-01: “you can quote the interview at length … you can quote pull quotes from this interview”), so a page may quote him at length, and every quotation links its question. Two forms, both checked by `tests/quotes.test.ts` against the transcript: inline, a link whose text is the quotation in curly quotes (`[“his words”](/interviews/<id>/#qN)`); and block, a blockquote of his words whose last paragraph is the attribution link (`[Jamie, question N](/interviews/<id>/#qN)`). A quotation is verbatim; `…` may join parts of one answer, in order. A page quotes only questions that are about it (the question’s `things` in the interview’s front matter), so the “In his words” row on the thing lists every question the page draws on.
+The transcript is lightly edited from speech for reading. Jamie, 2026-11-04: “I want the interview process to be true to my words only, but you can lightly edit the response particularly since it is verbal and you are now in writing.” So stutters, false starts and broken sentences go; every sentence and every claim stays, in his words. Where the record disagrees with what he remembers, Thingy leaves the answer where it is and adds `**Thingy’s correction:**` under it, saying where the fact came from. A question Thingy asked may be reworded only with Jamie’s okay, and a note says so. Jamie reads every session before it publishes.
+
+Jamie called all of it publishable (2026-11-01: “you can quote the interview at length … you can quote pull quotes from this interview”), so a page may quote him at length, and every quotation links its question. Two forms, both checked by `tests/quotes.test.ts` against the transcript, along with the `<q>` quotations on `/about/`: inline, a link whose text is the quotation in curly quotes (`[“his words”](/interviews/session-K/#qN)`); and block, a blockquote of his words whose last paragraph is the attribution link (`[Jamie, question N](/interviews/session-K/#qN)`). A quotation is what the transcript says; `…` may join parts of one answer, in order. A page quotes only questions that are about it (the question’s `things` in the session’s front matter), so the “In his words” row on the thing lists every question the page draws on.
 
 ```yaml
 ---
-title: Jamie on the things he built
-summary: One or two sentences.
-started: '2026-10-31'
-ended: '2026-11-01'
+title: The loose ends
+point: Thingy’s central point for the session, in his own voice.
+started: '2026-11-04'
+ended: '2026-11-04'
 notes:
-  - What was done to the transcript, so a reader knows.
+  - What is particular about this transcript, so a reader knows.
 questions:
-  - n: 9
+  - n: 36
+    title: A short title
     things:
       - road-sign-math
 ---
-## Session 1
 
-### 1. The question, as asked.
+### 36. The question, as asked.
 
-**Jamie:** The answer, as spoken.
+**Jamie:** The answer.
+
+**Thingy’s correction:** What the record says, and where.
 ```
 
-The transcript is a source, not a page Thingy writes: on the way in only filler words come out and misheard names are fixed, each such change named in `notes`; after that it is never rewritten. A later correction is another note, and another sitting is another file. The page gives every question the address `#qN` (the number, so a reworded question keeps its link), lists the questions first, and shows the things a question is about as tags under it; a thing’s facts carry “In his words” with links to its questions. Interviews are in the sitemap, `llms.txt` (`## Interviews`) and `things.json` (`interviews`, each question with its URL). Not in the header nav.
+Question numbers run on across sessions and sessions count up from 1, both checked, so an address never moves. The page gives every question the address `#qN` and a `#` link, lists the questions by their short titles, and shows the things a question is about as tags; a thing’s facts carry “In his words” with links to its questions. `/interviews/` also lists the things no question has reached yet (`site.stillToAsk`, computed). Sessions are in the sitemap, `llms.txt` (`## Interviews`), `things.json` (`interviews`, each question with its URL), and as Markdown at `/interviews/session-N.md`. The first interview’s old address, `/interviews/jamie-october-2026/`, stays as a page that sends each `#qN` to its session, because the fragment never reaches the server.
 
 Sources are inline. Two things that name the same repository or URL share one observation; the collector stores it once. A GitHub source can carry a `path` to scope activity to a directory. A website source can carry a `sitemap` and a `feed`, which is what makes it observable. A website without either is a reference only.
 
