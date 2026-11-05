@@ -57,7 +57,7 @@ story:
   questions:
     - How did Thingy’s illustration become a model?
     - Which Scenes share the same skeleton?
-    - What still needs work before animation and printing?
+    - What still needs work before animation?
 bundles:
   - id: foundations
     title: From illustration to body
