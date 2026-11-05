@@ -1,9 +1,9 @@
 // The model the static site is built from. Reads the registry and the observations and derives
-// everything a page, a feed, llms.txt, or things.json needs, so templates stay thin.
+// everything a page or an output needs, so templates stay thin. What is written out of it lives beside it:
+// records.ts (Markdown twins, llms.txt, things.json), feeds.ts (RSS, JSON Feed), charts.ts (the small SVGs).
 //
 // Status is a decision; activity is evidence. The model keeps them apart: `status` comes from the
 // registry only, and `latest` and `months` come from observations only.
-import { stringify } from 'yaml';
 import {
   githubKey,
   websiteKey,
@@ -34,16 +34,8 @@ import { artifactKind, formatBytes, isImage } from './artifacts';
 import { rootOrigin, siteKey } from './adapters/tinylytics';
 import { currentSite, withRef } from './sites';
 import { parseTranscript, type Turn } from './interviews';
-import { buildYearPages, eventPage, weekPage, type YearPage } from './years';
-import {
-  activityMonths,
-  countsAsActivity,
-  activitySummary,
-  buildActivity,
-  type Activity,
-  type ActivityDay,
-  type ThingRecord
-} from './activity';
+import { buildYearPages, type YearPage } from './years';
+import { activityMonths, countsAsActivity, buildActivity, type Activity, type ThingRecord } from './activity';
 
 export const siteUrl = 'https://thingelstad.xyz';
 const siteTitle = 'Things I’ve built.';
@@ -104,7 +96,7 @@ type InboundConnection = Connection & { from: string };
 // An artifact as its page shows it: where it is published, what kind of file it is and how big, and the image
 // that shows it, which is the file itself or its preview (null for a file with neither). Its anchor is its
 // address on the page (#artifact-<file>), named by its file, which never changes, so a link to it stays good.
-type SiteArtifact = Artifact & {
+export type SiteArtifact = Artifact & {
   anchor: string;
   src: string;
   kind: string;
@@ -132,15 +124,9 @@ function siteArtifact(id: string, artifact: Artifact, files: Map<string, Artifac
     image: shown && image ? { src: artifactPath(id, shown), width: image.width!, height: image.height! } : null
   };
 }
-// The artifact as its record has it, with its address: what the Markdown twin and things.json carry.
-const artifactRecord = ({ src, anchor: _a, kind: _k, bytes: _b, size: _s, image: _i, ...artifact }: SiteArtifact) => ({
-  ...artifact,
-  url: `${siteUrl}${src}`
-});
 // A bundle as its page shows it, with its artifacts in their listed order.
 // A bundle's shelf is as wide as its pictures want: narrow for phone screenshots, wider for the rest.
-type SiteBundle = ArtifactBundle & { artifacts: SiteArtifact[]; cardWidth: number };
-const bundleRecord = ({ artifacts: _a, cardWidth: _w, ...bundle }: SiteBundle) => bundle;
+export type SiteBundle = ArtifactBundle & { artifacts: SiteArtifact[]; cardWidth: number };
 const bundleCardWidth = (artifacts: SiteArtifact[]) => {
   const image = artifacts.find((artifact) => artifact.image)?.image;
   return image && image.height > image.width * 1.3 ? 186 : 300;
@@ -214,7 +200,7 @@ type SiteStoryline = Storyline & {
 };
 // An interview session with its questions read from the transcript and resolved to things, and the things it is
 // about in the order they first come up.
-type SiteInterview = Omit<Interview, 'questions'> & {
+export type SiteInterview = Omit<Interview, 'questions'> & {
   page: string;
   markdown: string;
   name: string; // "Session 6: The loose ends"
@@ -325,9 +311,6 @@ export function reach(observation: { stars?: number; forks?: number }) {
 export function toInstant(date: string) {
   const full = date.length === 4 ? `${date}-01-01` : date.length === 7 ? `${date}-01` : date;
   return `${full}T12:00:00Z`;
-}
-function rfc822(instant: string) {
-  return new Date(instant).toUTCString();
 }
 const year = (date: string) => Number(date.slice(0, 4));
 
@@ -751,370 +734,4 @@ export function buildSiteModel(registry: Registry, observations: Observation[], 
     facets,
     activity: activity.activity
   };
-}
-
-// The Markdown twin of a thing: the registry record as it is written, plus its canonical page.
-export function thingMarkdown(thing: SiteThing) {
-  const frontmatter: Record<string, unknown> = {
-    id: thing.id,
-    title: thing.title,
-    summary: thing.summary,
-    collection: thing.collection,
-    status: thing.status,
-    url: thing.url,
-    ...(thing.started ? { started: thing.started } : {}),
-    ...(thing.ended ? { ended: thing.ended } : {}),
-    topics: thing.topics,
-    sources: thing.sources.map(
-      ({ observation: _o, captures: _c, views: _v, screenshot: _s, evidence: _e, ...source }) => source
-    ),
-    connections: thing.connections,
-    ...(thing.story ? { story: thing.story } : {}),
-    ...(thing.bundles.length ? { bundles: thing.bundles.map(bundleRecord) } : {}),
-    ...(thing.artifacts.length ? { artifacts: thing.artifacts.map(artifactRecord) } : {}),
-    page: `${siteUrl}${thing.page}`
-  };
-  const yaml = stringify(frontmatter, { lineWidth: 0 }).trimEnd();
-  const body = thing.body.trim();
-  return `---\n${yaml}\n---\n\n# ${thing.title}\n\n${thing.summary}\n${body ? `\n${body}\n` : ''}`;
-}
-
-// llms.txt (llmstxt.org) as its reference parser reads it: prose only above the first `##`, and under each heading
-// nothing but `- [name](url): notes` lines, one link each. The parser fails on a line under a heading that has no
-// link, and keeps only the first of two, so a name never carries a bracket (tests/llms-shape.ts guards the shape).
-const llmsName = (name: string) => name.replaceAll('[', '(').replaceAll(']', ')');
-
-export function llmsText(model: SiteModel) {
-  const thingLine = (thing: SiteThing) =>
-    `- [${llmsName(thing.title)}](${model.url}${thing.markdown}): ${thing.summary}`;
-  const lines = [
-    `# ${model.title}`,
-    '',
-    `> ${model.description}`,
-    '',
-    `Every thing has a Markdown twin at /things/<id>.md. The whole registry with the latest observation for each source is ${model.url}/things.json. The history ledger is ${model.url}/feed.json. Status is a decision; activity is evidence.`,
-    '',
-    ...(model.featured.length
-      ? [
-          'Featured is the short list of things Jamie most wants you to see right now, in the order the front page shows them.',
-          '',
-          '## Featured',
-          '',
-          ...model.featured.map(({ thing }) => thingLine(thing)),
-          ''
-        ]
-      : []),
-    '## Things',
-    '',
-    ...model.things.map(thingLine),
-    '',
-    '## Topics',
-    '',
-    ...model.topics.map((topic) => `- [${llmsName(topic.title)}](${model.url}${topic.page}): ${topic.description}`),
-    '',
-    ...(model.stories.length
-      ? [
-          '## Stories',
-          '',
-          ...model.stories.map((story) => `- [${llmsName(story.title)}](${model.url}${story.page}): ${story.summary}`),
-          ''
-        ]
-      : []),
-    ...(model.interviews.length
-      ? [
-          '## Interviews',
-          '',
-          ...model.interviews.map((item) => `- [${llmsName(item.name)}](${model.url}${item.page}): ${item.point}`),
-          ''
-        ]
-      : []),
-    '## Optional',
-    '',
-    `- [Years](${model.url}/years/): every year, with what started and ended, its sourced events, and the commits and publications behind them; ${model.url}/activity.xml has one item a day`,
-    `- [Artifacts](${model.url}/artifacts/): the sketches, screenshots and files kept from the building`,
-    `- [Full text](${model.url}/llms-full.txt): every thing's record and story in one file`,
-    `- [About](${model.url}/about/): what this site is, how it is kept, and who writes it`,
-    ''
-  ];
-  return lines.join('\n');
-}
-export function llmsFullText(model: SiteModel) {
-  return [`# ${model.title}\n\n${model.description}\n`, ...model.things.map(thingMarkdown)].join('\n---\n\n');
-}
-
-// The ingestion surface for Librarian: the registry plus the latest observation for every source.
-export function thingsJson(model: SiteModel) {
-  return {
-    site: model.url,
-    generated: model.generated,
-    featured: model.featured.map(({ thing }) => thing.id), // the front page's shelf, in its order
-    things: model.things.map((thing) => ({
-      id: thing.id,
-      title: thing.title,
-      summary: thing.summary,
-      collection: thing.collection,
-      status: thing.status,
-      url: thing.url,
-      ...(thing.started ? { started: thing.started } : {}),
-      ...(thing.ended ? { ended: thing.ended } : {}),
-      page: `${model.url}${thing.page}`,
-      markdown: `${model.url}${thing.markdown}`,
-      topics: thing.topics,
-      sources: thing.sources.map(({ evidence: _e, screenshot: _s, ...source }) => source),
-      connections: thing.connections,
-      ...(thing.screenshot
-        ? {
-            screenshot: {
-              url: `${model.url}${thing.screenshot.src}`,
-              site: thing.screenshot.site,
-              date: thing.screenshot.date
-            }
-          }
-        : {}),
-      ...(thing.story ? { story: thing.story } : {}),
-      ...(thing.interviews.length
-        ? { interviews: thing.interviews.map(({ id, questions }) => ({ id, questions })) }
-        : {}),
-      ...(thing.bundles.length ? { bundles: thing.bundles.map(bundleRecord) } : {}),
-      ...(thing.artifacts.length
-        ? {
-            artifacts: thing.artifacts.map((artifact) => ({
-              ...artifactRecord(artifact),
-              kind: artifact.kind,
-              bytes: artifact.bytes
-            }))
-          }
-        : {}),
-      body: thing.body.trim(),
-      latest: thing.latest
-    })),
-    topics: model.topics.map(({ things, ...topic }) => ({ ...topic, things: things.map((t) => t.id) })),
-    stories: model.stories.map(({ events, ...story }) => ({
-      ...story,
-      cast: undefined,
-      latest: undefined,
-      page: `${model.url}${story.page}`,
-      body: story.body.trim(),
-      events: events.map((event) => event.id)
-    })),
-    interviews: model.interviews.map(({ cast: _c, previous: _p, next: _n, name: _name, ...item }) => ({
-      ...item,
-      page: `${model.url}${item.page}`,
-      markdown: `${model.url}${item.markdown}`,
-      questions: item.questions.map((q) => ({
-        n: q.n,
-        title: q.title,
-        question: q.question,
-        url: `${model.url}${item.page}#q${q.n}`,
-        things: q.things.map((thing) => thing.id)
-      })),
-      body: item.body.trim()
-    })),
-    history: model.history
-  };
-}
-
-// A session as Markdown, at /interviews/session-N.md: its front matter and the transcript as it is kept.
-export function sessionMarkdown(item: SiteInterview) {
-  const frontmatter = {
-    session: item.session,
-    title: item.title,
-    point: item.point,
-    pull: item.pull,
-    also: item.also,
-    started: item.started,
-    ended: item.ended,
-    notes: item.notes,
-    questions: item.questions.map((q) => ({ n: q.n, title: q.title, things: q.things.map((thing) => thing.id) }))
-  };
-  return `---\n${stringify(frontmatter, { lineWidth: 0 })}---\n\n# ${item.name}\n\n${item.body.trim()}\n`;
-}
-
-// The ledger as a feed: what changed in what Jamie has built, newest first.
-type FeedItem = {
-  id: string;
-  url: string;
-  title: string;
-  summary: string;
-  html: string;
-  date: string; // as written
-  instant: string;
-  things: { id: string; title: string; page: string }[];
-  source: string;
-};
-function feedItems(model: SiteModel): FeedItem[] {
-  const byId = new Map(model.things.map((thing) => [thing.id, thing]));
-  return model.history.map((event) => {
-    const things = event.things.flatMap((id) => {
-      const thing = byId.get(id);
-      return thing ? [{ id, title: thing.title, page: `${model.url}${thing.page}` }] : [];
-    });
-    const links = things.map((t) => `<a href="${t.page}">${escapeHtml(t.title)}</a>`).join(', ');
-    return {
-      id: event.id,
-      url: `${model.url}${eventPage(event)}`,
-      title: event.title,
-      summary: event.summary,
-      html: `<p>${escapeHtml(event.summary)}</p><p>${formatDate(event.date)} · ${event.kind} · ${links}</p><p><a href="${escapeHtml(event.source)}">Source</a></p>`,
-      date: event.date,
-      instant: toInstant(event.date),
-      things,
-      source: event.source
-    };
-  });
-}
-export function jsonFeed(model: SiteModel) {
-  return {
-    version: 'https://jsonfeed.org/version/1.1',
-    title: `${model.title} History`,
-    home_page_url: `${model.url}/`,
-    feed_url: `${model.url}/feed.json`,
-    description: 'What changed in the things Jamie Thingelstad has built, newest first, each with its source.',
-    authors: [{ name: 'Jamie Thingelstad', url: 'https://www.thingelstad.com/' }],
-    items: feedItems(model).map((item) => ({
-      id: item.id,
-      url: item.url,
-      external_url: item.source,
-      title: item.title,
-      content_html: item.html,
-      summary: item.summary,
-      date_published: item.instant,
-      tags: item.things.map((thing) => thing.title)
-    }))
-  };
-}
-function escapeHtml(value: string) {
-  return value
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;');
-}
-// RSS carries the newest events, enough for a reader to catch up; feed.json and the year pages carry them all.
-export const rssItems = 30;
-export function rssFeed(model: SiteModel) {
-  const items = feedItems(model).slice(0, rssItems);
-  const newest = items[0]?.instant ?? model.generated;
-  const entries = items
-    .map(
-      (item) => `    <item>
-      <title>${escapeHtml(item.title)}</title>
-      <link>${item.url}</link>
-      <guid isPermaLink="false">${escapeHtml(item.id)}</guid>
-      <pubDate>${rfc822(item.instant)}</pubDate>
-      <description>${escapeHtml(item.html)}</description>
-${item.things.map((thing) => `      <category>${escapeHtml(thing.title)}</category>`).join('\n')}
-    </item>`
-    )
-    .join('\n');
-  return `<?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>${escapeHtml(model.title)} History</title>
-    <link>${model.url}/</link>
-    <atom:link href="${model.url}/feed.xml" rel="self" type="application/rss+xml"/>
-    <description>What changed in the things Jamie Thingelstad has built, newest first, each with its source.</description>
-    <language>en-us</language>
-    <lastBuildDate>${rfc822(newest)}</lastBuildDate>
-${entries}
-  </channel>
-</rss>
-`;
-}
-
-// The activity feed: one item a day, for the newest complete days with something in them. It is kept apart
-// from the history feed, which stays quiet: this one is evidence, collected every day.
-const activityFeedPath = '/activity.xml';
-function activityItem(model: SiteModel, day: ActivityDay) {
-  const names = day.things.map((t) => t.title);
-  const title = `${formatDate(day.day)}: ${
-    names.length <= 3
-      ? names.join(', ').replace(/, ([^,]*)$/, ' and $1')
-      : `${names.slice(0, 3).join(', ')} and ${names.length - 3} more`
-  }`;
-  const link = (url: string) => (url.startsWith('/') ? `${model.url}${url}` : url);
-  const things = day.things
-    .map((thing) => {
-      const lines = [...thing.headlines, ...thing.published]
-        .map((line) => `<li><a href="${escapeHtml(link(line.url))}">${escapeHtml(line.text)}</a></li>`)
-        .join('');
-      const more =
-        thing.more > 0
-          ? `<p>${thing.moreUrl ? `<a href="${escapeHtml(thing.moreUrl)}">` : ''}And ${thing.more} more ${thing.more === 1 ? 'commit' : 'commits'}${thing.moreUrl ? ' on GitHub</a>' : ''}.</p>`
-          : '';
-      return `<li><p><a href="${model.url}${thing.page}">${escapeHtml(thing.title)}</a>: ${escapeHtml(activitySummary(thing))}.</p>${lines ? `<ul>${lines}</ul>` : ''}${more}</li>`;
-    })
-    .join('');
-  return {
-    title,
-    url: `${model.url}${weekPage(day.week)}`,
-    id: `activity-${day.day}`,
-    instant: day.last,
-    html: `<p>${escapeHtml(activitySummary(day))}.</p><ul>${things}</ul>`,
-    things: day.things.map((t) => t.title)
-  };
-}
-export function activityRss(model: SiteModel) {
-  const items = model.activity.days.map((day) => activityItem(model, day));
-  const newest = items[0]?.instant ?? model.generated;
-  const entries = items
-    .map(
-      (item) => `    <item>
-      <title>${escapeHtml(item.title)}</title>
-      <link>${item.url}</link>
-      <guid isPermaLink="false">${item.id}</guid>
-      <pubDate>${rfc822(item.instant)}</pubDate>
-      <description>${escapeHtml(item.html)}</description>
-${item.things.map((thing) => `      <category>${escapeHtml(thing)}</category>`).join('\n')}
-    </item>`
-    )
-    .join('\n');
-  return `<?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>${escapeHtml(model.title)} Activity</title>
-    <link>${model.url}/years/</link>
-    <atom:link href="${model.url}${activityFeedPath}" rel="self" type="application/rss+xml"/>
-    <description>What landed in what Jamie Thingelstad has built, one item a day: commits to each thing’s public repositories, with who made them, and what its feeds published.</description>
-    <language>en-us</language>
-    <lastBuildDate>${rfc822(newest)}</lastBuildDate>
-${entries}
-  </channel>
-</rss>
-`;
-}
-
-// A twelve-month sparkline of commits and publications. Evidence, never a verdict.
-export function sparkline(months: MonthCount[], label: string, variant?: string) {
-  const max = Math.max(1, ...months.map((m) => m.count));
-  const width = 12 * 7;
-  const height = 18;
-  const bars = months
-    .map(({ month, count }, i) => {
-      const h = count ? Math.max(2, Math.round((count / max) * (height - 2))) : 1;
-      return `<rect x="${i * 7}" y="${height - h}" width="5" height="${h}" rx="1.5" class="${count ? 'spark-on' : 'spark-off'}"><title>${month}: ${count}</title></rect>`;
-    })
-    .join('');
-  return `<svg class="sparkline${variant ? ` sparkline-${variant}` : ''}" viewBox="0 0 ${width} ${height}" width="${width}" height="${height}" role="img" aria-label="${escapeHtml(label)}">${bars}</svg>`;
-}
-
-// The timeline reads down the page, newest year first. Each thing gets a small strip covering every
-// year on the timeline: its span as a bar, its sourced events as dots. Both are plain SVG with titles.
-export function lifespan(row: TimelineRow, timeline: Timeline) {
-  const step = 4;
-  const years = timeline.lastYear - timeline.firstYear + 1;
-  const width = years * step;
-  const height = 12;
-  const x = (y: number) => (y - timeline.firstYear) * step;
-  const thing = row.thing;
-  const span =
-    row.start === row.end
-      ? `${row.start}`
-      : `${row.start} to ${thing.status === 'active' || thing.status === 'dormant' ? 'now' : row.end}`;
-  const dots = [...new Set(row.events.map((e) => e.year))]
-    .map((ey) => `<circle cx="${x(ey) + step / 2}" cy="${height / 2}" r="1.6" class="ls-event"/>`)
-    .join('');
-  const label = `${thing.title}: ${span}, ${row.events.length} sourced ${row.events.length === 1 ? 'event' : 'events'}`;
-  return `<svg class="lifespan" viewBox="0 0 ${width} ${height}" width="${width}" height="${height}" role="img" aria-label="${escapeHtml(label)}"><title>${escapeHtml(label)}</title><rect x="0" y="${height / 2 - 1}" width="${width}" height="2" rx="1" class="ls-track"/><rect x="${x(row.start)}" y="2" width="${x(row.end) + step - x(row.start)}" height="${height - 4}" rx="3" class="ls-bar ls-${thing.status}"/>${dots}</svg>`;
 }
