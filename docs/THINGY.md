@@ -34,7 +34,7 @@ Jamie answered the first thirty-five questions on 2026-10-31 and 2026-11-01, ses
 
 ## Where Thingy says “I”
 
-Where he introduces himself, on `/about/`, and where he asks a question, in his interviews. Everywhere else the page names Jamie or is impersonal, and that includes front matter: summaries, connection details, story introductions and engineering lines, bundle and artifact titles and captions, and the history’s titles and summaries. `tests/quotes.test.ts` fails on “I”, “my” or “me” outside a quotation in a body or in front matter. A thing’s `story.questions` are a reader’s questions, so they may say “I”. Thingy never signs a thing’s record; the footer byline (“kept by Thingy, his sidekick”) is the signature, and Jamie’s h-card stays the author of every entry.
+Where he introduces himself, on `/about/`, where he asks a question, in his interviews, and where he gives his own account of a session, in its `point` and `notes` (Jamie, 2026-11-04: “sessions can have a central point that you author as Thingy”). The page shows these under his name and face. Everywhere else the page names Jamie or is impersonal, and that includes front matter: summaries, connection details, story introductions and engineering lines, bundle and artifact titles and captions, and the history’s titles and summaries. `tests/quotes.test.ts` fails on “I”, “my” or “me” outside a quotation in a body or in front matter. A thing’s `story.questions` are a reader’s questions, so they may say “I”. Thingy never signs a thing’s record; the footer byline (“kept by Thingy, his sidekick”) is the signature, and Jamie’s h-card stays the author of every entry.
 
 ## Quoting the interview
 
