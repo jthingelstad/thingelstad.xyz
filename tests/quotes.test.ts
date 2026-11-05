@@ -107,10 +107,23 @@ function pageQuotations(file: string): Quote[] {
   });
 }
 
+// The line /interviews/ pulls out for each session, from its front matter.
+function sessionPulls(): Quote[] {
+  return sessions.map((session) => {
+    const pull = session.data.pull as { n: number; words: string };
+    return {
+      file: session.file,
+      question: pull.n,
+      session: Number(session.id.replace('session-', '')),
+      text: pull.words
+    };
+  });
+}
+
 test('every quotation of an interview session is what the transcript says, linked to its question', () => {
   const all = [...things, ...stories]
     .flatMap((page) => quotations(page.file, page.body))
-    .concat(pageQuotations('site/about.njk'), pageQuotations('site/artifacts.njk'));
+    .concat(pageQuotations('site/about.njk'), pageQuotations('site/artifacts.njk'), sessionPulls());
   assert.ok(all.length >= 60, `the site quotes the interview (${all.length} quotations)`);
   const problems: string[] = [];
   for (const quote of all) {

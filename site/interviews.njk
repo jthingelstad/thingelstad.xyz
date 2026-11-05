@@ -4,19 +4,46 @@ permalink: /interviews/
 title: Interviews
 description: Jamie in his own words. Thingy asks, Jamie answers out loud, one session at a time, and the transcript is lightly edited from speech for reading.
 ---
-{#- The interview sessions (content/interviews/session-N.md), newest first: Thingy's questions and Jamie's answers. A
-    transcript is a source, the way a post is: the pages quote it and link the question. #}
-<section class="intro">
+{%- from "macros.njk" import thingyHead %}
+{#- The interview sessions (content/interviews/session-N.md), newest first: a session's number, its point in Thingy's
+    voice, and one line of Jamie's from it (`pull` in the front matter, held to the transcript by tests/quotes.test.ts).
+    Then the index by thing, and what no question has reached yet. A transcript is a source, the way a post is: the
+    pages quote it and link the question. #}
+<section class="intro has-character">
+  <a class="thingy-companion" href="/things/thingy-model/" aria-label="Meet Thingy’s character"><img src="https://thingy.thingelstad.xyz/character/latest/poses/workshop-thinking-curious.webp" width="170" height="170" alt="Thingy, the Workshop Builder, turning a question over" /></a>
   <h1>Interviews</h1>
-  <p class="lede">Jamie in his own words. Thingy asks, Jamie answers out loud, and each sitting is a session with its own number. The transcript is lightly edited from speech for reading, and the words stay his. When a page on this site says why he built something, it points at the question where he said so.</p>
+  <p class="lede">From time to time Thingy sits down with Jamie and asks about what he has built. Each session has one point Thingy wanted to get to. The question numbers keep running from one session to the next. The answers are Jamie’s words, lightly edited from speech for reading.</p>
 </section>
-<ul class="story-list interview-list">
-  {% for interview in site.interviews %}{% include "interview-card.njk" %}{% endfor %}
-</ul>
+<div class="session-list">
+  {% for interview in site.interviews %}
+  <article class="session-card{% if loop.first %} is-latest{% endif %}">
+    <a class="session-number" href="{{ interview.page }}" aria-label="Session {{ interview.session }}">{{ interview.session }}</a>
+    <div class="session-what">
+      <p class="meta">Session {{ interview.session }} · {{ interview.started | date }} · {{ interview.questions | length }} questions</p>
+      <h2><a href="{{ interview.page }}">{{ interview.title }}</a></h2>
+      <div class="thingy-line">{{ thingyHead() }}<p class="thingy-says">{{ interview.point }}</p></div>
+    </div>
+    <aside class="session-pull" aria-label="From session {{ interview.session }}">
+      <blockquote class="pull">“<a href="{{ interview.page }}#q{{ interview.pull.n }}">{{ interview.pull.words }}</a>”</blockquote>
+      <p class="who"><img src="{{ owner.avatar }}" alt="" width="28" height="28" loading="lazy" /><span>Jamie, question {{ interview.pull.n }}</span></p>
+    </aside>
+  </article>
+  {% endfor %}
+</div>
+<section class="interview-find" id="find-a-thing" aria-labelledby="find-a-thing-title">
+  <h2 id="find-a-thing-title">Find a thing</h2>
+  <p class="meta">The {{ site.interviewIndex | length }} things he has been asked about. Each number is a session, and it leads to the first question there about that thing.</p>
+  <ul class="interview-index">
+    {% for row in site.interviewIndex %}<li><a href="{{ row.thing.page }}">{{ row.thing.title }}</a><span class="interview-index-sessions">{% for s in row.sessions %}<a href="{{ s.page }}" aria-label="{{ row.thing.title }} in session {{ s.session }}, question {{ s.n }}">{{ s.session }}</a>{% endfor %}</span></li>
+    {% endfor %}
+  </ul>
+</section>
 {% if site.stillToAsk | length %}
 <section class="still-to-ask" id="still-to-ask" aria-labelledby="still-to-ask-title">
   <h2 id="still-to-ask-title">Still to ask</h2>
-  <p>No session has reached these yet.</p>
-  <p>{% for thing in site.stillToAsk %}<a class="tag" href="{{ thing.page }}">{{ thing.title }}</a> {% endfor %}</p>
+  <div>
+    <p class="thingy-says">The things I have not asked him about yet, worked out from the registry when the site builds.</p>
+    <p>{% for thing in site.stillToAsk %}<a class="tag" href="{{ thing.page }}">{{ thing.title }}</a> {% endfor %}</p>
+  </div>
 </section>
 {% endif %}

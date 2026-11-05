@@ -29,6 +29,7 @@ type Output = {
     title: string;
     page: string;
     session: number;
+    pull: { n: number; words: string };
     questions: { n: number; title: string; url: string; things: string[] }[];
   }[];
 };
@@ -617,24 +618,44 @@ test('an interview session is Jamie in his own words: every question has an addr
 }) => {
   const errors = watchErrors(page);
   await page.goto('/interviews/');
-  await expect(page.locator('.interview-card')).toHaveCount(interviews.length);
+  await expect(page.locator('.session-card')).toHaveCount(interviews.length);
   await expect(page.locator('.still-to-ask a.tag').first()).toBeVisible();
+  // Each session pulls out a line of Jamie's, and the line leads to its question.
+  for (const session of interviews) {
+    const card = page.locator(`.session-card:has(h2 a[href="${new URL(session.page).pathname}"])`);
+    await expect(card.locator('.pull a')).toHaveAttribute(
+      'href',
+      `${new URL(session.page).pathname}#q${session.pull.n}`
+    );
+  }
+  // The index by thing: a thing's name goes to its page, a session's number to the question.
+  const row = page.locator('.interview-index li').first();
+  await expect(row.locator('> a')).toHaveAttribute('href', /^\/things\//);
+  await expect(row.locator('.interview-index-sessions a').first()).toHaveAttribute(
+    'href',
+    /^\/interviews\/session-\d+\/#q\d+$/
+  );
+  expect(await fitsViewport(page)).toBe(true);
   const first = interviews.find((session) => session.questions.some((q) => q.things.length))!;
   const path = new URL(first.page).pathname;
-  await page.locator(`.interview-card h3 a[href="${path}"]`).click();
+  await page.locator(`.session-card h2 a[href="${path}"]`).click();
   await expect(page).toHaveURL(new RegExp(`${path}$`));
   await expect(page.locator('h1')).toHaveText(first.title);
   await expect(page.locator('main')).not.toContainText('as he spoke');
   // The questions list leads to each question, which carries its own # link.
-  const index = page.locator('.question-index a');
-  expect(await index.count()).toBe(first.questions.length);
+  const isPhone = (page.viewportSize()?.width ?? 1280) <= 768;
+  if (isPhone) await page.locator('.toc-fold summary').click();
+  const rail = page.locator(isPhone ? '.toc-fold nav' : '.toc');
+  expect(await rail.locator('a[href^="#q"]').count()).toBe(first.questions.length);
   const question = first.questions.find((q) => q.things.length)!;
-  await page.locator(`.question-index a[href="#q${question.n}"]`).click();
+  await rail.locator(`a[href="#q${question.n}"]`).click();
   await expect(page).toHaveURL(new RegExp(`${path}#q${question.n}$`));
   const block = page.locator(`#q${question.n}`);
   await expect(block.locator('h2')).toBeInViewport();
   await expect(block.locator('h2')).toContainText(question.title);
-  await expect(block.locator('a.permalink')).toHaveAttribute('href', `#q${question.n}`);
+  await expect(block.locator('a.question-number')).toHaveAttribute('href', `#q${question.n}`);
+  // The rail marks where the reader is; a phone has no rail on screen.
+  if (!isPhone) await expect(rail.locator(`a[href="#q${question.n}"]`)).toHaveAttribute('aria-current', 'true');
   // Under it, the things the question is about, as tags that lead to their pages.
   const tags = block.locator('.question-things a.tag');
   await expect(tags).toHaveCount(question.things.length);
@@ -643,7 +664,8 @@ test('an interview session is Jamie in his own words: every question has an addr
     new URL(things.find((thing) => thing.id === question.things[0])!.page).pathname
   );
   // The transcript's speakers, and no address used twice.
-  await expect(page.locator('.interview-body .turn-who strong').first()).toHaveText(/^(Jamie|Thingy):$/);
+  await expect(block.locator('.turn-thingy img').first()).toHaveAttribute('alt', 'Thingy');
+  await expect(block.locator('.turn-jamie img').first()).toHaveAttribute('alt', 'Jamie');
   const ids = await page.locator('[id]').evaluateAll((nodes) => nodes.map((node) => node.id));
   expect(new Set(ids).size, 'each id once').toBe(ids.length);
   expect(await fitsViewport(page)).toBe(true);
@@ -678,11 +700,18 @@ test('Thingy keeps the site: the footer byline and the about page say so, and Ja
   page
 }) => {
   await page.goto('/about/');
-  const portrait = page.locator('.thingy-portrait img');
-  await expect(portrait).toBeVisible();
+  await expect(page.locator('.thingy-companion img')).toBeVisible();
+  // Around the shop: a tile for each room, and every picture of him from his home.
+  const tiles = page.locator('.shop-tiles a');
+  await expect(tiles).toHaveCount(9);
+  for (const src of await tiles
+    .locator('img')
+    .evaluateAll((images) => images.map((image) => image.getAttribute('src'))))
+    expect(src).toMatch(/^https:\/\/thingy\.thingelstad\.xyz\/character\/latest\/poses\/workshop-[a-z-]+\.webp$/);
+  await expect(page.locator('#thingy + p a[href*="/kit/"]')).toHaveAttribute('href', /\?ref=xyz-about$/);
   expect((await page.request.get('/img/thingy-320.png')).headers()['content-type']).toBe('image/png');
   await expect(page.locator('.about p').first()).toContainText('I am Thingy');
-  await expect(page.locator('.about')).toContainText('Jamie’s decision');
+  await expect(page.locator('.about').last()).toContainText('Jamie’s decision');
   // The about page quotes the interview and links each quotation to its question.
   const quoted = page.locator('.about a[href*="/interviews/"][href*="#q"]');
   expect(await quoted.count()).toBeGreaterThanOrEqual(3);

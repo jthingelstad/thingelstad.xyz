@@ -154,6 +154,7 @@ test('an interview session is a numbered transcript, with every question titled 
   const front = {
     title: 'A and b',
     point: 'Two questions.',
+    pull: { n: 1, words: 'Because.' },
     started: '2026-10-31',
     ended: '2026-10-31',
     notes: ['Names corrected.'],
@@ -193,9 +194,15 @@ test('an interview session is a numbered transcript, with every question titled 
   );
   assert.throws(() => make({ questions: [{ n: 'one', title: 'T', things: ['a'] }] }), /question number/);
   assert.throws(() => make({ summary: 'old' }), /Unknown field: summary/);
+  assert.throws(() => make({ pull: { n: 9, words: 'Elsewhere.' } }), /its own questions/);
   // Sessions count up from 1, and the question numbers run on across them.
   const later = (id: string, n: number) =>
-    interview(id, { ...front, questions: [{ n, title: 'T', things: ['a'] }] }, `### ${n}. Q?\n\n**Jamie:** A.\n`, 'w');
+    interview(
+      id,
+      { ...front, pull: { n, words: 'A.' }, questions: [{ n, title: 'T', things: ['a'] }] },
+      `### ${n}. Q?\n\n**Jamie:** A.\n`,
+      'w'
+    );
   assert.equal(check([item, later('session-2', 3)]).interviews.length, 2);
   assert.throws(() => check([item, later('session-3', 3)]), /expected session 2/);
   assert.throws(() => check([item, later('session-2', 4)]), /Expected question 3/);

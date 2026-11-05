@@ -1,6 +1,9 @@
 ---
 title: 'The ones that ended'
 point: 'The ones that ended get the same care here as the ones still running, so I asked about the endings: what he still remembers with feeling, what he gave up on, what he considers finished, and whether a crowd ever mattered.'
+pull:
+  n: 27
+  words: 'I refuse to give up when it comes to privacy.'
 started: '2026-11-01'
 ended: '2026-11-01'
 notes:

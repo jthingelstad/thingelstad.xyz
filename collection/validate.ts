@@ -336,12 +336,13 @@ export function storyline(id: string, frontmatter: unknown, body: string, where:
   if (item.ended !== undefined) result.ended = preciseDate(item.ended, `${where}.ended`);
   return result;
 }
-// An interview session's file is session-N.md. Its front matter is title, Thingy's central point, when it was
+// An interview session's file is session-N.md. Its front matter is title, Thingy's central point, the line of Jamie's
+// that /interviews/ pulls out (its question number and words; tests/quotes.test.ts holds the words to the transcript), when it was
 // recorded (started and ended), notes on the transcript, and every question, by its number, a short title and the
 // things it is about (none is fine). The body is the transcript, with one `### N. ` heading per question; the
 // headings and the front matter name the same questions, and no number is used twice.
 export function interview(id: string, frontmatter: unknown, body: string, where: string): Interview {
-  const item = record(frontmatter, ['title', 'point', 'started', 'ended', 'notes', 'questions'], where);
+  const item = record(frontmatter, ['title', 'point', 'pull', 'started', 'ended', 'notes', 'questions'], where);
   const session = id.match(/^session-([1-9]\d*)$/);
   if (!session) throw new ContentError(where, 'An interview session is a file named session-N.md.');
   const transcript = text(body, `${where}.body`, 200000);
@@ -366,11 +367,15 @@ export function interview(id: string, frontmatter: unknown, body: string, where:
   for (const n of numbers)
     if (!questions.some((question) => String(question.n) === n))
       throw new ContentError(`${where}.questions`, `Question ${n} is in the body but not in the front matter.`);
+  const pull = record(item.pull, ['n', 'words'], `${where}.pull`);
+  if (!questions.some((question) => question.n === pull.n))
+    throw new ContentError(`${where}.pull.n`, 'A session pulls a line from one of its own questions.');
   const result: Interview = {
     id: identifier(id, where),
     session: Number(session[1]),
     title: text(item.title, `${where}.title`, 200),
     point: text(item.point, `${where}.point`, 1000),
+    pull: { n: pull.n as number, words: text(pull.words, `${where}.pull.words`, 200) },
     started: preciseDate(item.started, `${where}.started`),
     ended: preciseDate(item.ended, `${where}.ended`),
     notes: texts(item.notes, `${where}.notes`, 20),

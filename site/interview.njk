@@ -9,49 +9,68 @@ eleventyComputed:
   title: '{{ interview.name }}'
   description: '{{ interview.point }}'
 ---
-{#- One interview session (content/interviews/session-N.md): Thingy's central point, the questions as a list, then
-    each question with its address #qN, a # link to copy it, Thingy's question and Jamie's answer, and the things it
-    is about as tags. The transcript is Jamie's words and keeps its emphasis, like a thing's story. A correction of
-    Thingy's sits under the answer and leaves the answer where it is. #}
-<article class="interview">
-  <header class="intro">
-    <p class="crumbs"><a href="/interviews/">Interviews</a></p>
-    <p class="story-span muted">Session {{ interview.session }} · {{ interview.started | date }} · {{ interview.questions | length }} questions</p>
-    <h1>{{ interview.title }}</h1>
-    <p class="lede session-point"><span class="session-point-who">Thingy</span> {{ interview.point }}</p>
+{%- from "macros.njk" import thingyHead %}
+{#- One interview session (content/interviews/session-N.md): Thingy's central point, a rail of the questions (a fold
+    on a phone), then each question with its address #qN, Thingy's question, Jamie's answer, and the things it is
+    about as tags. The two faces carry the speakers' names as alt text. The transcript is Jamie's words and keeps its
+    emphasis, like a thing's story. A correction of Thingy's sits under the answer and leaves the answer where it is. #}
+{%- macro questionLinks(interview) %}
+{% for q in interview.questions %}<a class="toc-link" href="#q{{ q.n }}"><b>{{ q.n }}</b><span>{{ q.title }}</span></a>
+{% endfor %}<a class="toc-link toc-about" href="#about">About this session</a>
+<a class="toc-link" href="{{ interview.markdown }}">Read as Markdown</a>
+{% endmacro -%}
+<article class="session">
+  <header class="session-top">
+    <span class="session-number" aria-hidden="true">{{ interview.session }}</span>
+    <div class="session-what">
+      <p class="meta"><a href="/interviews/">Interviews</a> · Session {{ interview.session }} · {{ interview.started | date }} · {{ interview.questions | length }} questions</p>
+      <h1>{{ interview.title }}</h1>
+      <div class="thingy-box">{{ thingyHead("") }}<b>Thingy</b><p class="thingy-says lede">{{ interview.point }}</p></div>
+    </div>
+    <a class="thingy-companion" href="/things/thingy-model/" aria-label="Meet Thingy’s character"><img src="https://thingy.thingelstad.xyz/character/latest/poses/workshop-present.webp" width="170" height="170" alt="Thingy, the Workshop Builder, presenting a laptop" /></a>
   </header>
-  <nav class="interview-index" id="questions" aria-labelledby="the-questions">
-    <h2 id="the-questions">Questions {{ interview.questions[0].n }} to {{ interview.questions[interview.questions.length - 1].n }}</h2>
-    <ol class="question-index">
-      {% for q in interview.questions %}<li value="{{ q.n }}"><a href="#q{{ q.n }}">{{ q.title }}</a></li>
-      {% endfor %}
-    </ol>
-    <p><a href="#about">About this session</a> · <a href="{{ interview.markdown }}">Read as Markdown</a></p>
-  </nav>
-  <section class="story interview-body" id="transcript">
-    {% for q in interview.questions %}
-    <section class="question" id="q{{ q.n }}">
-      <h2>{{ q.n }}. {{ q.title }} <a class="permalink" href="#q{{ q.n }}" aria-label="Link to question {{ q.n }}">#</a></h2>
-      <p class="turn turn-thingy"><strong>Thingy:</strong> {{ q.question | mdInline | safe }}</p>
-      {% for turn in q.turns %}
-      <div class="turn turn-{{ turn.who }}">
-        {% if turn.who == 'jamie' %}<p class="turn-who"><strong>Jamie:</strong></p>{% elif turn.who == 'thingy' %}<p class="turn-who"><strong>Thingy:</strong></p>{% else %}<p class="turn-who"><strong>Thingy’s correction:</strong></p>{% endif %}
-        {{ turn.text | md | safe }}
+  <details class="toc-fold">
+    <summary><span>Questions {{ interview.questions[0].n }} to {{ interview.questions[interview.questions.length - 1].n }}</span><span class="muted">Jump</span></summary>
+    <nav aria-label="Questions in this session">{{ questionLinks(interview) }}</nav>
+  </details>
+  <div class="contents-grid">
+    <nav class="toc" id="questions" aria-label="Questions in this session" data-toc>
+      <p class="label">Questions {{ interview.questions[0].n }} to {{ interview.questions[interview.questions.length - 1].n }}</p>
+      {{ questionLinks(interview) }}
+    </nav>
+    <div class="session-main">
+      <div class="transcript" id="transcript">
+        {% for q in interview.questions %}
+        <section class="question" id="q{{ q.n }}">
+          <h2><a class="question-number" href="#q{{ q.n }}" aria-label="Link to question {{ q.n }}">{{ q.n }}</a><span>{{ q.title }}</span></h2>
+          <div class="turn turn-thingy">{{ thingyHead("Thingy") }}<div class="turn-words"><p>{{ q.question | mdInline | safe }}</p></div></div>
+          {% for turn in q.turns %}
+          <div class="turn turn-{{ turn.who }}">
+            {% if turn.who == 'jamie' %}<img class="turn-face" src="{{ owner.avatar }}" alt="Jamie" width="28" height="28" loading="lazy" />{% else %}{{ thingyHead("Thingy") }}{% endif %}
+            <div class="turn-words">{% if turn.who == 'correction' %}<p class="turn-label">Thingy’s correction</p>{% endif %}
+              {{ turn.text | md | safe }}
+            </div>
+          </div>
+          {% endfor %}
+          {% if q.things | length %}<p class="question-things">{% for thing in q.things %}<a class="tag" href="{{ thing.page }}">{{ thing.title }}</a> {% endfor %}</p>{% endif %}
+        </section>
+        {% endfor %}
       </div>
-      {% endfor %}
-      {% if q.things | length %}<p class="question-things">About {% for thing in q.things %}<a class="tag" href="{{ thing.page }}">{{ thing.title }}</a> {% endfor %}</p>{% endif %}
-    </section>
-    {% endfor %}
-  </section>
-  <section class="interview-notes" id="about" aria-labelledby="about-this-session">
-    <h2 id="about-this-session">About this session</h2>
-    <p>Jamie answered out loud on {{ interview.started | date }}. I asked the questions and wrote the point at the top. His answers are his own words, lightly edited because speech and writing are different things. Where I have added a fact to one, it is marked as mine and it says where the fact came from.</p>
-    {% if interview.notes | length %}<ul>
-      {% for note in interview.notes %}<li>{{ note }}</li>
-      {% endfor %}
-    </ul>{% endif %}
-  </section>
-  <footer class="thing-footer">
-    <p class="muted">{% if interview.previous %}<a href="{{ interview.previous.page }}">← {{ interview.previous.name }}</a> · {% endif %}{% if interview.next %}<a href="{{ interview.next.page }}">{{ interview.next.name }} →</a> · {% endif %}<a href="/interviews/">All sessions</a> · <a href="{{ site.repository }}/blob/main/content/interviews/{{ interview.id }}.md">The transcript file</a></p>
-  </footer>
+      <section class="session-about" id="about" aria-labelledby="about-this-session">
+        <h2 id="about-this-session">About this session</h2>
+        <p>Jamie answered out loud on {{ interview.started | date }}. I asked the questions and wrote the point at the top. His answers are his own words, lightly edited because speech and writing are different things. Where I have added a fact to one, it is marked as mine and it says where the fact came from.</p>
+        {% if interview.notes | length %}<ul>
+          {% for note in interview.notes %}<li>{{ note }}</li>
+          {% endfor %}
+        </ul>{% endif %}
+        <p class="meta"><a href="{{ site.repository }}/blob/main/content/interviews/{{ interview.id }}.md">The transcript file</a></p>
+      </section>
+      <nav class="session-others" aria-label="Other sessions">
+        {% if interview.previous %}<a href="{{ interview.previous.page }}"><span class="meta">Session {{ interview.previous.session }}</span><b>← {{ interview.previous.title }}</b></a>{% else %}<span></span>{% endif %}
+        <a class="more" href="/interviews/">All sessions</a>
+        {% if interview.next %}<a class="is-next" href="{{ interview.next.page }}"><span class="meta">Session {{ interview.next.session }}</span><b>{{ interview.next.title }} →</b></a>{% else %}<span></span>{% endif %}
+      </nav>
+    </div>
+  </div>
 </article>
+<script type="module" src="{{ assets.enhance }}"></script>

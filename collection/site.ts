@@ -273,6 +273,7 @@ export type SiteModel = {
   stories: SiteStoryline[];
   interviews: SiteInterview[];
   stillToAsk: SiteThing[];
+  interviewIndex: { thing: SiteThing; sessions: { session: number; n: number; page: string }[] }[];
   history: HistoryEvent[];
   timeline: Timeline;
   years: YearPage[]; // newest first
@@ -611,6 +612,20 @@ export function buildSiteModel(registry: Registry, observations: Observation[], 
   // The things no question has been about yet. It is computed, so the list shrinks as sessions are added.
   const asked = new Set(interviews.flatMap((item) => item.cast.map((thing) => thing.id)));
   const stillToAsk = things.filter((thing) => !asked.has(thing.id));
+  // The index by thing on /interviews/: each thing a question has been about, and for each session its first question.
+  const interviewIndex = things
+    .filter((thing) => asked.has(thing.id))
+    .map((thing) => ({
+      thing,
+      sessions: interviews
+        .filter((item) => item.cast.some((c) => c.id === thing.id))
+        .map((item) => {
+          const q = item.questions.find((question) => question.things.some((t) => t.id === thing.id))!;
+          return { session: item.session, n: q.n, page: `${item.page}#q${q.n}` };
+        })
+        .toReversed()
+    }))
+    .toSorted((a, b) => a.thing.title.localeCompare(b.thing.title));
   const dated = things.filter((thing) => thing.span.start !== null);
   const rows: TimelineRow[] = dated
     .map((thing) => ({
@@ -690,6 +705,7 @@ export function buildSiteModel(registry: Registry, observations: Observation[], 
     stories,
     interviews,
     stillToAsk,
+    interviewIndex,
     history: registry.history,
     timeline,
     years: buildYearPages(timeline, registry.history, activity.activity),
@@ -869,6 +885,7 @@ export function sessionMarkdown(item: SiteInterview) {
     session: item.session,
     title: item.title,
     point: item.point,
+    pull: item.pull,
     started: item.started,
     ended: item.ended,
     notes: item.notes,

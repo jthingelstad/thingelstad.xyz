@@ -33,3 +33,7 @@
   <figcaption><b>{{ artifact.title }}</b>{% if artifact.caption %}<span class="muted clamp-two">{{ artifact.caption }}</span>{% endif %}</figcaption>
 </figure></a>
 {% endmacro %}
+
+{#- Thingy's head, cropped from a still of his, beside anything he says. The kit's stills stand on their own; this is
+    the same picture in a small round frame, with no copy kept here. #}
+{% macro thingyHead(alt) %}<span class="thingy-head"><img src="https://thingy.thingelstad.xyz/character/latest/poses/workshop-thinking-curious.webp" alt="{{ alt or '' }}" width="1000" height="1000" loading="lazy" /></span>{% endmacro %}
