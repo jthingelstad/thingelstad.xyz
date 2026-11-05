@@ -30,4 +30,4 @@ It had real limits. In March 2025 he showed it [getting the answer wrong](https:
 
 > it taught me that just sending a bunch of data into that system both was not going to give me the kind of experience that I wanted, but it gave me enough of a taste that there was something here and that if I could build a real agent around it, that that could be meaningful.
 >
-> [Jamie, question 29](https://thingelstad.xyz/interviews/jamie-october-2026/#q29)
+> [Jamie, question 29](https://thingelstad.xyz/interviews/session-4/#q29)

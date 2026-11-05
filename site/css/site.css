@@ -2150,3 +2150,21 @@ h4:hover > .permalink,
     transition: none;
   }
 }
+
+/* An interview session: a question and its turns. */
+.interview-body .question {
+  scroll-margin-top: 16px;
+  margin-block-start: 2.5rem;
+}
+.interview-body .turn-who {
+  margin-block-end: 0;
+}
+.interview-body .turn-correction {
+  padding-inline-start: 14px;
+  border-inline-start: 2px solid var(--thingy, currentcolor);
+}
+.session-point-who {
+  display: block;
+  font-size: 15px;
+  font-weight: 600;
+}

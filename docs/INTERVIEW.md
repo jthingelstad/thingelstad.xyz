@@ -1,28 +1,21 @@
 # Thingy interviews Jamie
 
-The brief that ran the first interview (`content/interviews/jamie-october-2026.md`, recorded 2026-10-31 and 2026-11-01), kept so the next sitting starts the same way. Paste the brief below into a Claude Project with voice on and say “Let’s do session 6” (or whichever is next). Jamie answers out loud; the transcript is the source.
+The brief that runs the interview sessions (`content/interviews/session-N.md`), kept so the next sitting starts the same way. Paste the brief below into a Claude Project with voice on and say which session is next. Jamie answers out loud; the transcript is the source.
 
 ## From transcript to source file
 
-1. Export the transcript. Keep the questions as `### N. The question` headings, each answer as a `**Jamie:**` paragraph, each follow-up as a `#### Follow-up:` heading, and the interviewer as `**Thingy:**`.
-2. On the way in, take out only the filler words (“um”, “uh”) and fix the names the transcriber misheard (TinyLetter, Buttondown, MathJax, Kubb, nnxyz and the like). Nothing else changes: repetitions, false starts and Jamie’s grammar stay. Say what was done in `notes`.
-3. Number the questions on from the last sitting (the first interview ends at 35), so an address like `#q9` never moves.
-4. Tag each question that is about particular things under `questions` (`n`, `things`), so those things’ pages can point at it. A question about the site or about Jamie in general goes untagged, or tags `things-ive-built`.
-5. Jamie reads it once before it publishes. After that the file is a source: a correction is a new note, never an edit to his words.
+1. One sitting is one session. Export the transcript to `content/interviews/session-N.md`, the next number. Keep the questions as `### N. The question` headings, each answer as a `**Jamie:**` paragraph, each follow-up as a `#### Follow-up:` heading, and the interviewer as `**Thingy:**`.
+2. Edit lightly from speech for reading: filler, stutters, false starts, broken sentence breaks, missing punctuation, misheard names. Every sentence and every claim stays, and the words stay his (Jamie, 2026-11-04: “true to my words only, but you can lightly edit the response”). Say anything particular in `notes`.
+3. Number the questions on from the last session, so an address like `#q9` never moves. The checks fail on a gap.
+4. In the front matter, write the session’s `point`, Thingy’s central point in his own voice, and give every question an entry under `questions`: `n`, a short `title`, and the `things` it is about (none is fine).
+5. Where the record disagrees with what he remembers, leave the answer and add `**Thingy’s correction:**` under it, saying where the fact came from.
+6. Jamie reads it once before it publishes. After that a correction is a new note or a `**Thingy’s correction:**`, not a change to his words.
 
 ## Open questions for a next sitting
 
-Things with no spoken “why” yet, so their pages quote published sources only: Thingelstad Photography, Numbers2Words, ParseURL, Stone/Steel/People, Yearly Thing 2025, Wikinosh, the social cards (cards.thingelstad.com), the POAP Kings sites, Reading Things, Thinglesbot, the Q2A number captcha, Sync, the Redirector, the Planet Kubb score notation, the Clash Royale API agent reference, and the Elixir Drop and Discord pieces. Candidates for session 6:
+`/interviews/` lists the things no question has reached yet (`site.stillToAsk`, computed), so start there.
 
-36. Thingelstad Photography and the photo work around the blog: what was it, and why did it stop?
-37. Numbers2Words, ParseURL, the Q2A number captcha: the small utilities. Who were they for?
-38. Stone/Steel/People and Yearly Thing 2025: the printed things. What does putting a thing on paper do that a page does not?
-39. Wikinosh, in the MediaWiki years. What was it?
-40. The social cards and the Redirector: the plumbing under the sites. Does plumbing count as a thing?
-41. Reading Things and Thinglesbot: the ones that are hard to remember. What do you remember?
-42. The Planet Kubb score notation and the Clash Royale API agent reference: things made for other builders and agents. Who did you have in mind?
-
-Two tweaks to the brief for next time, from the first sitting: give the interviewer a spelling list of names (the transcriber misheard about twenty), and have it confirm after a long answer that the whole of it was heard, since part of the answer to question 10 was lost.
+Two tweaks to the brief from the first sitting: give the interviewer a spelling list of names (the transcriber misheard about twenty), and have it confirm after a long answer that the whole of it was heard, since part of the answer to question 10 was lost.
 
 ## The brief
 

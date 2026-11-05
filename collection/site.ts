@@ -33,6 +33,7 @@ import { capturedUrl } from './adapters/wayback';
 import { artifactKind, formatBytes, isImage } from './artifacts';
 import { rootOrigin, siteKey } from './adapters/tinylytics';
 import { currentSite, withRef } from './sites';
+import { parseTranscript, type Turn } from './interviews';
 import {
   activityMonths,
   countsAsActivity,
@@ -46,7 +47,7 @@ import {
 export const siteUrl = 'https://thingelstad.xyz';
 const siteTitle = 'Things I’ve built.';
 const siteDescription =
-  'Everything Jamie Thingelstad has built, in one place: the things he runs today and the ones he has stepped away from. Kept by Thingy, his sidekick.';
+  'Projects that Jamie Thingelstad has built: the ones he runs today and the ones he has stepped away from. Kept by Thingy, his sidekick.';
 const repositoryUrl = 'https://github.com/jthingelstad/thingelstad.xyz';
 
 const statusLabels: Record<Status, string> = {
@@ -56,7 +57,7 @@ const statusLabels: Record<Status, string> = {
   abandoned: 'Abandoned',
   archived: 'Archived'
 };
-// The status words are Jamie's, from questions 3 and 28 of his interview (content/interviews/jamie-october-2026.md):
+// The status words are Jamie's, from questions 3 and 28 of his interview (content/interviews/session-1.md and session-4.md):
 // retired is no longer available, dormant is still available but not worked on, abandoned is a project he left,
 // archived came to a natural conclusion. Status is his decision, and evidence never sets one.
 const statusDescriptions: Record<Status, string> = {
@@ -197,13 +198,16 @@ type SiteStoryline = Storyline & {
   span: { started: string | null; ended: string | null; ongoing: boolean };
   latest: string | null; // the newest event date among its things: what orders the stories
 };
-// An interview with its questions resolved to things, the things it is about in the order they first come up,
-// and its index: every question heading in the transcript, numbered, for the list at the top of the page.
+// An interview session with its questions read from the transcript and resolved to things, and the things it is
+// about in the order they first come up.
 type SiteInterview = Omit<Interview, 'questions'> & {
   page: string;
+  markdown: string;
+  name: string; // "Session 6: The loose ends"
   cast: SiteThing[];
-  questions: { n: number; things: SiteThing[] }[];
-  index: { n: number; text: string }[];
+  questions: { n: number; title: string; question: string; turns: Turn[]; things: SiteThing[] }[];
+  previous?: { page: string; name: string; session: number; title: string };
+  next?: { page: string; name: string; session: number; title: string };
 };
 type SiteCollection = { name: string; things: SiteThing[] };
 type SiteYear = { year: string; events: HistoryEvent[] };
@@ -252,6 +256,7 @@ export type SiteModel = {
   topics: SiteTopic[];
   stories: SiteStoryline[];
   interviews: SiteInterview[];
+  stillToAsk: SiteThing[];
   history: HistoryEvent[];
   years: SiteYear[];
   timeline: Timeline;
@@ -502,7 +507,9 @@ export function buildSiteModel(registry: Registry, observations: Observation[], 
         .map((story) => ({ id: story.id, title: story.title, page: `/stories/${story.id}/` })),
       interviews: registry.interviews.flatMap((item) => {
         const questions = item.questions.filter((q) => q.things.includes(thing.id)).map((q) => q.n);
-        return questions.length ? [{ id: item.id, title: item.title, page: `/interviews/${item.id}/`, questions }] : [];
+        return questions.length
+          ? [{ id: item.id, title: `Session ${item.session}`, page: `/interviews/${item.id}/`, questions }]
+          : [];
       })
     };
   });
@@ -549,17 +556,43 @@ export function buildSiteModel(registry: Registry, observations: Observation[], 
     })
     .toSorted((a, b) => (b.latest ?? '').localeCompare(a.latest ?? '') || a.title.localeCompare(b.title));
   const years: SiteYear[] = [];
-  const interviews: SiteInterview[] = registry.interviews
-    .map((item) => {
-      const questions = item.questions.map((q) => ({ n: q.n, things: q.things.map((id) => byId.get(id)!) }));
+  const sessions = registry.interviews.toSorted((a, b) => a.session - b.session);
+  const neighbor = (item?: Interview) =>
+    item && {
+      page: `/interviews/${item.id}/`,
+      name: `Session ${item.session}: ${item.title}`,
+      session: item.session,
+      title: item.title
+    };
+  // Newest session first.
+  const interviews: SiteInterview[] = sessions
+    .map((item, position) => {
+      const transcript = new Map(parseTranscript(item.body).map((q) => [q.n, q]));
+      const questions = item.questions
+        .toSorted((a, b) => a.n - b.n)
+        .map((q) => ({
+          n: q.n,
+          title: q.title,
+          question: transcript.get(q.n)!.question,
+          turns: transcript.get(q.n)!.turns,
+          things: q.things.map((id) => byId.get(id)!)
+        }));
       const cast = [...new Set(questions.flatMap((q) => q.things))];
-      const index = [...item.body.matchAll(/^### (\d+)\. (.+)$/gm)].map((match) => ({
-        n: Number(match[1]),
-        text: match[2].trim()
-      }));
-      return { ...item, page: `/interviews/${item.id}/`, cast, questions, index };
+      return {
+        ...item,
+        page: `/interviews/${item.id}/`,
+        markdown: `/interviews/${item.id}.md`,
+        name: `Session ${item.session}: ${item.title}`,
+        cast,
+        questions,
+        previous: neighbor(sessions[position - 1]),
+        next: neighbor(sessions[position + 1])
+      };
     })
-    .toSorted((a, b) => b.started.localeCompare(a.started) || a.id.localeCompare(b.id));
+    .toReversed();
+  // The things no question has been about yet. It is computed, so the list shrinks as sessions are added.
+  const asked = new Set(interviews.flatMap((item) => item.cast.map((thing) => thing.id)));
+  const stillToAsk = things.filter((thing) => !asked.has(thing.id));
   for (const event of registry.history) {
     const y = event.date.slice(0, 4);
     const bucket = years.find((b) => b.year === y) ?? (years.push({ year: y, events: [] }), years.at(-1)!);
@@ -652,6 +685,7 @@ export function buildSiteModel(registry: Registry, observations: Observation[], 
     topics,
     stories,
     interviews,
+    stillToAsk,
     history: registry.history,
     years,
     timeline: {
@@ -739,7 +773,7 @@ export function llmsText(model: SiteModel) {
       ? [
           '## Interviews',
           '',
-          ...model.interviews.map((item) => `- [${llmsName(item.title)}](${model.url}${item.page}): ${item.summary}`),
+          ...model.interviews.map((item) => `- [${llmsName(item.name)}](${model.url}${item.page}): ${item.point}`),
           ''
         ]
       : []),
@@ -812,11 +846,14 @@ export function thingsJson(model: SiteModel) {
       body: story.body.trim(),
       events: events.map((event) => event.id)
     })),
-    interviews: model.interviews.map(({ cast: _c, index: _i, ...item }) => ({
+    interviews: model.interviews.map(({ cast: _c, previous: _p, next: _n, name: _name, ...item }) => ({
       ...item,
       page: `${model.url}${item.page}`,
+      markdown: `${model.url}${item.markdown}`,
       questions: item.questions.map((q) => ({
         n: q.n,
+        title: q.title,
+        question: q.question,
         url: `${model.url}${item.page}#q${q.n}`,
         things: q.things.map((thing) => thing.id)
       })),
@@ -826,22 +863,18 @@ export function thingsJson(model: SiteModel) {
   };
 }
 
-// An interview's transcript as HTML, with an address on every question (#qN) and session (#session-N), a # link
-// to copy it, and under each question that is about particular things, those things as tags. The headings are
-// the transcript's own; the ids are the numbers, so a reworded question keeps its address.
-export function anchorQuestions(html: string, item: SiteInterview) {
-  const byNumber = new Map(item.questions.map((q) => [q.n, q.things]));
-  return html
-    .replace(/<h2>Session (\d+)<\/h2>/g, '<h2 id="session-$1">Session $1</h2>')
-    .replace(/<h3>(\d+)\. ([\s\S]*?)<\/h3>/g, (_match, n: string, rest: string) => {
-      const things = byNumber.get(Number(n)) ?? [];
-      const tags = things.length
-        ? `\n<p class="question-things">About ${things
-            .map((thing) => `<a class="tag" href="${thing.page}">${escapeHtml(thing.title)}</a>`)
-            .join(' ')}</p>`
-        : '';
-      return `<h3 id="q${n}">${n}. ${rest} <a class="permalink" href="#q${n}" aria-label="Link to question ${n}">#</a></h3>${tags}`;
-    });
+// A session as Markdown, at /interviews/session-N.md: its front matter and the transcript as it is kept.
+export function sessionMarkdown(item: SiteInterview) {
+  const frontmatter = {
+    session: item.session,
+    title: item.title,
+    point: item.point,
+    started: item.started,
+    ended: item.ended,
+    notes: item.notes,
+    questions: item.questions.map((q) => ({ n: q.n, title: q.title, things: q.things.map((thing) => thing.id) }))
+  };
+  return `---\n${stringify(frontmatter, { lineWidth: 0 })}---\n\n# ${item.name}\n\n${item.body.trim()}\n`;
 }
 
 // The ledger as a feed: what changed in what Jamie has built, newest first.

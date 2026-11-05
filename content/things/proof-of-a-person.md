@@ -39,8 +39,8 @@ The site is a static Astro build from a JSON export of the archive. Drop artwork
 
 What POAP had been for him, in his words:
 
-> It allowed me to assert that I did a thing without relying on any co company or other kind of independent arbiter to be able to host and own that data. Instead, that data lived on the blockchain and, and really delivered that promise of blockchain technology. … It just became something that I truly, really cherished.
+> It allowed me to assert that I did a thing without relying on any company or other kind of independent arbiter to be able to host and own that data. Instead, that data lived on the blockchain and really delivered that promise of blockchain technology. … It just became something that I truly, really cherished.
 >
-> [Jamie, question 15](https://thingelstad.xyz/interviews/jamie-october-2026/#q15)
+> [Jamie, question 15](https://thingelstad.xyz/interviews/session-2/#q15)
 
-His reading of the end: [“POAP was kind of doomed, I think, in part because crypto has never answered the onboarding problem.”](https://thingelstad.xyz/interviews/jamie-october-2026/#q15) He counts the capsule, with the nnxyz Rooms, as a new kind of thing, and [“I would expect that there will be more of those things because that’s kind of a new lever”](https://thingelstad.xyz/interviews/jamie-october-2026/#q35).
+His reading of the end: [“POAP was kind of doomed, I think, in part because crypto has never answered the onboarding problem.”](https://thingelstad.xyz/interviews/session-2/#q15) He counts the capsule, with the nnxyz Rooms, as a new kind of thing, and [“I would expect that there will be more of those things because that’s kind of a new lever”](https://thingelstad.xyz/interviews/session-5/#q35).

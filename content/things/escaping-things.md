@@ -31,10 +31,10 @@ The record began as a [list on Jamie’s blog](https://www.thingelstad.com/lists
 
 Why a team of puzzle players has a website, in his words:
 
-> We don’t need a website, but we wanted a website, or I wanted to have a website. And part of this is, you know, you’ll you can tell that I I like to document things. I like to collect things. I like to create kind of databases of things.
+> We don’t need a website, but we wanted a website, or I wanted to have a website. And part of this is, you know, you can tell that I like to document things. I like to collect things. I like to create kind of databases of things.
 >
-> [Jamie, question 24](https://thingelstad.xyz/interviews/jamie-october-2026/#q24)
+> [Jamie, question 24](https://thingelstad.xyz/interviews/session-3/#q24)
 
-Two things make this team’s log different, he said: [“we intentionally build escape rooms into travel”](https://thingelstad.xyz/interviews/jamie-october-2026/#q24), and they [“seek out rooms that are on the kind of highest rated rooms in the world”](https://thingelstad.xyz/interviews/jamie-october-2026/#q24). The site is there [“to share it with people and to record it for our own family posterity”](https://thingelstad.xyz/interviews/jamie-october-2026/#q24).
+Two things make this team’s log different, he said: [“we intentionally build escape rooms into travel”](https://thingelstad.xyz/interviews/session-3/#q24), and they [“seek out rooms that are on the kind of highest rated rooms in the world”](https://thingelstad.xyz/interviews/session-3/#q24). The site is there [“to share it with people and to record it for our own family posterity”](https://thingelstad.xyz/interviews/session-3/#q24).
 
 Tammy found the trip’s rooms (“Tammy found us twelve amazing escape rooms”), and the whole family writes up the rooms they play ([Escape in Europe, Day 13](https://www.thingelstad.com/2026/03/27/escape-in-europe-day.html)). After the twelve rooms of that trip, Jamie added trip pages, starting with [Escape in Europe](https://escape.thingelstad.com/trip/escape-in-europe/), with commentary from all four of them ([Weekly Thing 344](https://weekly.thingelstad.com/archive/344/)). The site is a static Eleventy build from Airtable snapshots, with Leaflet maps, Chart.js stats, Pagefind search, and an Atom feed of new rooms.

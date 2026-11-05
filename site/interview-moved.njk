@@ -1,0 +1,30 @@
+---
+layout: layout.njk
+permalink: /interviews/jamie-october-2026/
+title: This interview moved
+description: The first interview is now five numbered sessions.
+noindex: true
+---
+{#- The first interview's old address. Its links carry the question in the fragment, which never reaches the server, so
+    a redirect there could not keep them. This page reads the fragment and goes to the session that holds it, and
+    without a script it is a plain list of those sessions. It stays out of the sitemap. #}
+<section class="intro">
+  <h1>This interview moved</h1>
+  <p class="lede">The interview that was here is now numbered sessions, and the question numbers stayed the same.</p>
+</section>
+<ul class="story-list interview-moved">
+  {% for interview in site.interviews | reverse %}<li><a href="{{ interview.page }}">{{ interview.name }}</a>, questions {{ interview.questions[0].n }} to {{ interview.questions[interview.questions.length - 1].n }}</li>
+  {% endfor %}
+</ul>
+<script>
+  (function () {
+    var sessions = [{% for interview in site.interviews | reverse %}{ page: '{{ interview.page }}', session: {{ interview.session }}, first: {{ interview.questions[0].n }}, last: {{ interview.questions[interview.questions.length - 1].n }} }{% if not loop.last %}, {% endif %}{% endfor %}];
+    var match = location.hash.match(/^#(q|session-)(\d+)$/);
+    if (!match) return;
+    var n = Number(match[2]);
+    var found = sessions.filter(function (s) {
+      return match[1] === 'q' ? n >= s.first && n <= s.last : s.session === n;
+    })[0];
+    if (found) location.replace(found.page + (match[1] === 'q' ? '#q' + n : ''));
+  })();
+</script>

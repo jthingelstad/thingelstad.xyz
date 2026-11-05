@@ -63,10 +63,10 @@ Jamie built it by turning [Elixir Bot](https://github.com/jthingelstad/elixir-bo
 
 In the browser, Elixir is the Console for a player’s own history and the [Ladder](https://elixir.poapkings.com/ladder) for exploring ladder results. Elixir Clan runs in the same application, and Elixir Drop signs its players in with Elixir. Volunteer collectors do all of the fetching. Elixir is free for anyone, and its [updates feed](https://elixir.poapkings.com/updates) records every user-visible change.
 
-Elixir is also the thing Jamie named when asked about wrong turns. For a while he had pointed it at the play of the top 200 players in the game, and [“I realized that I had taken the wrong turn and turned the project into something that was no longer fun and about community”](https://thingelstad.xyz/interviews/jamie-october-2026/#q3). Undoing it took days. The lesson he took from it:
+Elixir is also the thing Jamie named when asked about wrong turns. For a while he had pointed it at the play of the top 200 players in the game, and [“I realized that I had taken the wrong turn and turned the project into something that was no longer fun and about community”](https://thingelstad.xyz/interviews/session-1/#q3). Undoing it took days. The lesson he took from it:
 
-> you really need to understand like what’s the vision of what you’re building and why are you building it? so that you can realize, oh, this is a wrong turn as soon as possible.
+> you really need to understand what’s the vision of what you’re building and why are you building it, so that you can realize, oh, this is a wrong turn as soon as possible.
 >
-> [Jamie, question 3](https://thingelstad.xyz/interviews/jamie-october-2026/#q3)
+> [Jamie, question 3](https://thingelstad.xyz/interviews/session-1/#q3)
 
-He does not expect it to last the way the blog will: [“I’m sure 20 years from now, Elixir will be done.”](https://thingelstad.xyz/interviews/jamie-october-2026/#q35)
+He does not expect it to last the way the blog will: [“I’m sure 20 years from now, Elixir will be done and retired.”](https://thingelstad.xyz/interviews/session-5/#q35)

@@ -46,4 +46,4 @@ On Garrick, in Jamie’s words:
 
 > Garrick is just a person that is similarly passionate about technology. Similarly passionate about thinking broadly about things, exploring concepts. He’s a builder. And so he and I enjoyed building things together for many years and had a lot of fun doing it.
 >
-> [Jamie, question 17](https://thingelstad.xyz/interviews/jamie-october-2026/#q17)
+> [Jamie, question 17](https://thingelstad.xyz/interviews/session-2/#q17)

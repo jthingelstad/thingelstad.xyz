@@ -32,4 +32,4 @@ The Charlie Brown Tree, which Jamie’s family also calls the Peanuts Tree, is a
 
 The logs left over from the tree became Escher-inspired [carved log tables](https://www.thingelstad.com/2021/06/12/i-love-our.html) for the fire area in 2021, another Rust n’ Grain project. In May 2025 he made the tree the site of [his first location-based POAP](https://www.thingelstad.com/2025/05/25/i-created-my-very-first.html), which visitors could mint by standing beside it.
 
-It is archived because it is finished. In the interview he called it [“a very finite project”](https://thingelstad.xyz/interviews/jamie-october-2026/#q28), carved [“out of a dead tree at our cabin”](https://thingelstad.xyz/interviews/jamie-october-2026/#q28), and [“an amazing piece of art”](https://thingelstad.xyz/interviews/jamie-october-2026/#q28).
+It is archived because it is finished. In the interview he called it [“a very finite project”](https://thingelstad.xyz/interviews/session-4/#q28), carved [“out of a dead tree at our cabin”](https://thingelstad.xyz/interviews/session-4/#q28), and [“an amazing piece of art”](https://thingelstad.xyz/interviews/session-4/#q28).

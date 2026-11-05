@@ -106,19 +106,22 @@ export type Storyline = {
   body: string; // Markdown. The story itself.
 };
 
-// An interview (content/interviews/<id>.md, /interviews/<id>/): Thingy's questions and Jamie's answers, as he
-// spoke them. The first was recorded on 2026-10-31 and 2026-11-01, when Thingy became the author of this site.
-// The body is the transcript. Each `### N. ` heading is a question, with the address #qN on the page, and the
-// front matter says which things each question is about, so a thing's page can point at Jamie's own words.
-// The transcript is a source like a post: quoted, never rewritten.
+// An interview session (content/interviews/session-N.md, /interviews/session-N/): Thingy's questions and Jamie's
+// answers, one sitting to a session, numbered in the order they happen. Jamie answers out loud and Thingy edits the
+// transcript lightly from speech for reading: "true to my words only, but you can lightly edit the response"
+// (Jamie, 2026-11-04). The words stay his, and where the record disagrees, a correction sits under the answer.
+// The body is the transcript. Each `### N. ` heading is a question, with the address #qN on the page; the numbers
+// run on across sessions, so an address never moves. The front matter gives each question a short title and the
+// things it is about, so a thing's page can point at Jamie's own words.
 export type Interview = {
-  id: string; // from the file name
+  id: string; // session-N, from the file name
+  session: number; // N
   title: string;
-  summary: string;
-  started: DatePrecision; // the first sitting
-  ended: DatePrecision; // the last
-  notes: string[]; // what was done to the transcript on the way in, so a reader knows
-  questions: { n: number; things: string[] }[]; // the questions that are about particular things
+  point: string; // the session's central point, in Thingy's voice
+  started: DatePrecision;
+  ended: DatePrecision;
+  notes: string[]; // what is particular about this transcript, so a reader knows
+  questions: { n: number; title: string; things: string[] }[]; // one for every question in the body
   body: string; // Markdown. The transcript.
 };
 

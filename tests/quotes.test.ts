@@ -5,14 +5,13 @@ import { join } from 'node:path';
 import { parse } from 'yaml';
 import { splitFrontmatter } from '../collection/load';
 
-// Every quotation of Jamie's interview on the site is his words, verbatim, linked to the question he said them in
-// (docs/THINGY.md, "Quoting the interview"). Two forms: inline, a link whose text is the quotation in curly quotes;
-// block, a blockquote whose last paragraph is the attribution link "Jamie, question N". An ellipsis may join parts
-// of one answer, in order.
+// Every quotation of Jamie's interview sessions on the site is his words, as the transcript has them, linked to the
+// question he said them in (docs/THINGY.md, "Quoting the interview"). Two forms: inline, a link whose text is the
+// quotation in curly quotes; block, a blockquote whose last paragraph is the attribution link "Jamie, question N".
+// An ellipsis may join parts of one answer, in order. The about page's <q> quotations are held to the same rule.
 
 const root = join(import.meta.dirname, '..');
-const interviewId = 'jamie-october-2026';
-const link = new RegExp(`^(?:https://thingelstad\\.xyz)?/interviews/${interviewId}/#q(\\d+)$`);
+const link = /^(?:https:\/\/thingelstad\.xyz)?\/interviews\/session-(\d+)\/#q(\d+)$/;
 
 // Jamie's answers by question: his paragraphs under each "### N." heading, follow-ups included, Thingy's dropped.
 function answers(markdown: string) {
@@ -23,7 +22,9 @@ function answers(markdown: string) {
     const paragraphs = parts[i + 1]
       .split(/\n\s*\n/)
       .map((p) => p.trim())
-      .filter((p) => p && !p.startsWith('#') && !p.startsWith('**Thingy:**'))
+      .filter(
+        (p) => p && !p.startsWith('#') && !p.startsWith('**Thingy:**') && !p.startsWith('**Thingy’s correction:**')
+      )
       .map((p) => p.replace(/^\*\*Jamie:\*\*\s*/, ''));
     byQuestion.set(n, normalize(paragraphs.join(' ')));
   }
@@ -39,14 +40,14 @@ function normalize(text: string) {
     .trim();
 }
 
-type Quote = { file: string; question: number; text: string };
+type Quote = { file: string; question: number; session?: number; text: string };
 
 // The quotations in one Markdown body, both forms.
 function quotations(file: string, body: string): Quote[] {
   const found: Quote[] = [];
   for (const m of body.matchAll(/\[(“[^\]]*”)\]\(([^)\s]+)\)/g)) {
     const target = m[2].match(link);
-    if (target) found.push({ file, question: Number(target[1]), text: m[1].slice(1, -1) });
+    if (target) found.push({ file, question: Number(target[2]), session: Number(target[1]), text: m[1].slice(1, -1) });
   }
   // A block is a run of lines that start with ">"; a line that is only ">" separates its paragraphs.
   for (const m of body.matchAll(/(?:^>.*(?:\n|$))+/gm)) {
@@ -63,9 +64,9 @@ function quotations(file: string, body: string): Quote[] {
     const attribution = paragraphs.pop()?.match(/^\[Jamie, question (\d+)\]\(([^)\s]+)\)$/);
     assert.ok(attribution, `${file}: a blockquote ends in its attribution link\n${m[0]}`);
     const target = attribution[2].match(link);
-    assert.ok(target && Number(target[1]) === Number(attribution[1]), `${file}: attribution links its question`);
+    assert.ok(target && Number(target[2]) === Number(attribution[1]), `${file}: attribution links its question`);
     assert.ok(paragraphs.length > 0, `${file}: a blockquote has words before the attribution`);
-    found.push({ file, question: Number(attribution[1]), text: paragraphs.join(' ') });
+    found.push({ file, question: Number(attribution[1]), session: Number(target[1]), text: paragraphs.join(' ') });
   }
   return found;
 }
@@ -80,18 +81,33 @@ function pages(dir: string) {
     });
 }
 
-const transcript = splitFrontmatter(
-  readFileSync(join(root, 'content/interviews', `${interviewId}.md`), 'utf8'),
-  `content/interviews/${interviewId}.md`
-);
-const transcriptData = transcript.frontmatter as { questions: { n: number; things: string[] }[] };
-const said = answers(transcript.body);
-const questionThings = new Map<number, string[]>(transcriptData.questions.map((q) => [q.n, q.things]));
+const sessions = pages('content/interviews');
+const said = new Map<number, string>();
+const questionThings = new Map<number, string[]>();
+const questionSession = new Map<number, number>();
+for (const session of sessions) {
+  const number = Number(session.id.replace('session-', ''));
+  for (const [n, answer] of answers(session.body)) {
+    said.set(n, answer);
+    questionSession.set(n, number);
+  }
+  for (const q of session.data.questions as { n: number; things: string[] }[]) questionThings.set(q.n, q.things);
+}
 const things = pages('content/things');
 const stories = pages('content/stories');
 
-test('every quotation of the interview is verbatim and linked to the question it came from', () => {
-  const all = [...things, ...stories].flatMap((page) => quotations(page.file, page.body));
+// The about page's quotations: each <q> belongs to the next question link after it.
+function aboutQuotations(): Quote[] {
+  const html = readFileSync(join(root, 'site/about.njk'), 'utf8');
+  return [...html.matchAll(/<q>([^<]*)<\/q>/g)].map((m) => {
+    const question = html.slice(m.index).match(/\/interviews\/session-(\d+)\/#q(\d+)/);
+    assert.ok(question, `about: a quotation links its question: ${m[1]}`);
+    return { file: 'site/about.njk', question: Number(question[2]), session: Number(question[1]), text: m[1] };
+  });
+}
+
+test('every quotation of an interview session is what the transcript says, linked to its question', () => {
+  const all = [...things, ...stories].flatMap((page) => quotations(page.file, page.body)).concat(aboutQuotations());
   assert.ok(all.length >= 60, `the site quotes the interview (${all.length} quotations)`);
   const problems: string[] = [];
   for (const quote of all) {
@@ -100,6 +116,8 @@ test('every quotation of the interview is verbatim and linked to the question it
       problems.push(`${quote.file}: question ${quote.question} does not exist`);
       continue;
     }
+    if (questionSession.get(quote.question) !== quote.session)
+      problems.push(`${quote.file}: question ${quote.question} is not in session ${quote.session}`);
     let from = 0;
     for (const part of normalize(quote.text).split(/\s*(?:…|\.\.\.)\s*/)) {
       if (!part) continue;
@@ -120,7 +138,7 @@ test('a page quotes only questions that are about it', () => {
     for (const quote of quotations(page.file, page.body)) {
       if (!questionThings.get(quote.question)?.includes(page.id)) {
         problems.push(
-          `${page.file}: question ${quote.question} does not list ${page.id} in the interview's front matter`
+          `${page.file}: question ${quote.question} does not list ${page.id} in its session's front matter`
         );
       }
     }

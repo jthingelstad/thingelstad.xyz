@@ -148,41 +148,57 @@ test('a story runs through at least two known things, in its order, with a body'
   assert.throws(() => storyline('when', { ...front, ended: 'someday' }, 'x', 'w'), /YYYY/);
 });
 
-test('an interview is a transcript with numbered questions, each named question about known things', () => {
+test('an interview session is a numbered transcript, with every question titled and its things known', () => {
   const base = { title: 'T', summary: 'S', collection: 'C', status: 'active', url: null };
   const things = ['a', 'b'].map((id) => thing(id, base, '', 'x'));
   const front = {
-    title: 'Jamie on a and b',
-    summary: 'Two questions.',
+    title: 'A and b',
+    point: 'Two questions.',
     started: '2026-10-31',
-    ended: '2026-11-01',
-    notes: ['Filler words removed.'],
-    questions: [{ n: 2, things: ['b', 'a'] }]
+    ended: '2026-10-31',
+    notes: ['Names corrected.'],
+    questions: [
+      { n: 1, title: 'Why a', things: ['a'] },
+      { n: 2, title: 'Why b', things: ['b', 'a'] }
+    ]
   };
-  const body = '## Session 1\n\n### 1. Why a?\n\n**Jamie:** Because.\n\n### 2. Why b?\n\n**Jamie:** Also because.\n';
-  const item = interview('jamie-october-2026', front, body, 'interviews/jamie-october-2026.md');
-  assert.deepEqual(item.questions, [{ n: 2, things: ['b', 'a'] }]);
+  const body = '### 1. Why a?\n\n**Jamie:** Because.\n\n### 2. Why b?\n\n**Jamie:** Also because.\n';
+  const item = interview('session-1', front, body, 'interviews/session-1.md');
+  assert.equal(item.session, 1);
+  assert.deepEqual(item.questions[1], { n: 2, title: 'Why b', things: ['b', 'a'] });
   assert.equal(item.started, '2026-10-31');
   const check = (interviews = [item], list = things) =>
     checkReferences({ things: list, topics: [], history: [], featured: [], stories: [], interviews });
   assert.equal(check().interviews.length, 1);
   assert.throws(() => check([item], things.slice(1)), /Unknown thing: a/);
-  assert.throws(() => check([item, item]), /Duplicate: jamie-october-2026/);
-  const make = (changes: Record<string, unknown>, text = body) => interview('i', { ...front, ...changes }, text, 'w');
-  assert.throws(() => make({ questions: [{ n: 3, things: ['a'] }] }), /no "### 3\. " heading/);
-  assert.throws(() => make({ questions: [{ n: 1, things: [] }] }), /at least one thing/);
-  assert.throws(() => make({ questions: [{ n: 1, things: ['a', 'a'] }] }), /Duplicate: a/);
+  assert.throws(() => check([item, item]), /Duplicate: session-1/);
+  const make = (changes: Record<string, unknown>, text = body, id = 'session-1') =>
+    interview(id, { ...front, ...changes }, text, 'w');
+  assert.throws(() => make({}, body, 'jamie-october-2026'), /session-N\.md/);
+  const q2 = front.questions[1];
+  assert.throws(() => make({ questions: [{ n: 3, title: 'T', things: ['a'] }, q2] }), /no "### 3\. " heading/);
+  assert.throws(() => make({ questions: [q2] }), /Question 1 is in the body/);
+  assert.throws(() => make({ questions: [{ n: 1, things: ['a'] }, q2] }), /title/);
+  assert.equal(make({ questions: [{ n: 1, title: 'T', things: [] }, q2] }).questions[0].things.length, 0);
+  assert.throws(() => make({ questions: [{ n: 1, title: 'T', things: ['a', 'a'] }, q2] }), /Duplicate: a/);
   assert.throws(
     () =>
       make({
         questions: [
-          { n: 1, things: ['a'] },
-          { n: 1, things: ['b'] }
+          { n: 1, title: 'T', things: ['a'] },
+          { n: 1, title: 'U', things: ['b'] }
         ]
       }),
     /Duplicate: 1/
   );
-  assert.throws(() => make({ questions: [{ n: 'one', things: ['a'] }] }), /question number/);
+  assert.throws(() => make({ questions: [{ n: 'one', title: 'T', things: ['a'] }] }), /question number/);
+  assert.throws(() => make({ summary: 'old' }), /Unknown field: summary/);
+  // Sessions count up from 1, and the question numbers run on across them.
+  const later = (id: string, n: number) =>
+    interview(id, { ...front, questions: [{ n, title: 'T', things: ['a'] }] }, `### ${n}. Q?\n\n**Jamie:** A.\n`, 'w');
+  assert.equal(check([item, later('session-2', 3)]).interviews.length, 2);
+  assert.throws(() => check([item, later('session-3', 3)]), /expected session 2/);
+  assert.throws(() => check([item, later('session-2', 4)]), /Expected question 3/);
   assert.throws(() => make({ questions: [{ n: 1, things: ['a'], why: 'x' }] }), /Unknown field: why/);
   assert.throws(() => make({}, 'No headings at all.'), /at least one "### N\. " question/);
   assert.throws(() => make({}, `${body}\n### 2. Again?\n`), /Duplicate: 2/);

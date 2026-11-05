@@ -74,6 +74,6 @@ Why the second version was a simple blog, in his words:
 
 > So the second version was a direct response to us making a three-day road trip to Arizona. And Tammy made these envelopes of activities that the kids could do to keep them busy. One of them was to play Road Sign Math, and there was a prize if they were able to find signs. And it was just, I loved it because it brought this thing that I had built back into our family. … So I decided to bring it back with a blog and just keep it simple and focus on just having fun.
 >
-> [Jamie, question 10](https://thingelstad.xyz/interviews/jamie-october-2026/#q10)
+> [Jamie, question 10](https://thingelstad.xyz/interviews/session-2/#q10)
 
 On October 30, 2026, the new roadsignmath.xyz replaced the blog, and its 16 signs became the first signs in the Road Sign Math iPhone app. The blog kept the game alive until he was ready to build the app.

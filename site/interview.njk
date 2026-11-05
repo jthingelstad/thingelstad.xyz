@@ -6,43 +6,52 @@ pagination:
   alias: interview
 permalink: '{{ interview.page }}'
 eleventyComputed:
-  title: '{{ interview.title }}'
-  description: '{{ interview.summary }}'
+  title: '{{ interview.name }}'
+  description: '{{ interview.point }}'
 ---
-{#- An interview (content/interviews/<id>.md): what was done to the transcript, the questions as a list, the things
-    it is about, then the transcript itself. Every question has the address #qN and a # link to copy it, and the
-    questions that are about particular things show them as tags (anchorQuestions in collection/site.ts). The
-    transcript is Jamie's words and keeps its emphasis, like a thing's story. #}
+{#- One interview session (content/interviews/session-N.md): Thingy's central point, the questions as a list, then
+    each question with its address #qN, a # link to copy it, Thingy's question and Jamie's answer, and the things it
+    is about as tags. The transcript is Jamie's words and keeps its emphasis, like a thing's story. A correction of
+    Thingy's sits under the answer and leaves the answer where it is. #}
 <article class="interview">
   <header class="intro">
     <p class="crumbs"><a href="/interviews/">Interviews</a></p>
+    <p class="story-span muted">Session {{ interview.session }} · {{ interview.started | date }} · {{ interview.questions | length }} questions</p>
     <h1>{{ interview.title }}</h1>
-    <p class="lede">{{ interview.summary }}</p>
-    <p class="story-span muted">Recorded {{ interview.started | date }}{% if interview.ended != interview.started %} to {{ interview.ended | date }}{% endif %} · {{ interview.index | length }} questions · {{ interview.cast | length }} things</p>
+    <p class="lede session-point"><span class="session-point-who">Thingy</span> {{ interview.point }}</p>
   </header>
-  <section class="interview-notes" id="notes" aria-labelledby="about-this-transcript">
-    <h2 id="about-this-transcript">About this transcript</h2>
-    <p>Thingy asked the questions and Jamie answered them out loud. What follows is the transcript, as he spoke it. Where the site quotes him, it quotes this.</p>
-    <ul>
-      {% for note in interview.notes %}<li>{{ note }}</li>
-      {% endfor %}
-    </ul>
-  </section>
-  <section class="interview-index" id="questions" aria-labelledby="the-questions">
-    <h2 id="the-questions">The questions</h2>
+  <nav class="interview-index" id="questions" aria-labelledby="the-questions">
+    <h2 id="the-questions">Questions {{ interview.questions[0].n }} to {{ interview.questions[interview.questions.length - 1].n }}</h2>
     <ol class="question-index">
-      {% for q in interview.index %}<li value="{{ q.n }}"><a href="#q{{ q.n }}">{{ q.text }}</a></li>
+      {% for q in interview.questions %}<li value="{{ q.n }}"><a href="#q{{ q.n }}">{{ q.title }}</a></li>
       {% endfor %}
     </ol>
-  </section>
-  <section class="interview-cast" id="things" aria-labelledby="things-he-talks-about">
-    <h2 id="things-he-talks-about">Things he talks about</h2>
-    <p>{% for thing in interview.cast %}<a class="tag" href="{{ thing.page }}">{{ thing.title }}</a> {% endfor %}</p>
-  </section>
+    <p><a href="#about">About this session</a> · <a href="{{ interview.markdown }}">Read as Markdown</a></p>
+  </nav>
   <section class="story interview-body" id="transcript">
-    {{ interview | interviewHtml | safe }}
+    {% for q in interview.questions %}
+    <section class="question" id="q{{ q.n }}">
+      <h2>{{ q.n }}. {{ q.title }} <a class="permalink" href="#q{{ q.n }}" aria-label="Link to question {{ q.n }}">#</a></h2>
+      <p class="turn turn-thingy"><strong>Thingy:</strong> {{ q.question | mdInline | safe }}</p>
+      {% for turn in q.turns %}
+      <div class="turn turn-{{ turn.who }}">
+        {% if turn.who == 'jamie' %}<p class="turn-who"><strong>Jamie:</strong></p>{% elif turn.who == 'thingy' %}<p class="turn-who"><strong>Thingy:</strong></p>{% else %}<p class="turn-who"><strong>Thingy’s correction:</strong></p>{% endif %}
+        {{ turn.text | md | safe }}
+      </div>
+      {% endfor %}
+      {% if q.things | length %}<p class="question-things">About {% for thing in q.things %}<a class="tag" href="{{ thing.page }}">{{ thing.title }}</a> {% endfor %}</p>{% endif %}
+    </section>
+    {% endfor %}
+  </section>
+  <section class="interview-notes" id="about" aria-labelledby="about-this-session">
+    <h2 id="about-this-session">About this session</h2>
+    <p>Jamie answered out loud on {{ interview.started | date }}. I asked the questions and wrote the point at the top. His answers are his own words, lightly edited because speech and writing are different things. Where I have added a fact to one, it is marked as mine and it says where the fact came from.</p>
+    {% if interview.notes | length %}<ul>
+      {% for note in interview.notes %}<li>{{ note }}</li>
+      {% endfor %}
+    </ul>{% endif %}
   </section>
   <footer class="thing-footer">
-    <p class="muted"><a href="/interviews/">All interviews</a> · <a href="{{ site.repository }}/blob/main/content/interviews/{{ interview.id }}.md">The transcript file</a></p>
+    <p class="muted">{% if interview.previous %}<a href="{{ interview.previous.page }}">← {{ interview.previous.name }}</a> · {% endif %}{% if interview.next %}<a href="{{ interview.next.page }}">{{ interview.next.name }} →</a> · {% endif %}<a href="/interviews/">All sessions</a> · <a href="{{ site.repository }}/blob/main/content/interviews/{{ interview.id }}.md">The transcript file</a></p>
   </footer>
 </article>

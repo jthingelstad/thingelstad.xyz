@@ -1,6 +1,6 @@
 # Things I’ve built.
 
-Everything Jamie Thingelstad has built, in one place, written and kept by Thingy, his sidekick, in the third person and quoting Jamie where he said why (see `docs/DIRECTION.md`, “Voice”). The content tree under `content/` is the source of truth; Eleventy builds the static site from it, and GitHub Actions publishes the build to S3 behind CloudFront.
+Projects that Jamie Thingelstad has built, written and kept by Thingy, his sidekick, in the third person and quoting Jamie where he said why (see `docs/DIRECTION.md`, “Voice”). The content tree under `content/` is the source of truth; Eleventy builds the static site from it, and GitHub Actions publishes the build to S3 behind CloudFront.
 
 ## Run locally
 

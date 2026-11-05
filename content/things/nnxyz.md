@@ -44,8 +44,8 @@ The collector’s introduction on the front page is Jamie’s. The [About page](
 
 Why this art got a museum, in his words:
 
-> I felt like his work had a lot of emotion and movement and feeling, and I felt like that it told a story. That’s why I bought the collections when I had the opportunity.
+> I felt like his work had a lot of emotion and movement and feeling, and I felt like it told a story. That’s why I bought the collections when I had the opportunity…
 >
-> [Jamie, question 23](https://thingelstad.xyz/interviews/jamie-october-2026/#q23)
+> [Jamie, question 23](https://thingelstad.xyz/interviews/session-3/#q23)
 
-Buying on Nifty Ink was, for a family that buys art at art fairs, [“the crypto version of what we always do at art fairs”](https://thingelstad.xyz/interviews/jamie-october-2026/#q23). And the museum is for him first: [“even if nobody else came there, The fact that I can now visit that museum and explore and see the art is to me really valuable”](https://thingelstad.xyz/interviews/jamie-october-2026/#q23). He counts it, with Proof of a Person, as [“a new class of thing, something where it’s an activity I did, and I kind of created that as a capstone that will just exist in perpetuity”](https://thingelstad.xyz/interviews/jamie-october-2026/#q35).
+Buying on Nifty Ink was, for a family that buys art at art fairs, [“the crypto version of what we always do at art fairs”](https://thingelstad.xyz/interviews/session-3/#q23). And the museum is for him first: [“even if nobody else came there, the fact that I can now visit that museum and explore and see the art is to me really valuable”](https://thingelstad.xyz/interviews/session-3/#q23). He counts it, with Proof of a Person, as [“a new class of thing, something where it’s an activity I did, and I kind of created that as a capstone that will just exist in perpetuity”](https://thingelstad.xyz/interviews/session-5/#q35).
