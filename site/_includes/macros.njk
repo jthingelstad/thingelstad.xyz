@@ -1,11 +1,13 @@
 {#- A shelf: a row of cards that scrolls sideways. It works by swipe, trackpad and keyboard with no script;
-    site/js/enhance.js shows the arrows. Fill it with {% call shelf(...) %}. A shelf of things is a feed: the
-    h-feed its entries sit in, named by its heading. #}
-{% macro shelf(id, title, note, width, moreHref, moreLabel, feed) %}
-<section class="shelf{% if feed %} h-feed{% endif %}" id="{{ id }}" data-shelf aria-labelledby="{{ id }}-heading">
+    site/js/enhance.js shows the arrows, so a page with a shelf loads that script. Fill it with {% call shelf(...) %}.
+    A shelf of things is a feed: the h-feed its entries sit in, named by its heading. A shelf under a section's own
+    heading is level "h3" (or lower). One whose address is worth copying sets anchored, for the # link. #}
+{% macro shelf(id, title, note, width, moreHref, moreLabel, feed, level, cls, anchored) %}
+{%- set heading = level or "h2" %}
+<section class="shelf{% if feed %} h-feed{% endif %}{% if cls %} {{ cls }}{% endif %}" id="{{ id }}" data-shelf aria-labelledby="{{ id }}-heading">
   <div class="shelf-head">
-    <div class="shelf-title"><h2 id="{{ id }}-heading"{% if feed %} class="p-name"{% endif %}>{{ title }}</h2>{% if note %}<span class="meta">{{ note }}</span>{% endif %}</div>
-    <div class="shelf-controls">
+    <div class="shelf-title"><{{ heading }} id="{{ id }}-heading"{% if feed %} class="p-name"{% endif %}>{{ title }}{% if anchored %} {{ permalink(id, title) }}{% endif %}</{{ heading }}>{% if note %}<span class="meta">{{ note }}</span>{% endif %}</div>
+    <div class="shelf-controls" data-pagefind-ignore>
       {%- if moreHref %}<a class="more" href="{{ moreHref }}">{{ moreLabel }}</a>{% endif %}
       <button class="shelf-arrow" type="button" data-shelf-move="-1" aria-label="Earlier in {{ title }}" hidden>←</button>
       <button class="shelf-arrow" type="button" data-shelf-move="1" aria-label="Later in {{ title }}" hidden>→</button>
@@ -19,10 +21,11 @@
 
 {#- A thing as a small card on a shelf, an h-entry of the shelf's h-feed like thing-row.njk: its link is the whole
     card, and the owner's hidden h-card stands beside it because a link cannot hold another. #}
-{% macro thingCard(thing, owner) %}
+{% macro thingCard(thing, owner, heading) %}
+{%- set name = heading or "h3" %}
 <div class="shelf-entry h-entry">
   <a class="p-author h-card" href="{{ owner.url }}" hidden>{{ owner.name }}</a>
-  <a class="shelf-card u-url" href="{{ thing.page }}"><span class="status-dot{% if thing.status == 'active' %} is-active{% endif %}">{{ thing.statusLabel }}</span><h3 class="p-name">{{ thing.title }}</h3><span class="small clamp p-summary">{{ thing.summary }}</span></a>
+  <a class="shelf-card u-url" href="{{ thing.page }}"><span class="status-dot{% if thing.status == 'active' %} is-active{% endif %}">{{ thing.statusLabel }}</span><{{ name }} class="p-name">{{ thing.title }}</{{ name }}><span class="small clamp p-summary">{{ thing.summary }}</span></a>
 </div>
 {% endmacro %}
 
@@ -37,3 +40,25 @@
 {#- Thingy's head, cropped from a still of his, beside anything he says. The kit's stills stand on their own; this is
     the same picture in a small round frame, with no copy kept here. #}
 {% macro thingyHead(alt) %}<span class="thingy-head"><img src="https://thingy.thingelstad.xyz/character/latest/poses/workshop-thinking-curious.webp" alt="{{ alt or '' }}" width="1000" height="1000" loading="lazy" /></span>{% endmacro %}
+
+{#- The small # beside a heading, the way to copy its address. It is out of search and has a spoken name. #}
+{% macro permalink(id, label) %}<a class="permalink" href="#{{ id }}" aria-label="Link to {{ label }}" data-pagefind-ignore>#</a>{% endmacro %}
+
+{#- Files from the project itself, published beside its page. An image is shown as it is and opens full size; any
+    other file is a download, shown by its preview when it has one. The titles and captions are the thing's words and
+    are indexed; the file names and sizes are not. An artifact is a list item in a grid and a div on a shelf. #}
+{% macro artifactCard(artifact, heading, tag) %}
+{%- set box = tag or "li" %}
+<{{ box }} class="artifact" id="{{ artifact.anchor }}">
+  {% if artifact.image %}
+  <a class="artifact-image" href="{{ artifact.image.src }}" data-pagefind-ignore><img src="{{ artifact.image.src }}" width="{{ artifact.image.width }}" height="{{ artifact.image.height }}" alt="{{ artifact.title }}" loading="lazy" decoding="async" /></a>
+  {% endif %}
+  <{{ heading }} class="artifact-title">{{ artifact.title }} {{ permalink(artifact.anchor, artifact.title) }}</{{ heading }}>
+  {% if artifact.caption %}<p class="artifact-caption">{{ artifact.caption }}</p>{% endif %}
+  <p class="artifact-meta muted" data-pagefind-ignore>
+    <a href="{{ artifact.src }}" download>{{ artifact.file }}</a> · {{ artifact.kind }}, {{ artifact.size }}
+    {%- if artifact.date %} · {{ artifact.date | date }}{% endif %}
+    {%- if artifact.source %} · <a href="{{ artifact.source | ref("source") }}">Source</a>{% endif %}
+  </p>
+</{{ box }}>
+{% endmacro %}

@@ -1,4 +1,7 @@
 ---
+pull:
+  n: 42
+  words: 'A book is an artifact.'
 title: Stone/Steel/People
 summary: 'A square photo book of a little over 30 of Jamie’s pictures, one to a page, made with Blurb after a 2010 photography workshop.'
 collection: Art & archives

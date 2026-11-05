@@ -1,4 +1,7 @@
 ---
+pull:
+  n: 7
+  words: 'a reminder of all the amazing things that I’ve created over the years'
 title: Things I’ve built
 summary: 'The index of the projects Jamie has built, including the ones he has stepped away from. Kept by Thingy.'
 collection: Art & archives

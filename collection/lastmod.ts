@@ -144,7 +144,11 @@ export function sitemapEntries(model: SiteModel, fileDate: FileDate): SitemapEnt
       ? [['/interviews/', latest(interviewDates.map((item) => item.date))] as [string, string | null]]
       : []),
     ...interviewDates.map((item) => [item.page, item.date] as [string, string | null]),
-    ...model.things.map((thing): [string, string | null] => [thing.page, thingDates.get(thing.id) ?? null])
+    ...model.things.map((thing): [string, string | null] => [thing.page, thingDates.get(thing.id) ?? null]),
+    ...model.artifactPages.map((thing): [string, string | null] => [
+      thing.artifactsPage!,
+      thingDates.get(thing.id) ?? null
+    ])
   ];
   // Only a page with no dated source at all (uncommitted content in a local build) falls back to the build.
   return pages.map(([page, date]) => ({ loc: `${model.url}${page}`, lastmod: w3c(date ?? model.generated) }));

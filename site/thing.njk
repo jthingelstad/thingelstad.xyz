@@ -15,8 +15,8 @@ eleventyComputed:
     and the citations of connections and events. Feed, sitemap and evidence links are files, not visits, and
     the story text is content: both keep their links as written. #}
 {#- Search (collection/search-index.ts): Pagefind indexes the article, which is the words of the thing: its
-    title, summary, story, build, artifacts, connections and history. The crumbs, facts, screenshot, evidence,
-    diagram and footer are left out. The empty image keeps Pagefind from taking the footer's photo as the page's
+    title, summary, story, build, artifacts, connections and history. The crumbs, status line, pull quote, contents,
+    record, screenshot, evidence, diagram and footer are left out. The empty image keeps Pagefind from taking the footer's photo as the page's
     image, whose address would match words like "avatars" on every page. #}
 {#- The thing as an h-entry (IndieWeb): its title (p-name, without the sticker's letters), its canonical address
     (u-url), its author (p-author), its summary (p-summary) and its story (e-content). The author is the owner's
@@ -28,7 +28,21 @@ eleventyComputed:
     one (/things/<id>/#artifacts, #artifact-<file>, #artifacts-<bundle>). The ids are fixed words and file names,
     never a heading's text, so a retitle never breaks a link someone sent. Each heading carries a small # link
     to its own address, the way to copy it; it is out of search and has a spoken name. #}
-{% macro permalink(id, label) %}<a class="permalink" href="#{{ id }}" aria-label="Link to {{ label }}" data-pagefind-ignore>#</a>{% endmacro %}
+{% from "macros.njk" import shelf, permalink, artifactCard %}
+{#- The contents, as the rail beside the page and the fold above it on a phone. A count says how much is there. #}
+{%- macro contents(thing) %}
+{% if thing.body | trim %}<a class="toc-link" href="#story"><span>Story</span></a>
+{% endif %}{% if thing.story and thing.story.engineering | length %}<a class="toc-link" href="#build"><span>The build</span></a>
+{% endif %}<a class="toc-link" href="#record"><span>The record</span></a>
+{% if thing.artifacts | length %}<a class="toc-link" href="#artifacts"><span>Artifacts</span><span class="toc-count">{{ thing.artifacts | length }}</span></a>
+{% for bundle in thing.bundles %}<a class="toc-link toc-sub" href="#artifacts-{{ bundle.id }}"><span>{{ bundle.title }}</span><span class="toc-count">{{ bundle.artifacts | length }}</span></a>
+{% endfor %}{% endif %}{% if thing.activity %}<a class="toc-link" href="#activity"><span>Activity</span></a>
+{% endif %}{% if thing.sources | length %}<a class="toc-link" href="#sources"><span>Sources and evidence</span><span class="toc-count">{{ thing.sources | length }}</span></a>
+{% endif %}{% if thing.connections | length or thing.inbound | length %}<a class="toc-link" href="#connections"><span>Connections</span><span class="toc-count">{{ (thing.connections | length) + (thing.inbound | length) }}</span></a>
+{% endif %}{% if thing.story and thing.story.related | length %}<a class="toc-link" href="#related"><span>Related</span><span class="toc-count">{{ thing.story.related | length }}</span></a>
+{% endif %}{% if thing.events | length %}<a class="toc-link" href="#history"><span>History</span><span class="toc-count">{{ thing.events | length }}</span></a>
+{% endif %}
+{% endmacro -%}
 <article class="thing h-entry" data-pagefind-body>
   <span hidden data-pagefind-meta="image:"></span>
   <data class="u-url" value="{{ site.url }}{{ page.url }}"></data>
@@ -38,44 +52,43 @@ eleventyComputed:
     <h1 class="with-sticker">{% include "sticker.njk" %}<span class="p-name">{{ thing.title }}</span></h1>
     <p class="lede p-summary">{{ thing.summary }}</p>
     {% if thing.story %}<p class="introduction">{{ thing.story.introduction }}</p>{% endif %}
-    <dl class="facts" data-pagefind-ignore>
-      <dt>Status</dt>
-      <dd><span class="status status-{{ thing.status }}">{{ thing.statusLabel }}</span> <span class="muted">{{ thing.statusDescription }}</span></dd>
-      {% if thing.started or thing.ended %}
-      <dt>Dates</dt>
-      <dd>
+    <p class="thing-status-line" data-pagefind-ignore>
+      <span class="status status-{{ thing.status }}">{{ thing.statusLabel }}</span>
+      {%- if thing.started or thing.ended %}
+      <span class="meta">
         {%- if thing.started %}Started <time datetime="{{ thing.started }}">{{ thing.started | date }}</time>{% endif %}
         {%- if thing.started and thing.ended %}. {% endif %}
         {%- if thing.ended %}Ended <time datetime="{{ thing.ended }}">{{ thing.ended | date }}</time>{% endif -%}
-        {%- if thing.story and thing.story.started %} <span class="muted">({{ thing.story.started }})</span>{% endif -%}
-      </dd>
-      {% endif %}
-      {% if thing.url %}
-      <dt>Where</dt>
-      <dd><a href="{{ thing.url | ref("thing") }}">{{ thing.url | replace("https://", "") }}</a></dd>
-      {% endif %}
-      {% if thing.stories | length %}
-      <dt>{{ 'Story' if (thing.stories | length) == 1 else 'Stories' }}</dt>
-      <dd class="thing-stories">{% for story in thing.stories %}<a href="{{ story.page }}">{{ story.title }}</a>{% if not loop.last %} · {% endif %}{% endfor %}</dd>
-      {% endif %}
-      {%- if thing.interviews | length %}
-      <dt>In his words</dt>
-      <dd class="thing-interviews">{% for i in thing.interviews %}<a href="{{ i.page }}">{{ i.title }}</a>, {% for n in i.questions %}<a href="{{ i.page }}#q{{ n }}">question {{ n }}</a>{% if not loop.last %}{% if loop.revindex == 2 %} and {% else %}, {% endif %}{% endif %}{% endfor %}{% if not loop.last %} · {% endif %}{% endfor %}</dd>
-      {% endif %}
-      {% if thing.topicList | length %}
-      <dt>Topics</dt>
-      <dd>{% for topic in thing.topicList %}<a class="tag" href="{{ topic.page }}">{{ topic.title }}</a> {% endfor %}</dd>
-      {% endif %}
-      {% if thing.views %}
-      <dt>Page views</dt>
-      <dd class="views">{{ thing.views.total | number }} in the twelve months to {{ thing.views.until | date }} {{ thing.views.months | sparkline("Page views per month, counted by Tinylytics", "views") | safe }}</dd>
-      {% endif %}
-      {% if thing.latest %}
-      <dt>Latest evidence</dt>
-      <dd>{% if thing.latest.url %}<a href="{{ thing.latest.url }}">{{ thing.latest.label }}</a>{% else %}{{ thing.latest.label }}{% endif %}, {{ thing.latest.date | day }}</dd>
-      {% endif %}
-    </dl>
+        {%- if thing.story and thing.story.started %} ({{ thing.story.started }}){% endif -%}
+      </span>
+      {%- endif %}
+      {%- if thing.url %}
+      <a class="more" href="{{ thing.url | ref("thing") }}">{{ thing.url | replace("https://", "") }}</a>
+      {%- endif %}
+    </p>
   </header>
+
+  {#- A line of Jamie's the page opens with (`pull` in the thing's front matter), from a question about this thing. #}
+  {% if thing.pull %}
+  <aside class="thing-words" aria-label="In his words" data-pagefind-ignore>
+    <div>
+      <p class="label">In his words</p>
+      <p class="who"><span>Jamie, question {{ thing.pull.n }} · Session {{ thing.pull.session }}</span></p>
+    </div>
+    <blockquote class="pull">“<a href="{{ thing.pull.page }}">{{ thing.pull.words }}</a>”</blockquote>
+  </aside>
+  {% endif %}
+
+  <details class="toc-fold" data-pagefind-ignore>
+    <summary><span>On this page</span><span class="muted">Jump</span></summary>
+    <nav aria-label="On this page">{{ contents(thing) }}</nav>
+  </details>
+  <div class="contents-grid">
+  <nav class="toc" aria-label="On this page" data-toc data-pagefind-ignore>
+    <p class="label">On this page</p>
+    {{ contents(thing) }}
+  </nav>
+  <div class="thing-main">
 
   {% if thing.screenshot %}
   <figure class="screenshot" data-pagefind-ignore>
@@ -105,37 +118,51 @@ eleventyComputed:
   </section>
   {% endif %}
 
-  {#- Artifacts: files from the project itself, published beside this page. An image is shown as it is and
-      opens full size; any other file is a download, shown by its preview when it has one. A thing may put
-      them in bundles, each under its own heading with its introduction. The titles and captions are the
-      thing's words and are indexed; the file names and sizes are not. #}
-  {% macro artifactCard(artifact, heading) %}
-      <li class="artifact" id="{{ artifact.anchor }}">
-        {% if artifact.image %}
-        <a class="artifact-image" href="{{ artifact.image.src }}" data-pagefind-ignore><img src="{{ artifact.image.src }}" width="{{ artifact.image.width }}" height="{{ artifact.image.height }}" alt="{{ artifact.title }}" loading="lazy" decoding="async" /></a>
-        {% endif %}
-        <{{ heading }} class="artifact-title">{{ artifact.title }} {{ permalink(artifact.anchor, artifact.title) }}</{{ heading }}>
-        {% if artifact.caption %}<p class="artifact-caption">{{ artifact.caption }}</p>{% endif %}
-        <p class="artifact-meta muted" data-pagefind-ignore>
-          <a href="{{ artifact.src }}" download>{{ artifact.file }}</a> · {{ artifact.kind }}, {{ artifact.size }}
-          {%- if artifact.date %} · {{ artifact.date | date }}{% endif %}
-          {%- if artifact.source %} · <a href="{{ artifact.source | ref("source") }}">Source</a>{% endif %}
-        </p>
-      </li>
-  {% endmacro %}
+  {#- The rest of what the registry knows about the thing, and how it ties to the rest of the site. #}
+  <section class="record" id="record" data-pagefind-ignore>
+    <h2>The record {{ permalink("record", "The record") }}</h2>
+    <dl class="facts">
+      <dt>Status</dt>
+      <dd><span class="status status-{{ thing.status }}">{{ thing.statusLabel }}</span> <span class="muted">{{ thing.statusDescription }}</span></dd>
+      {% for row in site.timeline.rows %}{% if row.thing.id == thing.id %}
+      <dt>Lifespan</dt>
+      <dd class="thing-lifespan">{{ row | lifespan(site.timeline) | safe }} <span class="muted">Across the years from {{ site.timeline.firstYear }} to {{ site.timeline.lastYear }}. Each dot is an event in its history.</span></dd>
+      {% endif %}{% endfor %}
+      {% if thing.stories | length %}
+      <dt>{{ 'Story' if (thing.stories | length) == 1 else 'Stories' }}</dt>
+      <dd class="thing-stories">{% for story in thing.stories %}<a href="{{ story.page }}">{{ story.title }}</a>{% if not loop.last %} · {% endif %}{% endfor %}</dd>
+      {% endif %}
+      {%- if thing.interviews | length %}
+      <dt>In his words</dt>
+      <dd class="thing-interviews">{% for i in thing.interviews %}<a href="{{ i.page }}">{{ i.title }}</a>, {% for n in i.questions %}<a href="{{ i.page }}#q{{ n }}">question {{ n }}</a>{% if not loop.last %}{% if loop.revindex == 2 %} and {% else %}, {% endif %}{% endif %}{% endfor %}{% if not loop.last %} · {% endif %}{% endfor %}</dd>
+      {% endif %}
+      {% if thing.topicList | length %}
+      <dt>Topics</dt>
+      <dd>{% for topic in thing.topicList %}<a class="tag" href="{{ topic.page }}">{{ topic.title }}</a> {% endfor %}</dd>
+      {% endif %}
+      {% if thing.views %}
+      <dt>Page views</dt>
+      <dd class="views">{{ thing.views.total | number }} in the twelve months to {{ thing.views.until | date }} {{ thing.views.months | sparkline("Page views per month, counted by Tinylytics", "views") | safe }}</dd>
+      {% endif %}
+      {% if thing.latest %}
+      <dt>Latest evidence</dt>
+      <dd>{% if thing.latest.url %}<a href="{{ thing.latest.url }}">{{ thing.latest.label }}</a>{% else %}{{ thing.latest.label }}{% endif %}, {{ thing.latest.date | day }}</dd>
+      {% endif %}
+    </dl>
+  </section>
+
+  {#- Artifacts: a thing may put them in bundles, each a shelf that holds every piece of it, so an address like
+      #artifact-<file> always lands on its piece. A large set also has a page of its own that shows them all at once
+      (thing-artifacts.njk). #}
   {% if thing.artifacts | length %}
   <section class="artifacts" id="artifacts">
     <h2>Artifacts {{ permalink("artifacts", "Artifacts") }}</h2>
-    <p class="muted">Files from the project itself, kept as they were.</p>
+    <p class="muted">Files from the project itself, kept as they were.{% if thing.artifactsPage %} <a href="{{ thing.artifactsPage }}">All {{ thing.artifacts | length }} on one page</a>.{% endif %}</p>
     {% if thing.bundles | length %}
     {% for bundle in thing.bundles %}
-    <section class="artifact-bundle" id="artifacts-{{ bundle.id }}" aria-labelledby="artifacts-{{ bundle.id }}-title">
-      <h3 id="artifacts-{{ bundle.id }}-title">{{ bundle.title }} {{ permalink("artifacts-" + bundle.id, bundle.title) }}</h3>
-      {% if bundle.caption %}<p class="artifact-bundle-caption">{{ bundle.caption }}</p>{% endif %}
-      <ul class="artifact-list">
-        {% for artifact in bundle.artifacts %}{{ artifactCard(artifact, "h4") }}{% endfor %}
-      </ul>
-    </section>
+    {% call shelf("artifacts-" + bundle.id, bundle.title, bundle.caption, bundle.cardWidth, (thing.artifactsPage + "#" + bundle.id) if (thing.artifactsPage and bundle.artifacts.length > 3), "All " + (bundle.artifacts | length), false, "h3", "artifact-bundle", true) %}
+      {% for artifact in bundle.artifacts %}{{ artifactCard(artifact, "h4", "div") }}{% endfor %}
+    {% endcall %}
     {% endfor %}
     {% else %}
     <ul class="artifact-list">
@@ -294,4 +321,7 @@ eleventyComputed:
   <footer class="thing-footer" data-pagefind-ignore>
     <p class="muted">This thing as <a href="{{ thing.markdown }}">Markdown</a> · <a href="{{ site.repository }}/blob/main/content/things/{{ thing.id }}.md">Edit the record</a></p>
   </footer>
+  </div>
+  </div>
 </article>
+<script type="module" src="{{ assets.enhance }}"></script>

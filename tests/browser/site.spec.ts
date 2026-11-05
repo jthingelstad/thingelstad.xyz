@@ -76,16 +76,16 @@ const fitsViewport = (page: Page) => page.evaluate(() => document.documentElemen
 test('the index lists every thing with its status and leads to its page', async ({ page }) => {
   const errors = watchErrors(page);
   await page.goto('/');
-  await expect(page.locator('.thing-row')).toHaveCount(things.length);
+  await expect(page.locator('.collection .shelf-entry')).toHaveCount(things.length);
   for (const status of ['active', 'dormant', 'retired', 'abandoned', 'archived']) {
     const count = things.filter((thing) => thing.status === status).length;
-    await expect(page.locator(`.thing-row .status-${status}`)).toHaveCount(count);
+    if (count) await expect(page.locator(`.legend .status-${status}`)).toContainText(String(count));
   }
   expect(await fitsViewport(page)).toBe(true);
-  await page.getByRole('main').getByRole('link', { name: 'Weekly Thing', exact: true }).first().click();
+  await page.locator('.collection a.shelf-card[href="/things/weekly-thing/"]').click();
   await expect(page).toHaveURL(/\/things\/weekly-thing\/$/);
   await expect(page.getByRole('heading', { level: 1 })).toHaveAccessibleName('Weekly Thing');
-  await expect(page.locator('.facts')).toContainText('May 13, 2017');
+  await expect(page.locator('.thing-header')).toContainText('May 13, 2017');
   const weekly = things.find((thing) => thing.id === 'weekly-thing')!;
   await expect(page.locator('.source-list .source')).toHaveCount(weekly.sources.length);
   await expect(page.locator('.sources')).toContainText('never sets a status');
@@ -101,7 +101,7 @@ test('the index lists every thing with its status and leads to its page', async 
 
 test('the featured shelf leads the front page, its links measured where Tinylytics counts the site', async ({
   page
-}, testInfo) => {
+}) => {
   await page.goto('/');
   const cards = page.locator('.featured .feature');
   const titles = featured.map((id) => things.find((thing) => thing.id === id)!.title);
@@ -122,19 +122,6 @@ test('the featured shelf leads the front page, its links measured where Tinylyti
     if (link.visit && new URL(link.visit).hostname === 'github.com') expect(refs[i]).toBeNull();
     expect(new URL(link.cover!).searchParams.get('ref')).toBe(refs[i]);
   }
-  // Three to a row on a wide screen (five: the first two lead a row of their own); a list on a phone, each
-  // small cover beside its card's words. Either way the page never scrolls sideways.
-  const covers = await cards
-    .locator('.feature-cover')
-    .evaluateAll((items) => items.map((item) => item.getBoundingClientRect().toJSON() as DOMRect));
-  const words = await cards
-    .locator('h3')
-    .evaluateAll((items) => items.map((item) => item.getBoundingClientRect().toJSON() as DOMRect));
-  if (testInfo.project.name === 'desktop') {
-    if (featured.length === 5) expect(covers[0].width).toBeGreaterThan(covers[2].width * 1.3);
-    expect(covers[0].y).toBe(covers[1].y);
-  } else if (testInfo.project.name === 'phone')
-    for (const [i, cover] of covers.entries()) expect(cover.right).toBeLessThanOrEqual(words[i].left);
   expect(await fitsViewport(page)).toBe(true);
   await cards.locator('h3 a').first().click();
   await expect(page).toHaveURL(new RegExp(`/things/${featured[0]}/$`));
@@ -351,7 +338,7 @@ test('every section and artifact of a thing has an address, and its # link copie
   await page.goto(`/things/${id}/`);
   // The sections are fixed words, never a heading's text, so a retitle never breaks a link someone sent.
   for (const section of ['story', 'build', 'artifacts', 'sources', 'connections', 'related', 'history'])
-    await expect(page.locator(`.thing > section[id="${section}"]`), section).toHaveCount(1);
+    await expect(page.locator(`.thing-main > section[id="${section}"]`), section).toHaveCount(1);
   // Each artifact is named by its file, the same name as its own address, and its # link is that anchor.
   const cards = page.locator('.artifact');
   await expect(cards).toHaveCount(artifacts!.length);
@@ -532,7 +519,7 @@ test('a story tells an idea across several things in order, and each thing links
   await page.locator('.facts .thing-stories').getByRole('link', { name: first.title }).click();
   await expect(page).toHaveURL(new RegExp(`${path}$`));
   await page.goto('/');
-  await expect(page.locator('.stories .story-card')).toHaveCount(stories.length);
+  await expect(page.locator('#stories .story-tile')).toHaveCount(stories.length);
   expect(errors).toEqual([]);
 });
 
@@ -821,7 +808,7 @@ test('a thing page is one h-entry: its title, canonical address, author, summary
     await expect(entry.locator('data.u-url'), path).toHaveAttribute('value', canonical!);
     // The dates the page shows stay, as the record gives them.
     for (const date of [thing.started, thing.ended].filter(Boolean))
-      await expect(entry.locator(`.facts time[datetime="${date}"]`), path).toBeVisible();
+      await expect(entry.locator(`.thing-status-line time[datetime="${date}"]`), path).toBeVisible();
     await expect(entry.locator('.p-summary'), path).toHaveText(thing.summary);
     await expect(entry.locator('.e-content'), path).toHaveCount(thing.body?.trim() ? 1 : 0);
   }
@@ -939,7 +926,7 @@ test('each feed is served as the type its head link names, and the sitemap lists
 
 test('links to the other sites carry a ref, and story text keeps its links', async ({ page }) => {
   await page.goto('/things/weekly-thing/');
-  const where = page.locator('.facts').getByRole('link', { name: 'weekly.thingelstad.com/' });
+  const where = page.locator('.thing-status-line').getByRole('link', { name: 'weekly.thingelstad.com/' });
   await expect(where).toHaveAttribute('href', 'https://weekly.thingelstad.com/?ref=xyz-thing');
   await expect(page.locator('.screenshot a')).toHaveAttribute('href', 'https://weekly.thingelstad.com/?ref=xyz-thing');
   for (const path of [
@@ -1146,4 +1133,56 @@ test.describe('without JavaScript', () => {
     await expect(page.locator('.shelf-arrow:visible')).toHaveCount(0);
     await expect(page.locator('#started .shelf-card').first()).toBeVisible();
   });
+});
+
+test('the front page has shelves, each reached from a jump', async ({ page }) => {
+  await page.goto('/');
+  const jumps = await page.locator('.jumps a').evaluateAll((links) => links.map((link) => link.getAttribute('href')!));
+  expect(jumps).toEqual(expect.arrayContaining(['#featured', '#words', '#stories', '#artifacts', '#lately']));
+  for (const jump of jumps) await expect(page.locator(jump), jump).toHaveCount(1);
+  await expect(page.locator('.session-band h2 a')).toHaveAttribute('href', /^\/interviews\/session-\d+\/$/);
+  // Every line in his words leads to the question that said it.
+  const lines = page.locator('#words .word-card');
+  expect(await lines.count()).toBeGreaterThanOrEqual(6);
+  for (const href of await lines
+    .locator('blockquote a')
+    .evaluateAll((links) => links.map((l) => l.getAttribute('href')!)))
+    expect(href).toMatch(/^\/interviews\/session-\d+\/#q\d+$/);
+  expect(await fitsViewport(page)).toBe(true);
+});
+
+test('a thing page has contents, and every entry leads to a section', async ({ page }, testInfo) => {
+  await page.goto('/things/changelog/');
+  const rail = testInfo.project.name === 'phone' ? page.locator('.toc-fold') : page.locator('.toc');
+  if (testInfo.project.name === 'phone') {
+    await expect(page.locator('.toc')).toBeHidden();
+    await rail.locator('summary').click();
+  }
+  const targets = await rail
+    .locator('a[href^="#"]')
+    .evaluateAll((links) => links.map((link) => link.getAttribute('href')!));
+  expect(targets).toEqual(expect.arrayContaining(['#record', '#artifacts']));
+  for (const target of targets) await expect(page.locator(target), target).toHaveCount(1);
+  expect(await fitsViewport(page)).toBe(true);
+});
+
+test('a line of his opens the pages that have one, and leads to its question', async ({ page }) => {
+  await page.goto('/things/road-sign-math/');
+  await expect(page.locator('.thing-words .pull a')).toHaveAttribute('href', /^\/interviews\/session-\d+\/#q9$/);
+  await page.goto('/things/changelog/');
+  await expect(page.locator('.thing-words')).toHaveCount(0);
+});
+
+test('a large set of artifacts has a page of its own, and the shelves still hold every piece', async ({ page }) => {
+  const changelog = things.find((thing) => thing.id === 'changelog')!;
+  const artifacts = changelog.artifacts!;
+  await page.goto('/things/changelog/');
+  await expect(page.locator('.artifacts .shelf-track .artifact')).toHaveCount(artifacts.length);
+  await page.locator('.artifacts .artifact-bundle .more').first().click();
+  await expect(page).toHaveURL(/\/things\/changelog\/all-artifacts\/#/);
+  await expect(page.locator('.thing-artifacts .artifact')).toHaveCount(artifacts.length);
+  expect(await fitsViewport(page)).toBe(true);
+  await page.goto('/things/changelog/all-artifacts/');
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Artifacts');
+  await expect(page.locator('.crumbs a[href="/things/changelog/"]')).toBeVisible();
 });

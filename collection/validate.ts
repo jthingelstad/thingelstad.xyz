@@ -222,6 +222,7 @@ function bundle(value: unknown, where: string): ArtifactBundle {
 }
 
 const thingFields = [
+  'pull',
   'title',
   'summary',
   'collection',
@@ -243,6 +244,7 @@ export function thing(id: string, frontmatter: unknown, body: string, where: str
     throw new ContentError(`${where}.status`, `Status must be one of ${statuses.join(', ')}.`);
   const result: Thing = {
     id,
+    ...(item.pull === undefined ? {} : { pull: pullLine(item.pull, `${where}.pull`) }),
     title: text(item.title, `${where}.title`, 160),
     summary: text(item.summary, `${where}.summary`, 1000),
     collection: text(item.collection, `${where}.collection`, 100),
@@ -341,8 +343,15 @@ export function storyline(id: string, frontmatter: unknown, body: string, where:
 // recorded (started and ended), notes on the transcript, and every question, by its number, a short title and the
 // things it is about (none is fine). The body is the transcript, with one `### N. ` heading per question; the
 // headings and the front matter name the same questions, and no number is used twice.
+function pullLine(value: unknown, at: string) {
+  const entry = record(value, ['n', 'words'], at);
+  if (typeof entry.n !== 'number' || !Number.isInteger(entry.n) || entry.n < 1)
+    throw new ContentError(`${at}.n`, 'Use the question number.');
+  return { n: entry.n, words: text(entry.words, `${at}.words`, 200) };
+}
+
 export function interview(id: string, frontmatter: unknown, body: string, where: string): Interview {
-  const item = record(frontmatter, ['title', 'point', 'pull', 'started', 'ended', 'notes', 'questions'], where);
+  const item = record(frontmatter, ['title', 'point', 'pull', 'also', 'started', 'ended', 'notes', 'questions'], where);
   const session = id.match(/^session-([1-9]\d*)$/);
   if (!session) throw new ContentError(where, 'An interview session is a file named session-N.md.');
   const transcript = text(body, `${where}.body`, 200000);
@@ -367,15 +376,20 @@ export function interview(id: string, frontmatter: unknown, body: string, where:
   for (const n of numbers)
     if (!questions.some((question) => String(question.n) === n))
       throw new ContentError(`${where}.questions`, `Question ${n} is in the body but not in the front matter.`);
-  const pull = record(item.pull, ['n', 'words'], `${where}.pull`);
-  if (!questions.some((question) => question.n === pull.n))
-    throw new ContentError(`${where}.pull.n`, 'A session pulls a line from one of its own questions.');
+  const line = (value: unknown, at: string) => {
+    const entry = pullLine(value, at);
+    if (!questions.some((question) => question.n === entry.n))
+      throw new ContentError(`${at}.n`, 'A session pulls a line from one of its own questions.');
+    return entry;
+  };
   const result: Interview = {
     id: identifier(id, where),
     session: Number(session[1]),
     title: text(item.title, `${where}.title`, 200),
     point: text(item.point, `${where}.point`, 1000),
-    pull: { n: pull.n as number, words: text(pull.words, `${where}.pull.words`, 200) },
+    pull: line(item.pull, `${where}.pull`),
+    also:
+      item.also === undefined ? [] : list(item.also, `${where}.also`, 20).map((v, i) => line(v, `${where}.also[${i}]`)),
     started: preciseDate(item.started, `${where}.started`),
     ended: preciseDate(item.ended, `${where}.ended`),
     notes: texts(item.notes, `${where}.notes`, 20),

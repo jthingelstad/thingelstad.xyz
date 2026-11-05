@@ -175,7 +175,7 @@ The daily GitHub Actions workflow runs the collector (asking the Internet Archiv
 
 ## Outputs of the static build
 
-- HTML: front page (the featured shelf, then every thing by collection), `/things/`, one page per thing, `/artifacts/`, `/years/`, and one page per year.
+- HTML: front page (shelves: featured, the latest session, in his words, stories, artifacts, lately; then a shelf for each collection and the topics), `/things/`, one page per thing, a page of artifacts for the largest sets, `/artifacts/`, `/years/`, and one page per year.
 - `feed.xml` and `feed.json`: the ledger.
 - A year’s page and `activity.xml` (2026-10-23, moved from `/activity/` on 2026-11-04): what landed in each thing, from the commit and publication logs (`collection/activity.ts`). Days and weeks are US Central, a week starts on Monday, and every total counts distinct commits, so a commit two things share is counted once. A thing’s commits are its own repositories’ (a `successor` repository is someone else’s), within the directory a source names. A year’s page shows its commits split by who made them, then the weeks of that year with up to three headlines for each thing (tags, then pull request titles, then other subjects). The feed has one item per complete day, the thirty newest, kept apart from the ledger feed so the ledger stays quiet. A thing’s page shows its commits per year and its latest weeks. Activity is evidence; it never sets a status.
 - `llms.txt`: the featured things first, then one line per thing linking to its Markdown twin. `llms-full.txt`: every thing’s front matter and story concatenated. Each thing is published as both `/things/<id>/` and `/things/<id>.md`, since a static host cannot content-negotiate.
