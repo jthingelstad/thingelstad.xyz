@@ -2,9 +2,10 @@
   "kind": "commits",
   "repository": "jthingelstad/sync.thingelstad.xyz",
   "url": "https://github.com/jthingelstad/sync.thingelstad.xyz",
-  "observedAt": "2026-11-02T20:45:50.833Z",
+  "observedAt": "2026-11-05T18:43:59.926Z",
   "branch": "main",
   "commits": [
+    {"sha":"83096d32b50b","date":"2026-11-04T19:43:00.000Z","subject":"Docs name the AWS account as <account> (#35)","pr":35,"by":"agent","agents":["claude"]},
     {"sha":"f5fd28ab7d57","date":"2026-11-02T17:46:07.000Z","subject":"Record the ran-event deploy of 2026-11-02","by":"agent","agents":["claude"]},
     {"sha":"fd8e89de1aad","date":"2026-11-02T17:32:27.000Z","subject":"Document the ran event contract and the run fact","by":"agent","agents":["claude"]},
     {"sha":"a737dde5b3cc","date":"2026-11-02T17:32:27.000Z","subject":"Show each Dagu hop's last run where the hop says how it runs","by":"agent","agents":["claude"]},

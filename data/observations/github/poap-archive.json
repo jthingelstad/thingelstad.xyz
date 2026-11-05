@@ -2,7 +2,7 @@
   "kind": "github",
   "repository": "jthingelstad/poap-archive",
   "url": "https://github.com/jthingelstad/poap-archive",
-  "observedAt": "2026-11-04T18:39:15.949Z",
+  "observedAt": "2026-11-05T18:43:59.926Z",
   "repositoryCreatedAt": "2026-10-17T11:31:15.000Z",
   "archived": false,
   "description": "Jamie Thingelstad's POAP time capsule: collecting, issuing, writing, and network, captured after the 2026 protocol sunset",
@@ -19,16 +19,16 @@
       "path": null,
       "branch": "main",
       "since": "2026-08-01T00:00:00.000Z",
-      "until": "2026-11-04T18:39:15.949Z",
-      "count": 24,
+      "until": "2026-11-05T18:43:59.926Z",
+      "count": 25,
       "complete": true,
       "months": [
         { "month": "2026-10", "count": 22 },
-        { "month": "2026-11", "count": 2 }
+        { "month": "2026-11", "count": 3 }
       ],
       "latestCommit": {
-        "date": "2026-11-04T15:35:49.000Z",
-        "url": "https://github.com/jthingelstad/poap-archive/commit/0612479a50743dcc3ebb2afbe707a0d5fbd39d5f"
+        "date": "2026-11-04T19:42:54.000Z",
+        "url": "https://github.com/jthingelstad/poap-archive/commit/fcb3598897d4fb0b24fcdb0c3b118a3c37fc9997"
       }
     }
   ]

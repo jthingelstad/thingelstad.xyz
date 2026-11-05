@@ -2,9 +2,10 @@
   "kind": "commits",
   "repository": "jthingelstad/poapkings.com",
   "url": "https://github.com/jthingelstad/poapkings.com",
-  "observedAt": "2026-11-03T18:25:46.099Z",
+  "observedAt": "2026-11-05T18:43:59.926Z",
   "branch": "main",
   "commits": [
+    {"sha":"b72c2b960ac2","date":"2026-11-05T00:15:53.000Z","subject":"Refresh Clash Royale data","by":"agent"},
     {"sha":"1a4ba6fc73c8","date":"2026-11-03T16:43:13.000Z","subject":"Remove the site's 5xx alarm","by":"agent","agents":["claude"]},
     {"sha":"20406b160c35","date":"2026-11-03T03:51:13.000Z","subject":"Switch Tinylytics to the one script.js embed","by":"agent","agents":["claude"]},
     {"sha":"6b1273a7d44f","date":"2026-11-02T18:08:47.000Z","subject":"Drop the Elixir Drop Free Pass Challenge from the site","by":"agent","agents":["claude"]},
