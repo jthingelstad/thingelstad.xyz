@@ -10,9 +10,9 @@ description: The sketches, screenshots and files kept from building Jamie Thinge
 <section class="intro has-character">
   <a class="thingy-companion" href="/things/thingy-model/" aria-label="Meet Thingy’s character"><img src="https://thingy.thingelstad.xyz/character/latest/poses/workshop-hammer-show.webp" width="170" height="170" alt="Thingy, the Workshop Builder, holding up a hammer" /></a>
   <h1>Artifacts</h1>
-  <p class="lede">{{ site.artifactTotal }} things kept from the building: first sketches, icon studies, screenshots from the first day, a poster, a sign. They belong to the projects, and every one of them stays on its project’s page too.</p>
+  <p class="lede">{{ site.artifactTotal }} pieces kept from the building: first sketches, icon studies, screenshots from the first day, a poster, a sign. They belong to the projects, and every one of them stays on its project’s page too.</p>
 </section>
-<blockquote class="pull-quote"><q>I absolutely adore the idea that Things I’ve built has these artifacts where I can capture artifacts that are part of the building process</q> <a href="/interviews/session-5/#q34">Jamie, question 34</a></blockquote>
+<blockquote class="pull-quote"><q>I absolutely adore that Things I’ve built has a place to capture artifacts of the building process</q> <a href="/interviews/session-5/#q34">Jamie, question 34</a></blockquote>
 {% for set in site.artifactSets %}{% if set.count >= 9 %}
 {% call shelf("artifacts-" + set.thing.id, set.thing.title, set.note, 300, set.thing.artifactsPage or (set.thing.page + "#artifacts"), "See all " + set.count) %}
   {% for artifact in set.picks %}{{ artifactFigure(set.thing, artifact) }}{% endfor %}

@@ -28,6 +28,6 @@ On February 25, 2025, Jamie [made a custom GPT](https://www.thingelstad.com/2025
 
 It had real limits. In March 2025 he showed it [getting the answer wrong](https://weekly.thingelstad.com/archive/313/) when he asked which issue the Fortune first appeared in. Fourteen months later he launched Thingy, who actually searches the archive and cites his sources, and compared the two in [Weekly Thing 347](https://weekly.thingelstad.com/archive/347/): the GPT “was grade school level. Thingy is much smarter!” The GPT’s link no longer works. What it was good for, in his words:
 
-> it taught me that just sending a bunch of data into that system both was not going to give me the kind of experience that I wanted, but it gave me enough of a taste that there was something here and that if I could build a real agent around it, that that could be meaningful.
+> It taught me two things. One, sending a bunch of data into that system was not going to give me the experience I wanted. Two, it gave me enough of a taste that there was something here, and that if I could build a real agent around it, that could be meaningful.
 >
 > [Jamie, question 29](https://thingelstad.xyz/interviews/session-4/#q29)

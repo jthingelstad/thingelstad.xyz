@@ -1,7 +1,7 @@
 ---
 pull:
   n: 10
-  words: 'It’s entirely different because of AI, because I could not create the experience that I always envisioned creating.'
+  words: 'It’s entirely different because of AI. Without it I could not create the experience I always envisioned.'
 title: Road Sign Math (2026)
 summary: 'Road Sign Math rebuilt as an iPhone app that is the whole game: capture a sign, read its numbers, solve it, post it. roadsignmath.xyz shows every sign on a map, no app needed.'
 collection: Games and communities
@@ -231,8 +231,8 @@ roadsignmath.xyz is the window onto the game for anyone without the app: the map
 
 Why now, after fifteen years of wanting an app:
 
-> It’s entirely different because of AI, because I could not create the experience that I always envisioned creating. So now, with the help of Claude and AI, I felt I could possibly realize that mobile vision that I always had in mind for this project.
+> It’s entirely different because of AI. Without it I could not create the experience I always envisioned. Now, with the help of Claude and AI, I felt I could realize the mobile vision I always had in mind for this project.
 >
 > [Jamie, question 10](https://thingelstad.xyz/interviews/session-2/#q10)
 
-Road Sign Math is, he said, [“a thing that I have a fond appreciation for and has always been something that I wanted to come back to”](https://thingelstad.xyz/interviews/session-1/#q5). Building the app was [“one of the last things on my list”](https://thingelstad.xyz/interviews/session-5/#q33).
+Road Sign Math is, he said, [“a thing I have a fond appreciation for and have always wanted to come back to”](https://thingelstad.xyz/interviews/session-1/#q5). Building the app was [“one of the last things on my list”](https://thingelstad.xyz/interviews/session-5/#q33).

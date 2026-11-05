@@ -1,6 +1,6 @@
 ---
 title: Flight Path
-summary: 'A rotating globe of the 2026 POAP Airport Rally with claims, a leaderboard, and each collector’s path, built from an iPhone.'
+summary: 'A rotating globe of the 2026 Airport POAP Rally with claims, a leaderboard, and each collector’s path, built from an iPhone.'
 collection: Games and communities
 status: retired
 url: https://web.archive.org/web/20260312035500/https://flightpath.poaprally.com/
@@ -29,7 +29,7 @@ Flight Path lived at flightpath.poaprally.com and extended POAP’s year-long Ai
 
 As he told it in [Weekly Thing 342](https://weekly.thingelstad.com/archive/342/), he built it on the evening of February 25, 2026, in bed, entirely on his iPhone. He worked out the idea with ChatGPT, had it write a CLAUDE.md, created a fresh GitHub repository on his phone with that file and his CSV of rally airports and drop IDs, and attached a cloud Claude Code session to it. While Claude Code wrote the site he set up the DNS name and GitHub Pages, and it worked on the first deploy. He wrote that [it is bonkers](https://www.thingelstad.com/2026/02/25/it-is-bonkers-to-me.html) that this is possible. In late March 2026 the [repository](https://github.com/jthingelstad/flightpath.poaprally.com) gained teams, maps, and a daily data update. Of the things that have ended, this is one he remembers with feeling:
 
-> I will always remember Flight Path because it was one of my first agentic projects, like vibe coding, if you will. Pulling the POAP ecosystem together and bringing it into a 3D visualization of activity around the globe. And it really was a wow for me on what I was able to do and how AI could help me build solutions in ways that I would have never been able to do.
+> I will always remember Flight Path, because it was one of my first agentic projects, vibe coding, if you will: pulling the POAP ecosystem together into a 3D visualization of activity around the globe. It really was a wow for me, what I was able to do and how AI could help me build solutions in ways I would never have been able to.
 >
 > [Jamie, question 26](https://thingelstad.xyz/interviews/session-4/#q26)
 

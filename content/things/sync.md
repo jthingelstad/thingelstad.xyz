@@ -29,7 +29,7 @@ connections:
     source: https://sync.thingelstad.xyz/flows/#hop-10
   - to: jamie-thingelstad-blog
     label: follows the newest post of
-    detail: The blog's feed names the newest post, and the page checks that the Librarian has pulled it and that it has a card.
+    detail: The blog’s feed names the newest post, and the page checks that the Librarian has pulled it and that it has a card.
     source: https://sync.thingelstad.xyz/flows/#hop-11
   - to: another-thing
     label: follows the newest episode of
@@ -41,25 +41,25 @@ connections:
     source: https://sync.thingelstad.xyz/flows/#hop-14
   - to: thingy
     label: checks what is served by
-    detail: Each corpus the Librarian uploads carries the id of its newest item as metadata, and Thingy's health check names the corpus versions it was deployed against. When the two agree, Thingy serves what the Librarian holds.
+    detail: Each corpus the Librarian uploads carries the id of its newest item as metadata, and Thingy’s health check names the corpus versions it was deployed against. When the two agree, Thingy serves what the Librarian holds.
     source: https://sync.thingelstad.xyz/flows/#hop-16
   - to: cards
-    label: checks the newest post's card at
-    detail: The newest post's share image is fetched from Cards, so the page knows the card is being drawn.
+    label: checks the newest post’s card at
+    detail: The newest post’s share image is fetched from Cards, so the page knows the card is being drawn.
     source: https://sync.thingelstad.xyz/flows/#hop-20
   - to: things-ive-built
     label: reads the activity feed of
-    detail: The registry's activity feed is one of the sources the Librarian pulls on a clock, and the page shows that hop beside the others.
+    detail: The registry’s activity feed is one of the sources the Librarian pulls on a clock, and the page shows that hop beside the others.
     source: https://sync.thingelstad.xyz/flows/#hop-13
 story:
   color: '#1a5eb6'
   introduction: Is the new issue in Thingy yet?
   engineering:
     - One AWS Lambda function on a half-hour EventBridge schedule reads a fact from each system and writes a scriptless HTML page, a status.json and a receipt per kind into a private S3 bucket that CloudFront serves.
-    - It reads only what each system already publishes, such as feeds, the metadata on the Librarian's corpus objects in S3, Thingy's health check, and the Linking Things MCP server. A system that publishes nothing shows as "no fact yet" rather than a guess.
+    - It reads only what each system already publishes, such as feeds, the metadata on the Librarian’s corpus objects in S3, Thingy’s health check, and the Linking Things MCP server. A system that publishes nothing shows as “no fact yet” rather than a guess.
     - The hops themselves are a contract, a shared flows file that names every hop, what it moves, what starts it, the lag to expect and how to verify it. The page vendors the file and never invents a hop of its own.
     - Each hop reads fresh, moving, late, held or unknown. A hop with no fact at its source is measured from the next system down and says so.
-    - The map is drawn at deploy time with Pele, the same renderer that draws the connection diagrams on this site, and coloured on each run by the worst status of the kinds a hop moves.
+    - The map is drawn at deploy time with Pele, the same renderer that draws the connection diagrams on this site, and colored on each run by the worst status of the kinds a hop moves.
   stack:
     - Node
     - AWS Lambda
@@ -81,7 +81,7 @@ story:
 artifacts:
   - file: sync-map.png
     title: The map, the first evening
-    caption: Every hop between Jamie’s systems on October 26, 2026, coloured by its state. Weekly Thing 354 had reached the Librarian and Thingy and had not reached Linking Things, the gap the page was built to show.
+    caption: Every hop between Jamie’s systems on October 26, 2026, colored by its state. Weekly Thing 354 had reached the Librarian and Thingy and had not reached Linking Things, the gap the page was built to show.
     date: '2026-10-26'
     source: https://sync.thingelstad.xyz/
   - file: sync-page.png
@@ -91,7 +91,7 @@ artifacts:
     source: https://sync.thingelstad.xyz/
 ---
 
-Jamie’s writing moves through a lot of systems. An issue of the Weekly Thing is written in WT Builder, sent to the website, the email and the podcast feed, pulled into the Librarian, served by Thingy, and joined to the links it carried in Linking Things. A blog post goes from Micro.blog to the Librarian and gets a card. Most of the time it all works. When it doesn’t, the only way to know was to go and look. The question that started this was a simple one: is the new issue available in Thingy yet?
+Jamie’s writing moves through a lot of systems. An issue of the Weekly Thing is written in WT Builder, sent to the website, the email and the podcast feed, pulled into the Librarian, served by Thingy, and joined to the links it carried in Linking Things. A blog post goes from Micro.blog to the Librarian and gets a card. Most of the time it all works. When it didn’t, the only way to know was to go and look. The question that started this was a simple one: is the new issue available in Thingy yet?
 
 The first step was a map. A single shared file now names every hop between the systems, what moves across it, what starts it, how long it should take, and how to check that it arrived. The second step was this page, which reads a fact from each system every half hour and shows, for the newest item of each kind, who has it and who does not. The page is public because it holds only ids and times, never a reader.
 

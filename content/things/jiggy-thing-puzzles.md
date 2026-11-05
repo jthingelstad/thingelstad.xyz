@@ -28,6 +28,6 @@ They made the puzzle for the first [Things 4 Good Fall Fundraiser](https://www.t
 
 There has not been a second puzzle. Jamie’s [puzzles page](https://www.thingelstad.com/puzzles/) has said “Coming Soon…” since at least December 2022, and in the interview he said why the first was also the last:
 
-> Jiggy Thing Puzzles was a funny one because we realized how hard it is to make a jigsaw puzzle. It took a tremendous amount of effort for us to design the jigsaw puzzle. And then the cost of actually producing a jigsaw puzzle, you know, at subscale are just crazy. We realized that by trying to make puzzles, we were spending the same amount of money we were raising because if you buy in quantities of less than a thousand, the costs are just way too high.
+> Jiggy Thing Puzzles was a funny one, because we realized how hard it is to make a jigsaw puzzle. It took a tremendous amount of effort to design, and then the costs of producing a puzzle at subscale are just crazy. We realized we were spending the same amount of money we were raising, because if you buy fewer than a thousand, the costs are way too high.
 >
 > [Jamie, question 28](https://thingelstad.xyz/interviews/session-4/#q28)

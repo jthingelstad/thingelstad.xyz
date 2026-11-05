@@ -47,7 +47,7 @@ bundles:
     caption: From the repository’s first half hour.
   - id: before
     title: 'Before: the first day, in iOS’s own look'
-    caption: October 29, on the simulator against the Release Notes dev server’s fictional account. Grouped lists on grey, the system font, and blue links.
+    caption: October 29, on the simulator against the Release Notes dev server’s fictional account. Grouped lists on gray, the system font, and blue links.
   - id: after
     title: 'After: on the paper'
     caption: The same screens on October 30, after the redesign that put every screen on the Release Notes website’s paper, with the same fictional account and the same dates. Cream and navy, cobalt for actions, a tangerine Commit, and the site’s two typefaces, Bricolage Grotesque and Martian Mono.
@@ -207,7 +207,7 @@ Changelog is an iPhone app for getting notes into [Release Notes](https://notes.
 
 Jamie built it with coding agents in a single day, starting on the morning of October 29, 2026. It began as two documents, a plan for the API Release Notes would need and a scope for the app, and both are below. The repository was made at 7:43 a.m., and by 8:06 the first scaffold had Log, Activity, Settings, and a sign-in that took a pasted token. Its first README listed photos and voice memos, Upcoming, and Shortcuts and widgets as versions to come. All three arrived that same day, along with signing in with Release Notes, and the first build was on TestFlight by that evening. It is, in his words, [“my very first attempt at an iPhone app”](https://thingelstad.xyz/interviews/session-3/#q19).
 
-For its first day it wore iOS’s own look: grouped lists on grey, the system font, and blue links. On October 30 he asked for it to match the Release Notes website, and every screen, sheet, and widget moved onto the site’s paper: cream and navy, cobalt for actions, a tangerine Commit, and the site’s two typefaces, Bricolage Grotesque and Martian Mono. The screens below show each one before and after, taken on the simulator against the Release Notes dev server and its fictional account.
+For its first day it wore iOS’s own look: grouped lists on gray, the system font, and blue links. On October 30 he asked for it to match the Release Notes website, and every screen, sheet, and widget moved onto the site’s paper: cream and navy, cobalt for actions, a tangerine Commit, and the site’s two typefaces, Bricolage Grotesque and Martian Mono. The screens below show each one before and after, taken on the simulator against the Release Notes dev server and its fictional account.
 
 On October 31, 2026, Jamie explored [separate icons](#artifacts-icon-studies) for Changelog and Release Notes with Codex. The [single folded v and its dot](/things/release-notes/#artifacts-icon-studies) went to Release Notes. For Changelog he chose three folded v marks stacked diagonally, called Versions. Paper, Copper, Terminal and Afterglow followed as [member-edition studies](#artifacts-member-icons). The [design record](#artifacts-icon-design-files) keeps the discarded direction, the refinements and the generation prompts.
 

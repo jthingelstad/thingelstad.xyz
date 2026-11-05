@@ -54,7 +54,7 @@ story:
 
 Jamie had a website before he had a blog. He [counts June 2, 2004](https://www.thingelstad.com/2025/01/12/if-i-was-born-and.html) as the blog’s official start, the date of its [first post](https://www.thingelstad.com/2004/06/02/expose-of-the.html), and the archive also holds posts dated as far back as 2000 that he added to it later. The habit has lasted more than 20 years and over 10,000 posts. The blog is personal and noncommercial, and it is the center of everything else on this site. He says so himself: it is [“probably the root of everything”](https://thingelstad.xyz/interviews/session-3/#q25) and [“the project that is the anchor of every other project”](https://thingelstad.xyz/interviews/session-3/#q25).
 
-> I always tell them that the key, in my opinion, of a blog is that you have to be comfortable writing it if it’s really just you reading it. And an amazing thing about my blog is that after I have created so many years of posts, it’s become something that I treasure and value for what it is. You could argue that in a way it’s a public journal.
+> I always tell them that the key, in my opinion, is that you have to be comfortable writing it if it’s really just you reading it. An amazing thing about my blog is that after so many years of posts, it’s become something I treasure for what it is. You could argue that it’s a public journal.
 >
 > [Jamie, question 25](https://thingelstad.xyz/interviews/session-3/#q25)
 

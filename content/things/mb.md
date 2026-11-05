@@ -34,7 +34,7 @@ story:
   engineering:
     - The CLI and MCP tools share the same service layer.
     - Write operations return durable receipts so an uncertain result can be checked before a request is sent again.
-    - An optional MCP server exposes 23 typed tools. Homebrew provides a distribution path.
+    - An optional MCP server exposes 23 typed tools. It installs through Homebrew.
   stack:
     - Python
     - CLI

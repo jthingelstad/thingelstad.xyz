@@ -109,8 +109,9 @@ export type Storyline = {
 
 // An interview session (content/interviews/session-N.md, /interviews/session-N/): Thingy's questions and Jamie's
 // answers, one sitting to a session, numbered in the order they happen. Jamie answers out loud and Thingy edits the
-// transcript lightly from speech for reading: "true to my words only, but you can lightly edit the response"
-// (Jamie, 2026-11-04). The words stay his, and where the record disagrees, a correction sits under the answer.
+// transcript from speech for reading: "stay true to what I said but you can clean up my verbal response more than
+// that" (Jamie, 2026-11-04). What he said stays, in his words, and where the record disagrees, a correction sits
+// under the answer.
 // The body is the transcript. Each `### N. ` heading is a question, with the address #qN on the page; the numbers
 // run on across sessions, so an address never moves. The front matter gives each question a short title and the
 // things it is about, so a thing's page can point at Jamie's own words.
