@@ -10,36 +10,87 @@ permalink: /
     {% for s in site.statuses %}<a class="status status-{{ s.status }}" href="/search/?status={{ s.status }}" title="{{ s.description }}">{{ s.label }} {{ s.count }}</a> {% endfor %}
   </p>
 </section>
-{#- Each list is an h-feed of its things' h-entries (thing-row.njk, feature-card.njk), named by its heading. A
+{% from "macros.njk" import shelf, thingCard, artifactFigure, thingyHead %}
+{% set latest = site.interviews[0] %}
+{% set latestYear = site.lately[0].event.date.slice(0, 4) if site.lately.length %}
+<nav class="jumps" aria-label="On this page">
+  {% if site.featured.length %}<a href="#featured">Featured</a>{% endif %}
+  {% if site.words.length %}<a href="#words">In his words</a>{% endif %}
+  {% if site.stories.length %}<a href="#stories">Stories</a>{% endif %}
+  {% if site.artifactSets.length %}<a href="#artifacts">Artifacts</a>{% endif %}
+  {% if site.lately.length %}<a href="#lately">Lately</a>{% endif %}
+  {% for collection in site.collections %}<a href="#{{ collection.name | slugify }}">{{ collection.name }}</a>{% endfor %}
+</nav>
+{#- Each list of things is an h-feed of its things' h-entries (feature-card.njk, thingCard), named by its heading. A
     featured thing is in its collection's feed too: the same entry in two feeds, never one inside another. #}
 {% if site.featured.length %}
-<section class="featured h-feed" aria-labelledby="featured">
-  <h2 id="featured" class="p-name">Featured</h2>
-  <ul class="feature-list">
-    {% for feature in site.featured %}{% include "feature-card.njk" %}{% endfor %}
-  </ul>
+{% call shelf("featured", "Featured", null, 420, null, null, true, "h2", "featured") %}
+  {% for feature in site.featured %}{% include "feature-card.njk" %}{% endfor %}
+{% endcall %}
+{% endif %}
+{% if latest %}
+<section class="session-band" aria-labelledby="latest-session">
+  <a class="session-number" href="{{ latest.page }}" aria-label="Session {{ latest.session }}">{{ latest.session }}</a>
+  <div class="session-what">
+    <p class="meta">Session {{ latest.session }}, the latest interview · {{ latest.started | date }}</p>
+    <h2 id="latest-session"><a href="{{ latest.page }}">{{ latest.title }}</a></h2>
+    <div class="thingy-line">{{ thingyHead() }}<p class="thingy-says">{{ latest.point }}</p></div>
+  </div>
+  <a class="more" href="/interviews/">All {{ site.interviews | length }} sessions</a>
 </section>
+{% endif %}
+{% if site.words.length %}
+{% call shelf("words", "In his words", null, 340, "/interviews/", "All the interviews") %}
+  {% for line in site.words %}
+  <figure class="word-card">
+    <blockquote class="pull">“<a href="{{ line.page }}">{{ line.words }}</a>”</blockquote>
+    <figcaption class="who"><img src="{{ owner.avatar }}" alt="" width="28" height="28" loading="lazy" /><span>Jamie, question {{ line.n }} · Session {{ line.session }}</span></figcaption>
+  </figure>
+  {% endfor %}
+{% endcall %}
 {% endif %}
 {% if site.stories.length %}
-<section class="stories" aria-labelledby="stories">
-  <h2 id="stories">Stories</h2>
-  <p class="muted">Ideas Jamie kept coming back to, told across the things they became.</p>
-  <ul class="story-list">
-    {% for story in site.stories %}{% include "story-card.njk" %}{% endfor %}
-  </ul>
-</section>
+{% call shelf("stories", "Stories", "Ideas Jamie kept coming back to, told across the things they became.", 340, "/stories/", "All stories") %}
+  {% for story in site.stories %}
+  <a class="story-tile" href="{{ story.page }}">
+    {% if story.span.started %}<span class="meta">{{ story.span.started.slice(0, 4) }} to {% if story.span.ongoing %}now{% elif story.span.ended %}{{ story.span.ended.slice(0, 4) }}{% else %}?{% endif %}</span>{% endif %}
+    <h3>{{ story.title }}</h3>
+    <p class="clamp">{{ story.summary }}</p>
+  </a>
+  {% endfor %}
+{% endcall %}
 {% endif %}
-{% for collection in site.collections %}
-<section class="collection h-feed" id="{{ collection.name | slugify }}">
-  <h2><span class="p-name">{{ collection.name }}</span> <span class="count badge">{{ collection.things | length }}</span></h2>
-  <ul class="thing-list">
-    {% for thing in collection.things %}{% include "thing-row.njk" %}{% endfor %}
-  </ul>
+{% if site.artifactSets.length %}
+{% call shelf("artifacts", "Artifacts", site.artifactTotal + " things kept along the way, from " + (site.artifactSets | length) + " of the projects.", 260, "/artifacts/", "All artifacts") %}
+  {% for set in site.artifactSets %}{% if set.picks.length %}{{ artifactFigure(set.thing, set.picks[0]) }}{% endif %}{% endfor %}
+{% endcall %}
+{% endif %}
+{% if site.lately.length %}
+{% call shelf("lately", "Lately", null, 280, "/years/" + latestYear + "/", "All of " + latestYear) %}
+  {% for item in site.lately %}
+  <a class="lately-card" href="{{ item.event | eventPage }}">
+    <time class="meta" datetime="{{ item.event.date }}">{{ item.event.date | date }}</time>
+    <h3>{{ item.event.title }}</h3>
+    {% if item.things.length %}<span class="tag">{{ item.things[0].title }}</span>{% endif %}
+  </a>
+  {% endfor %}
+{% endcall %}
+{% endif %}
+<section class="all-things" id="all" aria-labelledby="all-heading">
+  <div class="all-things-head">
+    <h2 id="all-heading">All {{ site.things | length }} things</h2>
+    <a class="more" href="/things/">The full list, with filters</a>
+  </div>
+  {% for collection in site.collections %}
+  {% call shelf(collection.name | slugify, collection.name, collection.things | length, 244, null, null, true, "h3", "collection") %}
+    {% for thing in collection.things %}{{ thingCard(thing, owner, "h4") }}{% endfor %}
+  {% endcall %}
+  {% endfor %}
+  <section class="topics-summary" id="topics" aria-labelledby="topics-heading">
+    <h3 id="topics-heading">By topic</h3>
+    <p class="topic-cloud">
+      {% for topic in site.topics %}<a href="{{ topic.page }}">{{ topic.title }} <span class="count">{{ topic.things | length }}</span></a> {% endfor %}
+    </p>
+  </section>
 </section>
-{% endfor %}
-<section class="topics-summary">
-  <h2>Topics</h2>
-  <p class="topic-cloud">
-    {% for topic in site.topics %}<a href="{{ topic.page }}">{{ topic.title }} <span class="count">{{ topic.things | length }}</span></a> {% endfor %}
-  </p>
-</section>
+<script type="module" src="{{ assets.enhance }}"></script>

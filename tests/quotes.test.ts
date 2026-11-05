@@ -109,21 +109,39 @@ function pageQuotations(file: string): Quote[] {
 
 // The line /interviews/ pulls out for each session, from its front matter.
 function sessionPulls(): Quote[] {
-  return sessions.map((session) => {
-    const pull = session.data.pull as { n: number; words: string };
-    return {
+  return sessions.flatMap((session) => {
+    const lines = [session.data.pull, ...((session.data.also as unknown[]) ?? [])] as { n: number; words: string }[];
+    return lines.map((pull) => ({
       file: session.file,
       question: pull.n,
       session: Number(session.id.replace('session-', '')),
       text: pull.words
-    };
+    }));
+  });
+}
+
+// A line a thing's page opens with: its `pull`, from a question about that thing.
+function thingPulls(): (Quote & { id: string })[] {
+  return things.flatMap((page) => {
+    const pull = page.data.pull as { n: number; words: string } | undefined;
+    return pull
+      ? [
+          {
+            id: page.id,
+            file: page.file,
+            question: pull.n,
+            session: questionSession.get(pull.n) ?? 0,
+            text: pull.words
+          }
+        ]
+      : [];
   });
 }
 
 test('every quotation of an interview session is what the transcript says, linked to its question', () => {
   const all = [...things, ...stories]
     .flatMap((page) => quotations(page.file, page.body))
-    .concat(pageQuotations('site/about.njk'), pageQuotations('site/artifacts.njk'), sessionPulls());
+    .concat(pageQuotations('site/about.njk'), pageQuotations('site/artifacts.njk'), sessionPulls(), thingPulls());
   assert.ok(all.length >= 60, `the site quotes the interview (${all.length} quotations)`);
   const problems: string[] = [];
   for (const quote of all) {
@@ -157,6 +175,11 @@ test('a page quotes only questions that are about it', () => {
           `${page.file}: question ${quote.question} does not list ${page.id} in its session's front matter`
         );
       }
+    }
+  }
+  for (const pull of thingPulls()) {
+    if (!questionThings.get(pull.question)?.includes(pull.id)) {
+      problems.push(`${pull.file}: its pull, question ${pull.question}, does not list ${pull.id}`);
     }
   }
   for (const page of stories) {
@@ -215,6 +238,7 @@ test('front matter speaks of Jamie in the third person outside his quotations', 
   const problems: string[] = [];
   for (const page of [...things, ...stories]) {
     for (const { path, text } of strings(page.data, '', [])) {
+      if (path === '.pull.words') continue; // his quotation, held to the transcript above
       const found = firstPerson(text);
       if (found) problems.push(`${page.file} ${path.slice(1)}: ${found.join(', ')}`);
     }

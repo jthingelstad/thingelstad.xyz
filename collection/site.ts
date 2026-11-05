@@ -138,8 +138,17 @@ const artifactRecord = ({ src, anchor: _a, kind: _k, bytes: _b, size: _s, image:
   url: `${siteUrl}${src}`
 });
 // A bundle as its page shows it, with its artifacts in their listed order.
-type SiteBundle = ArtifactBundle & { artifacts: SiteArtifact[] };
-const bundleRecord = ({ artifacts: _a, ...bundle }: SiteBundle) => bundle;
+// A bundle's shelf is as wide as its pictures want: narrow for phone screenshots, wider for the rest.
+type SiteBundle = ArtifactBundle & { artifacts: SiteArtifact[]; cardWidth: number };
+const bundleRecord = ({ artifacts: _a, cardWidth: _w, ...bundle }: SiteBundle) => bundle;
+const bundleCardWidth = (artifacts: SiteArtifact[]) => {
+  const image = artifacts.find((artifact) => artifact.image)?.image;
+  return image && image.height > image.width * 1.3 ? 186 : 300;
+};
+// A thing with this many artifacts also gets a page of them. The shelves on its own page keep every piece, so an
+// address like #artifact-<file> holds either way. The page is not at /things/<id>/artifacts/: every file there goes
+// out as an artifact, HTML as bytes to download (scripts/publish-plan.mjs), so an old project's page never runs here.
+const artifactPageAt = 20;
 // A small monogram "sticker" for each thing: its initials on a tinted tile, tilted a degree or two. The
 // hue and tilt come from the id, so a thing keeps its sticker from build to build.
 export type Sticker = { letters: string; hue: number; tilt: number };
@@ -151,7 +160,7 @@ export function sticker(id: string, title: string): Sticker {
   return { letters, hue: hash % 360, tilt: (hash % 7) - 3 };
 }
 
-export type SiteThing = Omit<Thing, 'sources' | 'bundles' | 'artifacts'> & {
+export type SiteThing = Omit<Thing, 'sources' | 'bundles' | 'artifacts' | 'pull'> & {
   page: string;
   markdown: string;
   statusLabel: string;
@@ -166,6 +175,8 @@ export type SiteThing = Omit<Thing, 'sources' | 'bundles' | 'artifacts'> & {
   screenshot: SiteScreenshot | null;
   artifacts: SiteArtifact[];
   bundles: SiteBundle[]; // empty when its artifacts are not in bundles
+  artifactsPage: string | null; // the page of them, for a large set
+  pull: { n: number; words: string; session: number; page: string } | null;
   views: SiteViews | null;
   span: { start: number | null; end: number | null }; // years, for the timeline
   filters: ThingFilter[]; // its facet values, for /search/
@@ -273,6 +284,9 @@ export type SiteModel = {
   stories: SiteStoryline[];
   interviews: SiteInterview[];
   stillToAsk: SiteThing[];
+  words: { n: number; words: string; session: number; page: string }[]; // the front page's In his words
+  lately: { event: HistoryEvent; things: SiteThing[] }[]; // the newest events
+  artifactPages: SiteThing[];
   interviewIndex: { thing: SiteThing; sessions: { session: number; n: number; page: string }[] }[];
   history: HistoryEvent[];
   timeline: Timeline;
@@ -516,7 +530,8 @@ export function buildSiteModel(registry: Registry, observations: Observation[], 
       artifacts,
       bundles: (thing.bundles ?? []).map((bundle) => ({
         ...bundle,
-        artifacts: artifacts.filter((artifact) => artifact.bundle === bundle.id)
+        artifacts: artifacts.filter((artifact) => artifact.bundle === bundle.id),
+        cardWidth: bundleCardWidth(artifacts.filter((artifact) => artifact.bundle === bundle.id))
       })),
       views: viewed ? { site: viewed.url, total: viewed.hits, until: viewed.until, months: viewMonths(viewed) } : null,
       span: { start, end },
@@ -525,6 +540,14 @@ export function buildSiteModel(registry: Registry, observations: Observation[], 
       stories: registry.stories
         .filter((story) => story.things.includes(thing.id))
         .map((story) => ({ id: story.id, title: story.title, page: `/stories/${story.id}/` })),
+      artifactsPage: (thing.artifacts?.length ?? 0) >= artifactPageAt ? `/things/${thing.id}/all-artifacts/` : null,
+      pull: (() => {
+        const line = thing.pull;
+        if (!line) return null;
+        const item = registry.interviews.find((session) => session.questions.some((q) => q.n === line.n));
+        if (!item) throw new Error(`things/${thing.id}.pull: there is no question ${line.n}.`);
+        return { ...line, session: item.session, page: `/interviews/${item.id}/#q${line.n}` };
+      })(),
       interviews: registry.interviews.flatMap((item) => {
         const questions = item.questions.filter((q) => q.things.includes(thing.id)).map((q) => q.n);
         return questions.length
@@ -706,6 +729,18 @@ export function buildSiteModel(registry: Registry, observations: Observation[], 
     interviews,
     stillToAsk,
     interviewIndex,
+    words: interviews.flatMap((item) =>
+      [item.pull, ...item.also].map((line) => ({
+        ...line,
+        session: item.session,
+        page: `${item.page}#q${line.n}`
+      }))
+    ),
+    lately: registry.history
+      .toSorted((a, b) => b.date.localeCompare(a.date))
+      .slice(0, 10)
+      .map((event) => ({ event, things: event.things.map((id) => byId.get(id)!) })),
+    artifactPages: things.filter((thing) => thing.artifactsPage),
     history: registry.history,
     timeline,
     years: buildYearPages(timeline, registry.history, activity.activity),
@@ -886,6 +921,7 @@ export function sessionMarkdown(item: SiteInterview) {
     title: item.title,
     point: item.point,
     pull: item.pull,
+    also: item.also,
     started: item.started,
     ended: item.ended,
     notes: item.notes,

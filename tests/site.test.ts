@@ -891,6 +891,7 @@ test('every sitemap page carries the date its content last changed, never the bu
     6 +
       model.years.length +
       model.things.length +
+      model.artifactPages.length +
       (model.stories.length ? 1 + model.stories.length : 0) +
       (model.interviews.length ? 1 + model.interviews.length : 0)
   );

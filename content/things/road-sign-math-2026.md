@@ -1,4 +1,7 @@
 ---
+pull:
+  n: 10
+  words: 'It’s entirely different because of AI, because I could not create the experience that I always envisioned creating.'
 title: Road Sign Math (2026)
 summary: 'Road Sign Math rebuilt as an iPhone app that is the whole game: capture a sign, read its numbers, solve it, post it. roadsignmath.xyz shows every sign on a map, no app needed.'
 collection: Games and communities

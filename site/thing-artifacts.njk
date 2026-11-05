@@ -1,0 +1,42 @@
+---
+layout: layout.njk
+pagination:
+  data: site.artifactPages
+  size: 1
+  alias: thing
+permalink: '{{ thing.artifactsPage }}'
+eleventyComputed:
+  title: 'Artifacts of {{ thing.title }}'
+  description: 'All {{ thing.artifacts | length }} artifacts kept from {{ thing.title }}.'
+---
+{% from "macros.njk" import permalink, artifactCard %}
+{#- A large set's artifacts all at once, for looking through them. Each piece opens full size or downloads, as on the
+    thing's page, whose shelves hold the same pieces and keep their addresses. Search indexes the thing's page only. #}
+<article class="thing-artifacts">
+  <header class="thing-header">
+    <p class="crumbs"><a href="/things/">Things</a> · <a href="{{ thing.page }}">{{ thing.title }}</a></p>
+    <h1>Artifacts</h1>
+    <p class="lede">{{ thing.artifacts | length }} files from {{ thing.title }}, kept as they were.</p>
+    {% if thing.bundles | length %}
+    <nav class="jumps" aria-label="Bundles">
+      {% for bundle in thing.bundles %}<a href="#{{ bundle.id }}">{{ bundle.title }} <span class="count">{{ bundle.artifacts | length }}</span></a>{% endfor %}
+    </nav>
+    {% endif %}
+  </header>
+  {% if thing.bundles | length %}
+  {% for bundle in thing.bundles %}
+  <section class="artifact-bundle" id="{{ bundle.id }}" aria-labelledby="{{ bundle.id }}-title">
+    <h2 id="{{ bundle.id }}-title">{{ bundle.title }} {{ permalink(bundle.id, bundle.title) }}</h2>
+    {% if bundle.caption %}<p class="artifact-bundle-caption">{{ bundle.caption }}</p>{% endif %}
+    <ul class="artifact-list{% if bundle.cardWidth < 300 %} is-narrow{% endif %}">
+      {% for artifact in bundle.artifacts %}{{ artifactCard(artifact, "h3") }}{% endfor %}
+    </ul>
+  </section>
+  {% endfor %}
+  {% else %}
+  <ul class="artifact-list">
+    {% for artifact in thing.artifacts %}{{ artifactCard(artifact, "h2") }}{% endfor %}
+  </ul>
+  {% endif %}
+  <p class="muted thing-artifacts-back"><a href="{{ thing.page }}">Back to {{ thing.title }}</a></p>
+</article>

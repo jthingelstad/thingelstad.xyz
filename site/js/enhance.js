@@ -5,8 +5,14 @@ for (const element of document.querySelectorAll('[data-enhanced]')) element.hidd
 
 for (const shelf of document.querySelectorAll('[data-shelf]')) {
   const track = shelf.querySelector('.shelf-track');
-  for (const button of shelf.querySelectorAll('[data-shelf-move]')) {
-    button.hidden = false;
+  const buttons = [...shelf.querySelectorAll('[data-shelf-move]')];
+  // The arrows only show when there is more of the shelf than the window on it.
+  const showArrows = () => {
+    for (const button of buttons) button.hidden = track.scrollWidth <= track.clientWidth + 1;
+  };
+  showArrows();
+  new ResizeObserver(showArrows).observe(track);
+  for (const button of buttons) {
     button.addEventListener('click', () => {
       const motion = matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
       const distance = Math.max(240, track.clientWidth * 0.8);

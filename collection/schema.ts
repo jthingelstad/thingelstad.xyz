@@ -75,6 +75,7 @@ export type ArtifactFile = { bytes: number; width?: number; height?: number };
 
 export type Thing = {
   id: string; // from the file name
+  pull?: { n: number; words: string }; // a line of Jamie's the page opens with, from a question about this thing
   title: string;
   summary: string;
   collection: string;
@@ -119,6 +120,7 @@ export type Interview = {
   title: string;
   point: string; // the session's central point, in Thingy's voice
   pull: { n: number; words: string }; // the line /interviews/ pulls out for the session: Jamie's words, from question n
+  also: { n: number; words: string }[]; // more lines of his for the front page's In his words
   started: DatePrecision;
   ended: DatePrecision;
   notes: string[]; // what is particular about this transcript, so a reader knows

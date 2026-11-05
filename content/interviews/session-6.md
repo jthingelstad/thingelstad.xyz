@@ -4,6 +4,11 @@ point: 'Keep a record long enough and you can see where it’s thin. Five sessio
 pull:
   n: 42
   words: 'A book is an artifact.'
+also:
+  - n: 43
+    words: 'Building isn’t only a hobby. It’s also my career.'
+  - n: 41
+    words: 'They’re things, because they don’t serve just one service and they bring some intelligence.'
 started: '2026-11-04'
 ended: '2026-11-04'
 notes:

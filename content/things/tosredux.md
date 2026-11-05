@@ -1,4 +1,7 @@
 ---
+pull:
+  n: 27
+  words: 'I refuse to give up when it comes to privacy.'
 title: TOSRedux
 summary: 'A Semantic MediaWiki site at tosredux.org where people could crowdsource a structured analysis of websites’ terms of service. It never took off.'
 collection: Historical projects
