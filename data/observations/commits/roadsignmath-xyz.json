@@ -2,9 +2,10 @@
   "kind": "commits",
   "repository": "jthingelstad/roadsignmath.xyz",
   "url": "https://github.com/jthingelstad/roadsignmath.xyz",
-  "observedAt": "2026-11-03T18:25:46.099Z",
+  "observedAt": "2026-11-05T18:43:59.926Z",
   "branch": "main",
   "commits": [
+    {"sha":"239968c396a4","date":"2026-11-05T04:16:03.000Z","subject":"Keep missing pages at the edge and log the path (#44)","pr":44,"by":"agent","agents":["claude"]},
     {"sha":"d419d515e678","date":"2026-11-03T17:04:23.000Z","subject":"Feeds: each sign as a short post, so micro.blog cross-posts it whole","by":"agent","agents":["claude"]},
     {"sha":"c25c3e1491ad","date":"2026-11-03T16:41:50.000Z","subject":"Remove the stack's four CloudWatch alarms","by":"agent","agents":["claude"]},
     {"sha":"53a426e2a55d","date":"2026-11-03T16:41:09.000Z","subject":"Website: link the Mastodon and Bluesky accounts new signs go to","by":"agent","agents":["claude"]},

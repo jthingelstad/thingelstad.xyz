@@ -2,9 +2,11 @@
   "kind": "commits",
   "repository": "jthingelstad/links.thingelstad.xyz",
   "url": "https://github.com/jthingelstad/links.thingelstad.xyz",
-  "observedAt": "2026-11-04T18:39:15.949Z",
+  "observedAt": "2026-11-05T18:43:59.926Z",
   "branch": "main",
   "commits": [
+    {"sha":"0ca8ee4c8d7f","date":"2026-11-05T08:03:29.000Z","subject":"Nightly: sync and enrichment, 2026-11-05","by":"agent"},
+    {"sha":"a6ea93a9d6b2","date":"2026-11-04T19:57:54.000Z","subject":"Docs name the AWS account as <account> (#52)","pr":52,"by":"agent","agents":["claude"]},
     {"sha":"845164b8456c","date":"2026-11-04T08:07:49.000Z","subject":"Nightly: sync and enrichment, 2026-11-04","by":"agent"},
     {"sha":"f1e3cc3c0ef9","date":"2026-11-03T17:05:01.000Z","subject":"Retire the links-site and links-mcp CloudWatch alarms","pr":51,"by":"me"},
     {"sha":"a52a2a62fb1d","date":"2026-11-03T16:58:47.000Z","subject":"Retire the links-site and links-mcp CloudWatch alarms","by":"agent","agents":["claude"]},

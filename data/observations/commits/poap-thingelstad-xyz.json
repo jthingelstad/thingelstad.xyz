@@ -2,9 +2,10 @@
   "kind": "commits",
   "repository": "jthingelstad/poap.thingelstad.xyz",
   "url": "https://github.com/jthingelstad/poap.thingelstad.xyz",
-  "observedAt": "2026-11-03T18:25:46.099Z",
+  "observedAt": "2026-11-05T18:43:59.926Z",
   "branch": "main",
   "commits": [
+    {"sha":"7c5c20c7c986","date":"2026-11-04T19:46:08.000Z","subject":"Docs name the AWS account as <account> (#11)","pr":11,"by":"agent","agents":["claude"]},
     {"sha":"b790b2d21f26","date":"2026-11-03T17:04:57.000Z","subject":"Retire the poap-site-distribution-5xx alarm","pr":10,"by":"me"},
     {"sha":"2a13f76b1eb8","date":"2026-11-03T16:58:03.000Z","subject":"Retire the poap-site-distribution-5xx alarm","by":"agent","agents":["claude"]},
     {"sha":"a5f14d499753","date":"2026-11-03T16:26:09.000Z","subject":"Invalidate the distribution with one wildcard path per deploy (#9)","pr":9,"by":"agent","agents":["claude"]},

@@ -2,14 +2,14 @@
   "kind": "github",
   "repository": "jthingelstad/elixir-mcp",
   "url": "https://github.com/jthingelstad/elixir-mcp",
-  "observedAt": "2026-11-04T18:39:15.949Z",
+  "observedAt": "2026-11-05T18:43:59.926Z",
   "repositoryCreatedAt": "2026-09-03T14:18:34.000Z",
   "archived": false,
   "description": "Clash Royale history recorder + remote MCP server. Unofficial; not endorsed by Supercell.",
   "stars": 1,
   "forks": 0,
   "languages": [
-    { "name": "JavaScript", "bytes": 10034576 },
+    { "name": "JavaScript", "bytes": 10034299 },
     { "name": "TypeScript", "bytes": 1097079 },
     { "name": "CSS", "bytes": 172802 },
     { "name": "Nunjucks", "bytes": 122616 },
@@ -23,23 +23,23 @@
       "path": null,
       "branch": "main",
       "since": "2026-08-01T00:00:00.000Z",
-      "until": "2026-11-04T18:39:15.949Z",
-      "count": 299,
+      "until": "2026-11-05T18:43:59.926Z",
+      "count": 295,
       "complete": false,
       "months": [
-        { "month": "2026-10", "count": 290 },
-        { "month": "2026-11", "count": 9 }
+        { "month": "2026-10", "count": 284 },
+        { "month": "2026-11", "count": 11 }
       ],
       "latestCommit": {
-        "date": "2026-11-03T19:26:46.000Z",
-        "url": "https://github.com/jthingelstad/elixir-mcp/commit/aec40303a4c4409701b1f4afa97eb4935a573beb"
+        "date": "2026-11-04T22:30:24.000Z",
+        "url": "https://github.com/jthingelstad/elixir-mcp/commit/66b86a95a1581356d8b62fc3f1d5eb16439c4692"
       }
     },
     {
       "path": "packages/clan",
       "branch": "main",
       "since": "2026-08-01T00:00:00.000Z",
-      "until": "2026-11-04T18:39:15.949Z",
+      "until": "2026-11-05T18:43:59.926Z",
       "count": 79,
       "complete": true,
       "months": [{ "month": "2026-10", "count": 79 }],
@@ -52,7 +52,7 @@
       "path": "packages/clan-engine",
       "branch": "main",
       "since": "2026-08-01T00:00:00.000Z",
-      "until": "2026-11-04T18:39:15.949Z",
+      "until": "2026-11-05T18:43:59.926Z",
       "count": 69,
       "complete": true,
       "months": [{ "month": "2026-10", "count": 69 }],
@@ -65,7 +65,7 @@
       "path": "packages/clan-state",
       "branch": "main",
       "since": "2026-08-01T00:00:00.000Z",
-      "until": "2026-11-04T18:39:15.949Z",
+      "until": "2026-11-05T18:43:59.926Z",
       "count": 18,
       "complete": true,
       "months": [{ "month": "2026-10", "count": 18 }],
@@ -78,16 +78,16 @@
       "path": "packages/clan-web",
       "branch": "main",
       "since": "2026-08-01T00:00:00.000Z",
-      "until": "2026-11-04T18:39:15.949Z",
-      "count": 77,
+      "until": "2026-11-05T18:43:59.926Z",
+      "count": 78,
       "complete": true,
       "months": [
         { "month": "2026-10", "count": 76 },
-        { "month": "2026-11", "count": 1 }
+        { "month": "2026-11", "count": 2 }
       ],
       "latestCommit": {
-        "date": "2026-11-03T03:57:48.000Z",
-        "url": "https://github.com/jthingelstad/elixir-mcp/commit/f7f8ac36b2f72609e0e0e23a1e69c4b60635b642"
+        "date": "2026-11-04T22:30:24.000Z",
+        "url": "https://github.com/jthingelstad/elixir-mcp/commit/66b86a95a1581356d8b62fc3f1d5eb16439c4692"
       }
     }
   ]

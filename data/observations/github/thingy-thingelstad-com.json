@@ -2,17 +2,17 @@
   "kind": "github",
   "repository": "jthingelstad/thingy.thingelstad.com",
   "url": "https://github.com/jthingelstad/thingy.thingelstad.com",
-  "observedAt": "2026-11-04T18:39:15.949Z",
+  "observedAt": "2026-11-05T18:43:59.926Z",
   "repositoryCreatedAt": "2026-06-03T23:20:15.000Z",
   "archived": false,
   "description": "Thingy — the standalone web home for Jamie Thingelstad's archive agent: a query surface over the Studio corpus, with a web app and a Discord bridge.",
   "stars": 2,
   "forks": 0,
   "languages": [
-    { "name": "TypeScript", "bytes": 526258 },
-    { "name": "JavaScript", "bytes": 200132 },
-    { "name": "CSS", "bytes": 125201 },
-    { "name": "HTML", "bytes": 97348 }
+    { "name": "TypeScript", "bytes": 529354 },
+    { "name": "JavaScript", "bytes": 203664 },
+    { "name": "CSS", "bytes": 124916 },
+    { "name": "HTML", "bytes": 97875 }
   ],
   "release": null,
   "activity": [
@@ -20,18 +20,18 @@
       "path": null,
       "branch": "main",
       "since": "2026-08-01T00:00:00.000Z",
-      "until": "2026-11-04T18:39:15.949Z",
-      "count": 213,
+      "until": "2026-11-05T18:43:59.926Z",
+      "count": 220,
       "complete": true,
       "months": [
         { "month": "2026-08", "count": 29 },
         { "month": "2026-09", "count": 93 },
         { "month": "2026-10", "count": 76 },
-        { "month": "2026-11", "count": 15 }
+        { "month": "2026-11", "count": 22 }
       ],
       "latestCommit": {
-        "date": "2026-11-04T17:07:20.000Z",
-        "url": "https://github.com/jthingelstad/thingy.thingelstad.com/commit/8a14267e3e3f5cdecaa012d5b78e9d570dd9256d"
+        "date": "2026-11-05T01:09:49.000Z",
+        "url": "https://github.com/jthingelstad/thingy.thingelstad.com/commit/cbcbc09c9c1ef41fb8082c11e126b0cf2f100878"
       }
     }
   ]
