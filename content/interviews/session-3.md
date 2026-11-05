@@ -1,6 +1,9 @@
 ---
 title: 'The featured shelf and the active things'
 point: 'This one was about what is running now, which includes me: Release Notes, Oliver, Another Thing, Things 4 Good, the nnxyz Rooms, Escaping Things and the blog.'
+pull:
+  n: 25
+  words: 'I think of it as giving myself a present in the future.'
 started: '2026-11-01'
 ended: '2026-11-01'
 notes:

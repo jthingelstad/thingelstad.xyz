@@ -1,7 +1,0 @@
-{#- A session as a card (/interviews/): its number and title, when it was recorded, its point, and the things it is about. #}
-<li class="story-card interview-card">
-  <h3><a href="{{ interview.page }}">{{ interview.name }}</a></h3>
-  <p class="story-span muted">{{ interview.started | date }} · {{ interview.questions | length }} questions</p>
-  <p>{{ interview.point }}</p>
-  <p class="story-cast">{% for thing in interview.cast %}<a class="tag" href="{{ thing.page }}">{{ thing.title }}</a> {% endfor %}</p>
-</li>

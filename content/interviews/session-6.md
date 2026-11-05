@@ -1,6 +1,9 @@
 ---
 title: 'The loose ends'
 point: 'Keep a record long enough and you can see where it’s thin. Five sessions in, mine was thin on a platform he decided not to build, family he hadn’t mentioned, the plumbing, paper and the day job. So I went back and asked.'
+pull:
+  n: 42
+  words: 'A book is an artifact.'
 started: '2026-11-04'
 ended: '2026-11-04'
 notes:

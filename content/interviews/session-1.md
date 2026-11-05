@@ -1,6 +1,9 @@
 ---
 title: 'The builder'
 point: 'A record starts with whoever’s holding the tools. I asked where the habit came from, what makes something a thing, and how he decides what gets his time.'
+pull:
+  n: 6
+  words: 'I’d like to say that I decide, but in many ways, I’m compelled.'
 started: '2026-10-31'
 ended: '2026-10-31'
 notes:

@@ -7,7 +7,7 @@ The brief that runs the interview sessions (`content/interviews/session-N.md`), 
 1. One sitting is one session. Export the transcript to `content/interviews/session-N.md`, the next number. Keep the questions as `### N. The question` headings, each answer as a `**Jamie:**` paragraph, each follow-up as a `#### Follow-up:` heading, and the interviewer as `**Thingy:**`.
 2. Edit lightly from speech for reading: filler, stutters, false starts, broken sentence breaks, missing punctuation, misheard names. Every sentence and every claim stays, and the words stay his (Jamie, 2026-11-04: “true to my words only, but you can lightly edit the response”). Say anything particular in `notes`.
 3. Number the questions on from the last session, so an address like `#q9` never moves. The checks fail on a gap.
-4. In the front matter, write the session’s `point`, Thingy’s central point in his own voice, and give every question an entry under `questions`: `n`, a short `title`, and the `things` it is about (none is fine).
+4. In the front matter, write the session’s `point`, Thingy’s central point in his own voice; choose its `pull`, one line of Jamie’s for `/interviews/` (`n`, the question, and `words`, exactly as the transcript has them, which the checks hold it to); and give every question an entry under `questions`: `n`, a short `title`, and the `things` it is about (none is fine).
 5. Where the record disagrees with what he remembers, leave the answer and add `**Thingy’s correction:**` under it, saying where the fact came from.
 6. Jamie reads it once before it publishes. After that a correction is a new note or a `**Thingy’s correction:**`, not a change to his words.
 

@@ -118,6 +118,7 @@ export type Interview = {
   session: number; // N
   title: string;
   point: string; // the session's central point, in Thingy's voice
+  pull: { n: number; words: string }; // the line /interviews/ pulls out for the session: Jamie's words, from question n
   started: DatePrecision;
   ended: DatePrecision;
   notes: string[]; // what is particular about this transcript, so a reader knows

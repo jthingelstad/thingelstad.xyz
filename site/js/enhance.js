@@ -1,5 +1,5 @@
-// What a script adds to pages that already read without one: the arrows on a shelf, and the filter chips over a
-// list. Each list item carries its values in data-filters ("status:active topic:mcp "), and a page's chosen values
+// What a script adds to pages that already read without one: the arrows on a shelf, the current place on a contents
+// rail, and the filter chips over a list. Each list item carries its values in data-filters ("status:active topic:mcp "), and a page's chosen values
 // stay in its address, so a filtered list can be shared (and /topics/<id>/ can redirect to one).
 for (const element of document.querySelectorAll('[data-enhanced]')) element.hidden = false;
 
@@ -13,6 +13,36 @@ for (const shelf of document.querySelectorAll('[data-shelf]')) {
       track.scrollBy({ left: Number(button.dataset.shelfMove) * distance, behavior: motion });
     });
   }
+}
+
+// A contents rail marks the part of the page being read. Without a script it is still a list of links.
+for (const rail of document.querySelectorAll('[data-toc]')) {
+  const links = new Map();
+  for (const link of rail.querySelectorAll('a[href^="#"]')) {
+    const target = document.getElementById(link.getAttribute('href').slice(1));
+    if (target) links.set(target, link);
+  }
+  const mark = (target) => {
+    for (const link of links.values()) {
+      link.classList.toggle('is-current', links.get(target) === link);
+      if (links.get(target) === link) link.setAttribute('aria-current', 'true');
+      else link.removeAttribute('aria-current');
+    }
+  };
+  // The reader's place is the last section begun within the top quarter of the window, in either direction.
+  const inBand = new Set();
+  const seen = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) inBand.add(entry.target);
+        else inBand.delete(entry.target);
+      }
+      const current = [...links.keys()].filter((target) => inBand.has(target)).at(-1);
+      if (current) mark(current);
+    },
+    { rootMargin: '0px 0px -75% 0px' }
+  );
+  for (const target of links.keys()) seen.observe(target);
 }
 
 for (const scope of document.querySelectorAll('[data-filter-scope]')) {

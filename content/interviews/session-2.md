@@ -1,6 +1,9 @@
 ---
 title: 'The long threads'
 point: 'Some ideas won’t stay on the shelf. I asked him to walk me through the ones that kept coming back: Road Sign Math, his links, Your Version Number, the Weekly Thing, Elixir, POAP and the wikis.'
+pull:
+  n: 9
+  words: 'it was that original sign that to me it just seemed obvious that it was math.'
 started: '2026-10-31'
 ended: '2026-10-31'
 notes:

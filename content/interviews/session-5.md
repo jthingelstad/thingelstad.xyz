@@ -1,6 +1,9 @@
 ---
 title: 'Tools, cost, and what’s next'
 point: 'I asked what agents changed, what that costs him, what pattern he sees across the whole registry, and what he hopes is still running in twenty years.'
+pull:
+  n: 31
+  words: 'agentic coding and AI in general makes your impossible list possible.'
 started: '2026-11-01'
 ended: '2026-11-01'
 notes:
