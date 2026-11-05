@@ -29,10 +29,16 @@ for (const rail of document.querySelectorAll('[data-toc]')) {
       else link.removeAttribute('aria-current');
     }
   };
+  // The reader's place is the last section begun within the top quarter of the window, in either direction.
+  const inBand = new Set();
   const seen = new IntersectionObserver(
     (entries) => {
-      const entering = entries.filter((entry) => entry.isIntersecting).at(-1);
-      if (entering) mark(entering.target);
+      for (const entry of entries) {
+        if (entry.isIntersecting) inBand.add(entry.target);
+        else inBand.delete(entry.target);
+      }
+      const current = [...links.keys()].filter((target) => inBand.has(target)).at(-1);
+      if (current) mark(current);
     },
     { rootMargin: '0px 0px -75% 0px' }
   );

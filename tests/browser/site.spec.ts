@@ -656,6 +656,15 @@ test('an interview session is Jamie in his own words: every question has an addr
   await expect(block.locator('a.question-number')).toHaveAttribute('href', `#q${question.n}`);
   // The rail marks where the reader is; a phone has no rail on screen.
   if (!isPhone) await expect(rail.locator(`a[href="#q${question.n}"]`)).toHaveAttribute('aria-current', 'true');
+  if (!isPhone) {
+    // Scrolling back up across a boundary moves the mark back too.
+    const later = first.questions.find((q) => q.n > question.n)!;
+    await page.locator(`#q${later.n}`).evaluate((node) => node.scrollIntoView());
+    await expect(rail.locator(`a[href="#q${later.n}"]`)).toHaveAttribute('aria-current', 'true');
+    await page.evaluate(() => window.scrollBy(0, -innerHeight * 0.4));
+    await expect(rail.locator(`a[href="#q${question.n}"]`)).toHaveAttribute('aria-current', 'true');
+    await page.locator(`#q${question.n}`).evaluate((node) => node.scrollIntoView());
+  }
   // Under it, the things the question is about, as tags that lead to their pages.
   const tags = block.locator('.question-things a.tag');
   await expect(tags).toHaveCount(question.things.length);
