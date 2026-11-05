@@ -1,6 +1,6 @@
 ---
 title: Thingy Model
-summary: A poseable Blender character built from Thingy’s original illustration, with a shared skeleton, four outfits, a screen face with moods, and tools in hand.
+summary: A poseable Blender character built from Thingy’s original illustration, with a shared skeleton, four Scenes and their accessories, a screen face with moods, and a kit that puts him on any site.
 collection: Art & archives
 status: active
 started: '2026-11-01'
@@ -11,6 +11,9 @@ sources:
   - kind: website
     url: https://thingy.thingelstad.xyz/kit/
     role: reference
+  - kind: github
+    repository: jthingelstad/thingy.thingelstad.xyz
+    role: implementation
   - kind: website
     url: https://thingy.thingelstad.com/about/
     role: reference
@@ -24,20 +27,22 @@ connections:
     source: https://thingelstad.xyz/things/thingy-model/#artifacts
   - to: things-ive-built
     label: depicts the keeper of
-    detail: Thingy keeps this site, in the workshop builder’s vest. The model gives him poses and outfits for different settings.
+    detail: Thingy keeps this site, in the workshop builder’s vest. The model gives him poses and Scenes for different settings.
     source: https://thingelstad.xyz/about/
 story:
   color: '#df8541'
   introduction: Thingy, from more than one angle.
   engineering:
     - An editable Blender master holds the body, articulated hands, clothing, props, and a shared 40-bone skeleton.
-    - Four outfits switch on the same rig. The concert outfit replaces the standard ear housings with over-ear headphones.
+    - Four Scenes switch on the same rig. Each declares its accessories, the workshop’s tools, the Outdoors daypack, the Concert headphones, and a new Scene is one more entry in that list.
+    - Taking the headphones off brings the standard ear housings back; the daypack’s straps go with it.
     - The bow tie’s dots and the name badge’s lettering are packed image textures on their surfaces.
-    - The face is an image on the screen. One atlas holds the original expression, the four Ask Thingy moods, and their blinks; a single control picks one.
+    - The face is an image on the screen. One atlas holds the original expression, the four Ask Thingy moods, six more faces, and their blinks; a single control picks one.
     - The antenna’s lens switches on to a heart-red glow, with a light inside it and a halo. Unlit, it stays tangerine.
     - A tool switch puts a screwdriver, hammer, drill, or laptop in hand. Each hand tool has a solved grip and its own carry, show, and work poses.
-    - The coat is brushed felt and the vest worn canvas, with rolled lapels, topstitching, and folds bound to the same skeleton.
-    - The character is published from thingy.thingelstad.xyz, the source of Thingy. Its kit gives a project his persona, model, faces, and component behind one link, and this site’s own stills follow the newest model there.
+    - The coat is brushed felt, the shell a forest twill, the vest worn canvas, and the jacket washed denim, each at a scale the web model’s texture can hold, with topstitching and folds bound to the same skeleton.
+    - The character is published from thingy.thingelstad.xyz, the source of Thingy. Thingy Kit gives a project his persona, model, faces, and component behind one link, and this site’s own stills follow the newest model there.
+    - The site and everything it publishes, the model and print files included, are licensed CC BY-NC 4.0, and its repository is public.
     - Pose assets and short animation studies test waving, sitting, walking, and presenting a laptop. Animator controls and motion still need refinement.
   stack:
     - Blender
@@ -51,7 +56,7 @@ story:
   started: Begun November 2026
   questions:
     - How did Thingy’s illustration become a model?
-    - Which outfits share the same skeleton?
+    - Which Scenes share the same skeleton?
     - What still needs work before animation and printing?
 bundles:
   - id: foundations
@@ -75,6 +80,9 @@ bundles:
   - id: cloth
     title: Cloth with a feel
     caption: A study of why the clothes read flat, then the v0.13 pass that answers it with light, felt, stitching, and folds.
+  - id: scenes
+    title: Scenes and accessories
+    caption: At v0.15 the outfits became Scenes, the pack and headphones came off, and the other three Scenes’ cloth came up to the Library’s.
   - id: two-sites
     title: The librarian and the builder
     caption: The v0.13 checkpoint in the two outfits meant for Jamie’s sites, the librarian for Ask Thingy and the workshop builder for this one.
@@ -210,6 +218,26 @@ artifacts:
     title: Worn canvas and tan thread · v0.13
     caption: The workshop vest shows its weave and wear, with tan topstitching along its edge and pockets. The vest and sleeves fold like the coat.
     date: '2026-11-03'
+  - file: six-new-faces-v014.jpg
+    bundle: screen-face
+    title: Six more faces · v0.14
+    caption: Delighted, curious, proud, eager, sympathetic, and sheepish join the original and the four moods. Each had its meaning settled before it was drawn, using the same stroke and colour as the original.
+    date: '2026-11-03'
+  - file: scenes-v015.jpg
+    bundle: scenes
+    title: The four Scenes · v0.15
+    caption: Library, Outdoors, Workshop, and Concert, in the web model on the page’s lighting. The Library is unchanged from v0.14.
+    date: '2026-11-04'
+  - file: accessories-v015.jpg
+    bundle: scenes
+    title: Accessories that come off · v0.15
+    caption: The daypack on, from the side, and off, from behind; then the Concert headphones on and off, with the standard ears back in place. Before v0.15 these were part of the outfit.
+    date: '2026-11-04'
+  - file: fabric-before-after-v015.jpg
+    bundle: scenes
+    title: The other Scenes’ cloth · v0.14 and v0.15
+    caption: v0.14 above and v0.15 below. Outdoors and Concert gained folds and topstitching, and all three gained a weave coarse enough to survive the web model’s texture.
+    date: '2026-11-04'
   - file: librarian-thinking-v013.png
     bundle: two-sites
     title: The librarian, thinking · v0.13
@@ -218,7 +246,7 @@ artifacts:
   - file: workshop-hammer-v013.png
     bundle: two-sites
     title: The builder with a hammer · v0.13
-    caption: The workshop outfit showing the hammer, with the found-it face. This is the latest modeling checkpoint.
+    caption: The workshop outfit showing the hammer, with the found-it face.
     date: '2026-11-03'
 ---
 
@@ -228,10 +256,14 @@ Jamie described the idea in his interview: [“Thingy should actually be a 3D mo
 
 The first prototype established the clothed character. Then the work went underneath the jacket: shorter mechanical legs, ankle collars, shallower feet, and arms built from the same vocabulary. Later passes returned to the head and hands, separated the shirt from the lapels, lowered the bow tie, and fitted the pockets to the coat. Lighting studies made the navy fabric easier to read. The bow tie’s dots and the badge’s letters became images wrapped onto their surfaces.
 
-Four outfits now share one skeleton. The librarian wears the navy wool coat. The trail companion has a forest-green shell, orange daypack, and folded map. The workshop builder wears an indigo canvas vest and holds a tool: a screwdriver, hammer, drill, or laptop. The concert companion has a charcoal jacket, orange sound-wave shirt, wristband, and over-ear headphones in place of the usual ears. The antenna light can be switched on or off.
+Four Scenes now share one skeleton. In the Library he wears the navy coat. Outdoors he has a forest-green shell, folded map, and an orange daypack that comes off. In the Workshop he wears an indigo canvas vest and can hold a tool: a screwdriver, hammer, drill, or laptop. At a Concert he has a charcoal denim jacket, orange sound-wave shirt, wristband, and over-ear headphones that give way to the usual ears when they come off. The antenna light can be switched on or off.
 
 At v0.10 the standard ears took a continuous tapered shape and moved out to sit against the head’s surface. At v0.11 the face became a picture on the screen. Beside the original expression are the four moods Ask Thingy uses, and the pose and the face are chosen separately: the librarian for Ask Thingy, the workshop builder for this site. At v0.12 the laptop gave way to a switch of tools, each with a grip solved so every finger closes on the handle, and the lit antenna turned heart red.
 
 A study then showed why the clothes read flat. Lights meant to brighten the navy washed it out, and the cloth had no folds, seams, or stitching. The v0.13 pass relit the jacket, gave the coat brushed felt and the vest worn canvas, rolled the lapels, and added topstitching and folds that follow every pose.
 
-The latest checkpoint is v0.13. The rig and short performance studies are working prototypes. More animation controls, facial acting, and clothing adjustments remain, as does preparing and testing a physical print for Jamie’s Bambu P2S. The page keeps the building process; it does not offer a finished print file.
+At v0.14 six more faces joined the moods, each with its meaning settled before it was drawn. At v0.15 the outfits became Scenes, and what he carries became Accessories: the daypack and headphones separated from their outfits, alongside the tools. The same pass gave the other three Scenes a cloth of their own at the scale the web model can hold, with folds and topstitching for Outdoors and Concert, and left the Library alone.
+
+The character lives at [thingy.thingelstad.xyz](https://thingy.thingelstad.xyz/), the source of Thingy. [Thingy Kit](https://thingy.thingelstad.xyz/kit/) gives a project his persona, model, faces, and component behind one link, and following it means a new model reaches every site that does: Ask Thingy and this site both do. Everything there is licensed [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/), and [its repository](https://github.com/jthingelstad/thingy.thingelstad.xyz) is public. The Blender masters stay in a private repository.
+
+The latest checkpoint is v0.15. The rig and short performance studies are working prototypes, and more animation controls, facial acting, and clothing adjustments remain. A one-colour 180 mm [print figure](https://thingy.thingelstad.xyz/print/) for Jamie’s Bambu P2S, made from v0.13, is on the site; it has not been test-printed yet.
