@@ -2,20 +2,21 @@
   "kind": "github",
   "repository": "jthingelstad/elixir-mcp",
   "url": "https://github.com/jthingelstad/elixir-mcp",
-  "observedAt": "2026-11-05T18:43:59.926Z",
+  "observedAt": "2026-11-06T17:57:07.187Z",
   "repositoryCreatedAt": "2026-09-03T14:18:34.000Z",
   "archived": false,
   "description": "Clash Royale history recorder + remote MCP server. Unofficial; not endorsed by Supercell.",
   "stars": 1,
   "forks": 0,
   "languages": [
-    { "name": "JavaScript", "bytes": 10034299 },
-    { "name": "TypeScript", "bytes": 1097079 },
-    { "name": "CSS", "bytes": 172802 },
-    { "name": "Nunjucks", "bytes": 122616 },
+    { "name": "JavaScript", "bytes": 10225453 },
+    { "name": "TypeScript", "bytes": 1148041 },
+    { "name": "CSS", "bytes": 193692 },
+    { "name": "Nunjucks", "bytes": 112753 },
     { "name": "PLpgSQL", "bytes": 15998 },
-    { "name": "Shell", "bytes": 7195 },
-    { "name": "HTML", "bytes": 5417 }
+    { "name": "Shell", "bytes": 7214 },
+    { "name": "HTML", "bytes": 5417 },
+    { "name": "Smarty", "bytes": 1182 }
   ],
   "release": null,
   "activity": [
@@ -23,49 +24,55 @@
       "path": null,
       "branch": "main",
       "since": "2026-08-01T00:00:00.000Z",
-      "until": "2026-11-05T18:43:59.926Z",
+      "until": "2026-11-06T17:57:07.187Z",
       "count": 295,
       "complete": false,
       "months": [
-        { "month": "2026-10", "count": 284 },
-        { "month": "2026-11", "count": 11 }
+        { "month": "2026-10", "count": 239 },
+        { "month": "2026-11", "count": 56 }
       ],
       "latestCommit": {
-        "date": "2026-11-04T22:30:24.000Z",
-        "url": "https://github.com/jthingelstad/elixir-mcp/commit/66b86a95a1581356d8b62fc3f1d5eb16439c4692"
+        "date": "2026-11-06T17:30:50.000Z",
+        "url": "https://github.com/jthingelstad/elixir-mcp/commit/244830bcad8d3719e7de33b92dc8c5e70dd79f95"
       }
     },
     {
       "path": "packages/clan",
       "branch": "main",
       "since": "2026-08-01T00:00:00.000Z",
-      "until": "2026-11-05T18:43:59.926Z",
-      "count": 79,
+      "until": "2026-11-06T17:57:07.187Z",
+      "count": 90,
       "complete": true,
-      "months": [{ "month": "2026-10", "count": 79 }],
+      "months": [
+        { "month": "2026-10", "count": 79 },
+        { "month": "2026-11", "count": 11 }
+      ],
       "latestCommit": {
-        "date": "2026-10-24T16:25:36.000Z",
-        "url": "https://github.com/jthingelstad/elixir-mcp/commit/c986fb4e4a9c4618418b944fb838fdd206ce9984"
+        "date": "2026-11-06T16:15:05.000Z",
+        "url": "https://github.com/jthingelstad/elixir-mcp/commit/a22fc57c9554e87cb2bf60856655e286321651f9"
       }
     },
     {
       "path": "packages/clan-engine",
       "branch": "main",
       "since": "2026-08-01T00:00:00.000Z",
-      "until": "2026-11-05T18:43:59.926Z",
-      "count": 69,
+      "until": "2026-11-06T17:57:07.187Z",
+      "count": 76,
       "complete": true,
-      "months": [{ "month": "2026-10", "count": 69 }],
+      "months": [
+        { "month": "2026-10", "count": 69 },
+        { "month": "2026-11", "count": 7 }
+      ],
       "latestCommit": {
-        "date": "2026-10-21T04:09:57.000Z",
-        "url": "https://github.com/jthingelstad/elixir-mcp/commit/c58e5f64fffbc5476712cfd0e6d3d5f0ec82c23b"
+        "date": "2026-11-06T15:11:52.000Z",
+        "url": "https://github.com/jthingelstad/elixir-mcp/commit/09250214176260ff8c0a555e348ea4c3aa2adae4"
       }
     },
     {
       "path": "packages/clan-state",
       "branch": "main",
       "since": "2026-08-01T00:00:00.000Z",
-      "until": "2026-11-05T18:43:59.926Z",
+      "until": "2026-11-06T17:57:07.187Z",
       "count": 18,
       "complete": true,
       "months": [{ "month": "2026-10", "count": 18 }],
@@ -78,16 +85,16 @@
       "path": "packages/clan-web",
       "branch": "main",
       "since": "2026-08-01T00:00:00.000Z",
-      "until": "2026-11-05T18:43:59.926Z",
-      "count": 78,
+      "until": "2026-11-06T17:57:07.187Z",
+      "count": 92,
       "complete": true,
       "months": [
         { "month": "2026-10", "count": 76 },
-        { "month": "2026-11", "count": 2 }
+        { "month": "2026-11", "count": 16 }
       ],
       "latestCommit": {
-        "date": "2026-11-04T22:30:24.000Z",
-        "url": "https://github.com/jthingelstad/elixir-mcp/commit/66b86a95a1581356d8b62fc3f1d5eb16439c4692"
+        "date": "2026-11-06T16:43:35.000Z",
+        "url": "https://github.com/jthingelstad/elixir-mcp/commit/2becf6a1a5eb1f6a7040debbf9da50421374c572"
       }
     }
   ]

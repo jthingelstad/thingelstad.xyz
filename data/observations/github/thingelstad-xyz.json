@@ -2,7 +2,7 @@
   "kind": "github",
   "repository": "jthingelstad/thingelstad.xyz",
   "url": "https://github.com/jthingelstad/thingelstad.xyz",
-  "observedAt": "2026-11-05T18:43:59.926Z",
+  "observedAt": "2026-11-06T17:57:07.187Z",
   "repositoryCreatedAt": "2026-10-13T16:41:47.000Z",
   "archived": false,
   "description": "Things I've built. Jamie Thingelstad's interactive project gallery.",
@@ -20,16 +20,16 @@
       "path": null,
       "branch": "main",
       "since": "2026-08-01T00:00:00.000Z",
-      "until": "2026-11-05T18:43:59.926Z",
-      "count": 91,
+      "until": "2026-11-06T17:57:07.187Z",
+      "count": 93,
       "complete": true,
       "months": [
         { "month": "2026-10", "count": 67 },
-        { "month": "2026-11", "count": 24 }
+        { "month": "2026-11", "count": 26 }
       ],
       "latestCommit": {
-        "date": "2026-11-05T04:38:04.000Z",
-        "url": "https://github.com/jthingelstad/thingelstad.xyz/commit/3baebfccf6b5cf89c722f4ce47e6753feb1a0538"
+        "date": "2026-11-06T00:20:30.000Z",
+        "url": "https://github.com/jthingelstad/thingelstad.xyz/commit/6573948aa5f56e413675b21670a7ad2c39882974"
       }
     }
   ]

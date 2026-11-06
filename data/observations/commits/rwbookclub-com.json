@@ -2,9 +2,11 @@
   "kind": "commits",
   "repository": "jthingelstad/rwbookclub.com",
   "url": "https://github.com/jthingelstad/rwbookclub.com",
-  "observedAt": "2026-11-03T18:25:46.099Z",
+  "observedAt": "2026-11-06T17:57:07.187Z",
   "branch": "main",
   "commits": [
+    {"sha":"d618495ac78c","date":"2026-11-05T22:44:01.000Z","subject":"Generate .env from a committed template in 1Password","pr":107,"by":"me"},
+    {"sha":"5f9118bc4e5f","date":"2026-11-05T22:36:36.000Z","subject":"Generate .env from a committed template in 1Password","by":"agent","agents":["claude"]},
     {"sha":"aca38ba8bd37","date":"2026-11-03T16:44:20.000Z","subject":"Alarm cut: remove the site 5xx alarm","pr":106,"by":"me"},
     {"sha":"c7a5acbec5bf","date":"2026-11-03T16:38:43.000Z","subject":"Alarm cut: remove the site distribution 5xx alarm","by":"agent","agents":["claude"]},
     {"sha":"8cd6fdcd07d0","date":"2026-11-03T03:35:30.000Z","subject":"Switch to the new Tinylytics embed (#105)","pr":105,"by":"agent","agents":["claude"]},

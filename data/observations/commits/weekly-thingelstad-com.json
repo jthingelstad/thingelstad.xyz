@@ -2,9 +2,12 @@
   "kind": "commits",
   "repository": "jthingelstad/weekly.thingelstad.com",
   "url": "https://github.com/jthingelstad/weekly.thingelstad.com",
-  "observedAt": "2026-11-05T18:43:59.926Z",
+  "observedAt": "2026-11-06T17:57:07.187Z",
   "branch": "main",
   "commits": [
+    {"sha":"af469c898476","date":"2026-11-06T13:22:17.000Z","subject":"Skip the redirect store when the map hasn't changed (#57)","pr":57,"by":"agent","agents":["claude"]},
+    {"sha":"7ba0c18d20a6","date":"2026-11-05T20:19:11.000Z","subject":"Generate .env from a committed template in 1Password (#56)","pr":56,"by":"agent","agents":["claude"]},
+    {"sha":"f3d45a9a877d","date":"2026-11-05T20:18:55.000Z","subject":"Refresh librarian graph","by":"me"},
     {"sha":"79b8f3d6dd96","date":"2026-11-05T13:19:28.000Z","subject":"Refresh librarian graph","by":"me"},
     {"sha":"50052b8e61ea","date":"2026-11-04T21:00:24.000Z","subject":"Restore dead images in WT131, WT211 and WT280 (#55)","pr":55,"by":"agent","agents":["claude"]},
     {"sha":"11dd0520b7a6","date":"2026-11-04T20:17:15.000Z","subject":"Refresh librarian graph","by":"me"},

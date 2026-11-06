@@ -2,9 +2,11 @@
   "kind": "commits",
   "repository": "jthingelstad/nnxyz",
   "url": "https://github.com/jthingelstad/nnxyz",
-  "observedAt": "2026-11-05T18:43:59.926Z",
+  "observedAt": "2026-11-06T17:57:07.187Z",
   "branch": "main",
   "commits": [
+    {"sha":"f7e763ca2c6a","date":"2026-11-05T19:30:43.000Z","subject":"Generate .env from 1Password references","pr":39,"by":"me"},
+    {"sha":"5606971613a0","date":"2026-11-05T19:21:19.000Z","subject":"Generate .env from 1Password references","by":"agent","agents":["claude"]},
     {"sha":"30ec004db357","date":"2026-11-04T19:46:41.000Z","subject":"Docs name the AWS account as <account> (#38)","pr":38,"by":"agent","agents":["claude"]},
     {"sha":"10936206368f","date":"2026-11-04T15:35:45.000Z","subject":"Record that collection and media left the Mac (#37)","pr":37,"by":"agent","agents":["claude"]},
     {"sha":"647d51b0fb63","date":"2026-11-03T17:04:53.000Z","subject":"Retire the nnxyz-site-distribution-5xx alarm","pr":36,"by":"me"},

@@ -2,9 +2,11 @@
   "kind": "commits",
   "repository": "jthingelstad/another.thingelstad.com",
   "url": "https://github.com/jthingelstad/another.thingelstad.com",
-  "observedAt": "2026-11-03T18:25:46.099Z",
+  "observedAt": "2026-11-06T17:57:07.187Z",
   "branch": "main",
   "commits": [
+    {"sha":"4fa5e0d114e3","date":"2026-11-06T13:22:09.000Z","subject":"Skip the redirect store when the map hasn't changed","pr":21,"by":"me"},
+    {"sha":"8e79118a0e28","date":"2026-11-06T13:13:37.000Z","subject":"Skip the redirect store when the map hasn't changed","by":"agent","agents":["claude"]},
     {"sha":"9b3901466ca6","date":"2026-11-03T16:54:59.000Z","subject":"Retire the another-site-distribution-5xx alarm","pr":20,"by":"me"},
     {"sha":"c95242686aae","date":"2026-11-03T16:44:32.000Z","subject":"Retire the another-site-distribution-5xx alarm","by":"agent","agents":["claude"]},
     {"sha":"149e0dd96647","date":"2026-11-03T03:30:08.000Z","subject":"Load Tinylytics through the new shared script (#19)","pr":19,"by":"agent","agents":["claude"]},
