@@ -1,3 +1,11 @@
+- id: terabyte-server-built
+  date: 2004-04-02
+  kind: launch
+  title: Project Terabyte
+  summary: Jamie writes up the home server he built with 1.4 terabytes of disk, and the four hiccups along the way.
+  source: https://www.thingelstad.com/2004/04/02/project-terabyte.html
+  things:
+    - terabyte-server
 - id: blog-start
   date: 2004-06-02
   kind: launch
@@ -6,3 +14,11 @@
   source: https://www.thingelstad.com/2025/01/12/if-i-was-born-and.html
   things:
     - jamie-thingelstad-blog
+- id: teraserver-music-complete
+  date: 2004-06-26
+  kind: milestone
+  title: All the music on the Teraserver
+  summary: Nearly 1,000 CDs and then the vinyl are ripped and tagged, and Jamie calls the project complete.
+  source: https://www.thingelstad.com/2004/06/26/music-nirvana-achieved.html
+  things:
+    - terabyte-server

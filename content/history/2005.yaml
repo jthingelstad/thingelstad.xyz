@@ -1,3 +1,12 @@
+- id: terabyte-server-rebuilt
+  date: 2005-01-30
+  kind: milestone
+  title: The Terabyte Server rebuilt
+  summary: Jamie fills all eight ports on the RAID card and splits the system from the storage, with thingelstad.com down for the weekend.
+  source: https://www.thingelstad.com/2005/01/30/thingelstadcom-server-rebuilt.html
+  things:
+    - terabyte-server
+    - jamie-thingelstad-blog
 - id: road-sign-math-launch
   date: 2005-02-13
   kind: launch

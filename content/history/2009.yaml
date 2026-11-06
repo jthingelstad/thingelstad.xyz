@@ -6,6 +6,14 @@
   source: https://www.thingelstad.com/2009/03/24/my-robot-returns.html
   things:
     - thinglesbot
+- id: tetris-shower
+  date: 2009-05-03
+  kind: launch
+  title: The Tetris Shower
+  summary: Jamie shows the retiled downstairs shower, a game in progress with every piece whole and no row complete.
+  source: https://www.thingelstad.com/2009/05/03/tetris-shower.html
+  things:
+    - tetris-shower
 - id: velotweets-launch
   date: 2009-05-10
   kind: launch
