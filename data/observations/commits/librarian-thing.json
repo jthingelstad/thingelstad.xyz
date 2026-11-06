@@ -2,9 +2,11 @@
   "kind": "commits",
   "repository": "jthingelstad/librarian-thing",
   "url": "https://github.com/jthingelstad/librarian-thing",
-  "observedAt": "2026-11-05T18:43:59.926Z",
+  "observedAt": "2026-11-06T17:57:07.187Z",
   "branch": "main",
   "commits": [
+    {"sha":"1412c3f40ddd","date":"2026-11-05T22:44:06.000Z","subject":"Generate .env from a committed template in 1Password","pr":131,"by":"me"},
+    {"sha":"5d7371bf68c1","date":"2026-11-05T22:36:41.000Z","subject":"Generate .env from a committed template in 1Password","by":"agent","agents":["claude"]},
     {"sha":"e7b02b0e0730","date":"2026-11-05T16:27:50.000Z","subject":"Rerank the tool-surface eval only when search or a corpus can have moved","pr":130,"by":"me"},
     {"sha":"617ad898e550","date":"2026-11-05T16:25:56.000Z","subject":"Eval step comment states the reason plainly","by":"agent","agents":["claude"]},
     {"sha":"bb69c79ff7b9","date":"2026-11-05T16:25:34.000Z","subject":"Rerank the tool-surface eval only when search or a corpus can have moved","by":"agent","agents":["claude"]},

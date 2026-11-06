@@ -2,9 +2,11 @@
   "kind": "commits",
   "repository": "jthingelstad/wt-builder",
   "url": "https://github.com/jthingelstad/wt-builder",
-  "observedAt": "2026-11-05T18:43:59.926Z",
+  "observedAt": "2026-11-06T17:57:07.187Z",
   "branch": "main",
   "commits": [
+    {"sha":"f5b131115bb0","date":"2026-11-05T22:44:12.000Z","subject":"Generate .env from a committed template in 1Password","pr":17,"by":"me"},
+    {"sha":"36e8dfcaf39c","date":"2026-11-05T22:36:45.000Z","subject":"Generate .env from a committed template in 1Password","by":"agent","agents":["claude"]},
     {"sha":"94ff13fa8f1e","date":"2026-11-04T19:42:50.000Z","subject":"Gift email names the member benefits (#16)","pr":16,"by":"agent","agents":["claude"]},
     {"sha":"70cbe7c3ccbd","date":"2026-11-04T19:32:01.000Z","subject":"Gifted subscribers get the member branch of the Membership section (#15)","pr":15,"by":"agent","agents":["claude"]},
     {"sha":"2ff3ee5f5612","date":"2026-11-04T10:15:31.000Z","subject":"npm run deploy fails unless the service came back on a new PID and a port","by":"agent","agents":["claude"]},

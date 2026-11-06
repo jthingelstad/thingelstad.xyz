@@ -2,9 +2,11 @@
   "kind": "commits",
   "repository": "jthingelstad/poapkings.com",
   "url": "https://github.com/jthingelstad/poapkings.com",
-  "observedAt": "2026-11-05T18:43:59.926Z",
+  "observedAt": "2026-11-06T17:57:07.187Z",
   "branch": "main",
   "commits": [
+    {"sha":"85e3774fa6b1","date":"2026-11-06T13:22:13.000Z","subject":"Skip the redirect store when the map hasn't changed","by":"agent","agents":["claude"]},
+    {"sha":"51a9596777f8","date":"2026-11-05T20:18:59.000Z","subject":"Generate .env from a committed template in 1Password","by":"agent","agents":["claude"]},
     {"sha":"b72c2b960ac2","date":"2026-11-05T00:15:53.000Z","subject":"Refresh Clash Royale data","by":"agent"},
     {"sha":"1a4ba6fc73c8","date":"2026-11-03T16:43:13.000Z","subject":"Remove the site's 5xx alarm","by":"agent","agents":["claude"]},
     {"sha":"20406b160c35","date":"2026-11-03T03:51:13.000Z","subject":"Switch Tinylytics to the one script.js embed","by":"agent","agents":["claude"]},

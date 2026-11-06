@@ -2,9 +2,11 @@
   "kind": "commits",
   "repository": "jthingelstad/thingelstad.xyz",
   "url": "https://github.com/jthingelstad/thingelstad.xyz",
-  "observedAt": "2026-11-05T18:43:59.926Z",
+  "observedAt": "2026-11-06T17:57:07.187Z",
   "branch": "main",
   "commits": [
+    {"sha":"6573948aa5f5","date":"2026-11-06T00:20:30.000Z","subject":"Add the Terabyte Server and the Tetris Shower (#118)","pr":118,"by":"agent","agents":["claude"]},
+    {"sha":"33912c138911","date":"2026-11-05T19:49:07.000Z","subject":"Bring the Thingy Model record up to v0.17 and seven Scenes (#117)","pr":117,"by":"agent","agents":["claude"]},
     {"sha":"3baebfccf6b5","date":"2026-11-05T04:38:04.000Z","subject":"Editorial pass: clean up Jamie's spoken answers and tighten the site's copy (#115)","pr":115,"by":"agent","agents":["claude"]},
     {"sha":"1f14f0da5269","date":"2026-11-05T03:35:44.000Z","subject":"Split the site model's outputs out of site.ts (#114)","pr":114,"by":"agent","agents":["claude"]},
     {"sha":"31ab73ac9a18","date":"2026-11-05T03:30:28.000Z","subject":"Add the first print to the Thingy Model entry (#113)","pr":113,"by":"agent","agents":["claude"]},

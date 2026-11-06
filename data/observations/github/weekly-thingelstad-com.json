@@ -2,17 +2,18 @@
   "kind": "github",
   "repository": "jthingelstad/weekly.thingelstad.com",
   "url": "https://github.com/jthingelstad/weekly.thingelstad.com",
-  "observedAt": "2026-11-05T18:43:59.926Z",
+  "observedAt": "2026-11-06T17:57:07.187Z",
   "repositoryCreatedAt": "2026-04-07T23:18:30.000Z",
   "archived": false,
   "description": "Public website and archive for The Weekly Thing, Jamie Thingelstad's weekend newsletter since 2017 — a render surface of the Studio publishing brain.",
   "stars": 2,
   "forks": 2,
   "languages": [
-    { "name": "JavaScript", "bytes": 154363 },
+    { "name": "JavaScript", "bytes": 164671 },
     { "name": "Nunjucks", "bytes": 147500 },
     { "name": "CSS", "bytes": 95213 },
-    { "name": "Makefile", "bytes": 1192 }
+    { "name": "Makefile", "bytes": 1192 },
+    { "name": "Smarty", "bytes": 311 }
   ],
   "release": null,
   "activity": [
@@ -20,18 +21,18 @@
       "path": null,
       "branch": "main",
       "since": "2026-08-01T00:00:00.000Z",
-      "until": "2026-11-05T18:43:59.926Z",
-      "count": 249,
+      "until": "2026-11-06T17:57:07.187Z",
+      "count": 252,
       "complete": true,
       "months": [
         { "month": "2026-08", "count": 15 },
         { "month": "2026-09", "count": 57 },
         { "month": "2026-10", "count": 152 },
-        { "month": "2026-11", "count": 25 }
+        { "month": "2026-11", "count": 28 }
       ],
       "latestCommit": {
-        "date": "2026-11-05T13:19:28.000Z",
-        "url": "https://github.com/jthingelstad/weekly.thingelstad.com/commit/79b8f3d6dd960fd30ab106c137bf47149b0cb555"
+        "date": "2026-11-06T13:22:17.000Z",
+        "url": "https://github.com/jthingelstad/weekly.thingelstad.com/commit/af469c8984768da2b378523e4ce88add25895f59"
       }
     }
   ]

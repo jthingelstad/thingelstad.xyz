@@ -2,9 +2,12 @@
   "kind": "commits",
   "repository": "jthingelstad/links.thingelstad.xyz",
   "url": "https://github.com/jthingelstad/links.thingelstad.xyz",
-  "observedAt": "2026-11-05T18:43:59.926Z",
+  "observedAt": "2026-11-06T17:57:07.187Z",
   "branch": "main",
   "commits": [
+    {"sha":"8b06b190da32","date":"2026-11-06T08:04:55.000Z","subject":"Nightly: sync and enrichment, 2026-11-06","by":"agent"},
+    {"sha":"df20ec59eeb8","date":"2026-11-05T19:30:38.000Z","subject":"Generate .env from 1Password references","pr":53,"by":"me"},
+    {"sha":"14fbcfbd448c","date":"2026-11-05T19:21:16.000Z","subject":"Generate .env from 1Password references","by":"agent","agents":["claude"]},
     {"sha":"0ca8ee4c8d7f","date":"2026-11-05T08:03:29.000Z","subject":"Nightly: sync and enrichment, 2026-11-05","by":"agent"},
     {"sha":"a6ea93a9d6b2","date":"2026-11-04T19:57:54.000Z","subject":"Docs name the AWS account as <account> (#52)","pr":52,"by":"agent","agents":["claude"]},
     {"sha":"845164b8456c","date":"2026-11-04T08:07:49.000Z","subject":"Nightly: sync and enrichment, 2026-11-04","by":"agent"},
