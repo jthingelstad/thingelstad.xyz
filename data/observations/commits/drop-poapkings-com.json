@@ -2,9 +2,10 @@
   "kind": "commits",
   "repository": "jthingelstad/drop.poapkings.com",
   "url": "https://github.com/jthingelstad/drop.poapkings.com",
-  "observedAt": "2026-11-06T17:57:07.187Z",
+  "observedAt": "2026-11-07T16:50:24.582Z",
   "branch": "main",
   "commits": [
+    {"sha":"3c80e7a8ad92","date":"2026-11-07T03:28:37.000Z","subject":"Build Rain's tiles without innerHTML","by":"agent","agents":["claude"]},
     {"sha":"42b27ba9722c","date":"2026-11-05T22:43:40.000Z","subject":"Generate .env from a committed template in 1Password","by":"agent","agents":["claude"]},
     {"sha":"f41277176ec5","date":"2026-11-04T16:27:37.000Z","subject":"Move Drop's credentials to the runtime secret only, and fail closed","by":"agent","agents":["claude"]},
     {"sha":"2ccdeb28217e","date":"2026-11-03T16:42:00.000Z","subject":"Keep one CloudWatch alarm: refresh age","by":"agent","agents":["claude"]},

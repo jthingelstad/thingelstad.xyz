@@ -2,16 +2,17 @@
   "kind": "github",
   "repository": "jthingelstad/things4good.xyz",
   "url": "https://github.com/jthingelstad/things4good.xyz",
-  "observedAt": "2026-11-06T17:57:07.187Z",
+  "observedAt": "2026-11-07T16:50:24.582Z",
   "repositoryCreatedAt": "2026-06-04T03:37:10.000Z",
   "archived": false,
   "description": "Things 4 Good — a handmade candle fundraiser site. Built with Eleventy.",
   "stars": 1,
   "forks": 0,
   "languages": [
-    { "name": "Nunjucks", "bytes": 115242 },
-    { "name": "CSS", "bytes": 70761 },
-    { "name": "JavaScript", "bytes": 63252 }
+    { "name": "JavaScript", "bytes": 175822 },
+    { "name": "Nunjucks", "bytes": 166187 },
+    { "name": "CSS", "bytes": 75827 },
+    { "name": "Smarty", "bytes": 430 }
   ],
   "release": null,
   "activity": [
@@ -19,18 +20,18 @@
       "path": null,
       "branch": "main",
       "since": "2026-08-01T00:00:00.000Z",
-      "until": "2026-11-06T17:57:07.187Z",
-      "count": 43,
+      "until": "2026-11-07T16:50:24.582Z",
+      "count": 62,
       "complete": true,
       "months": [
         { "month": "2026-08", "count": 2 },
         { "month": "2026-09", "count": 2 },
         { "month": "2026-10", "count": 14 },
-        { "month": "2026-11", "count": 25 }
+        { "month": "2026-11", "count": 44 }
       ],
       "latestCommit": {
-        "date": "2026-11-06T14:53:50.000Z",
-        "url": "https://github.com/jthingelstad/things4good.xyz/commit/85f856abeb51ce6da1925c44b729449aef196fda"
+        "date": "2026-11-07T15:02:50.000Z",
+        "url": "https://github.com/jthingelstad/things4good.xyz/commit/f037efd6391e052e31f06cd89305c4520c61ee39"
       }
     }
   ]

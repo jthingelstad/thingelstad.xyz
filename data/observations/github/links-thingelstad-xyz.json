@@ -2,7 +2,7 @@
   "kind": "github",
   "repository": "jthingelstad/links.thingelstad.xyz",
   "url": "https://github.com/jthingelstad/links.thingelstad.xyz",
-  "observedAt": "2026-11-06T17:57:07.187Z",
+  "observedAt": "2026-11-07T16:50:24.582Z",
   "repositoryCreatedAt": "2026-10-23T20:39:28.000Z",
   "archived": false,
   "description": "Linking Things: every link Jamie has saved since 2005, searchable and connected.",
@@ -23,16 +23,16 @@
       "path": null,
       "branch": "main",
       "since": "2026-08-01T00:00:00.000Z",
-      "until": "2026-11-06T17:57:07.187Z",
-      "count": 160,
+      "until": "2026-11-07T16:50:24.582Z",
+      "count": 161,
       "complete": true,
       "months": [
         { "month": "2026-10", "count": 146 },
-        { "month": "2026-11", "count": 14 }
+        { "month": "2026-11", "count": 15 }
       ],
       "latestCommit": {
-        "date": "2026-11-06T08:04:55.000Z",
-        "url": "https://github.com/jthingelstad/links.thingelstad.xyz/commit/8b06b190da32e2f1284ad4660540629b15cad12d"
+        "date": "2026-11-07T08:09:24.000Z",
+        "url": "https://github.com/jthingelstad/links.thingelstad.xyz/commit/335f78bbd4c0a6c07122141c942abd09d0cbb8e4"
       }
     }
   ]

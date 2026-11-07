@@ -2,9 +2,11 @@
   "kind": "commits",
   "repository": "jthingelstad/roadsignmath-ios",
   "url": "https://github.com/jthingelstad/roadsignmath-ios",
-  "observedAt": "2026-11-03T18:25:46.099Z",
+  "observedAt": "2026-11-07T16:50:24.582Z",
   "branch": "main",
   "commits": [
+    {"sha":"4818485c7617","date":"2026-11-07T15:09:57.000Z","subject":"Sign-in mentions the newsletter; privacy manifest; asc.swift (#38)","pr":38,"by":"agent","agents":["claude"]},
+    {"sha":"1e7552c181c8","date":"2026-11-07T14:07:36.000Z","subject":"Show year badges and add Report a duplicate (#37)","pr":37,"by":"agent","agents":["claude"]},
     {"sha":"4c5e946e5e44","date":"2026-11-03T16:51:40.000Z","subject":"Settings: Follow, the Mastodon and Bluesky accounts new signs go to","by":"agent","agents":["claude"]},
     {"sha":"2332739eeb00","date":"2026-11-01T06:47:44.000Z","subject":"The Highway identity: icon, logo and four alternate icons (#35)","pr":35,"by":"agent","agents":["claude"]},
     {"sha":"5a5dccc6b47a","date":"2026-11-01T03:47:13.000Z","subject":"QA before 0.9.0: text the server's way, larger text, and the bug read's fixes (#34)","pr":34,"by":"agent","agents":["claude"]},

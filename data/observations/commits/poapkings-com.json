@@ -2,9 +2,12 @@
   "kind": "commits",
   "repository": "jthingelstad/poapkings.com",
   "url": "https://github.com/jthingelstad/poapkings.com",
-  "observedAt": "2026-11-06T17:57:07.187Z",
+  "observedAt": "2026-11-07T16:50:24.582Z",
   "branch": "main",
   "commits": [
+    {"sha":"85764f8909d9","date":"2026-11-07T13:05:03.000Z","subject":"Star bursts load PixiJS's eval-free path under the script policy","by":"agent","agents":["claude"]},
+    {"sha":"e00518d1c336","date":"2026-11-07T03:32:10.000Z","subject":"Match script tags in any case in the inline-script test","by":"agent","agents":["claude"]},
+    {"sha":"c30c485787f3","date":"2026-11-07T03:26:20.000Z","subject":"Test the site with hostile names and add a script policy","by":"agent","agents":["claude"]},
     {"sha":"85e3774fa6b1","date":"2026-11-06T13:22:13.000Z","subject":"Skip the redirect store when the map hasn't changed","by":"agent","agents":["claude"]},
     {"sha":"51a9596777f8","date":"2026-11-05T20:18:59.000Z","subject":"Generate .env from a committed template in 1Password","by":"agent","agents":["claude"]},
     {"sha":"b72c2b960ac2","date":"2026-11-05T00:15:53.000Z","subject":"Refresh Clash Royale data","by":"agent"},
