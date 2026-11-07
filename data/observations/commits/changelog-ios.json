@@ -2,9 +2,11 @@
   "kind": "commits",
   "repository": "jthingelstad/changelog-ios",
   "url": "https://github.com/jthingelstad/changelog-ios",
-  "observedAt": "2026-11-06T17:57:07.187Z",
+  "observedAt": "2026-11-07T16:50:24.582Z",
   "branch": "main",
   "commits": [
+    {"sha":"cf10f9ed58c7","date":"2026-11-06T23:48:28.000Z","subject":"Check-ins: a Check In control and a map of where you've stopped (#49)","pr":49,"by":"agent","agents":["claude"]},
+    {"sha":"5e9a3bebbf8d","date":"2026-11-06T19:27:21.000Z","subject":"Check-ins: Changelog sends the places you stop to Release Notes (#48)","pr":48,"by":"agent","agents":["claude"]},
     {"sha":"00914142502f","date":"2026-11-06T05:10:10.000Z","subject":"A test of iOS Visits for Breakpoints, on the phone only (#47)","pr":47,"by":"agent","agents":["claude"]},
     {"sha":"ebc7a2939fda","date":"2026-11-06T04:06:16.000Z","subject":"Activity rows open their notes; Upcoming counts down, by month (#46)","pr":46,"by":"agent","agents":["claude"]},
     {"sha":"abb9464a722c","date":"2026-11-06T01:36:04.000Z","subject":"Changelog reads your notes: a Notes tab on notes:all, with an optional lock (#45)","pr":45,"by":"agent","agents":["claude"]},

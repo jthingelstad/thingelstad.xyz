@@ -1,12 +1,12 @@
 {
   "kind": "web",
   "url": "https://things4good.xyz/",
-  "observedAt": "2026-11-06T17:57:07.187Z",
+  "observedAt": "2026-11-07T16:50:24.582Z",
   "sitemap": {
     "url": "https://things4good.xyz/sitemap.xml",
-    "pages": 16,
-    "newestModified": "2026-11-06T14:53:50.000Z",
-    "months": [{ "month": "2026-11", "count": 16 }],
+    "pages": 17,
+    "newestModified": "2026-11-07T15:02:50.000Z",
+    "months": [{ "month": "2026-11", "count": 17 }],
     "complete": true
   },
   "feed": null
