@@ -2,7 +2,7 @@
   "kind": "github",
   "repository": "jthingelstad/elixir-mcp",
   "url": "https://github.com/jthingelstad/elixir-mcp",
-  "observedAt": "2026-11-07T16:50:24.582Z",
+  "observedAt": "2026-11-08T17:01:57.748Z",
   "repositoryCreatedAt": "2026-09-03T14:18:34.000Z",
   "archived": false,
   "description": "Clash Royale history recorder + remote MCP server. Unofficial; not endorsed by Supercell.",
@@ -24,23 +24,23 @@
       "path": null,
       "branch": "main",
       "since": "2026-08-01T00:00:00.000Z",
-      "until": "2026-11-07T16:50:24.582Z",
+      "until": "2026-11-08T17:01:57.748Z",
       "count": 295,
       "complete": false,
       "months": [
-        { "month": "2026-10", "count": 227 },
-        { "month": "2026-11", "count": 68 }
+        { "month": "2026-10", "count": 226 },
+        { "month": "2026-11", "count": 69 }
       ],
       "latestCommit": {
-        "date": "2026-11-07T13:24:19.000Z",
-        "url": "https://github.com/jthingelstad/elixir-mcp/commit/1d473fae8c30619b275017c073f9bf956e1b3b0c"
+        "date": "2026-11-08T00:14:01.000Z",
+        "url": "https://github.com/jthingelstad/elixir-mcp/commit/b9560cfbc69b220658f95340630961a666ae7826"
       }
     },
     {
       "path": "packages/clan",
       "branch": "main",
       "since": "2026-08-01T00:00:00.000Z",
-      "until": "2026-11-07T16:50:24.582Z",
+      "until": "2026-11-08T17:01:57.748Z",
       "count": 92,
       "complete": true,
       "months": [
@@ -56,7 +56,7 @@
       "path": "packages/clan-engine",
       "branch": "main",
       "since": "2026-08-01T00:00:00.000Z",
-      "until": "2026-11-07T16:50:24.582Z",
+      "until": "2026-11-08T17:01:57.748Z",
       "count": 78,
       "complete": true,
       "months": [
@@ -72,7 +72,7 @@
       "path": "packages/clan-state",
       "branch": "main",
       "since": "2026-08-01T00:00:00.000Z",
-      "until": "2026-11-07T16:50:24.582Z",
+      "until": "2026-11-08T17:01:57.748Z",
       "count": 18,
       "complete": true,
       "months": [{ "month": "2026-10", "count": 18 }],
@@ -85,7 +85,7 @@
       "path": "packages/clan-web",
       "branch": "main",
       "since": "2026-08-01T00:00:00.000Z",
-      "until": "2026-11-07T16:50:24.582Z",
+      "until": "2026-11-08T17:01:57.748Z",
       "count": 93,
       "complete": true,
       "months": [
