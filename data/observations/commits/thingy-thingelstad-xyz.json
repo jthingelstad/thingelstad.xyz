@@ -2,9 +2,12 @@
   "kind": "commits",
   "repository": "jthingelstad/thingy.thingelstad.xyz",
   "url": "https://github.com/jthingelstad/thingy.thingelstad.xyz",
-  "observedAt": "2026-11-07T16:50:24.582Z",
+  "observedAt": "2026-11-08T17:01:57.748Z",
   "branch": "main",
   "commits": [
+    {"sha":"5b5cb1fe414d","date":"2026-11-08T16:12:06.000Z","subject":"Persona: how Thingy sounds, and a meaning for every scene","pr":30,"by":"me"},
+    {"sha":"ffacd663085d","date":"2026-11-08T15:39:02.000Z","subject":"Thingy goes where Jamie goes","by":"agent","agents":["claude"]},
+    {"sha":"229508119971","date":"2026-11-08T10:21:53.000Z","subject":"Show how Thingy sounds, and give every scene a meaning","by":"agent","agents":["claude"]},
     {"sha":"8bc8e6b251b3","date":"2026-11-06T19:50:10.000Z","subject":"Make Thingy host of the Weekly Thing's Members page","pr":28,"by":"me"},
     {"sha":"7178ef715799","date":"2026-11-06T19:46:46.000Z","subject":"Make Thingy host of the Weekly Thing's Members page","by":"agent","agents":["claude"]},
     {"sha":"3a1ccee285c5","date":"2026-11-06T00:24:25.000Z","subject":"Studio: every control out on desktop, and no big Thingy while loading","pr":27,"by":"me"},

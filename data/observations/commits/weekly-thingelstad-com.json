@@ -2,9 +2,10 @@
   "kind": "commits",
   "repository": "jthingelstad/weekly.thingelstad.com",
   "url": "https://github.com/jthingelstad/weekly.thingelstad.com",
-  "observedAt": "2026-11-07T16:50:24.582Z",
+  "observedAt": "2026-11-08T17:01:57.748Z",
   "branch": "main",
   "commits": [
+    {"sha":"173b484fee1c","date":"2026-11-08T16:51:09.000Z","subject":"Refresh librarian graph","by":"me"},
     {"sha":"bf8618e97ddf","date":"2026-11-07T12:57:13.000Z","subject":"FAQ and Subscribed: \"every weekend\", as the rest of the site says","pr":61,"by":"me"},
     {"sha":"e4ad6522b793","date":"2026-11-07T12:55:38.000Z","subject":"FAQ and Subscribed: \"every weekend\", as the rest of the site says","by":"agent","agents":["claude"]},
     {"sha":"875a56ca9178","date":"2026-11-06T21:14:33.000Z","subject":"Restore \"every weekend\" on Home and About, \"this weekend\" on Confirmed","pr":60,"by":"me"},

@@ -2,9 +2,11 @@
   "kind": "commits",
   "repository": "jthingelstad/librarian-thing",
   "url": "https://github.com/jthingelstad/librarian-thing",
-  "observedAt": "2026-11-07T16:50:24.582Z",
+  "observedAt": "2026-11-08T17:01:57.748Z",
   "branch": "main",
   "commits": [
+    {"sha":"997061c5f560","date":"2026-11-08T16:22:49.000Z","subject":"Thingy goes where Jamie goes, and his example answer is true","pr":134,"by":"me"},
+    {"sha":"d3c3e85b5c3a","date":"2026-11-08T16:21:08.000Z","subject":"Thingy goes where Jamie goes, and his example answer is true","by":"agent","agents":["claude"]},
     {"sha":"1a7af9213a4e","date":"2026-11-07T12:57:20.000Z","subject":"FAQ: \"Every weekend\" in the schedule answer, as weekly says","pr":133,"by":"me"},
     {"sha":"51b17d0e6a4e","date":"2026-11-07T12:55:38.000Z","subject":"FAQ: \"Every weekend\" in the schedule answer, as weekly's copy says","by":"agent","agents":["claude"]},
     {"sha":"82011f447b86","date":"2026-11-06T20:00:44.000Z","subject":"FAQ: the facts the Weekly Thing's audit corrected, and full years","pr":132,"by":"me"},

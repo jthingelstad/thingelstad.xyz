@@ -2,7 +2,7 @@
   "kind": "github",
   "repository": "jthingelstad/thingy.thingelstad.xyz",
   "url": "https://github.com/jthingelstad/thingy.thingelstad.xyz",
-  "observedAt": "2026-11-07T16:50:24.582Z",
+  "observedAt": "2026-11-08T17:01:57.748Z",
   "repositoryCreatedAt": "2026-11-02T00:04:20.000Z",
   "archived": false,
   "description": "Thingy's home: his persona, 3D model, stills and the kit for using them. Licensed CC BY-NC 4.0.",
@@ -21,13 +21,13 @@
       "path": null,
       "branch": "main",
       "since": "2026-08-01T00:00:00.000Z",
-      "until": "2026-11-07T16:50:24.582Z",
-      "count": 95,
+      "until": "2026-11-08T17:01:57.748Z",
+      "count": 98,
       "complete": true,
-      "months": [{ "month": "2026-11", "count": 95 }],
+      "months": [{ "month": "2026-11", "count": 98 }],
       "latestCommit": {
-        "date": "2026-11-06T19:50:10.000Z",
-        "url": "https://github.com/jthingelstad/thingy.thingelstad.xyz/commit/8bc8e6b251b38055508c1908a3482b3db365a084"
+        "date": "2026-11-08T16:12:06.000Z",
+        "url": "https://github.com/jthingelstad/thingy.thingelstad.xyz/commit/5b5cb1fe414da0edfa7eb9afbc34cc3b3aae40fa"
       }
     }
   ]
