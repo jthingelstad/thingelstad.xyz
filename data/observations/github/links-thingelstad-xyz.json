@@ -2,7 +2,7 @@
   "kind": "github",
   "repository": "jthingelstad/links.thingelstad.xyz",
   "url": "https://github.com/jthingelstad/links.thingelstad.xyz",
-  "observedAt": "2026-11-08T17:01:57.748Z",
+  "observedAt": "2026-11-09T21:26:11.591Z",
   "repositoryCreatedAt": "2026-10-23T20:39:28.000Z",
   "archived": false,
   "description": "Linking Things: every link Jamie has saved since 2005, searchable and connected.",
@@ -11,10 +11,10 @@
   "languages": [
     { "name": "Python", "bytes": 611055 },
     { "name": "TypeScript", "bytes": 378299 },
-    { "name": "JavaScript", "bytes": 344554 },
+    { "name": "JavaScript", "bytes": 344790 },
     { "name": "Astro", "bytes": 136651 },
     { "name": "CSS", "bytes": 71255 },
-    { "name": "Shell", "bytes": 9830 },
+    { "name": "Shell", "bytes": 9827 },
     { "name": "Smarty", "bytes": 378 }
   ],
   "release": null,
@@ -23,16 +23,16 @@
       "path": null,
       "branch": "main",
       "since": "2026-08-01T00:00:00.000Z",
-      "until": "2026-11-08T17:01:57.748Z",
-      "count": 162,
+      "until": "2026-11-09T21:26:11.591Z",
+      "count": 164,
       "complete": true,
       "months": [
         { "month": "2026-10", "count": 146 },
-        { "month": "2026-11", "count": 16 }
+        { "month": "2026-11", "count": 18 }
       ],
       "latestCommit": {
-        "date": "2026-11-08T08:02:53.000Z",
-        "url": "https://github.com/jthingelstad/links.thingelstad.xyz/commit/7f2fab5b267484f712a5360c2f4dad77d40e538e"
+        "date": "2026-11-09T12:45:27.000Z",
+        "url": "https://github.com/jthingelstad/links.thingelstad.xyz/commit/7e9d602c96e25f0055e58a336dc906ccb087b390"
       }
     }
   ]

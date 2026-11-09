@@ -2,9 +2,11 @@
   "kind": "commits",
   "repository": "jthingelstad/things4good.xyz",
   "url": "https://github.com/jthingelstad/things4good.xyz",
-  "observedAt": "2026-11-08T17:01:57.748Z",
+  "observedAt": "2026-11-09T21:26:11.591Z",
   "branch": "main",
   "commits": [
+    {"sha":"67002f01acf0","date":"2026-11-09T20:30:03.000Z","subject":"Order form: pay with Venmo right from the done screen (#65)","pr":65,"by":"agent","agents":["claude"]},
+    {"sha":"fc365f04fbeb","date":"2026-11-09T20:21:57.000Z","subject":"Open the leftovers week: online orders through Nov 16 (#64)","pr":64,"by":"agent","agents":["claude"]},
     {"sha":"2a1e1869d836","date":"2026-11-08T03:37:36.000Z","subject":"Maker Night seats: the hourly clock moves to Dagu on Otto (#62)","pr":62,"by":"agent","agents":["claude"]},
     {"sha":"d119d275056f","date":"2026-11-08T02:50:53.000Z","subject":"Order form: a check-the-box hint, and opt-in browser tests (#63)","pr":63,"by":"agent","agents":["claude"]},
     {"sha":"ab067a9b29be","date":"2026-11-08T01:50:01.000Z","subject":"Order form: works on older phones, and never fails without a word (#61)","pr":61,"by":"agent","agents":["claude"]},

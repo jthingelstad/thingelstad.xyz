@@ -2,16 +2,16 @@
   "kind": "github",
   "repository": "jthingelstad/yvn-release-notes",
   "url": "https://github.com/jthingelstad/yvn-release-notes",
-  "observedAt": "2026-11-08T17:01:57.748Z",
+  "observedAt": "2026-11-09T21:26:11.591Z",
   "repositoryCreatedAt": "2026-10-07T10:00:44.000Z",
   "archived": false,
   "description": "Release Notes: a daily version-number email from Your Version Number; replies become the day's notes",
   "stars": 2,
   "forks": 0,
   "languages": [
-    { "name": "TypeScript", "bytes": 3773766 },
-    { "name": "JavaScript", "bytes": 149118 },
-    { "name": "CSS", "bytes": 63847 },
+    { "name": "TypeScript", "bytes": 3937534 },
+    { "name": "JavaScript", "bytes": 151602 },
+    { "name": "CSS", "bytes": 65562 },
     { "name": "Shell", "bytes": 25966 },
     { "name": "Typst", "bytes": 18206 },
     { "name": "HTML", "bytes": 2578 }
@@ -22,16 +22,16 @@
       "path": null,
       "branch": "main",
       "since": "2026-08-01T00:00:00.000Z",
-      "until": "2026-11-08T17:01:57.748Z",
-      "count": 298,
+      "until": "2026-11-09T21:26:11.591Z",
+      "count": 297,
       "complete": false,
       "months": [
-        { "month": "2026-10", "count": 243 },
-        { "month": "2026-11", "count": 55 }
+        { "month": "2026-10", "count": 198 },
+        { "month": "2026-11", "count": 99 }
       ],
       "latestCommit": {
-        "date": "2026-11-08T16:22:26.000Z",
-        "url": "https://github.com/jthingelstad/yvn-release-notes/commit/30cb06674ccf1fac82f0b87edf846f0471ddb710"
+        "date": "2026-11-09T17:37:03.000Z",
+        "url": "https://github.com/jthingelstad/yvn-release-notes/commit/d876065376cbb114e1c2119fa9a428b4286f3868"
       }
     }
   ]

@@ -2,9 +2,10 @@
   "kind": "commits",
   "repository": "jthingelstad/elixir-mcp",
   "url": "https://github.com/jthingelstad/elixir-mcp",
-  "observedAt": "2026-11-08T17:01:57.748Z",
+  "observedAt": "2026-11-09T21:26:11.591Z",
   "branch": "main",
   "commits": [
+    {"sha":"0c8c8ad9eb60","date":"2026-11-09T15:25:10.000Z","subject":"A mail's turn-off link answers in Elixir's own page","by":"agent","agents":["claude"]},
     {"sha":"b9560cfbc69b","date":"2026-11-08T00:14:01.000Z","subject":"Timeline docs: a trophy rung's label covers a fall too","by":"agent","agents":["claude"]},
     {"sha":"1d473fae8c30","date":"2026-11-07T13:24:19.000Z","subject":"Reclean stored colour markup a control character had split","by":"agent","agents":["claude"]},
     {"sha":"6bdb7c84dcad","date":"2026-11-07T13:02:10.000Z","subject":"Strip control characters and direction overrides from stored names","by":"agent","agents":["claude"]},
