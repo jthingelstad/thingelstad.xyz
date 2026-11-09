@@ -10,8 +10,8 @@
 //   npm run sites:check   fail on a stale, missing or leftover copy; part of npm run check
 //
 // SITES_SOURCE overrides the sites.json source path, relative to the repository root; the type is read from the
-// same directory. The default is ../thingelstad.com/shared/sites.json, because this repository sits beside the
-// thingelstad.com tree. Where that sibling is absent (CI, or a lone clone) the check says so and checks only the
+// same directory. The default is ../shared/sites.json, because this repository sits inside the thingelstad.com
+// tree (since 2026-11-09); ../thingelstad.com/shared/sites.json, the layout before that, is still found. Where that sibling is absent (CI, or a lone clone) the check says so and checks only the
 // committed copies: sites.json parses, and every font tokens.css names is vendored beside it with nothing else.
 // A SITES_SOURCE that is missing fails.
 import { existsSync } from 'node:fs';
@@ -21,7 +21,8 @@ import { parseSites, sitesPath } from '../collection/sites';
 import { sitesStrip } from '../collection/sites-strip';
 import { fontsNamedBy, sharedTypeDir, sharedTypeFiles, vendoredFiles } from '../collection/shared-type';
 
-const sibling = '../thingelstad.com/shared/sites.json';
+const siblings = ['../shared/sites.json', '../thingelstad.com/shared/sites.json'];
+const sibling = siblings.find((path) => existsSync(path)) ?? siblings[0];
 const licence = /^fonts\/OFL-[\w-]+\.txt$/;
 
 // Without the sibling: the committed tokens.css loads only fonts that are vendored, and every vendored file is

@@ -1,6 +1,6 @@
 # Deploying thingelstad.xyz
 
-The application stays in `/Users/otto/Projects/thingelstad.xyz`, separate from the Thingelstad.com publishing repositories. Hosting is AWS in account `<account>`, with application resources in `us-east-1`. DNS is a Route 53 hosted zone owned by the `dns-thingelstad-xyz` stack in `projects-sysadmin` (moved from Namecheap BasicDNS on October 27, 2026; Namecheap remains the registrar). See `DNS.md`.
+The application lives in `/Users/otto/Projects/thingelstad.com/thingelstad.xyz` (moved into the thingelstad.com tree on 2026-11-09), as its own repository beside the Thingelstad.com publishing repositories. Hosting is AWS in account `<account>`, with application resources in `us-east-1`. DNS is a Route 53 hosted zone owned by the `dns-thingelstad-xyz` stack in `projects-sysadmin` (moved from Namecheap BasicDNS on October 27, 2026; Namecheap remains the registrar). See `DNS.md`.
 
 ## Resources
 

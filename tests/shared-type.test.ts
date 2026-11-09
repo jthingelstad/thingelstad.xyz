@@ -30,7 +30,11 @@ const declarations = (property: string) =>
   );
 
 test('the vendored type matches thingelstad.com shared/', (t) => {
-  const sharedDir = dirname(process.env.SITES_SOURCE || '../thingelstad.com/shared/sites.json');
+  const sharedDir = dirname(
+    process.env.SITES_SOURCE ||
+      ['../shared/sites.json', '../thingelstad.com/shared/sites.json'].find((path) => existsSync(path)) ||
+      '../shared/sites.json'
+  );
   if (!existsSync(join(sharedDir, 'tokens.css'))) {
     t.skip(`${sharedDir} is not checked out here (CI checks out only this repository); npm run sites:check covers it`);
     return;
