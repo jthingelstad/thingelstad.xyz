@@ -2,8 +2,9 @@
   "kind": "publications",
   "url": "https://elixir.poapkings.com/",
   "feed": "https://elixir.poapkings.com/feed.xml",
-  "observedAt": "2026-11-07T16:50:24.582Z",
+  "observedAt": "2026-11-09T21:26:11.591Z",
   "items": [
+    {"url":"https://elixir.poapkings.com/updates/2026-11-09-turning-an-email-off-lands-on-a-real-page","title":"Turning an email off lands on a real page","date":"2026-11-09T12:00:00.000Z"},
     {"url":"https://elixir.poapkings.com/updates/2026-11-06-an-action-s-page-reads-top-to-bottom","title":"An action's page reads top to bottom","date":"2026-11-06T12:00:00.000Z"},
     {"url":"https://elixir.poapkings.com/updates/2026-11-06-clan-has-five-tabs","title":"Clan has five tabs","date":"2026-11-06T12:00:00.000Z"},
     {"url":"https://elixir.poapkings.com/updates/2026-11-06-contract-11-17-0","title":"Tool contract 11.17.0","date":"2026-11-06T12:00:00.000Z"},
