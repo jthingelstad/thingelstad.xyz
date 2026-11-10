@@ -26,6 +26,11 @@ connections:
     detail: All 324 links Jamie commented on across 31 issues of the Weekly Thing in 2025, reorganized into ten topic chapters, in print and eBook form. Proceeds support the Weekly Thing Supporting Membership program.
     source: https://www.thingelstad.com/2026/01/20/i-made-a-book-yearly.html
 artifacts:
+  - file: cover.jpg
+    title: The cover
+    caption: Wind turbines against a cloudy sky, under the title and the subtitle Agents, Attention, Artifacts. Jamie posted it the day before the book came out.
+    date: '2026-01-19'
+    source: https://www.thingelstad.com/2026/01/19/i-just-finished-up-this.html
   - file: paperback.jpg
     title: The paperback
     caption: A print copy from Lulu, photographed the day the first copies arrived.

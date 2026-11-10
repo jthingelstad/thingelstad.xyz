@@ -27,11 +27,21 @@ connections:
     detail: The Peanuts Tree was Jamie’s first location POAP, in May 2025. Six days later he announced the 612 POAP Challenge, built on the same feature.
     source: https://www.thingelstad.com/2025/05/31/poap-challenge-collect-them-now.html
 artifacts:
+  - file: before-and-during.jpg
+    title: Before and during
+    caption: Two pictures side by side from the project page. On the left the tree as it stood, on the right the same trunk partly carved and painted, with scaffolding around it and the red doghouse already on top.
+    date: '2020'
+    source: https://www.thingelstad.com/magic-pines/charlie-brown-tree/
   - file: carving-in-progress.jpg
     title: The carving under way
     caption: A Peanuts character holding Snoopy, taking shape at the foot of the stump, with scaffolding behind.
     date: '2020-05-24'
     source: https://www.thingelstad.com/2020/05/24/little-snippet-of.html
+  - file: snoopy-on-the-doghouse.jpg
+    title: Snoopy on the doghouse
+    caption: Snoopy as the Flying Ace, in goggles and a red scarf, on the red doghouse at the top of the tree. From the project page.
+    date: '2020'
+    source: https://www.thingelstad.com/magic-pines/charlie-brown-tree/
   - file: first-snow.jpg
     title: The tree in the snow
     caption: The finished tree, Snoopy on his red doghouse at the top, in falling snow at Cannon Lake. It was the photograph in Weekly Thing 163.

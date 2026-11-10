@@ -40,11 +40,12 @@
 
 {#- An artifact as a figure that leads to its place on its thing's page, on a shelf of cards `width` wide or in the
     grid of smaller sets (no width). The figure covers a 4:3 box from the top, so an image wider than that is drawn
-    at the box's height and comes out wider than the box: its sizes grow to match, or a panorama would go soft. #}
+    at the box's height and comes out wider than the box: its sizes grow to match, or a panorama would go soft. On a
+    phone the grid is one column, the window less its 32px of gutters; saying 100vw sent a 3x phone the next copy up. #}
 {% macro artifactFigure(thing, artifact, width) %}
 {%- set wide = (artifact.image.width / artifact.image.height) / (4 / 3) %}{% set grow = wide if wide > 1 else 1 %}
 <a class="artifact-figure" href="{{ thing.page }}#{{ artifact.anchor }}"><figure>
-  {{ picture(artifact.image, artifact.alt or artifact.title, shelfSizes(width, grow) if width else "(max-width: 540px) " + ((100 * grow) | round) + "vw, " + ((340 * grow) | round) + "px") }}
+  {{ picture(artifact.image, artifact.alt or artifact.title, shelfSizes(width, grow) if width else "(max-width: 540px) calc(" + ((100 * grow) | round) + "vw - " + ((32 * grow) | round) + "px), " + ((340 * grow) | round) + "px") }}
   <figcaption><b>{{ artifact.title }}</b>{% if artifact.caption %}<span class="muted clamp-two">{{ artifact.caption }}</span>{% endif %}</figcaption>
 </figure></a>
 {% endmacro %}
@@ -59,12 +60,12 @@
 {#- Files from the project itself, published beside its page. An image is shown as it is and opens full size; any
     other file is a download, shown by its preview when it has one. The titles and captions are the thing's words and
     are indexed; the file names and sizes are not. An artifact is a list item in a grid and a div on a shelf. #}
-{#- On a shelf, `width` is the bundle's card width; in a grid it is left out, and the grid's one column is widest, about 590px, up to a 900px window. The link still opens the file itself. #}
+{#- On a shelf, `width` is the bundle's card width; in a grid it is left out, and the grid's one column is widest, about 590px, up to a 900px window; on a phone it is the window less 58px of gutters. The link still opens the file itself. #}
 {% macro artifactCard(artifact, heading, tag, width) %}
 {%- set box = tag or "li" %}
 <{{ box }} class="artifact" id="{{ artifact.anchor }}">
   {% if artifact.image %}
-  <a class="artifact-image" href="{{ artifact.image.src }}" data-pagefind-ignore>{{ picture(artifact.image, artifact.title, shelfSizes(width) if width else "(max-width: 660px) 100vw, (max-width: 900px) 600px, 440px") }}</a>
+  <a class="artifact-image" href="{{ artifact.image.src }}" data-pagefind-ignore>{{ picture(artifact.image, artifact.title, shelfSizes(width) if width else "(max-width: 660px) calc(100vw - 58px), (max-width: 900px) 600px, 440px") }}</a>
   {% endif %}
   <{{ heading }} class="artifact-title">{{ artifact.title }} {{ permalink(artifact.anchor, artifact.title) }}</{{ heading }}>
   {% if artifact.caption %}<p class="artifact-caption">{{ artifact.caption }}</p>{% endif %}
