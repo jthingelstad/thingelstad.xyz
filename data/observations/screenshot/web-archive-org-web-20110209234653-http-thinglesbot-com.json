@@ -1,0 +1,10 @@
+{
+  "kind": "screenshot",
+  "url": "https://web.archive.org/web/20110209234653/http://thinglesbot.com/",
+  "observedAt": "2026-11-10T13:20:16.608Z",
+  "image": "web-archive-org-web-20110209234653-http-thinglesbot-com.jpg",
+  "sha256": "7a36c53c0d56ca03bd1337c4e7ebc4abc2b7d6d3ef05149da00038ab4bb7a165",
+  "width": 1280,
+  "height": 800,
+  "wayback": { "timestamp": "20110209234653", "original": "http://thinglesbot.com/" }
+}

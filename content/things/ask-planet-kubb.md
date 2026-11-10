@@ -9,8 +9,8 @@ topics:
   - play
 sources:
   - kind: website
-    url: https://web.archive.org/web/20141201215020/http://ask.planetkubb.com/
-    role: reference
+    url: https://web.archive.org/web/20160206093959/http://ask.planetkubb.com/
+    role: archive
 connections:
   - to: planet-kubb
     label: is part of
