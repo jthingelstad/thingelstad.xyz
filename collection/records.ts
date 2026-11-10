@@ -130,7 +130,8 @@ export function thingsJson(model: SiteModel) {
             screenshot: {
               url: `${model.url}${thing.screenshot.src}`,
               site: thing.screenshot.site,
-              date: thing.screenshot.date
+              date: thing.screenshot.date,
+              ...(thing.screenshot.wayback ? { wayback: thing.screenshot.wayback } : {})
             }
           }
         : {}),

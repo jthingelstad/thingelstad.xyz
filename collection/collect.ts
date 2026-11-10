@@ -3,11 +3,17 @@
 // new produces no diff.
 import { loadRegistry } from './load';
 import { loadObservations, observationPath, saveObservation, saveScreenshot } from './observations';
-import { defaultCapturer, observeScreenshot, screenshotDue, type Capturer } from './adapters/screenshot';
+import {
+  defaultCapturer,
+  observeArchiveScreenshot,
+  observeScreenshot,
+  screenshotDue,
+  type Capturer
+} from './adapters/screenshot';
 import { defaultGitHubReader, observeRepository, type GitHubReader } from './adapters/github';
 import { defaultTextFetcher, observePublications, observeWebsite, type TextFetcher } from './adapters/web';
 import { defaultGitRunner, observeCommits, type GitRunner } from './adapters/git';
-import { capturedUrl, observeCaptures } from './adapters/wayback';
+import { capturedUrl, observeCaptures, pinnedCapture } from './adapters/wayback';
 import {
   defaultTinylyticsReader,
   listSites,
@@ -22,7 +28,8 @@ import {
   type PublicationsObservation,
   type Registry,
   type ScreenshotObservation,
-  type Status
+  type Status,
+  type Thing
 } from './schema';
 import { siteUrl } from './site';
 
@@ -68,6 +75,23 @@ const publishedRoles = new Set(['website', 'podcast']);
 // `origins`), so a page never takes its whole site's traffic. A retired or abandoned thing's host may belong
 // to someone else by now, so it keeps whatever capture it already has.
 const photographed = new Set<Status>(['active', 'dormant', 'archived']);
+const liveShots = (thing: Thing) =>
+  photographed.has(thing.status)
+    ? thing.sources.flatMap((source) =>
+        source.kind === 'website' && source.role === 'website' && new URL(source.url).protocol === 'https:'
+          ? [source.url]
+          : []
+      )
+    : [];
+// A thing with no live screenshot is shot from the Internet Archive when its record chooses a capture: the first
+// source marked `photograph: true`, an archive source pinned to one capture that someone has looked at. An archive
+// link nobody chose is never photographed: the Archive keeps bare, broken and squatted pages too. Any status: the
+// picture is of the Archive's copy, never of the host as it is now.
+function archivedShot(thing: Thing) {
+  if (liveShots(thing).length) return null;
+  const chosen = thing.sources.find((source) => source.kind === 'website' && source.photograph);
+  return chosen?.kind === 'website' ? chosen.url : null;
+}
 // A screenshot is stored under its URL's key, which drops punctuation: a root and a page inside it never share
 // one (rwbookclub-com, rwbookclub-com-oliver), but two different addresses can (/a-b and /a/b). Those would
 // overwrite each other's image, so the registry is refused instead.
@@ -131,17 +155,11 @@ export function targets(registry: Registry) {
         )
       )
     ].toSorted(),
-    screenshots: distinctKeys(
-      registry.things
-        .filter((thing) => photographed.has(thing.status))
-        .flatMap((thing) =>
-          thing.sources.flatMap((source) =>
-            source.kind === 'website' && source.role === 'website' && new URL(source.url).protocol === 'https:'
-              ? [source.url]
-              : []
-          )
-        )
-    ),
+    screenshots: distinctKeys(registry.things.flatMap(liveShots)),
+    archived: distinctKeys([
+      ...registry.things.flatMap(liveShots),
+      ...registry.things.flatMap((thing) => archivedShot(thing) ?? [])
+    ]).filter((url) => pinnedCapture(url)),
     origins: [
       ...new Set(
         registry.things.flatMap((thing) =>
@@ -188,7 +206,11 @@ export async function collect(options: CollectOptions = {}): Promise<CollectResu
       log(`Could not observe ${target}; previous evidence kept.`);
     }
   };
-  const { repositories, websites, feeds, origins, captured, screenshots } = targets(registry);
+  const { repositories, websites, feeds, origins, captured, screenshots, archived } = targets(registry);
+  const pause = options.pause ?? ((ms: number) => new Promise<void>((resolve) => setTimeout(resolve, ms)));
+  // A 429, or a refused connection once it has blocked the address, means stop asking the Archive for this run.
+  const slowDown = (target: string) =>
+    result.failed.some((f) => f.target === target && /^429 |fetch failed/.test(f.error));
   for (const { repository, paths } of repositories)
     if (!options.only || options.only.toLowerCase() === repository.toLowerCase())
       await record(repository, () => observeRepository(repository, paths, github, now));
@@ -208,12 +230,10 @@ export async function collect(options: CollectOptions = {}): Promise<CollectResu
       await record(`publications ${source.url}`, () => observePublications(source, web, logs.get(source.url), now));
   if (options.wayback !== null && (!options.only || options.only === 'wayback')) {
     const fetchText = options.wayback ?? web;
-    const pause = options.pause ?? ((ms: number) => new Promise<void>((resolve) => setTimeout(resolve, ms)));
     for (const url of captured) {
       const target = `wayback ${url}`;
       await record(target, () => observeCaptures(url, fetchText, now));
-      // A 429, or a refused connection once it has blocked the address, means stop asking for this run.
-      if (result.failed.some((f) => f.target === target && /^429 |fetch failed/.test(f.error))) {
+      if (slowDown(target)) {
         log('The Internet Archive asked the collector to slow down; the remaining captures wait for the next run.');
         break;
       }
@@ -243,16 +263,17 @@ export async function collect(options: CollectOptions = {}): Promise<CollectResu
     if (!capturer) log('Chromium is not installed; screenshots skipped.');
     else
       try {
-        for (const url of screenshots) {
+        // Returns whether it asked the site (or the Archive) at all.
+        const shoot = async (url: string, observe: typeof observeScreenshot) => {
           const target = `screenshot ${url}`;
           const before = shots.get(websiteKey(url));
           if (!screenshotDue(before, now)) {
             result.unchanged.push(target);
-            log(`Recent ${target}`);
-            continue;
+            log(`${before?.wayback ? 'Kept' : 'Recent'} ${target}`);
+            return false;
           }
           try {
-            const { observation, image } = await observeScreenshot(url, capturer, now);
+            const { observation, image } = await observe(url, capturer, now);
             if (before?.sha256 === observation.sha256) {
               result.unchanged.push(target);
               log(`Unchanged ${target}`);
@@ -265,7 +286,21 @@ export async function collect(options: CollectOptions = {}): Promise<CollectResu
             result.failed.push({ target, error: error instanceof Error ? error.message : String(error) });
             log(`Could not observe ${target}; previous evidence kept.`);
           }
-        }
+          return true;
+        };
+        for (const url of screenshots) await shoot(url, observeScreenshot);
+        // Archive captures are taken once each, one at a time, on the runs that ask the Internet Archive.
+        if (options.wayback !== null)
+          for (const url of archived) {
+            if (!(await shoot(url, observeArchiveScreenshot))) continue;
+            if (slowDown(`screenshot ${url}`)) {
+              log(
+                'The Internet Archive asked the collector to slow down; the remaining captures wait for the next run.'
+              );
+              break;
+            }
+            await pause(6000);
+          }
       } finally {
         await capturer.close();
       }

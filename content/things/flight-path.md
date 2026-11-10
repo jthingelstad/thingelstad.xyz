@@ -20,8 +20,9 @@ sources:
     url: https://www.thingelstad.com/2026/02/25/it-is-bonkers-to-me.html
     role: reference
   - kind: website
-    url: https://web.archive.org/web/20260312035500/https://flightpath.poaprally.com/
+    url: https://web.archive.org/web/20260306121842/https://flightpath.poaprally.com/
     role: archive
+    photograph: true
 connections: []
 ---
 

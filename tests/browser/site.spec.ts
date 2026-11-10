@@ -268,6 +268,37 @@ test('a website thing shows its front page and page views', async ({ page }) => 
   expect(errors).toEqual([]);
 });
 
+test('a thing whose site is gone shows the Internet Archive’s capture, dated and linked', async ({ page }) => {
+  const errors = watchErrors(page);
+  await page.goto('/things/thinglesbot/');
+  const capture = 'https://web.archive.org/web/20110209234653/http://thinglesbot.com/';
+  const shot = page.locator('.screenshot img');
+  await shot.scrollIntoViewIfNeeded();
+  await expect(shot).toHaveAttribute(
+    'alt',
+    'The front page of thinglesbot.com as the Internet Archive captured it on Feb 9, 2011'
+  );
+  await expect(shot).toHaveAttribute(
+    'srcset',
+    /\/assets\/img\/web-archive-org-web-20110209234653-[^ ]+-720\.webp 720w/
+  );
+  await expect
+    .poll(() => shot.evaluate((img: HTMLImageElement) => img.complete && img.naturalWidth))
+    .toBeGreaterThan(0);
+  const caption = page.locator('.screenshot figcaption');
+  await expect(caption).toHaveText('thinglesbot.com as the Internet Archive captured it on Feb 9, 2011.');
+  await expect(caption.locator('a')).toHaveAttribute('href', capture);
+  // The caption's link reads as part of its sentence: it never takes the picture's frame.
+  await expect(caption.locator('a')).toHaveCSS('display', 'inline');
+  await expect(caption.locator('a')).toHaveCSS('border-top-width', '0px');
+  await expect(page.locator('.screenshot > a').first()).toHaveAttribute('href', capture);
+  await expect(page.locator('meta[property="og:image"]')).toHaveAttribute(
+    'content',
+    /\/assets\/img\/web-archive-org-web-20110209234653-[^/]+-share\.jpg$/
+  );
+  expect(errors).toEqual([]);
+});
+
 test('a thing’s artifacts are shown, linked, and served as the files they are', async ({ page, request }) => {
   const errors = watchErrors(page);
   const { artifacts } = things.find((thing) => thing.id === 'velotweets')!;

@@ -46,6 +46,28 @@ test('thing front matter is validated strictly', () => {
   assert.equal(ok.url, 'https://example.com/');
   assert.throws(() => thing('example', { ...base, status: 'finished' }, '', 'x'), /Status must be one of/);
   assert.throws(() => thing('example', { ...base, extra: true }, '', 'x'), /Unknown field: extra/);
+  const chosen = (source: object) => thing('example', { ...base, sources: [source] }, '', 'x');
+  const capture = 'https://web.archive.org/web/20110209234653/http://example.org/';
+  assert.deepEqual(chosen({ kind: 'website', url: capture, role: 'archive', photograph: true }).sources, [
+    { kind: 'website', url: capture, role: 'archive', photograph: true }
+  ]);
+  assert.throws(() => chosen({ kind: 'website', url: capture, role: 'reference', photograph: true }), /photograph/);
+  assert.throws(() => chosen({ kind: 'website', url: capture, role: 'archive', photograph: false }), /photograph/);
+  assert.throws(
+    () =>
+      chosen({
+        kind: 'website',
+        url: 'https://web.archive.org/web/2011/http://example.org/',
+        role: 'archive',
+        photograph: true
+      }),
+    /photograph/,
+    'a loose timestamp is not one capture'
+  );
+  assert.throws(
+    () => chosen({ kind: 'website', url: 'https://example.org/', role: 'archive', photograph: true }),
+    /photograph/
+  );
   assert.throws(() => thing('example', { ...base, url: 'http://example.com/' }, '', 'x'), /public HTTPS/);
   assert.throws(() => thing('example', { ...base, url: 'https://otto.tail09aaf9.ts.net/' }, '', 'x'), /public HTTPS/);
   assert.throws(() => thing('example', base, 'See /Users/jamie/code', 'x'), /local path/);

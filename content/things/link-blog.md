@@ -12,6 +12,7 @@ sources:
   - kind: website
     url: https://web.archive.org/web/20211207055926/https://links.thingelstad.com/
     role: archive
+    photograph: true
   - kind: website
     url: https://weekly.thingelstad.com/archive/18/
     role: reference

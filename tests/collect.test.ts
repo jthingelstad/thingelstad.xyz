@@ -5,7 +5,13 @@ import { monthCounts, observePublications, observeWebsite, parseFeed, parseSitem
 import { attribute, isBot, observeCommits, parseLog, subjectOf, type GitRunner } from '../collection/adapters/git';
 import { listSites, observeSite, rootOrigin, type TinylyticsReader } from '../collection/adapters/tinylytics';
 import { capturedUrl, observeCaptures } from '../collection/adapters/wayback';
-import { observeScreenshot, screenshotDue, type Capturer } from '../collection/adapters/screenshot';
+import {
+  archiveToleranceDays,
+  observeArchiveScreenshot,
+  observeScreenshot,
+  screenshotDue,
+  type Capturer
+} from '../collection/adapters/screenshot';
 import { collect, sameEvidence, targets } from '../collection/collect';
 import { observationPath } from '../collection/observations';
 import type { Observation, Registry, ScreenshotObservation, Thing } from '../collection/schema';
@@ -428,6 +434,157 @@ test("screenshots capture each live thing's own page once a month, and only when
     log: () => {}
   });
   assert.equal(broken.failed[0].target, 'screenshot https://example.com/');
+});
+
+const pin = 'https://web.archive.org/web/20110209234653/http://gone.example.org/';
+test('a thing whose site is gone is shot from the capture its record pins, and a retired one never live', () => {
+  const retired = (id: string, sources: Thing['sources'], extra: Partial<Thing> = {}): Thing => ({
+    ...thing(id, sources),
+    status: 'retired',
+    ...extra
+  });
+  const found = targets({
+    ...registry,
+    things: [
+      ...registry.things,
+      retired('gone', [
+        { kind: 'website', url: 'https://gone.example.org/', role: 'website' },
+        // An archive link nobody chose is a link, never a picture.
+        {
+          kind: 'website',
+          url: 'https://web.archive.org/web/20090101000000/http://gone.example.org/',
+          role: 'archive'
+        },
+        { kind: 'website', url: pin, role: 'archive', photograph: true },
+        {
+          kind: 'website',
+          url: 'https://web.archive.org/web/20120101000000/http://gone.example.org/',
+          role: 'archive',
+          photograph: true
+        }
+      ]),
+      retired('unchosen', [
+        {
+          kind: 'website',
+          url: 'https://web.archive.org/web/20140302063203/http://unchosen.example.org/',
+          role: 'archive'
+        }
+      ]),
+      thing('live', [
+        { kind: 'website', url: 'https://live.example.org/', role: 'website' },
+        {
+          kind: 'website',
+          url: 'https://web.archive.org/web/20150101000000/https://live.example.org/',
+          role: 'archive',
+          photograph: true
+        }
+      ])
+    ]
+  });
+  const live = new Set(found.screenshots);
+  assert.ok(!live.has('https://gone.example.org/'), 'a retired thing never gets a live screenshot');
+  assert.ok(live.has('https://live.example.org/'));
+  assert.deepEqual(
+    found.archived,
+    [pin],
+    'the first capture a record chooses, for a thing with no live screenshot; never an archive link nobody chose, or a thing that has a live page'
+  );
+});
+
+test('a pinned capture is shot without the toolbar, once, never refreshed, and only when the Archive serves it', async () => {
+  const asked: string[] = [];
+  let landed = (url: string) => url;
+  let styled = true;
+  const capturer: Capturer = {
+    capture: async (url) => (
+      asked.push(url),
+      { image: new TextEncoder().encode('archived'), width: 1280, height: 800, url: landed(url), styled }
+    ),
+    close: async () => {}
+  };
+  const { observation } = await observeArchiveScreenshot(pin, capturer, now);
+  assert.equal(asked[0], 'https://web.archive.org/web/20110209234653if_/http://gone.example.org/', 'no toolbar');
+  assert.equal(observation.url, pin, 'stored under the pin, so it stays with the source that names it');
+  assert.deepEqual(observation.wayback, { timestamp: '20110209234653', original: 'http://gone.example.org/' });
+  assert.equal(
+    observationPath(observation),
+    'data/observations/screenshot/web-archive-org-web-20110209234653-http-gone-example-org.json'
+  );
+  assert.equal(screenshotDue(observation, new Date('2030-01-01T00:00:00Z')), false, 'a capture never changes');
+
+  // The Archive redirects to the nearest capture it has: the day served is recorded, within the tolerance.
+  landed = () => 'https://web.archive.org/web/20110212101010if_/http://gone.example.org:80/';
+  const near = await observeArchiveScreenshot(pin, capturer, now);
+  assert.equal(near.observation.wayback?.timestamp, '20110212101010');
+  assert.equal(archiveToleranceDays, 30);
+  landed = () => 'https://web.archive.org/web/20110501000000if_/http://gone.example.org/';
+  await assert.rejects(observeArchiveScreenshot(pin, capturer, now), /too far from the pinned capture/);
+  landed = () => 'https://web.archive.org/web/20110209234653if_/http://someone-else.example.net/';
+  await assert.rejects(observeArchiveScreenshot(pin, capturer, now), /another host/);
+  landed = () => 'https://gone.example.org/';
+  await assert.rejects(observeArchiveScreenshot(pin, capturer, now), /did not land on an Internet Archive capture/);
+  landed = (url) => url;
+  styled = false;
+  await assert.rejects(observeArchiveScreenshot(pin, capturer, now), /kept no stylesheet/);
+  styled = true;
+
+  const gone: Registry = {
+    ...registry,
+    things: [
+      { ...thing('gone', [{ kind: 'website', url: pin, role: 'archive', photograph: true }]), status: 'retired' },
+      {
+        ...thing('other', [
+          {
+            kind: 'website',
+            url: 'https://web.archive.org/web/20120101000000/http://other.example.org/',
+            role: 'archive',
+            photograph: true
+          }
+        ]),
+        status: 'retired'
+      }
+    ]
+  };
+  const saved: ScreenshotObservation[] = [];
+  const pauses: number[] = [];
+  const run = (existing: Observation[], at: Date, wayback?: null) =>
+    collect({
+      registry: gone,
+      existing,
+      only: 'screenshots',
+      screenshots: capturer,
+      wayback,
+      pause: async (ms) => void pauses.push(ms),
+      now: at,
+      saveScreenshot: async (o) => (saved.push(o), 'x'),
+      log: () => {}
+    });
+  asked.length = 0;
+  const first = await run([], now);
+  assert.equal(first.written.length, 2);
+  assert.deepEqual(pauses, [6000, 6000], 'one at a time, with a pause between Archive requests');
+  const yearLater = await run(saved, new Date('2027-10-14T12:00:00Z'));
+  assert.deepEqual(yearLater.written, []);
+  assert.equal(yearLater.unchanged.length, 2, 'never refreshed');
+  assert.equal(asked.length, 2, 'the Archive is asked once per pin');
+  const daily = await run([], now, null);
+  assert.deepEqual(daily.written, [], 'the daily run that leaves out the Internet Archive takes none');
+  let calls = 0;
+  const limited = await collect({
+    registry: gone,
+    existing: [],
+    only: 'screenshots',
+    screenshots: {
+      capture: async (url) => (calls++, Promise.reject(new Error(`429 for ${url}`))),
+      close: async () => {}
+    },
+    pause: async () => {},
+    now,
+    saveScreenshot: async () => assert.fail('nothing to save'),
+    log: () => {}
+  });
+  assert.equal(calls, 1, 'a 429 stops the Archive captures for the run');
+  assert.equal(limited.failed.length, 1);
 });
 
 test('commits are attributed to me, an agent, or others, and bots are left out', () => {

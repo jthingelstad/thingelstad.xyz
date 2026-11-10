@@ -307,6 +307,76 @@ test('a thing that lives at a page inside a site shows that page, and its site k
   assert.equal(club.views?.total, 30);
 });
 
+test('a thing whose site is gone shows its pinned Internet Archive capture, and a live screenshot wins', () => {
+  const pin = 'https://web.archive.org/web/20110209234653/http://thinglesbot.com/';
+  const archived = {
+    kind: 'screenshot' as const,
+    url: pin,
+    observedAt: '2026-11-10T12:00:00Z',
+    image: 'web-archive-org-web-20110209234653-http-thinglesbot-com.jpg',
+    sha256: 'ef'.repeat(32),
+    width: 1280,
+    height: 800,
+    wayback: { timestamp: '20110209234653', original: 'http://thinglesbot.com/' }
+  };
+  const bot = registry.things.find((t) => t.sources.some((s) => s.kind === 'website' && s.url === pin))!;
+  assert.ok(bot, 'a thing in the registry pins this capture');
+  const built = buildSiteModel(registry, [archived], now);
+  const shot = built.things.find((t) => t.id === bot.id)!.screenshot!;
+  assert.equal(
+    shot.src,
+    `/assets/screenshots/web-archive-org-web-20110209234653-http-thinglesbot-com-${'ef'.repeat(5)}.jpg`
+  );
+  assert.equal(shot.place, 'thinglesbot.com');
+  assert.equal(shot.date, '2011-02-09', 'the day the Archive captured it, not the day it was photographed');
+  assert.equal(shot.alt, 'The front page of thinglesbot.com as the Internet Archive captured it on Feb 9, 2011');
+  assert.equal(shot.wayback, 'https://web.archive.org/web/20110209234653/http://thinglesbot.com/');
+  assert.equal(shot.href, shot.wayback, 'the picture links to the capture, never to the dead domain');
+  assert.equal(shot.site, 'http://thinglesbot.com/');
+  const json = thingsJson(built).things.find((t) => t.id === bot.id)!;
+  assert.deepEqual(json.screenshot, {
+    url: `${siteUrl}${shot.src}`,
+    site: 'http://thinglesbot.com/',
+    date: '2011-02-09',
+    wayback: shot.wayback
+  });
+
+  // A thing with both a live screenshot and an archive capture shows the live one.
+  const club = registry.things.find((t) => t.url === 'https://rwbookclub.com/')!;
+  const clubPin = 'https://web.archive.org/web/20200101000000/https://rwbookclub.com/';
+  const both = {
+    ...club,
+    sources: [
+      ...club.sources,
+      { kind: 'website' as const, url: clubPin, role: 'archive' as const, photograph: true as const }
+    ]
+  };
+  const live = {
+    kind: 'screenshot' as const,
+    url: 'https://rwbookclub.com/',
+    observedAt: '2026-10-20T12:00:00Z',
+    image: 'rwbookclub-com.jpg',
+    sha256: 'ab'.repeat(32),
+    width: 1280,
+    height: 800
+  };
+  const old = {
+    ...archived,
+    url: clubPin,
+    image: 'web-archive-org-web-20200101000000-https-rwbookclub-com.jpg',
+    wayback: { timestamp: '20200101000000', original: 'https://rwbookclub.com/' }
+  };
+  const mixed = buildSiteModel(
+    { ...registry, things: registry.things.map((t) => (t.id === club.id ? both : t)) },
+    [old, live],
+    now
+  );
+  const clubShot = mixed.things.find((t) => t.id === club.id)!.screenshot!;
+  assert.equal(clubShot.wayback, null);
+  assert.equal(clubShot.src, `/assets/screenshots/rwbookclub-com-${'ab'.repeat(5)}.jpg`);
+  assert.equal(clubShot.href, 'https://rwbookclub.com/');
+});
+
 test('every screenshot the registry asks for has a file of its own', () => {
   const urls = targets(registry).screenshots;
   assert.equal(new Set(urls.map(websiteKey)).size, urls.length);

@@ -12,6 +12,7 @@ sources:
   - kind: website
     url: https://web.archive.org/web/20120715062240/http://wiki.planetkubb.com/wiki/Notation
     role: archive
+    photograph: true
   - kind: github
     repository: Planet-Kubb/scoring
     role: historical
