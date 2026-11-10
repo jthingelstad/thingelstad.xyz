@@ -14,7 +14,7 @@ sources:
     role: implementation
   - kind: website
     url: https://links.thingelstad.xyz/
-    role: reference
+    role: website
   - kind: website
     url: https://weekly.thingelstad.com/archive/274/
     role: reference

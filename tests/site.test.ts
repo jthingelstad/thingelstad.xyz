@@ -28,7 +28,13 @@ import {
   yearColumns,
   type ActivityThing
 } from '../collection/activity';
-import type { CommitEntry, CommitLogObservation, PublicationsObservation } from '../collection/schema';
+import {
+  websiteKey,
+  type CommitEntry,
+  type CommitLogObservation,
+  type PublicationsObservation
+} from '../collection/schema';
+import { targets } from '../collection/collect';
 import { connectionDiagram, connectionSource, phoneWidth } from '../collection/diagram';
 import { parseSites, siteRef, sitesPath, withRef } from '../collection/sites';
 import { sitesStrip } from '../collection/sites-strip';
@@ -250,6 +256,55 @@ test('a website thing shows its own front page and page views, and a thing that 
   assert.doesNotMatch(markdown, /sha256|"hits"/, 'the Markdown twin keeps to the record');
   const json = thingsJson(built).things.find((t) => t.id === club.id)!;
   assert.equal(json.screenshot?.url, `${siteUrl}${screenshotAsset(screenshot)}`);
+});
+
+test('a thing that lives at a page inside a site shows that page, and its site keeps its own page views', () => {
+  const page = 'https://rwbookclub.com/oliver/';
+  const at = (url: string, image: string, sha: string) => ({
+    kind: 'screenshot' as const,
+    url,
+    observedAt: '2026-11-10T12:00:00Z',
+    image,
+    sha256: sha.repeat(32),
+    width: 1280,
+    height: 800
+  });
+  const views = {
+    kind: 'tinylytics' as const,
+    url: 'https://rwbookclub.com/',
+    observedAt: '2026-11-10T12:00:00Z',
+    since: '2025-10-01',
+    until: '2026-10-31',
+    hits: 30,
+    months: [{ month: '2026-10', count: 30 }]
+  };
+  const built = buildSiteModel(
+    registry,
+    [at('https://rwbookclub.com/', 'rwbookclub-com.jpg', 'ab'), at(page, 'rwbookclub-com-oliver.jpg', 'cd'), views],
+    now
+  );
+  const oliver = built.things.find((t) => t.sources.some((s) => s.kind === 'website' && s.url === page))!;
+  const club = built.things.find((t) => t.url === 'https://rwbookclub.com/')!;
+  assert.equal(oliver.screenshot?.src, `/assets/screenshots/rwbookclub-com-oliver-${'cd'.repeat(5)}.jpg`);
+  assert.equal(oliver.screenshot?.alt, 'The page rwbookclub.com/oliver on Nov 10, 2026');
+  assert.equal(oliver.screenshot?.page, 'this page');
+  assert.equal(oliver.views, null, "a page never takes its whole site's traffic");
+  assert.equal(club.screenshot?.src, `/assets/screenshots/rwbookclub-com-${'ab'.repeat(5)}.jpg`);
+  assert.equal(club.screenshot?.page, 'the front page');
+  assert.equal(club.views?.total, 30);
+});
+
+test('every screenshot the registry asks for has a file of its own', () => {
+  const urls = targets(registry).screenshots;
+  assert.equal(new Set(urls.map(websiteKey)).size, urls.length);
+  for (const url of [
+    'https://links.thingelstad.xyz/',
+    'https://rwbookclub.com/oliver/',
+    'https://elixir.poapkings.com/clan',
+    'https://buttondown.com/reading-things',
+    'https://rwbookclub.com/'
+  ])
+    assert.ok(urls.includes(url), url);
 });
 
 test('artifacts are published beside their thing, shown by an image where there is one, and carried in the twin', () => {

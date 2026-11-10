@@ -240,6 +240,12 @@ test('a website thing shows its front page and page views', async ({ page }) => 
     /\/assets\/screenshots\/rwbookclub-com-[0-9a-f]{10}\.jpg$/
   );
   expect(await fitsViewport(page)).toBe(true);
+  // A thing that lives at a page inside a site shows that page, and never the site's page views.
+  await page.goto('/things/oliver/');
+  await expect(page.locator('.screenshot img')).toHaveAttribute('alt', /^The page rwbookclub\.com\/oliver on /);
+  await expect(page.locator('.screenshot a')).toHaveAttribute('href', 'https://rwbookclub.com/oliver/');
+  await expect(page.locator('.screenshot figcaption')).toContainText('The collector grabs this page once a month.');
+  await expect(page.locator('.facts .views')).toHaveCount(0);
   await page.goto('/things/elixir-bot/');
   await expect(page.locator('.screenshot')).toHaveCount(0);
   await expect(page.locator('meta[property="og:image"]')).toHaveCount(0);

@@ -1,6 +1,7 @@
-// Screenshot observations: the front page of each website thing, as a 1280×800 JPEG, so a thing page
-// shows what the site looks like. A capture is refreshed once it is four weeks old, which keeps the
-// repository's growth to about one image per site per month; git history keeps the earlier ones.
+// Screenshot observations: each website thing's own page (a front page, or the page inside a site where
+// the thing lives), as a 1280×800 JPEG, so a thing page shows what it looks like. A capture is refreshed once
+// it is four weeks old, which keeps the repository's growth to about one image per page per month; git
+// history keeps the earlier ones.
 //
 // Captures block analytics, so taking one never counts as a visit to the site.
 import { createHash } from 'node:crypto';

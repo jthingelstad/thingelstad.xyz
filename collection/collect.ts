@@ -63,9 +63,23 @@ const capturedRoles = new Set(['website', 'archive', 'demo']);
 // A thing's own feeds are its publications. A feed it only refers to is someone else's, and this site's own
 // feed is the history ledger, which is already a page here.
 const publishedRoles = new Set(['website', 'podcast']);
-// Screenshots are of front pages that are still the thing's own. A retired or abandoned thing's host may
-// belong to someone else by now, so it keeps whatever capture it already has.
+// Screenshots are of pages that are still the thing's own: its website source, a site's front page or a page
+// inside a larger site (a thing that lives at /clan is shown at /clan). Page views stay root-only (see
+// `origins`), so a page never takes its whole site's traffic. A retired or abandoned thing's host may belong
+// to someone else by now, so it keeps whatever capture it already has.
 const photographed = new Set<Status>(['active', 'dormant', 'archived']);
+// A screenshot is stored under its URL's key, which drops punctuation: a root and a page inside it never share
+// one (rwbookclub-com, rwbookclub-com-oliver), but two different addresses can (/a-b and /a/b). Those would
+// overwrite each other's image, so the registry is refused instead.
+function distinctKeys(urls: string[]) {
+  const byKey = new Map<string, string>();
+  for (const url of urls) {
+    const other = byKey.get(websiteKey(url));
+    if (other && other !== url) throw new Error(`${url} and ${other} would share a screenshot; list one of them.`);
+    byKey.set(websiteKey(url), url);
+  }
+  return [...byKey.values()].toSorted();
+}
 export function targets(registry: Registry) {
   const repositories = new Map<string, Set<string | null>>();
   const websites = new Map<string, { url: string; sitemap?: string; feed?: string }>();
@@ -117,17 +131,17 @@ export function targets(registry: Registry) {
         )
       )
     ].toSorted(),
-    screenshots: [
-      ...new Set(
-        registry.things
-          .filter((thing) => photographed.has(thing.status))
-          .flatMap((thing) =>
-            thing.sources.flatMap((source) =>
-              source.kind === 'website' && source.role === 'website' && rootOrigin(source.url) ? [source.url] : []
-            )
+    screenshots: distinctKeys(
+      registry.things
+        .filter((thing) => photographed.has(thing.status))
+        .flatMap((thing) =>
+          thing.sources.flatMap((source) =>
+            source.kind === 'website' && source.role === 'website' && new URL(source.url).protocol === 'https:'
+              ? [source.url]
+              : []
           )
-      )
-    ].toSorted(),
+        )
+    ),
     origins: [
       ...new Set(
         registry.things.flatMap((thing) =>

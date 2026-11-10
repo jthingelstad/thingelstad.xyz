@@ -74,15 +74,17 @@ type SiteSource = ThingSource & {
   observation: GitHubObservation | WebObservation | null;
   captures?: WaybackObservation | null; // website sources only: Internet Archive captures
   views?: TinylyticsObservation | null; // website roots only: page views counted by Tinylytics
-  screenshot?: ScreenshotObservation | null; // website roots only: the front page, captured monthly
+  screenshot?: ScreenshotObservation | null; // the thing's own website source: its page, captured monthly
   evidence: Evidence[];
 };
-// The front page as it looked on the day it was captured. The JPEG is published under /assets/ with its
+// The thing's own page (a site's front page, or the page inside a site where the thing lives) as it looked on
+// the day it was captured. The JPEG is published under /assets/ with its
 // hash in the name, so a new capture is a new file and the old one stays for open pages.
 type SiteScreenshot = {
   src: string;
   site: string; // the URL that was captured
-  host: string;
+  place: string; // the host, with the path for a page inside a site: rwbookclub.com/oliver
+  page: string; // what was captured: "the front page", or "this page" for a page inside a site
   date: string; // YYYY-MM-DD
   width: number;
   height: number;
@@ -361,16 +363,19 @@ function viewMonths(observation: TinylyticsObservation): MonthCount[] {
   return months;
 }
 function siteScreenshot(observation: ScreenshotObservation): SiteScreenshot {
-  const host = new URL(observation.url).host;
+  const { host, pathname } = new URL(observation.url);
   const date = observation.observedAt.slice(0, 10);
+  const root = rootOrigin(observation.url) !== null;
+  const place = root ? host : `${host}${pathname.replace(/\/$/, '')}`;
   return {
     src: screenshotAsset(observation),
     site: observation.url,
-    host,
+    place,
+    page: root ? 'the front page' : 'this page',
     date,
     width: observation.width,
     height: observation.height,
-    alt: `The front page of ${host} on ${formatDate(date)}`
+    alt: `${root ? 'The front page of' : 'The page'} ${place} on ${formatDate(date)}`
   };
 }
 function sourceMonths(source: SiteSource): MonthCount[] {

@@ -15,7 +15,7 @@ sources:
     path: agent
   - kind: website
     url: https://rwbookclub.com/oliver/
-    role: reference
+    role: website
 connections:
   - to: r-w-book-club
     label: publishes the website of
