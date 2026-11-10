@@ -16,7 +16,7 @@ import type { MonthCount, ScreenshotObservation } from '../collection/schema';
 import { activitySummary, localDay, whoBar, yearColumns } from '../collection/activity';
 import { connectionDiagram } from '../collection/diagram';
 import { parseSites, siteRef, sitesPath } from '../collection/sites';
-import { sitesStrip } from '../collection/sites-strip';
+import { sitesStrip, sitesStripAll } from '../collection/sites-strip';
 import { sharedTypeAssets, sharedTypeDir } from '../collection/shared-type';
 import { writeSearchIndex } from '../collection/search-index';
 import { writeImages } from '../collection/image-files';
@@ -58,6 +58,7 @@ export default function (eleventyConfig: EleventyConfig) {
   // with ?ref=xyz-<placement> (`{{ url | ref("thing") }}`). Templates add refs; content text keeps its links.
   const sites = parseSites(readFileSync(sitesPath, 'utf8'));
   eleventyConfig.addGlobalData('sitesStrip', sitesStrip(sites.sites));
+  eleventyConfig.addGlobalData('sitesStripAll', sitesStripAll(sites.strip_all));
   eleventyConfig.addGlobalData('owner', sites.owner);
   eleventyConfig.addFilter('ref', siteRef(sites.sites));
   eleventyConfig.addPassthroughCopy({ 'public/favicon.svg': 'favicon.svg' });

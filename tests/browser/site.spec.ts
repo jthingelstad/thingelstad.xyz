@@ -135,6 +135,7 @@ test('every page opens with the sites strip, this site current', async ({ page }
   for (const [path, status] of [
     ['/', 200],
     ['/things/weekly-thing/', 200],
+    ['/all/', 200],
     ['/things/nothing-here/', 404]
   ] as const) {
     const response = await page.goto(path);
@@ -143,7 +144,16 @@ test('every page opens with the sites strip, this site current', async ({ page }
     await expect(strip).toBeVisible();
     expect(await page.evaluate(() => document.querySelector('body > .skip + *')?.className), path).toBe('sites-strip');
     const links = strip.getByRole('link');
-    await expect(links).toHaveCount(stripSites.length);
+    await expect(links).toHaveCount(stripSites.length + 1);
+    // All Things ends the strip, outside the list, the same on every page; on /all/ it is the page you are on.
+    const all = strip.locator('.sites-strip__list + a.sites-strip__all');
+    await expect(all).toHaveText('All Things');
+    await expect(all).toHaveAttribute('href', 'https://thingelstad.xyz/all/?ref=sites-strip-xyz');
+    await expect(all).toHaveCSS('color', 'rgb(22, 22, 26)');
+    await expect(all).toHaveCSS('text-decoration-line', path === '/all/' ? 'none' : 'underline');
+    if (path === '/all/') await expect(all).toHaveAttribute('aria-current', 'page');
+    else await expect(all).not.toHaveAttribute('aria-current');
+    await expect(all).toBeInViewport();
     for (const [index, site] of stripSites.entries()) {
       await expect(links.nth(index)).toHaveAttribute('href', `${site.url}?ref=sites-strip-xyz`);
       await expect(links.nth(index)).toHaveText(site.strip_label);
@@ -160,10 +170,43 @@ test('every page opens with the sites strip, this site current', async ({ page }
     const rows = await strip
       .locator('.sites-strip__item')
       .evaluateAll((items) => items.map((item) => item.getBoundingClientRect().top));
-    if (phone) expect(new Set(rows).size, 'one row that scrolls sideways on a phone').toBe(1);
+    if (phone) {
+      expect(new Set(rows).size, 'one row that scrolls sideways on a phone').toBe(1);
+      // The list scrolls under All Things, which stays at the row's right end.
+      await strip.locator('.sites-strip__list').evaluate((list) => (list.scrollLeft = list.scrollWidth));
+      const listBox = (await strip.locator('.sites-strip__list').boundingBox())!;
+      const allBox = (await all.boundingBox())!;
+      expect(allBox.x).toBeGreaterThanOrEqual(listBox.x + listBox.width - 7);
+      await expect(all).toBeInViewport({ ratio: 1 });
+    }
     expect((await strip.boundingBox())!.height).toBeGreaterThanOrEqual(40);
     expect(await fitsViewport(page), path).toBe(true);
   }
+  expect(errors).toEqual([]);
+});
+
+test('All Things links every live thing straight to its site, in compact columns', async ({ page }) => {
+  const errors = watchErrors(page);
+  await page.goto('/all/');
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('All Things');
+  const links = page.locator('.all-group li a');
+  expect(await links.count()).toBeGreaterThan(10);
+  const rows = await links.evaluateAll((items) =>
+    items.map((item) => ({ visit: (item as HTMLAnchorElement).href, title: item.getAttribute('title') }))
+  );
+  for (const row of rows) {
+    expect(new URL(row.visit).hostname, row.visit).not.toBe('github.com');
+    expect([null, 'xyz-all']).toContain(new URL(row.visit).searchParams.get('ref'));
+    expect(row.title, `${row.visit} carries its summary`).toBeTruthy();
+  }
+  expect(rows.map((row) => new URL(row.visit).searchParams.get('ref'))).toContain('xyz-all');
+  for (const href of await page.locator('.all-group h2 a').evaluateAll((a) => a.map((x) => x.getAttribute('href'))))
+    expect(href).toMatch(/^\/things\/\?collection=[a-z0-9-]+$/);
+  // Compact: on a desktop the whole list fits in one screen.
+  if (page.viewportSize()!.width >= 1024)
+    expect((await page.locator('.all-columns').boundingBox())!.height).toBeLessThan(600);
+  expect(await page.locator('main [class^="h-"], main [class*=" h-"]').count(), 'a jump list, not a feed').toBe(0);
+  expect(await fitsViewport(page)).toBe(true);
   expect(errors).toEqual([]);
 });
 

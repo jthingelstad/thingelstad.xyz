@@ -9,5 +9,6 @@
       </li>
       {%- endfor %}
     </ul>
+    <a class="sites-strip__all" href="{{ sitesStripAll.href }}" title="{{ sitesStripAll.description }}"{% if page.url == sitesStripAll.page %} aria-current="page"{% endif %}>{{ sitesStripAll.label }}</a>
   </div>
 </nav>

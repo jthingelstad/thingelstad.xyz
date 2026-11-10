@@ -1,5 +1,5 @@
 {
-  "$comment": "Canonical cross-site data for Jamie's sites. Edit here only; consumers vendor a copy (www.thingelstad.com/scripts/sync-shared.sh -> thing-hugo/data/sites.json; npm run sites:sync in thingy.thingelstad.com/web, weekly.thingelstad.com, another.thingelstad.com, thingelstad.xyz and links.thingelstad.xyz). in_sites_strip picks the sites the sites strip and the blog's footer list, and strip_label is the one label a site has in that strip on every site, its own included; in_publishing_system says only whether WT Builder and librarian-thing work with the site. Call these sites or properties, never a network.",
+  "$comment": "Canonical cross-site data for Jamie's sites. Edit here only; consumers vendor a copy (www.thingelstad.com/scripts/sync-shared.sh -> thing-hugo/data/sites.json; npm run sites:sync in thingy.thingelstad.com/web, weekly.thingelstad.com, another.thingelstad.com, thingelstad.xyz and links.thingelstad.xyz). in_sites_strip picks the sites the sites strip and the blog's footer list, and strip_label is the one label a site has in that strip on every site, its own included; strip_all is the link that ends the strip on every site, to the list of everything live on thingelstad.xyz; in_publishing_system says only whether WT Builder and librarian-thing work with the site. Call these sites or properties, never a network.",
   "owner": {
     "name": "Jamie Thingelstad",
     "url": "https://www.thingelstad.com/",
@@ -9,6 +9,11 @@
       "https://micro.blog/jthingelstad",
       "https://github.com/jthingelstad"
     ]
+  },
+  "strip_all": {
+    "label": "All Things",
+    "url": "https://thingelstad.xyz/all/",
+    "description": "Every site and project of Jamie's that is live today, in one list."
   },
   "sites": [
     {

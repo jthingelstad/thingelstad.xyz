@@ -222,7 +222,8 @@ select:focus-visible,
   outline-offset: 3px;
 }
 
-.sites-strip__item--current a {
+.sites-strip__item--current a,
+.sites-strip__all[aria-current] {
   text-decoration: none;
 }
 
@@ -1716,7 +1717,8 @@ h4:hover > .permalink,
   }
 }
 
-/* Phones: the sites strip is one row that scrolls sideways, without its label. */
+/* Phones: the sites strip is one row, without its label. The list scrolls sideways inside it, and All Things
+   stays put at its right end, so it is never scrolled out of sight. */
 @media (width <= 40rem) {
   .sites-strip__inner,
   .sites-strip__list {
@@ -1725,8 +1727,20 @@ h4:hover > .permalink,
   }
 
   .sites-strip__inner {
-    overflow-x: auto;
     white-space: nowrap;
+  }
+
+  /* The padding, taken back by the margin, keeps the focus ring inside the scrolling box, where it is not cut off. */
+  .sites-strip__list {
+    flex: 1 1 auto;
+    min-width: 0;
+    margin: -6px;
+    padding: 6px;
+    overflow-x: auto;
+  }
+
+  .sites-strip__all {
+    flex: none;
   }
 
   .sites-strip__label {
@@ -2224,6 +2238,56 @@ h4:hover > .permalink,
   .thing-line-year {
     display: none;
   }
+}
+
+/* /all/: every live thing as a link, in columns, as dense as a classifieds index (Jamie, 2026-11-10: "think
+   Craigslist"). Each collection keeps to one column; its summary is the link's title. */
+.all-title {
+  margin: 8px 0 4px;
+  font-size: var(--jt-size-h2);
+}
+
+.all-note {
+  margin: 0 0 24px;
+  font-size: var(--jt-size-small);
+}
+
+.all-columns {
+  columns: 4 13rem;
+  column-gap: 32px;
+}
+
+.all-group {
+  margin: 0 0 20px;
+  break-inside: avoid;
+}
+
+.all-group h2 {
+  margin: 0 0 4px;
+  padding-bottom: 2px;
+  border-bottom: 1px solid var(--line);
+  font-size: var(--jt-size-ui);
+}
+
+.all-group h2 a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.all-group h2 a:hover {
+  text-decoration: underline;
+}
+
+.all-group ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: var(--jt-size-ui);
+  line-height: 1.55;
+}
+
+.all-group li a {
+  color: var(--accent-text);
 }
 
 /* /years/: a row a year. The numbers are always printed, so colour never carries them alone. */

@@ -296,6 +296,11 @@ type SiteFeature = {
   cover: string | null; // where the cover leads: the captured site, or the thing's address
 };
 
+// A line on /all/, the list of everything live that the sites strip's All Things opens: an active thing with a
+// website of its own (a source whose role is website), linked straight to that site. The link carries ?ref=xyz-all
+// where Tinylytics counts the site, as the featured shelf does; a link to this site stays clean.
+type SiteLive = { thing: SiteThing; href: string };
+
 // A thing's artifacts on /artifacts/: how many, and a few to show. The picks take turns across its bundles, so a
 // shelf shows the range of what was kept, and leave out a file with no image to show.
 const picksShown = 8;
@@ -331,6 +336,8 @@ export type SiteModel = {
   face: Face | null; // what a share of a page that is no thing's own shows: this site's front page
   images: ImageJob[]; // every copy of a picture the pages use, for the build to make
   featured: SiteFeature[];
+  live: { name: string; slug: string; things: SiteLive[] }[]; // /all/, by collection in the collections' order; slug is
+  // the collection's value in /things/?collection=
   collections: SiteCollection[];
   topics: SiteTopic[];
   stories: SiteStoryline[];
@@ -636,12 +643,12 @@ export function buildSiteModel(registry: Registry, observations: Observation[], 
     };
   });
   const byId = new Map(things.map((thing) => [thing.id, thing]));
-  const featuredLink = (url: string | null) => {
-    if (!url) return null;
+  const countedLink = (url: string, placement: string) => {
     const { hostname, origin } = new URL(url);
     const counted = tinylytics.has(siteKey(origin)) && hostname !== new URL(siteUrl).hostname;
-    return counted ? withRef(url, `${currentSite}-featured`) : url;
+    return counted ? withRef(url, `${currentSite}-${placement}`) : url;
   };
+  const featuredLink = (url: string | null) => (url ? countedLink(url, 'featured') : null);
   const sortedThings = things.toSorted((a, b) => a.title.localeCompare(b.title, 'en', { sensitivity: 'base' }));
 
   const names = [...new Set(things.map((thing) => thing.collection))].toSorted((a, b) => {
@@ -810,6 +817,18 @@ export function buildSiteModel(registry: Registry, observations: Observation[], 
       const thing = byId.get(id)!;
       return { thing, href: featuredLink(thing.url), cover: featuredLink(thing.screenshot?.href ?? thing.url) };
     }),
+    live: collections
+      .map(({ name, things: members }) => ({
+        name,
+        slug: facetSlug(name),
+        things: members
+          .filter(
+            (thing) =>
+              thing.status === 'active' && thing.url && thing.sources.some((source) => source.role === 'website')
+          )
+          .map((thing) => ({ thing, href: countedLink(thing.url!, 'all') }))
+      }))
+      .filter((group) => group.things.length),
     collections,
     topics,
     stories,

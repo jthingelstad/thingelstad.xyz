@@ -1,0 +1,27 @@
+---
+layout: layout.njk
+permalink: /all/
+title: All Things
+description: Every site and project of Jamie Thingelstad’s that is live today, in one list, each a link straight to it.
+---
+{#- All Things: the list the sites strip's last link opens on every one of Jamie's sites (thingelstad.com AGENTS.md,
+    "The sites strip"). It is model.live: every active thing with a website of its own, by collection, each name a
+    link straight to that site (with ?ref=xyz-all where Tinylytics counts it), its summary as the link's title. Dense
+    on purpose, a page of links in columns (Jamie, 2026-11-10: "think Craigslist"). It writes itself from the
+    records, so a new live thing appears with no change to the strip. A jump list, not a record: no microformats,
+    and the record pages stay the h-entries. #}
+{%- set count = 0 %}{% for group in site.live %}{% set count = count + group.things | length %}{% endfor %}
+<h1 class="all-title">All Things</h1>
+<p class="all-note muted">Every one of Jamie’s things with a site of its own that is running today, {{ count }} of them. The rest are on <a href="/things/">Things</a>.</p>
+<div class="all-columns">
+  {% for group in site.live %}
+  <section class="all-group" id="{{ group.name | slugify }}">
+    <h2><a href="/things/?collection={{ group.slug }}">{{ group.name }}</a></h2>
+    <ul>
+      {% for item in group.things %}
+      <li><a href="{{ item.href }}" title="{{ item.thing.summary }}">{{ item.thing.title }}</a></li>
+      {% endfor %}
+    </ul>
+  </section>
+  {% endfor %}
+</div>
