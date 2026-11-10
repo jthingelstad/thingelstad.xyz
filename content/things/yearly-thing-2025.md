@@ -25,6 +25,27 @@ connections:
     label: collects a year of
     detail: All 324 links Jamie commented on across 31 issues of the Weekly Thing in 2025, reorganized into ten topic chapters, in print and eBook form. Proceeds support the Weekly Thing Supporting Membership program.
     source: https://www.thingelstad.com/2026/01/20/i-made-a-book-yearly.html
+artifacts:
+  - file: cover.jpg
+    title: The cover
+    caption: Wind turbines against a cloudy sky, under the title and the subtitle Agents, Attention, Artifacts. Jamie posted it the day before the book came out.
+    date: '2026-01-19'
+    source: https://www.thingelstad.com/2026/01/19/i-just-finished-up-this.html
+  - file: paperback.jpg
+    title: The paperback
+    caption: A print copy from Lulu, photographed the day the first copies arrived.
+    date: '2026-01-27'
+    source: https://www.thingelstad.com/2026/01/27/the-print-copies-of-the.html
+  - file: contents.jpg
+    title: Contents
+    caption: The ten chapters, from The AI Revolution to Tools, Productivity and Delights, then the Weekly Thing Index and the Afterword.
+    date: '2026-01-27'
+    source: https://www.thingelstad.com/2026/01/27/the-print-copies-of-the.html
+  - file: pages-90-91.jpg
+    title: Pages 90 and 91
+    caption: Two items from the chapter on privacy, security and encryption, each under the Weekly Thing issue it came from.
+    date: '2026-01-27'
+    source: https://www.thingelstad.com/2026/01/27/the-print-copies-of-the.html
 ---
 
 For a few years Jamie had wondered about a book version of the Weekly Thing, something like an almanac. He [started it over Christmas 2025](https://www.thingelstad.com/2026/01/19/i-just-finished-up-this.html) and [published it](https://www.thingelstad.com/2026/01/20/i-made-a-book-yearly.html) on January 20, 2026, as _Yearly Thing 2025: Agents, Attention, Artifacts_. It gathers all 324 links he commented on across 31 issues in 2025 into ten topic chapters, from The AI Revolution to Tools, Productivity and Delights, with an Introduction, a Weekly Thing Index, and an Afterword. The eBook keeps every hyperlink. The paperback lists the issue each item came from, with QR codes that lead to the Weekly Thing Index.

@@ -20,6 +20,27 @@ connections:
     label: was sold at
     detail: 'Jiggy Thing Puzzle #001 was introduced at the first Things 4 Good Fall Fundraiser in 2021 and sold again in 2022, with proceeds going to the causes the family chose.'
     source: https://www.thingelstad.com/2021/11/09/things-good-fall.html
+artifacts:
+  - file: boxes.jpg
+    title: The boxes
+    caption: Celebration City in its custom box, Jiggy Thing Puzzles, 500 pieces, the day the order arrived.
+    date: '2021-10-24'
+    source: https://www.thingelstad.com/2021/10/24/custom-puzzle-box.html
+  - file: ant-hotel.jpg
+    title: The Ant Hotel
+    caption: A close look at the puzzle’s art. An ant hotel with a “no vacancy” sign, a horse in a service vest, and two fish in party hats.
+    date: '2021-10-06'
+    source: https://www.thingelstad.com/2021/10/06/our-family-created.html
+  - file: cake-detail.jpg
+    title: The cake
+    caption: Another corner of Celebration City, a three-layer frosted cake with sprinkles, a ladder up its side and small figures underneath.
+    date: '2021-11-13'
+    source: https://weekly.thingelstad.com/archive/203/
+  - file: sale-table.jpg
+    title: At the fundraiser
+    caption: Stacks of the puzzle among the candles on the first day of the Things 4 Good Fall Fundraiser.
+    date: '2021-11-06'
+    source: https://www.thingelstad.com/2021/11/06/we-had-a.html
 ---
 
 Jiggy Thing Puzzles are custom jigsaw puzzles the Thingelstads made together. The first, **Jiggy Thing Puzzle #001 “Celebration City,”** is a 500-piece puzzle of hand-drawn digital art packed with little scenes, like an ant hotel with a “no vacancy” sign. On October 6, 2021, Jamie wrote that they had finished the box design and [ordered 50 puzzles](https://www.thingelstad.com/2021/10/06/our-family-created.html). They had made puzzles before, but this was their first custom box, and when the order showed up he wrote that he was happy with how it came out ([Custom Puzzle Box](https://www.thingelstad.com/2021/10/24/custom-puzzle-box.html)).

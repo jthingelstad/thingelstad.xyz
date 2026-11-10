@@ -8,7 +8,7 @@ import { createHash } from 'node:crypto';
 import { basename, extname } from 'node:path';
 
 // Bump when the sizes, formats or quality change, so every copy gets a new name.
-const imageRecipe = 'img-1';
+const imageRecipe = 'img-2';
 // The widths a picture is offered at. The widest box an image fills is the thing page's screenshot, 720 CSS
 // pixels, so 1440 covers it on a 2x screen; a 300-pixel shelf card on a 3x phone takes 900. The steps past
 // 1440 are only for wide images (widthsFor).

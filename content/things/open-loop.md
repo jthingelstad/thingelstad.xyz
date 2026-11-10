@@ -31,6 +31,26 @@ connections:
     label: discussed
     detail: Episode 3, Kubb Fever, linked the Planet Kubb notation and scoresheet and talked through how Garrick van Buren and Jamie record games.
     source: https://www.thingelstad.com/projects/open-loop/3-kubb-fever/
+artifacts:
+  - file: cover.jpg
+    title: The show’s art
+    caption: The microphone on a Kubb pitch, with the names of Jamie and Garrick van Buren and the years of the show. It is the art of the republished podcast feed.
+    source: https://files.thingelstad.com/projects/openloop/podcast.xml
+  - file: episode-0.jpg
+    title: 'Open Loop #0'
+    caption: The microphone on a desk, the picture for the first episode. Every episode’s picture puts the microphone somewhere new.
+    date: '2012-06-01'
+    source: https://www.thingelstad.com/projects/open-loop/0-but-no-shoes/
+  - file: episode-4.jpg
+    title: 'Open Loop #4'
+    caption: The microphone on a Kubb field beside a Planet Kubb sign, the picture for Enough Win for Everyone.
+    date: '2012-10-12'
+    source: https://www.thingelstad.com/projects/open-loop/4-enough-win-for-everyone/
+  - file: episode-7.jpg
+    title: 'Open Loop #7'
+    caption: The microphone among kubbs set out on a wood floor, the picture for Turtle Turtle Turtle.
+    date: '2013-01-12'
+    source: https://www.thingelstad.com/projects/open-loop/7-turtle-turtle-turtle/
 ---
 
 Open Loop was a podcast Jamie made with Garrick van Buren. They recorded nine episodes, numbered 0 to 8, from [June 1, 2012](https://www.thingelstad.com/projects/open-loop/0-but-no-shoes/) to April 12, 2013, talking about Kubb, beer and the technology projects they were tinkering with. It was Jamie’s first experiment with podcasting ([Open Loop](https://www.thingelstad.com/projects/open-loop/)), and it began when he emailed Garrick to ask “why aren’t we doing a podcast?” ([Open Loop #0](https://www.thingelstad.com/projects/open-loop/0-but-no-shoes/)). Eric Goplin, director of Minnesota Kubb, joined them for [episode 6](https://www.thingelstad.com/projects/open-loop/6-loppet-2013/).
