@@ -2,18 +2,18 @@
   "kind": "github",
   "repository": "jthingelstad/thingy.thingelstad.xyz",
   "url": "https://github.com/jthingelstad/thingy.thingelstad.xyz",
-  "observedAt": "2026-11-09T21:26:11.591Z",
+  "observedAt": "2026-11-10T18:40:18.027Z",
   "repositoryCreatedAt": "2026-11-02T00:04:20.000Z",
   "archived": false,
   "description": "Thingy's home: his persona, 3D model, stills and the kit for using them. Licensed CC BY-NC 4.0.",
   "stars": 0,
   "forks": 0,
   "languages": [
-    { "name": "TypeScript", "bytes": 197909 },
+    { "name": "TypeScript", "bytes": 230557 },
     { "name": "Python", "bytes": 189828 },
-    { "name": "JavaScript", "bytes": 51710 },
-    { "name": "HTML", "bytes": 48842 },
-    { "name": "CSS", "bytes": 34557 }
+    { "name": "JavaScript", "bytes": 60907 },
+    { "name": "HTML", "bytes": 54900 },
+    { "name": "CSS", "bytes": 41779 }
   ],
   "release": null,
   "activity": [
@@ -21,13 +21,13 @@
       "path": null,
       "branch": "main",
       "since": "2026-08-01T00:00:00.000Z",
-      "until": "2026-11-09T21:26:11.591Z",
-      "count": 102,
+      "until": "2026-11-10T18:40:18.027Z",
+      "count": 129,
       "complete": true,
-      "months": [{ "month": "2026-11", "count": 102 }],
+      "months": [{ "month": "2026-11", "count": 129 }],
       "latestCommit": {
-        "date": "2026-11-09T12:45:31.000Z",
-        "url": "https://github.com/jthingelstad/thingy.thingelstad.xyz/commit/9e55518204802f14d3b9399399c79c08532440d1"
+        "date": "2026-11-10T15:32:11.000Z",
+        "url": "https://github.com/jthingelstad/thingy.thingelstad.xyz/commit/08f416a5cb053e667fe9d0448eca417f5e31f3b5"
       }
     }
   ]

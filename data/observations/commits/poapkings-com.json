@@ -2,9 +2,11 @@
   "kind": "commits",
   "repository": "jthingelstad/poapkings.com",
   "url": "https://github.com/jthingelstad/poapkings.com",
-  "observedAt": "2026-11-09T21:26:11.591Z",
+  "observedAt": "2026-11-10T18:40:18.027Z",
   "branch": "main",
   "commits": [
+    {"sha":"ba88b28a781c","date":"2026-11-10T03:19:15.000Z","subject":"List formatUpdated with the custom filters","by":"agent","agents":["claude"]},
+    {"sha":"c3376021bd5e","date":"2026-11-10T03:19:15.000Z","subject":"Date the \"Data updated\" lines by the Central day","by":"agent","agents":["claude"]},
     {"sha":"02a768c88928","date":"2026-11-09T00:15:50.000Z","subject":"Refresh Clash Royale data","by":"agent"},
     {"sha":"85764f8909d9","date":"2026-11-07T13:05:03.000Z","subject":"Star bursts load PixiJS's eval-free path under the script policy","by":"agent","agents":["claude"]},
     {"sha":"e00518d1c336","date":"2026-11-07T03:32:10.000Z","subject":"Match script tags in any case in the inline-script test","by":"agent","agents":["claude"]},

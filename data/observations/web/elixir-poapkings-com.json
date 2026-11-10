@@ -1,15 +1,15 @@
 {
   "kind": "web",
   "url": "https://elixir.poapkings.com/",
-  "observedAt": "2026-11-09T21:26:11.591Z",
+  "observedAt": "2026-11-10T18:40:18.027Z",
   "sitemap": {
     "url": "https://elixir.poapkings.com/sitemap.xml",
-    "pages": 1037,
-    "newestModified": "2026-11-09T15:27:19.000Z",
+    "pages": 1043,
+    "newestModified": "2026-11-10T13:03:28.000Z",
     "months": [
       { "month": "2026-09", "count": 515 },
       { "month": "2026-10", "count": 267 },
-      { "month": "2026-11", "count": 255 }
+      { "month": "2026-11", "count": 261 }
     ],
     "complete": true
   },
@@ -17,10 +17,10 @@
     "url": "https://elixir.poapkings.com/feed.xml",
     "title": "Elixir updates",
     "items": 50,
-    "newestPublished": "2026-11-09T12:00:00.000Z",
+    "newestPublished": "2026-11-10T12:00:00.000Z",
     "months": [
-      { "month": "2026-10", "count": 12 },
-      { "month": "2026-11", "count": 38 }
+      { "month": "2026-10", "count": 6 },
+      { "month": "2026-11", "count": 44 }
     ]
   }
 }
