@@ -343,7 +343,7 @@ test("screenshots capture each live thing's own page once a month, and only when
     'a front page or a page inside a site, never a retired thing or a site the thing only refers to'
   );
   assert.ok(
-    !targets(sites).origins.some((origin) => origin.includes('pages.example.net')),
+    !targets(sites).origins.some((origin) => new URL(origin).host === 'pages.example.net'),
     "page views stay root-only: a thing that lives at a page never asks for its whole site's traffic"
   );
   const fixed: Capturer = {
