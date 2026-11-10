@@ -2240,67 +2240,54 @@ h4:hover > .permalink,
   }
 }
 
-/* /all/: every live thing, a line each, the name a link straight to its site. */
+/* /all/: every live thing as a link, in columns, as dense as a classifieds index (Jamie, 2026-11-10: "think
+   Craigslist"). Each collection keeps to one column; its summary is the link's title. */
+.all-title {
+  margin: 8px 0 4px;
+  font-size: var(--jt-size-h2);
+}
+
+.all-note {
+  margin: 0 0 24px;
+  font-size: var(--jt-size-small);
+}
+
+.all-columns {
+  columns: 4 13rem;
+  column-gap: 32px;
+}
+
 .all-group {
-  margin-top: 40px;
+  margin: 0 0 20px;
+  break-inside: avoid;
 }
 
 .all-group h2 {
-  margin: 0 0 8px;
-  font-size: var(--jt-size-h3);
+  margin: 0 0 4px;
+  padding-bottom: 2px;
+  border-bottom: 1px solid var(--line);
+  font-size: var(--jt-size-ui);
 }
 
-.all-lines {
-  padding: 0;
-  margin: 0;
-  list-style: none;
+.all-group h2 a {
+  color: inherit;
+  text-decoration: none;
 }
 
-.all-line {
-  display: grid;
-  grid-template:
-    'title summary record' auto
-    'host summary record' 1fr / minmax(0, 15rem) minmax(0, 1fr) auto;
-  gap: 2px 24px;
-  align-items: baseline;
-  padding: 12px 0;
-  border-top: 1px solid var(--line);
-}
-
-.all-line-title {
-  grid-area: title;
-  color: var(--accent-text);
-  font-weight: 600;
+.all-group h2 a:hover {
   text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 3px;
 }
 
-.all-line-title:hover {
-  text-decoration-thickness: 2px;
+.all-group ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: var(--jt-size-ui);
+  line-height: 1.55;
 }
 
-.all-line-host {
-  grid-area: host;
-  overflow-wrap: anywhere;
-}
-
-.all-line-summary {
-  grid-area: summary;
-}
-
-.all-line-record {
-  grid-area: record;
-  color: var(--muted);
-}
-
-@media (width <= 40rem) {
-  .all-line {
-    grid-template:
-      'title record' auto
-      'host host' auto
-      'summary summary' auto / minmax(0, 1fr) auto;
-  }
+.all-group li a {
+  color: var(--accent-text);
 }
 
 /* /years/: a row a year. The numbers are always printed, so colour never carries them alone. */

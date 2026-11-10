@@ -27,7 +27,8 @@ export function gitFileDates(root = process.cwd()): FileDate {
     '--no-renames',
     '--',
     'content',
-    'site/about.njk'
+    'site/about.njk',
+    'site/all.njk'
   ).split('\n')) {
     if (line.startsWith('@')) current = line.slice(1);
     else if (line && !dates.has(line)) dates.set(line, current); // newest first, so the first date is the latest

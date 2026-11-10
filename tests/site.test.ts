@@ -205,8 +205,12 @@ test('All Things lists every active thing with a website of its own, by collecti
   );
   for (const item of live) {
     assert.ok(item.href.startsWith(item.thing.url!), `${item.thing.id} links its own site`);
-    assert.doesNotMatch(item.host, /^https?:|^www\./);
   }
+  for (const group of model.live)
+    assert.ok(
+      group.things.every((item) => item.thing.filters.some((f) => f.name === 'collection' && f.value === group.slug)),
+      `${group.name} links the /things/ filter its things carry`
+    );
   for (const id of ['mb', 'redirector', 'thingy-model'])
     assert.ok(!live.some((item) => item.thing.id === id), `${id} has no website of its own`);
   const counted = {

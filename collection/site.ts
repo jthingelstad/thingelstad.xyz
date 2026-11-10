@@ -299,7 +299,7 @@ type SiteFeature = {
 // A line on /all/, the list of everything live that the sites strip's All Things opens: an active thing with a
 // website of its own (a source whose role is website), linked straight to that site. The link carries ?ref=xyz-all
 // where Tinylytics counts the site, as the featured shelf does; a link to this site stays clean.
-type SiteLive = { thing: SiteThing; href: string; host: string };
+type SiteLive = { thing: SiteThing; href: string };
 
 // A thing's artifacts on /artifacts/: how many, and a few to show. The picks take turns across its bundles, so a
 // shelf shows the range of what was kept, and leave out a file with no image to show.
@@ -336,7 +336,8 @@ export type SiteModel = {
   face: Face | null; // what a share of a page that is no thing's own shows: this site's front page
   images: ImageJob[]; // every copy of a picture the pages use, for the build to make
   featured: SiteFeature[];
-  live: { name: string; things: SiteLive[] }[]; // /all/, by collection in the collections' order
+  live: { name: string; slug: string; things: SiteLive[] }[]; // /all/, by collection in the collections' order; slug is
+  // the collection's value in /things/?collection=
   collections: SiteCollection[];
   topics: SiteTopic[];
   stories: SiteStoryline[];
@@ -819,16 +820,13 @@ export function buildSiteModel(registry: Registry, observations: Observation[], 
     live: collections
       .map(({ name, things: members }) => ({
         name,
+        slug: facetSlug(name),
         things: members
           .filter(
             (thing) =>
               thing.status === 'active' && thing.url && thing.sources.some((source) => source.role === 'website')
           )
-          .map((thing) => ({
-            thing,
-            href: countedLink(thing.url!, 'all'),
-            host: new URL(thing.url!).hostname.replace(/^www\./, '') + new URL(thing.url!).pathname.replace(/\/$/, '')
-          }))
+          .map((thing) => ({ thing, href: countedLink(thing.url!, 'all') }))
       }))
       .filter((group) => group.things.length),
     collections,
