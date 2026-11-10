@@ -192,19 +192,30 @@ test('All Things links every live thing straight to its site, in compact columns
   const links = page.locator('.all-group li a');
   expect(await links.count()).toBeGreaterThan(10);
   const rows = await links.evaluateAll((items) =>
-    items.map((item) => ({ visit: (item as HTMLAnchorElement).href, title: item.getAttribute('title') }))
+    items.map((item) => ({
+      visit: (item as HTMLAnchorElement).href,
+      tagline: item.parentElement!.querySelector('.all-tagline')?.textContent?.trim() ?? ''
+    }))
   );
   for (const row of rows) {
     expect(new URL(row.visit).hostname, row.visit).not.toBe('github.com');
     expect([null, 'xyz-all']).toContain(new URL(row.visit).searchParams.get('ref'));
-    expect(row.title, `${row.visit} carries its summary`).toBeTruthy();
+    expect(row.tagline, `${row.visit} has its tagline under it`).toBeTruthy();
   }
+  // Publishing reads in the strip's order.
+  await expect(page.locator('#publishing li a')).toHaveText([
+    'Jamie Thingelstad blog',
+    'Weekly Thing',
+    'Another Thing',
+    'Linking Things',
+    'Ask Thingy'
+  ]);
   expect(rows.map((row) => new URL(row.visit).searchParams.get('ref'))).toContain('xyz-all');
   for (const href of await page.locator('.all-group h2 a').evaluateAll((a) => a.map((x) => x.getAttribute('href'))))
     expect(href).toMatch(/^\/things\/\?collection=[a-z0-9-]+$/);
-  // Compact: on a desktop the whole list fits in one screen.
+  // Compact: on a desktop the whole list, a line under each name, still fits in about one screen.
   if (page.viewportSize()!.width >= 1024)
-    expect((await page.locator('.all-columns').boundingBox())!.height).toBeLessThan(600);
+    expect((await page.locator('.all-columns').boundingBox())!.height).toBeLessThan(900);
   expect(await page.locator('main [class^="h-"], main [class*=" h-"]').count(), 'a jump list, not a feed').toBe(0);
   expect(await fitsViewport(page)).toBe(true);
   expect(errors).toEqual([]);

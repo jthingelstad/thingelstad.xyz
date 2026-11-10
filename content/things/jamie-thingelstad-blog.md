@@ -1,6 +1,7 @@
 ---
 title: Jamie Thingelstad blog
 summary: 'Jamie’s personal blog since June 2004, more than 10,000 posts of writing, links, and photos, now published on Micro.blog. He calls it the root of everything else.'
+tagline: 'Jamie’s personal blog since June 2004, more than 10,000 posts of writing, links, and photos.'
 collection: Publishing
 status: active
 url: https://www.thingelstad.com/

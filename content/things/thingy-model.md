@@ -1,13 +1,19 @@
 ---
 title: Thingy Model
+site_name: 'Meet Thingy'
 summary: A poseable Blender character built from Thingy’s original illustration, with a shared skeleton, seven Scenes and their accessories, a screen face with moods, and a kit that puts him on any site.
-collection: Art & archives
+tagline: 'Thingy as a poseable character, with his Scenes, faces, and a kit for any site.'
+collection: Developer tools and systems
 status: active
+url: https://thingy.thingelstad.xyz/
 started: '2026-11-01'
 topics:
   - making
   - agents
 sources:
+  - kind: website
+    url: https://thingy.thingelstad.xyz/
+    role: website
   - kind: website
     url: https://thingy.thingelstad.xyz/kit/
     role: reference

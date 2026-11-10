@@ -1,7 +1,7 @@
 ---
 title: Road Sign Math (2021)
 summary: 'Road Sign Math as a simple blog of the signs Jamie’s family found from 2021 to 2025, first at roadsignmath.thingelstad.com and from 2023 on Micro.blog at roadsignmath.xyz.'
-collection: Games and communities
+collection: Games
 status: retired
 url: https://web.archive.org/web/20260909070315/https://www.roadsignmath.xyz/
 started: '2021-03'

@@ -1,6 +1,8 @@
 ---
 title: Thingy
+site_name: 'Ask Thingy'
 summary: Jamie’s agent sidekick. On Ask Thingy he is the librarian, answering questions about everything Jamie has published with citations back to the original posts and issues, and he also keeps this site.
+tagline: 'Jamie’s agent sidekick, answering questions about everything Jamie has published.'
 collection: Publishing
 status: active
 url: https://thingy.thingelstad.com/

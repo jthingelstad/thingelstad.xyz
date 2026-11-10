@@ -1,7 +1,8 @@
 ---
 title: Elixir Drop
 summary: 'A free browser game from POAP KINGS for learning Clash Royale cards and their elixir costs, in six fast game modes.'
-collection: Games and communities
+tagline: 'A free browser game for learning Clash Royale cards and their elixir costs.'
+collection: Games
 status: active
 url: https://drop.poapkings.com/
 started: '2026-06-13'

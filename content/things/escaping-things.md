@@ -1,7 +1,8 @@
 ---
 title: Escaping Things
 summary: 'The escape room log of Jamie’s family team, with every room played since 2016, on a map with trips, players, and stats.'
-collection: Games and communities
+tagline: 'The escape room log of Jamie’s family team, every room since 2016.'
+collection: Communities
 status: active
 url: https://escape.thingelstad.com/
 started: '2026-02-23'

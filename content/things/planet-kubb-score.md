@@ -1,7 +1,7 @@
 ---
 title: Planet Kubb Score
 summary: 'Jamie’s notation and scoring system for recording Kubb games, begun on Planet Kubb in 2012. He is rebuilding it, and it is not published yet.'
-collection: Games and communities
+collection: Games
 status: active
 url: null
 started: '2012'

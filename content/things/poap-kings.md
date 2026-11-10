@@ -1,7 +1,8 @@
 ---
 title: POAP KINGS
 summary: 'The website of POAP KINGS, the Clash Royale clan of Jamie’s family, with its roster, data, and season recognition.'
-collection: Games and communities
+tagline: 'The Clash Royale clan of Jamie’s family: roster, data, and season recognition.'
+collection: Games
 status: active
 url: https://poapkings.com/
 started: '2026-02'

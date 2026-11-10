@@ -68,6 +68,18 @@ test('thing front matter is validated strictly', () => {
     () => chosen({ kind: 'website', url: 'https://example.org/', role: 'archive', photograph: true }),
     /photograph/
   );
+  // A live thing (active, with a website of its own) is a line on /all/, so it has a tagline; site_name is optional.
+  const site = { kind: 'website', url: 'https://example.com/', role: 'website' };
+  assert.throws(() => chosen(site), /needs a tagline/);
+  assert.throws(
+    () => thing('example', { ...base, status: 'retired', sources: [site], tagline: 7 }, '', 'x'),
+    /public text/
+  );
+  assert.equal(thing('example', { ...base, status: 'retired', sources: [site] }, '', 'x').tagline, undefined);
+  const named = thing('example', { ...base, sources: [site], tagline: 'One line.', site_name: 'Ask Example' }, '', 'x');
+  assert.equal(named.tagline, 'One line.');
+  assert.equal(named.site_name, 'Ask Example');
+  assert.throws(() => thing('example', { ...base, sources: [site], tagline: 'x'.repeat(101) }, '', 'x'), /public text/);
   assert.throws(() => thing('example', { ...base, url: 'http://example.com/' }, '', 'x'), /public HTTPS/);
   assert.throws(() => thing('example', { ...base, url: 'https://otto.tail09aaf9.ts.net/' }, '', 'x'), /public HTTPS/);
   assert.throws(() => thing('example', base, 'See /Users/jamie/code', 'x'), /local path/);

@@ -1,6 +1,7 @@
 ---
 title: Weekly Thing
 summary: 'Jamie’s weekend newsletter of links with commentary, sent since May 2017 and published as a website, email, and podcast.'
+tagline: 'Jamie’s weekend newsletter of links with commentary, sent since May 2017.'
 collection: Publishing
 status: active
 url: https://weekly.thingelstad.com/

@@ -4,6 +4,7 @@ pull:
   words: 'I felt like his work had a lot of emotion and movement and feeling, and I felt like it told a story.'
 title: The nnxyz Rooms
 summary: 'An online gallery of Jamie’s nnxyz and Scrimshaw collection, hung in 30 rooms, where each Nifty Ink drawing replays stroke by stroke.'
+tagline: 'Jamie’s nnxyz and Scrimshaw collection, hung in 30 rooms.'
 collection: Art & archives
 status: active
 url: https://nnxyz.thingelstad.xyz/

@@ -2,6 +2,8 @@
 // of the thingelstad.com repository's shared/sites.json, refreshed by `npm run sites:sync` and never edited
 // here. Its conventions (the strip, the h-card, refs on links between the sites) are a contract kept in that
 // repository's AGENTS.md; change them there first.
+import { readFileSync } from 'node:fs';
+
 export const sitesPath = 'data/sites.json';
 export const currentSite = 'xyz';
 
@@ -52,6 +54,14 @@ export function parseSites(text: string, path = sitesPath): SharedSites {
   }
   if (!https(all.url)) throw new Error(`${path}: strip_all's url must be HTTPS.`);
   return { owner: owner as Owner, sites: data.sites as SharedSite[], strip_all: all as StripAll };
+}
+
+// The strip's sites' addresses, in the strip's order: /all/ lists the things that are those sites first, in this
+// order (Jamie, 2026-11-10: "On publishing the order should be the same as the Site strip").
+export function stripUrls(path = sitesPath): string[] {
+  return parseSites(readFileSync(path, 'utf8'), path)
+    .sites.filter((site) => site.in_sites_strip)
+    .map((site) => new URL(site.url).href);
 }
 
 // Adds ref=<value> to a URL: after any query it already has, and before any fragment.

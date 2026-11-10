@@ -1,6 +1,7 @@
 ---
 title: Your Version Number
 summary: 'A website that writes your age as a software version, decades.years.days, with a Work Edition for job tenure.'
+tagline: 'Your age as a software version, decades.years.days.'
 collection: Personal tools and making
 status: active
 url: https://yourversionnumber.com/

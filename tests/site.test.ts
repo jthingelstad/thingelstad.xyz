@@ -36,7 +36,7 @@ import {
 } from '../collection/schema';
 import { targets } from '../collection/collect';
 import { connectionDiagram, connectionSource, phoneWidth } from '../collection/diagram';
-import { parseSites, siteRef, sitesPath, withRef } from '../collection/sites';
+import { parseSites, siteRef, sitesPath, stripUrls, withRef } from '../collection/sites';
 import { sitesStrip, sitesStripAll } from '../collection/sites-strip';
 import { sitemapEntries, sitemapXml, w3c } from '../collection/lastmod';
 import { faceOf, type SiteArtifact } from '../collection/site';
@@ -211,8 +211,41 @@ test('All Things lists every active thing with a website of its own, by collecti
       group.things.every((item) => item.thing.filters.some((f) => f.name === 'collection' && f.value === group.slug)),
       `${group.name} links the /things/ filter its things carry`
     );
-  for (const id of ['mb', 'redirector', 'thingy-model'])
+  for (const id of ['mb', 'redirector'])
     assert.ok(!live.some((item) => item.thing.id === id), `${id} has no website of its own`);
+  assert.ok(!live.some((item) => item.thing.id === 'elixir-clan'), 'Elixir Clan is part of Elixir now, archived');
+  // Each line is the name its site goes by over its tagline (Jamie, 2026-11-10).
+  for (const item of live) {
+    assert.ok(item.tagline, `${item.thing.id} has a tagline`);
+    assert.equal(item.name, item.thing.site_name ?? item.thing.title);
+  }
+  const named = (id: string) => live.find((item) => item.thing.id === id)!;
+  assert.equal(named('thingy').name, 'Ask Thingy');
+  assert.equal(named('thingy-model').name, 'Meet Thingy');
+  assert.equal(named('thingy-model').href, 'https://thingy.thingelstad.xyz/');
+  assert.equal(named('road-sign-math-2026').name, 'Road Sign Math');
+  // The strip's sites lead their group in the strip's order (Publishing reads as the strip does), then the rest by
+  // name.
+  const strip = stripUrls();
+  for (const group of model.live) {
+    const places = group.things.map((item) => strip.indexOf(new URL(item.thing.url!).href));
+    const lead = places.filter((n) => n !== -1);
+    assert.deepEqual(
+      places.slice(0, lead.length),
+      lead.toSorted((a, b) => a - b),
+      `${group.name}: strip sites first`
+    );
+    const rest = group.things.slice(lead.length).map((item) => item.name);
+    assert.deepEqual(
+      rest,
+      rest.toSorted((a, b) => a.localeCompare(b, 'en', { sensitivity: 'base' })),
+      group.name
+    );
+  }
+  assert.deepEqual(
+    model.live.find((group) => group.name === 'Publishing')!.things.map((item) => item.name),
+    ['Jamie Thingelstad blog', 'Weekly Thing', 'Another Thing', 'Linking Things', 'Ask Thingy']
+  );
   const counted = {
     kind: 'tinylytics' as const,
     url: 'https://notes.yourversionnumber.com',

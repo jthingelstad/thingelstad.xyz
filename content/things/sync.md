@@ -1,6 +1,7 @@
 ---
 title: Sync
 summary: 'A page that shows what each of Jamie’s systems holds right now, how far behind each hop between them runs, and a receipt for the newest item of each kind.'
+tagline: 'What each of Jamie’s systems holds right now, and how far behind each hop runs.'
 collection: Developer tools and systems
 status: active
 url: https://sync.thingelstad.xyz/

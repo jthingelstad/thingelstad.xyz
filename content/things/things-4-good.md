@@ -1,6 +1,7 @@
 ---
 title: Things 4 Good
 summary: 'The Thingelstad family’s yearly sale of hand-poured wooden-wick candles, with every dollar going to four nonprofits they pick.'
+tagline: 'The family’s yearly candle sale, every dollar to four nonprofits.'
 collection: Personal tools and making
 status: active
 url: https://things4good.xyz/

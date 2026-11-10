@@ -4,7 +4,7 @@ pull:
   words: 'To me it just seemed obvious that it was math'
 title: Road Sign Math (2005)
 summary: 'The first Road Sign Math, at roadsignmath.com from 2005 to 2016, where 40 players posted 251 road signs whose numbers make an equation, first on a blog and from 2011 on a wiki.'
-collection: Games and communities
+collection: Games
 status: retired
 url: https://web.archive.org/web/20151209013747/http://roadsignmath.com/wiki/Main_Page
 started: '2005-02-13'

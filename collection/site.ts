@@ -42,7 +42,7 @@ import {
   type ShareImage
 } from './images';
 import { rootOrigin, siteKey } from './adapters/tinylytics';
-import { currentSite, withRef } from './sites';
+import { currentSite, stripUrls, withRef } from './sites';
 import { parseTranscript, type Turn } from './interviews';
 import { buildYearPages, type YearPage } from './years';
 import { activityMonths, countsAsActivity, buildActivity, type Activity, type ThingRecord } from './activity';
@@ -72,7 +72,8 @@ const statusDescriptions: Record<Status, string> = {
 };
 const collectionOrder = [
   'Publishing',
-  'Games and communities',
+  'Games',
+  'Communities',
   'Developer tools and systems',
   'Personal tools and making',
   'Art & archives',
@@ -298,8 +299,9 @@ type SiteFeature = {
 
 // A line on /all/, the list of everything live that the sites strip's All Things opens: an active thing with a
 // website of its own (a source whose role is website), linked straight to that site. The link carries ?ref=xyz-all
-// where Tinylytics counts the site, as the featured shelf does; a link to this site stays clean.
-type SiteLive = { thing: SiteThing; href: string };
+// where Tinylytics counts the site, as the featured shelf does; a link to this site stays clean. `name` is the name
+// its site goes by (`site_name`, else the title) and `tagline` the line under it.
+type SiteLive = { thing: SiteThing; href: string; name: string; tagline: string };
 
 // A thing's artifacts on /artifacts/: how many, and a few to show. The picks take turns across its bundles, so a
 // shelf shows the range of what was kept, and leave out a file with no image to show.
@@ -499,7 +501,12 @@ function thingFilters(thing: Thing, sources: SiteSource[], topics: Map<string, T
   ];
 }
 
-export function buildSiteModel(registry: Registry, observations: Observation[], now = new Date()): SiteModel {
+export function buildSiteModel(
+  registry: Registry,
+  observations: Observation[],
+  now = new Date(),
+  strip: string[] = stripUrls()
+): SiteModel {
   const github = new Map<string, GitHubObservation>();
   const web = new Map<string, WebObservation>();
   const wayback = new Map<string, WaybackObservation>();
@@ -826,7 +833,20 @@ export function buildSiteModel(registry: Registry, observations: Observation[], 
             (thing) =>
               thing.status === 'active' && thing.url && thing.sources.some((source) => source.role === 'website')
           )
-          .map((thing) => ({ thing, href: countedLink(thing.url!, 'all') }))
+          .map((thing) => ({
+            thing,
+            href: countedLink(thing.url!, 'all'),
+            name: thing.site_name ?? thing.title,
+            tagline: thing.tagline ?? ''
+          }))
+          // The strip's own sites first, in the strip's order, then the rest by name.
+          .toSorted((a, b) => {
+            const [ia, ib] = [a, b].map((item) => strip.indexOf(new URL(item.thing.url!).href));
+            return (
+              (ia === -1 ? Infinity : ia) - (ib === -1 ? Infinity : ib) ||
+              a.name.localeCompare(b.name, 'en', { sensitivity: 'base' })
+            );
+          })
       }))
       .filter((group) => group.things.length),
     collections,

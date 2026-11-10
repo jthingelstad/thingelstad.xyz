@@ -1,7 +1,7 @@
 ---
 title: Planet Kubb
 summary: 'A family of Kubb community sites Garrick van Buren and Jamie built in 2012, with a feed aggregator, a wiki, a Q&A site and club sites.'
-collection: Games and communities
+collection: Games
 status: dormant
 url: https://planetkubb.com/
 started: '2012'

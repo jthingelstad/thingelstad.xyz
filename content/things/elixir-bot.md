@@ -1,7 +1,7 @@
 ---
 title: Elixir Bot
 summary: 'POAP KINGS’ first clan agent, a Discord bot that watched the clan and talked with its members from February to September 2026, and the start of Elixir.'
-collection: Games and communities
+collection: Games
 status: retired
 url: https://github.com/jthingelstad/elixir-bot
 started: '2026-02'
