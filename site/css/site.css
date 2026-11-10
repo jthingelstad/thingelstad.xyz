@@ -641,7 +641,8 @@ h2 {
   margin: 28px 0 8px;
 }
 
-.screenshot a {
+/* The picture's own link is the frame. A link inside the caption stays a link in a sentence. */
+.screenshot > a {
   display: block;
   overflow: hidden;
   border: 1px solid var(--line);

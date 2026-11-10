@@ -288,6 +288,9 @@ test('a thing whose site is gone shows the Internet Archive’s capture, dated a
   const caption = page.locator('.screenshot figcaption');
   await expect(caption).toHaveText('thinglesbot.com as the Internet Archive captured it on Feb 9, 2011.');
   await expect(caption.locator('a')).toHaveAttribute('href', capture);
+  // The caption's link reads as part of its sentence: it never takes the picture's frame.
+  await expect(caption.locator('a')).toHaveCSS('display', 'inline');
+  await expect(caption.locator('a')).toHaveCSS('border-top-width', '0px');
   await expect(page.locator('.screenshot > a').first()).toHaveAttribute('href', capture);
   await expect(page.locator('meta[property="og:image"]')).toHaveAttribute(
     'content',
