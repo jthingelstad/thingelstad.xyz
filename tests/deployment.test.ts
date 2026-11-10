@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { mkdirSync, mkdtempSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { dirname, join } from 'node:path';
-import { cacheControlFor, contentTypeFor, publishOrder } from '../scripts/publish-plan.mjs';
+import { cacheControlFor, contentTypeFor, publishOrder, publishSteps, unpublished } from '../scripts/publish-plan.mjs';
 import { viewerRequestCode } from '../infra/viewer-request.mjs';
 import {
   changedUrls,
@@ -42,6 +42,33 @@ test('the site is published assets first, pages after, the front page last, each
     'things/elixir/index.html',
     'index.html'
   ]);
+  assert.deepEqual(
+    publishSteps(order),
+    [
+      ['assets/site-1.css', 'pagefind/fragment/en_1a2b3c.pf_fragment'],
+      ['feed.xml', 'pagefind/pagefind.js', 'things.json', 'things/elixir.md'],
+      ['things/elixir/index.html'],
+      ['index.html']
+    ],
+    'files of one step go up together; the steps follow one another'
+  );
+  // A content-named file the bucket already holds at the same size is not sent again; a page always is.
+  const sizes = new Map(order.map((key) => [key, 10]));
+  assert.deepEqual(
+    unpublished(
+      order,
+      sizes,
+      new Map([
+        ['assets/site-1.css', 10],
+        ['pagefind/fragment/en_1a2b3c.pf_fragment', 9],
+        ['pagefind/pagefind.js', 10],
+        ['index.html', 10]
+      ])
+    ),
+    order.filter((key) => key !== 'assets/site-1.css'),
+    'only a content-named file of the same size is skipped: not a cut-short upload, a script that keeps its name, or a page'
+  );
+  assert.deepEqual(unpublished(order, sizes, new Map()), order, 'with no listing every file is sent');
   assert.equal(cacheControlFor('assets/site-1.css'), 'public,max-age=31536000,immutable');
   assert.equal(cacheControlFor('things/elixir/index.html'), 'no-cache');
   assert.equal(contentTypeFor('things/elixir.md'), 'text/markdown; charset=utf-8');
