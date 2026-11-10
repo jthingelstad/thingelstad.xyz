@@ -222,7 +222,8 @@ select:focus-visible,
   outline-offset: 3px;
 }
 
-.sites-strip__item--current a {
+.sites-strip__item--current a,
+.sites-strip__all[aria-current] {
   text-decoration: none;
 }
 
@@ -1716,7 +1717,8 @@ h4:hover > .permalink,
   }
 }
 
-/* Phones: the sites strip is one row that scrolls sideways, without its label. */
+/* Phones: the sites strip is one row, without its label. The list scrolls sideways inside it, and All Things
+   stays put at its right end, so it is never scrolled out of sight. */
 @media (width <= 40rem) {
   .sites-strip__inner,
   .sites-strip__list {
@@ -1725,8 +1727,20 @@ h4:hover > .permalink,
   }
 
   .sites-strip__inner {
-    overflow-x: auto;
     white-space: nowrap;
+  }
+
+  /* The padding, taken back by the margin, keeps the focus ring inside the scrolling box, where it is not cut off. */
+  .sites-strip__list {
+    flex: 1 1 auto;
+    min-width: 0;
+    margin: -6px;
+    padding: 6px;
+    overflow-x: auto;
+  }
+
+  .sites-strip__all {
+    flex: none;
   }
 
   .sites-strip__label {
@@ -2223,6 +2237,69 @@ h4:hover > .permalink,
 
   .thing-line-year {
     display: none;
+  }
+}
+
+/* /all/: every live thing, a line each, the name a link straight to its site. */
+.all-group {
+  margin-top: 40px;
+}
+
+.all-group h2 {
+  margin: 0 0 8px;
+  font-size: var(--jt-size-h3);
+}
+
+.all-lines {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.all-line {
+  display: grid;
+  grid-template:
+    'title summary record' auto
+    'host summary record' 1fr / minmax(0, 15rem) minmax(0, 1fr) auto;
+  gap: 2px 24px;
+  align-items: baseline;
+  padding: 12px 0;
+  border-top: 1px solid var(--line);
+}
+
+.all-line-title {
+  grid-area: title;
+  color: var(--accent-text);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.all-line-title:hover {
+  text-decoration-thickness: 2px;
+}
+
+.all-line-host {
+  grid-area: host;
+  overflow-wrap: anywhere;
+}
+
+.all-line-summary {
+  grid-area: summary;
+}
+
+.all-line-record {
+  grid-area: record;
+  color: var(--muted);
+}
+
+@media (width <= 40rem) {
+  .all-line {
+    grid-template:
+      'title record' auto
+      'host host' auto
+      'summary summary' auto / minmax(0, 1fr) auto;
   }
 }
 

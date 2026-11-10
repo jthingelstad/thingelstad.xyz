@@ -37,7 +37,7 @@ import {
 import { targets } from '../collection/collect';
 import { connectionDiagram, connectionSource, phoneWidth } from '../collection/diagram';
 import { parseSites, siteRef, sitesPath, withRef } from '../collection/sites';
-import { sitesStrip } from '../collection/sites-strip';
+import { sitesStrip, sitesStripAll } from '../collection/sites-strip';
 import { sitemapEntries, sitemapXml, w3c } from '../collection/lastmod';
 import { faceOf, type SiteArtifact } from '../collection/site';
 import { imageJobs, keepsOriginal, picture, shareImage, widthsFor, type ImageSource } from '../collection/images';
@@ -188,6 +188,44 @@ test('the featured shelf keeps its order, and tags links only to sites Tinylytic
   assert.equal(mb.href, 'https://github.com/jthingelstad/mb', 'Tinylytics does not count GitHub');
   assert.equal(here.href, 'https://thingelstad.xyz/', 'this site never tags itself');
   assert.equal(buildSiteModel({ ...registry, featured: [] }, observations, now).featured.length, 0);
+});
+
+test('All Things lists every active thing with a website of its own, by collection, tagged where Tinylytics counts', () => {
+  const live = model.live.flatMap((group) => group.things);
+  const expected = registry.things
+    .filter((thing) => thing.status === 'active' && thing.sources.some((source) => source.role === 'website'))
+    .map((thing) => thing.id)
+    .sort();
+  assert.ok(expected.length, 'the registry has live things');
+  assert.deepEqual(live.map((item) => item.thing.id).sort(), expected);
+  assert.deepEqual(
+    model.live.map((group) => group.name),
+    model.collections.map((c) => c.name).filter((name) => model.live.some((group) => group.name === name)),
+    'groups follow the collections'
+  );
+  for (const item of live) {
+    assert.ok(item.href.startsWith(item.thing.url!), `${item.thing.id} links its own site`);
+    assert.doesNotMatch(item.host, /^https?:|^www\./);
+  }
+  for (const id of ['mb', 'redirector', 'thingy-model'])
+    assert.ok(!live.some((item) => item.thing.id === id), `${id} has no website of its own`);
+  const counted = {
+    kind: 'tinylytics' as const,
+    url: 'https://notes.yourversionnumber.com',
+    observedAt: '2026-10-19T12:00:00Z',
+    since: '2025-10-01',
+    until: '2026-09-30',
+    hits: 1,
+    months: [{ month: '2026-09', count: 1 }]
+  };
+  const built = buildSiteModel(registry, [counted, { ...counted, url: 'https://thingelstad.xyz' }], now).live.flatMap(
+    (group) => group.things
+  );
+  const find = (id: string) => built.find((item) => item.thing.id === id);
+  if (find('release-notes'))
+    assert.equal(find('release-notes')!.href, 'https://notes.yourversionnumber.com/?ref=xyz-all');
+  if (find('things-ive-built'))
+    assert.equal(find('things-ive-built')!.href, 'https://thingelstad.xyz/', 'this site never tags itself');
 });
 
 test('the feeds are the ledger, newest first', () => {
@@ -565,6 +603,19 @@ test('the sites strip lists the shared sites in file order, with this site curre
     assert.equal(item.label, site.strip_label, `${item.id} reads the same as on every other site`);
     assert.equal(item.href, `${site.url}?ref=sites-strip-xyz`);
   }
+  const all = sitesStripAll(parseSites(shared).strip_all);
+  assert.deepEqual(all, {
+    href: 'https://thingelstad.xyz/all/?ref=sites-strip-xyz',
+    label: 'All Things',
+    description: (JSON.parse(shared) as { strip_all: { description: string } }).strip_all.description,
+    page: '/all/'
+  });
+  const data = JSON.parse(shared) as Record<string, unknown>;
+  assert.throws(() => parseSites(JSON.stringify({ ...data, strip_all: undefined })), /has no strip_all/);
+  assert.throws(
+    () => parseSites(JSON.stringify({ ...data, strip_all: { ...(data.strip_all as object), url: 'http://x/' } })),
+    /must be HTTPS/
+  );
   const without = sites.map((site) => (site.id === 'xyz' ? { ...site, in_sites_strip: false } : site));
   assert.throws(() => sitesStrip(without), /does not put xyz in the strip/);
   assert.throws(() => parseSites('{"sites": []}'), /has no sites list/);
@@ -1024,7 +1075,7 @@ test('every sitemap page carries the date its content last changed, never the bu
   const urls = [...xml.matchAll(/<url>([\s\S]*?)<\/url>/g)].map((match) => match[1]);
   assert.equal(
     urls.length,
-    6 +
+    7 +
       model.years.length +
       model.things.length +
       model.artifactPages.length +

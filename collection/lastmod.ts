@@ -112,6 +112,7 @@ export function sitemapEntries(model: SiteModel, fileDate: FileDate): SitemapEnt
   const pages: [string, string | null][] = [
     ['/', latest([allThings, allStories, fileDate('content/featured.yaml')])],
     ['/things/', latest([allThings, fileDate('content/topics.yaml')])],
+    ['/all/', latest([allThings, fileDate('site/all.njk')])],
     ['/years/', latest([allThings, history, activity])],
     ...yearDates.map((item): [string, string | null] => [item.page, item.date]),
     ...(model.artifactSets.length

@@ -1,0 +1,32 @@
+---
+layout: layout.njk
+permalink: /all/
+title: All Things
+description: Every site and project of Jamie Thingelstad’s that is live today, in one list, each a link straight to it.
+---
+{#- All Things: the list the sites strip's last link opens on every one of Jamie's sites (thingelstad.com AGENTS.md,
+    "The sites strip"). It is model.live: every active thing with a website of its own, by collection, each name a
+    link straight to that site (with ?ref=xyz-all where Tinylytics counts it) and a quiet link to its record here. It
+    writes itself from the records, so a new live thing appears with no change to the strip. A jump list, not a
+    record: no microformats, and the record pages stay the h-entries. #}
+{%- set count = 0 %}{% for group in site.live %}{% set count = count + group.things | length %}{% endfor %}
+<section class="intro">
+  <h1>All Things</h1>
+  <p class="lede">Every one of Jamie’s things that has a site of its own and is running today, {{ count }} of them. Each name goes straight to the site. The record beside it says what the thing is and how it came to be.</p>
+  <p class="muted">The ones he has stepped away from, and the ones that live only as code, are on <a href="/things/">Things</a>.</p>
+</section>
+{% for group in site.live %}
+<section class="all-group" id="{{ group.name | slugify }}">
+  <h2>{{ group.name }} <span class="meta">{{ group.things | length }}</span></h2>
+  <ul class="all-lines">
+    {% for item in group.things %}
+    <li class="all-line">
+      <a class="all-line-title" href="{{ item.href }}">{{ item.thing.title }}</a>
+      <span class="all-line-host meta">{{ item.host }}</span>
+      <span class="all-line-summary small">{{ item.thing.summary }}</span>
+      <a class="all-line-record small" href="{{ item.thing.page }}" aria-label="Record of {{ item.thing.title }}">Record</a>
+    </li>
+    {% endfor %}
+  </ul>
+</section>
+{% endfor %}

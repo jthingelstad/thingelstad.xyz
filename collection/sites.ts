@@ -22,12 +22,14 @@ type Owner = {
   note: string;
   rel_me: string[];
 };
-type SharedSites = { owner: Owner; sites: SharedSite[] };
+// The link that ends the strip on every site, after the list: All Things, to this site's /all/.
+export type StripAll = { label: string; url: string; description: string };
+type SharedSites = { owner: Owner; sites: SharedSite[]; strip_all: StripAll };
 
 const https = (value: unknown) => typeof value === 'string' && value.startsWith('https://');
 
 export function parseSites(text: string, path = sitesPath): SharedSites {
-  const data = JSON.parse(text) as { owner?: Partial<Owner>; sites?: unknown };
+  const data = JSON.parse(text) as { owner?: Partial<Owner>; sites?: unknown; strip_all?: Partial<StripAll> };
   if (!Array.isArray(data.sites) || !data.sites.length) throw new Error(`${path} has no sites list.`);
   for (const site of data.sites as SharedSite[]) {
     for (const field of ['id', 'name', 'short_name', 'strip_label', 'url', 'description'] as const) {
@@ -43,7 +45,13 @@ export function parseSites(text: string, path = sitesPath): SharedSites {
   if (!https(owner.url) || !https(owner.avatar)) throw new Error(`${path}: the owner's url and avatar must be HTTPS.`);
   if (!Array.isArray(owner.rel_me) || !owner.rel_me.length || !owner.rel_me.every(https))
     throw new Error(`${path}: the owner's rel_me must be a list of HTTPS URLs.`);
-  return { owner: owner as Owner, sites: data.sites as SharedSite[] };
+  const all = data.strip_all;
+  if (!all || typeof all !== 'object') throw new Error(`${path} has no strip_all.`);
+  for (const field of ['label', 'url', 'description'] as const) {
+    if (typeof all[field] !== 'string' || !all[field]) throw new Error(`${path}: strip_all has no ${field}.`);
+  }
+  if (!https(all.url)) throw new Error(`${path}: strip_all's url must be HTTPS.`);
+  return { owner: owner as Owner, sites: data.sites as SharedSite[], strip_all: all as StripAll };
 }
 
 // Adds ref=<value> to a URL: after any query it already has, and before any fragment.
