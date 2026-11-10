@@ -5,7 +5,7 @@ pull:
 title: Things I’ve built
 summary: 'The index of the projects Jamie has built, including the ones he has stepped away from. Kept by Thingy.'
 tagline: 'The index of the projects Jamie has built, kept by Thingy.'
-collection: Art & archives
+collection: Publishing
 status: active
 url: https://thingelstad.xyz/
 started: '2026-10'

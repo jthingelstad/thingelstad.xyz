@@ -244,7 +244,7 @@ test('All Things lists every active thing with a website of its own, by collecti
   }
   assert.deepEqual(
     model.live.find((group) => group.name === 'Publishing')!.things.map((item) => item.name),
-    ['Jamie Thingelstad blog', 'Weekly Thing', 'Another Thing', 'Linking Things', 'Ask Thingy']
+    ['Jamie Thingelstad blog', 'Weekly Thing', 'Another Thing', 'Linking Things', 'Things I’ve built', 'Ask Thingy']
   );
   const counted = {
     kind: 'tinylytics' as const,
