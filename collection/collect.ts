@@ -13,7 +13,7 @@ import {
 import { defaultGitHubReader, observeRepository, type GitHubReader } from './adapters/github';
 import { defaultTextFetcher, observePublications, observeWebsite, type TextFetcher } from './adapters/web';
 import { defaultGitRunner, observeCommits, type GitRunner } from './adapters/git';
-import { archivedRoles, capturedUrl, observeCaptures, pinnedCapture } from './adapters/wayback';
+import { capturedUrl, observeCaptures, pinnedCapture } from './adapters/wayback';
 import {
   defaultTinylyticsReader,
   listSites,
@@ -83,15 +83,14 @@ const liveShots = (thing: Thing) =>
           : []
       )
     : [];
-// A thing with no live screenshot and nothing of its own to show (no artifacts) is shot from the Internet Archive:
-// the first capture its record pins as its own archived page (`role: archive`, a Wayback link with a full
-// timestamp). Any status: the picture is of the Archive's copy, never of the host as it is now.
+// A thing with no live screenshot is shot from the Internet Archive when its record chooses a capture: the first
+// source marked `photograph: true`, an archive source pinned to one capture that someone has looked at. An archive
+// link nobody chose is never photographed: the Archive keeps bare, broken and squatted pages too. Any status: the
+// picture is of the Archive's copy, never of the host as it is now.
 function archivedShot(thing: Thing) {
-  if (liveShots(thing).length || thing.artifacts?.length) return null;
-  const pinned = thing.sources.find(
-    (source) => source.kind === 'website' && archivedRoles.includes(source.role) && pinnedCapture(source.url)
-  );
-  return pinned?.kind === 'website' ? pinned.url : null;
+  if (liveShots(thing).length) return null;
+  const chosen = thing.sources.find((source) => source.kind === 'website' && source.photograph);
+  return chosen?.kind === 'website' ? chosen.url : null;
 }
 // A screenshot is stored under its URL's key, which drops punctuation: a root and a page inside it never share
 // one (rwbookclub-com, rwbookclub-com-oliver), but two different addresses can (/a-b and /a/b). Those would

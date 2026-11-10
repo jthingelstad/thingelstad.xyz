@@ -15,6 +15,7 @@ sources:
   - kind: website
     url: https://web.archive.org/web/20131218002106/http://wikiapiary.com/wiki/Main_Page
     role: archive
+    photograph: true
   - kind: github
     repository: WikiApiary/WikiApiary
     role: implementation

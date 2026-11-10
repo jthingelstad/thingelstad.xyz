@@ -12,6 +12,7 @@ sources:
   - kind: website
     url: https://web.archive.org/web/20110209234653/http://thinglesbot.com/
     role: archive
+    photograph: true
 connections: []
 ---
 

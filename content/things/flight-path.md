@@ -22,6 +22,7 @@ sources:
   - kind: website
     url: https://web.archive.org/web/20260306121842/https://flightpath.poaprally.com/
     role: archive
+    photograph: true
 connections: []
 ---
 

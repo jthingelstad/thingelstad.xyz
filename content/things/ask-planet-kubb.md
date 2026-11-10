@@ -11,6 +11,7 @@ sources:
   - kind: website
     url: https://web.archive.org/web/20160206093959/http://ask.planetkubb.com/
     role: archive
+    photograph: true
 connections:
   - to: planet-kubb
     label: is part of

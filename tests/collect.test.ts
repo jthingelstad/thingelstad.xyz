@@ -449,39 +449,34 @@ test('a thing whose site is gone is shot from the capture its record pins, and a
       ...registry.things,
       retired('gone', [
         { kind: 'website', url: 'https://gone.example.org/', role: 'website' },
+        // An archive link nobody chose is a link, never a picture.
         {
           kind: 'website',
           url: 'https://web.archive.org/web/20090101000000/http://gone.example.org/',
-          role: 'reference'
+          role: 'archive'
         },
-        { kind: 'website', url: pin, role: 'archive' },
-        { kind: 'website', url: 'https://web.archive.org/web/20120101000000/http://gone.example.org/', role: 'archive' }
-      ]),
-      retired('loose', [
-        { kind: 'website', url: 'https://web.archive.org/web/2011/http://loose.example.org/', role: 'archive' }
-      ]),
-      retired('demo', [
-        { kind: 'website', url: 'https://web.archive.org/web/20140302063203/http://demo.example.org/', role: 'demo' }
-      ]),
-      retired(
-        'kept',
-        [
-          {
-            kind: 'website',
-            url: 'https://web.archive.org/web/20100101000000/http://kept.example.org/',
-            role: 'archive'
-          }
-        ],
+        { kind: 'website', url: pin, role: 'archive', photograph: true },
         {
-          artifacts: [{ file: 'logo.png', title: 'Logo' }]
+          kind: 'website',
+          url: 'https://web.archive.org/web/20120101000000/http://gone.example.org/',
+          role: 'archive',
+          photograph: true
         }
-      ),
+      ]),
+      retired('unchosen', [
+        {
+          kind: 'website',
+          url: 'https://web.archive.org/web/20140302063203/http://unchosen.example.org/',
+          role: 'archive'
+        }
+      ]),
       thing('live', [
         { kind: 'website', url: 'https://live.example.org/', role: 'website' },
         {
           kind: 'website',
           url: 'https://web.archive.org/web/20150101000000/https://live.example.org/',
-          role: 'archive'
+          role: 'archive',
+          photograph: true
         }
       ])
     ]
@@ -491,7 +486,7 @@ test('a thing whose site is gone is shot from the capture its record pins, and a
   assert.deepEqual(
     found.archived,
     [pin],
-    'the first pinned archive source of a thing with no live screenshot and no artifacts; never a reference, a demo, a loose timestamp, or a thing that has a live page'
+    'the first capture a record chooses, for a thing with no live screenshot; never an archive link nobody chose, or a thing that has a live page'
   );
 });
 
@@ -535,13 +530,14 @@ test('a pinned capture is shot without the toolbar, once, never refreshed, and o
   const gone: Registry = {
     ...registry,
     things: [
-      { ...thing('gone', [{ kind: 'website', url: pin, role: 'archive' }]), status: 'retired' },
+      { ...thing('gone', [{ kind: 'website', url: pin, role: 'archive', photograph: true }]), status: 'retired' },
       {
         ...thing('other', [
           {
             kind: 'website',
             url: 'https://web.archive.org/web/20120101000000/http://other.example.org/',
-            role: 'archive'
+            role: 'archive',
+            photograph: true
           }
         ]),
         status: 'retired'

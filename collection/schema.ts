@@ -26,6 +26,9 @@ type WebsiteSource = {
   role: string; // website, reference, ...
   sitemap?: string;
   feed?: string; // RSS, Atom, or JSON Feed
+  // An archive source pinned to one Wayback capture that someone has looked at and chosen as the thing's picture.
+  // The collector photographs only these: a capture nobody chose is a link, never a picture.
+  photograph?: true;
 };
 export type ThingSource = GitHubSource | WebsiteSource;
 

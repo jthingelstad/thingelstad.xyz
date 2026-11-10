@@ -16,9 +16,6 @@ export function pinnedCapture(url: string) {
   const match = url.match(pin);
   return match ? { timestamp: match[1], original: match[2] } : null;
 }
-// The role of a source that is the thing's own page as the Archive kept it. A `demo` is left out: it can be a page
-// that only shows the thing in use, on a site that is not the thing's own.
-export const archivedRoles = ['archive'];
 // Where a capture is: `flag` is a playback flag such as `if_`, which serves the page without the Archive's toolbar.
 export const captureLink = (timestamp: string, original: string, flag = '') =>
   `https://web.archive.org/web/${timestamp}${flag}/${original}`;

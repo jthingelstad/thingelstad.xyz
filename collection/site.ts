@@ -29,7 +29,7 @@ import {
   type WaybackObservation,
   type WebObservation
 } from './schema';
-import { archivedRoles, captureLink, capturedUrl, pinnedCapture } from './adapters/wayback';
+import { captureLink, capturedUrl } from './adapters/wayback';
 import { artifactKind, formatBytes, isImage } from './artifacts';
 import {
   imageJobs,
@@ -538,7 +538,7 @@ export function buildSiteModel(registry: Registry, observations: Observation[], 
       const own = source.role === 'website';
       const origin = own ? rootOrigin(source.url) : null;
       const views = origin ? (tinylytics.get(siteKey(origin)) ?? null) : null;
-      const pinned = archivedRoles.includes(source.role) && pinnedCapture(source.url) !== null;
+      const pinned = source.photograph === true;
       const shot = own || pinned ? (screenshots.get(websiteKey(source.url)) ?? null) : null;
       const screenshot = shot && !!shot.wayback === pinned ? shot : null;
       return {

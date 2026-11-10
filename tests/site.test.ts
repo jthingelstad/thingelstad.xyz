@@ -346,7 +346,10 @@ test('a thing whose site is gone shows its pinned Internet Archive capture, and 
   const clubPin = 'https://web.archive.org/web/20200101000000/https://rwbookclub.com/';
   const both = {
     ...club,
-    sources: [...club.sources, { kind: 'website' as const, url: clubPin, role: 'archive' as const }]
+    sources: [
+      ...club.sources,
+      { kind: 'website' as const, url: clubPin, role: 'archive' as const, photograph: true as const }
+    ]
   };
   const live = {
     kind: 'screenshot' as const,

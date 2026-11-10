@@ -1,3 +1,4 @@
+import { pinnedCapture } from './adapters/wayback';
 import { isImage } from './artifacts';
 import {
   eventKinds,
@@ -121,10 +122,15 @@ export function preciseDate(value: unknown, where: string): string {
 }
 
 function source(value: unknown, where: string): ThingSource {
-  const item = record(value, ['kind', 'repository', 'url', 'role', 'path', 'sitemap', 'feed'], where);
+  const item = record(value, ['kind', 'repository', 'url', 'role', 'path', 'sitemap', 'feed', 'photograph'], where);
   const role = text(item.role, `${where}.role`, 100);
   if (item.kind === 'github') {
-    if (item.url !== undefined || item.sitemap !== undefined || item.feed !== undefined)
+    if (
+      item.url !== undefined ||
+      item.sitemap !== undefined ||
+      item.feed !== undefined ||
+      item.photograph !== undefined
+    )
       throw new ContentError(where, 'A GitHub source has only repository, role, and path.');
     const result: ThingSource = {
       kind: 'github',
@@ -136,10 +142,19 @@ function source(value: unknown, where: string): ThingSource {
   }
   if (item.kind === 'website') {
     if (item.repository !== undefined || item.path !== undefined)
-      throw new ContentError(where, 'A website source has only url, role, sitemap, and feed.');
+      throw new ContentError(where, 'A website source has only url, role, sitemap, feed, and photograph.');
     const result: ThingSource = { kind: 'website', url: publicUrl(item.url, `${where}.url`), role };
     if (item.sitemap !== undefined) result.sitemap = publicUrl(item.sitemap, `${where}.sitemap`);
     if (item.feed !== undefined) result.feed = publicUrl(item.feed, `${where}.feed`);
+    if (item.photograph !== undefined) {
+      // The picture is of the thing's own page as the Archive kept it, at the one capture someone looked at.
+      if (item.photograph !== true || role !== 'archive' || !pinnedCapture(result.url))
+        throw new ContentError(
+          `${where}.photograph`,
+          'Only `photograph: true`, on an archive source whose url is a Wayback link with a full 14-digit timestamp.'
+        );
+      result.photograph = true;
+    }
     return result;
   }
   throw new ContentError(where, 'Source kind must be github or website.');
