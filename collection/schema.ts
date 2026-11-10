@@ -90,6 +90,7 @@ export type Thing = {
   story?: Story;
   bundles?: ArtifactBundle[];
   artifacts?: Artifact[];
+  face?: string; // the artifact (its `file`) that stands for the thing where its page is shared, chosen by hand
   body: string; // Markdown. The project's story, if any.
 };
 

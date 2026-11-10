@@ -1087,6 +1087,17 @@ test('a thing’s face is its screenshot, else its artifact image that best fits
   assert.equal(pick(art('logo.png', 200, 100), art('page.png', 500, 312)), 'page.png', 'the largest of the small ones');
   assert.equal(pick(art('first.png', 1170, 2532), art('second.png', 1720, 2746)), 'first.png', 'portraits: the first');
   assert.equal(pick(), undefined);
+  // A face the record names wins over the ranking, and over a captured front page.
+  const legs = art('legs.png', 1500, 900);
+  const likeness = art('likeness.jpg', 2400, 1400);
+  assert.equal(faceOf(null, [legs, likeness])?.file, 'legs.png');
+  assert.equal(faceOf(null, [legs, likeness], 'likeness.jpg')?.file, 'likeness.jpg', 'the named artifact');
+  const thingy = model.things.find((t) => t.id === 'thingy-model')!;
+  assert.equal(
+    thingy.face?.file,
+    'likeness-comparison-v04.jpg',
+    'Thingy Model shares the illustration beside the model'
+  );
   const withShot = model.things.find((t) => t.screenshot && t.artifacts.some((a) => a.image));
   if (withShot) assert.equal(withShot.face?.from, 'screenshot', 'a captured front page wins');
   // Every thing with something to show has a face, and the model names every copy the pages use.

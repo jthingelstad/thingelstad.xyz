@@ -119,7 +119,8 @@ export type SiteArtifact = Artifact & {
   size: string;
   image: { src: string; width: number; height: number; picture: Picture | null } | null; // picture: null for a GIF
 };
-// A thing's face: the one picture that stands for it where a page is shared (og:image). Its captured front page
+// A thing's face: the one picture that stands for it where a page is shared (og:image). The artifact its record
+// names as its `face`, when it names one: a choice made by hand wins. Otherwise its captured front page
 // when it has one; else the first of its artifact images, in their listed order, that reads well as a wide share
 // card: a landscape image near the card's shape with room for 1200 pixels first, then any landscape image at least
 // 600 wide. Failing both, the largest small landscape image, so a little logo never wins over a bigger picture; and
@@ -134,8 +135,11 @@ const faceRank = ({ width, height }: { width: number; height: number }) => {
 };
 export function faceOf(
   screenshot: SiteScreenshot | null,
-  artifacts: (SiteArtifact & { face: ShareImage | null })[]
+  artifacts: (SiteArtifact & { face: ShareImage | null })[],
+  chosen?: string
 ): Face | null {
+  const named = chosen === undefined ? undefined : artifacts.find((artifact) => artifact.file === chosen);
+  if (named?.face) return { ...named.face, from: 'artifact', file: named.file };
   if (screenshot) return { ...screenshot.share, from: 'screenshot' };
   const shown = artifacts.filter((artifact) => artifact.image);
   const best = Math.min(...shown.map((artifact) => faceRank(artifact.image!)));
@@ -200,7 +204,7 @@ export function sticker(id: string, title: string): Sticker {
   return { letters, hue: hash % 360, tilt: (hash % 7) - 3 };
 }
 
-export type SiteThing = Omit<Thing, 'sources' | 'bundles' | 'artifacts' | 'pull'> & {
+export type SiteThing = Omit<Thing, 'sources' | 'bundles' | 'artifacts' | 'pull' | 'face'> & {
   page: string;
   markdown: string;
   statusLabel: string;
@@ -581,7 +585,7 @@ export function buildSiteModel(registry: Registry, observations: Observation[], 
       latest: evidence[0] ?? null,
       months: window.map((month) => ({ month, count: counts.get(month) ?? 0 })),
       screenshot,
-      face: faceOf(screenshot, measured),
+      face: faceOf(screenshot, measured, thing.face),
       artifacts,
       bundles: (thing.bundles ?? []).map((bundle) => ({
         ...bundle,

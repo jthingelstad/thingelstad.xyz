@@ -72,6 +72,14 @@ test('thing front matter is validated strictly', () => {
       ),
     /two different things/
   );
+  // A face is one of the thing's own artifacts, and one a page can show.
+  const kept = [
+    { file: 'sketch.png', title: 'A sketch' },
+    { file: 'notes.txt', title: 'Notes' }
+  ];
+  assert.equal(thing('example', { ...base, artifacts: kept, face: 'sketch.png' }, '', 'x').face, 'sketch.png');
+  assert.throws(() => thing('example', { ...base, artifacts: kept, face: 'other.png' }, '', 'x'), /No artifact has/);
+  assert.throws(() => thing('example', { ...base, artifacts: kept, face: 'notes.txt' }, '', 'x'), /not an image/);
   assert.equal(preciseDate(2017, 'x'), '2017');
   assert.equal(preciseDate(new Date('2005-02-13T00:00:00Z'), 'x'), '2005-02-13');
 });
