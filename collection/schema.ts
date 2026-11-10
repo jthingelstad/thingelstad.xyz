@@ -71,7 +71,8 @@ export type ArtifactBundle = {
   caption?: string;
 };
 // What the loader read from each artifact file, keyed `<thing id>/<file>`: measured, never written by hand.
-export type ArtifactFile = { bytes: number; width?: number; height?: number };
+// An image also has its pixel size and its SHA-256, which names the copies the build makes of it.
+export type ArtifactFile = { bytes: number; width?: number; height?: number; sha256?: string };
 
 export type Thing = {
   id: string; // from the file name
@@ -89,6 +90,7 @@ export type Thing = {
   story?: Story;
   bundles?: ArtifactBundle[];
   artifacts?: Artifact[];
+  face?: string; // the artifact (its `file`) that stands for the thing where its page is shared, chosen by hand
   body: string; // Markdown. The project's story, if any.
 };
 

@@ -59,6 +59,7 @@ story:
     - How did Thingy’s illustration become a model?
     - Which Scenes share the same skeleton?
     - What still needs work before animation?
+face: likeness-comparison-v04.jpg
 bundles:
   - id: foundations
     title: From illustration to body

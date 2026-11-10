@@ -235,7 +235,8 @@ const thingFields = [
   'connections',
   'story',
   'bundles',
-  'artifacts'
+  'artifacts',
+  'face'
 ];
 export function thing(id: string, frontmatter: unknown, body: string, where: string): Thing {
   const item = record(frontmatter, thingFields, where);
@@ -292,6 +293,15 @@ export function thing(id: string, frontmatter: unknown, body: string, where: str
   } else {
     const named = artifacts.findIndex((a) => a.bundle !== undefined);
     if (named >= 0) throw new ContentError(`${where}.artifacts[${named}].bundle`, 'This thing has no bundles to name.');
+  }
+  // A face is one of the thing's own artifacts, and one a page can show: an image, or a file with a preview.
+  if (item.face !== undefined) {
+    const face = text(item.face, `${where}.face`, 200);
+    const named = artifacts.find((a) => a.file === face);
+    if (!named) throw new ContentError(`${where}.face`, `No artifact has the file ${face}.`);
+    if (!isImage(named.file) && !named.preview)
+      throw new ContentError(`${where}.face`, `${face} is not an image and has no preview to show.`);
+    result.face = face;
   }
   if (result.story && !result.body) throw new ContentError(where, 'A story needs a body: the idea behind the thing.');
   if (result.body.length > 20000) throw new ContentError(where, 'The body is too long.');

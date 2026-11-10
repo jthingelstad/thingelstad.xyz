@@ -2,6 +2,7 @@ import { test, expect, type Page } from '@playwright/test';
 import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 import { llmsShapeProblems } from '../llms-shape';
+import { imageSize } from '../../collection/artifacts';
 
 type Thing = {
   id: string;
@@ -17,6 +18,7 @@ type Thing = {
   sources: { kind: string }[];
   bundles?: { id: string; title: string; caption?: string }[];
   artifacts?: { file: string; url: string; preview?: string; bundle?: string }[];
+  screenshot?: { url: string };
 };
 type Output = {
   featured: string[];
@@ -231,13 +233,18 @@ test('a website thing shows its front page and page views', async ({ page }) => 
   const shot = page.locator('.screenshot img');
   await shot.scrollIntoViewIfNeeded();
   await expect(shot).toHaveAttribute('alt', /^The front page of rwbookclub\.com on /);
-  await expect.poll(() => shot.evaluate((img: HTMLImageElement) => img.complete && img.naturalWidth)).toBe(1280);
+  // Drawn from the smaller copies at the capture's own shape.
+  await expect(shot).toHaveAttribute('width', '1280');
+  await expect(shot).toHaveAttribute('srcset', /\/assets\/img\/rwbookclub-com-[0-9a-f]{10}-720\.webp 720w/);
+  await expect
+    .poll(() => shot.evaluate((img: HTMLImageElement) => img.complete && img.naturalWidth))
+    .toBeGreaterThan(0);
   await expect(page.locator('.screenshot a')).toHaveAttribute('href', 'https://rwbookclub.com/');
   await expect(page.locator('.facts .views')).toContainText('in the twelve months to');
   await expect(page.locator('.facts .views .sparkline-views')).toBeVisible();
   await expect(page.locator('meta[property="og:image"]')).toHaveAttribute(
     'content',
-    /\/assets\/screenshots\/rwbookclub-com-[0-9a-f]{10}\.jpg$/
+    /\/assets\/img\/rwbookclub-com-[0-9a-f]{10}-share\.jpg$/
   );
   expect(await fitsViewport(page)).toBe(true);
   // A thing that lives at a page inside a site shows that page, and never the site's page views.
@@ -255,7 +262,7 @@ test('a website thing shows its front page and page views', async ({ page }) => 
     await page.goto(path);
     await expect(page.locator('meta[property="og:image"]'), path).toHaveAttribute(
       'content',
-      /^https:\/\/thingelstad\.xyz\/assets\/screenshots\/thingelstad-xyz-[0-9a-f]{10}\.jpg$/
+      /^https:\/\/thingelstad\.xyz\/assets\/img\/thingelstad-xyz-[0-9a-f]{10}-share\.jpg$/
     );
   }
   expect(errors).toEqual([]);
@@ -1191,4 +1198,153 @@ test('a large set of artifacts has a page of its own, and the shelves still hold
   await page.goto('/things/changelog/all-artifacts/');
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('Artifacts');
   await expect(page.locator('.crumbs a[href="/things/changelog/"]')).toBeVisible();
+});
+
+// Pages that show pictures, and the most image bytes each may load with every picture in it loaded (lazy ones too).
+// The pictures are the build's smaller copies (collection/images.ts); a page over its budget is shipping originals.
+const imagePages = [
+  { path: '/', budget: 1_500_000 },
+  { path: '/artifacts/', budget: 3_000_000 },
+  ...things
+    .filter((thing) => thing.screenshot || thing.artifacts?.length)
+    .flatMap((thing) => [
+      { path: new URL(thing.page).pathname, budget: 2_000_000 },
+      ...((thing.artifacts?.length ?? 0) >= 20
+        ? [{ path: `${new URL(thing.page).pathname}all-artifacts/`, budget: 3_000_000 }]
+        : [])
+    ])
+];
+test('every page with pictures keeps its images within budget', async ({ context }) => {
+  test.slow();
+  // A fresh page for each address, so nothing comes from an earlier page's memory; the context keeps visits out of
+  // analytics and never loads another host, as the page routes above do.
+  await context.route('https://tinylytics.app/**', (route) =>
+    route.fulfill({ contentType: 'text/javascript', body: '' })
+  );
+  await context.route(
+    (url) => url.hostname !== '127.0.0.1' && url.hostname !== 'tinylytics.app',
+    (route) => route.abort('blockedbyclient')
+  );
+  const over: string[] = [];
+  for (const { path, budget } of imagePages) {
+    const page = await context.newPage();
+    const sizes: Promise<number>[] = [];
+    page.on('requestfinished', (request) => {
+      if (request.resourceType() === 'image') sizes.push(request.sizes().then((s) => s.responseBodySize));
+    });
+    await page.goto(path);
+    // Every picture at once, lazy ones too, so the count is the whole page and not only the first screen.
+    await page.evaluate(() => {
+      for (const img of document.images) img.loading = 'eager';
+    });
+    await page.waitForLoadState('networkidle');
+    await expect
+      .poll(() => page.evaluate(() => [...document.images].every((img) => img.complete)), { timeout: 15_000 })
+      .toBe(true);
+    const bytes = (await Promise.all(sizes)).reduce((sum, n) => sum + n, 0);
+    await page.close();
+    if (bytes > budget) over.push(`${path}: ${(bytes / 1e6).toFixed(2)} MB of images, budget ${budget / 1e6} MB`);
+  }
+  expect(over).toEqual([]);
+});
+
+test('every picture offers smaller copies at its own shape, and its artifact link opens the original', async ({
+  page
+}) => {
+  for (const path of ['/', '/artifacts/', '/things/changelog/', '/things/road-sign-math-2026/all-artifacts/']) {
+    await page.goto(path);
+    const pictures = page.locator('.artifact-image img, .artifact-figure img, .screenshot img, .feature-cover img');
+    expect(await pictures.count(), path).toBeGreaterThan(0);
+    for (const img of await pictures.all()) {
+      const attrs = await img.evaluate((el: HTMLImageElement) => ({
+        src: el.getAttribute('src')!,
+        srcset: el.getAttribute('srcset') ?? '',
+        sizes: el.getAttribute('sizes') ?? '',
+        width: Number(el.getAttribute('width')),
+        height: Number(el.getAttribute('height')),
+        link: el.closest('a.artifact-image')?.getAttribute('href') ?? null
+      }));
+      expect(attrs.src, path).toMatch(/^\/assets\/img\/.+\.webp$/);
+      expect(attrs.sizes, path).not.toBe('');
+      expect(attrs.width * attrs.height, path).toBeGreaterThan(0);
+      const widths = [...attrs.srcset.matchAll(/ (\d+)w/g)].map((m) => Number(m[1]));
+      expect(widths.length, path).toBeGreaterThan(0);
+      expect(Math.max(...widths), `${attrs.src}: never enlarged`).toBeLessThanOrEqual(attrs.width);
+      if (attrs.link) expect(attrs.link, 'an artifact opens as itself').toMatch(/^\/things\/[a-z0-9-]+\/artifacts\//);
+    }
+  }
+});
+
+test('every thing with a picture shares it: a JPEG no wider than 1200, its size and words in the head', async ({
+  page,
+  request
+}) => {
+  for (const thing of things) {
+    const pictured =
+      thing.screenshot || thing.artifacts?.some((a) => /\.(png|jpe?g|gif|webp)$/i.test(a.file) || a.preview);
+    await page.goto(new URL(thing.page).pathname);
+    const image = page.locator('meta[property="og:image"]');
+    if (!pictured) {
+      await expect(image, thing.id).toHaveCount(0);
+      continue;
+    }
+    const url = (await image.getAttribute('content'))!;
+    expect(url, thing.id).toMatch(/^https:\/\/thingelstad\.xyz\/assets\/img\/.+-share\.jpg$/);
+    const response = await request.get(new URL(url).pathname);
+    expect(response.headers()['content-type'], thing.id).toBe('image/jpeg');
+    const size = imageSize(await response.body())!;
+    expect(size.width, thing.id).toBeLessThanOrEqual(1200);
+    await expect(page.locator('meta[property="og:image:width"]'), thing.id).toHaveAttribute('content', `${size.width}`);
+    await expect(page.locator('meta[property="og:image:height"]'), thing.id).toHaveAttribute(
+      'content',
+      `${size.height}`
+    );
+    await expect(page.locator('meta[property="og:image:alt"]'), thing.id).not.toHaveAttribute('content', '');
+    await expect(page.locator('meta[name="twitter:card"]'), thing.id).toHaveAttribute('content', 'summary_large_image');
+  }
+});
+
+test('no picture is drawn softer than its source allows: the copy picked has the pixels its box shows', async ({
+  page
+}) => {
+  test.slow();
+  for (const path of [
+    '/',
+    '/artifacts/',
+    '/things/thingy-model/',
+    '/things/changelog/all-artifacts/',
+    '/things/sync/'
+  ]) {
+    await page.goto(path);
+    await page.evaluate(() => {
+      for (const img of document.images) img.loading = 'eager';
+    });
+    await page.waitForLoadState('networkidle');
+    await expect
+      .poll(() => page.evaluate(() => [...document.images].every((img) => img.complete)), { timeout: 15_000 })
+      .toBe(true);
+    const soft = await page.evaluate(() =>
+      [...document.querySelectorAll<HTMLImageElement>('img[srcset]')].flatMap((img) => {
+        const width = Number(img.getAttribute('width'));
+        const height = Number(img.getAttribute('height'));
+        const box = img.getBoundingClientRect();
+        // How wide the picture is drawn, from how its frame fits it (object-fit), in device pixels.
+        const fit = getComputedStyle(img).objectFit;
+        const scale =
+          fit === 'cover'
+            ? Math.max(box.width / width, box.height / height)
+            : fit === 'contain'
+              ? Math.min(box.width / width, box.height / height)
+              : fit === 'scale-down'
+                ? Math.min(1, box.width / width, box.height / height)
+                : box.width / width;
+        const needed = Math.min(width, width * scale * devicePixelRatio);
+        const picked = Number(/-(\d+)\.webp$/.exec(img.currentSrc)?.[1] ?? width);
+        return picked < needed * 0.97
+          ? [`${img.currentSrc.split('/').pop()}: ${picked} for ${Math.round(needed)}`]
+          : [];
+      })
+    );
+    expect(soft, path).toEqual([]);
+  }
 });

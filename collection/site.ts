@@ -31,6 +31,16 @@ import {
 } from './schema';
 import { capturedUrl } from './adapters/wayback';
 import { artifactKind, formatBytes, isImage } from './artifacts';
+import {
+  imageJobs,
+  keepsOriginal,
+  picture,
+  shareImage,
+  type ImageJob,
+  type ImageSource,
+  type Picture,
+  type ShareImage
+} from './images';
 import { rootOrigin, siteKey } from './adapters/tinylytics';
 import { currentSite, withRef } from './sites';
 import { parseTranscript, type Turn } from './interviews';
@@ -78,10 +88,13 @@ type SiteSource = ThingSource & {
   evidence: Evidence[];
 };
 // The thing's own page (a site's front page, or the page inside a site where the thing lives) as it looked on
-// the day it was captured. The JPEG is published under /assets/ with its
-// hash in the name, so a new capture is a new file and the old one stays for open pages.
+// the day it was captured. The JPEG is published under /assets/ with its hash in the name, so a new capture is a
+// new file and the old one stays for open pages. Pages show it through `picture`, smaller copies of it
+// (collection/images.ts); `src` is the capture itself.
 type SiteScreenshot = {
   src: string;
+  picture: Picture;
+  share: ShareImage;
   site: string; // the URL that was captured
   place: string; // the host, with the path for a page inside a site: rwbookclub.com/oliver
   page: string; // what was captured: "the front page", or "this page" for a page inside a site
@@ -104,10 +117,40 @@ export type SiteArtifact = Artifact & {
   kind: string;
   bytes: number;
   size: string;
-  image: { src: string; width: number; height: number } | null;
+  image: { src: string; width: number; height: number; picture: Picture | null } | null; // picture: null for a GIF
 };
+// A thing's face: the one picture that stands for it where a page is shared (og:image). The artifact its record
+// names as its `face`, when it names one: a choice made by hand wins. Otherwise its captured front page
+// when it has one; else the first of its artifact images, in their listed order, that reads well as a wide share
+// card: a landscape image near the card's shape with room for 1200 pixels first, then any landscape image at least
+// 600 wide. Failing both, the largest small landscape image, so a little logo never wins over a bigger picture; and
+// a thing with only portrait images (phone screens) shows its first. Null for a thing with neither.
+export type Face = ShareImage & { from: 'screenshot' | 'artifact'; file?: string };
+const faceRank = ({ width, height }: { width: number; height: number }) => {
+  const aspect = width / height;
+  if (aspect >= 1.2 && aspect <= 2.4 && width >= 1000) return 0;
+  if (aspect >= 1 && width >= 600) return 1;
+  if (aspect >= 1) return 2;
+  return 3;
+};
+export function faceOf(
+  screenshot: SiteScreenshot | null,
+  artifacts: (SiteArtifact & { face: ShareImage | null })[],
+  chosen?: string
+): Face | null {
+  const named = chosen === undefined ? undefined : artifacts.find((artifact) => artifact.file === chosen);
+  if (named?.face) return { ...named.face, from: 'artifact', file: named.file };
+  if (screenshot) return { ...screenshot.share, from: 'screenshot' };
+  const shown = artifacts.filter((artifact) => artifact.image);
+  const best = Math.min(...shown.map((artifact) => faceRank(artifact.image!)));
+  const area = (artifact: SiteArtifact) => artifact.image!.width * artifact.image!.height;
+  const ranked = shown.filter((artifact) => faceRank(artifact.image!) === best);
+  const pick = best === 2 ? ranked.toSorted((a, b) => area(b) - area(a))[0] : ranked[0];
+  return pick ? { ...pick.face!, from: 'artifact', file: pick.file } : null;
+}
 const artifactPath = (id: string, file: string) => `/things/${id}/artifacts/${file}`;
-function siteArtifact(id: string, artifact: Artifact, files: Map<string, ArtifactFile> | undefined): SiteArtifact {
+type MeasuredArtifact = SiteArtifact & { face: ShareImage | null }; // the share image it would make, if picked
+function siteArtifact(id: string, artifact: Artifact, files: Map<string, ArtifactFile> | undefined): MeasuredArtifact {
   const measured = (file: string) => {
     const found = files?.get(`${id}/${file}`);
     if (!found) throw new Error(`The artifact ${id}/${file} was not measured; load the registry with loadRegistry.`);
@@ -116,6 +159,10 @@ function siteArtifact(id: string, artifact: Artifact, files: Map<string, Artifac
   const { bytes } = measured(artifact.file);
   const shown = isImage(artifact.file) ? artifact.file : artifact.preview;
   const image = shown ? measured(shown) : null;
+  const source: ImageSource | null =
+    shown && image
+      ? { path: `content/artifacts/${id}/${shown}`, sha256: image.sha256!, width: image.width!, height: image.height! }
+      : null;
   return {
     ...artifact,
     anchor: `artifact-${artifact.file}`,
@@ -123,7 +170,16 @@ function siteArtifact(id: string, artifact: Artifact, files: Map<string, Artifac
     kind: artifactKind(artifact.file),
     bytes,
     size: formatBytes(bytes),
-    image: shown && image ? { src: artifactPath(id, shown), width: image.width!, height: image.height! } : null
+    image:
+      shown && source
+        ? {
+            src: artifactPath(id, shown),
+            width: source.width,
+            height: source.height,
+            picture: keepsOriginal(shown) ? null : picture(source)
+          }
+        : null,
+    face: source ? shareImage(source, artifact.title) : null
   };
 }
 // A bundle as its page shows it, with its artifacts in their listed order.
@@ -148,7 +204,7 @@ export function sticker(id: string, title: string): Sticker {
   return { letters, hue: hash % 360, tilt: (hash % 7) - 3 };
 }
 
-export type SiteThing = Omit<Thing, 'sources' | 'bundles' | 'artifacts' | 'pull'> & {
+export type SiteThing = Omit<Thing, 'sources' | 'bundles' | 'artifacts' | 'pull' | 'face'> & {
   page: string;
   markdown: string;
   statusLabel: string;
@@ -165,6 +221,7 @@ export type SiteThing = Omit<Thing, 'sources' | 'bundles' | 'artifacts' | 'pull'
   bundles: SiteBundle[]; // empty when its artifacts are not in bundles
   artifactsPage: string | null; // the page of them, for a large set
   pull: { n: number; words: string; session: number; page: string } | null;
+  face: Face | null; // what a share of its page shows
   views: SiteViews | null;
   span: { start: number | null; end: number | null }; // years, for the timeline
   filters: ThingFilter[]; // its facet values, for /search/
@@ -266,6 +323,8 @@ export type SiteModel = {
   generated: string;
   things: SiteThing[];
   screenshot: SiteScreenshot | null;
+  face: Face | null; // what a share of a page that is no thing's own shows: this site's front page
+  images: ImageJob[]; // every copy of a picture the pages use, for the build to make
   featured: SiteFeature[];
   collections: SiteCollection[];
   topics: SiteTopic[];
@@ -367,15 +426,24 @@ function siteScreenshot(observation: ScreenshotObservation): SiteScreenshot {
   const date = observation.observedAt.slice(0, 10);
   const root = rootOrigin(observation.url) !== null;
   const place = root ? host : `${host}${pathname.replace(/\/$/, '')}`;
+  const alt = `${root ? 'The front page of' : 'The page'} ${place} on ${formatDate(date)}`;
+  const source: ImageSource = {
+    path: `data/observations/screenshot/${observation.image}`,
+    sha256: observation.sha256,
+    width: observation.width,
+    height: observation.height
+  };
   return {
     src: screenshotAsset(observation),
+    picture: picture(source),
+    share: shareImage(source, alt),
     site: observation.url,
     place,
     page: root ? 'the front page' : 'this page',
     date,
     width: observation.width,
     height: observation.height,
-    alt: `${root ? 'The front page of' : 'The page'} ${place} on ${formatDate(date)}`
+    alt
   };
 }
 function sourceMonths(source: SiteSource): MonthCount[] {
@@ -495,9 +563,11 @@ export function buildSiteModel(registry: Registry, observations: Observation[], 
         : eventYears.length
           ? Math.max(...eventYears)
           : start;
-    const artifacts = (thing.artifacts ?? []).map((artifact) =>
+    const measured = (thing.artifacts ?? []).map((artifact) =>
       siteArtifact(thing.id, artifact, registry.artifactFiles)
     );
+    const artifacts: SiteArtifact[] = measured.map(({ face: _face, ...artifact }) => artifact);
+    const screenshot = shot ? siteScreenshot(shot) : null;
     return {
       ...thing,
       page: `/things/${thing.id}/`,
@@ -514,7 +584,8 @@ export function buildSiteModel(registry: Registry, observations: Observation[], 
       }),
       latest: evidence[0] ?? null,
       months: window.map((month) => ({ month, count: counts.get(month) ?? 0 })),
-      screenshot: shot ? siteScreenshot(shot) : null,
+      screenshot,
+      face: faceOf(screenshot, measured, thing.face),
       artifacts,
       bundles: (thing.bundles ?? []).map((bundle) => ({
         ...bundle,
@@ -707,6 +778,14 @@ export function buildSiteModel(registry: Registry, observations: Observation[], 
     things: sortedThings,
     // The share image for a page that isn't a thing's own: this site's front page, as its thing has it.
     screenshot: things.find((thing) => thing.url === `${siteUrl}/`)?.screenshot ?? null,
+    face: things.find((thing) => thing.url === `${siteUrl}/`)?.face ?? null,
+    images: imageJobs(
+      things.flatMap((thing) => [
+        ...(thing.screenshot ? [thing.screenshot.picture] : []),
+        ...thing.artifacts.flatMap((artifact) => (artifact.image?.picture ? [artifact.image.picture] : [])),
+        ...(thing.face ? [thing.face] : [])
+      ])
+    ),
     featured: registry.featured.map((id) => {
       const thing = byId.get(id)!;
       return { thing, href: featuredLink(thing.url), cover: featuredLink(thing.screenshot?.site ?? thing.url) };

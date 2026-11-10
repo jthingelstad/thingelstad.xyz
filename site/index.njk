@@ -62,7 +62,7 @@ permalink: /
 {% endif %}
 {% if site.artifactSets.length %}
 {% call shelf("artifacts", "Artifacts", site.artifactTotal + " things kept along the way, from " + (site.artifactSets | length) + " of the projects.", 260, "/artifacts/", "All artifacts") %}
-  {% for set in site.artifactSets %}{% if set.picks.length %}{{ artifactFigure(set.thing, set.picks[0]) }}{% endif %}{% endfor %}
+  {% for set in site.artifactSets %}{% if set.picks.length %}{{ artifactFigure(set.thing, set.picks[0], 260) }}{% endif %}{% endfor %}
 {% endcall %}
 {% endif %}
 {% if site.lately.length %}

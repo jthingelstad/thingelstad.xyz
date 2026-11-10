@@ -28,7 +28,7 @@ eleventyComputed:
     one (/things/<id>/#artifacts, #artifact-<file>, #artifacts-<bundle>). The ids are fixed words and file names,
     never a heading's text, so a retitle never breaks a link someone sent. Each heading carries a small # link
     to its own address, the way to copy it; it is out of search and has a spoken name. #}
-{% from "macros.njk" import shelf, permalink, artifactCard %}
+{% from "macros.njk" import shelf, permalink, artifactCard, picture %}
 {#- The contents, as the rail beside the page and the fold above it on a phone. A count says how much is there. #}
 {%- macro contents(thing) %}
 {% if thing.body | trim %}<a class="toc-link" href="#story"><span>Story</span></a>
@@ -92,7 +92,7 @@ eleventyComputed:
 
   {% if thing.screenshot %}
   <figure class="screenshot" data-pagefind-ignore>
-    <a href="{{ thing.screenshot.site | ref("thing") }}"><img src="{{ thing.screenshot.src }}" width="{{ thing.screenshot.width }}" height="{{ thing.screenshot.height }}" alt="{{ thing.screenshot.alt }}" loading="lazy" decoding="async" /></a>
+    <a href="{{ thing.screenshot.site | ref("thing") }}">{{ picture(thing.screenshot, thing.screenshot.alt, "(max-width: 760px) 100vw, 720px") }}</a>
     <figcaption>{{ thing.screenshot.place }} on {{ thing.screenshot.date | date }}. The collector grabs {{ thing.screenshot.page }} once a month.</figcaption>
   </figure>
   {% endif %}
@@ -161,7 +161,7 @@ eleventyComputed:
     {% if thing.bundles | length %}
     {% for bundle in thing.bundles %}
     {% call shelf("artifacts-" + bundle.id, bundle.title, bundle.caption, bundle.cardWidth, (thing.artifactsPage + "#" + bundle.id) if (thing.artifactsPage and bundle.artifacts.length > 3), "All " + (bundle.artifacts | length), false, "h3", "artifact-bundle", true) %}
-      {% for artifact in bundle.artifacts %}{{ artifactCard(artifact, "h4", "div") }}{% endfor %}
+      {% for artifact in bundle.artifacts %}{{ artifactCard(artifact, "h4", "div", bundle.cardWidth) }}{% endfor %}
     {% endcall %}
     {% endfor %}
     {% else %}

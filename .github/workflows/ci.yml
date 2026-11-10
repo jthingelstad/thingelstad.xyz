@@ -25,6 +25,14 @@ jobs:
           node-version-file: .nvmrc
           cache: npm
       - run: npm ci
+      # The smaller copies of the pictures (collection/image-files.ts) are named by their source's bytes and the
+      # recipe, so copies kept from an earlier run are never stale. The deploy job makes its own from the sources.
+      - name: Restore picture copies from earlier runs
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: .cache/images
+          key: images-${{ hashFiles('collection/images.ts', 'content/artifacts/**', 'data/observations/screenshot/**') }}
+          restore-keys: images-
       - run: npm audit --omit=dev --audit-level=high
       - name: Report development dependency advisories
         continue-on-error: true
@@ -47,6 +55,14 @@ jobs:
           node-version-file: .nvmrc
           cache: npm
       - run: npm ci
+      # The smaller copies of the pictures (collection/image-files.ts) are named by their source's bytes and the
+      # recipe, so copies kept from an earlier run are never stale. The deploy job makes its own from the sources.
+      - name: Restore picture copies from earlier runs
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: .cache/images
+          key: images-${{ hashFiles('collection/images.ts', 'content/artifacts/**', 'data/observations/screenshot/**') }}
+          restore-keys: images-
       - run: npm run site:build
       - run: npx playwright install --with-deps chromium
       - run: npm run test:browser

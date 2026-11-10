@@ -39,6 +39,13 @@ import { connectionDiagram, connectionSource, phoneWidth } from '../collection/d
 import { parseSites, siteRef, sitesPath, withRef } from '../collection/sites';
 import { sitesStrip } from '../collection/sites-strip';
 import { sitemapEntries, sitemapXml, w3c } from '../collection/lastmod';
+import { faceOf, type SiteArtifact } from '../collection/site';
+import { imageJobs, keepsOriginal, picture, shareImage, widthsFor, type ImageSource } from '../collection/images';
+import { writeImages } from '../collection/image-files';
+import { mkdtempSync, rmSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
+import { imageSize } from '../collection/artifacts';
 
 const registry = await loadRegistry();
 const observations = await loadObservations();
@@ -210,6 +217,12 @@ test('a page that is no thing’s own shares this site’s front page', () => {
   const shot = buildSiteModel(registry, [own], now).screenshot;
   assert.equal(shot?.src, `/assets/screenshots/thingelstad-xyz-${'cd'.repeat(5)}.jpg`);
   assert.equal(shot?.alt, 'The front page of thingelstad.xyz on Oct 20, 2026');
+  const face = buildSiteModel(registry, [own], now).face;
+  assert.deepEqual(
+    { from: face?.from, width: face?.width, height: face?.height, alt: face?.alt },
+    { from: 'screenshot', width: 1200, height: 750, alt: shot?.alt }
+  );
+  assert.match(face?.src ?? '', /^\/assets\/img\/thingelstad-xyz-[0-9a-f]{10}-share\.jpg$/);
 });
 
 test('a website thing shows its own front page and page views, and a thing that only links to it does not', () => {
@@ -312,7 +325,12 @@ test('artifacts are published beside their thing, shown by an image where there 
   const byFile = new Map(velo.artifacts.map((artifact) => [artifact.file, artifact]));
   const logo = byFile.get('masthead-logo.png')!;
   assert.equal(logo.src, '/things/velotweets/artifacts/masthead-logo.png');
-  assert.deepEqual(logo.image, { src: logo.src, width: 200, height: 100 });
+  assert.deepEqual(
+    { src: logo.image?.src, width: logo.image?.width, height: logo.image?.height },
+    { src: logo.src, width: 200, height: 100 },
+    'an image is shown as itself and links to itself'
+  );
+  assert.match(logo.image?.picture?.src ?? '', /^\/assets\/img\/masthead-logo-[0-9a-f]{10}-200\.webp$/);
   assert.equal(logo.kind, 'PNG image');
   const icons = byFile.get('jerseys.zip')!;
   assert.equal(icons.src, '/things/velotweets/artifacts/jerseys.zip');
@@ -989,4 +1007,136 @@ test('every sitemap page carries the date its content last changed, never the bu
   assert.equal(entries.filter((entry) => entry.loc.includes('/topics/')).length, 0, 'a topic is a filter, not a page');
   assert.equal(w3c('2026-10'), '2026-10-01T12:00:00Z');
   assert.equal(w3c('2026-10-27T21:03:11-05:00'), '2026-10-28T02:03:11Z');
+});
+
+test('a picture is offered at widths no wider than its source, named by its bytes and the recipe', () => {
+  assert.deepEqual(widthsFor(200, 100), [200], 'a small image is never enlarged');
+  assert.deepEqual(widthsFor(1280, 800), [360, 720, 900, 1080, 1280], 'its own width tops the list');
+  assert.deepEqual(widthsFor(1206, 2622), [360, 720, 900, 1080, 1206]);
+  assert.deepEqual(widthsFor(3000, 2250), [360, 720, 900, 1080, 1440], '4:3 and up to it stops at 1440');
+  assert.deepEqual(widthsFor(400, 300), [400], 'a step within a tenth of the top is left out');
+  // A wide image covers a 4:3 box at its height, so its widest copy grows with it, never past its own width.
+  assert.deepEqual(widthsFor(2800, 480), [360, 720, 900, 1080, 1440, 2160, 2800]);
+  assert.equal(widthsFor(3936, 1444).at(-1), Math.round(1440 * (3936 / 1444 / (4 / 3))));
+
+  const source: ImageSource = {
+    path: 'content/artifacts/x/Some File.PNG',
+    sha256: 'ab'.repeat(32),
+    width: 1600,
+    height: 900
+  };
+  const shown = picture(source);
+  assert.equal(shown.width, 1600);
+  assert.equal(shown.height, 900);
+  assert.match(shown.src, /^\/assets\/img\/some-file-[0-9a-f]{10}-720\.webp$/, 'src is the 720 copy');
+  assert.equal(shown.srcset.split(', ').length, shown.renditions.length);
+  for (const r of shown.renditions) {
+    assert.ok(shown.srcset.includes(`${r.file} ${r.width}w`));
+    assert.equal(r.height, Math.round((900 * r.width) / 1600), 'every copy keeps the shape');
+  }
+  const changed = picture({ ...source, sha256: 'cd'.repeat(32) });
+  assert.notEqual(changed.src, shown.src, 'new bytes are a new name, as the immutable cache needs');
+  assert.equal(picture({ ...source }).src, shown.src, 'the same bytes, the same name');
+
+  const share = shareImage(source, 'Words');
+  assert.deepEqual([share.width, share.height, share.alt], [1200, 675, 'Words']);
+  assert.match(share.src, /-share\.jpg$/);
+  assert.deepEqual(
+    [
+      shareImage({ ...source, width: 600, height: 2000 }, '').width,
+      shareImage({ ...source, width: 600, height: 2000 }, '').height
+    ],
+    [360, 1200],
+    'a tall image fits 1200 high'
+  );
+  assert.equal(shareImage({ ...source, width: 300, height: 200 }, '').width, 300, 'never enlarged');
+  assert.ok(keepsOriginal('spin.GIF') && !keepsOriginal('still.png'), 'a GIF may be animated and is shown as it is');
+
+  const jobs = imageJobs([shown, share, picture({ ...source })]);
+  assert.equal(jobs.length, 1, 'one job per source');
+  assert.equal(jobs[0].renditions.length, shown.renditions.length + 1, 'each file once');
+});
+
+test('a thing’s face is its screenshot, else its artifact image that best fits a share card', () => {
+  const art = (file: string, width: number, height: number): SiteArtifact & { face: ReturnType<typeof shareImage> } => {
+    const source = { path: `content/artifacts/t/${file}`, sha256: file.padEnd(64, '0'), width, height };
+    return {
+      file,
+      title: file,
+      anchor: `artifact-${file}`,
+      src: `/things/t/artifacts/${file}`,
+      kind: 'PNG image',
+      bytes: 1,
+      size: '1 byte',
+      image: { src: `/things/t/artifacts/${file}`, width, height, picture: picture(source) },
+      face: shareImage(source, file)
+    };
+  };
+  const pick = (...artifacts: ReturnType<typeof art>[]) => faceOf(null, artifacts)?.file;
+  assert.equal(pick(art('phone.png', 1170, 2532), art('wide.png', 1600, 1000)), 'wide.png', 'landscape first');
+  assert.equal(
+    pick(art('strip.png', 2800, 480), art('card.png', 1200, 630)),
+    'card.png',
+    'near the card’s shape first'
+  );
+  assert.equal(
+    pick(art('strip.png', 2800, 480), art('square.png', 1024, 1024)),
+    'strip.png',
+    'in listed order within a rank'
+  );
+  assert.equal(pick(art('logo.png', 200, 100), art('page.png', 500, 312)), 'page.png', 'the largest of the small ones');
+  assert.equal(pick(art('first.png', 1170, 2532), art('second.png', 1720, 2746)), 'first.png', 'portraits: the first');
+  assert.equal(pick(), undefined);
+  // A face the record names wins over the ranking, and over a captured front page.
+  const legs = art('legs.png', 1500, 900);
+  const likeness = art('likeness.jpg', 2400, 1400);
+  assert.equal(faceOf(null, [legs, likeness])?.file, 'legs.png');
+  assert.equal(faceOf(null, [legs, likeness], 'likeness.jpg')?.file, 'likeness.jpg', 'the named artifact');
+  const thingy = model.things.find((t) => t.id === 'thingy-model')!;
+  assert.equal(
+    thingy.face?.file,
+    'likeness-comparison-v04.jpg',
+    'Thingy Model shares the illustration beside the model'
+  );
+  const withShot = model.things.find((t) => t.screenshot && t.artifacts.some((a) => a.image));
+  if (withShot) assert.equal(withShot.face?.from, 'screenshot', 'a captured front page wins');
+  // Every thing with something to show has a face, and the model names every copy the pages use.
+  const named = new Set(model.images.flatMap((job) => job.renditions.map((r) => r.file)));
+  for (const thing of model.things) {
+    if (thing.screenshot || thing.artifacts.some((a) => a.image)) assert.ok(thing.face, `${thing.id} has a face`);
+    else assert.equal(thing.face, null);
+    if (thing.face) assert.ok(named.has(thing.face.src), `${thing.id}: its share image is made`);
+    if (thing.face) assert.ok(thing.face.width <= 1200);
+    for (const file of [
+      ...(thing.screenshot?.picture.renditions ?? []),
+      ...thing.artifacts.flatMap((a) => a.image?.picture?.renditions ?? [])
+    ])
+      assert.ok(named.has(file.file), `${thing.id}: ${file.file} is made`);
+  }
+  assert.equal(
+    named.size,
+    model.images.reduce((sum, job) => sum + job.renditions.length, 0),
+    'each file once'
+  );
+});
+
+test('the build writes each copy at its size, and a second build takes them from the cache', async () => {
+  const output = mkdtempSync(join(tmpdir(), 'xyz-images-'));
+  const cache = join(output, 'cache');
+  try {
+    const velo = model.things.find((t) => t.id === 'velotweets')!;
+    const jobs = model.images.filter((job) => job.source.path.startsWith('content/artifacts/velotweets/'));
+    assert.ok(jobs.length > 0);
+    const first = await writeImages(jobs, join(output, 'site'), cache);
+    assert.equal(first.made, first.copied);
+    for (const rendition of jobs.flatMap((job) => job.renditions)) {
+      const size = imageSize(readFileSync(join(output, 'site', rendition.file)));
+      assert.deepEqual(size, { width: rendition.width, height: rendition.height }, rendition.file);
+    }
+    assert.ok(velo.face);
+    const again = await writeImages(jobs, join(output, 'again'), cache);
+    assert.deepEqual(again, { made: 0, copied: first.copied });
+  } finally {
+    rmSync(output, { recursive: true, force: true });
+  }
 });
