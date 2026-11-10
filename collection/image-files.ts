@@ -12,11 +12,12 @@ import type { ImageJob, Rendition } from './images';
 const imageCache = process.env.XYZ_IMAGE_CACHE ?? '.cache/images';
 
 // WebP for the srcset copies, keeping the source's colour profile (screenshots from a Mac are often Display
-// P3); a plain sRGB JPEG for the share image, which the sites that show it read most reliably.
+// P3); a plain sRGB JPEG for the share image, which the sites that show it read most reliably. WebP quality 75
+// weighs about a fifth less than 82 did and looks the same enlarged twice, on a screenshot's type and on a photo.
 function encode(base: Sharp, rendition: Rendition) {
   const sized = base.clone().resize(rendition.width, rendition.height, { fit: 'fill' });
   return rendition.format === 'webp'
-    ? sized.keepIccProfile().webp({ quality: 82, effort: 4, smartSubsample: true })
+    ? sized.keepIccProfile().webp({ quality: 75, effort: 4, smartSubsample: true })
     : sized.flatten({ background: '#ffffff' }).jpeg({ quality: 82, mozjpeg: true });
 }
 
