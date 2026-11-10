@@ -1,6 +1,7 @@
 ---
 title: Release Notes
 summary: 'A daily email with today’s version number. Reply with notes from your day and they become that version’s release notes.'
+tagline: 'A daily email with today’s version number. Reply, and your notes become its release notes.'
 collection: Personal tools and making
 status: active
 url: https://notes.yourversionnumber.com/

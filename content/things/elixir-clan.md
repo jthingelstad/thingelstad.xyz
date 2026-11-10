@@ -1,10 +1,11 @@
 ---
 title: Elixir Clan
-summary: 'Clan management on Elixir. A clan writes its own policy, and Elixir reads the record against it to guide the leaders’ calls.'
-collection: Games and communities
-status: active
+summary: 'Clan management on Elixir. A clan writes its own policy, and Elixir reads the record against it to guide the leaders’ calls. It became part of Elixir on October 2, 2026.'
+collection: Games
+status: archived
 url: https://elixir.poapkings.com/clan
 started: '2026-09'
+ended: '2026-10-02'
 topics:
   - play
 sources:

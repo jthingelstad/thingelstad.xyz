@@ -1,6 +1,7 @@
 ---
 title: Otto
 summary: 'Jamie’s personal AI agent, named in February 2026. Otto runs on its own Mac and writes its own blog.'
+tagline: 'Jamie’s personal AI agent. Otto runs on its own Mac and writes its own blog.'
 collection: Developer tools and systems
 status: active
 url: https://ottoai.thingelstad.com/

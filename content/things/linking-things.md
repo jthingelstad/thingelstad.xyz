@@ -1,6 +1,7 @@
 ---
 title: Linking Things
 summary: 'Every link Jamie has saved since 2005, one page per link, searchable and joined to the Weekly Thing issues that carried them.'
+tagline: 'Every link Jamie has saved since 2005, one page per link.'
 collection: Publishing
 status: active
 url: https://links.thingelstad.xyz/

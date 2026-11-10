@@ -239,7 +239,9 @@ function bundle(value: unknown, where: string): ArtifactBundle {
 const thingFields = [
   'pull',
   'title',
+  'site_name',
   'summary',
+  'tagline',
   'collection',
   'status',
   'url',
@@ -262,7 +264,9 @@ export function thing(id: string, frontmatter: unknown, body: string, where: str
     id,
     ...(item.pull === undefined ? {} : { pull: pullLine(item.pull, `${where}.pull`) }),
     title: text(item.title, `${where}.title`, 160),
+    ...(item.site_name === undefined ? {} : { site_name: text(item.site_name, `${where}.site_name`, 60) }),
     summary: text(item.summary, `${where}.summary`, 1000),
+    ...(item.tagline === undefined ? {} : { tagline: text(item.tagline, `${where}.tagline`, 100) }),
     collection: text(item.collection, `${where}.collection`, 100),
     status: item.status as Thing['status'],
     url: item.url === undefined || item.url === null ? null : publicUrl(item.url, `${where}.url`),
@@ -273,6 +277,12 @@ export function thing(id: string, frontmatter: unknown, body: string, where: str
     ),
     body: body.trim()
   };
+  // A live thing (active, with a website of its own) is a line on /all/, its name over its tagline, so it has one.
+  if (result.status === 'active' && result.sources.some((s) => s.role === 'website') && !result.tagline)
+    throw new ContentError(
+      `${where}.tagline`,
+      'A live thing (active, with a website of its own) needs a tagline for /all/.'
+    );
   if (item.started !== undefined) result.started = preciseDate(item.started, `${where}.started`);
   if (item.ended !== undefined) result.ended = preciseDate(item.ended, `${where}.ended`);
   if (result.started && result.ended && result.ended < result.started)

@@ -1,7 +1,8 @@
 ---
 title: R/W Book Club
 summary: 'A Minneapolis-Saint Paul book club meeting since 2003, and the website that keeps the record of everything it has read.'
-collection: Games and communities
+tagline: 'A Minneapolis-Saint Paul book club meeting since 2003, and its record.'
+collection: Communities
 status: active
 url: https://rwbookclub.com/
 started: '2003-04'

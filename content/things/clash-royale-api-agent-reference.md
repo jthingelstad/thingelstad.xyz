@@ -1,7 +1,7 @@
 ---
 title: Clash Royale API Agent Reference
 summary: 'Agent-first documentation of how the Clash Royale API actually behaves, with observed response shapes, quirks, and every game mode.'
-collection: Games and communities
+collection: Games
 status: active
 url: https://github.com/jthingelstad/cr-agent-api-docs
 started: '2026-03'

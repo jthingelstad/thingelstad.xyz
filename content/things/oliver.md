@@ -1,7 +1,8 @@
 ---
 title: Oliver
 summary: 'The R/W Book Club’s AI agent and sixth member. Oliver keeps the club’s record, briefs its meetings and publishes the website.'
-collection: Games and communities
+tagline: 'The R/W Book Club’s AI agent and sixth member.'
+collection: Communities
 status: active
 url: https://rwbookclub.com/oliver/
 started: '2026-05'

@@ -1,6 +1,7 @@
 ---
 title: Another Thing
 summary: 'Jamie’s podcast. It started in October 2025 with an episode on how to start a podcast, and he is not done with it.'
+tagline: 'Jamie’s podcast, since October 2025.'
 collection: Publishing
 status: active
 url: https://another.thingelstad.com/

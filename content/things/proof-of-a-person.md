@@ -1,6 +1,7 @@
 ---
 title: Proof of a Person
 summary: 'Jamie’s POAP time capsule, 2021 to 2026, built from the archive he captured after the protocol wound down.'
+tagline: 'Jamie’s POAP time capsule, 2021 to 2026.'
 collection: Art & archives
 status: active
 url: https://poap.thingelstad.xyz/

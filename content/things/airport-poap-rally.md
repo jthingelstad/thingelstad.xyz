@@ -1,7 +1,7 @@
 ---
 title: Airport POAP Rally
 summary: 'A Micro.blog site that posted, in near real time, every claim at the 100 airports of POAP’s Airport POAP Rally 2026.'
-collection: Games and communities
+collection: Games
 status: retired
 url: https://web.archive.org/web/20260515161915/https://airport.poaprally.com/
 started: '2025-12-26'

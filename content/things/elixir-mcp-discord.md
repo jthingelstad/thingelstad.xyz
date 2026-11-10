@@ -1,7 +1,7 @@
 ---
 title: Elixir Discord
 summary: 'An open-source Discord bot any Clash Royale clan can run. Every fact it states comes from an Elixir MCP tool call.'
-collection: Games and communities
+collection: Games
 status: active
 url: https://github.com/jthingelstad/elixir-mcp-discord
 started: '2026-09'

@@ -81,7 +81,9 @@ export type Thing = {
   id: string; // from the file name
   pull?: { n: number; words: string }; // a line of Jamie's the page opens with, from a question about this thing
   title: string;
+  site_name?: string; // the name its website goes by, where that differs from the title (Ask Thingy); /all/ shows it
   summary: string;
+  tagline?: string; // one short line under its name on /all/; every live thing has one (validate.ts)
   collection: string;
   status: Status;
   url: string | null;

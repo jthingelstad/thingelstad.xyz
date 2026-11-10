@@ -1,7 +1,7 @@
 ---
 title: Flight Path
 summary: 'A rotating globe of the 2026 Airport POAP Rally with claims, a leaderboard, and each collector’s path, built from an iPhone.'
-collection: Games and communities
+collection: Games
 status: retired
 url: https://web.archive.org/web/20260312035500/https://flightpath.poaprally.com/
 started: '2026-02-25'

@@ -1,7 +1,8 @@
 ---
 title: Elixir
 summary: 'A service that records Clash Royale history and serves it to players, clans, and their AI agents over MCP.'
-collection: Games and communities
+tagline: 'Clash Royale history for players, clans, and their AI agents, with clan management built in.'
+collection: Games
 status: active
 url: https://elixir.poapkings.com/
 started: '2026-09-03'

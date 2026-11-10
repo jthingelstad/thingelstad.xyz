@@ -2240,31 +2240,33 @@ h4:hover > .permalink,
   }
 }
 
-/* /all/: every live thing as a link, in columns, as dense as a classifieds index (Jamie, 2026-11-10: "think
-   Craigslist"). Each collection keeps to one column; its summary is the link's title. */
+/* /all/: every live thing in columns, as dense as a classifieds index (Jamie, 2026-11-10: "think Craigslist"),
+   each name with its tagline under it in small grey type (the design Jamie approved the same day). Each
+   collection keeps to one column. */
 .all-title {
   margin: 8px 0 4px;
-  font-size: var(--jt-size-h2);
+  font-size: var(--jt-size-title);
 }
 
 .all-note {
-  margin: 0 0 24px;
+  margin: 0 0 32px;
+  color: var(--muted);
   font-size: var(--jt-size-small);
 }
 
 .all-columns {
-  columns: 4 13rem;
-  column-gap: 32px;
+  columns: 4 14.5rem;
+  column-gap: 40px;
 }
 
 .all-group {
-  margin: 0 0 20px;
+  margin: 0 0 32px;
   break-inside: avoid;
 }
 
 .all-group h2 {
-  margin: 0 0 4px;
-  padding-bottom: 2px;
+  margin: 0 0 12px;
+  padding-bottom: 8px;
   border-bottom: 1px solid var(--line);
   font-size: var(--jt-size-ui);
 }
@@ -2279,15 +2281,26 @@ h4:hover > .permalink,
 }
 
 .all-group ul {
+  display: grid;
+  gap: 12px;
   margin: 0;
   padding: 0;
   list-style: none;
-  font-size: var(--jt-size-ui);
-  line-height: 1.55;
+  line-height: 1.35;
 }
 
 .all-group li a {
   color: var(--accent-text);
+  font-size: var(--jt-size-small);
+  font-weight: 600;
+}
+
+.all-tagline {
+  display: block;
+  margin-top: 2px;
+  color: var(--muted);
+  font-size: var(--jt-size-label);
+  line-height: 1.45;
 }
 
 /* /years/: a row a year. The numbers are always printed, so colour never carries them alone. */
