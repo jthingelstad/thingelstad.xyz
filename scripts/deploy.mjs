@@ -1,9 +1,9 @@
-import { execFileSync } from 'node:child_process';
+import { execFile, execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
-import { readFileSync } from 'node:fs';
-import { isDeepStrictEqual } from 'node:util';
+import { readFileSync, statSync } from 'node:fs';
+import { isDeepStrictEqual, promisify } from 'node:util';
 import { setTimeout as delay } from 'node:timers/promises';
-import { cacheControlFor, contentTypeFor, publishOrder } from './publish-plan.mjs';
+import { cacheControlFor, contentTypeFor, publishOrder, publishSteps, unpublished } from './publish-plan.mjs';
 import { builtPageHashes, changedUrls, pingIndexNow } from './indexnow.mjs';
 
 // AWS CLI runs only on the authenticated GitHub runner. Local agent deployments use AWS MCP.
@@ -67,20 +67,56 @@ try {
 } catch (error) {
   console.log(`IndexNow: could not list the live pages (${error.message}); no ping this deploy.`);
 }
-for (const key of keys) {
-  run(
-    's3',
-    'cp',
-    `${siteRoot}/${key}`,
-    `s3://${deployment.siteBucket}/${key}`,
-    '--cache-control',
-    cacheControlFor(key),
-    '--content-type',
-    contentTypeFor(key),
-    '--only-show-errors'
+// Content-named files the bucket already holds are not sent again. A failed listing only means everything is sent.
+let live = new Map();
+try {
+  live = new Map(
+    aws(
+      's3api',
+      'list-objects-v2',
+      '--bucket',
+      deployment.siteBucket,
+      '--query',
+      "Contents[?starts_with(Key, 'assets/') || starts_with(Key, 'pagefind/')].[Key, Size]"
+    ) ?? []
+  );
+} catch (error) {
+  console.log(`Could not list the published assets (${error.message}); sending every file.`);
+}
+const sizes = new Map(keys.map((key) => [key, statSync(`${siteRoot}/${key}`).size]));
+const pending = unpublished(keys, sizes, live);
+const send = promisify(execFile);
+const upload = (key) =>
+  send(
+    'aws',
+    [
+      's3',
+      'cp',
+      `${siteRoot}/${key}`,
+      `s3://${deployment.siteBucket}/${key}`,
+      '--cache-control',
+      cacheControlFor(key),
+      '--content-type',
+      contentTypeFor(key),
+      '--only-show-errors',
+      '--region',
+      deployment.region,
+      '--no-cli-pager'
+    ],
+    { maxBuffer: 10 * 1024 * 1024 }
+  );
+// One step after another, eight files of a step at a time. A failed upload stops the deploy before the next step.
+for (const step of publishSteps(pending)) {
+  const queue = [...step];
+  await Promise.all(
+    Array.from({ length: 8 }, async () => {
+      for (let key = queue.shift(); key !== undefined; key = queue.shift()) await upload(key);
+    })
   );
 }
-console.log(`Uploaded ${keys.length} files.`);
+console.log(
+  `Uploaded ${pending.length} files; ${keys.length - pending.length} content-named files were already published.`
+);
 const invalidation = aws(
   'cloudfront',
   'create-invalidation',

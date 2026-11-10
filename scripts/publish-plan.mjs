@@ -65,11 +65,30 @@ export function contentTypeFor(key) {
 const contentNamed = (key) => key.startsWith('assets/') || /^pagefind\/.+\.pf_(meta|index|fragment|filter)$/.test(key);
 export const cacheControlFor = (key) => (contentNamed(key) ? immutable : revalidate);
 
+const rank = (key) => (contentNamed(key) ? 0 : key === 'index.html' ? 3 : key.endsWith('.html') ? 2 : 1);
 // Keys of every file under `root`, as S3 keys (forward slashes), in publish order.
 export function publishOrder(root) {
   const keys = readdirSync(root, { recursive: true, withFileTypes: true })
     .filter((entry) => entry.isFile())
     .map((entry) => relative(root, join(entry.parentPath, entry.name)).split(sep).join('/'));
-  const rank = (key) => (contentNamed(key) ? 0 : key === 'index.html' ? 3 : key.endsWith('.html') ? 2 : 1);
   return keys.sort((a, b) => rank(a) - rank(b) || a.localeCompare(b));
+}
+// Ordered keys split into the steps that must follow one another: content-named files, other files, pages, the
+// front page. The files inside one step do not refer to each other, so they can go up together.
+export function publishSteps(keys) {
+  const steps = [];
+  let last = -1;
+  for (const key of keys) {
+    if (rank(key) !== last) steps.push([]);
+    last = rank(key);
+    steps.at(-1).push(key);
+  }
+  return steps;
+}
+// The keys still to send. A content-named file never changes under its name, so one the bucket already holds at
+// the same size is not sent again: the picture copies alone are hundreds of files, and a deploy that re-sent
+// them all ran past its time limit (2026-11-10). `sizes` is each built file's size, `live` each content-named
+// object's size in the bucket. Everything else is always sent.
+export function unpublished(keys, sizes, live) {
+  return keys.filter((key) => !(contentNamed(key) && live.has(key) && live.get(key) === sizes.get(key)));
 }
