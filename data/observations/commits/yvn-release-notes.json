@@ -2,9 +2,12 @@
   "kind": "commits",
   "repository": "jthingelstad/yvn-release-notes",
   "url": "https://github.com/jthingelstad/yvn-release-notes",
-  "observedAt": "2026-11-09T21:26:11.591Z",
+  "observedAt": "2026-11-10T18:40:18.027Z",
   "branch": "main",
   "commits": [
+    {"sha":"3b96d2c32256","date":"2026-11-10T13:10:37.000Z","subject":"Changelog 0.0.12: the voice memo waveform","by":"agent","agents":["claude"]},
+    {"sha":"9ef1b632af86","date":"2026-11-10T12:41:04.000Z","subject":"Format recorder.ts with Prettier","by":"agent","agents":["claude"]},
+    {"sha":"b7eacda8d7fa","date":"2026-11-10T12:41:04.000Z","subject":"Recording shows the microphone's level as moving bars","by":"agent","agents":["claude"]},
     {"sha":"d876065376cb","date":"2026-11-09T17:37:03.000Z","subject":"Changelog 0.0.11 in the guide: the check-in link asks first, memos keep their place, the Map's warning clears","by":"agent","agents":["claude"]},
     {"sha":"50661bf19fcb","date":"2026-11-09T15:23:29.000Z","subject":"Say the tags tool is gone, and the Upcoming batch limit as it is","by":"agent","agents":["claude"]},
     {"sha":"519e7c883be3","date":"2026-11-09T15:23:29.000Z","subject":"API 1.22.2: small fixes from the 11-09 audit","by":"agent","agents":["claude"]},

@@ -2,9 +2,12 @@
   "kind": "commits",
   "repository": "jthingelstad/thingy.thingelstad.com",
   "url": "https://github.com/jthingelstad/thingy.thingelstad.com",
-  "observedAt": "2026-11-05T18:43:59.926Z",
+  "observedAt": "2026-11-10T18:40:18.027Z",
   "branch": "main",
   "commits": [
+    {"sha":"da38688c3ae6","date":"2026-11-10T15:15:36.000Z","subject":"Link Thingy's home from the About page","pr":63,"by":"me"},
+    {"sha":"70ce54547f27","date":"2026-11-10T12:39:56.000Z","subject":"Hold the whole line and every page to the About link's test","by":"agent","agents":["claude"]},
+    {"sha":"9831165cda88","date":"2026-11-10T12:34:02.000Z","subject":"Link Thingy's home from the About page","by":"agent","agents":["claude"]},
     {"sha":"cbcbc09c9c1e","date":"2026-11-05T01:09:49.000Z","subject":"Follow Thingy's home to Scenes: library stills and scene=","pr":62,"by":"me"},
     {"sha":"8cc96f7abc57","date":"2026-11-05T01:08:32.000Z","subject":"Read the library stills in the still test","by":"agent","agents":["claude"]},
     {"sha":"f50fb8540efd","date":"2026-11-05T01:08:09.000Z","subject":"Follow Thingy's home to Scenes: library stills and scene=","by":"agent","agents":["claude"]},
