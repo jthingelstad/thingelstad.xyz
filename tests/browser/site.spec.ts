@@ -208,6 +208,7 @@ test('All Things links every live thing straight to its site, in compact columns
     'Weekly Thing',
     'Another Thing',
     'Linking Things',
+    'Things I’ve built',
     'Ask Thingy'
   ]);
   expect(rows.map((row) => new URL(row.visit).searchParams.get('ref'))).toContain('xyz-all');
