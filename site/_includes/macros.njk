@@ -29,10 +29,22 @@
 </div>
 {% endmacro %}
 
-{#- An artifact as a figure that leads to its place on its thing's page. #}
-{% macro artifactFigure(thing, artifact) %}
+{#- A picture at the size its box wants: the smaller copies the build makes (collection/images.ts) as a srcset, with
+    `sizes` saying how wide the box is drawn, and the source's own width and height for its shape. An image with no
+    copies (a GIF) is shown as it is. Pass lazy false for one that is in view as the page opens. #}
+{% macro picture(image, alt, sizes, lazy) %}<img src="{{ image.picture.src if image.picture else image.src }}"{% if image.picture %} srcset="{{ image.picture.srcset }}" sizes="{{ sizes }}"{% endif %} width="{{ image.width }}" height="{{ image.height }}" alt="{{ alt }}"{% if lazy !== false %} loading="lazy"{% endif %} decoding="async" />{% endmacro %}
+
+{#- The sizes for a picture on a shelf card --card pixels wide, which a phone narrows to 82vw (.shelf-track). A
+    picture that covers its box (grow above 1) is drawn wider than the box by that much. #}
+{% macro shelfSizes(width, grow) %}{% set g = grow or 1 %}(max-width: {{ (width / 0.82) | round }}px) {{ (82 * g) | round }}vw, {{ (width * g) | round }}px{% endmacro %}
+
+{#- An artifact as a figure that leads to its place on its thing's page, on a shelf of cards `width` wide or in the
+    grid of smaller sets (no width). The figure covers a 4:3 box from the top, so an image wider than that is drawn
+    at the box's height and comes out wider than the box: its sizes grow to match, or a panorama would go soft. #}
+{% macro artifactFigure(thing, artifact, width) %}
+{%- set wide = (artifact.image.width / artifact.image.height) / (4 / 3) %}{% set grow = wide if wide > 1 else 1 %}
 <a class="artifact-figure" href="{{ thing.page }}#{{ artifact.anchor }}"><figure>
-  <img src="{{ artifact.image.src }}" alt="{{ artifact.alt or artifact.title }}" width="{{ artifact.image.width }}" height="{{ artifact.image.height }}" loading="lazy" decoding="async" />
+  {{ picture(artifact.image, artifact.alt or artifact.title, shelfSizes(width, grow) if width else "(max-width: 540px) " + ((100 * grow) | round) + "vw, " + ((340 * grow) | round) + "px") }}
   <figcaption><b>{{ artifact.title }}</b>{% if artifact.caption %}<span class="muted clamp-two">{{ artifact.caption }}</span>{% endif %}</figcaption>
 </figure></a>
 {% endmacro %}
@@ -47,11 +59,12 @@
 {#- Files from the project itself, published beside its page. An image is shown as it is and opens full size; any
     other file is a download, shown by its preview when it has one. The titles and captions are the thing's words and
     are indexed; the file names and sizes are not. An artifact is a list item in a grid and a div on a shelf. #}
-{% macro artifactCard(artifact, heading, tag) %}
+{#- On a shelf, `width` is the bundle's card width; in a grid it is left out, and the grid's one column is widest, about 590px, up to a 900px window. The link still opens the file itself. #}
+{% macro artifactCard(artifact, heading, tag, width) %}
 {%- set box = tag or "li" %}
 <{{ box }} class="artifact" id="{{ artifact.anchor }}">
   {% if artifact.image %}
-  <a class="artifact-image" href="{{ artifact.image.src }}" data-pagefind-ignore><img src="{{ artifact.image.src }}" width="{{ artifact.image.width }}" height="{{ artifact.image.height }}" alt="{{ artifact.title }}" loading="lazy" decoding="async" /></a>
+  <a class="artifact-image" href="{{ artifact.image.src }}" data-pagefind-ignore>{{ picture(artifact.image, artifact.title, shelfSizes(width) if width else "(max-width: 660px) 100vw, (max-width: 900px) 600px, 440px") }}</a>
   {% endif %}
   <{{ heading }} class="artifact-title">{{ artifact.title }} {{ permalink(artifact.anchor, artifact.title) }}</{{ heading }}>
   {% if artifact.caption %}<p class="artifact-caption">{{ artifact.caption }}</p>{% endif %}

@@ -1,4 +1,5 @@
 {%- set thing = feature.thing -%}
+{%- from "macros.njk" import picture -%}
 <div class="feature h-entry"{% if thing.story %} style="--cover: {{ thing.story.color }}"{% endif %}>
   {#- The cover is the front page the collector last captured, linked like the thing page's screenshot; a thing
       with no capture (a repository, say) shows its sticker on its story colour. The visit link says the same
@@ -7,7 +8,7 @@
   {#- An h-entry of the featured h-feed: the title links the thing's page (p-name, u-url), and the author is the
       owner's hidden h-card (p-author), as on the thing page. #}
   <a class="feature-cover" href="{{ feature.cover }}" tabindex="-1" aria-hidden="true">
-    {%- if thing.screenshot %}<img src="{{ thing.screenshot.src }}" width="{{ thing.screenshot.width }}" height="{{ thing.screenshot.height }}" alt="" decoding="async" />
+    {%- if thing.screenshot %}{{ picture(thing.screenshot, "", "(max-width: 512px) 82vw, 420px", false) }}
     {%- else %}<span class="feature-mark">{{ thing.sticker.letters }}</span>{% endif -%}
   </a>
   <h3><a class="p-name u-url" href="{{ thing.page }}">{{ thing.title }}</a></h3>

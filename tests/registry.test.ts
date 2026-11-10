@@ -1,4 +1,5 @@
 import { test } from 'node:test';
+import { createHash } from 'node:crypto';
 import assert from 'node:assert/strict';
 import { mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, symlinkSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
@@ -330,7 +331,12 @@ test('an artifact folder holds exactly the files its thing lists, and images are
   writeFileSync(join(folder, 'design.ai'), '%PDF-1.4');
   writeFileSync(join(folder, '.DS_Store'), 'the Finder’s');
   const files = await measureArtifacts(root, [example]);
-  assert.deepEqual(files.get('example/logo.png'), { bytes: 33, width: 200, height: 100 });
+  assert.deepEqual(files.get('example/logo.png'), {
+    bytes: 33,
+    width: 200,
+    height: 100,
+    sha256: createHash('sha256').update(png(200, 100)).digest('hex') // names the copies the build makes
+  });
   assert.deepEqual(files.get('example/design.ai'), { bytes: 8 });
   assert.equal(files.get('example/.DS_Store'), undefined);
 

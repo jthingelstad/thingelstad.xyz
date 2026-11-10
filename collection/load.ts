@@ -1,3 +1,4 @@
+import { createHash } from 'node:crypto';
 import { existsSync } from 'node:fs';
 import { readFile, readdir, stat } from 'node:fs/promises';
 import { basename, join } from 'node:path';
@@ -125,9 +126,11 @@ export async function measureArtifacts(root: string, things: Thing[]): Promise<M
         files.set(`${id}/${name}`, { bytes: size });
         continue;
       }
-      const dimensions = imageSize(await readFile(path));
+      const bytes = await readFile(path);
+      const dimensions = imageSize(bytes);
       if (!dimensions) throw new ContentError(`${where}/${name}`, 'Not an image this site can read.');
-      files.set(`${id}/${name}`, { bytes: size, ...dimensions });
+      const sha256 = createHash('sha256').update(bytes).digest('hex');
+      files.set(`${id}/${name}`, { bytes: size, ...dimensions, sha256 });
     }
   }
   return files;

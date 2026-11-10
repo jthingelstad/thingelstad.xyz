@@ -19,6 +19,10 @@ import { parseSites, siteRef, sitesPath } from '../collection/sites';
 import { sitesStrip } from '../collection/sites-strip';
 import { sharedTypeAssets, sharedTypeDir } from '../collection/shared-type';
 import { writeSearchIndex } from '../collection/search-index';
+import { writeImages } from '../collection/image-files';
+import { loadRegistry } from '../collection/load';
+import { loadObservations } from '../collection/observations';
+import { buildSiteModel } from '../collection/site';
 import { eventPage, weekPage } from '../collection/years';
 
 const markdown = markdownIt({ html: false, linkify: true, typographer: true });
@@ -107,7 +111,14 @@ export default function (eleventyConfig: EleventyConfig) {
   );
   // Pagefind indexes the thing pages once they are written (collection/search-index.ts), for /search/. It reads
   // `directories.output`, where this build wrote, which --output changes; the older `dir` is only the config.
+  // The smaller copies of every picture the pages name go in beside them (collection/image-files.ts), made
+  // once and then copied from the cache. The model is built again here for its list: the hook has no data.
   eleventyConfig.on('eleventy.after', async ({ directories }) => {
+    const [registry, observations] = await Promise.all([loadRegistry(), loadObservations()]);
+    const started = performance.now();
+    const { made, copied } = await writeImages(buildSiteModel(registry, observations).images, directories.output);
+    const seconds = ((performance.now() - started) / 1000).toFixed(1);
+    console.log(`[images] ${copied} copies under /assets/img/, ${made} made in ${seconds}s, the rest from the cache.`);
     await writeSearchIndex(directories.output);
   });
   return {

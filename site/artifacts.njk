@@ -15,7 +15,7 @@ description: The sketches, screenshots and files kept from building Jamie Thinge
 <blockquote class="pull-quote"><q>I absolutely adore that Things I’ve built has a place to capture artifacts of the building process</q> <a href="/interviews/session-5/#q34">Jamie, question 34</a></blockquote>
 {% for set in site.artifactSets %}{% if set.count >= 9 %}
 {% call shelf("artifacts-" + set.thing.id, set.thing.title, set.note, 300, set.thing.artifactsPage or (set.thing.page + "#artifacts"), "See all " + set.count) %}
-  {% for artifact in set.picks %}{{ artifactFigure(set.thing, artifact) }}{% endfor %}
+  {% for artifact in set.picks %}{{ artifactFigure(set.thing, artifact, 300) }}{% endfor %}
 {% endcall %}
 {% endif %}{% endfor %}
 <section class="year-section" id="smaller-sets">
