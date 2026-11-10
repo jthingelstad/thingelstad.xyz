@@ -92,8 +92,12 @@ eleventyComputed:
 
   {% if thing.screenshot %}
   <figure class="screenshot" data-pagefind-ignore>
-    <a href="{{ thing.screenshot.site | ref("thing") }}">{{ picture(thing.screenshot, thing.screenshot.alt, "(max-width: 760px) 100vw, 720px") }}</a>
+    <a href="{{ thing.screenshot.href | ref("thing") }}">{{ picture(thing.screenshot, thing.screenshot.alt, "(max-width: 760px) 100vw, 720px") }}</a>
+    {%- if thing.screenshot.wayback %}
+    <figcaption>{{ thing.screenshot.place }} as the <a href="{{ thing.screenshot.wayback }}">Internet Archive captured it</a> on {{ thing.screenshot.date | date }}.</figcaption>
+    {%- else %}
     <figcaption>{{ thing.screenshot.place }} on {{ thing.screenshot.date | date }}. The collector grabs {{ thing.screenshot.page }} once a month.</figcaption>
+    {%- endif %}
   </figure>
   {% endif %}
 

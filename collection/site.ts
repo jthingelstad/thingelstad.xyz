@@ -29,7 +29,7 @@ import {
   type WaybackObservation,
   type WebObservation
 } from './schema';
-import { capturedUrl } from './adapters/wayback';
+import { archivedRoles, captureLink, capturedUrl, pinnedCapture } from './adapters/wayback';
 import { artifactKind, formatBytes, isImage } from './artifacts';
 import {
   imageJobs,
@@ -84,19 +84,24 @@ type SiteSource = ThingSource & {
   observation: GitHubObservation | WebObservation | null;
   captures?: WaybackObservation | null; // website sources only: Internet Archive captures
   views?: TinylyticsObservation | null; // website roots only: page views counted by Tinylytics
-  screenshot?: ScreenshotObservation | null; // the thing's own website source: its page, captured monthly
+  screenshot?: ScreenshotObservation | null; // its own website source: its page, captured monthly; or the capture an
+  // archive source pins in the Internet Archive, shot once
   evidence: Evidence[];
 };
 // The thing's own page (a site's front page, or the page inside a site where the thing lives) as it looked on
 // the day it was captured. The JPEG is published under /assets/ with its hash in the name, so a new capture is a
 // new file and the old one stays for open pages. Pages show it through `picture`, smaller copies of it
 // (collection/images.ts); `src` is the capture itself.
+// A thing whose site is gone shows the capture its record pins in the Internet Archive instead (`wayback`): the
+// date is the day the Archive captured it, and the picture links to that capture.
 type SiteScreenshot = {
   src: string;
   picture: Picture;
   share: ShareImage;
-  site: string; // the URL that was captured
-  place: string; // the host, with the path for a page inside a site: rwbookclub.com/oliver
+  site: string; // the page it shows: the URL that was captured, or the page the Archive kept
+  href: string; // where the picture links: the page itself, or its capture in the Archive
+  wayback: string | null; // the capture in the Archive, for a picture of one
+  place: string; // the host, with the path for a page inside a site: rwbookclub.com/oliver; the host for the Archive
   page: string; // what was captured: "the front page", or "this page" for a page inside a site
   date: string; // YYYY-MM-DD
   width: number;
@@ -422,11 +427,18 @@ function viewMonths(observation: TinylyticsObservation): MonthCount[] {
   return months;
 }
 function siteScreenshot(observation: ScreenshotObservation): SiteScreenshot {
-  const { host, pathname } = new URL(observation.url);
-  const date = observation.observedAt.slice(0, 10);
-  const root = rootOrigin(observation.url) !== null;
-  const place = root ? host : `${host}${pathname.replace(/\/$/, '')}`;
-  const alt = `${root ? 'The front page of' : 'The page'} ${place} on ${formatDate(date)}`;
+  const archived = observation.wayback ?? null;
+  const site = archived?.original ?? observation.url;
+  const { hostname, host, pathname } = new URL(site);
+  const date = archived
+    ? `${archived.timestamp.slice(0, 4)}-${archived.timestamp.slice(4, 6)}-${archived.timestamp.slice(6, 8)}`
+    : observation.observedAt.slice(0, 10);
+  const root = archived ? pathname === '/' : rootOrigin(site) !== null;
+  const place = archived ? hostname : root ? host : `${host}${pathname.replace(/\/$/, '')}`;
+  const wayback = archived ? captureLink(archived.timestamp, archived.original) : null;
+  const alt = archived
+    ? `${root ? 'The front page of' : 'A page of'} ${place} as the Internet Archive captured it on ${formatDate(date)}`
+    : `${root ? 'The front page of' : 'The page'} ${place} on ${formatDate(date)}`;
   const source: ImageSource = {
     path: `data/observations/screenshot/${observation.image}`,
     sha256: observation.sha256,
@@ -437,7 +449,9 @@ function siteScreenshot(observation: ScreenshotObservation): SiteScreenshot {
     src: screenshotAsset(observation),
     picture: picture(source),
     share: shareImage(source, alt),
-    site: observation.url,
+    site,
+    href: wayback ?? site,
+    wayback,
     place,
     page: root ? 'the front page' : 'this page',
     date,
@@ -524,7 +538,9 @@ export function buildSiteModel(registry: Registry, observations: Observation[], 
       const own = source.role === 'website';
       const origin = own ? rootOrigin(source.url) : null;
       const views = origin ? (tinylytics.get(siteKey(origin)) ?? null) : null;
-      const screenshot = own ? (screenshots.get(websiteKey(source.url)) ?? null) : null;
+      const pinned = archivedRoles.includes(source.role) && pinnedCapture(source.url) !== null;
+      const shot = own || pinned ? (screenshots.get(websiteKey(source.url)) ?? null) : null;
+      const screenshot = shot && !!shot.wayback === pinned ? shot : null;
       return {
         ...source,
         observation,
@@ -534,7 +550,11 @@ export function buildSiteModel(registry: Registry, observations: Observation[], 
         evidence: observation ? webEvidence(observation) : []
       };
     });
-    const shot = sources.find((source) => source.screenshot)?.screenshot;
+    // A live screenshot always wins over a capture from the Archive.
+    const shot = (
+      sources.find((source) => source.screenshot && !source.screenshot.wayback) ??
+      sources.find((source) => source.screenshot)
+    )?.screenshot;
     const viewed = sources.find((source) => source.views)?.views;
     const evidence = sources.flatMap((source) => source.evidence).sort((a, b) => b.date.localeCompare(a.date));
     // The commit and publication logs count every month of the sources that are the thing's activity; the
@@ -788,7 +808,7 @@ export function buildSiteModel(registry: Registry, observations: Observation[], 
     ),
     featured: registry.featured.map((id) => {
       const thing = byId.get(id)!;
-      return { thing, href: featuredLink(thing.url), cover: featuredLink(thing.screenshot?.site ?? thing.url) };
+      return { thing, href: featuredLink(thing.url), cover: featuredLink(thing.screenshot?.href ?? thing.url) };
     }),
     collections,
     topics,

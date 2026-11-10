@@ -217,16 +217,19 @@ export type WaybackObservation = {
   latestCapture: string | null; // may be someone else's page after a domain lapsed
   years: { year: string; days: number }[]; // days with a 200 capture
 };
-// A capture of a website's front page, stored as a JPEG beside its observation. What the site looked
-// like on that day: evidence of the thing, never a statement about it.
+// A capture of a website's own page, stored as a JPEG beside its observation. What the site looked
+// like on that day: evidence of the thing, never a statement about it. A thing whose site is gone is shot once
+// from the Internet Archive instead: `url` is then the Wayback link its record pins, and `wayback` the capture the
+// Archive actually served.
 export type ScreenshotObservation = {
   kind: 'screenshot';
-  url: string; // the site root that was captured
+  url: string; // the page that was captured, or the pinned Wayback link
   observedAt: string; // when it was captured
   image: string; // the JPEG's file name, beside this observation
   sha256: string;
   width: number;
   height: number;
+  wayback?: { original: string; timestamp: string }; // the page as the Archive kept it, and its YYYYMMDDhhmmss
 };
 // Every commit on a public repository's default branch, read from a commits-only clone. Git is already an
 // append-only log, so each run re-reads the whole history and the observation changes only when a commit
