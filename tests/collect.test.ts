@@ -481,8 +481,9 @@ test('a thing whose site is gone is shot from the capture its record pins, and a
       ])
     ]
   });
-  assert.ok(!found.screenshots.includes('https://gone.example.org/'), 'a retired thing never gets a live screenshot');
-  assert.ok(found.screenshots.includes('https://live.example.org/'));
+  const live = new Set(found.screenshots);
+  assert.ok(!live.has('https://gone.example.org/'), 'a retired thing never gets a live screenshot');
+  assert.ok(live.has('https://live.example.org/'));
   assert.deepEqual(
     found.archived,
     [pin],

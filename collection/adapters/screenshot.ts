@@ -117,6 +117,19 @@ export async function defaultCapturer(): Promise<Capturer | null> {
           const request = route.request().url();
           return archiveHosts.has(new URL(request).hostname) && !blocked(request) ? route.fallback() : route.abort();
         });
+      // How each stylesheet the page asked for ended: loaded, or not (missing from the Archive, blocked, failed).
+      // Read from the requests, since a stylesheet that never loaded leaves nothing in the page to inspect. The
+      // Archive's own playback styles are not the page's.
+      const sheets: boolean[] = [];
+      const own = (address: string) => new URL(address).hostname !== 'web-static.archive.org';
+      page.on('response', (answer) => {
+        const status = answer.status();
+        if (answer.request().resourceType() === 'stylesheet' && own(answer.url()) && (status < 300 || status >= 400))
+          sheets.push(answer.ok());
+      });
+      page.on('requestfailed', (request) => {
+        if (request.resourceType() === 'stylesheet' && own(request.url())) sheets.push(false);
+      });
       try {
         const response = await page.goto(url, { waitUntil: 'load', timeout: archived ? 90_000 : 30_000 });
         if (!response?.ok()) throw new Error(`${response?.status() ?? 'No response'} for ${url}`);
@@ -125,23 +138,8 @@ export async function defaultCapturer(): Promise<Capturer | null> {
         if (!sameSite(page.url(), url)) throw new Error(`${url} redirected to another host.`);
         await page.evaluate(() => document.fonts.ready);
         await page.waitForTimeout(1500);
-        // Written without a named function inside: tsx would wrap one in a helper the page does not have.
-        const styled = await page.evaluate(() => {
-          // The Archive's own playback styles are not the page's.
-          const own = [...document.styleSheets].filter(
-            (sheet) => sheet.href && !/^https?:\/\/web-static\.archive\.org\//.test(sheet.href)
-          );
-          return (
-            own.length === 0 ||
-            own.some((sheet) => {
-              try {
-                return sheet.cssRules.length > 0;
-              } catch {
-                return true; // a stylesheet from another origin hides its rules, which means it loaded
-              }
-            })
-          );
-        });
+        // A page that asked for stylesheets and got none of them is unstyled; one that asked for none is as it was.
+        const styled = sheets.length === 0 || sheets.some(Boolean);
         const image = await page.screenshot({ type: 'jpeg', quality: 72 });
         return { image, ...viewport, url: page.url(), styled };
       } finally {
