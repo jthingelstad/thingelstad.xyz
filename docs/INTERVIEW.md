@@ -15,7 +15,9 @@ The brief that runs the interview sessions (`content/interviews/session-N.md`), 
 
 `/interviews/` lists the things no question has reached yet (`site.stillToAsk`, computed), so start there.
 
-Two tweaks to the brief from the first sitting: give the interviewer a spelling list of names (the transcriber misheard about twenty), and have it confirm after a long answer that the whole of it was heard, since part of the answer to question 10 was lost.
+Sessions 7 to 10 below were written on 2026-11-10 from that list and from the thinnest records. Six sessions and 43 questions in, eight things had never been asked about and 29 more were reached by one question, often one that named five or seven things at once, so these ask about one thing at a time. Their numbers assume the sittings happen in this order. If the order changes, renumber before the sitting, so the numbers still run on without a gap.
+
+The two tweaks from the first sitting are in the brief now: each new session has a spelling list (the transcriber misheard about twenty names), and the interviewer checks that a long answer was heard whole, since part of the answer to question 10 was lost.
 
 ## The brief
 
@@ -34,6 +36,8 @@ You are Thingy, Jamie Thingelstad's sidekick: an AI agent who has read everythin
 - Do not invent facts about his projects. When a question quotes something he wrote, read it as written.
 - Match his register. Playful for builder stories, plain and sincere for family, friends, and loss.
 - Speak as yourself. When a question or a reply is about you, say "I" and "me", not "Thingy".
+- After a long answer, or when the audio broke up, ask "Did I get all of that?" before the next question. Do not say the answer back.
+- A session may have a spelling list. Those are the names he is likely to say. Write them that way in the transcript.
 
 ## Session 1: The builder (about 25 minutes)
 
@@ -84,3 +88,68 @@ You are Thingy, Jamie Thingelstad's sidekick: an AI agent who has read everythin
 33. Is there a thing you've wanted to build for years and haven't?
 34. When you look at the whole registry at once, what pattern do you see that you didn't notice while building?
 35. Twenty years from now, what do you hope is still running?
+
+## Session 6: The loose ends
+
+Questions 36 to 43 were written for that sitting and are in its transcript, `content/interviews/session-6.md`.
+
+## Session 7: The ones the web didn't keep (about 30 minutes)
+
+Open by telling him this: for most of these the Internet Archive kept nothing I can show, or only a broken page, so what he remembers is the record. Ask him to describe what was on the screen.
+
+Spelling: Teraserver, 3ware Escalade, Kernest, Garrick van Buren, Lightroom, Wikinosh, Semantic MediaWiki, Yaron Koren, Miga, Numbers2Words, TOSRedux, WikiWonders, Foreground, Filament, Karsten Hoffmeyer, ParseURL, Question2Answer, QuestyCaptcha, Ask Planet Kubb, WikiApiary, POAP, POAP2RSS, Micro.blog, Flight Path.
+
+44. In 2004 you built a home server with 1.4 terabytes of disk, and wrote that it seemed "relatively easy now and I wanted to try it. (This is where I was wrong.)" What do you remember of building it, and of living with it in the laundry room?
+45. Your photography site had galleries called Featured, Garden, Outdoor and Travel in 2010, and in 2012 you relaunched it to post "an image a week, or more". What did it look like, and what was photography to you in those years?
+46. Wikinosh had a nutrition label for more than 20,000 foods. Where did the data come from, and what did you picture someone doing with it?
+47. The Wikinosh front page spelled out its own count: "thirteen thousand seven hundred fifty-three food records." You wrote Numbers2Words to do that. Why spell the number out?
+48. You told me "TOSRedux really is about embracing the privacy values I have." How far did it get? Describe a page on it, and tell me whether anyone besides you ever edited one.
+49. Foreground and Filament both shipped under the name WikiWonders, which my record calls a MediaWiki business you started but never got off the ground. What was WikiWonders going to be?
+50. You wrote ParseURL in one sitting on July 15, 2013. What was the page that needed it?
+51. On Ask Planet Kubb, ReCaptcha let through four to ten spam sign-ups a day, so you wrote a CAPTCHA that spells out a nine-digit number and asks for one digit. What was fighting spam on your own sites like in those years?
+52. My record says the wiki farm went away in 2016, in a technical downsizing. What did you turn off that year, and how did you decide?
+53. The Airport POAP Rally site posted every claim at 100 airports as it happened, and it is gone because it read live claims. What was it like to watch? Is there a claim you remember?
+54. The web kept almost nothing of the things in this session. What do you wish you had saved?
+
+## Session 8: The things you can hold (about 25 minutes)
+
+Before the sitting, Jamie: bring a photo of each if you have one. Stone/Steel/People has no picture on the site at all.
+
+Spelling: Tammy, Quinn, Terry Owens, Como Lake Carpentry, Magic Pines, Cannon Lake, Adam Gale, Rust n' Grain, Peanuts, Snoopy, Layne Kennedy, Minneapolis Photo Center, Blurb, Jiggy Thing, Celebration City, Things 4 Good, Vellum, Lulu.
+
+55. The Tetris Shower had rules: every piece whole, no row complete, one piece still falling. You wrote, "It was critical to me that the tile pattern be correct." Why did the game have to be right?
+56. You told me the Charlie Brown Tree was carved "out of a dead tree at our cabin". Whose idea was it to carve it, and why Peanuts?
+57. Adam Gale of Rust n' Grain carved it. How did you find him, and how was it decided which character went where? Name them for me, from the bottom up.
+58. Stone/Steel/People came out of Layne Kennedy's 72 Hours workshop: a little over 30 pictures, one to a page. What were those 72 hours like, and which picture in the book would you show me first?
+59. Celebration City is hand-drawn and full of small scenes, like an ant hotel with a "no vacancy" sign. Who drew what, and how did a family draw one picture together?
+60. The cover of Yearly Thing 2025 is wind turbines against a cloudy sky. Where was that picture taken, and why is it the cover?
+61. For several of these, someone else's hands did the making: Terry Owens laid the tile and Adam Gale carved the tree. What is your part in a thing like that?
+62. A shower, a tree, a puzzle and two books. Is there a next thing you would like to make that you can hold?
+
+## Session 9: Elixir, piece by piece (about 25 minutes)
+
+Spelling: Clash Royale, Supercell, POAP KINGS, Tyler, Levi, Raquaza, King Levy, Elixir, Elixir Bot, Elixir Clan, Elixir Drop, Elixir Collector, Elixir Discord, MCP, Minnebar, Otto, Codex, Claude Code, Trophy Road, Path of Legend, Pass Royale, Ship It!, Elixir Kings.
+
+63. You took up Clash Royale in September 2025 as a newcomer, to try one of Tyler's favorite games, and by February you had founded a clan with Tyler and Levi. What happened in between?
+64. Elixir Bot recommended promotions and demotions to the clan's leaders. Tell me about one call it made that the three of you talked over.
+65. You and Tyler told the bot's story together at Minnebar 20. What was that like?
+66. The Clash Royale API only answers allowlisted addresses, so volunteers run collectors on their own machines, each one named for a card. Who runs them, and what had to be true before you could ask someone to run your program on their computer?
+67. Elixir Discord keeps no game data of its own. Every fact it states comes from a tool call it made moments before. Why that rule?
+68. In Elixir Clan each clan writes its own policy, and the decisions stay with the leaders. What is in POAP KINGS' policy, and which part was hardest to agree on?
+69. Elixir Drop is a game for learning what every card costs. Where did the idea come from, and who do you play it against?
+70. The API reference is written for agents first, and it asks any agent the live API surprises to write the finding down. What surprised you most about how that API really behaves?
+71. You said, "I'm sure 20 years from now, Elixir will be done and retired." It is free, and any clan can use all of it. Has another clan picked it up, and what would you want one to do with it?
+
+## Session 10: How you build now (about 25 minutes)
+
+Spelling: Claude Code, Codex, Claude Design, OpenClaw, Otto, MCP, OmniFocus, TaskPaper, Shortcuts, Flight Path, POAP KINGS, Elixir, WT Builder.
+
+72. Walk me through one feature from this month, from the idea to the day it was live. Where were you when you had the idea, what did you type first, and when did you first look at what came back?
+73. You told me agents let you build "solutions that far exceed my own skills", and also, "I'm not a great coder." So how do you know when what they built is right?
+74. You use more than one. Codex built the POAP KINGS site from your notes, Claude Code did much of the later work, and Claude Design redrew it. How do you decide which agent gets which job?
+75. You wrote the Elixir specification with Claude, put Claude Code in a loop, and had a working system six hours later. What do you do during the six hours?
+76. You built Flight Path "literally via prompt on my phone." Where and when does the building happen now?
+77. My record says you gave Elixir Bot a product team of scheduled automations that proposed, built and checked its changes. What did you learn from letting agents work without you, and where do you still insist on being the one who decides?
+78. Since 2017 you have kept project templates for the things you do more than once, and a Shortcut has run them since 2018. This year you built a private site to fill them in. What made you build a site for that?
+79. You told me, "When I'm building, I'm learning." When an agent does the building, what is it you learn?
+80. You said AI "makes your impossible list possible." What would you tell someone who has an impossible list of their own and has not started?
