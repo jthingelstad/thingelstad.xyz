@@ -93,7 +93,7 @@ eleventyComputed:
   {% if thing.screenshot %}
   <figure class="screenshot" data-pagefind-ignore>
     <a href="{{ thing.screenshot.site | ref("thing") }}"><img src="{{ thing.screenshot.src }}" width="{{ thing.screenshot.width }}" height="{{ thing.screenshot.height }}" alt="{{ thing.screenshot.alt }}" loading="lazy" decoding="async" /></a>
-    <figcaption>{{ thing.screenshot.host }} on {{ thing.screenshot.date | date }}. The collector grabs the front page once a month.</figcaption>
+    <figcaption>{{ thing.screenshot.place }} on {{ thing.screenshot.date | date }}. The collector grabs {{ thing.screenshot.page }} once a month.</figcaption>
   </figure>
   {% endif %}
 

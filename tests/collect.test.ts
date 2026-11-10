@@ -5,7 +5,7 @@ import { monthCounts, observePublications, observeWebsite, parseFeed, parseSitem
 import { attribute, isBot, observeCommits, parseLog, subjectOf, type GitRunner } from '../collection/adapters/git';
 import { listSites, observeSite, rootOrigin, type TinylyticsReader } from '../collection/adapters/tinylytics';
 import { capturedUrl, observeCaptures } from '../collection/adapters/wayback';
-import { screenshotDue, type Capturer } from '../collection/adapters/screenshot';
+import { observeScreenshot, screenshotDue, type Capturer } from '../collection/adapters/screenshot';
 import { collect, sameEvidence, targets } from '../collection/collect';
 import { observationPath } from '../collection/observations';
 import type { Observation, Registry, ScreenshotObservation, Thing } from '../collection/schema';
@@ -327,19 +327,54 @@ test('Wayback observations count capture days and unwrap Wayback links', async (
   assert.equal(limited.failed.length, 1);
 });
 
-test('screenshots capture active website roots once a month, and only when the page changed', async () => {
+test("screenshots capture each live thing's own page once a month, and only when the page changed", async () => {
   const sites: Registry = {
     ...registry,
     things: [
       ...registry.things,
       { ...thing('d', [{ kind: 'website', url: 'https://gone.example.org/', role: 'website' }]), status: 'retired' },
-      thing('e', [{ kind: 'website', url: 'https://example.com/projects/e/', role: 'website' }])
+      thing('e', [{ kind: 'website', url: 'https://example.com/projects/e/', role: 'website' }]),
+      thing('f', [{ kind: 'website', url: 'https://pages.example.net/f/', role: 'website' }])
     ]
   };
   assert.deepEqual(
     targets(sites).screenshots,
-    ['https://example.com/'],
-    'front pages only, never a retired thing or a page inside a site'
+    ['https://example.com/', 'https://example.com/projects/e/', 'https://pages.example.net/f/'],
+    'a front page or a page inside a site, never a retired thing or a site the thing only refers to'
+  );
+  assert.ok(
+    !targets(sites).origins.some((origin) => origin.includes('pages.example.net')),
+    "page views stay root-only: a thing that lives at a page never asks for its whole site's traffic"
+  );
+  const fixed: Capturer = {
+    capture: async () => ({ image: new Uint8Array(), width: 1280, height: 800 }),
+    close: async () => {}
+  };
+  const keys = await Promise.all(
+    targets(sites).screenshots.map(async (url) =>
+      observationPath((await observeScreenshot(url, fixed, now)).observation)
+    )
+  );
+  assert.deepEqual(
+    keys,
+    [
+      'data/observations/screenshot/example-com.json',
+      'data/observations/screenshot/example-com-projects-e.json',
+      'data/observations/screenshot/pages-example-net-f.json'
+    ],
+    'a root and a page on the same host are stored apart'
+  );
+  assert.throws(
+    () =>
+      targets({
+        ...registry,
+        things: [
+          thing('g', [{ kind: 'website', url: 'https://example.com/a-b/', role: 'website' }]),
+          thing('h', [{ kind: 'website', url: 'https://example.com/a/b/', role: 'website' }])
+        ]
+      }),
+    /would share a screenshot/,
+    'two addresses that would overwrite one image are refused'
   );
   let pixels = 'first';
   const captured: string[] = [];
@@ -351,7 +386,7 @@ test('screenshots capture active website roots once a month, and only when the p
   const saved: { observation: ScreenshotObservation; image: Uint8Array }[] = [];
   const run = (existing: Observation[], at: Date) =>
     collect({
-      registry: sites,
+      registry,
       existing,
       only: 'screenshots',
       screenshots: capturer,
@@ -381,7 +416,7 @@ test('screenshots capture active website roots once a month, and only when the p
   assert.equal(closed, 4, 'the browser is closed after every run');
 
   const broken = await collect({
-    registry: sites,
+    registry,
     existing: [],
     only: 'screenshots',
     screenshots: {
