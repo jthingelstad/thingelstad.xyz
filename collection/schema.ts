@@ -96,8 +96,13 @@ export type Thing = {
   bundles?: ArtifactBundle[];
   artifacts?: Artifact[];
   face?: string; // the artifact (its `file`) that stands for the thing where its page is shared, chosen by hand
+  validators?: Validators; // a thing that runs validators on a proof-of-stake chain: which ones, so they can be counted
   body: string; // Markdown. The project's story, if any.
 };
+
+// Validators a thing runs, by their public indices on the chain. The indices are public (Jamie published them in
+// 2022); the page shows counts only, never a balance or an address.
+export type Validators = { chain: 'gnosis'; indices: number[] };
 
 export type Topic = { id: string; title: string; description: string };
 
@@ -275,7 +280,32 @@ export type PublicationsObservation = {
   observedAt: string;
   items: Publication[]; // newest first
 };
+// Block proposals by a thing's validators, read from the chain's public explorers (collection/adapters/beacon.ts).
+// Counts only: never a balance, a fee recipient or a withdrawal address. Each month counts the proposals whose slot
+// fell in it (UTC), settled once their epoch was finalized. `until` is the last finalized epoch counted; it is left
+// out when comparing evidence (sameEvidence), so a day with no proposal writes nothing and the next run counts on
+// from the same place.
+export type ProposalMonth = { month: string; proposed: number; missed: number; orphaned: number };
+export type ValidatorsObservation = {
+  kind: 'validators';
+  thing: string; // the thing whose record lists them
+  chain: 'gnosis';
+  observedAt: string;
+  until: number;
+  indices: number[]; // the validators counted, in order; a different set is counted again from the start
+  validators: number; // how many the record lists
+  active: number; // active on the chain when observed
+  online: number; // of those, attesting when observed
+  slashed: number;
+  proposed: number;
+  missed: number;
+  orphaned: number;
+  firstProposal: string | null; // YYYY-MM-DD of the first proposed block
+  latestProposal: string | null; // YYYY-MM-DD of the latest proposed block
+  months: ProposalMonth[]; // oldest first, every month from the first proposal on
+};
 export type Observation =
+  | ValidatorsObservation
   | GitHubObservation
   | WebObservation
   | TinylyticsObservation

@@ -7,6 +7,42 @@ started: '2022-09-14'
 topics:
   - crypto
   - poap
+validators:
+  chain: gnosis
+  # Public since Jamie posted them in 2022; the page shows counts only.
+  indices:
+    - 106644
+    - 106645
+    - 106646
+    - 106647
+    - 106678
+    - 106679
+    - 106680
+    - 106681
+    - 106697
+    - 106698
+    - 106699
+    - 106700
+    - 106701
+    - 106702
+    - 106703
+    - 106704
+    - 106823
+    - 106824
+    - 106825
+    - 106826
+    - 106860
+    - 106861
+    - 106862
+    - 106863
+    - 106864
+    - 106865
+    - 106866
+    - 106867
+    - 106868
+    - 106869
+    - 106870
+    - 106871
 sources:
   - kind: website
     url: https://www.thingelstad.com/2022/09/03/ordered-a-dappnode.html

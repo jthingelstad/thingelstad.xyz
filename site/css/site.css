@@ -632,7 +632,8 @@ h2 {
   fill: var(--muted);
 }
 
-.views .sparkline {
+.views .sparkline,
+.proposals .sparkline {
   vertical-align: -3px;
   margin-left: 6px;
 }
