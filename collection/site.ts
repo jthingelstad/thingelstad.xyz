@@ -111,8 +111,10 @@ type SiteScreenshot = {
   alt: string;
 };
 // A thing's validators as the chain reports them, counts only (collection/adapters/beacon.ts). `months` is the
-// blocks proposed in each of the last twelve months.
-type SiteValidators = Omit<ValidatorsObservation, 'kind' | 'thing' | 'chain' | 'until' | 'indices' | 'months'> & {
+// blocks proposed in each of the last twelve months. `indices` are the record's (not the observation's, which
+// may be a day behind a change), for the live panel that reads them from the page source (Jamie, 2026-11-12:
+// "Approved: add a live beacon-chain panel to the Gnosis Validator page, with the 32 validator indices in the page source").
+type SiteValidators = Omit<ValidatorsObservation, 'kind' | 'thing' | 'chain' | 'until' | 'months'> & {
   months: MonthCount[];
 };
 // Page views for the site a thing is, over the window Tinylytics was asked about.
@@ -442,7 +444,11 @@ function viewMonths(observation: TinylyticsObservation): MonthCount[] {
   }
   return months;
 }
-function siteValidators(observation: ValidatorsObservation | undefined, window: string[]): SiteValidators | null {
+function siteValidators(
+  observation: ValidatorsObservation | undefined,
+  indices: number[],
+  window: string[]
+): SiteValidators | null {
   if (!observation) return null;
   const {
     kind: _kind,
@@ -454,7 +460,7 @@ function siteValidators(observation: ValidatorsObservation | undefined, window: 
     ...counts
   } = observation;
   const proposed = new Map(months.map((m) => [m.month, m.proposed]));
-  return { ...counts, months: window.map((month) => ({ month, count: proposed.get(month) ?? 0 })) };
+  return { ...counts, indices, months: window.map((month) => ({ month, count: proposed.get(month) ?? 0 })) };
 }
 function siteScreenshot(observation: ScreenshotObservation): SiteScreenshot {
   const archived = observation.wayback ?? null;
@@ -650,7 +656,9 @@ export function buildSiteModel(
         cardWidth: bundleCardWidth(artifacts.filter((artifact) => artifact.bundle === bundle.id))
       })),
       views: viewed ? { site: viewed.url, total: viewed.hits, until: viewed.until, months: viewMonths(viewed) } : null,
-      validators: siteValidators(thing.validators ? validatorLogs.get(thing.id) : undefined, window),
+      validators: thing.validators
+        ? siteValidators(validatorLogs.get(thing.id), thing.validators.indices, window)
+        : null,
       span: { start, end },
       filters: thingFilters(thing, sources, topicById),
       activity: activity.things.get(thing.id) ?? null,
