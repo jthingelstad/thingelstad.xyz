@@ -5,7 +5,7 @@
   "description": "Things I’ve built. An index and archive of Jamie Thingelstad’s projects, kept by Thingy.",
   "scripts": {
     "test": "tsx --test tests/*.test.ts",
-    "check": "npm run sites:check && npm run format:check && npm run lint && npm run typecheck && npm test && npm run site:build",
+    "check": "npm run sites:check && npm run kubb:check && npm run format:check && npm run lint && npm run typecheck && npm test && npm run site:build",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "lint": "oxlint --deny-warnings && stylelint site/css/site.css site/css/gadgets/*.css && knip",
@@ -16,6 +16,8 @@
     "collect": "tsx scripts/collect.ts",
     "sites:sync": "tsx scripts/sync-sites.ts",
     "sites:check": "tsx scripts/sync-sites.ts --check",
+    "kubb:sync": "tsx scripts/sync-kubb.ts",
+    "kubb:check": "tsx scripts/sync-kubb.ts --check",
     "site:build": "NODE_OPTIONS=--import=tsx eleventy --config=site/eleventy.config.ts && node scripts/check-publish-plan.mjs",
     "site:serve": "NODE_OPTIONS=--import=tsx eleventy --config=site/eleventy.config.ts --serve --port=8080"
   },
@@ -33,6 +35,7 @@
     "markdown-it": "^15.0.3",
     "oxlint": "^1.90.0",
     "pagefind": "1.5.2",
+    "peggy": "5.1.0",
     "prettier": "^3.9.10",
     "sharp": "^0.35.5",
     "stylelint": "^17.16.0",

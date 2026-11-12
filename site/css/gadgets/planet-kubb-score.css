@@ -1,0 +1,106 @@
+/* Planet Kubb Score's gadget (site/js/gadgets/planet-kubb-score.js): the notation box, the verdict, where a game
+   stops parsing, and the score, one column a team. */
+.kubb-label {
+  display: block;
+  margin: 8px 0 4px;
+  font-family: var(--font-label);
+  font-size: var(--jt-size-small);
+  font-weight: 600;
+}
+
+.kubb-input {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--muted);
+  border-radius: 8px;
+  background: var(--field);
+  color: var(--ink);
+  font-family: var(--font-code);
+  font-size: var(--jt-size-small);
+  line-height: 1.5;
+  resize: vertical;
+  white-space: pre;
+  overflow-x: auto;
+}
+
+.kubb-input:focus-visible {
+  outline: 2px solid var(--accent-text);
+  outline-offset: 2px;
+}
+
+.gadget .kubb-actions {
+  margin-top: 6px;
+}
+
+.kubb-reset {
+  padding: 4px 12px;
+  border: 1px solid var(--muted);
+  border-radius: 999px;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-ui);
+  font-size: var(--jt-size-small);
+  cursor: pointer;
+}
+
+.kubb-verdict {
+  font-weight: 600;
+}
+
+.kubb-verdict.is-valid {
+  color: var(--active);
+}
+
+.kubb-verdict.is-invalid {
+  color: var(--abandoned);
+}
+
+.kubb-where {
+  margin: 8px 0 0;
+  padding: 8px 12px;
+  border-left: 3px solid var(--abandoned);
+  background: var(--abandoned-soft);
+  color: var(--ink);
+  font-size: var(--jt-size-small);
+  overflow-x: auto;
+}
+
+.kubb-table {
+  margin: 10px 0 0;
+  overflow-x: auto;
+}
+
+.kubb-teams {
+  border-collapse: collapse;
+  font-size: var(--jt-size-small);
+  font-variant-numeric: tabular-nums;
+}
+
+.kubb-teams th,
+.kubb-teams td {
+  padding: 4px 12px 4px 0;
+  border-bottom: 1px solid var(--line);
+  text-align: right;
+}
+
+.kubb-teams th[scope='row'],
+.kubb-teams thead th:first-child {
+  text-align: left;
+  font-weight: 500;
+}
+
+.kubb-teams thead th {
+  font-weight: 600;
+  vertical-align: bottom;
+}
+
+.kubb-teams th.is-winner {
+  color: var(--active);
+}
+
+.kubb-warnings {
+  margin: 4px 0 0;
+  padding-left: 1.25rem;
+  font-size: var(--jt-size-small);
+}

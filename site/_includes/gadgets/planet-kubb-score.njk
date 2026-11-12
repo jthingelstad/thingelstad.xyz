@@ -1,0 +1,14 @@
+{#- Planet Kubb Score's gadget: a game in Planet Kubb Notation, read and scored as it is typed by the notation's own
+    parser and scorer (site/js/gadgets/planet-kubb-score.js, with its modules in site/js/gadgets/planet-kubb-score/,
+    vendored from pk-kubb-score by npm run kubb:sync). It has nothing to show without a script, so it stays hidden
+    until the script has filled the box with the example game. #}
+<div class="gadget kubb-score" id="kubb-score" data-kubb-score-gadget hidden>
+  <h3>{{ thing.gadget.title }}</h3>
+  <label class="kubb-label" for="kubb-notation">Notation</label>
+  <textarea class="kubb-input" id="kubb-notation" data-kubb-input rows="14" spellcheck="false" autocapitalize="off" autocomplete="off" aria-describedby="kubb-verdict"></textarea>
+  <p class="kubb-actions"><button type="button" class="kubb-reset" data-kubb-reset>Put the example back</button></p>
+  <p class="kubb-verdict" id="kubb-verdict" data-kubb-verdict aria-live="polite"></p>
+  <pre class="kubb-where" data-kubb-where hidden></pre>
+  <div class="kubb-score-out" data-kubb-score></div>
+  <p class="muted gadget-note">The example is a friendly at Painter Park, Minneapolis, on July 10, 2012, as it was scored on the Planet Kubb wiki. A turn is its number, the kubbs thrown in (2I), an A when the team throws from an advantage line, then each baton: who threw it and what it knocked down (F a field kubb, B a base kubb, K the king, = a missed king, - a miss, X a baton not thrown). Your browser does the reading and the scoring with the notation’s own grammar and scorer; nothing is sent anywhere.</p>
+</div>

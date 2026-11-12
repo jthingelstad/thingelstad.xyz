@@ -14,5 +14,11 @@
     ],
     "typescript/no-explicit-any": "error"
   },
-  "ignorePatterns": ["research/**", "infra/generated/**", "_site/**", "content/artifacts/**"]
+  "ignorePatterns": [
+    "research/**",
+    "infra/generated/**",
+    "_site/**",
+    "content/artifacts/**",
+    "site/js/gadgets/planet-kubb-score/**"
+  ]
 }

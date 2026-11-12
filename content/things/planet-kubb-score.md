@@ -8,6 +8,9 @@ started: '2012'
 topics:
   - play
   - archives
+gadget:
+  title: Score a game
+  summary: A game written in Planet Kubb Notation, read and scored as it is typed by the notation’s own grammar and scorer, with the line and column wherever it stops being valid notation.
 sources:
   - kind: website
     url: https://web.archive.org/web/20120715062240/http://wiki.planetkubb.com/wiki/Notation
