@@ -25,6 +25,7 @@ import {
   type Thing,
   type ThingSource,
   type TinylyticsObservation,
+  type ValidatorsObservation,
   type Topic,
   type WaybackObservation,
   type WebObservation
@@ -108,6 +109,11 @@ type SiteScreenshot = {
   width: number;
   height: number;
   alt: string;
+};
+// A thing's validators as the chain reports them, counts only (collection/adapters/beacon.ts). `months` is the
+// blocks proposed in each of the last twelve months.
+type SiteValidators = Omit<ValidatorsObservation, 'kind' | 'thing' | 'chain' | 'until' | 'indices' | 'months'> & {
+  months: MonthCount[];
 };
 // Page views for the site a thing is, over the window Tinylytics was asked about.
 type SiteViews = { site: string; total: number; until: string; months: MonthCount[] };
@@ -210,7 +216,7 @@ export function sticker(id: string, title: string): Sticker {
   return { letters, hue: hash % 360, tilt: (hash % 7) - 3 };
 }
 
-export type SiteThing = Omit<Thing, 'sources' | 'bundles' | 'artifacts' | 'pull' | 'face'> & {
+export type SiteThing = Omit<Thing, 'sources' | 'bundles' | 'artifacts' | 'pull' | 'face' | 'validators'> & {
   page: string;
   markdown: string;
   statusLabel: string;
@@ -229,6 +235,7 @@ export type SiteThing = Omit<Thing, 'sources' | 'bundles' | 'artifacts' | 'pull'
   pull: { n: number; words: string; session: number; page: string } | null;
   face: Face | null; // what a share of its page shows
   views: SiteViews | null;
+  validators: SiteValidators | null; // a thing that runs validators: what the chain says of them
   span: { start: number | null; end: number | null }; // years, for the timeline
   filters: ThingFilter[]; // its facet values, for /search/
   activity: ThingRecord | null; // its commits and publications over its life, from the logs
@@ -435,6 +442,20 @@ function viewMonths(observation: TinylyticsObservation): MonthCount[] {
   }
   return months;
 }
+function siteValidators(observation: ValidatorsObservation | undefined, window: string[]): SiteValidators | null {
+  if (!observation) return null;
+  const {
+    kind: _kind,
+    thing: _thing,
+    chain: _chain,
+    until: _until,
+    indices: _indices,
+    months,
+    ...counts
+  } = observation;
+  const proposed = new Map(months.map((m) => [m.month, m.proposed]));
+  return { ...counts, months: window.map((month) => ({ month, count: proposed.get(month) ?? 0 })) };
+}
 function siteScreenshot(observation: ScreenshotObservation): SiteScreenshot {
   const archived = observation.wayback ?? null;
   const site = archived?.original ?? observation.url;
@@ -514,8 +535,10 @@ export function buildSiteModel(
   const screenshots = new Map<string, ScreenshotObservation>();
   const commitLogs = new Map<string, CommitLogObservation>();
   const publicationLogs = new Map<string, PublicationsObservation>();
+  const validatorLogs = new Map<string, ValidatorsObservation>();
   for (const observation of observations)
-    if (observation.kind === 'github') github.set(githubKey(observation.repository), observation);
+    if (observation.kind === 'validators') validatorLogs.set(observation.thing, observation);
+    else if (observation.kind === 'github') github.set(githubKey(observation.repository), observation);
     else if (observation.kind === 'web') web.set(websiteKey(observation.url), observation);
     else if (observation.kind === 'wayback') wayback.set(websiteKey(observation.url), observation);
     else if (observation.kind === 'tinylytics') {
@@ -627,6 +650,7 @@ export function buildSiteModel(
         cardWidth: bundleCardWidth(artifacts.filter((artifact) => artifact.bundle === bundle.id))
       })),
       views: viewed ? { site: viewed.url, total: viewed.hits, until: viewed.until, months: viewMonths(viewed) } : null,
+      validators: siteValidators(thing.validators ? validatorLogs.get(thing.id) : undefined, window),
       span: { start, end },
       filters: thingFilters(thing, sources, topicById),
       activity: activity.things.get(thing.id) ?? null,

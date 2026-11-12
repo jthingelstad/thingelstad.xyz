@@ -22,6 +22,7 @@ import {
   siteKey,
   type TinylyticsReader
 } from './adapters/tinylytics';
+import { observeValidators } from './adapters/beacon';
 import {
   websiteKey,
   type Observation,
@@ -36,13 +37,15 @@ import { siteUrl } from './site';
 export type CollectOptions = {
   registry?: Registry;
   existing?: Observation[];
-  only?: string; // a repository name, a website URL, 'commits', 'publications', 'tinylytics', 'wayback', or 'screenshots'
+  only?: string; // a repository name, a website URL, 'commits', 'publications', 'tinylytics', 'wayback', 'validators',
+  // or 'screenshots'
   wayback?: TextFetcher | null; // null skips the Internet Archive
   pause?: (ms: number) => Promise<void>; // between Wayback requests: the CDX API rate-limits
   github?: GitHubReader;
   git?: GitRunner | null; // null skips the commit logs; the default runs the git command line
   web?: TextFetcher;
   tinylytics?: TinylyticsReader | null; // null skips Tinylytics; the default needs TINYLYTICS_API_KEY
+  beacon?: TextFetcher | null; // the Gnosis explorers, for things with validators; null skips them
   screenshots?: Capturer | null; // null skips screenshots; the default needs Playwright's Chromium
   now?: Date;
   save?: (observation: Observation) => Promise<string>;
@@ -240,6 +243,15 @@ export async function collect(options: CollectOptions = {}): Promise<CollectResu
       await pause(6000);
     }
   }
+  // Validators: one observation a thing, counted on from the last one (collection/adapters/beacon.ts).
+  const beacon = options.beacon === undefined ? fetchText : options.beacon;
+  if (beacon && (!options.only || options.only === 'validators'))
+    for (const thing of registry.things.filter((t) => t.validators)) {
+      const before = existing.find((o) => o.kind === 'validators' && o.thing === thing.id);
+      await record(`validators ${thing.id}`, () =>
+        observeValidators(thing, before?.kind === 'validators' ? before : undefined, beacon, now, pause)
+      );
+    }
   if (!options.only || options.only === 'tinylytics') {
     const tinylytics = options.tinylytics === undefined ? defaultTinylyticsReader() : options.tinylytics;
     if (!tinylytics) log('No TINYLYTICS_API_KEY; Tinylytics skipped.');

@@ -10,6 +10,7 @@ import {
   type PublicationsObservation,
   type ScreenshotObservation,
   type TinylyticsObservation,
+  type ValidatorsObservation,
   type WaybackObservation,
   type WebObservation
 } from './schema';
@@ -17,6 +18,7 @@ import {
 const observationsRoot = 'data/observations';
 
 export function observationPath(observation: Observation, root = observationsRoot) {
+  if (observation.kind === 'validators') return join(root, 'validators', `${observation.thing}.json`);
   if (observation.kind === 'github' || observation.kind === 'commits')
     return join(root, observation.kind, `${githubKey(observation.repository)}.json`);
   return join(root, observation.kind, `${websiteKey(observation.url)}.json`);
@@ -106,17 +108,39 @@ function publications(value: unknown): PublicationsObservation {
     throw new Error('Invalid publication log.');
   return value as unknown as PublicationsObservation;
 }
+function validators(value: unknown): ValidatorsObservation {
+  if (
+    !isRecord(value) ||
+    value.kind !== 'validators' ||
+    typeof value.thing !== 'string' ||
+    typeof value.observedAt !== 'string' ||
+    typeof value.until !== 'number' ||
+    !Array.isArray(value.indices) ||
+    !Array.isArray(value.months)
+  )
+    throw new Error('Invalid validators observation.');
+  return value as unknown as ValidatorsObservation;
+}
 export async function loadObservations(root = observationsRoot): Promise<Observation[]> {
-  const [githubFiles, webFiles, tinylyticsFiles, waybackFiles, screenshotFiles, commitFiles, publicationFiles] =
-    await Promise.all([
-      readDirectory(join(root, 'github')),
-      readDirectory(join(root, 'web')),
-      readDirectory(join(root, 'tinylytics')),
-      readDirectory(join(root, 'wayback')),
-      readDirectory(join(root, 'screenshot')),
-      readDirectory(join(root, 'commits')),
-      readDirectory(join(root, 'publications'))
-    ]);
+  const [
+    githubFiles,
+    webFiles,
+    tinylyticsFiles,
+    waybackFiles,
+    screenshotFiles,
+    commitFiles,
+    publicationFiles,
+    validatorFiles
+  ] = await Promise.all([
+    readDirectory(join(root, 'github')),
+    readDirectory(join(root, 'web')),
+    readDirectory(join(root, 'tinylytics')),
+    readDirectory(join(root, 'wayback')),
+    readDirectory(join(root, 'screenshot')),
+    readDirectory(join(root, 'commits')),
+    readDirectory(join(root, 'publications')),
+    readDirectory(join(root, 'validators'))
+  ]);
   return [
     ...githubFiles.map(github),
     ...webFiles.map(web),
@@ -124,7 +148,8 @@ export async function loadObservations(root = observationsRoot): Promise<Observa
     ...waybackFiles.map(wayback),
     ...screenshotFiles.map(screenshot),
     ...commitFiles.map(commits),
-    ...publicationFiles.map(publications)
+    ...publicationFiles.map(publications),
+    ...validatorFiles.map(validators)
   ];
 }
 // A screenshot's JPEG sits beside its observation, under the same key.

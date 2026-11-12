@@ -148,6 +148,13 @@ eleventyComputed:
       <dt>Page views</dt>
       <dd class="views">{{ thing.views.total | number }} in the twelve months to {{ thing.views.until | date }} {{ thing.views.months | sparkline("Page views per month, counted by Tinylytics", "views") | safe }}</dd>
       {% endif %}
+      {% if thing.validators %}
+      {% set v = thing.validators %}
+      <dt>Validators</dt>
+      <dd class="validators">{{ v.active }} of {{ v.validators }} active on the chain, {{ 'none' if v.online == 0 else v.online }} attesting, {{ 'none' if v.slashed == 0 else v.slashed }} slashed <span class="muted">as of {{ v.observedAt | day }}</span></dd>
+      <dt>Block proposals</dt>
+      <dd class="proposals">{{ v.proposed | number }} proposed, {{ v.missed | number }} missed{% if v.orphaned %} and {{ v.orphaned | number }} orphaned{% endif %}{% if v.firstProposal %} since {{ v.firstProposal | day }}{% endif %} {{ v.months | sparkline("Blocks proposed per month, last twelve months") | safe }}{% if v.latestProposal %} <span class="muted">Latest proposed {{ v.latestProposal | day }}.</span>{% endif %}</dd>
+      {% endif %}
       {% if thing.latest %}
       <dt>Latest evidence</dt>
       <dd>{% if thing.latest.url %}<a href="{{ thing.latest.url }}">{{ thing.latest.label }}</a>{% else %}{{ thing.latest.label }}{% endif %}, {{ thing.latest.date | day }}</dd>

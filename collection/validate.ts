@@ -13,7 +13,8 @@ import {
   type Storyline,
   type Thing,
   type ThingSource,
-  type Topic
+  type Topic,
+  type Validators
 } from './schema';
 
 // Validation is strict on purpose. The content tree is public, so paths, credentials, and
@@ -236,6 +237,19 @@ function bundle(value: unknown, where: string): ArtifactBundle {
   return result;
 }
 
+// Validator indices on a proof-of-stake chain: public numbers, at most 100 (one request to the explorer).
+function validators(value: unknown, where: string): Validators {
+  const item = record(value, ['chain', 'indices'], where);
+  if (item.chain !== 'gnosis') throw new ContentError(`${where}.chain`, 'The chain must be gnosis.');
+  const indices = list(item.indices, `${where}.indices`, 100).map((index, i) => {
+    if (typeof index !== 'number' || !Number.isSafeInteger(index) || index < 0)
+      throw new ContentError(`${where}.indices[${i}]`, 'Expected a validator index.');
+    return index;
+  });
+  if (!indices.length) throw new ContentError(`${where}.indices`, 'List at least one validator.');
+  unique(indices.map(String), `${where}.indices`);
+  return { chain: 'gnosis', indices };
+}
 const thingFields = [
   'pull',
   'title',
@@ -253,7 +267,8 @@ const thingFields = [
   'story',
   'bundles',
   'artifacts',
-  'face'
+  'face',
+  'validators'
 ];
 export function thing(id: string, frontmatter: unknown, body: string, where: string): Thing {
   const item = record(frontmatter, thingFields, where);
@@ -328,6 +343,7 @@ export function thing(id: string, frontmatter: unknown, body: string, where: str
       throw new ContentError(`${where}.face`, `${face} is not an image and has no preview to show.`);
     result.face = face;
   }
+  if (item.validators !== undefined) result.validators = validators(item.validators, `${where}.validators`);
   if (result.story && !result.body) throw new ContentError(where, 'A story needs a body: the idea behind the thing.');
   if (result.body.length > 20000) throw new ContentError(where, 'The body is too long.');
   if (/\/Users\//.test(result.body) || [...result.body].some((c) => c.charCodeAt(0) < 9))
