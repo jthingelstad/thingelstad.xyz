@@ -1,0 +1,54 @@
+/* The Gnosis Validator's live panel (site/js/live/gnosis-validator.js): the slot clock, the epoch's sixteen slots,
+   and one dot a validator, lit while it attests. */
+.chain-clock,
+.chain-summary,
+.chain-duty {
+  font-variant-numeric: tabular-nums;
+}
+
+.chain-slot {
+  font-weight: 600;
+}
+
+.chain-epoch,
+.chain-validators {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin: 10px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.chain-epoch li {
+  flex: 1 1 0;
+  max-width: 2.25rem;
+  height: 6px;
+  border-radius: 3px;
+  background: var(--line);
+}
+
+.chain-epoch li.is-past {
+  background: var(--muted);
+}
+
+.chain-epoch li.is-now {
+  background: var(--ink);
+}
+
+.chain-epoch li.is-due {
+  background: var(--dormant);
+}
+
+.chain-validators li {
+  width: 14px;
+  height: 14px;
+  border: 1px solid var(--muted);
+  border-radius: 50%;
+  background: var(--paper);
+}
+
+.chain-validators li.is-lit {
+  border-color: var(--active);
+  background: var(--active);
+}

@@ -1,5 +1,8 @@
 import { defineConfig, devices } from '@playwright/test';
 
+// XYZ_TEST_PORT lets two checkouts run their browser tests at once without one reusing the other's server.
+const port = Number(process.env.XYZ_TEST_PORT ?? 4173);
+
 export default defineConfig({
   testDir: './tests/browser',
   fullyParallel: true,
@@ -7,7 +10,7 @@ export default defineConfig({
   retries: process.env.CI ? 1 : 0,
   reporter: process.env.CI ? [['list'], ['html', { open: 'never' }]] : 'list',
   use: {
-    baseURL: 'http://127.0.0.1:4173',
+    baseURL: `http://127.0.0.1:${port}`,
     trace: 'retain-on-failure',
     launchOptions: process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH
       ? { executablePath: process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH }
@@ -20,8 +23,8 @@ export default defineConfig({
   ],
   // The built site, served the way CloudFront serves it. Run `npm run site:build` first.
   webServer: {
-    command: 'node scripts/serve-site.mjs 4173 _site',
-    url: 'http://127.0.0.1:4173/',
+    command: `node scripts/serve-site.mjs ${port} _site`,
+    url: `http://127.0.0.1:${port}/`,
     reuseExistingServer: !process.env.CI,
     timeout: 30_000
   }
