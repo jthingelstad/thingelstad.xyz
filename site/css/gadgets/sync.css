@@ -1,0 +1,75 @@
+/* Sync's gadget (site/js/gadgets/sync.js): when the probe checked, the hop counts, and the receipts. */
+.sync-counts,
+.sync-receipts,
+.sync-attention ul {
+  margin: 10px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sync-counts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.sync-count {
+  padding: 2px 10px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--paper);
+  font-family: var(--font-label);
+  font-size: var(--jt-size-label);
+  font-variant-numeric: tabular-nums;
+}
+
+.sync-count strong {
+  font-weight: 600;
+}
+
+.sync-attention,
+.sync-receipt {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+}
+
+.gadget .sync-attention h4,
+.gadget .sync-receipt h4 {
+  margin: 0;
+  font-family: var(--font-label);
+  font-size: var(--jt-size-small);
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.gadget .sync-receipt p {
+  margin: 4px 0 0;
+}
+
+.sync-item {
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.sync-item .muted {
+  font-weight: 400;
+}
+
+.gadget .sync-when,
+.gadget .sync-holders {
+  font-size: var(--jt-size-small);
+}
+
+.gadget .sync-receipts ~ p {
+  margin-top: 14px;
+}
+
+.sync-state {
+  font-weight: 600;
+}
+
+.sync-holders--no-fact,
+.sync-holders--unknown {
+  color: var(--muted);
+}
