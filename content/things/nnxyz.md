@@ -12,6 +12,9 @@ started: '2026-10'
 topics:
   - crypto
   - archives
+gadget:
+  title: One drawing, stroke by stroke
+  summary: One Nifty Ink drawing from the gallery, replayed stroke by stroke in the order it was drawn, with its title, its room and a link to its page there.
 sources:
   - kind: github
     repository: jthingelstad/nnxyz
