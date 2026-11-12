@@ -6,6 +6,9 @@ collection: Publishing
 status: active
 url: https://weekly.thingelstad.com/
 started: '2017-05-13'
+gadget:
+  title: Sent lately
+  summary: The latest issue and a year of weeks, read from the newsletter’s own feed, with a mark for every week an issue went out.
 topics:
   - open-web
   - archives

@@ -1,0 +1,11 @@
+{#- The Weekly Thing's gadget (site/js/gadgets/weekly-thing.js): the latest issue and the last 52 weeks of sends, read
+    by the reader's browser from the newsletter's JSON Feed. Only what has been sent, never when the next one goes
+    out: a send time would be a promise to readers, and that is Jamie's to make. #}
+<div class="gadget weekly-gadget" data-weekly-gadget data-feed="https://weekly.thingelstad.com/feed.json" data-ref="{{ 'https://weekly.thingelstad.com/' | ref('gadget') }}" hidden>
+  <h3>{{ thing.gadget.title }}</h3>
+  <p class="weekly-latest" data-weekly-latest aria-live="polite">Reading the feed.</p>
+  <ol class="weekly-weeks" aria-hidden="true">{% for n in range(52) %}<li></li>{% endfor %}</ol>
+  <p class="weekly-axis muted" aria-hidden="true"><span>A year ago</span><span>This week</span></p>
+  <p class="weekly-count" data-weekly-count></p>
+  <p class="muted gadget-note">Your browser reads this once a visit from the <a href="https://weekly.thingelstad.com/feed.json">Weekly Thing’s JSON Feed</a>, which carries every issue. Each mark is a week, Monday to Sunday in Minnesota, filled when an issue went out.</p>
+</div>
