@@ -1,0 +1,67 @@
+/* The nnxyz Rooms' gadget (site/js/gadgets/nnxyz.js): one drawing on its own white canvas, the way the gallery
+   hangs it (white in the dark too, as the artifacts are, because the drawings were made on white), a thin line
+   for how far the replay has gone, and its controls. The drawing's colours are its own. */
+.ink-figure {
+  margin: 12px 0 0;
+}
+
+.ink-canvas {
+  width: 100%;
+  max-width: 30rem;
+  aspect-ratio: 1;
+  border: 1px solid var(--line);
+  background: var(--artifact-ground);
+}
+
+.ink-canvas svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.ink-caption {
+  margin: 8px 0 0;
+}
+
+.ink-title {
+  font-weight: 600;
+}
+
+.ink-progress {
+  max-width: 30rem;
+  height: 3px;
+  margin: 10px 0 0;
+  overflow: hidden;
+  border-radius: 2px;
+  background: var(--line);
+}
+
+.ink-progress span {
+  display: block;
+  height: 100%;
+  background: var(--accent-text);
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+.ink-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 14px;
+  margin: 12px 0 0;
+}
+
+.ink-speeds {
+  display: inline-flex;
+  gap: 6px;
+}
+
+.ink-controls .chip:disabled {
+  cursor: default;
+  opacity: 0.55;
+}
+
+.ink-status:empty {
+  display: none;
+}

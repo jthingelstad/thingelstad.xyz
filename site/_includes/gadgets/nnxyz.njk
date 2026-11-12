@@ -1,0 +1,23 @@
+{#- The nnxyz Rooms' gadget: one drawing from the gallery, replayed stroke by stroke in the reader's browser
+    (site/js/gadgets/nnxyz.js) from the display SVG the gallery publishes. It has nothing to show without a
+    script, so it stays hidden until the script has picked a drawing. The gallery allows cross-origin reads from
+    thingelstad.xyz only (nnxyz PR 43), and the drawing is fetched once the gadget nears the screen. #}
+<div class="gadget ink-replay" data-ink-replay data-gallery="https://nnxyz.thingelstad.xyz" hidden>
+  <h3>{{ thing.gadget.title }}</h3>
+  <figure class="ink-figure">
+    <div class="ink-canvas" data-ink-canvas></div>
+    <figcaption class="ink-caption"><a class="ink-title" data-ink-title href="https://nnxyz.thingelstad.xyz/"></a><span class="muted"> in <a data-ink-room href="https://nnxyz.thingelstad.xyz/"></a></span></figcaption>
+  </figure>
+  <div class="ink-progress" aria-hidden="true"><span data-ink-progress></span></div>
+  <div class="ink-controls">
+    <button type="button" class="chip" data-ink-play disabled>Replay</button>
+    <span class="ink-speeds" role="group" aria-label="Playback speed">
+      <button type="button" class="chip" data-ink-speed="1" aria-pressed="true">1×</button>
+      <button type="button" class="chip" data-ink-speed="2" aria-pressed="false">2×</button>
+      <button type="button" class="chip" data-ink-speed="4" aria-pressed="false">4×</button>
+    </span>
+    <button type="button" class="chip" data-ink-another>Another drawing</button>
+  </div>
+  <p class="ink-status" data-ink-status aria-live="polite"></p>
+  <p class="muted gadget-note">Your browser reads the drawing from the gallery, the same file its page replays. Nifty Ink kept the order of every stroke and point but not their timing, so the pace is reconstructed, as it is in the gallery.</p>
+</div>
