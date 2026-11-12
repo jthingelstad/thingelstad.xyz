@@ -1,0 +1,12 @@
+{#- Linking Things' gadget (site/js/gadgets/linking-things.js): links saved on this day in earlier years and a random
+    saved link, read by the reader's browser from Linking Things' day files (/on/MM-DD.json, a few dozen links each).
+    A note shows only where it is Jamie's own words, by the voice Linking Things gives it: never a quoted excerpt or
+    an agent's summary as his. #}
+<div class="gadget links-gadget" data-links-gadget data-site="https://links.thingelstad.xyz/" data-ref="{{ 'https://links.thingelstad.xyz/' | ref('gadget') }}" hidden>
+  <h3>{{ thing.gadget.title }}</h3>
+  <p class="links-status" data-links-status aria-live="polite">Reading today’s links.</p>
+  <ol class="links-list" data-links-day></ol>
+  <p class="links-random"><button type="button" class="links-button" data-links-random>A random saved link</button></p>
+  <ol class="links-list" data-links-pick aria-live="polite"></ol>
+  <p class="muted gadget-note">Your browser reads one day of <a href="{{ 'https://links.thingelstad.xyz/' | ref('gadget') }}">Linking Things</a> once a visit, by the calendar in Minnesota, and one more day for each random link. A note is shown only where it is Jamie’s own words, never where it quotes the page or an agent wrote it.</p>
+</div>

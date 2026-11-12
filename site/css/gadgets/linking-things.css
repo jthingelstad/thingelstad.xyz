@@ -1,0 +1,76 @@
+/* Linking Things' gadget (site/js/gadgets/linking-things.js): links saved on this day in earlier years, each with the
+   year it was saved and Jamie's note where it is his, then a button for a random saved link. */
+.links-list {
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.links-list:empty {
+  display: none;
+}
+
+.links-list li + li {
+  margin-top: 12px;
+}
+
+.links-list a {
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.links-year {
+  color: var(--muted);
+  font-family: var(--font-label);
+  font-size: var(--jt-size-small);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.gadget .links-note {
+  margin: 2px 0 0;
+  padding-left: 12px;
+  border-left: 3px solid var(--line);
+  color: var(--muted);
+  font-size: var(--jt-size-small);
+}
+
+.links-status {
+  font-variant-numeric: tabular-nums;
+}
+
+.links-status a {
+  text-decoration: underline;
+  text-decoration-color: var(--underline);
+  text-underline-offset: 3px;
+}
+
+.gadget .links-random {
+  margin-top: 16px;
+}
+
+.links-button {
+  padding: 6px 14px;
+  border: 1px solid var(--ink);
+  border-radius: 999px;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-ui);
+  font-size: var(--jt-size-small);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.links-button:hover:not(:disabled) {
+  border-color: var(--accent-text);
+  color: var(--accent-text);
+}
+
+.links-button:disabled {
+  cursor: progress;
+  opacity: 0.6;
+}
+
+.links-failed {
+  color: var(--muted);
+}

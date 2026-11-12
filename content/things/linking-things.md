@@ -6,6 +6,9 @@ collection: Publishing
 status: active
 url: https://links.thingelstad.xyz/
 started: '2026-10-23'
+gadget:
+  title: Saved on this day
+  summary: Links saved on this day in earlier years and a random saved link, read from Linking Things, each with the year it was saved and Jamie’s note where the words are his.
 topics:
   - open-web
   - archives
