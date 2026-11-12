@@ -1047,7 +1047,7 @@ test('links to the other sites carry a ref, and story text keeps its links', asy
       if (link.story) expect(ref, `${path}: story text is content`).toBeNull();
       // Feeds and sitemaps are files, not visits, and stay as the record has them.
       else if (/\.(xml|json)$/.test(url.pathname)) expect(ref, `${path}: ${link.href}`).toBeNull();
-      else expect(ref, `${path}: ${link.href}`).toMatch(/^xyz-(thing|source|activity|featured)$/);
+      else expect(ref, `${path}: ${link.href}`).toMatch(/^xyz-(thing|source|activity|featured|gadget)$/);
     }
   }
 });

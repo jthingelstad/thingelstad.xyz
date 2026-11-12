@@ -1,0 +1,36 @@
+/* The Weekly Thing's gadget (site/js/gadgets/weekly-thing.js): the latest issue, then a row of the last 52 weeks with
+   the weeks an issue went out filled in the newsletter's own blue. */
+.weekly-latest,
+.weekly-count {
+  font-variant-numeric: tabular-nums;
+}
+
+.weekly-latest a {
+  font-weight: 600;
+}
+
+.weekly-weeks {
+  display: grid;
+  grid-template-columns: repeat(52, minmax(0, 1fr));
+  gap: 2px;
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.weekly-weeks li {
+  height: 18px;
+  border-radius: 2px;
+  background: var(--line);
+}
+
+.weekly-weeks li.is-sent {
+  background: var(--jt-weekly-text);
+}
+
+.weekly-axis {
+  display: flex;
+  justify-content: space-between;
+  margin: 4px 0 0;
+  font-size: var(--jt-size-small);
+}
