@@ -25,7 +25,10 @@ test('the registry has things, topics, sourced history, and no private material'
   assert.ok(registry.topics.length >= 10);
   assert.ok(registry.history.length >= 30);
   for (const event of registry.history) assert.match(event.source, /^https:\/\//);
-  assert.doesNotMatch(JSON.stringify(registry), /\/Users\/|credential|localhost|127\.0\.0\.1|ts\.net/);
+  assert.doesNotMatch(JSON.stringify(registry), /\/Users\/|localhost|127\.0\.0\.1|ts\.net/);
+  // The word itself is Jamie's to say in an interview (question 66 is about a collector's credentials), so the
+  // transcripts are left out of this one.
+  assert.doesNotMatch(JSON.stringify({ ...registry, interviews: [] }), /credential/);
   const retired = registry.things.filter((t) => t.status === 'retired' || t.status === 'archived');
   assert.ok(retired.length > 0);
   assert.ok(registry.things.some((t) => t.id === 'things-ive-built'));

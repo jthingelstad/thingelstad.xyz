@@ -17,3 +17,5 @@ connections: []
 ParseURL adds two parser functions to MediaWiki. `{{#parseurl:}}` gives you one part of a URL, like its scheme, host, path, query, or fragment, using PHP’s [parse_url](https://www.php.net/manual/en/function.parse-url.php) function. `{{#parseurlquery:}}` gives you the value of a single query parameter, like the video ID in a YouTube link.
 
 Jamie wrote it in one sitting on July 15, 2013, and posted that he had “[made a super simple MediaWiki extension for parsing URLs](https://www.thingelstad.com/2013/07/15/made-a-super.html).” All three commits in the repository are from that day. It did its one job, and the repository is archived now.
+
+Which page needed it, he is no longer sure. [“I think it might have been for TOSRedux, because we wanted to take a URL and figure out the host name. I’m sure I also used it for WikiApiary, which would have taken some form of URL and needed the host name or the query parameters.”](https://thingelstad.xyz/interviews/session-7/#q50) Either way: [“It was all to support really complicated templates on those sites.”](https://thingelstad.xyz/interviews/session-7/#q50)

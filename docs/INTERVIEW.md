@@ -17,6 +17,8 @@ The brief that runs the interview sessions (`content/interviews/session-N.md`), 
 
 Sessions 7 to 10 below were written on 2026-11-10 from that list and from the thinnest records. Six sessions and 43 questions in, eight things had never been asked about and 29 more were reached by one question, often one that named five or seven things at once, so these ask about one thing at a time. Their numbers assume the sittings happen in this order. If the order changes, renumber before the sitting, so the numbers still run on without a gap.
 
+They were held in that order on November 10, 11 and 12, 2026, and their transcripts are `content/interviews/session-7.md` to `session-10.md`. Question 78 was skipped in the sitting, since the answer to 72 had covered it; it keeps its number, with a `**Thingy:**` line saying so in place of an answer.
+
 The two tweaks from the first sitting are in the brief now: each new session has a spelling list (the transcriber misheard about twenty names), and the interviewer checks that a long answer was heard whole, since part of the answer to question 10 was lost.
 
 ## The brief
