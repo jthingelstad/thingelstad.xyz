@@ -8,7 +8,7 @@ export const watchErrors = (page: Page) => {
 };
 export const fitsViewport = (page: Page) => page.evaluate(() => document.documentElement.scrollWidth <= innerWidth);
 
-// A live panel's test never reaches the service its panel reads, nor analytics: the Tinylytics embed is answered
+// A gadget's test never reaches the service its gadget reads, nor analytics: the Tinylytics embed is answered
 // with an empty script and every other host is refused, the way site.spec.ts does it. A test that wants the service
 // routes it after this, and Playwright tries the newest route first.
 export const offline = async (page: Page) => {

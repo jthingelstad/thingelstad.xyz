@@ -1,4 +1,4 @@
-// The live panel on a thing that runs validators: Gnosis Chain's slot clock, which of the validators are attesting,
+// The Gnosis Validator's gadget: Gnosis Chain's slot clock, which of the validators are attesting,
 // and whether one of them is due to propose a block. The page reads fully without it; the panel stays hidden until
 // this runs. Everything comes from the public beacon node (keyless, cross-origin), straight to the reader's browser.
 // Nothing is sent to it but the indices that are already in the page, and only counts and indices are shown: never a
@@ -43,7 +43,7 @@ const inWords = (seconds) => {
     : plural(minutes, 'minute', 'minutes');
 };
 
-function live(panel) {
+function gadget(panel) {
   const indices = panel.dataset.indices.split(' ').filter(Boolean);
   const wanted = new Set(indices);
   const dots = new Map([...panel.querySelectorAll('[data-index]')].map((dot) => [dot.dataset.index, dot]));
@@ -134,4 +134,4 @@ function live(panel) {
   document.addEventListener('visibilitychange', () => document.hidden || tick());
 }
 
-for (const panel of document.querySelectorAll('[data-chain-live]')) live(panel);
+for (const panel of document.querySelectorAll('[data-chain-live]')) gadget(panel);

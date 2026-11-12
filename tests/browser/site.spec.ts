@@ -20,6 +20,7 @@ type Thing = {
   bundles?: { id: string; title: string; caption?: string }[];
   artifacts?: { file: string; url: string; preview?: string; bundle?: string }[];
   screenshot?: { url: string };
+  gadget?: { title: string; summary: string };
 };
 type Output = {
   featured: string[];
@@ -1428,4 +1429,42 @@ test('no picture is drawn softer than its source allows: the copy picked has the
     );
     expect(soft, path).toEqual([]);
   }
+});
+
+test('a thing with a gadget is marked in the lists, filtered by Has, and gives the gadget a section of its own', async ({
+  page
+}) => {
+  const errors = watchErrors(page);
+  const withGadget = things.filter((thing) => thing.gadget);
+  expect(withGadget.length).toBeGreaterThan(0);
+  await page.goto('/things/?has=gadget');
+  await expect(page.locator('[data-filter-status]')).toHaveText(`Showing ${withGadget.length} of ${things.length}`);
+  for (const thing of withGadget) {
+    const line = page.locator(`.thing-line:has(a[href="${thing.page.replace(/^https:\/\/[^/]+/, '')}"])`);
+    await expect(line.locator('.gadget-mark')).toHaveText('Gadget');
+  }
+  await expect(page.locator('.thing-line:visible .gadget-mark')).toHaveCount(withGadget.length);
+  expect(await fitsViewport(page)).toBe(true);
+  const first = withGadget[0];
+  await page.goto(new URL(first.page).pathname);
+  const section = page.locator('section#gadget');
+  await expect(section.getByRole('heading', { level: 2 })).toHaveAccessibleName(/^Gadget/);
+  await expect(section).toContainText(first.gadget!.summary);
+  await expect(section.locator('.gadget h3')).toHaveText(first.gadget!.title);
+  await expect(page.locator('.toc a[href="#gadget"]')).toHaveCount(1);
+  // The gadget shows once its script runs, and the line saying it needs one goes.
+  await expect(section.locator('.gadget')).toBeVisible();
+  await expect(section.locator('.gadget-needs-script')).toBeHidden();
+  expect(errors).toEqual([]);
+});
+
+test('without a script, the gadget section still says what it does and that it needs one', async ({ browser }) => {
+  const context = await browser.newContext({ javaScriptEnabled: false });
+  const page = await context.newPage();
+  const first = things.find((thing) => thing.gadget)!;
+  await page.goto(new URL(first.page).pathname);
+  await expect(page.locator('section#gadget')).toContainText(first.gadget!.summary);
+  await expect(page.locator('section#gadget .gadget-needs-script')).toBeVisible();
+  await expect(page.locator('section#gadget .gadget')).toBeHidden();
+  await context.close();
 });

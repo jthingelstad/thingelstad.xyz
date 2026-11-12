@@ -1,4 +1,4 @@
-/* The Gnosis Validator's live panel (site/js/live/gnosis-validator.js): the slot clock, the epoch's sixteen slots,
+/* The Gnosis Validator's gadget (site/js/gadgets/gnosis-validator.js): the slot clock, the epoch's sixteen slots,
    and one dot a validator, lit while it attests. */
 .chain-clock,
 .chain-summary,

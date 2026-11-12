@@ -36,25 +36,26 @@ type EleventyConfig = {
   on(event: 'eleventy.after', callback: (event: { directories: { output: string } }) => Promise<void>): void;
 };
 
-// The live panels: one per thing that has a script in site/js/live/<thing id>.js, with its markup in
-// site/_includes/live/<thing id>.njk and, if it has one, its own stylesheet in site/css/live/<thing id>.css. Each is
-// content-addressed like the site's other assets, and loaded only on its own thing's page (site/thing.njk).
-type LiveAsset = { js: string; css: string | null };
-function liveAssets(hashed: (path: string) => string): Record<string, LiveAsset> {
-  const live: Record<string, LiveAsset> = {};
-  for (const file of readdirSync('site/js/live')
+// The gadgets: one per thing that has a script in site/js/gadgets/<thing id>.js, with its markup in
+// site/_includes/gadgets/<thing id>.njk and, if it has one, its own stylesheet in site/css/gadgets/<thing id>.css.
+// Each is content-addressed like the site's other assets, and loaded only on its own thing's page (site/thing.njk).
+// The thing's record names it (`gadget`); tests/registry.test.ts checks that the two agree.
+type GadgetAsset = { js: string; css: string | null };
+function gadgetAssets(hashed: (path: string) => string): Record<string, GadgetAsset> {
+  const gadgets: Record<string, GadgetAsset> = {};
+  for (const file of readdirSync('site/js/gadgets')
     .filter((name) => name.endsWith('.js'))
     .sort()) {
     const id = file.slice(0, -3);
-    if (!existsSync(`site/_includes/live/${id}.njk`))
-      throw new Error(`site/js/live/${file} has no site/_includes/live/${id}.njk`);
-    const css = `site/css/live/${id}.css`;
-    live[id] = {
-      js: `/assets/live-${id}-${hashed(`site/js/live/${file}`)}.js`,
-      css: existsSync(css) ? `/assets/live-${id}-${hashed(css)}.css` : null
+    if (!existsSync(`site/_includes/gadgets/${id}.njk`))
+      throw new Error(`site/js/gadgets/${file} has no site/_includes/gadgets/${id}.njk`);
+    const css = `site/css/gadgets/${id}.css`;
+    gadgets[id] = {
+      js: `/assets/gadget-${id}-${hashed(`site/js/gadgets/${file}`)}.js`,
+      css: existsSync(css) ? `/assets/gadget-${id}-${hashed(css)}.css` : null
     };
   }
-  return live;
+  return gadgets;
 }
 
 export default function (eleventyConfig: EleventyConfig) {
@@ -69,7 +70,7 @@ export default function (eleventyConfig: EleventyConfig) {
     css: `/assets/site-${hashed('site/css/site.css')}.css`,
     search: `/assets/search-${hashed('site/js/search.js')}.js`,
     enhance: `/assets/enhance-${hashed('site/js/enhance.js')}.js`,
-    live: liveAssets(hashed),
+    gadgets: gadgetAssets(hashed),
     tokens: shared.tokens,
     fontPreloads: shared.preloads,
     favicon: hashed('public/favicon.svg')
@@ -91,9 +92,9 @@ export default function (eleventyConfig: EleventyConfig) {
     'site/js/search.js': assets.search.slice(1),
     'site/js/enhance.js': assets.enhance.slice(1),
     ...Object.fromEntries(
-      Object.entries(assets.live).flatMap(([id, { js, css }]) => [
-        [`site/js/live/${id}.js`, js.slice(1)],
-        ...(css ? [[`site/css/live/${id}.css`, css.slice(1)]] : [])
+      Object.entries(assets.gadgets).flatMap(([id, { js, css }]) => [
+        [`site/js/gadgets/${id}.js`, js.slice(1)],
+        ...(css ? [[`site/css/gadgets/${id}.css`, css.slice(1)]] : [])
       ])
     ),
     [sharedTypeDir]: shared.base.slice(1)

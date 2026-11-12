@@ -7,6 +7,9 @@ started: '2022-09-14'
 topics:
   - crypto
   - poap
+gadget:
+  title: On the chain now
+  summary: Gnosis Chain as it is this minute, read straight from the chain, with a dot for each of the 32 validators that lights while it attests.
 validators:
   chain: gnosis
   # Public since Jamie posted them in 2022; the page shows counts only.

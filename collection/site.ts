@@ -250,7 +250,8 @@ type InterviewLink = { id: string; title: string; page: string; questions: numbe
 // value with how many things carry it. A value is a stable slug for the address (?topic=mediawiki); its label
 // is what a reader sees. The language is the top one GitHub reports for each of the thing's repositories:
 // evidence, like every observation, and never a statement about it.
-type FacetName = 'status' | 'collection' | 'topic' | 'year' | 'language';
+// `has` marks what a thing carries beyond its record: a gadget, for now.
+type FacetName = 'status' | 'collection' | 'topic' | 'year' | 'language' | 'has';
 type ThingFilter = { name: FacetName; value: string; label: string };
 type FacetValue = { value: string; label: string; count: number };
 type Facet = { name: FacetName; label: string; values: FacetValue[]; most: number }; // most: the largest count
@@ -524,7 +525,8 @@ function thingFilters(thing: Thing, sources: SiteSource[], topics: Map<string, T
     ...(thing.started
       ? [{ name: 'year' as const, value: thing.started.slice(0, 4), label: thing.started.slice(0, 4) }]
       : []),
-    ...[...languages].map((name) => ({ name: 'language' as const, value: facetSlug(name), label: name }))
+    ...[...languages].map((name) => ({ name: 'language' as const, value: facetSlug(name), label: name })),
+    ...(thing.gadget ? [{ name: 'has' as const, value: 'gadget', label: 'Gadget' }] : [])
   ];
 }
 
@@ -822,7 +824,8 @@ export function buildSiteModel(
     ),
     facet('topic', 'Topic', byCount(counted('topic'))),
     facet('collection', 'Collection', inOrder(counted('collection'), names.map(facetSlug))),
-    facet('language', 'Written in', byCount(counted('language')))
+    facet('language', 'Written in', byCount(counted('language'))),
+    facet('has', 'Has', byCount(counted('has')))
   ];
   const facetOf = (name: FacetName, label: string) => ({ ...facets.find((f) => f.name === name)!, label });
   const timeline: Timeline = {
@@ -904,7 +907,12 @@ export function buildSiteModel(
     years: buildYearPages(timeline, registry.history, activity.activity),
     artifactSets,
     artifactTotal: artifactSets.reduce((sum, set) => sum + set.count, 0),
-    thingFilters: [facetOf('status', 'Status'), facetOf('collection', 'Kind'), facetOf('topic', 'Topic')],
+    thingFilters: [
+      facetOf('status', 'Status'),
+      facetOf('collection', 'Kind'),
+      facetOf('topic', 'Topic'),
+      facetOf('has', 'Has')
+    ],
     statuses,
     facets,
     activity: activity.activity

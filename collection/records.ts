@@ -35,6 +35,7 @@ export function thingMarkdown(thing: SiteThing) {
     ...(thing.story ? { story: thing.story } : {}),
     ...(thing.bundles.length ? { bundles: thing.bundles.map(bundleRecord) } : {}),
     ...(thing.artifacts.length ? { artifacts: thing.artifacts.map(artifactRecord) } : {}),
+    ...(thing.gadget ? { gadget: thing.gadget } : {}),
     page: `${siteUrl}${thing.page}`
   };
   const yaml = stringify(frontmatter, { lineWidth: 0 }).trimEnd();
@@ -149,6 +150,7 @@ export function thingsJson(model: SiteModel) {
             }))
           }
         : {}),
+      ...(thing.gadget ? { gadget: thing.gadget } : {}),
       body: thing.body.trim(),
       latest: thing.latest
     })),
