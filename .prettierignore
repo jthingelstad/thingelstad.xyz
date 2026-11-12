@@ -14,3 +14,6 @@ data/observations/commits/
 data/observations/publications/
 # Files from the projects themselves, kept byte for byte as they were made.
 content/artifacts/
+# Planet Kubb Notation's grammar and code, vendored from pk-kubb-score byte for byte or generated from it (npm run kubb:sync).
+vendor/pk-kubb-score/
+site/js/gadgets/planet-kubb-score/

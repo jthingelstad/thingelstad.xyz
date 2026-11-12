@@ -17,7 +17,7 @@ import { activitySummary, localDay, whoBar, yearColumns } from '../collection/ac
 import { connectionDiagram } from '../collection/diagram';
 import { parseSites, siteRef, sitesPath } from '../collection/sites';
 import { sitesStrip, sitesStripAll } from '../collection/sites-strip';
-import { sharedTypeAssets, sharedTypeDir } from '../collection/shared-type';
+import { sharedTypeAssets, sharedTypeDir, vendoredFiles } from '../collection/shared-type';
 import { writeSearchIndex } from '../collection/search-index';
 import { writeImages } from '../collection/image-files';
 import { loadRegistry } from '../collection/load';
@@ -39,8 +39,11 @@ type EleventyConfig = {
 // The gadgets: one per thing that has a script in site/js/gadgets/<thing id>.js, with its markup in
 // site/_includes/gadgets/<thing id>.njk and, if it has one, its own stylesheet in site/css/gadgets/<thing id>.css.
 // Each is content-addressed like the site's other assets, and loaded only on its own thing's page (site/thing.njk).
+// A gadget whose script imports modules of its own keeps them in site/js/gadgets/<thing id>/, and its script and that
+// folder are published together under /assets/gadget-<thing id>-<hash>/, the hash over every file, so the script's
+// relative imports (./<thing id>/...) resolve and a change to any module is a new name.
 // The thing's record names it (`gadget`); tests/registry.test.ts checks that the two agree.
-type GadgetAsset = { js: string; css: string | null };
+type GadgetAsset = { js: string; css: string | null; modules: string | null };
 function gadgetAssets(hashed: (path: string) => string): Record<string, GadgetAsset> {
   const gadgets: Record<string, GadgetAsset> = {};
   for (const file of readdirSync('site/js/gadgets')
@@ -50,9 +53,18 @@ function gadgetAssets(hashed: (path: string) => string): Record<string, GadgetAs
     if (!existsSync(`site/_includes/gadgets/${id}.njk`))
       throw new Error(`site/js/gadgets/${file} has no site/_includes/gadgets/${id}.njk`);
     const css = `site/css/gadgets/${id}.css`;
+    const folder = `site/js/gadgets/${id}`;
+    const modules = vendoredFiles(folder);
+    let js = `/assets/gadget-${id}-${hashed(`site/js/gadgets/${file}`)}.js`;
+    if (modules.length) {
+      const hash = createHash('sha256').update(readFileSync(`site/js/gadgets/${file}`));
+      for (const name of modules) hash.update(`${name}\0`).update(readFileSync(`${folder}/${name}`));
+      js = `/assets/gadget-${id}-${hash.digest('hex').slice(0, 10)}/${id}.js`;
+    }
     gadgets[id] = {
-      js: `/assets/gadget-${id}-${hashed(`site/js/gadgets/${file}`)}.js`,
-      css: existsSync(css) ? `/assets/gadget-${id}-${hashed(css)}.css` : null
+      js,
+      css: existsSync(css) ? `/assets/gadget-${id}-${hashed(css)}.css` : null,
+      modules: modules.length ? js.slice(0, -'.js'.length) : null
     };
   }
   return gadgets;
@@ -92,9 +104,10 @@ export default function (eleventyConfig: EleventyConfig) {
     'site/js/search.js': assets.search.slice(1),
     'site/js/enhance.js': assets.enhance.slice(1),
     ...Object.fromEntries(
-      Object.entries(assets.gadgets).flatMap(([id, { js, css }]) => [
+      Object.entries(assets.gadgets).flatMap(([id, { js, css, modules }]) => [
         [`site/js/gadgets/${id}.js`, js.slice(1)],
-        ...(css ? [[`site/css/gadgets/${id}.css`, css.slice(1)]] : [])
+        ...(css ? [[`site/css/gadgets/${id}.css`, css.slice(1)]] : []),
+        ...(modules ? [[`site/js/gadgets/${id}`, modules.slice(1)]] : [])
       ])
     ),
     [sharedTypeDir]: shared.base.slice(1)

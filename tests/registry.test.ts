@@ -465,6 +465,8 @@ test('a thing has a gadget exactly when its record names one and its script and 
   for (const id of named) assert.ok(readFileSync(`site/_includes/gadgets/${id}.njk`, 'utf8').length > 0);
   for (const name of readdirSync('site/css/gadgets'))
     assert.ok(named.includes(name.replace(/\.css$/, '')), `site/css/gadgets/${name} has no gadget`);
+  for (const entry of readdirSync('site/js/gadgets', { withFileTypes: true }).filter((e) => e.isDirectory()))
+    assert.ok(named.includes(entry.name), `site/js/gadgets/${entry.name}/ has no gadget`);
   assert.throws(
     () =>
       thing(

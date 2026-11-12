@@ -17,5 +17,6 @@
     "scripts/*.ts",
     "collection/**/*.ts",
     "site/**/*.{ts,js}"
-  ]
+  ],
+  "ignore": ["site/js/gadgets/planet-kubb-score/**"]
 }
