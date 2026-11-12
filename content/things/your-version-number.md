@@ -3,6 +3,9 @@ title: Your Version Number
 summary: 'A website that writes your age as a software version, decades.years.days, with a Work Edition for job tenure.'
 tagline: 'Your age as a software version, decades.years.days.'
 collection: Personal tools and making
+gadget:
+  title: Your number, worked out here
+  summary: A birthday becomes its version number, decades.years.days, and the day a job started becomes the Work Edition’s years.quarter.days, by the same arithmetic as the site.
 status: active
 url: https://yourversionnumber.com/
 started: '2026-05-03'

@@ -1,0 +1,71 @@
+/* Your Version Number's calculator (site/js/gadgets/your-version-number.js): two date fields, then each edition's
+   number set large in the site's monospace, the way the site sets it. */
+.yvn-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 20px;
+  margin: 8px 0 0;
+}
+
+.yvn-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.yvn-field label {
+  color: var(--muted);
+  font-family: var(--font-label);
+  font-size: var(--jt-size-small);
+}
+
+.yvn-field input {
+  min-height: 40px;
+  padding: 4px 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--field);
+  color: var(--ink);
+  font: inherit;
+}
+
+.yvn-field input:focus-visible {
+  outline: 2px solid var(--accent-text);
+  outline-offset: 2px;
+}
+
+.yvn-results {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: 12px 24px;
+  margin: 12px 0 0;
+}
+
+.gadget .yvn-label {
+  margin: 0;
+  color: var(--muted);
+  font-family: var(--font-label);
+  font-size: var(--jt-size-small);
+  font-weight: 600;
+}
+
+.gadget .yvn-number {
+  margin: 2px 0 0;
+  font-family: var(--font-code);
+  font-size: 2rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+
+.yvn-build {
+  margin-left: 4px;
+  color: var(--muted);
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.gadget .yvn-says {
+  margin: 4px 0 0;
+}

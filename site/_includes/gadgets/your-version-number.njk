@@ -1,0 +1,30 @@
+{#- Your Version Number's calculator (site/js/gadgets/your-version-number.js): a birthday gives the Birthday Edition's
+    decades.years.days, a start date gives the Work Edition's years.quarter.days with its build, by the same arithmetic
+    as yourversionnumber.com. Nothing is stored or sent; the dates stay in the reader's browser. Hidden until the
+    script runs. #}
+<div class="gadget yvn-gadget" id="version-calculator" data-yvn hidden>
+  <h3>{{ thing.gadget.title }}</h3>
+  <form class="yvn-form" data-yvn-form>
+    <div class="yvn-field">
+      <label for="yvn-birthday">Birthday</label>
+      <input type="date" id="yvn-birthday" data-yvn-birthday>
+    </div>
+    <div class="yvn-field">
+      <label for="yvn-start">Started a job</label>
+      <input type="date" id="yvn-start" data-yvn-start>
+    </div>
+  </form>
+  <div class="yvn-results">
+    <div class="yvn-result" data-yvn-result="birthday">
+      <p class="yvn-label">Birthday Edition</p>
+      <p class="yvn-number" data-yvn-number></p>
+      <p class="yvn-says" data-yvn-says aria-live="polite"></p>
+    </div>
+    <div class="yvn-result" data-yvn-result="work">
+      <p class="yvn-label">Work Edition</p>
+      <p class="yvn-number" data-yvn-number></p>
+      <p class="yvn-says" data-yvn-says aria-live="polite"></p>
+    </div>
+  </div>
+  <p class="muted gadget-note">The arithmetic is yourversionnumber.com’s, run in your browser. The dates you enter stay here: nothing is stored or sent. <a data-yvn-open href="https://yourversionnumber.com/">Open it on yourversionnumber.com</a>.</p>
+</div>
