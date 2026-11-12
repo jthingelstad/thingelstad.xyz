@@ -97,12 +97,16 @@ export type Thing = {
   artifacts?: Artifact[];
   face?: string; // the artifact (its `file`) that stands for the thing where its page is shared, chosen by hand
   validators?: Validators; // a thing that runs validators on a proof-of-stake chain: which ones, so they can be counted
+  gadget?: Gadget; // a small working piece of the thing on its page (site/js/gadgets/<id>.js): its name and what it does
   body: string; // Markdown. The project's story, if any.
 };
 
 // Validators a thing runs, by their public indices on the chain. The indices are public (Jamie published them in
 // 2022); the page shows counts only, never a balance or an address.
 export type Validators = { chain: 'gnosis'; indices: number[] };
+// A gadget: a small working piece of a thing, drawn on its page by a script in the reader's browser. The record names
+// it and says what it does; the script, markup and styles live in site/ under the thing's id (AGENTS.md, "Gadgets").
+export type Gadget = { title: string; summary: string };
 
 export type Topic = { id: string; title: string; description: string };
 

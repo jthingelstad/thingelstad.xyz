@@ -684,7 +684,7 @@ test('the search facets count every thing, and each row carries the values it is
   const facet = (name: string) => model.facets.find((f) => f.name === name)!;
   assert.deepEqual(
     model.facets.map((f) => f.name),
-    ['status', 'year', 'topic', 'collection', 'language']
+    ['status', 'year', 'topic', 'collection', 'language', 'has']
   );
   // Status in the legend's order, with the legend's counts; every thing has one status and one collection.
   assert.deepEqual(

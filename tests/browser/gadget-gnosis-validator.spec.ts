@@ -3,13 +3,13 @@ import { fitsViewport, offline, watchErrors } from './helpers';
 
 test.beforeEach(({ page }) => offline(page));
 
-// The Gnosis Validator's live panel reads the public beacon node from the browser (site/js/live/gnosis-validator.js). Tests never
+// The Gnosis Validator's gadget reads the public beacon node from the browser (site/js/gadgets/gnosis-validator.js). Tests never
 // reach it: blocked, the panel says so and keeps the clock; answered here, it lights the dots the balances earn and
 // counts down to a proposal by one of the validators.
 const beacon = 'https://rpc-gbc.gnosischain.com';
 const chainSlot = () => Math.floor((Date.now() / 1000 - 1638993340) / 5);
 
-test('the live chain panel keeps the clock and says so when the beacon node cannot be reached', async ({ page }) => {
+test('the chain gadget keeps the clock and says so when the beacon node cannot be reached', async ({ page }) => {
   const errors = watchErrors(page);
   await page.goto('/things/gnosis-validator/');
   const panel = page.locator('[data-chain-live]');
@@ -22,9 +22,7 @@ test('the live chain panel keeps the clock and says so when the beacon node cann
   expect(errors).toEqual([]);
 });
 
-test('the live chain panel lights the validators that earned and counts down to their next proposal', async ({
-  page
-}) => {
+test('the chain gadget lights the validators that earned and counts down to their next proposal', async ({ page }) => {
   const errors = watchErrors(page);
   const head = chainSlot();
   const epoch = Math.floor(head / 16);

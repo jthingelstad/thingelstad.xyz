@@ -37,7 +37,7 @@ description: The projects Jamie Thingelstad has built, the ones he runs today an
       {% for thing in collection.things %}
       <li class="thing-line h-entry" data-filter-item data-filters="{% for f in thing.filters %}{{ f.name }}:{{ f.value }} {% endfor %}">
         <a class="p-author h-card" href="{{ owner.url }}" hidden>{{ owner.name }}</a>
-        <a class="thing-line-title p-name u-url" href="{{ thing.page }}">{{ thing.title }}</a>
+        <span class="thing-line-name"><a class="thing-line-title p-name u-url" href="{{ thing.page }}">{{ thing.title }}</a>{% if thing.gadget %}<span class="gadget-mark" title="Has a gadget: {{ thing.gadget.title }}">Gadget</span>{% endif %}</span>
         <span class="thing-line-summary small p-summary" title="{{ thing.summary }}">{{ thing.summary }}</span>
         <span class="status-dot{% if thing.status == 'active' %} is-active{% endif %}" title="{{ thing.statusDescription }}">{{ thing.statusLabel }}</span>
         <span class="meta thing-line-year">{% if thing.started %}<time datetime="{{ thing.started }}">{{ thing.started | truncate(4, true, "") }}</time>{% endif %}</span>

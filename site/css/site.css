@@ -638,28 +638,47 @@ h2 {
   margin-left: 6px;
 }
 
-/* A live panel under a thing's record: a small script for that one thing, in the reader's browser (site/js/live/,
-   with its markup in site/_includes/live/ and its own styles in site/css/live/). Hidden until its script runs. */
-.live-panel {
+/* A gadget: a small working piece of a thing, in its own section after the record, drawn by a script for that one
+   thing in the reader's browser (site/js/gadgets/, with its markup in site/_includes/gadgets/ and its own styles in
+   site/css/gadgets/). Hidden until its script runs; the line saying it needs one goes once it shows. */
+.gadget-section:has(.gadget:not([hidden])) .gadget-needs-script {
+  display: none;
+}
+
+.gadget {
   max-width: 44rem;
-  margin: 24px 0 0;
+  margin: 16px 0 0;
   padding: 16px 20px;
   border: 1px solid var(--line);
   border-radius: 10px;
   background: var(--soft);
 }
 
-.live-panel h3 {
+.gadget h3 {
   margin: 0 0 8px;
   font-size: 1.0625rem;
 }
 
-.live-panel p {
+.gadget p {
   margin: 8px 0 0;
 }
 
-.live-panel .live-note {
+.gadget .gadget-note {
   font-size: var(--jt-size-small);
+}
+
+/* The mark on a thing that has a gadget, wherever things are listed: a small tag beside its status. */
+.gadget-mark {
+  display: inline-block;
+  padding: 0 7px;
+  border: 1px solid var(--accent-text);
+  border-radius: 999px;
+  color: var(--accent-text);
+  font-family: var(--font-label);
+  font-size: var(--jt-size-small);
+  font-weight: 600;
+  line-height: 1.5;
+  white-space: nowrap;
 }
 
 .screenshot {
@@ -2079,6 +2098,13 @@ h4:hover > .permalink,
   text-decoration: none;
 }
 
+.shelf-card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 8px;
+}
+
 .shelf-card.is-short {
   min-height: 110px;
 }
@@ -2199,6 +2225,14 @@ h4:hover > .permalink,
 .thing-line[hidden],
 .things-group[hidden] {
   display: none;
+}
+
+.thing-line-name {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 2px 8px;
+  min-width: 0;
 }
 
 .thing-line-title {

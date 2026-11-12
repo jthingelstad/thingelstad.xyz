@@ -34,7 +34,8 @@ eleventyComputed:
 {% if thing.body | trim %}<a class="toc-link" href="#story"><span>Story</span></a>
 {% endif %}{% if thing.story and thing.story.engineering | length %}<a class="toc-link" href="#build"><span>The build</span></a>
 {% endif %}<a class="toc-link" href="#record"><span>The record</span></a>
-{% if thing.artifacts | length %}<a class="toc-link" href="#artifacts"><span>Artifacts</span><span class="toc-count">{{ thing.artifacts | length }}</span></a>
+{% if thing.gadget %}<a class="toc-link" href="#gadget"><span>Gadget</span></a>
+{% endif %}{% if thing.artifacts | length %}<a class="toc-link" href="#artifacts"><span>Artifacts</span><span class="toc-count">{{ thing.artifacts | length }}</span></a>
 {% for bundle in thing.bundles %}<a class="toc-link toc-sub" href="#artifacts-{{ bundle.id }}"><span>{{ bundle.title }}</span><span class="toc-count">{{ bundle.artifacts | length }}</span></a>
 {% endfor %}{% endif %}{% if thing.activity %}<a class="toc-link" href="#activity"><span>Activity</span></a>
 {% endif %}{% if thing.sources | length %}<a class="toc-link" href="#sources"><span>Sources and evidence</span><span class="toc-count">{{ thing.sources | length }}</span></a>
@@ -160,14 +161,21 @@ eleventyComputed:
       <dd>{% if thing.latest.url %}<a href="{{ thing.latest.url }}">{{ thing.latest.label }}</a>{% else %}{{ thing.latest.label }}{% endif %}, {{ thing.latest.date | day }}</dd>
       {% endif %}
     </dl>
-    {#- A thing with a live panel (site/js/live/<id>.js) draws it here, from its markup in site/_includes/live/<id>.njk
-        and its styles in site/css/live/<id>.css. It stays hidden until its script runs. #}
-    {% set live = assets.live[thing.id] %}
-    {% if live %}
-    {% if live.css %}<link rel="stylesheet" href="{{ live.css }}" />{% endif %}
-    {% include "live/" + thing.id + ".njk" %}
-    {% endif %}
   </section>
+
+  {#- A gadget: a small working piece of the thing, drawn by its own script in the reader's browser
+      (site/js/gadgets/<id>.js), from its markup in site/_includes/gadgets/<id>.njk and its styles in
+      site/css/gadgets/<id>.css. The record names it and says what it does, which reads without a script; the
+      gadget itself stays hidden until its script runs, and the line asking for one goes once it has. #}
+  {% set gadget = assets.gadgets[thing.id] if thing.gadget else null %}
+  {% if thing.gadget %}
+  <section class="gadget-section" id="gadget" data-pagefind-ignore>
+    <h2>Gadget {{ permalink("gadget", "Gadget") }}</h2>
+    <p class="muted">{{ thing.gadget.summary }} <span class="gadget-needs-script">It runs in your browser, with JavaScript on.</span></p>
+    {% if gadget.css %}<link rel="stylesheet" href="{{ gadget.css }}" />{% endif %}
+    {% include "gadgets/" + thing.id + ".njk" %}
+  </section>
+  {% endif %}
 
   {#- Artifacts: a thing may put them in bundles, each a shelf that holds every piece of it, so an address like
       #artifact-<file> always lands on its piece. A large set also has a page of its own that shows them all at once
@@ -343,4 +351,4 @@ eleventyComputed:
   </div>
 </article>
 <script type="module" src="{{ assets.enhance }}"></script>
-{% if live %}<script type="module" src="{{ live.js }}"></script>{% endif %}
+{% if gadget %}<script type="module" src="{{ gadget.js }}"></script>{% endif %}

@@ -451,3 +451,38 @@ test('image sizes are read from their headers, and files are named by kind and s
   assert.equal(formatBytes(999_600), '1 MB');
   assert.equal(formatBytes(12_345_678), '12 MB');
 });
+
+test('a thing has a gadget exactly when its record names one and its script and markup are in site/', () => {
+  const scripts = readdirSync('site/js/gadgets')
+    .filter((name) => name.endsWith('.js'))
+    .map((name) => name.slice(0, -3))
+    .sort();
+  const named = registry.things
+    .filter((t) => t.gadget)
+    .map((t) => t.id)
+    .sort();
+  assert.deepEqual(scripts, named, 'site/js/gadgets/<id>.js and the records that name a gadget must agree');
+  for (const id of named) assert.ok(readFileSync(`site/_includes/gadgets/${id}.njk`, 'utf8').length > 0);
+  for (const name of readdirSync('site/css/gadgets'))
+    assert.ok(named.includes(name.replace(/\.css$/, '')), `site/css/gadgets/${name} has no gadget`);
+  assert.throws(
+    () =>
+      thing(
+        'x',
+        {
+          title: 'X',
+          summary: 'S',
+          collection: 'Sites',
+          status: 'active',
+          url: null,
+          topics: [],
+          sources: [],
+          connections: [],
+          gadget: { title: 'X' }
+        },
+        '',
+        'x.md'
+      ),
+    /gadget\.summary/
+  );
+});

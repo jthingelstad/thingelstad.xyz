@@ -8,7 +8,7 @@
     "site/_data/*.js",
     "site/*.11ty.js",
     "site/js/*.js",
-    "site/js/live/*.js"
+    "site/js/gadgets/*.js"
   ],
   "project": [
     "tests/**/*.ts",

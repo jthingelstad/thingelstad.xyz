@@ -25,7 +25,7 @@
 {%- set name = heading or "h3" %}
 <div class="shelf-entry h-entry">
   <a class="p-author h-card" href="{{ owner.url }}" hidden>{{ owner.name }}</a>
-  <a class="shelf-card u-url" href="{{ thing.page }}"><span class="status-dot{% if thing.status == 'active' %} is-active{% endif %}">{{ thing.statusLabel }}</span><{{ name }} class="p-name">{{ thing.title }}</{{ name }}><span class="small clamp p-summary">{{ thing.summary }}</span></a>
+  <a class="shelf-card u-url" href="{{ thing.page }}"><span class="shelf-card-tags"><span class="status-dot{% if thing.status == 'active' %} is-active{% endif %}">{{ thing.statusLabel }}</span>{% if thing.gadget %}<span class="gadget-mark" title="Has a gadget: {{ thing.gadget.title }}">Gadget</span>{% endif %}</span><{{ name }} class="p-name">{{ thing.title }}</{{ name }}><span class="small clamp p-summary">{{ thing.summary }}</span></a>
 </div>
 {% endmacro %}
 
