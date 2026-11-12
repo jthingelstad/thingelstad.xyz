@@ -6,6 +6,9 @@ collection: Developer tools and systems
 status: active
 url: https://sync.thingelstad.xyz/
 started: '2026-10-26'
+gadget:
+  title: Sync right now
+  summary: 'What the sync probe saw at its last check, read from the sync site as the page opens: the hop counts, and which systems hold the newest item of each kind.'
 topics:
   - automation
   - open-web

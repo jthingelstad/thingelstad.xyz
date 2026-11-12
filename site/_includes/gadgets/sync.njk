@@ -1,0 +1,13 @@
+{#- Sync's gadget: what https://sync.thingelstad.xyz/status.json says right now, read by the reader's browser
+    (site/js/gadgets/sync.js). status.json is the one path the sync site serves to other origins (its AGENTS.md).
+    Nothing here without a script, so it stays hidden until the script runs. Sync is not a strip site and counts no
+    visits, so its links carry no ref. #}
+<div class="gadget sync-now" data-sync-now hidden>
+  <h3>{{ thing.gadget.title }}</h3>
+  <p class="sync-checked" data-sync-checked aria-live="polite">Reading the sync page.</p>
+  <ul class="sync-counts" data-sync-counts></ul>
+  <div data-sync-open></div>
+  <ul class="sync-receipts" data-sync-receipts></ul>
+  <p class="sync-error" data-sync-error hidden></p>
+  <p class="muted gadget-note">Your browser reads <a href="{{ thing.url }}status.json">status.json</a> from the sync site when this page opens and every five minutes while it stays open. The sync probe writes it on the half-hour, and again after each publication. Each receipt follows the newest item of its kind; <a href="{{ thing.url }}">the sync page</a> has every hop and journey.</p>
+</div>
