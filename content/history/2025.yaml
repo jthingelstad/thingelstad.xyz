@@ -80,3 +80,11 @@
   source: https://www.thingelstad.com/2025/02/25/weekly-thing-gpt.html
   things:
     - weekly-thing-gpt
+- id: gnosis-validator-updates
+  date: 2025-09-20
+  kind: milestone
+  title: Updates after a year and twenty-eight weeks
+  summary: Jamie finds the Dappnode up for a year and twenty-eight weeks and brings its four packages current.
+  source: https://www.thingelstad.com/2025/09/20/dappnode-validator-year-weeks-uptime.html
+  things:
+    - gnosis-validator

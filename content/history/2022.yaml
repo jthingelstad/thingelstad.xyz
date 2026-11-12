@@ -14,3 +14,35 @@
   source: https://www.thingelstad.com/2022/10/30/i-decided-to.html
   things:
     - weekly-thing
+- id: gnosis-validator-ordered
+  date: 2022-09-03
+  kind: development
+  title: A Dappnode for Gnosis
+  summary: Jamie orders a Dappnode Home i732 to run a Gnosis Chain validator at home.
+  source: https://www.thingelstad.com/2022/09/03/ordered-a-dappnode.html
+  things:
+    - gnosis-validator
+- id: gnosis-validator-live
+  date: 2022-09-14
+  kind: launch
+  title: The first validators go live
+  summary: Four validators start attesting on Gnosis Chain, and that night Jamie adds four more.
+  source: https://www.thingelstad.com/2022/09/15/i-have-my.html
+  things:
+    - gnosis-validator
+- id: gnosis-validator-five-proposals
+  date: 2022-09-22
+  kind: milestone
+  title: Five proposals in a day
+  summary: The validators propose five blocks in one day, a new high in their second week.
+  source: https://www.thingelstad.com/2022/09/22/my-validators-made.html
+  things:
+    - gnosis-validator
+- id: gnosis-validator-twenty
+  date: 2022-09-29
+  kind: milestone
+  title: Twenty validators
+  summary: Jamie claims and stakes four GNO from a Dappnode promotion, bringing the count to twenty.
+  source: https://www.thingelstad.com/2022/09/29/successfully-claimed-and.html
+  things:
+    - gnosis-validator
