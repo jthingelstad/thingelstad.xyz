@@ -52,4 +52,12 @@ For a few years Jamie had wondered about a book version of the Weekly Thing, som
 
 “I made the Yearly Thing with Claude Code,” he wrote in [Weekly Thing 339](https://weekly.thingelstad.com/archive/339/), and he laid out the book in Vellum. The [paperback is $30 on Lulu](https://www.lulu.com/shop/jamie-thingelstad/yearly-thing-2025/paperback/product-84w66ey.html), and the first print copies [arrived on January 27](https://www.thingelstad.com/2026/01/27/the-print-copies-of-the.html). The [eBook is $20 on Gumroad](https://jthingelstad.gumroad.com/l/yearly-thing-2025). Anyone who bought it in the first two months got a [Yearly Thing 2025 POAP](https://poap.gallery/drops/223594). All proceeds go to the Weekly Thing Supporting Membership program, and the book’s sales were part of the [$1,164.92 given to the Electronic Frontier Foundation](https://weekly.thingelstad.com/archive/347/) in May 2026. It is archived as a finished thing. Of the projects he has closed, he said, [“all of them had natural landing points, or it became obvious they weren’t worth pursuing”](https://thingelstad.xyz/interviews/session-4/#q28).
 
+The cover is a photograph of his, taken on April 19, 2025 over Lelystad in the Netherlands and first shown in [Weekly Thing 317](https://weekly.thingelstad.com/archive/317/). [“Funnily enough, I took it while descending on a flight into Amsterdam.”](https://thingelstad.xyz/interviews/session-8/#q60) Why it became the cover:
+
+> I used it for the cover of the Yearly Thing for a few reasons. It was a photo I took, so there were no rights issues. The abstract visual worked well; it looked right. And I liked the view from above, looking down at a lot of different things, which is what looking at a year of links felt like.
+>
+> [Jamie, question 60](https://thingelstad.xyz/interviews/session-8/#q60)
+
 The idea, in his words: [“what would it look like to take everything I did in a year of The Weekly Thing and make a book of it?”](https://thingelstad.xyz/interviews/session-6/#q42) As for another one: [“I’m not committed to a Yearly Thing for 2026. If I do one, I’ll do it very differently, because my understanding of the technology and what it can do has moved a lot since then.”](https://thingelstad.xyz/interviews/session-6/#q42)
+
+Asked a week later what he would like to make next that he can hold, a book came first: [“I think about creating another book. The Yearly Thing may be something I do again.”](https://thingelstad.xyz/interviews/session-8/#q62)

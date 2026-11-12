@@ -40,7 +40,7 @@ Garrick van Buren and Jamie built Planet Kubb together. It began in 2012, when J
 
 Jamie played Kubb on the Kubbchucks. At the [2013 US Nationals](https://www.thingelstad.com/2013/07/21/pictures-from-us.html) he spent Sunday “scoring games for Planet Kubb and running the final parts of the Planet Kubb Club Championship.” Club sites joined in, like the [Chippewa Valley Kubb League](https://www.thingelstad.com/2013/10/06/another-planetkubb-network.html) in 2013, and Garrick and Jamie created a notation and scoring system for recording games (see Planet Kubb Score).
 
-He stepped away from it later. Garrick still runs the server, and planetkubb.com is online as an aggregator [maintained by him](https://planetkubb.com/about/). Its feed was last updated in June 2017. The wiki, Ask Planet Kubb and the club subdomains no longer answer, and live on in Wayback Machine captures.
+He stepped away from it later. When he shut down his own servers in 2016, this is what stayed: [“The Planet Kubb network did stay alive, and Garrick continues to run it to this day.”](https://thingelstad.xyz/interviews/session-7/#q52) Garrick still runs the server, and planetkubb.com is online as an aggregator [maintained by him](https://planetkubb.com/about/). Its feed was last updated in June 2017. The wiki, Ask Planet Kubb and the club subdomains no longer answer, and live on in Wayback Machine captures.
 
 On Garrick, in Jamie’s words:
 

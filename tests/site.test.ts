@@ -989,12 +989,14 @@ test('an interview session is a source: its questions are addressed, point at th
     [...new Set(item.questions.flatMap((q) => q.things.map((thing) => thing.id)))],
     'the cast is the things in the order they first come up'
   );
-  // Every question has a title, the question as asked, and at least one answer from Jamie.
+  // Every question has a title, the question as asked, and at least one answer from Jamie. A question skipped in the
+  // sitting keeps its number, so the ones after it never move, and has a line of Thingy's saying so in place of an answer.
+  const skipped = new Set([78]);
   for (const session of model.interviews)
     for (const question of session.questions) {
       assert.ok(question.title && question.question, `question ${question.n} has its title and text`);
       assert.ok(
-        question.turns.some((turn) => turn.who === 'jamie'),
+        question.turns.some((turn) => turn.who === (skipped.has(question.n) ? 'thingy' : 'jamie')),
         `question ${question.n} has an answer`
       );
     }
@@ -1097,7 +1099,11 @@ test('every sitemap page carries the date its content last changed, never the bu
     'content/interviews/session-3.md': '2026-11-05T00:00:00Z',
     'content/interviews/session-4.md': '2026-11-05T00:00:00Z',
     'content/interviews/session-5.md': '2026-11-05T00:00:00Z',
-    'content/interviews/session-6.md': '2026-11-05T00:00:00Z'
+    'content/interviews/session-6.md': '2026-11-05T00:00:00Z',
+    'content/interviews/session-7.md': '2026-11-05T00:00:00Z',
+    'content/interviews/session-8.md': '2026-11-05T00:00:00Z',
+    'content/interviews/session-9.md': '2026-11-05T00:00:00Z',
+    'content/interviews/session-10.md': '2026-11-05T00:00:00Z'
   };
   const fileDate = (path: string) =>
     dates[path] ??

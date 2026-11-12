@@ -1,4 +1,7 @@
 ---
+pull:
+  n: 59
+  words: 'There were probably 100 hours of effort in it.'
 title: Jiggy Thing Puzzles
 summary: 'A 500-piece jigsaw puzzle Jamie’s family drew and boxed themselves, sold to raise money at Things 4 Good.'
 collection: Personal tools and making
@@ -44,6 +47,8 @@ artifacts:
 ---
 
 Jiggy Thing Puzzles are custom jigsaw puzzles the Thingelstads made together. The first, **Jiggy Thing Puzzle #001 “Celebration City,”** is a 500-piece puzzle of hand-drawn digital art packed with little scenes, like an ant hotel with a “no vacancy” sign. On October 6, 2021, Jamie wrote that they had finished the box design and [ordered 50 puzzles](https://www.thingelstad.com/2021/10/06/our-family-created.html). They had made puzzles before, but this was their first custom box, and when the order showed up he wrote that he was happy with how it came out ([Custom Puzzle Box](https://www.thingelstad.com/2021/10/24/custom-puzzle-box.html)).
+
+How a family draws one picture, in his words: [“It was drawn over many, many sessions, all on an iPad in Procreate, with a lot of layers. Mazie drew parts, I drew parts, Tyler drew parts.”](https://thingelstad.xyz/interviews/session-8/#q59) [“There were probably 100 hours of effort in it.”](https://thingelstad.xyz/interviews/session-8/#q59) It [“started as a special puzzle for Tammy’s birthday”](https://thingelstad.xyz/interviews/session-8/#q59) before it was one to sell.
 
 They made the puzzle for the first [Things 4 Good Fall Fundraiser](https://www.thingelstad.com/2021/11/09/things-good-fall.html) in November 2021, where it sold alongside the family’s candles. After the sale, [Weekly Thing 203](https://weekly.thingelstad.com/archive/203/) offered the rest for $35, printed on Eska board in the custom box. They sold 26 puzzles in 2021 and 10 in 2022. The 2022 sale offered the same puzzle, so “a number of folks already had it” ([Things 4 Good Fall Fundraiser Notes](https://www.thingelstad.com/2022/11/27/101105.html)).
 

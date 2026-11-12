@@ -22,7 +22,7 @@ connections:
     kind: lineage
 ---
 
-Filament is a MediaWiki skin built on Yahoo’s [Pure](https://purecss.io/) CSS framework. The README calls it “a MediaWiki skin that focuses on your content,” which was the same goal as Foreground, just on a lighter framework than Zurb Foundation. Like Foreground it was a WikiWonders project, the MediaWiki business Jamie never got off the ground, and it shipped under that name with a 2-clause BSD license.
+Filament is a MediaWiki skin built on Yahoo’s [Pure](https://purecss.io/) CSS framework. The README calls it “a MediaWiki skin that focuses on your content,” which was the same goal as Foreground, just on a lighter framework than Zurb Foundation. Like Foreground it was a WikiWonders project, the MediaWiki business Jamie never got off the ground, and it shipped under that name with a 2-clause BSD license. Of that business he said, [“I did a couple of small projects with some companies, but ultimately felt the technology wasn’t going to be robust enough to do what we’d hoped.”](https://thingelstad.xyz/interviews/session-7/#q49)
 
 Garrick van Buren wrote most of it. The repository carries Foreground’s early history, and on June 6, 2013 Garrick [began the Pure version](https://github.com/jthingelstad/filament/commit/b18787ce6bace0ff6e065a0656a0c13d44f08ff7). Jamie updated it to Pure 0.2.0 and fixed asset paths. Karsten Hoffmeyer added a German translation and license fixes in [November 2013](https://github.com/jthingelstad/filament/pull/11), and that was the last change to the code.
 
