@@ -1,3 +1,11 @@
+- id: gnosis-validator-outage
+  date: 2026-11-12
+  kind: milestone
+  title: Six months offline
+  summary: Jamie finds the Gnosis validators have not attested since about May 10, with Teku stuck outside the weak subjectivity period, and resyncs it from a checkpoint. All thirty-two were still active and none was slashed.
+  source: https://thingelstad.xyz/things/gnosis-validator/
+  things:
+    - gnosis-validator
 - id: thingy-model-first-studies
   date: 2026-11-01
   kind: development
