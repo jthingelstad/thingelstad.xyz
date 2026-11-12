@@ -14,7 +14,7 @@ ended: '2026-11-10'
 notes:
   - 'After the sitting Jamie confirmed the Windows program in question 46: LifeForm, from Fitnesoft.'
   - 'The correction under question 53 is mine, from Jamie’s posts and Weekly Thing 342. His answer stays as he gave it.'
-  - 'The transcriber heard “Isabella” in question 53. I wrote Isabel, the name Jamie’s own notice on POAP2RSS thanks.'
+  - 'The transcriber heard “Isabella” in question 53. It is Isabel, as Jamie confirmed after the sitting.'
 questions:
   - n: 44
     title: 'The Terabyte Server'
