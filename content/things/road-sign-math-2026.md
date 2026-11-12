@@ -52,6 +52,7 @@ story:
   related:
     - road-sign-math
     - road-sign-math-2021
+    - road-sign-math-quiz
   started: Played since 2005, rebuilt in 2026
   questions:
     - What does the Road Sign Math app do with a photo of a sign?
