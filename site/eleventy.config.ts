@@ -48,6 +48,7 @@ export default function (eleventyConfig: EleventyConfig) {
     css: `/assets/site-${hashed('site/css/site.css')}.css`,
     search: `/assets/search-${hashed('site/js/search.js')}.js`,
     enhance: `/assets/enhance-${hashed('site/js/enhance.js')}.js`,
+    chain: `/assets/chain-${hashed('site/js/chain.js')}.js`,
     tokens: shared.tokens,
     fontPreloads: shared.preloads,
     favicon: hashed('public/favicon.svg')
@@ -68,6 +69,7 @@ export default function (eleventyConfig: EleventyConfig) {
     'site/css/site.css': assets.css.slice(1),
     'site/js/search.js': assets.search.slice(1),
     'site/js/enhance.js': assets.enhance.slice(1),
+    'site/js/chain.js': assets.chain.slice(1),
     [sharedTypeDir]: shared.base.slice(1)
   });
   // Each front-page screenshot is published under /assets/ with its hash in the name (see screenshotAsset).

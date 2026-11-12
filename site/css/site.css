@@ -638,6 +638,83 @@ h2 {
   margin-left: 6px;
 }
 
+/* The live panel under a validator thing's record (site/js/chain.js): the slot clock, the epoch's sixteen slots,
+   and one dot a validator, lit while it attests. Hidden until the script runs. */
+.chain-live {
+  max-width: 44rem;
+  margin: 24px 0 0;
+  padding: 16px 20px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--soft);
+}
+
+.chain-live h3 {
+  margin: 0 0 8px;
+  font-size: 1.0625rem;
+}
+
+.chain-live p {
+  margin: 8px 0 0;
+}
+
+.chain-clock,
+.chain-summary,
+.chain-duty {
+  font-variant-numeric: tabular-nums;
+}
+
+.chain-slot {
+  font-weight: 600;
+}
+
+.chain-epoch,
+.chain-validators {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin: 10px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.chain-epoch li {
+  flex: 1 1 0;
+  max-width: 2.25rem;
+  height: 6px;
+  border-radius: 3px;
+  background: var(--line);
+}
+
+.chain-epoch li.is-past {
+  background: var(--muted);
+}
+
+.chain-epoch li.is-now {
+  background: var(--ink);
+}
+
+.chain-epoch li.is-due {
+  background: var(--dormant);
+}
+
+.chain-validators li {
+  width: 14px;
+  height: 14px;
+  border: 1px solid var(--muted);
+  border-radius: 50%;
+  background: var(--paper);
+}
+
+.chain-validators li.is-lit {
+  border-color: var(--active);
+  background: var(--active);
+}
+
+.chain-note {
+  font-size: var(--jt-size-small);
+}
+
 .screenshot {
   max-width: var(--measure);
   margin: 28px 0 8px;
