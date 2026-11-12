@@ -36,6 +36,27 @@ type EleventyConfig = {
   on(event: 'eleventy.after', callback: (event: { directories: { output: string } }) => Promise<void>): void;
 };
 
+// The live panels: one per thing that has a script in site/js/live/<thing id>.js, with its markup in
+// site/_includes/live/<thing id>.njk and, if it has one, its own stylesheet in site/css/live/<thing id>.css. Each is
+// content-addressed like the site's other assets, and loaded only on its own thing's page (site/thing.njk).
+type LiveAsset = { js: string; css: string | null };
+function liveAssets(hashed: (path: string) => string): Record<string, LiveAsset> {
+  const live: Record<string, LiveAsset> = {};
+  for (const file of readdirSync('site/js/live')
+    .filter((name) => name.endsWith('.js'))
+    .sort()) {
+    const id = file.slice(0, -3);
+    if (!existsSync(`site/_includes/live/${id}.njk`))
+      throw new Error(`site/js/live/${file} has no site/_includes/live/${id}.njk`);
+    const css = `site/css/live/${id}.css`;
+    live[id] = {
+      js: `/assets/live-${id}-${hashed(`site/js/live/${file}`)}.js`,
+      css: existsSync(css) ? `/assets/live-${id}-${hashed(css)}.css` : null
+    };
+  }
+  return live;
+}
+
 export default function (eleventyConfig: EleventyConfig) {
   // Everything under /assets/ is content-addressed and published with an immutable cache header; HTML
   // and the other top-level files are published with no-cache. The shared type (tokens.css and the fonts it
@@ -48,7 +69,7 @@ export default function (eleventyConfig: EleventyConfig) {
     css: `/assets/site-${hashed('site/css/site.css')}.css`,
     search: `/assets/search-${hashed('site/js/search.js')}.js`,
     enhance: `/assets/enhance-${hashed('site/js/enhance.js')}.js`,
-    chain: `/assets/chain-${hashed('site/js/chain.js')}.js`,
+    live: liveAssets(hashed),
     tokens: shared.tokens,
     fontPreloads: shared.preloads,
     favicon: hashed('public/favicon.svg')
@@ -69,7 +90,12 @@ export default function (eleventyConfig: EleventyConfig) {
     'site/css/site.css': assets.css.slice(1),
     'site/js/search.js': assets.search.slice(1),
     'site/js/enhance.js': assets.enhance.slice(1),
-    'site/js/chain.js': assets.chain.slice(1),
+    ...Object.fromEntries(
+      Object.entries(assets.live).flatMap(([id, { js, css }]) => [
+        [`site/js/live/${id}.js`, js.slice(1)],
+        ...(css ? [[`site/css/live/${id}.css`, css.slice(1)]] : [])
+      ])
+    ),
     [sharedTypeDir]: shared.base.slice(1)
   });
   // Each front-page screenshot is published under /assets/ with its hash in the name (see screenshotAsset).

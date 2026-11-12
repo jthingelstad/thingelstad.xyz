@@ -8,7 +8,7 @@
     "check": "npm run sites:check && npm run format:check && npm run lint && npm run typecheck && npm test && npm run site:build",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "lint": "oxlint --deny-warnings && stylelint site/css/site.css && knip",
+    "lint": "oxlint --deny-warnings && stylelint site/css/site.css site/css/live/*.css && knip",
     "typecheck": "tsc --noEmit",
     "test:browser": "playwright test",
     "templates": "node infra/templates.mjs",

@@ -160,18 +160,12 @@ eleventyComputed:
       <dd>{% if thing.latest.url %}<a href="{{ thing.latest.url }}">{{ thing.latest.label }}</a>{% else %}{{ thing.latest.label }}{% endif %}, {{ thing.latest.date | day }}</dd>
       {% endif %}
     </dl>
-    {#- The chain as it is now, read by the reader's browser (site/js/chain.js). It has nothing to show without
-        a script, so it stays hidden until the script has the indices and the clock. #}
-    {% if thing.validators %}
-    <div class="chain-live" id="chain-now" data-chain-live data-indices="{{ thing.validators.indices | join(' ') }}" hidden>
-      <h3>On the chain now</h3>
-      <p class="chain-clock"><span class="chain-slot" data-chain-slot></span> <span class="muted" data-chain-epoch></span></p>
-      <ol class="chain-epoch" aria-hidden="true">{% for n in range(16) %}<li></li>{% endfor %}</ol>
-      <ul class="chain-validators" aria-hidden="true">{% for index in thing.validators.indices %}<li data-index="{{ index }}" title="Validator {{ index }}"></li>{% endfor %}</ul>
-      <p class="chain-summary" data-chain-summary aria-live="polite">Reading the chain.</p>
-      <p class="chain-duty" data-chain-duty></p>
-      <p class="muted chain-note">Your browser reads this from Gnosis Chain’s public beacon node once an epoch, every eighty seconds. A dot is lit when that validator’s balance rose over the last two epochs, which is what attesting earns.</p>
-    </div>
+    {#- A thing with a live panel (site/js/live/<id>.js) draws it here, from its markup in site/_includes/live/<id>.njk
+        and its styles in site/css/live/<id>.css. It stays hidden until its script runs. #}
+    {% set live = assets.live[thing.id] %}
+    {% if live %}
+    {% if live.css %}<link rel="stylesheet" href="{{ live.css }}" />{% endif %}
+    {% include "live/" + thing.id + ".njk" %}
     {% endif %}
   </section>
 
@@ -349,4 +343,4 @@ eleventyComputed:
   </div>
 </article>
 <script type="module" src="{{ assets.enhance }}"></script>
-{% if thing.validators %}<script type="module" src="{{ assets.chain }}"></script>{% endif %}
+{% if live %}<script type="module" src="{{ live.js }}"></script>{% endif %}

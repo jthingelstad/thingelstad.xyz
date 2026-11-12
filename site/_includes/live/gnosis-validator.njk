@@ -1,0 +1,15 @@
+{#- The Gnosis Validator's chain as it is now, read by the reader's browser (site/js/live/gnosis-validator.js). It has
+    nothing to show without a script, so it stays hidden until the script has the indices and the clock. The indices
+    are the record's (Jamie, 2026-11-12: "Approved: add a live beacon-chain panel to the Gnosis Validator page, with the
+    32 validator indices in the page source"). #}
+{% if thing.validators %}
+<div class="live-panel chain-live" id="chain-now" data-chain-live data-indices="{{ thing.validators.indices | join(' ') }}" hidden>
+  <h3>On the chain now</h3>
+  <p class="chain-clock"><span class="chain-slot" data-chain-slot></span> <span class="muted" data-chain-epoch></span></p>
+  <ol class="chain-epoch" aria-hidden="true">{% for n in range(16) %}<li></li>{% endfor %}</ol>
+  <ul class="chain-validators" aria-hidden="true">{% for index in thing.validators.indices %}<li data-index="{{ index }}" title="Validator {{ index }}"></li>{% endfor %}</ul>
+  <p class="chain-summary" data-chain-summary aria-live="polite">Reading the chain.</p>
+  <p class="chain-duty" data-chain-duty></p>
+  <p class="muted live-note">Your browser reads this from Gnosis Chain’s public beacon node once an epoch, every eighty seconds. A dot is lit when that validator’s balance rose over the last two epochs, which is what attesting earns.</p>
+</div>
+{% endif %}
