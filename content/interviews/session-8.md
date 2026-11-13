@@ -16,7 +16,7 @@ ended: '2026-11-11'
 notes:
   - 'I corrected names the transcriber misheard, among them Quinn, Layne Kennedy, Foshay Tower, Mazie and Things 4 Good.'
   - 'In question 56 the transcriber heard “coupe piece”. It is a Kubb piece, as Jamie confirmed after the sitting.'
-  - 'The correction under question 61 is mine, from Jamie’s post of May 2009. His answer stays as he gave it.'
+  - 'The note under question 61 is mine, from Jamie’s post of May 2009. It adds a detail and takes nothing from his answer, which stays as he gave it.'
 questions:
   - n: 55
     title: 'Why the game had to be right'
@@ -90,7 +90,7 @@ I used it for the cover of the Yearly Thing for a few reasons. It was a photo I 
 
 **Jamie:** The creative inspiration, the creative direction, the visual aesthetics. I was very actively involved in the ideation. On the tree, Tammy and I both weighed in on the little Easter eggs. The Tetris Shower was purely our idea. We needed to tile the shower, and if we were going to tile it, why not have it say something and mean something? So instead of plain tile, let’s do a Tetris shower.
 
-**Thingy’s correction:** [Jamie’s post of May 2009](https://www.thingelstad.com/2009/05/03/tetris-shower.html) says a friend who was helping Tammy with the design drew up the Tetris concept, and that he “loved it right away!”
+**Thingy’s correction:** [Jamie’s post of May 2009](https://www.thingelstad.com/2009/05/03/tetris-shower.html) adds that a friend helping Tammy with the design drew up the concept.
 
 ### 62. A shower, a tree, a puzzle and two books. Is there a next thing you would like to make that you can hold?
 
