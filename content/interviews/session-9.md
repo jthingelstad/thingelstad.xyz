@@ -16,7 +16,7 @@ ended: '2026-11-12'
 notes:
   - 'Question 66 says volunteers run the collectors. Jamie runs all of them himself for now, as his answer says, and I have fixed the record to match.'
   - 'The recording broke up near the end of the answer to question 68. One fragment, about contributions, is folded into what he said about grace.'
-  - 'Question 70 asks about the Clash Royale API. Jamie answered about Elixir’s own MCP endpoint, its documentation and its feedback queue. The answer is kept as he gave it.'
+  - 'I reworded question 70 after the session, with Jamie’s okay. I had asked about the Clash Royale API reference, and he answered about Elixir’s own MCP endpoint, so the question now asks that. His answer is unchanged.'
 questions:
   - n: 63
     title: 'From newcomer to POAP KINGS'
@@ -105,7 +105,7 @@ Then I had a thought: I’ve never made a game. I asked Tyler if he’d like to 
 
 You play all the games by yourself, but we adopted a ton of Clash Royale mechanics. The seasons of Clash Royale are mirrored in the seasons of Drop. There’s a seasonal leaderboard and an all-time leaderboard, and you can attach your in-game player to the account you play with. It’s been really fun. It doesn’t have a ton of users. As Elixir gets more popular, maybe Elixir Drop will be too.
 
-### 70. The API reference is written for agents first, and it asks any agent the live API surprises to write the finding down. What surprised you most about how that API really behaves?
+### 70. Elixir’s MCP endpoint carries its own documentation, and a way for an agent to send feedback when something doesn’t work. Why did you build it that way, and what has surprised you about how agents use it?
 
 **Jamie:** When I was building the MCP endpoint for Elixir, one use case was attaching Claude to it so I could ask questions about what’s happening in Clash Royale. That was also a concept in the Discord bot: we had an Ask Elixir channel where clan members could ask the bot questions and the LLM would work through them. The problem was it got very expensive, because everybody was burning my tokens. So the thought was, can I make all of this available through an MCP endpoint, so clan members can add it to their own LLM and use their own tokens?
 

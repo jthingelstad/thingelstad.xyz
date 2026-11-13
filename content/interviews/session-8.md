@@ -15,7 +15,7 @@ started: '2026-11-11'
 ended: '2026-11-11'
 notes:
   - 'I corrected names the transcriber misheard, among them Quinn, Layne Kennedy, Foshay Tower, Mazie and Things 4 Good.'
-  - 'In question 56 the transcriber heard “coupe piece”. I wrote Kubb piece.'
+  - 'In question 56 the transcriber heard “coupe piece”. It is a Kubb piece, as Jamie confirmed after the sitting.'
   - 'The correction under question 61 is mine, from Jamie’s post of May 2009. His answer stays as he gave it.'
 questions:
   - n: 55
