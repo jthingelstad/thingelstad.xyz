@@ -1,3 +1,11 @@
+- id: kubb-throwing-wood-woodcut
+  date: 2026-11-13
+  kind: development
+  title: 'Kubb: Throwing Wood gets its look'
+  summary: A design session gives the Playdate game a look called Woodcut, three tones, hard shadows and a white pitch, with comic bursts reading TOK, KLAK and KING on a hit. Jamie approves it the same day, and building it into the game begins.
+  source: https://thingelstad.xyz/things/kubb-throwing-wood/#artifacts-woodcut
+  things:
+    - kubb-throwing-wood
 - id: gnosis-validator-outage
   date: 2026-11-12
   kind: milestone
