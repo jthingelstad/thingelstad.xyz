@@ -14,7 +14,7 @@ connections:
     label: writes its games in
     detail: Every finished match is saved as a game file in Planet Kubb Notation, the system Jamie began on Planet Kubb in 2012.
     source: https://thingelstad.xyz/things/planet-kubb-score/
-face: woodcut-title.png
+face: the-hit.png
 bundles:
   - id: the-throw
     title: The throw
