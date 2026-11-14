@@ -33,8 +33,13 @@ connections:
     source: https://elixir.poapkings.com/updates/2026-10-02-clan-is-part-of-elixir
   - to: poap-kings
     label: runs the clans of
-    detail: POAP KINGS is the clan Elixir was first built for, and its leaders run it from Elixir’s Clan pages. The clan’s website links to Elixir and reads none of its data from it.
+    detail: POAP KINGS is the clan Elixir was first built for, and its leaders run it from Elixir’s Clan pages. The clan’s website read its roster from Elixir’s JSON API until November 13, 2026. It now links to Elixir and reads the game’s API itself.
     source: https://poapkings.com/elixir/
+artifacts:
+  - file: 'front-page-2026-10-20.jpg'
+    title: 'The front page before the turn'
+    caption: 'Elixir’s front page as captured on October 20, 2026, when it was a recorder: “Your Clash Royale, on the record,” with Console, Ladder and Clan across the top.'
+    date: '2026-10-20'
 story:
   color: '#8860d9'
   introduction: The game does the playing. Elixir is where friends see it.
@@ -80,7 +85,9 @@ The MCP endpoint carries its own documentation, and a feedback tool that an agen
 >
 > [Jamie, question 70](https://thingelstad.xyz/interviews/session-9/#q70)
 
-In the browser, Elixir is Home, Find, a [page for every player](https://elixir.poapkings.com/docs/player-page), and Clan. A new account follows nobody, so Home starts with [people a player probably knows](https://elixir.poapkings.com/updates/2026-11-13-people-you-know-start-your-feed): clanmates, 2v2 teammates, and anyone they played a friendly battle with. [Find opens the same way](https://elixir.poapkings.com/updates/2026-11-13-find-opens-on-suggested), each name with a line on why it is there, and nobody is followed until the player says so. Stats, which [was Ladder](https://elixir.poapkings.com/updates/2026-11-12-you-with-stats-a-fuller-bell-and-a-simpler-way-in), keeps a player’s own season.
+For its first ten weeks Elixir was a recorder first, and this page said so. It called Elixir a service that records Clash Royale history and serves it to players, clans, and their AI agents over MCP, and introduced it this way: the game remembers the present, Elixir remembers what happened. Its [front page](/things/elixir/artifacts/front-page-2026-10-20.jpg) read “Your Clash Royale, on the record.” In the browser it was the Console for a player’s own history and the [Ladder](https://elixir.poapkings.com/updates/2026-10-01-ladder-your-season-read-back) for a season read back one mode at a time, and the POAP KINGS website drew its roster from Elixir’s JSON API. All of that is in the record’s history below, and none of it is taken out.
+
+Today, in the browser, Elixir is Home, Find, a [page for every player](https://elixir.poapkings.com/docs/player-page), and Clan. A new account follows nobody, so Home starts with [people a player probably knows](https://elixir.poapkings.com/updates/2026-11-13-people-you-know-start-your-feed): clanmates, 2v2 teammates, and anyone they played a friendly battle with. [Find opens the same way](https://elixir.poapkings.com/updates/2026-11-13-find-opens-on-suggested), each name with a line on why it is there, and nobody is followed until the player says so. Stats, which [was Ladder](https://elixir.poapkings.com/updates/2026-11-12-you-with-stats-a-fuller-bell-and-a-simpler-way-in), keeps a player’s own season.
 
 Clan management runs in the same application, and Elixir Drop signs its players in with Elixir. Reading Elixir [takes a free account](https://elixir.poapkings.com/updates/2026-11-11-elixir-is-for-members), and a battle link someone shares opens for anyone. A player’s own AI agent reads the same record over MCP. Collectors do all of the fetching, and for now Jamie runs every one of them. The [updates feed](https://elixir.poapkings.com/updates) records every user-visible change.
 

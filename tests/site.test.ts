@@ -488,7 +488,7 @@ test('artifacts are published beside their thing, shown by an image where there 
   assert.equal(byFile.get('color-palette.ase')!.image, null, 'a file with no preview is a download only');
   for (const artifact of velo.artifacts)
     assert.equal(artifact.bytes, readFileSync(`content/artifacts/velotweets/${artifact.file}`).length);
-  assert.deepEqual(model.things.find((t) => t.id === 'elixir')!.artifacts, []);
+  assert.deepEqual(model.things.find((t) => t.id === 'elixir-drop')!.artifacts, []);
 
   const { frontmatter } = splitFrontmatter(thingMarkdown(velo), 'twin') as { frontmatter: Record<string, unknown> };
   const twinArtifacts = frontmatter.artifacts as Record<string, unknown>[];
@@ -500,7 +500,7 @@ test('artifacts are published beside their thing, shown by an image where there 
     preview: 'jerseys.png',
     url: `${siteUrl}/things/velotweets/artifacts/jerseys.zip`
   });
-  assert.ok(!thingMarkdown(model.things.find((t) => t.id === 'elixir')!).includes('artifacts:'));
+  assert.ok(!thingMarkdown(model.things.find((t) => t.id === 'elixir-drop')!).includes('artifacts:'));
   const json = thingsJson(model).things.find((t) => t.id === 'velotweets')!;
   assert.equal(json.artifacts?.[0].url, `${siteUrl}/things/velotweets/artifacts/masthead-logo.png`);
   assert.equal(json.artifacts?.[0].kind, 'PNG image');

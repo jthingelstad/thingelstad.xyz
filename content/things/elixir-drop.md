@@ -23,7 +23,7 @@ sources:
 connections:
   - to: elixir
     label: signs players in with
-    detail: Drop players sign in with their Elixir account. That is all Drop asks of Elixir, and it keeps the season clock itself.
+    detail: Drop players sign in with their Elixir account. Until November 2026 Drop also read its season clock from Elixir. It keeps the clock itself now, and sign-in is all it asks.
     source: https://elixir.poapkings.com/docs/sign-in-with-elixir
 story:
   color: '#6a4fc4'
