@@ -367,6 +367,14 @@
   things:
     - elixir-clan
     - elixir
+- id: elixir-social-layer
+  date: 2026-11-12
+  kind: milestone
+  title: Elixir becomes a social layer
+  summary: Home becomes one feed of the players and clan a person follows, with cheers on every item. The Console and Ladder fold into it.
+  source: https://elixir.poapkings.com/updates/2026-11-12-home-is-one-feed
+  things:
+    - elixir
 - id: elixir-ladder-launch
   date: 2026-10-01
   kind: launch
