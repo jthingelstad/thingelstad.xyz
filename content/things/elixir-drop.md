@@ -22,9 +22,9 @@ sources:
     feed: https://drop.poapkings.com/feed.xml
 connections:
   - to: elixir
-    label: signs players in and reads its season clock from
-    detail: Drop players sign in with their Elixir account, and Drop’s seasons follow the Clan Wars clock that Elixir records.
-    source: https://poapkings.com/elixir/
+    label: signs players in with
+    detail: Drop players sign in with their Elixir account. Until November 2026 Drop also read its season clock from Elixir. It keeps the clock itself now, and sign-in is all it asks.
+    source: https://elixir.poapkings.com/docs/sign-in-with-elixir
 story:
   color: '#6a4fc4'
   introduction: See a card, name its cost, get quicker.
