@@ -1,6 +1,6 @@
 ---
 title: 'Kubb: Throwing Wood'
-summary: 'A game of Kubb for the Playdate, thrown with the crank. Jamie began it in November 2026, and it is not published yet.'
+summary: 'A game of Kubb for the Playdate, thrown with the crank. Jamie began it in November 2026. It is not released; a test build is out for friends to try.'
 collection: Games
 status: active
 url: null
@@ -8,7 +8,10 @@ started: '2026-11-13'
 topics:
   - play
   - agents
-sources: []
+sources:
+  - kind: website
+    url: https://playdate.thingelstad.xyz/throwing-wood/
+    role: distribution
 connections:
   - to: planet-kubb-score
     label: writes its games in
@@ -27,13 +30,13 @@ bundles:
     caption: What a design session was asked on November 13, 2026, with the game playing and no look yet, and five more screens from that day’s build to set beside the ones above.
   - id: woodcut
     title: 'The look: Woodcut'
-    caption: The look the design session settled the same day, three tones, hard shadows and a white pitch. Jamie approved it that day, and it is being built into the game. The boards set their words in two web fonts that stand in, Londrina Solid and Space Grotesk; the game is to draw its own 1-bit fonts.
+    caption: The look the design session settled the same day, three tones, hard shadows and a white pitch. Jamie approved it that day, and the game is drawn in it now. The boards set their words in two web fonts that stand in, Londrina Solid and Space Grotesk; the game is to draw its own 1-bit fonts.
   - id: woodcut-screens
     title: Screens in the new look
     caption: The screens from the brief drawn again in Woodcut, at twice the Playdate’s size. They are mock-ups, not captures. ASH and BIRCH stand in for team names, which the game cannot take yet.
   - id: later-screens
     title: Later screens, sketched
-    caption: Parts of the game that are not built yet, sketched in the same session so the look is ready for them. The games, names and scores on them are made up.
+    caption: Parts of the game that were not built yet, sketched in the same session so the look was ready for them. The games, names and scores on them are made up.
   - id: launcher
     title: Launcher
     caption: How the game is to look on the Playdate’s home screen.
@@ -136,7 +139,7 @@ artifacts:
   - file: woodcut-title.png
     bundle: woodcut-screens
     title: The title
-    caption: The KUBB wordmark, its last B knocked over by a baton, above THROWING WOOD on a strip of grass. VS PLAYDATE and GAMES on the menu are for a computer opponent and saved games, which are still to come.
+    caption: The KUBB wordmark, its last B knocked over by a baton, above THROWING WOOD on a strip of grass. VS PLAYDATE and GAMES on the menu were for a computer opponent and saved games, which were still to come that day.
     date: '2026-11-13'
   - file: woodcut-aim.png
     bundle: woodcut-screens
@@ -186,7 +189,7 @@ artifacts:
   - file: woodcut-winner.png
     bundle: woodcut-screens
     title: The winner
-    caption: ASH WINS, with the turns, the minutes and the hit rate, and a broken king in a burst. Its SAVED TO GAMES line is for saved games, which are still to come.
+    caption: ASH WINS, with the turns, the minutes and the hit rate, and a broken king in a burst. Its SAVED TO GAMES line was for saved games, which were still to come that day.
     date: '2026-11-13'
   - file: sketch-raising.png
     bundle: later-screens
@@ -220,12 +223,12 @@ artifacts:
     date: '2026-11-13'
 ---
 
-Kubb: Throwing Wood is a game of [Kubb](/things/planet-kubb/) for the [Playdate](https://play.date/), the small yellow handheld with a crank on its side. The crank is the throwing arm. Turned back past the bottom of its turn it winds up, and flicked forward it throws, with the speed of the flick and the length of the backswing setting the power. The d-pad walks the thrower along the line, B and the crank turn them left and right, and A and the crank set the loft.
+Kubb: Throwing Wood is a game of [Kubb](/things/planet-kubb/) for the [Playdate](https://play.date/), the small yellow handheld with a crank on its side. The crank is the throwing arm, read as a clock. Pulled back up the left side it sets the power, about 4 meters at 9 o’clock and 8 at 10; swung forward, where it stops sets the arc, 3 o’clock for a base kubb and half past 3 for the king. The d-pad moves a target circle over the far half, A and the d-pad walk the thrower, and B plans the arc and a baton’s tilt or a drilled kubb’s spin. A player who never touches A or B can just point and throw.
 
 The pitch is five meters by eight, drawn in the Playdate’s black and white from behind the thrower. Batons, kubbs, the king and the six corner and midline stakes are solid bodies, so a baton tumbles, skids, glances off a stake, and knocks a kubb into its neighbour. A baton thrown side-on is a helicopter, and it does not count.
 
-A match is two teams passing one Playdate, played to the U.S. Championship rules with a 2-4-6 opening: kubbs tossed back in, field kubbs before base kubbs, the advantage line, and the king last. Each finished match is saved as a game file in [Planet Kubb Notation](/things/planet-kubb-score/).
+A match is played to the U.S. Championship rules with a 2-4-6 opening: kubbs tossed back in, field kubbs before base kubbs, the advantage line, and the king last. It is played against the Playdate, which throws the same way and shows its swing on the clock, or by two teams of one to six passing one Playdate. Saved players each keep a Throw level (Beginner, Club or Pro) and a history, and Practice has seven drills, from 8 METERS to THE WALL. Each finished match is saved as a game file in [Planet Kubb Notation](/things/planet-kubb-score/).
 
-Jamie began it on November 13, 2026. Claude writes the code, in Lua, and Jamie plays each build on his Playdate and says what is wrong with it. It is not published yet.
+Jamie began it on November 13, 2026. Claude writes the code, in Lua, and Jamie plays each build on his Playdate and says what is wrong with it. On November 14 a first test build went out for friends to sideload, from [its page on playdate.thingelstad.xyz](https://playdate.thingelstad.xyz/throwing-wood/), and after a play test the next day the throw was rebuilt as the clock. Version 0.9.5, also on November 15, is the release candidate for 1.0.0, with HOW TO PLAY and HOW TO THROW to teach a new player. It is not released.
 
-The same day, a design session gave it a look called [Woodcut](#artifacts-woodcut): three tones, hard shadows and a white pitch, with TOK, KLAK and KING bursting off the wood. Jamie approved it, and it is being built into the game.
+On the first day, a design session gave it a look called [Woodcut](#artifacts-woodcut): three tones, hard shadows and a white pitch, with TOK, KLAK and KING bursting off the wood. Jamie approved it, and the game’s title, cards, launcher and pitch are drawn in it now.

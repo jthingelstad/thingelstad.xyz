@@ -1,3 +1,19 @@
+- id: kubb-throwing-wood-release-candidate
+  date: 2026-11-15
+  kind: milestone
+  title: 'Kubb: Throwing Wood’s release candidate'
+  summary: Version 0.9.5 goes up for friends as the release candidate for 1.0.0, with a throw rebuilt that day to read the crank as a clock, and HOW TO PLAY and HOW TO THROW to teach a new player.
+  source: https://playdate.thingelstad.xyz/throwing-wood/
+  things:
+    - kubb-throwing-wood
+- id: kubb-throwing-wood-first-test-build
+  date: 2026-11-14
+  kind: milestone
+  title: 'Kubb: Throwing Wood goes out to friends'
+  summary: The day after it was begun, a first test build of the Playdate game goes up on playdate.thingelstad.xyz for friends to sideload. It is not a release.
+  source: https://playdate.thingelstad.xyz/throwing-wood/
+  things:
+    - kubb-throwing-wood
 - id: kubb-throwing-wood-woodcut
   date: 2026-11-13
   kind: development
