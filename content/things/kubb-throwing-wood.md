@@ -19,12 +19,9 @@ connections:
     source: https://thingelstad.xyz/things/planet-kubb-score/
 face: the-hit.png
 bundles:
-  - id: in-play
-    title: In play
-    caption: Twenty-six seconds of 0.9.5 in the Playdate Simulator, filmed frame by frame from the game’s own scripted tests on November 15, 2026, and played back at the speed the game shows them.
   - id: release-candidate
     title: '0.9.5, the release candidate'
-    caption: The build that went up on November 15, 2026 for anyone to sideload, two days after the first line of code, as the game’s Simulator tests drew it at twice the Playdate’s size. The names on the teams and players are the tests’ own.
+    caption: The build that went up on November 15, 2026 for anyone to sideload, two days after the first line of code, as the game’s Simulator tests drew it at twice the Playdate’s size, with twenty-six seconds of it in play, filmed frame by frame from the same tests. The names on the teams and players are the tests’ own.
   - id: the-throw
     title: The throw
     caption: One baton from wind-up to wood, on the practice pitch, as the Playdate Simulator drew it on November 13, 2026, the first day of building.
@@ -47,15 +44,15 @@ bundles:
     title: Launcher
     caption: How the game is to look on the Playdate’s home screen.
 artifacts:
-  - file: gameplay.gif
-    bundle: in-play
-    title: Two dozen seconds of play
-    caption: 'In order: the title, the first card of HOW TO PLAY, the hand-off before a match, a baton wound up on the crank and stopped at 3 o’clock for TOK!, two field kubbs taken with one baton for KLAK!, a drilled kubb with a tap of spin rolling to rest by its circle, a shot at the king, and the winner card.'
-    date: '2026-11-15'
   - file: rc-title.png
     bundle: release-candidate
     title: The title
     caption: VS PLAYDATE, PASS + PLAY, PRACTICE and PLAYERS, and a line for anyone new pointing at HOW TO PLAY.
+    date: '2026-11-15'
+  - file: gameplay.gif
+    bundle: release-candidate
+    title: Two dozen seconds of play
+    caption: 'In order: the title, the first card of HOW TO PLAY, the hand-off before a match, a baton wound up on the crank and stopped at 3 o’clock for TOK!, two field kubbs taken with one baton for KLAK!, a drilled kubb with a tap of spin rolling to rest by its circle, a shot at the king, and the winner card.'
     date: '2026-11-15'
   - file: rc-how-to-play.png
     bundle: release-candidate
