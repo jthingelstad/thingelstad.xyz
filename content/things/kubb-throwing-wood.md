@@ -22,6 +22,9 @@ bundles:
   - id: release-candidate
     title: '0.9.5, the release candidate'
     caption: The build that went up on November 15, 2026 for anyone to sideload, two days after the first line of code, as the game’s Simulator tests drew it at twice the Playdate’s size, with twenty-six seconds of it in play, filmed frame by frame from the same tests. The names on the teams and players are the tests’ own.
+  - id: real-games
+    title: Tuned against real games
+    caption: The counts behind the computer’s throwing, from November 16, 2026. Each sets 150 recorded tournament games beside 150 matches the game played against itself with its full physics, both read from their game files and counted the same way.
   - id: the-throw
     title: The throw
     caption: One baton from wind-up to wood, on the practice pitch, as the Playdate Simulator drew it on November 13, 2026, the first day of building.
@@ -129,6 +132,16 @@ artifacts:
     title: The Playdate wins
     caption: The end of a test match against the computer, fifteen turns long. Every finished game is saved as a score sheet.
     date: '2026-11-15'
+  - file: real-games-before.txt
+    bundle: real-games
+    title: The first count
+    caption: Before anything was changed. With a field kubb standing, tournament players took two with one baton 16.0 percent of the time and three or more 10.0 percent; the computer 6.8 and 0.4. Its games ran 21.9 turns to their 8.9, and it toppled the king with 46 percent of its shots to their 84.
+    date: '2026-11-16'
+  - file: real-games-after.txt
+    bundle: real-games
+    title: The count after the tight groups
+    caption: The same 150 recorded games beside 150 new matches, once the computer drilled its kubbs beside one another and threw down the line of them. Two with one baton 18.4 percent, three or more 3.4, the field cleared in 69.6 percent of turns where it had been 46, and 14.6 turns a game. Kubbs thrown a second time are still 0.4 percent to the tournaments’ 14.1.
+    date: '2026-11-16'
   - file: wind-up.png
     bundle: the-throw
     title: The wind-up
@@ -318,5 +331,9 @@ The pitch is five meters by eight, drawn in the Playdate’s black and white fro
 A match is played to the U.S. Championship rules with a 2-4-6 opening: kubbs tossed back in, field kubbs before base kubbs, the advantage line, and the king last. It is played against the Playdate, which throws the same way and shows its swing on the clock, or by two teams of one to six passing one Playdate. Saved players each keep a Throw level (Beginner, Club or Pro) and a history, and Practice has seven drills, from 8 METERS to THE WALL. Each finished match is saved as a game file in [Planet Kubb Notation](/things/planet-kubb-score/).
 
 Jamie began it on November 13, 2026. Claude writes the code, in Lua, and Jamie plays each build on his Playdate and says what is wrong with it. On November 14 a first test build went out for friends to sideload, from [its page on playdate.thingelstad.xyz](https://playdate.thingelstad.xyz/throwing-wood/), and after a play test the next day the throw was rebuilt as the clock. Version 0.9.5, also on November 15, is the release candidate for 1.0.0, with HOW TO PLAY and HOW TO THROW to teach a new player. It is not released.
+
+The computer’s throwing is tuned against real play. The 150 games recorded in [Planet Kubb Notation](/things/planet-kubb-score/) were all played at tournaments, many of them late in a bracket, so they show what club players and better do with a baton. A tool in the game’s repository reads those game files and 150 matches the game plays against itself, and counts both the same way: how often a baton misses, takes one field kubb, two, or three and more, how often a turn clears the field, and how often the king falls.
+
+The [first count](#artifact-real-games-before.txt), on November 16, 2026, showed where the game and the tournaments parted. With a field kubb standing, tournament players took two or more with one baton 26 times in 100; the computer 7, and its games ran 22 turns to their 9. A steadier arm did not close the gap. The cause was in how it threw its kubbs back in: every one was drilled at the same mark, came down on the kubb already lying there and skipped about a meter off, so its field kubbs stood 39 centimeters apart on average. A baton takes two kubbs when they stand close, one behind the other. So the computer now drills each kubb into the clear spot beside the last, in a line along the throw, and aims its batons down the line with the most kubbs in it. In [the count after](#artifact-real-games-after.txt) it takes two or more 22 times in 100, clears the field in 70 turns of 100 where it had cleared 46, and a game runs about 15 turns. Three with one baton is still rare for it, 3 in 100 to the tournaments’ 10, and it almost never has to throw a kubb a second time, which tournament players do with one kubb in seven. Both are written down as what to work on next. The same throwing is in [the game on the web](/things/kubb-throwing-wood-web/).
 
 On the first day, a design session gave it a look called [Woodcut](#artifacts-woodcut): three tones, hard shadows and a white pitch, with TOK, KLAK and KING bursting off the wood. Jamie approved it, and the game’s title, cards, launcher and pitch are drawn in it now.

@@ -1,0 +1,57 @@
+                                                      real games             the game
+
+Games
+  games read                                                 150                  150
+  turns a game (mean)                                        8.9                 21.9
+  turns a game (median)                                        8                   19
+  won by the team that threw first                         55.3%                52.7%
+  ended on the king                                       100.0%                80.0%
+  batons thrown                                             7858                18584
+  batons that took a kubb                                  58.3%                60.4%
+  illegal throws                                            0.0%                 0.9%
+
+Batons at field kubbs (a field kubb standing when thrown)
+  batons                                                    4443                15638
+  missed                                                   24.7%                36.5%
+  took one kubb                                            49.4%                56.3%
+  took two                                                 16.0%                 6.8%
+  took three or more                                       10.0%                 0.4%
+  of those that hit: two or more                           34.4%                11.3%
+  field kubbs a baton                                       1.16                 0.71
+  most kubbs with one baton                                    7                    4
+  base kubbs credited to those batons, a baton             0.002                0.000
+
+Clearing the field (turns that began with field kubbs)
+  turns                                                     1165                 3085
+  cleared every field kubb                                 83.4%                45.7%
+  batons to clear, when cleared                             3.38                 4.19
+    1 field kubb: cleared, batons (turns)      98.5% in 1.7 (67)  100.0% in 1.4 (130)
+    2 field kubbs: cleared, batons (turns)    96.0% in 2.5 (150)   97.5% in 3.0 (239)
+    3 field kubbs: cleared, batons (turns)    92.0% in 3.1 (174)   85.9% in 4.1 (390)
+    4 field kubbs: cleared, batons (turns)    88.1% in 3.4 (193)   62.0% in 4.8 (508)
+    5 field kubbs: cleared, batons (turns)    84.5% in 3.6 (155)   40.2% in 5.2 (605)
+    6 field kubbs: cleared, batons (turns)    78.6% in 4.2 (173)   21.9% in 5.6 (512)
+    7 field kubbs: cleared, batons (turns)    72.2% in 4.3 (108)    9.0% in 5.6 (378)
+    8 field kubbs: cleared, batons (turns)     67.6% in 4.1 (71)    3.7% in 5.7 (190)
+    9 field kubbs: cleared, batons (turns)     55.4% in 4.8 (56)    1.0% in 6.0 (105)
+    10 field kubbs: cleared, batons (turns)    47.1% in 4.6 (17)     3.6% in 6.0 (28)
+    11 field kubbs: cleared, batons (turns)        0.0% in - (1)                    -
+  turns thrown from an advantage line                      14.4%                50.0%
+
+Batons at base kubbs (no field kubb standing)
+  batons                                                    3231                 2521
+  took a base kubb                                         34.8%                44.9%
+    from the baseline (8 m)                         32.7% (2875)         41.4% (1801)
+    from an advantage line                           51.7% (356)          53.9% (720)
+  took two base kubbs                                       0.0%                 0.0%
+
+The king
+  king shots                                                 179                  259
+  toppled the king                                         83.8%                46.3%
+
+Throwing kubbs in
+  kubbs thrown in (I)                                       5319                11786
+  rethrown (R) per kubb thrown in                          14.1%                 2.5%
+  punishment kubbs (P) per kubb thrown in                   1.3%                 0.1%
+  rescues (Q) per kubb thrown in                            0.1%                 0.0%
+  came to rest on another (N) per kubb                      0.0%                 0.0%
