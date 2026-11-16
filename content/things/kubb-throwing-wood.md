@@ -19,6 +19,9 @@ connections:
     source: https://thingelstad.xyz/things/planet-kubb-score/
 face: the-hit.png
 bundles:
+  - id: release-candidate
+    title: '0.9.5, the release candidate'
+    caption: The build that went up on November 15, 2026 for anyone to sideload, two days after the first line of code, as the game’s Simulator tests drew it at twice the Playdate’s size, with twenty-six seconds of it in play, filmed frame by frame from the same tests. The names on the teams and players are the tests’ own.
   - id: the-throw
     title: The throw
     caption: One baton from wind-up to wood, on the practice pitch, as the Playdate Simulator drew it on November 13, 2026, the first day of building.
@@ -41,6 +44,91 @@ bundles:
     title: Launcher
     caption: How the game is to look on the Playdate’s home screen.
 artifacts:
+  - file: rc-title.png
+    bundle: release-candidate
+    title: The title
+    caption: VS PLAYDATE, PASS + PLAY, PRACTICE and PLAYERS, and a line for anyone new pointing at HOW TO PLAY.
+    date: '2026-11-15'
+  - file: gameplay.gif
+    bundle: release-candidate
+    title: Two dozen seconds of play
+    caption: 'In order: the title, the first card of HOW TO PLAY, the hand-off before a match, a baton wound up on the crank and stopped at 3 o’clock for TOK!, two field kubbs taken with one baton for KLAK!, a drilled kubb with a tap of spin rolling to rest by its circle, a shot at the king, and the winner card.'
+    date: '2026-11-15'
+  - file: rc-how-to-play.png
+    bundle: release-candidate
+    title: HOW TO PLAY
+    caption: The first of six cards on the rules for someone who has never played, from the pitch to the king. The last one leads into HOW TO THROW.
+    date: '2026-11-15'
+  - file: rc-how-to-throw.png
+    bundle: release-candidate
+    title: HOW TO THROW
+    caption: 'The second of eight steps, played on the practice pitch with the real crank: the circle already sits on a kubb, so wind back into the left mark, flick, and stop at 3.'
+    date: '2026-11-15'
+  - file: rc-aim.png
+    bundle: release-candidate
+    title: The crank as a clock
+    caption: The dial bottom right is the crank. The marks on it are this throw’s targets, the backswing on the left and the stop on the right, and they move when the circle or the thrower does.
+    date: '2026-11-15'
+  - file: rc-plan-view.png
+    bundle: release-candidate
+    title: Planning with B
+    caption: While B is held the camera swings out over the thrower’s shoulder to show the arc, and the d-pad changes it. Let go and it swings back.
+    date: '2026-11-15'
+  - file: rc-verdicts.png
+    bundle: release-candidate
+    title: The verdicts
+    caption: 'After a throw, a word each for the power, the release and the steadiness of the flick: ON, ON, STEADY, and one base kubb down.'
+    date: '2026-11-15'
+  - file: rc-two-at-once.png
+    bundle: release-candidate
+    title: Two at once
+    caption: KLAK! as one baton takes two field kubbs standing side by side.
+    date: '2026-11-15'
+  - file: rc-drill.png
+    bundle: release-candidate
+    title: A drilled kubb
+    caption: Kubbs are thrown back in nose down and spinning, the way drillers throw them. This one came to rest 12 centimeters from its circle.
+    date: '2026-11-15'
+  - file: rc-playdate-turn.png
+    bundle: release-candidate
+    title: The Playdate’s turn
+    caption: In VS PLAYDATE the computer throws the same way a player does, and its arm swings on the dial while WATCH is up.
+    date: '2026-11-15'
+  - file: rc-wind.png
+    bundle: release-candidate
+    title: Wind
+    caption: An arrow on the minimap and its speed in meters a second. Wind pushes batons and kubbs while they are in the air.
+    date: '2026-11-15'
+  - file: rc-kubb-set.png
+    bundle: release-candidate
+    title: A painted set
+    caption: The USA set up close. Only the heads and the king’s crown are painted, so a far kubb reads the same in any set.
+    date: '2026-11-15'
+  - file: rc-practice.png
+    bundle: release-candidate
+    title: Practice
+    caption: Seven drills, from 8 METERS to THE WALL, each with its best, its last ten runs and its hit rate, for whoever is practising.
+    date: '2026-11-15'
+  - file: rc-teams.png
+    bundle: release-candidate
+    title: Teams
+    caption: Up to six a side, from saved players or guests, and the order they throw in.
+    date: '2026-11-15'
+  - file: rc-player.png
+    bundle: release-candidate
+    title: A player
+    caption: Each saved player keeps a Throw level, Beginner, Club or Pro, and their own games and drill bests.
+    date: '2026-11-15'
+  - file: rc-hand-off.png
+    bundle: release-candidate
+    title: The hand-off
+    caption: Who takes the Playdate next, what the other team just took, and the kubbs to throw in before six batons.
+    date: '2026-11-15'
+  - file: rc-winner.png
+    bundle: release-candidate
+    title: The Playdate wins
+    caption: The end of a test match against the computer, fifteen turns long. Every finished game is saved as a score sheet.
+    date: '2026-11-15'
   - file: wind-up.png
     bundle: the-throw
     title: The wind-up
