@@ -83,11 +83,46 @@ function parseToken(raw, phase) {
   return null;
 }
 
+// ---------- positions ----------
+
+// Optional positions on the pitch, written as a comment that starts with @
+// after the action they describe: 2I (@ b6 c7), 2F (@ b6 c7), B (@ ^c1 d8).
+// The pitch is seen from Team A's baseline all game: a to e across from the
+// left sideline, 1 to 8 up from Team A's baseline, 1 m a square; or exact
+// meters across and up (1.32,5.87). ^ marks where the thrower stood. Returns
+// [{ raw, thrower, square, x, y }], or null when anything in it is not a
+// position (the comment is then an ordinary comment).
+export function parsePositions(text) {
+  const out = [];
+  for (const raw of text.trim().split(/\s+/)) {
+    const m = raw.match(/^(\^?)(?:([a-e])([1-8])|(\d+(?:\.\d+)?),(\d+(?:\.\d+)?))$/i);
+    if (!m) return null;
+    if (m[2]) {
+      out.push({ raw, thrower: !!m[1], square: m[2].toLowerCase() + m[3],
+        x: 'abcde'.indexOf(m[2].toLowerCase()) + 0.5, y: +m[3] - 0.5 });
+    } else out.push({ raw, thrower: !!m[1], square: null, x: +m[4], y: +m[5] });
+  }
+  return out.length ? out : null;
+}
+
+function checkPositions(t, warnings) {
+  const where = t.at.filter(p => !p.thrower);
+  if (t.at.length - where.length > 1) warnings.push(`"${t.raw}" has more than one thrower position (^).`);
+  for (const p of t.at) {
+    if (p.x > 5 || p.y > 8) warnings.push(`Position ${p.raw} is off the pitch (5 m across, 8 m up).`);
+  }
+  let most = null;
+  if (t.type === 'inkast') most = t.I + t.R + t.P + t.Y + t.Q + t.N;
+  else if (t.kind === 'hit') most = (t.f || 0) + (t.b || 0);
+  if (most !== null && where.length > most) warnings.push(`"${t.raw}" has ${where.length} positions for ${most} ${most === 1 ? 'kubb' : 'kubbs'}.`);
+}
+
 // ---------- lines ----------
 
 function parseTurnLine(line, lineNo) {
   const turn = { line: lineNo, source: line, n: null, inkasts: [], advantage: null,
     batons: [], note: '', comments: [], warnings: [] };
+  const places = [];
   let body = '';
   let depth = 0, comment = '';
   for (let i = 0; i < line.length; i++) {
@@ -95,7 +130,17 @@ function parseTurnLine(line, lineNo) {
     if (depth === 0 && c === '#') { turn.note = line.slice(i + 1).trim(); break; }
     if (c === '(') { if (depth++ > 0) comment += c; continue; }
     if (c === ')' && depth > 0) {
-      if (--depth === 0) { turn.comments.push(comment.trim()); comment = ''; body += ' '; }
+      if (--depth === 0) {
+        // (@ b6 c7): positions for the action just before it; see parsePositions
+        const at = comment.startsWith('@') ? parsePositions(comment.slice(1)) : null;
+        if (at) { places.push(at); body += ` @${places.length - 1} `; }
+        else {
+          if (comment.startsWith('@')) turn.warnings.push(`Couldn't read the positions in "(${comment})"; kept it as a comment.`);
+          turn.comments.push(comment.trim());
+          body += ' ';
+        }
+        comment = '';
+      }
       else comment += c;
       continue;
     }
@@ -105,10 +150,19 @@ function parseTurnLine(line, lineNo) {
   const m = body.match(/^\s*(\d+)\.(.*)$/);
   if (m) { turn.n = +m[1]; body = m[2]; }
   let phase = 'inkast';
+  let last = null;
   for (const raw of body.split(/[\s,\/]+/).filter(Boolean)) {
+    if (raw[0] === '@' && places[+raw.slice(1)]) {
+      const at = places[+raw.slice(1)];
+      if (!last || last.type === 'advantage') turn.warnings.push(`Positions "(@ ${at.map(p => p.raw).join(' ')})" follow no kubbs or baton; ignored them.`);
+      else if (last.at) turn.warnings.push(`Positions given twice for "${last.raw}"; kept the first.`);
+      else { last.at = at; checkPositions(last, turn.warnings); }
+      continue;
+    }
     const t = parseToken(raw, phase);
     if (!t) { turn.warnings.push(`Couldn't read "${raw}"; ignored it.`); continue; }
     if (t.fixed) turn.warnings.push(`Read "${raw}" as ${raw.replace(/-$/, '')}.`);
+    last = t;
     if (t.type === 'inkast') turn.inkasts.push(t);
     else if (t.type === 'advantage') {
       if (t.late) turn.warnings.push(`The advantage marker "${raw}" belongs before the batons.`);
