@@ -1,3 +1,12 @@
+- id: kubb-throwing-wood-web-launch
+  date: 2026-11-15
+  kind: launch
+  title: 'Kubb: Throwing Wood on the web'
+  summary: The Playdate game goes live in a web browser at kubb.thingelstad.xyz, built by Claude in one day, with its own Lua core in WebAssembly, a dial for the crank, and friends joining a match at a link.
+  source: https://kubb.thingelstad.xyz/
+  things:
+    - kubb-throwing-wood-web
+    - kubb-throwing-wood
 - id: kubb-throwing-wood-release-candidate
   date: 2026-11-15
   kind: milestone
