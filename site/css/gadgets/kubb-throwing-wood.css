@@ -1,0 +1,16 @@
+/* Kubb: Throwing Wood's gadget: the game's embed at its own 16 by 10, never narrower than the 300 by 188 it needs. */
+.kubb-replay-frame {
+  aspect-ratio: 16 / 10;
+  min-height: 188px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--soft);
+}
+
+.kubb-replay-frame iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
