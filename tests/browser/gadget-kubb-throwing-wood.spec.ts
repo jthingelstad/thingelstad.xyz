@@ -4,9 +4,9 @@ import { fitsViewport, offline, watchErrors } from './helpers';
 test.beforeEach(({ page }) => offline(page));
 
 // Kubb: Throwing Wood's gadget frames one kept match from the game on the web (site/js/gadgets/kubb-throwing-wood.js).
-// Tests never reach kubb.thingelstad.xyz: answered here with a stand-in page, the frame goes in once the gadget nears
+// Tests never reach throwingwood.com: answered here with a stand-in page, the frame goes in once the gadget nears
 // the screen; blocked, the gadget says the replay could not be reached, in place of the frame, and keeps its link.
-const embed = 'https://kubb.thingelstad.xyz/e/4pqpg9bs';
+const embed = 'https://throwingwood.com/e/4pqpg9bs';
 
 test('the Kubb gadget places the game’s embed only once it nears the screen', async ({ page }) => {
   const errors = watchErrors(page);
@@ -40,12 +40,12 @@ test('the Kubb gadget says so and keeps its link when the embed cannot be reache
   await gadget.scrollIntoViewIfNeeded();
   await expect(gadget).toBeVisible();
   await expect(gadget.locator('[data-kubb-replay-status]')).toHaveText(
-    'The replay could not be reached just now. The link below opens it on kubb.thingelstad.xyz.'
+    'The replay could not be reached just now. The link below opens it on throwingwood.com.'
   );
   await expect(gadget.locator('iframe')).toHaveCount(0);
   await expect(gadget.locator('[data-kubb-replay-frame]')).toBeHidden();
   await expect(gadget.locator('[data-kubb-replay-how]')).toBeHidden();
-  await expect(gadget.getByRole('link', { name: 'Open it on kubb.thingelstad.xyz' })).toBeVisible();
+  await expect(gadget.getByRole('link', { name: 'Open it on throwingwood.com' })).toBeVisible();
   expect(await fitsViewport(page)).toBe(true);
   expect(errors).toEqual([]);
 });
