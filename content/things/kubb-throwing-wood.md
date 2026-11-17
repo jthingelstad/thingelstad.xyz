@@ -34,6 +34,9 @@ bundles:
   - id: three-checks
     title: Three checks on the physics
     caption: The tools built on November 16, 2026 to check the physics without waiting for play tests, and what each found that evening. The charts were drawn for this page from their reports, which are here as they came out.
+  - id: night-fixes
+    title: What the fixes did
+    caption: The physics fixes made in the night of November 16 to 17, 2026, measured by the same three checks before and after. The charts were drawn for this page from the tools’ output on the game’s main branch and from the figures its notes keep.
   - id: the-throw
     title: The throw
     caption: One baton from wind-up to wood, on the practice pitch, as the Playdate Simulator drew it on November 13, 2026, the first day of building.
@@ -161,6 +164,16 @@ artifacts:
     title: The three counts side by side
     caption: Tournament play in blue, the first count in gray and the evening’s count in orange, from the first count and the count that evening.
     date: '2026-11-16'
+  - file: real-games-night.txt
+    bundle: real-games
+    title: The count after the night’s fixes
+    caption: The same count on November 17, once the physics fixes below had gone in. A game runs 19.1 turns, the king falls to 96.6 shots in 100, and batons at field kubbs miss 17.9 percent of the time. Two with one baton is 6.3 percent to the tournaments’ 16.0, and three or more 0.2 to their 10.0.
+    date: '2026-11-17'
+  - file: physics-real-games-night.png
+    bundle: real-games
+    title: The evening and the night, side by side
+    caption: Tournament play in blue, the evening’s count in gray and the count after the night’s fixes in orange. Misses moved toward the tournaments; batons that take two or more moved away from them.
+    date: '2026-11-17'
   - file: replay-embed.png
     bundle: a-missed-kubb
     title: The match, replayed
@@ -211,6 +224,31 @@ artifacts:
     title: Real throws, measured from video
     caption: 22 throws from six public Kubb videos, each measured frame by frame and linked to its moment in the video. Fourteen drilled kubbs, five batons and three chains of falling kubbs, with how each landed, bounced and came to rest.
     date: '2026-11-16'
+  - file: physics-drill-run-on.png
+    bundle: night-fixes
+    title: A drilled kubb, against real drills
+    caption: How far a drilled kubb runs on over grass after it first touches, against 119 drills measured from public tournament video. With friction in the bounce the game’s median went from 88 to 68 centimeters, and the drills that stop within 30 centimeters from 4 in 100 to 19. Real ones run on a median of 22.
+    date: '2026-11-17'
+  - file: physics-row.png
+    bundle: night-fixes
+    title: One baton into a row of touching kubbs
+    caption: The friction took the row of four from 16 hits in 100 felling all of it to none, because the push stopped at the second kubb. Letting the bounce carry along the row brought it to 35, inside what the video shows. On the same 60 throws MuJoCo fells one or more every time, and so does the game again.
+    date: '2026-11-17'
+  - file: physics-mjref.png
+    bundle: night-fixes
+    title: MuJoCo, before and after
+    caption: How far the game strays from MuJoCo for each kind of case, before the friction in the bounce and after the night’s last fix. A baton at the king went from 0.158 to 0.029. A dropped kubb is the one that moved away, 0.083 to 0.104, because it now bounces a little more than MuJoCo’s, which does not bounce at all. A baton’s flight, fixed earlier that night, went from 0.54 at most to 0.05.
+    date: '2026-11-17'
+  - file: physics-fuzz-now.png
+    bundle: night-fixes
+    title: The fuzzer, after
+    caption: The fuzzer on the game’s main branch on November 17, against its evening run. A baton sinking into a kubb or the king fell from 4.75 throws in 100 to 0.71, once a baton lying along a face or edge met it along its length. A piece that never rests fell from 1.19 to 0.19, once a kubb lying on another could sleep. The two step rates now disagree a little more often.
+    date: '2026-11-17'
+  - file: physics-device.png
+    bundle: night-fixes
+    title: Frames a second on the Playdate
+    caption: The game’s own bench on a Playdate, before the friction and the row fix and after them. Aiming 28.5 frames a second, a baton in flight 26.8 and the impact 31.4, the same as before or a little faster. The physics took 3.82 milliseconds a step over the bench’s match, from 3.84.
+    date: '2026-11-17'
   - file: wind-up.png
     bundle: the-throw
     title: The wind-up
@@ -411,6 +449,14 @@ On November 16 a tester sent a report from inside the web version: six batons at
 
 Play tests find problems slowly and at random, so that evening three checks were built that need no player. A fuzzer throws thousands of random batons and kubbs at random layouts and holds each throw to rules any physics has to keep: energy never rises by itself, pieces never pass into one another, everything comes to rest, a mirrored throw lands mirrored, and a smaller time step changes nothing that matters. A second engine, [MuJoCo](https://mujoco.org/), built for research and robotics, runs 1,063 small cases beside the game’s own, from a baton landing on grass to a row of kubbs falling like dominoes. And 22 throws from six public Kubb videos were [measured frame by frame](#artifact-real-clips.json): how a drilled kubb lands and rolls, how a struck kubb falls, how far a row goes down.
 
-The three agree. MuJoCo and the videos both say pieces slide too far once they land or are struck. A baton landing at a low angle keeps about three quarters of its speed along the ground in the game and about four tenths in MuJoCo, and the game’s drilled kubbs run on more than half a meter on grass where real ones stop within about 30 centimeters. MuJoCo also showed the cause: friction is missing from part of each impact. The fuzzer’s largest finding is a different one. In nearly 5 throws of 100 a baton sinks into a kubb or the king for a moment, up to 66 millimeters into the king. Fixes for each are under way, one change at a time.
+The three agree. MuJoCo and the videos both say pieces slide too far once they land or are struck. A baton landing at a low angle keeps about three quarters of its speed along the ground in the game and about four tenths in MuJoCo, and the game’s drilled kubbs run on more than half a meter on grass where real ones stop within about 30 centimeters. MuJoCo also showed the cause: friction is missing from part of each impact. The fuzzer’s largest finding is a different one. In nearly 5 throws of 100 a baton sinks into a kubb or the king for a moment, up to 66 millimeters into the king. Fixes for each went in that night, one change at a time.
+
+Each fix was measured by all three checks before it went in. A body in the air now moves as the equations of motion say, so a throw lands within a few millimeters of where MuJoCo puts it, where it had come down 2 to 3 centimeters short. A drilled kubb’s turn in the air is worked out in four smaller steps. A baton lying along a kubb’s face or edge now meets it along its length, not at one point, which took the fuzzer’s largest finding from nearly 5 throws in 100 to under 1. A kubb lying on another kubb can now come to rest. And an impact’s friction is now part of its bounce, which was MuJoCo’s finding.
+
+The friction did what MuJoCo said it would. A baton landing on grass keeps about half its speed along the ground, and [a drilled kubb runs on less](#artifact-physics-drill-run-on.png): a median of 68 centimeters on grass where it had been 88, with 19 drills in 100 stopping within 30 centimeters where 4 had. Real drills run on a median of 22, so about a third of the gap is closed. It also broke something. One baton into four kubbs standing face to face had felled all four in 16 hits of 100; with the friction, none did, because the push stopped at the second kubb. [The last fix of the night](#artifact-physics-row.png) lets the bounce carry along a row of touching pieces, and now all four fall in 35 hits of 100, inside what the videos show.
+
+[Against MuJoCo](#artifact-physics-mjref.png) the game now strays less on every kind of case but one, a dropped kubb. [The fuzzer](#artifact-physics-fuzz-now.png) finds a broken rule in under 3 throws of 100, down from nearly 7. And none of it cost the Playdate a frame: [on the device](#artifact-physics-device.png) the throw draws as fast as it did before, a little faster at the impact.
+
+What is still open is written down. In [the count after the night’s fixes](#artifact-real-games-night.txt) a game still runs 19 turns to the tournaments’ 9, and the computer takes two field kubbs with one baton 6 times in 100 to their 16. The row fix barely shows in a match, because the computer’s field kubbs almost never stand touching: in four of its matches, 2 standing field kubbs of 505 looked at had a neighbour touching them. Three touching kubbs all fall to one baton 81 times in 100 in the game, where the videos put a whole group falling 6 to 55 times. And a drilled kubb still runs on about three times as far as a real one.
 
 On the first day, a design session gave it a look called [Woodcut](#artifacts-woodcut): three tones, hard shadows and a white pitch, with TOK, KLAK and KING bursting off the wood. Jamie approved it, and the game’s title, cards, launcher and pitch are drawn in it now.

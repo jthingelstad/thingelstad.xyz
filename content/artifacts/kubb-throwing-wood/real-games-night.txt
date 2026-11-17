@@ -1,0 +1,57 @@
+                                                      real games            the game
+
+Games
+  games read                                                 150                 150
+  turns a game (mean)                                        8.9                19.1
+  turns a game (median)                                        8                  17
+  won by the team that threw first                         55.3%               50.7%
+  ended on the king                                       100.0%               94.7%
+  batons thrown                                             7858               16223
+  batons that took a kubb                                  58.3%               70.4%
+  illegal throws                                            0.0%                0.7%
+
+Batons at field kubbs (a field kubb standing when thrown)
+  batons                                                    4443               12363
+  missed                                                   24.7%               17.9%
+  took one kubb                                            49.4%               75.6%
+  took two                                                 16.0%                6.3%
+  took three or more                                       10.0%                0.2%
+  of those that hit: two or more                           34.4%                8.0%
+  field kubbs a baton                                       1.16                0.89
+  most kubbs with one baton                                    7                   3
+  base kubbs credited to those batons, a baton             0.002               0.000
+
+Clearing the field (turns that began with field kubbs)
+  turns                                                     1165                2609
+  cleared every field kubb                                 83.4%               61.7%
+  batons to clear, when cleared                             3.38                4.04
+    1 field kubb: cleared, batons (turns)      98.5% in 1.7 (67)  99.4% in 1.2 (178)
+    2 field kubbs: cleared, batons (turns)    96.0% in 2.5 (150)  98.0% in 2.3 (151)
+    3 field kubbs: cleared, batons (turns)    92.0% in 3.1 (174)  95.4% in 3.5 (283)
+    4 field kubbs: cleared, batons (turns)    88.1% in 3.4 (193)  87.9% in 4.3 (461)
+    5 field kubbs: cleared, batons (turns)    84.5% in 3.6 (155)  69.9% in 5.1 (515)
+    6 field kubbs: cleared, batons (turns)    78.6% in 4.2 (173)  46.9% in 5.6 (414)
+    7 field kubbs: cleared, batons (turns)    72.2% in 4.3 (108)  15.5% in 5.7 (330)
+    8 field kubbs: cleared, batons (turns)     67.6% in 4.1 (71)   1.6% in 5.7 (190)
+    9 field kubbs: cleared, batons (turns)     55.4% in 4.8 (56)    1.4% in 6.0 (74)
+    10 field kubbs: cleared, batons (turns)    47.1% in 4.6 (17)      0.0% in - (13)
+    11 field kubbs: cleared, batons (turns)        0.0% in - (1)                   -
+  turns thrown from an advantage line                      14.4%               34.6%
+
+Batons at base kubbs (no field kubb standing)
+  batons                                                    3231                3606
+  took a base kubb                                         34.8%               32.1%
+    from the baseline (8 m)                         32.7% (2875)        25.7% (2988)
+    from an advantage line                           51.7% (356)         63.4% (618)
+  took two base kubbs                                       0.0%                0.0%
+
+The king
+  king shots                                                 179                 147
+  toppled the king                                         83.8%               96.6%
+
+Throwing kubbs in
+  kubbs thrown in (I)                                       5319               11462
+  rethrown (R) per kubb thrown in                          14.1%                9.8%
+  punishment kubbs (P) per kubb thrown in                   1.3%                2.2%
+  rescues (Q) per kubb thrown in                            0.1%                0.0%
+  came to rest on another (N) per kubb                      0.0%                0.3%
