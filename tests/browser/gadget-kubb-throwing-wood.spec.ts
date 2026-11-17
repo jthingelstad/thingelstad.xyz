@@ -18,7 +18,7 @@ test('the Kubb gadget places the game’s embed only once it nears the screen', 
   await page.goto('/things/kubb-throwing-wood/');
   const gadget = page.locator('[data-kubb-replay]');
   await expect(gadget).toBeAttached();
-  await expect(gadget.locator('a')).toHaveAttribute('href', /^https:\/\/kubb\.thingelstad\.xyz\/p\/4pqpg9bs/);
+  await expect(gadget.locator('a')).toHaveAttribute('href', /^https:\/\/throwingwood\.com\/p\/4pqpg9bs/);
   expect(requests).toBe(0);
   await gadget.scrollIntoViewIfNeeded();
   await expect(gadget).toBeVisible();
