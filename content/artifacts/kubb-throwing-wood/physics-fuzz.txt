@@ -1,0 +1,89 @@
+Kubb: Throwing Wood, the physics fuzzer (tools/physfuzz.lua), November 16, 2026.
+Random throws and layouts, each checked against rules the physics must keep. The first part of each run's report: grass with its six largest clusters, then sand and snow.
+
+== grass ==
+physfuzz seed 1, 20000 iterations on grass: 20000 run, 0 layouts that did not settle; 986 s, 0.049 s an iteration
+classes: clean 3925 (weight 1.0), real 10348 (weight 1.0), loose 2931 (weight 0.5), wild 2796 (weight 0.1)
+
+| check | failed | rate | realistic rate | marginal (not failures) |
+|---|---|---|---|---|
+| energy | 95 | 0.47% | 0.50% |  |
+| penetration | 847 | 4.24% | 4.75% |  |
+| rest | 208 | 1.04% | 1.19% |  |
+| finite | 0 | 0.00% | 0.00% |  |
+| dt | 167 | 0.83% | 0.86% | 1851 |
+| mirror | 9 | 0.04% | 0.04% | 505 |
+| any | | | 6.87% | |
+pieces toppled over 18797 throws: 11495 at 240 Hz, 11366 at 480 Hz
+
+| aim (plan's clean baton, lone kubb) | hit | rate | 95% interval | claimed |
+|---|---|---|---|---|
+| 3.00 m | 415 of 415 | 100% | 99 to 100% | none |
+| 5.27 m | 373 of 373 | 100% | 99 to 100% | 100% |
+| 8.00 m | 414 of 415 | 100% | 99 to 100% | 98% |
+
+clusters, failures first, by realistic rate:
+ 1. penetration / in a step baton-kubb / baton at field: 248 (1.24%, realistic 1.37%); layouts cluster 40, leaning 45, lone 47, row 116; classes clean 30, loose 27, real 175, wild 16
+      lua5.4 tools/physfuzz.lua --repro 1:15001   # real, lone: f1 inside baton 50.5 mm deep, over 5 mm for 0.050 s
+      lua5.4 tools/physfuzz.lua --repro 1:4096   # real, cluster 3: f1 inside baton 46.2 mm deep, over 5 mm for 0.033 s
+      lua5.4 tools/physfuzz.lua --repro 1:9677   # real, leaning: f2 inside baton 45.0 mm deep, over 5 mm for 0.037 s
+ 2. penetration / in a step baton-kubb / baton at field, tilted: 243 (1.22%, realistic 1.30%); layouts cluster 38, leaning 46, lone 59, row 100; classes clean 27, loose 41, real 160, wild 15; tilt +10 32, tilt +15 27, tilt +20 33, tilt +5 28, tilt -10 26, tilt -15 32, tilt -20 36, tilt -5 29
+      lua5.4 tools/physfuzz.lua --repro 1:6784   # real, row across 2 gap 30 mm, tilt +5: f1 inside baton 40.2 mm deep, over 5 mm for 0.025 s
+      lua5.4 tools/physfuzz.lua --repro 1:17121   # real, cluster 3, tilt +20: f2 inside baton 35.7 mm deep, over 5 mm for 0.025 s
+      lua5.4 tools/physfuzz.lua --repro 1:11020   # real, lone, tilt -5: f1 inside baton 35.1 mm deep, over 5 mm for 0.029 s
+ 3. penetration / in a step baton-kubb / aim: 102 (0.51%, realistic 0.64%); layouts aim 102; classes clean 102
+      lua5.4 tools/physfuzz.lua --repro 1:7479   # clean, aim 8.00 m: k inside baton 20.5 mm deep, over 5 mm for 0.054 s
+      lua5.4 tools/physfuzz.lua --repro 1:18854   # clean, aim 8.00 m: k inside baton 18.4 mm deep, over 5 mm for 0.021 s
+      lua5.4 tools/physfuzz.lua --repro 1:16165   # clean, aim 8.00 m: k inside baton 17.8 mm deep, over 5 mm for 0.021 s
+ 4. penetration / in a step baton-king / baton at king: 100 (0.50%, realistic 0.57%); layouts king 100; classes loose 8, real 87, wild 5
+      lua5.4 tools/physfuzz.lua --repro 1:5977   # real, king: king inside baton 65.8 mm deep, over 5 mm for 0.046 s
+      lua5.4 tools/physfuzz.lua --repro 1:17332   # real, king: king inside baton 64.5 mm deep, over 5 mm for 0.029 s
+      lua5.4 tools/physfuzz.lua --repro 1:6803   # real, king: king inside baton 64.4 mm deep, over 5 mm for 0.029 s
+ 5. rest / no rest / baton at field: 85 (0.42%, realistic 0.47%); layouts cluster 1, leaning 70, row 14; classes clean 26, loose 16, real 41, wild 2
+      lua5.4 tools/physfuzz.lua --repro 1:10   # real, leaning: still moving at 12 s: f2 0.00 m/s
+      lua5.4 tools/physfuzz.lua --repro 1:11539   # real, row along 2 gap 5 mm: still moving at 12 s: f1 0.00 m/s
+      lua5.4 tools/physfuzz.lua --repro 1:11467   # real, leaning: still moving at 12 s: f2 0.00 m/s
+ 6. rest / no rest / baton at field, tilted: 75 (0.38%, realistic 0.44%); layouts cluster 3, leaning 63, row 9; classes clean 22, loose 5, real 45, wild 3; tilt +10 5, tilt +15 10, tilt +20 11, tilt +5 10, tilt -10 11, tilt -15 7, tilt -20 13, tilt -5 8
+      lua5.4 tools/physfuzz.lua --repro 1:70   # clean, leaning, tilt +20: still moving at 12 s: f2 0.00 m/s
+      lua5.4 tools/physfuzz.lua --repro 1:13400   # real, leaning, tilt -15: still moving at 12 s: f2 0.00 m/s
+      lua5.4 tools/physfuzz.lua --repro 1:13351   # real, leaning, tilt -20: still moving at 12 s: f2 0.00 m/s
+
+== sand ==
+physfuzz seed 1, 3000 iterations on sand: 3000 run, 0 layouts that did not settle; 129 s, 0.043 s an iteration
+classes: clean 584 (weight 1.0), real 1571 (weight 1.0), loose 445 (weight 0.5), wild 400 (weight 0.1)
+
+| check | failed | rate | realistic rate | marginal (not failures) |
+|---|---|---|---|---|
+| energy | 13 | 0.43% | 0.52% |  |
+| penetration | 125 | 4.17% | 4.65% |  |
+| rest | 39 | 1.30% | 1.49% |  |
+| finite | 0 | 0.00% | 0.00% |  |
+| dt | 28 | 0.93% | 0.91% | 188 |
+| mirror | 3 | 0.10% | 0.09% | 52 |
+| any | | | 7.35% | |
+pieces toppled over 2820 throws: 1652 at 240 Hz, 1615 at 480 Hz
+
+| aim (plan's clean baton, lone kubb) | hit | rate | 95% interval | claimed |
+|---|---|---|---|---|
+| 3.00 m | 66 of 66 | 100% | 94 to 100% | none |
+| 5.27 m | 48 of 48 | 100% | 93 to 100% | none |
+
+== snow ==
+physfuzz seed 1, 3000 iterations on snow: 3000 run, 0 layouts that did not settle; 130 s, 0.043 s an iteration
+classes: clean 584 (weight 1.0), real 1571 (weight 1.0), loose 445 (weight 0.5), wild 400 (weight 0.1)
+
+| check | failed | rate | realistic rate | marginal (not failures) |
+|---|---|---|---|---|
+| energy | 6 | 0.20% | 0.23% |  |
+| penetration | 127 | 4.23% | 4.55% |  |
+| rest | 28 | 0.93% | 1.10% |  |
+| finite | 0 | 0.00% | 0.00% |  |
+| dt | 32 | 1.07% | 1.13% | 179 |
+| mirror | 0 | 0.00% | 0.00% | 72 |
+| any | | | 6.72% | |
+pieces toppled over 2820 throws: 1729 at 240 Hz, 1709 at 480 Hz
+
+| aim (plan's clean baton, lone kubb) | hit | rate | 95% interval | claimed |
+|---|---|---|---|---|
+| 3.00 m | 66 of 66 | 100% | 94 to 100% | none |
+| 5.27 m | 48 of 48 | 100% | 93 to 100% | none |
