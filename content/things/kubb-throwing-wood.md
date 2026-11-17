@@ -20,7 +20,7 @@ connections:
 face: the-hit.png
 gadget:
   title: Watch a match
-  summary: A kept match from the game on the web, replayed throw by throw from its recorded actions, in a frame from kubb.thingelstad.xyz.
+  summary: A kept match from the game on the web, replayed throw by throw from its recorded actions, in a frame from throwingwood.com.
 bundles:
   - id: release-candidate
     title: '0.9.5, the release candidate'
@@ -437,7 +437,7 @@ The pitch is five meters by eight, drawn in the Playdate’s black and white fro
 
 A match is played to the U.S. Championship rules with a 2-4-6 opening: kubbs tossed back in, field kubbs before base kubbs, the advantage line, and the king last. It is played against the Playdate, which throws the same way and shows its swing on the clock, or by two teams of one to six passing one Playdate. Saved players each keep a Throw level (Beginner, Club or Pro) and a history, and Practice has seven drills, from 8 METERS to THE WALL. Each finished match is saved as a game file in [Planet Kubb Notation](/things/planet-kubb-score/).
 
-Jamie began it on November 13, 2026. Claude writes the code, in Lua, and Jamie plays each build on his Playdate and says what is wrong with it. On November 14 a first test build went out for friends to sideload, from [its page on playdate.thingelstad.xyz](https://playdate.thingelstad.xyz/throwing-wood/), and after a play test the next day the throw was rebuilt as the clock. Version 0.9.5, also on November 15, is the release candidate for 1.0.0, with HOW TO PLAY and HOW TO THROW to teach a new player. It is not released for the Playdate. [The game on the web](/things/kubb-throwing-wood-web/), the same game in a browser, has been live at [kubb.thingelstad.xyz](https://kubb.thingelstad.xyz/) since November 15.
+Jamie began it on November 13, 2026. Claude writes the code, in Lua, and Jamie plays each build on his Playdate and says what is wrong with it. On November 14 a first test build went out for friends to sideload, from [its page on playdate.thingelstad.xyz](https://playdate.thingelstad.xyz/throwing-wood/), and after a play test the next day the throw was rebuilt as the clock. Version 0.9.5, also on November 15, is the release candidate for 1.0.0, with HOW TO PLAY and HOW TO THROW to teach a new player. It is not released for the Playdate. [The game on the web](/things/kubb-throwing-wood-web/), the same game in a browser, has been live since November 15, at [throwingwood.com](https://throwingwood.com/) since November 17.
 
 The computer’s throwing is tuned against real play. The 150 games recorded in [Planet Kubb Notation](/things/planet-kubb-score/) were all played at tournaments, many of them late in a bracket, so they show what club players and better do with a baton. A tool in the game’s repository reads those game files and 150 matches the game plays against itself, and counts both the same way: how often a baton misses, takes one field kubb, two, or three and more, how often a turn clears the field, and how often the king falls.
 

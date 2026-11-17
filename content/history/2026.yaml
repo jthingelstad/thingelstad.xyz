@@ -1,3 +1,12 @@
+- id: kubb-throwing-wood-own-domain
+  date: 2026-11-17
+  kind: milestone
+  title: 'Kubb: Throwing Wood gets its own domain'
+  summary: The game on the web moves to throwingwood.com, its own home, and links to kubb.thingelstad.xyz carry on there.
+  source: https://throwingwood.com/
+  things:
+    - kubb-throwing-wood-web
+    - kubb-throwing-wood
 - id: kubb-throwing-wood-web-launch
   date: 2026-11-15
   kind: launch

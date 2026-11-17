@@ -1,4 +1,4 @@
-// Kubb: Throwing Wood's gadget: a kept match of the game on the web, replayed in a frame from kubb.thingelstad.xyz.
+// Kubb: Throwing Wood's gadget: a kept match of the game on the web, replayed in a frame from throwingwood.com.
 // The frame is the game's own embed (the snippet its EMBED button gives), so the game does the replaying and this
 // script only places it. Nothing is loaded until the gadget is near the screen. A frame cannot say whether it
 // loaded, so the script first asks for the embed page without reading it (an opaque request, which needs no
@@ -15,7 +15,7 @@ function gadget(panel) {
   const unreachable = () => {
     slot.hidden = true;
     how.hidden = true;
-    status.textContent = 'The replay could not be reached just now. The link below opens it on kubb.thingelstad.xyz.';
+    status.textContent = 'The replay could not be reached just now. The link below opens it on throwingwood.com.';
     status.hidden = false;
   };
   const place = async () => {

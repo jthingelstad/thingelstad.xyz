@@ -5,20 +5,20 @@ summary: 'The Playdate game Kubb: Throwing Wood in a web browser: a match on a l
 tagline: 'The Playdate Kubb game in a web browser, with friends on one pitch at a link.'
 collection: Games
 status: active
-url: https://kubb.thingelstad.xyz/
+url: https://throwingwood.com/
 started: '2026-11-15'
 topics:
   - play
   - agents
 sources:
   - kind: website
-    url: https://kubb.thingelstad.xyz/
+    url: https://throwingwood.com/
     role: website
 connections:
   - to: kubb-throwing-wood
     label: runs the code of
     detail: The Playdate game’s own Lua core, its geometry, physics, rules, throwing order, computer thrower and notation, runs unchanged in the browser. The dial stands in for the crank, and the look is the game’s Woodcut in colour.
-    source: https://kubb.thingelstad.xyz/
+    source: https://throwingwood.com/
 face: tok.png
 story:
   color: '#3f7a2e'
@@ -37,7 +37,7 @@ story:
     - AWS Lambda
     - DynamoDB
     - CloudFront
-  source: https://kubb.thingelstad.xyz/
+  source: https://throwingwood.com/
   sourceLabel: Start a pitch
   related:
     - kubb-throwing-wood
