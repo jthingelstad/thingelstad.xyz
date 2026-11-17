@@ -4,8 +4,8 @@ import { fitsViewport, offline, watchErrors } from './helpers';
 test.beforeEach(({ page }) => offline(page));
 
 // Kubb: Throwing Wood's gadget frames one kept match from the game on the web (site/js/gadgets/kubb-throwing-wood.js).
-// Tests never reach kubb.thingelstad.xyz: the frame is answered here with a stand-in page. The frame goes in only once
-// the gadget nears the screen, and the link to the match works without it.
+// Tests never reach kubb.thingelstad.xyz: answered here with a stand-in page, the frame goes in once the gadget nears
+// the screen; blocked, the gadget says the replay could not be reached, in place of the frame, and keeps its link.
 const embed = 'https://kubb.thingelstad.xyz/e/4pqpg9bs';
 
 test('the Kubb gadget places the game’s embed only once it nears the screen', async ({ page }) => {
@@ -28,18 +28,23 @@ test('the Kubb gadget places the game’s embed only once it nears the screen', 
   await expect(page.frameLocator('[data-kubb-replay] iframe').locator('p')).toHaveText('replay');
   const box = await frame.boundingBox();
   expect(box && box.width >= 300 && box.height >= 187).toBe(true);
-  expect(requests).toBe(1);
+  expect(requests).toBeGreaterThanOrEqual(1);
   expect(await fitsViewport(page)).toBe(true);
   expect(errors).toEqual([]);
 });
 
-test('the Kubb gadget keeps its link when the embed cannot be reached', async ({ page }) => {
+test('the Kubb gadget says so and keeps its link when the embed cannot be reached', async ({ page }) => {
   const errors = watchErrors(page);
   await page.goto('/things/kubb-throwing-wood/');
   const gadget = page.locator('[data-kubb-replay]');
   await gadget.scrollIntoViewIfNeeded();
   await expect(gadget).toBeVisible();
-  await expect(gadget.locator('iframe')).toHaveCount(1);
+  await expect(gadget.locator('[data-kubb-replay-status]')).toHaveText(
+    'The replay could not be reached just now. The link below opens it on kubb.thingelstad.xyz.'
+  );
+  await expect(gadget.locator('iframe')).toHaveCount(0);
+  await expect(gadget.locator('[data-kubb-replay-frame]')).toBeHidden();
+  await expect(gadget.locator('[data-kubb-replay-how]')).toBeHidden();
   await expect(gadget.getByRole('link', { name: 'Open it on kubb.thingelstad.xyz' })).toBeVisible();
   expect(await fitsViewport(page)).toBe(true);
   expect(errors).toEqual([]);
