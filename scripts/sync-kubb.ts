@@ -14,8 +14,9 @@
 //   npm run kubb:check   fail when the parser is not what Peggy makes of the vendored grammar, or, where the sibling
 //                        is present, when a copy differs from it; part of npm run check
 //
-// KUBB_SOURCE overrides the pk-kubb-score path. The default is ../../pk-kubb-score (this repository sits in
-// ~/Projects/thingelstad.com/, pk-kubb-score in ~/Projects/), or ../pk-kubb-score for a checkout beside it. Where
+// KUBB_SOURCE overrides the pk-kubb-score path. The default is ../../throwingwood/pk-kubb-score (this repository
+// sits in ~/Projects/thingelstad.com/, pk-kubb-score in ~/Projects/throwingwood/ since 2026-11-17), or
+// ../pk-kubb-score for a checkout beside it. Where
 // neither is present (CI, or a lone clone) the check regenerates the parser from the vendored grammar and says the
 // copies were not compared. A KUBB_SOURCE that is missing fails.
 import { existsSync } from 'node:fs';
@@ -26,7 +27,7 @@ import peggy from 'peggy';
 const out = 'site/js/gadgets/planet-kubb-score';
 const grammarCopy = 'vendor/pk-kubb-score/planet-kubb-notation.peggy';
 const exampleGame = 'games/2012-07-10-friendly-garrick-and-jamie-v-dobbie-and-jaime-july-10-2012.txt';
-const siblings = ['../../pk-kubb-score', '../pk-kubb-score'];
+const siblings = ['../../throwingwood/pk-kubb-score', '../pk-kubb-score'];
 
 const parserFrom = (grammar: string) =>
   `// Generated from ${grammarCopy} by scripts/sync-kubb.ts (npm run kubb:sync). Do not edit.\n` +
