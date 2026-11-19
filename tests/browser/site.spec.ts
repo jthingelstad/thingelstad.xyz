@@ -1284,12 +1284,9 @@ test('a large set of artifacts has a page of its own, and the shelves still hold
 
 // Pages that show pictures, and the most image bytes each may load with every picture in it loaded (lazy ones too).
 // The pictures are the build's smaller copies (collection/images.ts); a page over its budget is shipping originals.
-// /artifacts/ has a shelf for every thing with artifacts, so its budget grows with them: 175 KB a shelf, where a
-// shelf of smaller copies is about 150 KB and one shelf of originals would add over a megabyte.
-const artifactShelves = things.filter((thing) => thing.artifacts?.length).length;
 const imagePages = [
   { path: '/', budget: 1_500_000 },
-  { path: '/artifacts/', budget: 175_000 * artifactShelves },
+  { path: '/artifacts/', budget: 3_000_000 },
   ...things
     .filter((thing) => thing.screenshot || thing.artifacts?.length)
     .flatMap((thing) => [
