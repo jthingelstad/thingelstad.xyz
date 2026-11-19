@@ -314,8 +314,9 @@ type SiteFeature = {
 type SiteLive = { thing: SiteThing; href: string; name: string; tagline: string };
 
 // A thing's artifacts on /artifacts/: how many, and a few to show. The picks take turns across its bundles, so a
-// shelf shows the range of what was kept, and leave out a file with no image to show.
-const picksShown = 8;
+// shelf shows the range of what was kept, and leave out a file with no image to show. Six a shelf keeps the page
+// inside its 3 MB of pictures with seven shelves on it (2026-11-19); each shelf links to the whole set.
+const picksShown = 6;
 const bundleWords = ['', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'];
 type ArtifactSet = { thing: SiteThing; count: number; note: string; picks: SiteArtifact[] };
 function artifactSet(thing: SiteThing): ArtifactSet {
