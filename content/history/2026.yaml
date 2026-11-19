@@ -1,3 +1,65 @@
+- id: kubb-throwing-wood-controls-for-a-hand
+  date: 2026-11-19
+  kind: development
+  title: 'Kubb: Throwing Wood’s controls, remade for a hand'
+  summary: The web and iPhone games take the same new controls, a clock or a linear meter as the player’s choice, a hint shown on the meter, sliders, STAND, raising a kubb by touch, and a phone turned on its side.
+  source: https://thingelstad.xyz/things/kubb-throwing-wood-web/#artifacts-made-for-touch
+  things:
+    - kubb-throwing-wood-web
+    - kubb-throwing-wood-iphone
+- id: kubb-throwing-wood-crank-direction
+  date: 2026-11-19
+  kind: development
+  title: 'Kubb: Throwing Wood’s crank can turn either way'
+  summary: After one player found the crank backward, the Playdate game makes the crank’s direction a setting in the System Menu, and tells a player who seems to be cranking the wrong way how to flip it.
+  source: https://github.com/jthingelstad/playdate-kubb/blob/main/docs/DESIGN.md
+  things:
+    - kubb-throwing-wood
+- id: kubb-throwing-wood-iphone-testflight
+  date: 2026-11-18
+  kind: milestone
+  title: 'Kubb: Throwing Wood for iPhone in TestFlight'
+  summary: The iPhone game goes into TestFlight with a small group of testers, a day after it was begun, playing practice, the computer and shared pitches.
+  source: https://github.com/jthingelstad/throwingwood-ios
+  things:
+    - kubb-throwing-wood-iphone
+- id: kubb-throwing-wood-0-9-7
+  date: 2026-11-18
+  kind: milestone
+  title: 'Kubb: Throwing Wood 0.9.7'
+  summary: A new test build of the Playdate game on engine 0.5.1, with batons that turn over less, a computer that adds spin to its drills, and fallen wood that slow impacts can move.
+  source: https://playdate.thingelstad.xyz/throwing-wood/
+  things:
+    - kubb-throwing-wood
+    - kubb-engine
+- id: kubb-throwing-wood-iphone-begun
+  date: 2026-11-17
+  kind: development
+  title: 'Kubb: Throwing Wood for iPhone begun'
+  summary: A native iPhone app starts, running the Kubb Engine in Lua with musl’s math built in, so its throws match the web game’s hash for hash.
+  source: https://github.com/jthingelstad/throwingwood-ios
+  things:
+    - kubb-throwing-wood-iphone
+    - kubb-engine
+- id: kubb-engine-taken-out
+  date: 2026-11-17
+  kind: development
+  title: The Kubb Engine is taken out of the Playdate game
+  summary: 'The rules, physics, throw, computer thrower and notation of Kubb: Throwing Wood leave the Playdate game with their history, joined by the web’s session and room, and become a Lua engine that every version carries from a tagged release.'
+  source: https://github.com/jthingelstad/kubb-engine
+  things:
+    - kubb-engine
+    - kubb-throwing-wood
+    - kubb-throwing-wood-web
+- id: kubb-throwing-wood-0-9-6
+  date: 2026-11-17
+  kind: milestone
+  title: 'Kubb: Throwing Wood 0.9.6'
+  summary: The Playdate game’s physics release, with the night’s fixes measured against MuJoCo, real throws on video and a fuzzer, and a new bundle id at the game’s own domain.
+  source: https://thingelstad.xyz/things/kubb-engine/
+  things:
+    - kubb-throwing-wood
+    - kubb-engine
 - id: kubb-throwing-wood-own-domain
   date: 2026-11-17
   kind: milestone
