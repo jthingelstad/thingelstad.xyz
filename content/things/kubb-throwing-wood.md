@@ -1,6 +1,6 @@
 ---
 title: 'Kubb: Throwing Wood'
-summary: 'A game of Kubb for the Playdate, thrown with the crank. Jamie began it in November 2026. The Playdate version is not released; a test build is out for friends to try, and a version for the browser is live.'
+summary: 'A game of Kubb for the Playdate, thrown with the crank. Jamie began it in November 2026, and its core became the Kubb Engine, which the web and iPhone games run too. The Playdate version is not released; a test build is out for friends to sideload.'
 collection: Games
 status: active
 url: null
@@ -12,7 +12,18 @@ sources:
   - kind: website
     url: https://playdate.thingelstad.xyz/throwing-wood/
     role: distribution
+  - kind: github
+    repository: jthingelstad/playdate-kubb
+    role: implementation
 connections:
+  - to: kubb-engine
+    label: runs the core of
+    detail: The rules, physics, throw and computer thrower began here and became the Kubb Engine on November 17, 2026. The game carries the engine’s core from a tagged release, byte for byte.
+    source: https://github.com/jthingelstad/playdate-kubb
+  - to: kubb-throwing-wood-web
+    label: is played in a browser as
+    detail: The same game, with the same rules and physics, at throwingwood.com. The Playdate’s 32-bit numbers never agree with the browser’s to the last bit, so the two cannot share a match.
+    source: https://throwingwood.com/
   - to: planet-kubb-score
     label: writes its games in
     detail: Every finished match is saved as a game file in Planet Kubb Notation, the system Jamie began on Planet Kubb in 2012.
@@ -25,6 +36,9 @@ bundles:
   - id: release-candidate
     title: '0.9.5, the release candidate'
     caption: The build that went up on November 15, 2026 for anyone to sideload, two days after the first line of code, as the game’s Simulator tests drew it at twice the Playdate’s size, with twenty-six seconds of it in play, filmed frame by frame from the same tests. The names on the teams and players are the tests’ own.
+  - id: release-notes
+    title: The release notes
+    caption: Every version from the first test build to 0.9.7, as the game’s repository keeps them on November 19, 2026.
   - id: real-games
     title: Tuned against real games
     caption: The counts behind the computer’s throwing, from November 16, 2026. Each sets 150 recorded tournament games beside 150 matches the game played against itself with its full physics, both read from their game files and counted the same way.
@@ -144,6 +158,12 @@ artifacts:
     title: The Playdate wins
     caption: The end of a test match against the computer, fifteen turns long. Every finished game is saved as a score sheet.
     date: '2026-11-15'
+  - file: releases.md
+    bundle: release-notes
+    title: Releases
+    caption: Each version with its build number, its date and what it changed, from 0.1.0 on November 14, 2026 to 0.9.7 on November 18, and why saves started fresh when the bundle id moved to the game’s own domain.
+    date: '2026-11-18'
+    source: https://github.com/jthingelstad/playdate-kubb/blob/main/docs/notes/releases.md
   - file: real-games-before.txt
     bundle: real-games
     title: The first count
@@ -439,24 +459,12 @@ A match is played to the U.S. Championship rules with a 2-4-6 opening: kubbs tos
 
 Jamie began it on November 13, 2026. Claude writes the code, in Lua, and Jamie plays each build on his Playdate and says what is wrong with it. On November 14 a first test build went out for friends to sideload, from [its page on playdate.thingelstad.xyz](https://playdate.thingelstad.xyz/throwing-wood/), and after a play test the next day the throw was rebuilt as the clock. Version 0.9.5, also on November 15, is the release candidate for 1.0.0, with HOW TO PLAY and HOW TO THROW to teach a new player. It is not released for the Playdate. [The game on the web](/things/kubb-throwing-wood-web/), the same game in a browser, has been live since November 15, at [throwingwood.com](https://throwingwood.com/) since November 17.
 
-The computer’s throwing is tuned against real play. The 150 games recorded in [Planet Kubb Notation](/things/planet-kubb-score/) were all played at tournaments, many of them late in a bracket, so they show what club players and better do with a baton. A tool in the game’s repository reads those game files and 150 matches the game plays against itself, and counts both the same way: how often a baton misses, takes one field kubb, two, or three and more, how often a turn clears the field, and how often the king falls.
+The game’s rules, physics, throw and computer thrower were its core, written for the Playdate. On November 17 the core came out of it as [the Kubb Engine](/things/kubb-engine/), which the web game and [the iPhone game](/things/kubb-throwing-wood-iphone/) run too. The Playdate game now carries a copy of the engine’s core from a tagged release and never edits it. The work of November 16 and 17 on the computer’s throwing and the physics is told on [the engine’s page](/things/kubb-engine/). Its counts, charts and reports were first collected here, and they stay here, from [the real games](#artifacts-real-games) to [what the fixes did](#artifacts-night-fixes).
 
-The [first count](#artifact-real-games-before.txt), on November 16, 2026, showed where the game and the tournaments parted. With a field kubb standing, tournament players took two or more with one baton 26 times in 100; the computer 7, and its games ran 22 turns to their 9. A steadier arm did not close the gap. The cause was in how it threw its kubbs back in: every one was drilled at the same mark, came down on the kubb already lying there and skipped about a meter off, so its field kubbs stood 39 centimeters apart on average. A baton takes two kubbs when they stand close, one behind the other. So the computer now drills each kubb into the clear spot beside the last, in a line along the throw, and aims its batons down the line with the most kubbs in it. In [the count after](#artifact-real-games-after.txt) it takes two or more 22 times in 100, clears the field in 70 turns of 100 where it had cleared 46, and a game runs about 15 turns. Three with one baton is still rare for it, 3 in 100 to the tournaments’ 10, and it almost never has to throw a kubb a second time, which tournament players do with one kubb in seven. Both are written down as what to work on next. The same throwing is in [the game on the web](/things/kubb-throwing-wood-web/).
+One of them is a tester’s report from inside the web version on November 16: six batons at one field kubb, and every one missed. A match there is kept as the actions its players sent, so this one could be [replayed](#artifact-replay-embed.png) exactly. The match is kept as a replay until November 17, 2027, and it is the one in [the gadget](#gadget) below. The same day both versions began showing their version and build number on the title screen, so a report says which build it came from.
 
-The count moved again by that evening. A drilled kubb had become a real body in the physics, and nine fixes to the physics had gone in. In [the count that evening](#artifact-real-games-evening.txt) the computer misses a field kubb less often than tournament players do and topples the king with 95 shots in 100, but its groups are looser, two with one baton is down to 12 in 100, and a game runs 20 turns. A drilled kubb that runs on too far after it lands is the reason, and the checks below found why.
+[The release notes](#artifact-releases.md) keep each version. Version 0.9.6, on November 17, is the physics release: throws come down where they are aimed, a drilled kubb runs on less, a row of touching kubbs falls as a row, and pieces come to rest. The same day its bundle id moved to the game’s own domain, `com.throwingwood.playdate`, so a Playdate that had an earlier build starts fresh. Version 0.9.7, on November 18, carries engine 0.5.1: batons turn over less, Club and Pro aim for a half turn and add spin to their drills, slow impacts can move fallen wood, and open practice keeps six batons on the pitch. It is the build on the game’s page for sideloading.
 
-On November 16 a tester sent a report from inside the web version: six batons at one field kubb, and every one missed. A match there is kept as the actions its players sent, so this one could be [replayed](#artifact-replay-embed.png) exactly and the misses watched again. Two of the throws were perfect. Both came down on an end about 30 centimeters short of the kubb and vaulted over it. The game had planned each throw so that the baton’s center would arrive at the kubb’s foot, and a baton turning end over end can meet the ground first that way. [It now aims through the kubb at half its height](#artifact-physics-pinned-case.png). A perfect throw from the tester’s distance now topples a lone kubb every time, and one from the baseline 98 times in 100, where both had been 80. That throw is kept as a test of its own. The match is kept as a replay until November 17, 2027, and it is the one in [the gadget](#gadget) below. The same day both versions began showing their version and build number on the title screen, so a report says which build it came from. The physics has no number of its own; it ships inside each build.
-
-Play tests find problems slowly and at random, so that evening three checks were built that need no player. A fuzzer throws thousands of random batons and kubbs at random layouts and holds each throw to rules any physics has to keep: energy never rises by itself, pieces never pass into one another, everything comes to rest, a mirrored throw lands mirrored, and a smaller time step changes nothing that matters. A second engine, [MuJoCo](https://mujoco.org/), built for research and robotics, runs 1,063 small cases beside the game’s own, from a baton landing on grass to a row of kubbs falling like dominoes. And 22 throws from six public Kubb videos were [measured frame by frame](#artifact-real-clips.json): how a drilled kubb lands and rolls, how a struck kubb falls, how far a row goes down.
-
-The three agree. MuJoCo and the videos both say pieces slide too far once they land or are struck. A baton landing at a low angle keeps about three quarters of its speed along the ground in the game and about four tenths in MuJoCo, and the game’s drilled kubbs run on more than half a meter on grass where real ones stop within about 30 centimeters. MuJoCo also showed the cause: friction is missing from part of each impact. The fuzzer’s largest finding is a different one. In nearly 5 throws of 100 a baton sinks into a kubb or the king for a moment, up to 66 millimeters into the king. Fixes for each went in that night, one change at a time.
-
-Each fix was measured by all three checks before it went in. A body in the air now moves as the equations of motion say, so a throw lands within a few millimeters of where MuJoCo puts it, where it had come down 2 to 3 centimeters short. A drilled kubb’s turn in the air is worked out in four smaller steps. A baton lying along a kubb’s face or edge now meets it along its length, not at one point, which took the fuzzer’s largest finding from nearly 5 throws in 100 to under 1. A kubb lying on another kubb can now come to rest. And an impact’s friction is now part of its bounce, which was MuJoCo’s finding.
-
-The friction did what MuJoCo said it would. A baton landing on grass keeps about half its speed along the ground, and [a drilled kubb runs on less](#artifact-physics-drill-run-on.png): a median of 68 centimeters on grass where it had been 88, with 19 drills in 100 stopping within 30 centimeters where 4 had. Real drills run on a median of 22, so about a third of the gap is closed. It also broke something. One baton into four kubbs standing face to face had felled all four in 16 hits of 100; with the friction, none did, because the push stopped at the second kubb. [The last fix of the night](#artifact-physics-row.png) lets the bounce carry along a row of touching pieces, and now all four fall in 35 hits of 100, inside what the videos show.
-
-[Against MuJoCo](#artifact-physics-mjref.png) the game now strays less on every kind of case but one, a dropped kubb. [The fuzzer](#artifact-physics-fuzz-now.png) finds a broken rule in under 3 throws of 100, down from nearly 7. And none of it cost the Playdate a frame: [on the device](#artifact-physics-device.png) the throw draws as fast as it did before, a little faster at the impact.
-
-What is still open is written down. In [the count after the night’s fixes](#artifact-real-games-night.txt) a game still runs 19 turns to the tournaments’ 9, and the computer takes two field kubbs with one baton 6 times in 100 to their 16. The row fix barely shows in a match, because the computer’s field kubbs almost never stand touching: in four of its matches, 2 standing field kubbs of 505 looked at had a neighbour touching them. Three touching kubbs all fall to one baton 81 times in 100 in the game, where the videos put a whole group falling 6 to 55 times. And a drilled kubb still runs on about three times as far as a real one.
+On November 19 Jamie wrote down what one player had found: “a playdate user was super confused because he was turning the crank opposite of the direction I thought made sense. He says even though he knows it now it is still backward to him. That feels like a left - right hand pref for playdate crank.” ([the game’s design notes](https://github.com/jthingelstad/playdate-kubb/blob/main/docs/DESIGN.md)). So the crank’s direction is now a setting, a choice in the System Menu on every screen with a throw, and a player who turns the crank forward three times without a throw is told how to flip it. It is in the game’s code, not yet in a release.
 
 On the first day, a design session gave it a look called [Woodcut](#artifacts-woodcut): three tones, hard shadows and a white pitch, with TOK, KLAK and KING bursting off the wood. Jamie approved it, and the game’s title, cards, launcher and pitch are drawn in it now.
