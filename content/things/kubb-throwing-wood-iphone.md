@@ -68,7 +68,7 @@ bundles:
     caption: Captures of the app in the simulator on an iPad mini and an iPad Pro 13-inch, full screen, from the pictures its repository keeps for review, with a match made up for them, on November 19, 2026. You and CPU are the pictures’ own names.
   - id: reels-and-0-3
     title: A highlight reel, and version 0.3
-    caption: Captures of the app in the iOS simulator on an iPhone 16e, from the pictures its repository keeps for review, with matches made up for them. The reel card is from the night of November 19, 2026, and in TestFlight since build 113; the other three are version 0.3 on engine 0.9.0, on the app’s main branch on November 20 and not in TestFlight yet. You, CPU, North and South are the pictures’ own names.
+    caption: Captures of the app in the iOS simulator on an iPhone 16e, from the pictures its repository keeps for review, with matches made up for them. The reel card is from the night of November 19, 2026, and in TestFlight since build 113; the other three are version 0.3 on engine 0.9.0, on the app’s main branch on November 20 and uploaded to TestFlight that afternoon as build 132. You, CPU, North and South are the pictures’ own names.
 artifacts:
   - file: aim-clock.png
     bundle: review-pictures
@@ -174,6 +174,6 @@ Later that day it became an iPad app as well. Jamie: “The idea of an iPad vers
 
 On November 20 the app took on [the highlight reel](#artifact-highlight-reel.png) and the share card. At the end of a match on a shared pitch it can ask for a reel, and a match against the computer can be shared to get a link, a replay and a reel of its own, as on the web. Build 113, with the reels on engine 0.7.4, and then build 121, version 0.2 on engine 0.8.1, passed Apple’s Beta App Review that day and went to the outside testers. Anyone can join them from [the TestFlight link](https://testflight.apple.com/join/rTx8uTn1) on [the game’s iPhone page](https://throwingwood.com/ios/). Build 121 carries engine 0.7 beside 0.8, so it can still open a match begun on 0.7, and its menu shows the version as 0.2 (0.8.1).
 
-Later that day version 0.3 reached the app’s main branch, on engine 0.9.0 with 0.8.2 and 0.7.4 beside it. A player’s own throw level is one setting on the phone, the computer’s level is [an option of the match](#artifact-computer-level.png), and ARC, TILT and SPIN are [sliders that stop anywhere](#artifact-tilt-slider.png), with the engine’s ticks marked. [Its menu](#artifact-menu-0.3.png) reads 0.3 (0.9.0). It is not in TestFlight yet.
+Later that day version 0.3 reached the app’s main branch, on engine 0.9.0 with 0.8.2 and 0.7.4 beside it. A player’s own throw level is one setting on the phone, the computer’s level is [an option of the match](#artifact-computer-level.png), and ARC, TILT and SPIN are [sliders that stop anywhere](#artifact-tilt-slider.png), with the engine’s ticks marked. [Its menu](#artifact-menu-0.3.png) reads 0.3 (0.9.0). Build 132 carries it and went to Apple’s Beta App Review that afternoon.
 
 Its bundle id is `com.throwingwood.app`, at the game’s own domain, and its privacy page is [on throwingwood.com](https://throwingwood.com/privacy/). Every upload to TestFlight, and the App Store, is Jamie’s call.
