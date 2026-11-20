@@ -3,12 +3,15 @@ title: Kubb Engine
 summary: 'The rules, physics, notation and session of Kubb: Throwing Wood, as pure Lua. It was taken out of the Playdate game on November 17, 2026, and each release is a tag that the Playdate, web and iPhone games carry byte for byte.'
 collection: Games
 status: active
-url: null
+url: https://throwingwood.com/engine/
 started: '2026-11-17'
 topics:
   - play
   - agents
 sources:
+  - kind: website
+    url: https://throwingwood.com/engine/
+    role: reference
   - kind: github
     repository: jthingelstad/kubb-engine
     role: implementation
@@ -109,3 +112,5 @@ Play tests find problems slowly and at random, so that evening three checks were
 The fixes went in that night, one at a time, each measured by all three checks first. A body in the air moves as the equations of motion say. A baton lying along a kubb meets it along its length. A kubb lying on another can come to rest. And an impact’s friction is part of its bounce, so [a drilled kubb runs on less](/things/kubb-throwing-wood/#artifact-physics-drill-run-on.png), a median of 68 centimeters on grass where it had been 88; real drills run on 22. The friction stopped a row of touching kubbs from falling as a row, so [the last fix of the night](/things/kubb-throwing-wood/#artifact-physics-row.png) lets the bounce carry along it. The counts, charts and reports of that work are kept on [the Playdate game’s page](/things/kubb-throwing-wood/#artifacts-real-games), where they were first collected, while the core was still part of it.
 
 On November 17 the computer got three levels. The tournament games are the mark for pro (Jamie: “there is no professional kubb. So that is essentially the best kubb there is,” in [the same notes](https://github.com/jthingelstad/kubb-engine/blob/main/docs/notes/real-games.md)), and club and beginner sit below them. Before, the computer made the same mistakes at every level, so the wider targets forgave club and beginner more and they out-threw pro. Now every level throws on pro’s gauge with its own nerves, and its swing’s mistakes are scaled up, by 1.3 at club and 1.6 at beginner. [In the count](#artifact-levels.png), pro misses a field kubb about as often as tournament players and fells a base kubb from 8 meters as often. What it still does not do is take two or three kubbs with one baton, so its games run twice as long.
+
+The engine has a page of its own on the game’s site. [The Kubb Engine](https://throwingwood.com/engine/) sets out for a reader how its throws are checked, against score sheets, video of real play and a second physics simulator.
