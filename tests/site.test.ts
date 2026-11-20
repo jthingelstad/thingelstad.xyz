@@ -1093,7 +1093,7 @@ test('every sitemap page carries the date its content last changed, never the bu
     'content/topics.yaml': '2026-09-01T00:00:00Z',
     'content/featured.yaml': '2026-10-24T00:00:00Z',
     'content/history/2026.yaml': '2026-10-02T00:00:00Z',
-    'content/stories/weekly-thing-tools.md': '2026-11-20T00:00:00Z',
+    'content/stories/weekly-thing-tools.md': '2099-01-01T00:00:00Z',
     'content/interviews/session-1.md': '2026-11-05T00:00:00Z',
     'content/interviews/session-2.md': '2026-11-05T00:00:00Z',
     'content/interviews/session-3.md': '2026-11-05T00:00:00Z',
@@ -1144,11 +1144,11 @@ test('every sitemap page carries the date its content last changed, never the bu
     'the fixture names a story it is in'
   );
   // A story it is in dates its page too, as the page shows the story's title; here the story file is the newest.
-  assert.equal(lastmod('/things/weekly-thing/'), '2026-11-20T00:00:00Z');
-  assert.ok(Math.max(...expected) < Date.parse('2026-11-20T00:00:00Z'));
-  assert.equal(lastmod('/stories/weekly-thing-tools/'), '2026-11-20T00:00:00Z');
-  assert.equal(lastmod('/stories/'), '2026-11-20T00:00:00Z');
-  assert.equal(lastmod('/'), '2026-11-20T00:00:00Z', 'the front page shows the story cards');
+  assert.equal(lastmod('/things/weekly-thing/'), '2099-01-01T00:00:00Z');
+  assert.ok(Math.max(...expected) < Date.parse('2099-01-01T00:00:00Z'));
+  assert.equal(lastmod('/stories/weekly-thing-tools/'), '2099-01-01T00:00:00Z');
+  assert.equal(lastmod('/stories/'), '2099-01-01T00:00:00Z');
+  assert.equal(lastmod('/'), '2099-01-01T00:00:00Z', 'the front page shows the story cards');
   // An interview is dated by its own file and its cast's record files, never by the cast's stories, events or
   // evidence: none of that is on its page. Weekly Thing is in the cast, and its story file is newer.
   const interview = model.interviews.find((item) => item.cast.some((thing) => thing.id === 'weekly-thing'))!;
@@ -1156,7 +1156,7 @@ test('every sitemap page carries the date its content last changed, never the bu
   assert.equal(lastmod(interview.page), '2026-11-05T00:00:00Z');
   assert.equal(lastmod('/interviews/'), '2026-11-05T00:00:00Z');
   assert.equal(lastmod('/about/'), '2026-11-05T00:00:00Z', 'the about page quotes the interview');
-  assert.equal(lastmod('/things/weekly-thing/'), '2026-11-20T00:00:00Z', 'the thing page still shows its story');
+  assert.equal(lastmod('/things/weekly-thing/'), '2099-01-01T00:00:00Z', 'the thing page still shows its story');
   for (const entry of entries) assert.notEqual(entry.lastmod, w3c(model.generated), entry.loc);
   // A list is as new as the newest thing it lists.
   const newestThing = model.things
