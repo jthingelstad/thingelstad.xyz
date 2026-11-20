@@ -32,7 +32,8 @@ story:
     - Pure Lua 5.4 with no drawing, input, network or file access. A client brings those and talks to the engine through one call, kubbCall, with JSON in and out.
     - 'Three parts: the core (rules, physics, the throw, the computer thrower and the notation), the session (a practice pitch or a match behind that one call) and the room (a shared pitch’s document and who may act in it).'
     - Each release is a tag. A client copies a tagged release byte for byte and checks every file against the sha256 in that release’s engine.json, so a copy that drifts fails its own tests.
-    - The reference results are WebAssembly’s, from wasmoon 1.16.0 with musl’s math. Twelve golden matches keep a hash after every action, and a change that moves one needs a new minor version.
+    - The reference results are WebAssembly’s, from wasmoon 1.16.0 with musl’s math. Thirteen golden matches keep a hash after every action, 523 of them at 0.9.0, and a change that moves one needs a new minor version.
+    - A game may carry several engines, and each match runs on its own. A shared pitch plays on the newest version that the host and every player carry, so an older build can still join.
     - Physics measuring tools sit beside the tests, a fuzzer, a comparison with MuJoCo and a reader for tournament game files, and none of them changes the game.
   stack:
     - Lua 5.4
@@ -56,6 +57,12 @@ bundles:
   - id: releases
     title: A release and its checks
     caption: Files from the engine’s repository at its tag v0.7.1, November 19, 2026, as they are there.
+  - id: release-0-9-0
+    title: 'Release 0.9.0, against the real games'
+    caption: Files from the engine’s repository at its tag v0.9.0, November 20, 2026, as they are there, and a chart drawn for this page from the table in its pull request.
+  - id: engine-page
+    title: The engine’s own page
+    caption: 'The top of throwingwood.com/engine/, as a browser saw it on the afternoon of November 20, 2026, 1280 pixels wide.'
   - id: levels
     title: The computer’s levels
     caption: The count of November 17, 2026, once the computer’s three levels were set against the tournament games. The chart was drawn for this page from the figures in the engine’s notes.
@@ -84,6 +91,36 @@ artifacts:
     caption: Why every browser gets the same floats, what a native host has to build to agree with them, and how far stock Lua on a Mac strays, measured on November 17, 2026.
     date: '2026-11-17'
     source: https://github.com/jthingelstad/kubb-engine/blob/v0.7.1/docs/DETERMINISM.md
+  - file: real-games-0.9.0.png
+    bundle: release-0-9-0
+    title: 0.8.2 and 0.9.0 against the tournaments
+    caption: The 150 tournament games in blue, 150 matches on engine 0.8.2 in gray and 150 on 0.9.0 in orange. Batons at field kubbs miss 25.1 percent of the time on 0.9.0, where they had missed 31.3, against the tournaments’ 24.7. A game runs 15.6 turns, down from 24.1; in the tournaments it runs 8.9.
+    date: '2026-11-20'
+    source: https://github.com/jthingelstad/kubb-engine/pull/18
+  - file: engine-0.9.0.json
+    bundle: release-0-9-0
+    title: What a client checks its copy against, at 0.9.0
+    caption: The same manifest three days on, with a sha256 for each of its 55 Lua files and one for the whole engine as a single bundle.
+    date: '2026-11-20'
+    source: https://github.com/jthingelstad/kubb-engine/blob/v0.9.0/engine.json
+  - file: golden-hashes-0.9.0.json
+    bundle: release-0-9-0
+    title: The golden matches, at 0.9.0
+    caption: Thirteen matches and the hash of each after every one of their 523 actions. The thirteenth, added in 0.8.0, has a person throw at field kubbs from 0.35 to 2 meters. A minor version brings a new set, and 0.9.0 is one.
+    date: '2026-11-20'
+    source: https://github.com/jthingelstad/kubb-engine/blob/v0.9.0/tests/golden/hashes.json
+  - file: versioning-0.9.0.md
+    bundle: release-0-9-0
+    title: The version rules, at 0.9.0
+    caption: The rules as they stood at 0.9.0, with how a game carries several engines, what a game shows as its version, and a note for each release up to 0.9.0.
+    date: '2026-11-20'
+    source: https://github.com/jthingelstad/kubb-engine/blob/v0.9.0/docs/VERSIONING.md
+  - file: engine-page.png
+    bundle: engine-page
+    title: The Kubb Engine, for a reader
+    caption: '“A baton clips a corner. One kubb tips into the next. KLAK. The engine is the code that decides where the wood goes.” Under it: one engine, three games, and the checks against real kubb, 150 tournament games, 220 moments on video and 1,063 physics tests.'
+    date: '2026-11-20'
+    source: https://throwingwood.com/engine/
   - file: levels.png
     bundle: levels
     title: Beginner, club and pro against the tournaments
@@ -112,5 +149,15 @@ Play tests find problems slowly and at random, so that evening three checks were
 The fixes went in that night, one at a time, each measured by all three checks first. A body in the air moves as the equations of motion say. A baton lying along a kubb meets it along its length. A kubb lying on another can come to rest. And an impact’s friction is part of its bounce, so [a drilled kubb runs on less](/things/kubb-throwing-wood/#artifact-physics-drill-run-on.png), a median of 68 centimeters on grass where it had been 88; real drills run on 22. The friction stopped a row of touching kubbs from falling as a row, so [the last fix of the night](/things/kubb-throwing-wood/#artifact-physics-row.png) lets the bounce carry along it. The counts, charts and reports of that work are kept on [the Playdate game’s page](/things/kubb-throwing-wood/#artifacts-real-games), where they were first collected, while the core was still part of it.
 
 On November 17 the computer got three levels. The tournament games are the mark for pro (Jamie: “there is no professional kubb. So that is essentially the best kubb there is,” in [the same notes](https://github.com/jthingelstad/kubb-engine/blob/main/docs/notes/real-games.md)), and club and beginner sit below them. Before, the computer made the same mistakes at every level, so the wider targets forgave club and beginner more and they out-threw pro. Now every level throws on pro’s gauge with its own nerves, and its swing’s mistakes are scaled up, by 1.3 at club and 1.6 at beginner. [In the count](#artifact-levels.png), pro misses a field kubb about as often as tournament players and fells a base kubb from 8 meters as often. What it still does not do is take two or three kubbs with one baton, so its games run twice as long.
+
+Between the evening of November 19 and the afternoon of November 20, seven more tags went out, from 0.7.2 to 0.9.0. The first two were for the server that publishes shared matches: what it needs to check a match against the computer before it keeps it, and a replay it can read in one pass.
+
+Version 0.8.0 came from a tester’s report: two batons at a field kubb a step away, and it stayed standing. Every baton left the hand upright, above the thrower’s feet, so one meant for a kubb 35 centimeters away came down on its top and pressed it into the ground. Jamie, that day: “Real player when hitting a field Kubb that close will hit it low and hard in an attempt to roll the Kubb into other field kubbs” and “players miss when they attempt to overpower those throws” ([the pull request](https://github.com/jthingelstad/kubb-engine/pull/14)). So a person’s baton planned under 2 meters is now a low, firm bowl. The hand drops and reaches ahead, the loft flattens, and a swing past the power band lifts the baton over. At club level a good throw at a kubb 35 centimeters away had toppled it 2 times in 100; now it topples it every time. A thirteenth golden match throws batons like that.
+
+Version 0.8.1 changed no throw. It lets a game carry several engines, and each match runs on its own. A shared pitch plays on the newest version that the host and every player carry, so a phone on an older build can still join a browser. Version 0.8.2 made a short baton’s plan about a tenth faster, with every number the same as before to the last bit, checked over 431,516 cases. The same day [the rules](#artifact-versioning-0.9.0.md) gained a line on what a game shows: its own version, then the engine’s in parentheses, as in 0.9.8 (0.8.1).
+
+Version 0.9.0 is a minor version, so it has [a new set of golden matches](#artifact-golden-hashes-0.9.0.json), 13 of them with 523 hashes, and a pitch will not put a 0.8 player and a 0.9 player in one match. A kubb held up by the ground alone now comes to rest only on a face, never balanced on an edge; in 2,000 drills a surface, edge rests had been 1 in 143 on grass, 1 in 13 on sand and 1 in 62 on snow. Batons aim lower, at a kubb’s body, after a play-test match in which 29 of 41 first touches of a standing piece were on its top. The computer steps up to a kubb a step from the line and throws the same low bowl. Tilt, arc and spin take any value in their range, not only steps. A kubb’s spin is kept for the side’s next kubb in the turn. And the computer’s level is an option of the match, not of a player.
+
+[Against the tournament games](#artifact-real-games-0.9.0.png), a game ran 24.1 turns on 0.8.2 and runs 15.6 on 0.9.0, where tournament players take 8.9. Batons at field kubbs missed 31.3 percent of the time and miss 25.1, against their 24.7. A turn clears every field kubb 63 times in 100, up from 51; theirs is 83. One change was tried and left out: a deader bounce for a baton planted on a kubb’s top made kubbs fall less often and moved every count away from the real games. At its tag the engine passes 405 tests of its core, 105 of the session and 101 of the room.
 
 The engine has a page of its own on the game’s site. [The Kubb Engine](https://throwingwood.com/engine/) sets out for a reader how its throws are checked, against score sheets, video of real play and a second physics simulator.

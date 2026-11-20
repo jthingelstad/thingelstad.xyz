@@ -1,3 +1,39 @@
+- id: kubb-engine-0-9-0
+  date: 2026-11-20
+  kind: milestone
+  title: Kubb Engine 0.9.0
+  summary: 'The day’s fifth tag: a kubb never rests on an edge, batons aim lower at a kubb’s body, the computer steps up to a kubb a step from the line, and its games against itself run 15.6 turns where they had run 24.1. The web game moves to it the same day, and the Playdate and iPhone games on their main branches.'
+  source: https://github.com/jthingelstad/kubb-engine/pull/18
+  things:
+    - kubb-engine
+    - kubb-throwing-wood-web
+    - kubb-throwing-wood-iphone
+    - kubb-throwing-wood
+- id: kubb-throwing-wood-home-site
+  date: 2026-11-20
+  kind: milestone
+  title: 'throwingwood.com becomes the home of Kubb: Throwing Wood'
+  summary: The site becomes a front page for the whole game, with pages for the web game, the iPhone app, the Playdate game and the Kubb Engine, and the web game’s lobby moves to /web/.
+  source: https://throwingwood.com/
+  things:
+    - kubb-throwing-wood-web
+- id: kubb-throwing-wood-iphone-public-testflight
+  date: 2026-11-20
+  kind: milestone
+  title: 'Kubb: Throwing Wood for iPhone opens to outside testers'
+  summary: Builds 113 and 121 pass Apple’s Beta App Review and go to the outside testers, with a public TestFlight link on the game’s iPhone page.
+  source: https://throwingwood.com/ios/
+  things:
+    - kubb-throwing-wood-iphone
+- id: kubb-throwing-wood-highlight-reels
+  date: 2026-11-20
+  kind: development
+  title: 'Kubb: Throwing Wood’s highlight reels'
+  summary: The web and iPhone games can ask for a short video of a finished match’s best throws, made on the server from its replay with the engine’s own physics, and a match against the computer can be shared with a link of its own.
+  source: https://github.com/jthingelstad/kubb.thingelstad.xyz/blob/main/docs/REEL.md
+  things:
+    - kubb-throwing-wood-web
+    - kubb-throwing-wood-iphone
 - id: kubb-throwing-wood-iphone-on-ipad
   date: 2026-11-19
   kind: development
