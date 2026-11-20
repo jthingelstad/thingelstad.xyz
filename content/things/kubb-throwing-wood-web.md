@@ -30,6 +30,9 @@ connections:
     detail: The Playdate game’s own Lua core, its geometry, physics, rules, throwing order, computer thrower and notation, runs unchanged in the browser, since November 17, 2026 as the Kubb Engine. The dial stands in for the crank, and the look is the game’s Woodcut in colour.
     source: https://throwingwood.com/
 face: tok.png
+gadget:
+  title: Watch a match
+  summary: A kept match from the game on the web, replayed throw by throw from its recorded actions, in a frame from throwingwood.com.
 story:
   color: '#3f7a2e'
   introduction: Friends on one pitch, each on their own screen.
@@ -134,6 +137,8 @@ The Playdate’s crank is a dial here. A press on the dial and a drag round it, 
 It wears the Playdate game’s Woodcut in colour: black outlines and hard shadows, a green pitch, Team A in marigold and Team B in violet, TOK! and KLAK! bursts, and the recorded knocks of wood. There are no accounts, and a room expires after 48 hours.
 
 Jamie asked for the Playdate game on the web, the same game with something of the web added, and Claude built it in one day, November 15, 2026, while the Playdate game was at its release candidate. Jamie made the design calls that day: teams picked in a lobby, a match, the computer and an open pitch, Woodcut in colour, and live and listed. Scored drills, saved players and the games list stayed on the Playdate.
+
+On November 16 a tester sent a report from inside it: six batons at one field kubb, and every one missed. A match here is kept as the actions its players sent, so this one could be replayed exactly, and the replay is kept until November 17, 2027. It is the match in [the gadget](#gadget).
 
 On November 17 it moved to its own domain, [throwingwood.com](https://throwingwood.com/), and the old address sends visitors there. The same day the game’s core came out of the Playdate game as [the Kubb Engine](/things/kubb-engine/), with the session and the room that had been written for the web, and the web began carrying the engine from its tagged releases. Since that day [the iPhone game](/things/kubb-throwing-wood-iphone/) plays the same engine, so a phone and a browser can play opposite sides of one match. On November 18 it got a [privacy page](https://throwingwood.com/privacy/), shared with the iPhone game.
 

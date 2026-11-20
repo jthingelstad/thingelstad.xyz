@@ -29,9 +29,6 @@ connections:
     detail: Every finished match is saved as a game file in Planet Kubb Notation, the system Jamie began on Planet Kubb in 2012.
     source: https://thingelstad.xyz/things/planet-kubb-score/
 face: the-hit.png
-gadget:
-  title: Watch a match
-  summary: A kept match from the game on the web, replayed throw by throw from its recorded actions, in a frame from throwingwood.com.
 bundles:
   - id: release-candidate
     title: '0.9.5, the release candidate'
@@ -461,7 +458,7 @@ Jamie began it on November 13, 2026. Claude writes the code, in Lua, and Jamie p
 
 The game’s rules, physics, throw and computer thrower were its core, written for the Playdate. On November 17 the core came out of it as [the Kubb Engine](/things/kubb-engine/), which the web game and [the iPhone game](/things/kubb-throwing-wood-iphone/) run too. The Playdate game now carries a copy of the engine’s core from a tagged release and never edits it. The work of November 16 and 17 on the computer’s throwing and the physics is told on [the engine’s page](/things/kubb-engine/). Its counts, charts and reports were first collected here, and they stay here, from [the real games](#artifacts-real-games) to [what the fixes did](#artifacts-night-fixes).
 
-One of them is a tester’s report from inside the web version on November 16: six batons at one field kubb, and every one missed. A match there is kept as the actions its players sent, so this one could be [replayed](#artifact-replay-embed.png) exactly. The match is kept as a replay until November 17, 2027, and it is the one in [the gadget](#gadget) below. The same day both versions began showing their version and build number on the title screen, so a report says which build it came from.
+One of them is a tester’s report from inside the web version on November 16: six batons at one field kubb, and every one missed. A match there is kept as the actions its players sent, so this one could be [replayed](#artifact-replay-embed.png) exactly. The match is kept as a replay until November 17, 2027, and it is the one in [the web game’s gadget](/things/kubb-throwing-wood-web/#gadget). The same day both versions began showing their version and build number on the title screen, so a report says which build it came from.
 
 [The release notes](#artifact-releases.md) keep each version. Version 0.9.6, on November 17, is the physics release: throws come down where they are aimed, a drilled kubb runs on less, a row of touching kubbs falls as a row, and pieces come to rest. The same day its bundle id moved to the game’s own domain, `com.throwingwood.playdate`, so a Playdate that had an earlier build starts fresh. Version 0.9.7, on November 18, carries engine 0.5.1: batons turn over less, Club and Pro aim for a half turn and add spin to their drills, slow impacts can move fallen wood, and open practice keeps six batons on the pitch. It is the build on the game’s page for sideloading.
 
