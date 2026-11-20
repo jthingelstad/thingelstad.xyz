@@ -3,7 +3,7 @@ import { fitsViewport, offline, watchErrors } from './helpers';
 
 test.beforeEach(({ page }) => offline(page));
 
-// Kubb: Throwing Wood's gadget frames one kept match from the game on the web (site/js/gadgets/kubb-throwing-wood.js).
+// Kubb: Throwing Wood's gadget frames one kept match from the game on the web (site/js/gadgets/kubb-throwing-wood-web.js).
 // Tests never reach throwingwood.com: answered here with a stand-in page, the frame goes in once the gadget nears
 // the screen; blocked, the gadget says the replay could not be reached, in place of the frame, and keeps its link.
 const embed = 'https://throwingwood.com/e/4pqpg9bs';
@@ -15,7 +15,7 @@ test('the Kubb gadget places the game’s embed only once it nears the screen', 
     requests++;
     return route.fulfill({ contentType: 'text/html', body: '<!doctype html><title>stand-in</title><p>replay</p>' });
   });
-  await page.goto('/things/kubb-throwing-wood/');
+  await page.goto('/things/kubb-throwing-wood-web/');
   const gadget = page.locator('[data-kubb-replay]');
   await expect(gadget).toBeAttached();
   await expect(gadget.locator('a')).toHaveAttribute('href', /^https:\/\/throwingwood\.com\/p\/4pqpg9bs/);
@@ -35,7 +35,7 @@ test('the Kubb gadget places the game’s embed only once it nears the screen', 
 
 test('the Kubb gadget says so and keeps its link when the embed cannot be reached', async ({ page }) => {
   const errors = watchErrors(page);
-  await page.goto('/things/kubb-throwing-wood/');
+  await page.goto('/things/kubb-throwing-wood-web/');
   const gadget = page.locator('[data-kubb-replay]');
   await gadget.scrollIntoViewIfNeeded();
   await expect(gadget).toBeVisible();
