@@ -62,7 +62,7 @@ bundles:
     caption: Captures of the app in the iOS simulator on an iPhone 16e, from the pictures its repository keeps for review, with a match made up for them, on November 17 to 19, 2026. You and CPU, Maple and Birch are the pictures’ own names.
   - id: ipad-pictures
     title: On an iPad
-    caption: Captures of the app in the iPadOS simulator on an iPad mini and an iPad Pro 13-inch, full screen, from the pictures its repository keeps for review, with a match made up for them, on November 19, 2026. You and CPU are the pictures’ own names.
+    caption: Captures of the app in the simulator on an iPad mini and an iPad Pro 13-inch, full screen, from the pictures its repository keeps for review, with a match made up for them, on November 19, 2026. You and CPU are the pictures’ own names.
 artifacts:
   - file: aim-clock.png
     bundle: review-pictures
