@@ -33,7 +33,7 @@
     "@types/node": "^26.6.6",
     "knip": "^6.45.1",
     "markdown-it": "^15.0.3",
-    "oxlint": "^1.93.0",
+    "oxlint": "^1.94.0",
     "pagefind": "1.6.0",
     "peggy": "5.1.0",
     "prettier": "^3.10.1",
