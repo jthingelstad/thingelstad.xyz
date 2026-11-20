@@ -121,7 +121,7 @@ artifacts:
   - file: menu.png
     bundle: made-for-touch
     title: The menu
-    caption: YOUR LEVEL, METER (Clock or Linear), METER SIDE (Left or Right), SURFACE and SOUND, then HOW TO THROW, SEND FEEDBACK, RULES and HOME. The last line gives the site’s version, its build and the engine it runs, 0.5.1.
+    caption: YOUR LEVEL, METER (Clock or Linear), METER SIDE (Left or Right), SURFACE and SOUND, then HOW TO THROW, SEND FEEDBACK, RULES and HOME. The last line gives the site’s version, its build and the engine it ran when this was taken, 0.5.1; the site went live on engine 0.7.1 later that day.
     date: '2026-11-19'
 ---
 

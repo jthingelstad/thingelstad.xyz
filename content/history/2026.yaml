@@ -1,3 +1,11 @@
+- id: kubb-throwing-wood-iphone-on-ipad
+  date: 2026-11-19
+  kind: development
+  title: 'Kubb: Throwing Wood for iPhone plays on an iPad'
+  summary: The iPhone game becomes universal, the same game on a bigger screen, laid out by the window’s size in all four of an iPad’s turns and in a resizable window, and goes to the testers in build 90 that evening.
+  source: https://github.com/jthingelstad/throwingwood-ios/pull/22
+  things:
+    - kubb-throwing-wood-iphone
 - id: kubb-throwing-wood-controls-for-a-hand
   date: 2026-11-19
   kind: development
