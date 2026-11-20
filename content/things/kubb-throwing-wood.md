@@ -48,6 +48,9 @@ bundles:
   - id: night-fixes
     title: What the fixes did
     caption: The physics fixes made in the night of November 16 to 17, 2026, measured by the same three checks before and after. The charts were drawn for this page from the tools’ output on the game’s main branch and from the figures its notes keep.
+  - id: on-the-device
+    title: On the device
+    caption: The performance check of November 20, 2026, run on a Playdate with game 0.9.8. The chart was drawn for this page from the table in the game’s pull request. No picture of 0.9.8 or 0.10.0 is kept yet.
   - id: the-throw
     title: The throw
     caption: One baton from wind-up to wood, on the practice pitch, as the Playdate Simulator drew it on November 13, 2026, the first day of building.
@@ -266,6 +269,12 @@ artifacts:
     title: Frames a second on the Playdate
     caption: The game’s own bench on a Playdate, before the friction and the row fix and after them. Aiming 28.5 frames a second, a baton in flight 26.8 and the impact 31.4, the same as before or a little faster. The physics took 3.82 milliseconds a step over the bench’s match, from 3.84.
     date: '2026-11-17'
+  - file: device-short-aim.png
+    bundle: on-the-device
+    title: Aiming at a kubb a step away
+    caption: How long the game takes to update a frame while the d-pad moves the circle onto a kubb 1 meter away. Working the plan out every other frame and engine 0.8.2’s faster plan together took it from 24.6 milliseconds to 12.4, about what aiming costs at 6 meters.
+    date: '2026-11-20'
+    source: https://github.com/jthingelstad/playdate-kubb/pull/157
   - file: wind-up.png
     bundle: the-throw
     title: The wind-up
@@ -463,5 +472,7 @@ One of them is a tester’s report from inside the web version on November 16: s
 [The release notes](#artifact-releases.md) keep each version. Version 0.9.6, on November 17, is the physics release: throws come down where they are aimed, a drilled kubb runs on less, a row of touching kubbs falls as a row, and pieces come to rest. The same day its bundle id moved to the game’s own domain, `com.throwingwood.playdate`, so a Playdate that had an earlier build starts fresh. Version 0.9.7, on November 18, carries engine 0.5.1: batons turn over less, Club and Pro aim for a half turn and add spin to their drills, slow impacts can move fallen wood, and open practice keeps six batons on the pitch. It is the build on the game’s page for sideloading.
 
 On November 19 Jamie wrote down what one player had found: “a playdate user was super confused because he was turning the crank opposite of the direction I thought made sense. He says even though he knows it now it is still backward to him. That feels like a left - right hand pref for playdate crank.” ([the game’s design notes](https://github.com/jthingelstad/playdate-kubb/blob/main/docs/DESIGN.md)). So the crank’s direction is now a setting, a choice in the System Menu on every screen with a throw, and a player who turns the crank forward three times without a throw is told how to flip it. It is in the game’s code, not yet in a release.
+
+On November 20 its main branch moved twice. Version 0.9.8 carries engine core 0.8.2, with the low, firm throw at a kubb a step away, and the title shows the game’s version and the engine’s, 0.9.8 (0.8.2). A check run on a Playdate before and after found that the short throw’s plan had grown from about 2 milliseconds to about 25. With engine 0.8.2, and the plan worked out every other frame while the circle moves, [aiming at a kubb a step away](#artifact-device-short-aim.png) now costs about what it costs at 6 meters. The raise view gained REST OF GAME, which raises every kubb for the rest of the match. Crank traces are recorded only when a debug file is on the Playdate. And the kubb set is gone from the Playdate: a set is a look for colour screens. Version 0.10.0, build 10, carries engine core 0.9.0. VS PLAYDATE has a COMPUTER row in its match options, with B held a tap of the d-pad moves the arc, tilt or spin one tick and a hold slides it, and a kubb’s spin is kept for the turn. Neither is a test build on the game’s page yet; that is still 0.9.7.
 
 On the first day, a design session gave it a look called [Woodcut](#artifacts-woodcut): three tones, hard shadows and a white pitch, with TOK, KLAK and KING bursting off the wood. Jamie approved it, and the game’s title, cards, launcher and pitch are drawn in it now.
