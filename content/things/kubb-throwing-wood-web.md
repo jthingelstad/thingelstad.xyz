@@ -42,6 +42,7 @@ story:
     - In a shared match the browser of whoever throws decides the throw and sends the launch. Every other browser replays it on its own copy of the pitch and checks a hash of the match. While someone aims, the others watch their aim and their dial move.
     - The room server is small and knows no Kubb, an API Gateway WebSocket API with one Lambda function and DynamoDB. There are no accounts, and a room expires after 48 hours.
     - A highlight reel is made on the server by a Lambda function that plays a finished match’s kept replay through the engine, draws its best throws frame by frame and encodes them with ffmpeg, as a tall video and a wide one.
+    - A scene is a look only. The engine keeps a match’s scene as a name and never reads it, so a throw goes the same way, to the same hash, in every scene. Everything that draws a match, the game, its replay, the embed and the reel on the server, draws it through one stage that takes that name, and a name the browser does not know is drawn as the day.
     - The site is static, on S3 behind CloudFront, drawn with JavaScript on a canvas.
   stack:
     - Lua 5.4
@@ -73,7 +74,10 @@ bundles:
     caption: Captures of the practice pitch on November 19, 2026, from the site’s code that day, drawn by its own tests and a browser on this page’s behalf, at a phone’s size and a laptop’s. The marks on the meter are a ghost of the throw the game is showing.
   - id: a-home-for-the-game
     title: A home for the whole game
-    caption: Captures of the live site on the afternoon of November 20, 2026, at version 0.5.0 (0.9.0), taken for this page by a browser 1280 pixels wide, and 500 for the narrow one.
+    caption: Captures of the live site on the afternoon of November 20, 2026, at version 0.5.0 (0.9.0), taken for this page by a browser 1280 pixels wide, and 500 for the narrow one. The Playdate page was taken later the same afternoon, at version 0.7.0 (0.9.0).
+  - id: scenes
+    title: Night and Neon
+    caption: Captures of the live site in the late afternoon of November 20, 2026, at version 0.7.0 (0.9.0), taken for this page by a browser 1280 pixels wide. Each scene was picked with the address’s scene switch, which the game keeps for links and testing.
 artifacts:
   - file: home.png
     bundle: on-the-web
@@ -154,6 +158,30 @@ artifacts:
     caption: Five base kubbs, the clock at rest, and the coach line PULL BACK TO THE ORANGE MARK over WIND BACK. TILT and ARC are sliders with the engine’s ticks under them, beside STAND and SIDE VIEW.
     date: '2026-11-20'
     source: https://throwingwood.com/practice/
+  - file: playdate-page.png
+    bundle: a-home-for-the-game
+    title: The Playdate game’s page
+    caption: IN DEVELOPMENT, On Playdate, “This is where the game began.”, and GET THE TEST BUILD, beside the game’s reel from the Playdate Simulator, at the first HOW TO PLAY card, THE PITCH. Further down the page are the crank, what there is to play, the download of test build 0.9.7 and the three steps to sideload it.
+    date: '2026-11-20'
+    source: https://throwingwood.com/playdate/
+  - file: night-practice.png
+    bundle: scenes
+    title: Practice at night
+    caption: The practice pitch under a full moon, with hills against a starry sky. The five base kubbs and the baseline glow pale green, the baton is lit at the thrower’s feet, and the clock, the sliders and the buttons are dark to match.
+    date: '2026-11-20'
+    source: https://throwingwood.com/practice/?scene=night
+  - file: neon-practice.png
+    bundle: scenes
+    title: Practice in Neon
+    caption: The same pitch as a black world on a grid of faint blue lines, the baseline a bright cyan line, the kubbs edged in violet light and the baton in pink. The controls take the scene’s cyan.
+    date: '2026-11-20'
+    source: https://throwingwood.com/practice/?scene=neon
+  - file: scene-row.png
+    bundle: scenes
+    title: The Scene row
+    caption: 'The Play the computer card, its last row SCENE: Day, Night and Neon, each with a small picture of its scene. Night is picked, and the card and the pitch behind it already wear it. Nothing was started; the card was only opened.'
+    date: '2026-11-20'
+    source: https://throwingwood.com/web/
 ---
 
 Kubb: Throwing Wood on the web is the [Playdate game](/things/kubb-throwing-wood/) in a web browser. The Playdate game’s own code runs in it, unchanged: the geometry, the physics, the rules, the throwing order, the computer thrower and the [Planet Kubb Notation](/things/planet-kubb-score/). It is compiled as Lua 5.4 in WebAssembly, so the same throw gives the same result in every browser.
@@ -176,4 +204,8 @@ In the night of November 19 to 20, highlight reels went live. When a match on a 
 
 Version 0.4.0, the same afternoon, made throwingwood.com the home of the whole game, not only of the web version. [The front page](#artifact-landing.png) says what kubb is and offers three ways to play. The game’s own page, the old home page, moved to [/web/](#artifact-web-page.png), and there are pages for the iPhone app, the Playdate game, the Kubb Engine and kubb clubs and sites to find. The words are short and plain on purpose. Pitch, replay and share links did not change.
 
-Version 0.5.0 came at the end of the day, on engine 0.9.0. It carries 0.8.2 and 0.7.4 beside it, so a match begun on an older engine plays and replays on that one, and a pitch shared with a phone that has only 0.8 plays on 0.8. On a 0.9 match the computer’s level is an option of the match, on the card that starts a match against the computer and in a pitch’s lobby, where the host sets it. A player’s own level is one setting, in MENU. ARC, TILT and SPIN are [sliders that stop anywhere](#artifact-practice-0.5.0.png). And the foot of every page shows the version as 0.5.0 (0.9.0), the site’s own and then the engine’s.
+Version 0.5.0 came early in the afternoon, on engine 0.9.0. It carries 0.8.2 and 0.7.4 beside it, so a match begun on an older engine plays and replays on that one, and a pitch shared with a phone that has only 0.8 plays on 0.8. On a 0.9 match the computer’s level is an option of the match, on the card that starts a match against the computer and in a pitch’s lobby, where the host sets it. A player’s own level is one setting, in MENU. ARC, TILT and SPIN are [sliders that stop anywhere](#artifact-practice-0.5.0.png). And the foot of every page shows the version as 0.5.0 (0.9.0), the site’s own and then the engine’s.
+
+Version 0.6.0 followed an hour later. [The page for the Playdate game](#artifact-playdate-page.png) stands on its own now: the game’s reel plays near the top, and the download and the three steps to sideload it are on the page, from the Playdate games site’s own files. The landing pages gained a newsletter sign-up, News from the pitch, a plain form that posts the address to Buttondown and keeps nothing on the site. A robots.txt keeps crawlers off each match’s own addresses and lets the fetchers that draw link previews in, so a shared link still shows its card. The privacy page and /web/ say it plainly: “Matches are recorded to help make the game better.” And the engine’s page counts its golden hashes from the engine it carries, 523 for 0.9.0, where it had said 505.
+
+Version 0.7.0, an hour after that, brought scenes. A match can be played in the Day, as every match was before; at [Night](#artifact-night-practice.png), on a real pitch under a full moon, with stardust behind a thrown baton; or in [Neon](#artifact-neon-practice.png), a black world on a grid of light. A scene is a look only, with the same engine and the same throws, and it skins the controls too, so the clock, the sliders and the cards go dark with the pitch. It is a row on [the Play the computer card](#artifact-scene-row.png), with a small picture of each scene, a row in practice’s MENU, and, on a shared pitch on engine 0.9, a row in the lobby, where the host picks for everyone. A replay, an embed and a highlight reel draw a match in its own scene. With reduced motion a scene keeps its look and drops what moves on its own. Every scene’s type is held to a contrast of 7:1 or better, and the night costs about 28 milliseconds a frame where the day costs about 20, measured with the processor slowed four times ([the site’s notes on scenes](https://github.com/jthingelstad/kubb.thingelstad.xyz/blob/main/docs/SCENES.md)).
