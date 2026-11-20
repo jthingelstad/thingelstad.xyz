@@ -1,6 +1,6 @@
 ---
 title: 'Kubb: Throwing Wood for iPhone'
-summary: 'Kubb: Throwing Wood as a native iPhone app, begun on November 17, 2026. It runs the Kubb Engine in Lua with musl’s math built in, so its throws match the web game’s hash for hash, and it plays on the same pitches. It is in TestFlight with a small group of testers.'
+summary: 'Kubb: Throwing Wood as a native iPhone app, begun on November 17, 2026. It runs the Kubb Engine in Lua with musl’s math built in, so its throws match the web game’s hash for hash, and it plays on the same pitches. Since November 19 it plays on an iPad too, the same game on a bigger screen. It is in TestFlight with a small group of testers.'
 collection: Games
 status: active
 url: null
@@ -33,11 +33,13 @@ story:
     - The game is the Kubb Engine, run in Lua 5.4.5, the Lua that wasmoon 1.16 builds. Apple’s math library differs from the web’s in the last bit on some arguments, so musl 1.2.5’s math is compiled in instead, with every name renamed so nothing falls back to Apple’s, and no fused multiply-adds.
     - The pitch is drawn with Core Graphics, in heavy ink frames with hard shadows, from what the engine reports after every action.
     - Online play is the web’s rooms service, spoken to over a Foundation WebSocket, so the app joins the same lobbies and the same matches as a browser.
+    - The layout reads the window’s size, never the device’s. A window taller than 1.05 times its width is laid out upright and any other wide, so an iPad upright, on its side or in a resizable window gets one of the same two layouts as a phone.
     - Wood knocks on impact, and Core Haptics taps as the dial’s arm enters or leaves a target band and when the king falls; sound and haptics each have a switch.
   stack:
     - Swift
     - SwiftUI
     - iOS 26
+    - iPadOS 26
     - Lua 5.4
     - musl
     - Core Graphics
@@ -58,6 +60,9 @@ bundles:
   - id: review-pictures
     title: The review pictures
     caption: Captures of the app in the iOS simulator on an iPhone 16e, from the pictures its repository keeps for review, with a match made up for them, on November 17 to 19, 2026. You and CPU, Maple and Birch are the pictures’ own names.
+  - id: ipad-pictures
+    title: On an iPad
+    caption: Captures of the app in the iPadOS simulator on an iPad mini and an iPad Pro 13-inch, full screen, from the pictures its repository keeps for review, with a match made up for them, on November 19, 2026. You and CPU are the pictures’ own names.
 artifacts:
   - file: aim-clock.png
     bundle: review-pictures
@@ -109,6 +114,26 @@ artifacts:
     title: Send feedback
     caption: The card that sends a report about a throw that looked wrong, or anything else, in one box. It says what goes with it, and that it is kept privately.
     date: '2026-11-19'
+  - file: ipad-upright.png
+    bundle: ipad-pictures
+    title: An iPad mini, upright
+    caption: The first turn of a match against the computer on an iPad mini held upright. It is the phone’s upright layout with more pitch around it, the clock in the middle, ARC and SIDE VIEW on one side and TILT and STAND on the other.
+    date: '2026-11-19'
+  - file: ipad-on-its-side.png
+    bundle: ipad-pictures
+    title: An iPad Pro 13-inch, on its side
+    caption: The first turn again, on an iPad Pro 13-inch on its side, in the web’s wide layout. The clock grows with the screen, low on the right for the throwing hand, and TILT, STAND, ARC and SIDE VIEW sit at the far left with the minimap beside them.
+    date: '2026-11-19'
+  - file: ipad-linear-left.png
+    bundle: ipad-pictures
+    title: The linear meter on the left
+    caption: An iPad mini on its side with the linear meter chosen at the left edge, at its full length, and the plan’s controls mirrored to the far right.
+    date: '2026-11-19'
+  - file: ipad-punishment-kubb.png
+    bundle: ipad-pictures
+    title: A punishment kubb
+    caption: Placing a punishment kubb on an iPad Pro 13-inch on its side. The card keeps the web’s width in the corner instead of stretching across the screen; drag or tap a spot clear of the red circles, then PLACE IT.
+    date: '2026-11-19'
 ---
 
 Kubb: Throwing Wood for iPhone is the game Jamie began on the Playdate, made for a phone. It plays practice, a match against the computer, and matches on a shared pitch with friends, and a phone and a browser can play opposite sides of the same match. At the end of a match the score sheet is there in [Planet Kubb Notation](/things/planet-kubb-score/), with a rematch a button away.
@@ -118,5 +143,7 @@ It is native, written in Swift, but the game in it is not new code. It runs [the
 It was begun on November 17, 2026, the day the engine came out of the Playdate game. That day it ran the engine natively, hash for hash with the web, and played practice throws; on November 18 it played a whole match against the computer, started, joined and watched pitches online, opened pitch links, and knocked wood with sound and haptics. The same day it went into TestFlight with a small group of testers.
 
 On November 19 it took on, alongside the web game, the controls the two now share. The meter is the player’s choice, the clock or a linear meter at either edge, and a finger turning either one no longer has to cover it. A player who is stuck is shown the throw on the meter itself. ARC and TILT are sliders, STAND replaced WALK, a kubb is raised by touching it, AUTO ALL raises the rest of a turn’s and the menu’s Raising the rest of the game’s, and Send Feedback takes any kind of feedback. The score sheet names a player only on a team of more than one. And the phone can be turned on its side. Jamie, that day: “Given we have a widescreen view for web, can we extend that to support iPhone rotated display?” And: “in landscape the tilt, arc, stand controls should be pushed to the left hand side of the screen so the user can control those with the left hand and the throw with the right hand” ([the app’s notes](https://github.com/jthingelstad/throwingwood-ios/blob/main/docs/RENDER.md)). Both are in it.
+
+Later that day it became an iPad app as well. Jamie: “The idea of an iPad version would just be to give us a little bit bigger screen” ([the app’s notes](https://github.com/jthingelstad/throwingwood-ios/blob/main/docs/RENDER.md)). So [the iPad](#artifacts-ipad-pictures) plays the same game, with the same throw and the same cards, and nothing is drawn for it that the phone lacks. The layout goes by the window, not the device: [upright](#artifact-ipad-upright.png) is the phone’s layout, and [on its side](#artifact-ipad-on-its-side.png) or in a resizable window it is the web’s wide one, with TILT, ARC and STAND at the far edge from the meter. An iPad turns all four ways; the iPhone keeps three. On its side the clock takes the web’s rule for its size, so it grows with the screen, while the score sheet, the panels and the feedback card keep the web’s widths instead of stretching, and in a window smaller than the screen the turn rail keeps clear of the window’s own controls. Its tests sweep every window size an iPad can give, and it was checked in the simulator on an iPad mini and an iPad Pro 13-inch. Build 90 took it to the testers that evening; build 80, earlier the same day, had carried the phone on its side and the new controls.
 
 Its bundle id is `com.throwingwood.app`, at the game’s own domain, and its privacy page is [on throwingwood.com](https://throwingwood.com/privacy/). Every upload to TestFlight, and the App Store, is Jamie’s call.
