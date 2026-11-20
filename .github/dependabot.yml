@@ -5,6 +5,10 @@ updates:
     schedule:
       interval: weekly
     open-pull-requests-limit: 5
+    ignore:
+      # Peggy stays at pk-kubb-score's version: it generates the vendored notation
+      # parser, and another version writes it differently (AGENTS.md, Planet Kubb Score).
+      - dependency-name: peggy
     groups:
       development-tools:
         dependency-type: development

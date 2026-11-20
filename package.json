@@ -35,7 +35,7 @@
     "markdown-it": "^15.0.3",
     "oxlint": "^1.93.0",
     "pagefind": "1.6.0",
-    "peggy": "5.1.1",
+    "peggy": "5.1.0",
     "prettier": "^3.10.1",
     "sharp": "^0.35.5",
     "stylelint": "^18.0.0",
