@@ -1,3 +1,11 @@
+- id: kubb-throwing-wood-web-scenes
+  date: 2026-11-20
+  kind: development
+  title: 'Kubb: Throwing Wood on the web gets scenes'
+  summary: 'Version 0.7.0: a match can be played in the Day, at Night under a full moon, or in Neon, a black world on a grid of light. A scene is a look only, the same engine and the same throws, and it skins the controls too. The player picks it on the Play the computer card or in practice, and on a shared pitch the host picks it for everyone.'
+  source: https://github.com/jthingelstad/kubb.thingelstad.xyz/pull/90
+  things:
+    - kubb-throwing-wood-web
 - id: kubb-engine-0-9-0
   date: 2026-11-20
   kind: milestone
