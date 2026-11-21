@@ -1,3 +1,19 @@
+- id: kubb-throwing-wood-web-observer
+  date: 2026-11-20
+  kind: development
+  title: 'Kubb: Throwing Wood on the web gets observer mode'
+  summary: 'Version 0.8.0: anyone can watch an open game from the open games list, in step at once and never able to act, and anyone watching in the wide view can turn, tilt, move and zoom the camera round the pitch. Version 0.7.1, just before it, put the device’s settings in one place, with a name typed once.'
+  source: https://github.com/jthingelstad/kubb.thingelstad.xyz/pull/93
+  things:
+    - kubb-throwing-wood-web
+- id: kubb-engine-kubb-gym
+  date: 2026-11-20
+  kind: development
+  title: The Kubb Gym
+  summary: 'A measuring tool in the engine’s repository plays hundreds of matches, thrown the way the computer throws and the way people throw, and scores an engine build on one page beside the 150 tournament games, so the throw can be tuned from numbers, not from play tests. No throw changed; the engine is still 0.9.0.'
+  source: https://github.com/jthingelstad/kubb-engine/pull/19
+  things:
+    - kubb-engine
 - id: kubb-throwing-wood-web-scenes
   date: 2026-11-20
   kind: development
