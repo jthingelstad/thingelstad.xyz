@@ -1,3 +1,11 @@
+- id: kubb-throwing-wood-iphone-scenes
+  date: 2026-11-20
+  kind: development
+  title: 'Kubb: Throwing Wood for iPhone gets scenes'
+  summary: 'Version 0.4, build 144, goes to TestFlight: a match can be played in the Day, at Night under a full moon, or in Neon, a black world on a grid of light. A scene is a look only and never changes a throw. It passes Apple’s Beta App Review early the next morning, as does build 132, version 0.3, and both go to the outside testers.'
+  source: https://github.com/jthingelstad/throwingwood-ios/pull/34
+  things:
+    - kubb-throwing-wood-iphone
 - id: kubb-throwing-wood-web-observer
   date: 2026-11-20
   kind: development
