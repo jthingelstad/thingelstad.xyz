@@ -1,7 +1,7 @@
 ---
 title: 'Kubb: Throwing Wood on the web'
 site_name: 'Kubb: Throwing Wood'
-summary: 'The Playdate game Kubb: Throwing Wood in a web browser: a match on a link with friends, a match against the computer, or the practice pitch, thrown with a dial or a linear meter in place of the crank. It runs the Kubb Engine, and a phone running the iPhone game can join its pitches.'
+summary: 'The Playdate game Kubb: Throwing Wood in a web browser: a match on a link with friends, a match against the computer, or the practice pitch, thrown with a dial or a linear meter in place of the crank. Anyone can watch an open game and move the camera round the pitch. It runs the Kubb Engine, and a phone running the iPhone game can join its pitches.'
 tagline: 'The Playdate Kubb game in a web browser, with friends on one pitch at a link.'
 collection: Games
 status: active

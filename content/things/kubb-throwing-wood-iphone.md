@@ -1,6 +1,6 @@
 ---
 title: 'Kubb: Throwing Wood for iPhone'
-summary: 'Kubb: Throwing Wood as a native iPhone app, begun on November 17, 2026. It runs the Kubb Engine in Lua with musl’s math built in, so its throws match the web game’s hash for hash, and it plays on the same pitches. Since November 19 it plays on an iPad too, the same game on a bigger screen. It is in TestFlight, and since November 20 anyone can join its testers from a public link.'
+summary: 'Kubb: Throwing Wood as a native iPhone app, begun on November 17, 2026. It runs the Kubb Engine in Lua with musl’s math built in, so its throws match the web game’s hash for hash, and it plays on the same pitches. Since November 19 it plays on an iPad too, the same game on a bigger screen. It is in TestFlight, and since November 20 anyone can join its testers from a public link. Since November 21 they have version 0.4, with Day, Night and Neon scenes.'
 collection: Games
 status: active
 url: null
@@ -69,6 +69,12 @@ bundles:
   - id: reels-and-0-3
     title: A highlight reel, and version 0.3
     caption: Captures of the app in the iOS simulator on an iPhone 16e, from the pictures its repository keeps for review, with matches made up for them. The reel card is from the night of November 19, 2026, and in TestFlight since build 113; the other three are version 0.3 on engine 0.9.0, on the app’s main branch on November 20 and uploaded to TestFlight that afternoon as build 132. You, CPU, North and South are the pictures’ own names.
+  - id: scenes-0-4
+    title: Night and Neon, in version 0.4
+    caption: Captures of the app in the iOS simulator on an iPhone 16e, from the pictures its repository keeps for review, with a match made up for it, on the evening of November 20, 2026, at version 0.4, which testers have had since build 144. You and CPU are the pictures’ own names.
+  - id: version-0-5
+    title: Settings and watching, in version 0.5
+    caption: Captures of the app in the iOS simulator on an iPhone 16e, from the pictures its repository keeps for review, on the night of November 20, 2026, from version 0.5 on the app’s main branch, which is in no TestFlight build yet. Maple, Rowan and Birch are the pictures’ own names, and the open pitches were made up for them.
 artifacts:
   - file: aim-clock.png
     bundle: review-pictures
@@ -160,6 +166,41 @@ artifacts:
     title: The match menu, and its version
     caption: Your level, sound, haptics, the meter and its side, then SEND FEEDBACK, SCORE SHEET, HOME, RESIGN and BACK TO MATCH. At the foot, Throwing Wood 0.3 (0.9.0), then build 129, then “Also plays 0.8.2, 0.7.4”.
     date: '2026-11-20'
+  - file: night-aim.png
+    bundle: scenes-0-4
+    title: Aiming at Night
+    caption: The first turn of a match against the computer at Night, under a full moon and stars. The baselines glow pale green, the king is lit at the center, and the clock, the sliders and the score bar are dark to match.
+    date: '2026-11-20'
+  - file: neon-flight.png
+    bundle: scenes-0-4
+    title: A baton in Neon
+    caption: A baton in flight in Neon, a white outline over a black world on a grid of faint blue lines, toward base kubbs edged in violet, with the king in pink. SKIP is low on the right.
+    date: '2026-11-20'
+  - file: scene-row.png
+    bundle: scenes-0-4
+    title: The Scene row
+    caption: 'Play the computer, its card dark in the night scene. Scene: Night is the last row, under Computer level, Surface, Opening, Raising, Wind and Kubbs.'
+    date: '2026-11-20'
+  - file: settings-card.png
+    bundle: version-0-5
+    title: The Settings card
+    caption: 'Settings, from home: Your name, Your level (Beginner, Club or Pro), Sound, Haptics, Meter (Clock or Linear) and Meter side, with “On a screen held upright the clock stays in the middle; the side moves the linear meter.” and BACK.'
+    date: '2026-11-20'
+  - file: open-games.png
+    bundle: version-0-5
+    title: Open games
+    caption: 'Play online: START A PITCH and JOIN A PITCH, then Open games, “These pitches are open to anyone. Join one and pick a side, or watch a match.”, with two pitches, each with JOIN and WATCH.'
+    date: '2026-11-20'
+  - file: watch-moved.png
+    bundle: version-0-5
+    title: Watching, the view moved
+    caption: Turn 1, “Maple throws”, watched after the view has been turned, lowered and brought closer. RESET VIEW is low on the left.
+    date: '2026-11-20'
+  - file: watch-card.png
+    bundle: version-0-5
+    title: The watcher’s card
+    caption: 'Between matches: Watching, “Waiting for Maple to start the match.”, Team A Maple, Team B Rowan, Watching Birch (you), then JOIN THIS PITCH and HOME.'
+    date: '2026-11-20'
 ---
 
 Kubb: Throwing Wood for iPhone is the game Jamie began on the Playdate, made for a phone. It plays practice, a match against the computer, and matches on a shared pitch with friends, and a phone and a browser can play opposite sides of the same match. At the end of a match the score sheet is there in [Planet Kubb Notation](/things/planet-kubb-score/), with a rematch a button away.
@@ -174,6 +215,10 @@ Later that day it became an iPad app as well. Jamie: “The idea of an iPad vers
 
 On November 20 the app took on [the highlight reel](#artifact-highlight-reel.png) and the share card. At the end of a match on a shared pitch it can ask for a reel, and a match against the computer can be shared to get a link, a replay and a reel of its own, as on the web. Build 113, with the reels on engine 0.7.4, and then build 121, version 0.2 on engine 0.8.1, passed Apple’s Beta App Review that day and went to the outside testers. Anyone can join them from [the TestFlight link](https://testflight.apple.com/join/rTx8uTn1) on [the game’s iPhone page](https://throwingwood.com/ios/). Build 121 carries engine 0.7 beside 0.8, so it can still open a match begun on 0.7, and its menu shows the version as 0.2 (0.8.1).
 
-Later that day version 0.3 reached the app’s main branch, on engine 0.9.0 with 0.8.2 and 0.7.4 beside it. A player’s own throw level is one setting on the phone, the computer’s level is [an option of the match](#artifact-computer-level.png), and ARC, TILT and SPIN are [sliders that stop anywhere](#artifact-tilt-slider.png), with the engine’s ticks marked. [Its menu](#artifact-menu-0.3.png) reads 0.3 (0.9.0). Build 132 carries it and went to Apple’s Beta App Review that afternoon.
+Later that day version 0.3 reached the app’s main branch, on engine 0.9.0 with 0.8.2 and 0.7.4 beside it. A player’s own throw level is one setting on the phone, the computer’s level is [an option of the match](#artifact-computer-level.png), and ARC, TILT and SPIN are [sliders that stop anywhere](#artifact-tilt-slider.png), with the engine’s ticks marked. [Its menu](#artifact-menu-0.3.png) reads 0.3 (0.9.0). Build 132 carries it and went to Apple’s Beta App Review that afternoon. It passed at about 12:13 in the morning of November 21 and went to the outside testers.
+
+Version 0.4 reached the main branch on the evening of November 20 and brought scenes, as on the web. A match can be played in the Day, at [Night](#artifact-night-aim.png) under a full moon, or in [Neon](#artifact-neon-flight.png), a black world on a grid of light. Scene is an option of the match: [the last row](#artifact-scene-row.png) of the options for a match against the computer, a row in the lobby for the host, and a row in the practice menu. A scene is a look only and never changes a throw, and the controls take its colours too, “dark mode for the game,” in Jamie’s words ([the app’s guide](https://github.com/jthingelstad/throwingwood-ios/blob/main/AGENTS.md)). Scene and Surface stay two settings. Build 144 carries it. It was uploaded that evening, passed Beta App Review at about 12:21 in the morning of November 21, and went to the outside testers. Its menu reads 0.4 (0.9.0).
+
+Version 0.5 has been on the app’s main branch since late on November 20, and is in no TestFlight build yet. The device’s own settings, Your name, Your level, Sound, Haptics, Meter and Meter side, are together on [one Settings card](#artifact-settings-card.png), reached from home and from inside every match. A match’s options live only with the match: the options card for a match against the computer, the practice menu and the lobby. And it has observer mode, with the same rules as [the web’s](/things/kubb-throwing-wood-web/#artifacts-watching), which came in its version 0.8.0. The Play online card lists [Open games](#artifact-open-games.png), each with JOIN and WATCH. A watcher sees the whole pitch in a wide view, can drag to look around and pinch to zoom, and RESET VIEW goes back to where [a moved view](#artifact-watch-moved.png) began. An observer never throws, never hosts and cannot shout, and between matches [its card](#artifact-watch-card.png) offers JOIN THIS PITCH.
 
 Its bundle id is `com.throwingwood.app`, at the game’s own domain, and its privacy page is [on throwingwood.com](https://throwingwood.com/privacy/). Every upload to TestFlight, and the App Store, is Jamie’s call.
