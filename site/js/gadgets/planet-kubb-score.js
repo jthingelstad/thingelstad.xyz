@@ -2,6 +2,10 @@
 // they type. Both halves are the notation's own code, vendored from pk-kubb-score by npm run kubb:sync: the parser
 // Peggy generates from its grammar decides what is valid and says where it is not, and its kubb.js replays the game
 // to score it. Nothing is fetched and nothing is sent; it all runs here. A failure says so in the gadget, never throws.
+// The notation is Planet Kubb Notation 2 (pk-kubb-score v2-2026.11). parse reads the lenient form, the grammar's Game
+// rule and the parser's default: every notation 1 sheet, and position lines under a turn line. Where a turn's lines
+// disagree, the lenient form keeps reading (the parser lists it in the turn's issues) and kubb.js says the same in
+// the replay's warnings, which is where this shows it. The canonical form (CanonicalGame) is not used here.
 import { parse } from './planet-kubb-score/notation-parser.js';
 import { analyze } from './planet-kubb-score/kubb.js';
 import example from './planet-kubb-score/example.js';

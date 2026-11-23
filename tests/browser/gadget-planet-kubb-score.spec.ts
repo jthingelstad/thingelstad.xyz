@@ -60,3 +60,75 @@ test('a line that is not notation says where, and the example comes back', async
   await expect(gadget.locator('[data-kubb-where]')).toBeHidden();
   expect(errors).toEqual([]);
 });
+
+// Planet Kubb Notation 2 (pk-kubb-score v2-2026.11): position lines under a turn line and rule headers. The game is
+// the one its description (docs/notation-2.md) opens with, which is also in the canonical form.
+const notation2 = `[Notation "2"]
+[Opening "2-4-6"]
+[Team A "Ringers"]
+[Team B "Kubbitz"]
+
+1. j:B m:-
+2. k:I k:F s:B s:B k:-
+@a 2,1
+3. j:3I j:2F m:F j:B m:- j:- m:-
+@b 3,1 2x4,0
+4. k:4IRP s:2F k:F s:- k:- s:- k:-
+@a 2x3,0 4,1 1,3p
+5. j:3I A j:3F m:B j:B m:B j:- m:K
+@a 4,1s
+`;
+
+test('a notation 2 game with position lines and rule headers is read and scored', async ({ page }) => {
+  const errors = watchErrors(page);
+  await page.goto('/things/planet-kubb-score/');
+  const gadget = page.locator('[data-kubb-score-gadget]');
+  const input = gadget.getByLabel('Notation');
+  const verdict = gadget.locator('[data-kubb-verdict]');
+  await expect(verdict).toHaveText('Valid notation: 15 headers, 18 turns.');
+
+  await input.fill(notation2);
+  await expect(verdict).toHaveText('Valid notation: 4 headers, 5 turns.');
+  await expect(verdict).toHaveClass(/is-valid/);
+  await expect(gadget.locator('.kubb-result')).toHaveText(
+    'Ringers took the king in turn 5. Ringers threw first, assumed until a First header says otherwise.'
+  );
+  const table = gadget.locator('.kubb-teams');
+  await expect(table.locator('thead th.is-winner')).toHaveText('Ringers');
+  await expect(table.getByRole('row', { name: /^Batons thrown/ })).toHaveText(/Batons thrown\s*14\s*10/);
+  await expect(table.getByRole('row', { name: /^Hits/ })).toHaveText(/Hits\s*9\s*5/);
+  await expect(table.getByRole('row', { name: /^Kings/ })).toHaveText(/Kings\s*1\s*0/);
+  // Every position line agrees with the count, so the replay finds nothing.
+  await expect(gadget.locator('.kubb-warnings')).toHaveCount(0);
+  expect(await fitsViewport(page)).toBe(true);
+
+  // A pitch line with a kubb the count does not have is valid notation, and the replay says so.
+  await input.fill(notation2.replace('@a 2,1\n', '@a 2,1 3,1\n'));
+  await expect(verdict).toHaveText('Valid notation: 4 headers, 5 turns.');
+  await expect(gadget.locator('.kubb-warnings li')).toHaveText([
+    'Turn 2: The pitch line @a has 2 kubbs, and 1 field kubb stands in that half.'
+  ]);
+
+  // A position line that mixes cells and points is not notation; the grammar names the line.
+  await input.fill(notation2.replace('@a 2,1\n', '@a 2,1 3.10,1.00\n'));
+  await expect(verdict).toHaveText(
+    'Not valid notation. Line 8, column 1: A position line is all cells or all points, not a mix.'
+  );
+  await expect(gadget.locator('[data-kubb-where]')).toContainText('@a 2,1 3.10,1.00');
+  await expect(gadget.locator('.kubb-teams')).toHaveCount(0);
+
+  // A later notation is refused, never misread as this one.
+  await input.fill(notation2.replace('[Notation "2"]', '[Notation "3"]'));
+  await expect(verdict).toHaveText(
+    'Not valid notation. Line 1, column 1: This grammar reads notation 1 and 2, and the file says notation 3.'
+  );
+
+  // A rule header changes what the replay expects: three base kubbs a side, so the king may fall after three.
+  await input.fill('[Team A "One"]\n[Team B "Two"]\n\n1. B B B K');
+  await expect(gadget.locator('.kubb-warnings li')).toHaveText(['Turn 1: King taken with 2 kubbs still standing.']);
+  await input.fill('[Base kubbs "3"]\n[Team A "One"]\n[Team B "Two"]\n\n1. B B B K');
+  await expect(verdict).toHaveText('Valid notation: 3 headers, 1 turn.');
+  await expect(gadget.locator('.kubb-result')).toHaveText(/^One took the king in turn 1\./);
+  await expect(gadget.locator('.kubb-warnings')).toHaveCount(0);
+  expect(errors).toEqual([]);
+});
