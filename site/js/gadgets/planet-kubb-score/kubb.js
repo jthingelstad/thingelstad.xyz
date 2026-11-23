@@ -1,5 +1,10 @@
 // Planet Kubb Notation: parser, game-state simulator and statistics.
 // No dependencies. Runs in the browser (ES module) and in Node for tests.
+//
+// This is the tolerant reader. The grammar (grammar/planet-kubb-notation.peggy)
+// says what the notation is; this reads whatever it can and warns. Where it
+// reads something the grammar refuses, it says so in a warning, so a repair
+// is never mistaken for valid notation.
 
 const ACTIONS_INKAST = 'IRPYQNE';
 
@@ -20,7 +25,7 @@ function parseInkast(u) {
 // Advantage: "A", "0A".."4A", and the 2012 forms "BA", "MA", "CA".
 function parseAdvantage(u) {
   let m = u.match(/^(\d?)A$/);
-  if (m) return { meters: m[1] === '' ? null : +m[1] };
+  if (m) return { meters: m[1] === '' ? null : +m[1], over: m[1] !== '' && +m[1] > 4 };
   m = u.match(/^([BMC])A$/);
   if (m) return { meters: null, old: m[1] };
   return null;
@@ -63,6 +68,11 @@ function parseAction(s, phase) {
 // "jtB" is player jt throwing B; lowercase players and uppercase actions keep
 // that unambiguous ("fB" is player f, "FB" is a field-then-base baton).
 function parseToken(raw, phase) {
+  // BA, MA and CA are the 2012 advantage markers in any case, never a player.
+  if (phase !== 'batons' && /^[BMC]A$/i.test(raw)) {
+    const a = parseAction(raw, phase);
+    if (a) return { ...a, player: null, raw };
+  }
   let m = raw.match(/^([A-Za-z_]+):(.+)$/);
   if (m) {
     const a = parseAction(m[2], phase);
@@ -78,93 +88,162 @@ function parseToken(raw, phase) {
   for (let i = raw.length - 1; i > 0; i--) {
     if (!/^[A-Za-z_]+$/.test(raw.slice(0, i))) continue;
     const b = parseAction(raw.slice(i), phase);
-    if (b) return { ...b, player: raw.slice(0, i).toLowerCase(), raw };
+    // The grammar wants a colon here (jtb, EB), so this reading is a repair.
+    if (b) {
+      const player = raw.slice(0, i).toLowerCase();
+      return { ...b, player, raw, repaired: `${player}:${raw.slice(i).toUpperCase()}` };
+    }
   }
   return null;
 }
 
-// ---------- positions ----------
+// ---------- position lines ----------
 
-// Optional positions on the pitch, written as a comment that starts with @
-// after the action they describe: 2I (@ b6 c7), 2F (@ b6 c7), B (@ ^c1 d8).
-// The pitch is seen from Team A's baseline all game: a to e across from the
-// left sideline, 1 to 8 up from Team A's baseline, 1 m a square; or exact
-// meters across and up (1.32,5.87). ^ marks where the thrower stood. Returns
-// [{ raw, thrower, square, x, y }], or null when anything in it is not a
-// position (the comment is then an ordinary comment).
-export function parsePositions(text) {
-  const out = [];
-  for (const raw of text.trim().split(/\s+/)) {
-    const m = raw.match(/^(\^?)(?:([a-e])([1-8])|(\d+(?:\.\d+)?),(\d+(?:\.\d+)?))$/i);
-    if (!m) return null;
-    if (m[2]) {
-      out.push({ raw, thrower: !!m[1], square: m[2].toLowerCase() + m[3],
-        x: 'abcde'.indexOf(m[2].toLowerCase()) + 0.5, y: +m[3] - 0.5 });
-    } else out.push({ raw, thrower: !!m[1], square: null, x: +m[4], y: +m[5] });
-  }
-  return out.length ? out : null;
+// A position line sits under its turn line and answers one question:
+//   @  where each field kubb in that half stands when the first baton is thrown
+//   ~  where each kubb thrown in lay before it was raised (its two ends)
+//   ^  where each baton was thrown from
+//   *  which kubbs each baton felled
+// A position is across, a comma, depth: whole numbers for a one-metre cell
+// (4,0), two decimals each for a point (4.48,0.11).
+const ACROSS = '(?:[0-4]\\.\\d\\d|5\\.00)';
+const DEPTH = '(?:[0-3]\\.\\d\\d|4\\.00)';
+const WIDE_ACROSS = '(?:-0\\.(?!00)(?:[01]\\d|20)|[0-4]\\.\\d\\d|5\\.(?:[01]\\d|20))';
+const WIDE_DEPTH = '(?:-0\\.(?!00)(?:[01]\\d|20)|[0-3]\\.\\d\\d|4\\.(?:[01]\\d|20))';
+const RE_CELL = /^(?:(10|[1-9])x)?([0-4]),([0-3])$/i;
+const RE_POINT = new RegExp(`^(${ACROSS}),(${DEPTH})$`);
+const RE_LAY = new RegExp(`^(${WIDE_ACROSS}),(${WIDE_DEPTH})/(${WIDE_ACROSS}),(${WIDE_DEPTH})$`);
+const RE_STANCE = new RegExp(`^(${ACROSS}),(\\d\\.\\d\\d)$`);
+const LINE_NAME = { '@': 'pitch', '~': 'lay', '^': 'stance', '*': 'felled' };
+
+function parsePlace(w) {
+  let m = w.match(RE_CELL);
+  if (m) return { kind: 'cell', at: [+m[2], +m[3]], count: m[1] ? +m[1] : 1 };
+  m = w.match(RE_POINT);
+  if (m) return { kind: 'point', at: [+m[1], +m[2]], count: 1 };
+  return null;
 }
 
-function checkPositions(t, warnings) {
-  const where = t.at.filter(p => !p.thrower);
-  if (t.at.length - where.length > 1) warnings.push(`"${t.raw}" has more than one thrower position (^).`);
-  for (const p of t.at) {
-    if (p.x > 5 || p.y > 8) warnings.push(`Position ${p.raw} is off the pitch (5 m across, 8 m up).`);
+// Returns the line, or null when any part of it does not read.
+function parsePositionLine(s) {
+  const head = s.match(/^([@~^*])([ab])\s+(\S.*)$/i);
+  if (!head) return null;
+  const mark = head[1], half = head[2].toLowerCase(), words = head[3].trim().split(/\s+/);
+  const kinds = new Set();
+  const entries = [];
+  for (const w of words) {
+    if (mark === '@') {
+      const how = /[sp]$/i.test(w) ? w.slice(-1).toLowerCase() : null;
+      const e = parsePlace(how ? w.slice(0, -1) : w);
+      if (!e) return null;
+      kinds.add(e.kind);
+      entries.push({ at: e.at, count: e.count, mark: how });
+    } else if (mark === '~') {
+      const m = w.match(RE_LAY);
+      if (!m) return null;
+      entries.push({ ends: [[+m[1], +m[2]], [+m[3], +m[4]]] });
+    } else if (mark === '^') {
+      const m = w === '-' ? null : w.match(RE_STANCE);
+      if (w !== '-' && !m) return null;
+      entries.push(m ? [+m[1], +m[2]] : null);
+    } else {
+      if (w === '-') { entries.push(null); continue; }
+      const word = w.split('+').map(parsePlace);
+      if (word.some(e => !e)) return null;
+      word.forEach(e => kinds.add(e.kind));
+      entries.push(word.map(e => ({ at: e.at, count: e.count })));
+    }
   }
-  let most = null;
-  if (t.type === 'inkast') most = t.I + t.R + t.P + t.Y + t.Q + t.N;
-  else if (t.kind === 'hit') most = (t.f || 0) + (t.b || 0);
-  if (most !== null && where.length > most) warnings.push(`"${t.raw}" has ${where.length} positions for ${most} ${most === 1 ? 'kubb' : 'kubbs'}.`);
+  if (kinds.size > 1) return null;
+  const precision = mark === '~' || mark === '^' ? 'point' : (kinds.has('point') ? 'point' : 'cell');
+  return { mark, half, precision, entries };
+}
+
+const kubbsIn = entries => entries.reduce((n, e) => n + e.count, 0);
+const some = n => `${n} ${n === 1 ? 'kubb' : 'kubbs'}`;
+
+// Where the lines of one turn disagree with each other. The grammar makes the
+// same checks; in the canonical form they are errors.
+function positionWarnings(turn) {
+  const w = [];
+  const seen = {}, pitch = {};
+  for (const l of turn.lines) {
+    const k = l.mark + l.half;
+    if (seen[k]) w.push(`A turn has one ${k} line, and this turn has a second.`);
+    seen[k] = true;
+    if (l.mark === '@' && !pitch[l.half]) pitch[l.half] = l;
+  }
+  const thrownInto = Object.values(pitch).find(l => l.entries.some(e => e.mark !== 's'));
+  if (thrownInto) {
+    const P = turn.inkasts.reduce((n, k) => n + k.P, 0);
+    const p = kubbsIn(Object.values(pitch).flatMap(l => l.entries.filter(e => e.mark === 'p')));
+    if (p !== P) w.push(`The pitch line marks ${p} with p, and the turn line has ${P}P.`);
+  }
+  for (const l of turn.lines) {
+    if (l.mark === '~') {
+      const on = pitch[l.half];
+      if (!on) w.push(`A lay line needs the pitch line @${l.half} above it.`);
+      else if (on.precision !== 'point') w.push('A lay line needs its pitch line in points, not cells.');
+      else {
+        const thrown = on.entries.filter(e => e.mark === null).length;
+        if (thrown !== l.entries.length) w.push(`The lay line has ${some(l.entries.length)}, and its pitch line has ${thrown} thrown in.`);
+      }
+    }
+    if (l.mark === '^' || l.mark === '*') {
+      if (l.entries.length !== turn.batons.length) {
+        w.push(`The ${LINE_NAME[l.mark]} line has ${l.entries.length} words, and the turn line has ${turn.batons.length} batons.`);
+      } else if (l.mark === '*') {
+        l.entries.forEach((word, i) => {
+          if (word === null) return;
+          const b = turn.batons[i], want = (b.f || 0) + (b.b || 0), have = kubbsIn(word);
+          if (have !== want) w.push(`Word ${i + 1} of the felled line has ${some(have)}, and baton ${i + 1} felled ${want}.`);
+        });
+      }
+    }
+  }
+  return w;
 }
 
 // ---------- lines ----------
 
 function parseTurnLine(line, lineNo) {
   const turn = { line: lineNo, source: line, n: null, inkasts: [], advantage: null,
-    batons: [], note: '', comments: [], warnings: [] };
-  const places = [];
+    batons: [], note: '', comments: [], warnings: [], lines: [] };
+  let nested = false;
   let body = '';
   let depth = 0, comment = '';
   for (let i = 0; i < line.length; i++) {
     const c = line[i];
     if (depth === 0 && c === '#') { turn.note = line.slice(i + 1).trim(); break; }
-    if (c === '(') { if (depth++ > 0) comment += c; continue; }
+    if (c === '(') { if (depth++ > 0) { comment += c; nested = true; } continue; }
     if (c === ')' && depth > 0) {
-      if (--depth === 0) {
-        // (@ b6 c7): positions for the action just before it; see parsePositions
-        const at = comment.startsWith('@') ? parsePositions(comment.slice(1)) : null;
-        if (at) { places.push(at); body += ` @${places.length - 1} `; }
-        else {
-          if (comment.startsWith('@')) turn.warnings.push(`Couldn't read the positions in "(${comment})"; kept it as a comment.`);
-          turn.comments.push(comment.trim());
-          body += ' ';
-        }
-        comment = '';
-      }
+      if (--depth === 0) { turn.comments.push(comment.trim()); comment = ''; body += ' '; }
       else comment += c;
       continue;
     }
     if (depth > 0) comment += c; else body += c;
   }
-  if (depth > 0) turn.comments.push(comment.trim());
+  if (depth > 0) {
+    turn.comments.push(comment.trim());
+    turn.warnings.push('A comment is opened with ( and never closed; read the rest of the line as the comment.');
+  }
+  if (nested) turn.warnings.push('A comment inside a comment; read them as one.');
   const m = body.match(/^\s*(\d+)\.(.*)$/);
   if (m) { turn.n = +m[1]; body = m[2]; }
   let phase = 'inkast';
-  let last = null;
   for (const raw of body.split(/[\s,\/]+/).filter(Boolean)) {
-    if (raw[0] === '@' && places[+raw.slice(1)]) {
-      const at = places[+raw.slice(1)];
-      if (!last || last.type === 'advantage') turn.warnings.push(`Positions "(@ ${at.map(p => p.raw).join(' ')})" follow no kubbs or baton; ignored them.`);
-      else if (last.at) turn.warnings.push(`Positions given twice for "${last.raw}"; kept the first.`);
-      else { last.at = at; checkPositions(last, turn.warnings); }
-      continue;
-    }
     const t = parseToken(raw, phase);
     if (!t) { turn.warnings.push(`Couldn't read "${raw}"; ignored it.`); continue; }
     if (t.fixed) turn.warnings.push(`Read "${raw}" as ${raw.replace(/-$/, '')}.`);
-    last = t;
+    if (t.repaired) turn.warnings.push(`Read "${raw}" as ${t.repaired}; the grammar wants the colon there.`);
+    for (const [, n, code] of raw.matchAll(/(\d+)([A-Za-z])/g)) {
+      const most = code.toUpperCase() === 'N' ? 5 : 10;
+      if (t.type !== 'advantage' && +n > most) turn.warnings.push(`A count before ${code.toUpperCase()} goes up to ${most}, and "${raw}" has ${+n}.`);
+    }
     if (t.type === 'inkast') turn.inkasts.push(t);
     else if (t.type === 'advantage') {
+      if (t.player) turn.warnings.push(`An advantage line has no player; read "${raw}" as A.`);
+      if (t.over) turn.warnings.push(`An advantage line is 0 to 4 metres from the baseline, and "${raw}" has more.`);
       if (t.late) turn.warnings.push(`The advantage marker "${raw}" belongs before the batons.`);
       if (turn.advantage) turn.warnings.push(`Advantage marked twice.`);
       turn.advantage = t;
@@ -185,18 +264,35 @@ export function parseGame(text) {
     const s = line.trim();
     if (!s) return;
     const h = s.match(/^\[\s*([^"\]]+?)\s+"(.*)"\s*\]$/);
-    if (h) { headers[h[1]] = h[2]; return; }
+    if (h) {
+      if (turns.length) warnings.push(`Line ${i + 1}: a header after the turns; headers come first.`);
+      headers[h[1]] = h[2];
+      return;
+    }
     if (s.startsWith('#')) return;
+    if (/^[@~^*]/.test(s)) {
+      const l = parsePositionLine(s);
+      const on = turns[turns.length - 1];
+      if (!l) warnings.push(`Line ${i + 1}: couldn't read the position line "${s}"; ignored it.`);
+      else if (!on) warnings.push(`Line ${i + 1}: a position line with no turn above it; ignored it.`);
+      else on.lines.push({ ...l, line: i + 1 });
+      return;
+    }
     const t = parseTurnLine(s, i + 1);
     if (!t.inkasts.length && !t.advantage && !t.batons.length) {
-      if (t.warnings.length) warnings.push(`Line ${i + 1}: nothing here reads as notation.`);
+      if (t.warnings.length || t.n !== null) warnings.push(`Line ${i + 1}: nothing here reads as notation.`);
       return;
     }
     turns.push(t);
   });
   turns.forEach((t, i) => {
     if (t.n !== null && t.n !== i + 1) t.warnings.push(`Numbered ${t.n}, but it is turn ${i + 1}.`);
+    if (t.lines.length) t.warnings.push(...positionWarnings(t));
   });
+  const notation = headers['Notation'];
+  if (notation !== undefined && notation !== '1' && notation !== '2') {
+    warnings.push(`This reader knows notation 1 and 2, and the file says notation ${notation}.`);
+  }
   return { headers, turns, warnings };
 }
 
@@ -235,6 +331,29 @@ function blankStats() {
     hotStreak: 0, coldStreak: 0, _run: 0, _runHit: null };
 }
 
+// The rules a game was played under, from its headers. A file that says
+// nothing was played with five base kubbs a side and six batons a turn.
+//   [Base kubbs "3"]    the base kubbs each side starts with
+//   [Batons "6"]        the batons in a full turn
+//   [Opening "2-4-6"]   the batons in the first turns, in order; later turns
+//                       have Batons. With no Opening, any turn may have Batons.
+function readRules(headers, warnings) {
+  const whole = (key, dflt) => {
+    const v = headers[key];
+    if (v === undefined) return dflt;
+    if (/^\d+$/.test(v) && +v >= 1 && +v <= 10) return +v;
+    warnings.push(`The ${key} header should be a number from 1 to 10; read it as ${dflt}.`);
+    return dflt;
+  };
+  const rules = { baseKubbs: whole('Base kubbs', 5), batons: whole('Batons', 6), opening: [] };
+  const o = headers['Opening'];
+  if (o !== undefined) {
+    if (/^\d+(-\d+)*$/.test(o)) rules.opening = o.split('-').map(Number);
+    else warnings.push('The Opening header should be batons joined by hyphens, as in 2-4-6; ignored it.');
+  }
+  return rules;
+}
+
 export function analyze(text) {
   const game = parseGame(text);
   const { headers, turns } = game;
@@ -260,7 +379,8 @@ export function analyze(text) {
   }
   const other = s => (s === 'A' ? 'B' : 'A');
 
-  const base = { A: 5, B: 5 };
+  const rules = readRules(headers, warnings);
+  const base = { A: rules.baseKubbs, B: rules.baseKubbs };
   const field = { A: 0, B: 0 };
   const stats = { A: blankStats(), B: blankStats() };
   const players = {};
@@ -309,6 +429,46 @@ export function analyze(text) {
     if (!t.advantage && shouldHaveAdvantage) w.push(`No advantage marked, but ${leftover} field ${leftover === 1 ? 'kubb was' : 'kubbs were'} left standing.`);
     const advantage = !!t.advantage || shouldHaveAdvantage;
     if (advantage) st.advTurns++;
+
+    // Position lines against the count so far. Kubbs are thrown into the
+    // defender's half; the thrower's own half holds what the other team left.
+    const thrownInto = def.toLowerCase();
+    let advantageLine = null;
+    for (const l of t.lines) {
+      const own = l.half !== thrownInto;
+      if (l.mark === '@') {
+        const total = kubbsIn(l.entries);
+        const standing = own ? field[att] : field[def];
+        if (total !== standing) {
+          w.push(`The pitch line @${l.half} has ${some(total)}, and ${standing} field ${standing === 1 ? 'kubb stands' : 'kubbs stand'} in that half.`);
+        } else if (own) {
+          if (l.entries.some(e => e.mark !== 's')) w.push(`The pitch line @${l.half} is the thrower's own half, where every kubb is marked s.`);
+        } else {
+          const s = kubbsIn(l.entries.filter(e => e.mark === 's'));
+          if (s !== standing - thrown) w.push(`The pitch line @${l.half} marks ${s} with s, and ${standing - thrown} ${standing - thrown === 1 ? 'was' : 'were'} left from earlier turns.`);
+        }
+        // The advantage line runs through the nearest kubb in the thrower's own half.
+        if (own && l.entries.length) advantageLine = { depth: Math.min(...l.entries.map(e => e.at[1])), precision: l.precision };
+      } else if (l.mark === '^' ? !own : own) {
+        w.push(`The ${LINE_NAME[l.mark]} line ${l.mark}${l.half} is in the wrong half for this turn.`);
+      }
+    }
+    // A felled field kubb is one of the kubbs on the pitch line.
+    const felled = t.lines.find(l => l.mark === '*' && l.half === thrownInto);
+    const pitch = t.lines.find(l => l.mark === '@' && l.half === thrownInto);
+    if (felled && pitch && felled.precision === pitch.precision && felled.entries.length === t.batons.length) {
+      const left = {};
+      for (const e of pitch.entries) left[e.at] = (left[e.at] || 0) + e.count;
+      felled.entries.forEach((word, bi) => {
+        let f = t.batons[bi].f || 0;
+        for (const e of word || []) {
+          const n = Math.min(f, e.count);
+          f -= n;
+          if (n > (left[e.at] || 0)) w.push(`Baton ${bi + 1} fells a field kubb at ${e.at}, which is not on the pitch line.`);
+          left[e.at] = (left[e.at] || 0) - n;
+        }
+      });
+    }
 
     const startField = field[def];
     const startBase = base[def];
@@ -385,7 +545,10 @@ export function analyze(text) {
       }
     });
 
-    if (thrownThisTurn > 6) w.push(`${thrownThisTurn} batons thrown; a turn has six.`);
+    const most = idx < rules.opening.length ? rules.opening[idx] : rules.batons;
+    if (thrownThisTurn > most) {
+      w.push(most === 6 ? `${thrownThisTurn} batons thrown; a turn has six.` : `${thrownThisTurn} batons thrown; this turn has ${most}.`);
+    }
     if (startField > 0) {
       if (btc !== null) st.btc.push(btc);
       else st.uncleared++;
@@ -395,7 +558,7 @@ export function analyze(text) {
 
     rows.push({
       turn: idx + 1, n: t.n, team: att, inkast: thrown, inkastRecorded: recorded, ink,
-      advantage, advantageMarked: t.advantage, leftover, startField, startBase,
+      advantage, advantageMarked: t.advantage, advantageLine, lines: t.lines, leftover, startField, startBase,
       batons: t.batons, note: t.note, comments: t.comments, knocked, btc,
       fieldLeft: field[def], base: { ...base }, warnings: w, source: t.source,
     });
@@ -418,7 +581,7 @@ export function analyze(text) {
   }
   for (const p of Object.values(players)) p.hitPct = p.batons ? p.hits / p.batons : null;
 
-  return { headers, teamName, first, firstSource, winner, winHow, endTurn, rows, stats,
+  return { headers, rules, teamName, first, firstSource, winner, winHow, endTurn, rows, stats,
     players: Object.values(players), warnings,
     turnWarnings: rows.reduce((n, r) => n + r.warnings.length, 0) };
 }
