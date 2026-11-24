@@ -222,7 +222,11 @@ test('All Things lists every active thing with a website of its own, by collecti
   const named = (id: string) => live.find((item) => item.thing.id === id)!;
   assert.equal(named('thingy').name, 'Ask Thingy');
   assert.equal(named('thingy-model').name, 'Meet Thingy');
-  assert.equal(named('thingy-model').href, 'https://thingy.thingelstad.xyz/');
+  // The address, whatever its tag. The link gains ?ref=xyz-all the day the collector first has Tinylytics numbers for
+  // a site, so pinning the whole link failed every daily collection from 2026-11-21, when Meet Thingy got its own.
+  // The tag itself is checked below, against observations the test makes.
+  const address = (href: string) => new URL(href).origin + new URL(href).pathname;
+  assert.equal(address(named('thingy-model').href), 'https://thingy.thingelstad.xyz/');
   assert.equal(named('road-sign-math-2026').name, 'Road Sign Math');
   // The strip's sites lead their group in the strip's order (Publishing reads as the strip does), then the rest by
   // name.
