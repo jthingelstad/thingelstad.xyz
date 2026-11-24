@@ -2,17 +2,17 @@
   "kind": "github",
   "repository": "jthingelstad/kubb-engine",
   "url": "https://github.com/jthingelstad/kubb-engine",
-  "observedAt": "2026-11-24T13:10:07.694Z",
+  "observedAt": "2026-11-24T21:10:14.687Z",
   "repositoryCreatedAt": "2026-11-17T19:00:51.000Z",
   "archived": false,
   "description": "Shared Lua rules, throw physics, and Planet Kubb Notation for Kubb: Throwing Wood on Playdate, web, and iPhone. Includes the session layer for web and iPhone.",
   "stars": 0,
   "forks": 0,
   "languages": [
-    { "name": "Lua", "bytes": 2187491 },
-    { "name": "JavaScript", "bytes": 285098 },
+    { "name": "Lua", "bytes": 2243422 },
+    { "name": "JavaScript", "bytes": 287161 },
     { "name": "Python", "bytes": 49690 },
-    { "name": "Makefile", "bytes": 7996 }
+    { "name": "Makefile", "bytes": 8316 }
   ],
   "release": null,
   "activity": [
@@ -20,13 +20,13 @@
       "path": null,
       "branch": "main",
       "since": "2026-08-01T00:00:00.000Z",
-      "until": "2026-11-24T13:10:07.694Z",
+      "until": "2026-11-24T21:10:14.687Z",
       "count": 300,
       "complete": false,
       "months": [{ "month": "2026-11", "count": 300 }],
       "latestCommit": {
-        "date": "2026-11-23T00:54:49.000Z",
-        "url": "https://github.com/jthingelstad/kubb-engine/commit/706b26ec8e7eb60173dbe6d9f45dc325598e4da5"
+        "date": "2026-11-24T20:09:13.000Z",
+        "url": "https://github.com/jthingelstad/kubb-engine/commit/c0881f157c74c8a931af55455b73d14770259288"
       }
     }
   ]

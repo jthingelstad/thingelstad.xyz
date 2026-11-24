@@ -2,14 +2,14 @@
   "kind": "github",
   "repository": "jthingelstad/thingelstad.xyz",
   "url": "https://github.com/jthingelstad/thingelstad.xyz",
-  "observedAt": "2026-11-24T13:10:07.694Z",
+  "observedAt": "2026-11-24T21:10:14.687Z",
   "repositoryCreatedAt": "2026-10-13T16:41:47.000Z",
   "archived": false,
   "description": "Things I've built. Jamie Thingelstad's interactive project gallery.",
   "stars": 1,
   "forks": 0,
   "languages": [
-    { "name": "TypeScript", "bytes": 542977 },
+    { "name": "TypeScript", "bytes": 543379 },
     { "name": "JavaScript", "bytes": 299463 },
     { "name": "Nunjucks", "bytes": 104835 },
     { "name": "CSS", "bytes": 82779 }
@@ -20,7 +20,7 @@
       "path": null,
       "branch": "main",
       "since": "2026-08-01T00:00:00.000Z",
-      "until": "2026-11-24T13:10:07.694Z",
+      "until": "2026-11-24T21:10:14.687Z",
       "count": 145,
       "complete": true,
       "months": [

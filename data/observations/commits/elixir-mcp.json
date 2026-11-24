@@ -2,9 +2,10 @@
   "kind": "commits",
   "repository": "jthingelstad/elixir-mcp",
   "url": "https://github.com/jthingelstad/elixir-mcp",
-  "observedAt": "2026-11-24T13:10:07.694Z",
+  "observedAt": "2026-11-24T21:10:14.687Z",
   "branch": "main",
   "commits": [
+    {"sha":"e90034f95188","date":"2026-11-24T17:22:43.000Z","subject":"Stored Timeline stage 3: the player page reads a player's stored stories","by":"agent","agents":["claude"]},
     {"sha":"272c94f2da84","date":"2026-11-24T10:47:56.000Z","subject":"Decided hides its cached record on a refusal","by":"agent","agents":["claude"]},
     {"sha":"0c792fcd3c75","date":"2026-11-24T10:47:56.000Z","subject":"Run is five tabs, and each page fails on its own","by":"agent","agents":["claude"]},
     {"sha":"c6c9ee89b8cc","date":"2026-11-24T10:32:05.000Z","subject":"e2e: the keyboard cheer journey gets a slow test's time","by":"agent","agents":["claude"]},

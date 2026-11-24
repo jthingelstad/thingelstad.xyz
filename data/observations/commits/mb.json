@@ -2,9 +2,10 @@
   "kind": "commits",
   "repository": "jthingelstad/mb",
   "url": "https://github.com/jthingelstad/mb",
-  "observedAt": "2026-11-04T18:39:15.949Z",
+  "observedAt": "2026-11-24T21:10:14.687Z",
   "branch": "main",
   "commits": [
+    {"sha":"cd816ff4e56f","date":"2026-11-24T17:31:45.000Z","subject":"Live smoke runs only on demand, for a new build (#41)","pr":41,"by":"agent","agents":["claude"]},
     {"sha":"1811bbe0ec2b","date":"2026-11-04T12:53:55.000Z","subject":"Bump certifi and opentelemetry-api for Dependabot alerts (#40)","pr":40,"by":"agent","agents":["claude"]},
     {"sha":"bacbb98475e1","date":"2026-10-05T22:21:58.000Z","subject":"Release mb 2.2.1 (#37)","pr":37,"by":"agent","agents":["claude"]},
     {"sha":"a8d4e8c0a373","date":"2026-10-05T22:00:25.000Z","subject":"live QA: pass lookup flags in pipelines; accept a refused truncated inbox advance (#39)","pr":39,"by":"agent","agents":["claude"]},
