@@ -2,9 +2,10 @@
   "kind": "commits",
   "repository": "jthingelstad/thing-hugo",
   "url": "https://github.com/jthingelstad/thing-hugo",
-  "observedAt": "2026-11-03T18:25:46.099Z",
+  "observedAt": "2026-11-24T13:10:07.694Z",
   "branch": "main",
   "commits": [
+    {"sha":"3f82e5921399","date":"2026-11-10T21:03:02.000Z","subject":"2.0.44: All Things ends the sites strip","by":"agent","agents":["claude"]},
     {"sha":"13585daca2ab","date":"2026-11-03T10:40:06.000Z","subject":"2.0.43: no links to social networks","pr":6,"by":"me"},
     {"sha":"b760c4967e73","date":"2026-11-03T10:32:47.000Z","subject":"2.0.43: no links to social networks","by":"agent","agents":["claude"]},
     {"sha":"51599353b12e","date":"2026-11-03T06:28:57.000Z","subject":"2.0.42: thumbnails through the blog's own /resize/","pr":5,"by":"me"},

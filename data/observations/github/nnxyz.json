@@ -2,7 +2,7 @@
   "kind": "github",
   "repository": "jthingelstad/nnxyz",
   "url": "https://github.com/jthingelstad/nnxyz",
-  "observedAt": "2026-11-06T17:57:07.187Z",
+  "observedAt": "2026-11-24T13:10:07.694Z",
   "repositoryCreatedAt": "2026-10-13T17:26:51.000Z",
   "archived": false,
   "description": "An art-first SVG gallery of nnxyz and scrimshaw, with archived brush-stroke replay and AI curation",
@@ -23,16 +23,16 @@
       "path": null,
       "branch": "main",
       "since": "2026-08-01T00:00:00.000Z",
-      "until": "2026-11-06T17:57:07.187Z",
-      "count": 120,
+      "until": "2026-11-24T13:10:07.694Z",
+      "count": 122,
       "complete": true,
       "months": [
         { "month": "2026-10", "count": 110 },
-        { "month": "2026-11", "count": 10 }
+        { "month": "2026-11", "count": 12 }
       ],
       "latestCommit": {
-        "date": "2026-11-05T19:30:43.000Z",
-        "url": "https://github.com/jthingelstad/nnxyz/commit/f7e763ca2c6ab9db3eff69d33a84b20ec62c2de6"
+        "date": "2026-11-12T16:07:44.000Z",
+        "url": "https://github.com/jthingelstad/nnxyz/commit/e7f9630f69e4c7df12dbbf2ff3b534431dbbb863"
       }
     }
   ]

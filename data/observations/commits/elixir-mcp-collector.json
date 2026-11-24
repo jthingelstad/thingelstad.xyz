@@ -2,9 +2,10 @@
   "kind": "commits",
   "repository": "jthingelstad/elixir-mcp-collector",
   "url": "https://github.com/jthingelstad/elixir-mcp-collector",
-  "observedAt": "2026-11-06T17:57:07.187Z",
+  "observedAt": "2026-11-24T13:10:07.694Z",
   "branch": "main",
   "commits": [
+    {"sha":"06a95d858283","date":"2026-11-15T12:52:30.000Z","subject":"Remove the 1Password env template from the checkout","by":"agent","agents":["claude"]},
     {"sha":"5721c3462888","date":"2026-11-05T22:43:46.000Z","subject":"Generate .env from a committed template in 1Password","by":"agent","agents":["claude"]},
     {"sha":"d60ce8beb4c4","date":"2026-09-28T00:57:12.000Z","subject":"Retry a submit the hub names in submit_retry.retry_statuses (429)","by":"agent","agents":["claude"]},
     {"sha":"e5e4fb9c44a6","date":"2026-09-26T21:14:59.000Z","subject":"One required check: an aggregate validate job; rebase merges","by":"agent","agents":["claude"]},
