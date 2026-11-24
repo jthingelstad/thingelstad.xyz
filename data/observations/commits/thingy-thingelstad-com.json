@@ -2,9 +2,11 @@
   "kind": "commits",
   "repository": "jthingelstad/thingy.thingelstad.com",
   "url": "https://github.com/jthingelstad/thingy.thingelstad.com",
-  "observedAt": "2026-11-10T18:40:18.027Z",
+  "observedAt": "2026-11-24T13:10:07.694Z",
   "branch": "main",
   "commits": [
+    {"sha":"f4686bc48a95","date":"2026-11-10T21:15:14.000Z","subject":"End the sites strip with All Things","pr":64,"by":"me"},
+    {"sha":"92e7259682b4","date":"2026-11-10T21:03:07.000Z","subject":"End the sites strip with All Things","by":"agent","agents":["claude"]},
     {"sha":"da38688c3ae6","date":"2026-11-10T15:15:36.000Z","subject":"Link Thingy's home from the About page","pr":63,"by":"me"},
     {"sha":"70ce54547f27","date":"2026-11-10T12:39:56.000Z","subject":"Hold the whole line and every page to the About link's test","by":"agent","agents":["claude"]},
     {"sha":"9831165cda88","date":"2026-11-10T12:34:02.000Z","subject":"Link Thingy's home from the About page","by":"agent","agents":["claude"]},

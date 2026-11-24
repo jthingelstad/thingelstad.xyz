@@ -1,0 +1,30 @@
+{
+  "kind": "commits",
+  "repository": "Planet-Kubb/pk-kubb-score",
+  "url": "https://github.com/Planet-Kubb/pk-kubb-score",
+  "observedAt": "2026-11-24T13:10:07.694Z",
+  "branch": "master",
+  "commits": [
+    {"sha":"7c8aaed2df03","date":"2026-11-23T00:46:43.000Z","subject":"Status: the gadget reads notation 2, from the v2-2026.11 release (#12)","pr":12,"by":"agent","agents":["claude"]},
+    {"sha":"638c302c32cc","date":"2026-11-23T00:31:59.000Z","subject":"Bring the status up to date: stage three is done, the gadget's sync is owed","by":"agent","agents":["claude"]},
+    {"sha":"7060c2ceceb5","date":"2026-11-21T22:04:25.000Z","subject":"Record the v2-2026.11 release","pr":8,"by":"me"},
+    {"sha":"633d4221410e","date":"2026-11-21T22:04:14.000Z","subject":"Record the v2-2026.11 release","by":"agent","agents":["claude"]},
+    {"sha":"9298de633ac7","date":"2026-11-21T22:03:48.000Z","subject":"Planet Kubb Notation 2: grammar, canonical form and conformance suite","pr":7,"by":"me"},
+    {"sha":"d8e6e18a04f4","date":"2026-11-21T22:03:18.000Z","subject":"Address review: base kubb counts on the Stats page, and 0IE","by":"agent","agents":["claude"]},
+    {"sha":"dff7144f86e1","date":"2026-11-21T22:01:14.000Z","subject":"Make the conformance manifest an index a script can follow","by":"agent","agents":["claude"]},
+    {"sha":"a2161b5fd91d","date":"2026-11-21T21:59:27.000Z","subject":"Describe notation 2: the spec, the suite's guide and the site pages","by":"agent","agents":["claude"]},
+    {"sha":"46ee42cd9d37","date":"2026-11-21T21:56:11.000Z","subject":"Reader, canonical writer and conformance suite for notation 2","by":"agent","agents":["claude"]},
+    {"sha":"9744ba4ed2b5","date":"2026-11-21T21:48:43.000Z","subject":"Grammar for notation 2: position lines and the canonical form","by":"agent","agents":["claude"]},
+    {"sha":"c9047b2ed7e0","date":"2026-11-21T21:44:44.000Z","subject":"Propose Planet Kubb Notation 2","pr":6,"by":"me"},
+    {"sha":"a20d5c71d3bd","date":"2026-11-21T21:42:37.000Z","subject":"Record the notation 2 proposal as approved","by":"agent","agents":["claude"]},
+    {"sha":"e9f6c76b3c0a","date":"2026-11-21T21:40:45.000Z","subject":"Write a cell as across,depth, like a point","by":"agent","agents":["claude"]},
+    {"sha":"dd48e82f1634","date":"2026-11-21T21:34:15.000Z","subject":"Move notation 2 positions to lines of their own","by":"agent","agents":["claude"]},
+    {"sha":"14a8c398ec87","date":"2026-11-21T19:57:42.000Z","subject":"Propose Planet Kubb Notation 2","by":"agent","agents":["claude"]},
+    {"sha":"c837f79eff07","date":"2026-11-21T19:14:47.000Z","subject":"Land changes by pull request, checked by a validate workflow","by":"agent","agents":["claude"]},
+    {"sha":"8c067a08c56d","date":"2026-11-21T19:06:00.000Z","subject":"Add the Planet Kubb Score archive, grammar and site","by":"agent","agents":["claude"]},
+    {"sha":"81754181b0ae","date":"2026-11-21T19:04:52.000Z","subject":"Move the v11 scoresheet to where pk-kubb-score keeps it","by":"agent","agents":["claude"]},
+    {"sha":"5e7510e3f424","date":"2014-07-20T01:32:16.000Z","subject":"Adding v11 of scoresheet from @garrickvanburen. Close #3.","by":"me"},
+    {"sha":"697c338a3536","date":"2014-07-07T00:24:32.000Z","subject":"Initial commit","by":"me"}
+  ],
+  "tags": []
+}

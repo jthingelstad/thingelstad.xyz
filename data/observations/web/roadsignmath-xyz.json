@@ -1,12 +1,12 @@
 {
   "kind": "web",
   "url": "https://roadsignmath.xyz/",
-  "observedAt": "2026-11-10T18:40:18.027Z",
+  "observedAt": "2026-11-24T13:10:07.694Z",
   "sitemap": {
     "url": "https://roadsignmath.xyz/sitemap.xml",
-    "pages": 227,
-    "newestModified": "2026-11-07T11:47:16.005Z",
-    "months": [{ "month": "2026-11", "count": 3 }],
+    "pages": 226,
+    "newestModified": "2026-11-16T09:27:10.600Z",
+    "months": [{ "month": "2026-11", "count": 11 }],
     "complete": true
   },
   "feed": null

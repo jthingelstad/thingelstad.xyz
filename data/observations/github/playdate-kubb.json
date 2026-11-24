@@ -1,0 +1,34 @@
+{
+  "kind": "github",
+  "repository": "jthingelstad/playdate-kubb",
+  "url": "https://github.com/jthingelstad/playdate-kubb",
+  "observedAt": "2026-11-24T13:10:07.694Z",
+  "repositoryCreatedAt": "2026-11-13T14:42:56.000Z",
+  "archived": false,
+  "description": "Kubb: Throwing Wood for Playdate. Wind up and throw with the crank in solo matches, pass-and-play, and practice drills.",
+  "stars": 0,
+  "forks": 0,
+  "languages": [
+    { "name": "Lua", "bytes": 1366436 },
+    { "name": "Python", "bytes": 39986 },
+    { "name": "JavaScript", "bytes": 20876 },
+    { "name": "Makefile", "bytes": 6661 },
+    { "name": "Shell", "bytes": 1692 }
+  ],
+  "release": null,
+  "activity": [
+    {
+      "path": null,
+      "branch": "main",
+      "since": "2026-08-01T00:00:00.000Z",
+      "until": "2026-11-24T13:10:07.694Z",
+      "count": 300,
+      "complete": false,
+      "months": [{ "month": "2026-11", "count": 300 }],
+      "latestCommit": {
+        "date": "2026-11-23T00:45:58.000Z",
+        "url": "https://github.com/jthingelstad/playdate-kubb/commit/b8cd6bb7bbbad7ca54d569f11d1e7f51637afa3c"
+      }
+    }
+  ]
+}

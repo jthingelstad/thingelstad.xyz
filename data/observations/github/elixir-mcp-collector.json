@@ -2,7 +2,7 @@
   "kind": "github",
   "repository": "jthingelstad/elixir-mcp-collector",
   "url": "https://github.com/jthingelstad/elixir-mcp-collector",
-  "observedAt": "2026-11-06T17:57:07.187Z",
+  "observedAt": "2026-11-24T13:10:07.694Z",
   "repositoryCreatedAt": "2026-09-04T16:09:29.000Z",
   "archived": false,
   "description": "The operator-run collector for Elixir MCP — fetches Clash Royale history (via your own IP-bound API key) so AI agents can query it. Zero-trust: no cloud access. Unofficial; not endorsed by Supercell.",
@@ -11,8 +11,7 @@
   "languages": [
     { "name": "Go", "bytes": 225288 },
     { "name": "Shell", "bytes": 57986 },
-    { "name": "PowerShell", "bytes": 17513 },
-    { "name": "Smarty", "bytes": 721 }
+    { "name": "PowerShell", "bytes": 17513 }
   ],
   "release": {
     "name": "v3.0.6",
@@ -24,16 +23,16 @@
       "path": null,
       "branch": "main",
       "since": "2026-08-01T00:00:00.000Z",
-      "until": "2026-11-06T17:57:07.187Z",
-      "count": 66,
+      "until": "2026-11-24T13:10:07.694Z",
+      "count": 67,
       "complete": true,
       "months": [
         { "month": "2026-09", "count": 65 },
-        { "month": "2026-11", "count": 1 }
+        { "month": "2026-11", "count": 2 }
       ],
       "latestCommit": {
-        "date": "2026-11-05T22:43:46.000Z",
-        "url": "https://github.com/jthingelstad/elixir-mcp-collector/commit/5721c3462888db34387afbaba682fb0cbde85e6d"
+        "date": "2026-11-15T12:52:30.000Z",
+        "url": "https://github.com/jthingelstad/elixir-mcp-collector/commit/06a95d8582836fe20bc45f19589eb18d3cf96b1b"
       }
     }
   ]

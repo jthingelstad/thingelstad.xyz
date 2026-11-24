@@ -2,14 +2,14 @@
   "kind": "github",
   "repository": "jthingelstad/roadsignmath-ios",
   "url": "https://github.com/jthingelstad/roadsignmath-ios",
-  "observedAt": "2026-11-10T18:40:18.027Z",
+  "observedAt": "2026-11-24T13:10:07.694Z",
   "repositoryCreatedAt": "2026-10-30T17:57:58.000Z",
   "archived": false,
   "description": "Road Sign Math for iPhone. Driving + Math = Fun.",
   "stars": 1,
   "forks": 0,
   "languages": [
-    { "name": "Swift", "bytes": 884727 },
+    { "name": "Swift", "bytes": 975548 },
     { "name": "Shell", "bytes": 6907 }
   ],
   "release": null,
@@ -18,16 +18,16 @@
       "path": null,
       "branch": "main",
       "since": "2026-08-01T00:00:00.000Z",
-      "until": "2026-11-10T18:40:18.027Z",
-      "count": 43,
+      "until": "2026-11-24T13:10:07.694Z",
+      "count": 51,
       "complete": true,
       "months": [
         { "month": "2026-10", "count": 26 },
-        { "month": "2026-11", "count": 17 }
+        { "month": "2026-11", "count": 25 }
       ],
       "latestCommit": {
-        "date": "2026-11-10T16:13:30.000Z",
-        "url": "https://github.com/jthingelstad/roadsignmath-ios/commit/9566351b76c754af4cd3c5564c3c8b609c670bf0"
+        "date": "2026-11-13T03:09:49.000Z",
+        "url": "https://github.com/jthingelstad/roadsignmath-ios/commit/abca2c4013dffbc8a09eb0c438c399b2cb0a2c09"
       }
     }
   ]

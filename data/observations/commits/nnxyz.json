@@ -2,9 +2,11 @@
   "kind": "commits",
   "repository": "jthingelstad/nnxyz",
   "url": "https://github.com/jthingelstad/nnxyz",
-  "observedAt": "2026-11-06T17:57:07.187Z",
+  "observedAt": "2026-11-24T13:10:07.694Z",
   "branch": "main",
   "commits": [
+    {"sha":"e7f9630f69e4","date":"2026-11-12T16:07:44.000Z","subject":"Let thingelstad.xyz read published drawings cross-origin","pr":43,"by":"me"},
+    {"sha":"ff0a9ac5a8b1","date":"2026-11-12T16:04:04.000Z","subject":"Let thingelstad.xyz read published drawings cross-origin","by":"agent","agents":["claude"]},
     {"sha":"f7e763ca2c6a","date":"2026-11-05T19:30:43.000Z","subject":"Generate .env from 1Password references","pr":39,"by":"me"},
     {"sha":"5606971613a0","date":"2026-11-05T19:21:19.000Z","subject":"Generate .env from 1Password references","by":"agent","agents":["claude"]},
     {"sha":"30ec004db357","date":"2026-11-04T19:46:41.000Z","subject":"Docs name the AWS account as <account> (#38)","pr":38,"by":"agent","agents":["claude"]},

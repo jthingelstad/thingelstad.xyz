@@ -1,0 +1,34 @@
+{
+  "kind": "github",
+  "repository": "Planet-Kubb/pk-kubb-score",
+  "url": "https://github.com/Planet-Kubb/pk-kubb-score",
+  "observedAt": "2026-11-24T13:10:07.694Z",
+  "repositoryCreatedAt": "2014-07-07T00:24:32.000Z",
+  "archived": false,
+  "description": "Planet Kubb Scoresheet and supporting materials.",
+  "stars": 1,
+  "forks": 0,
+  "languages": [
+    { "name": "HTML", "bytes": 299066 },
+    { "name": "JavaScript", "bytes": 265083 },
+    { "name": "PEG.js", "bytes": 48918 },
+    { "name": "Python", "bytes": 16914 },
+    { "name": "CSS", "bytes": 12167 }
+  ],
+  "release": null,
+  "activity": [
+    {
+      "path": null,
+      "branch": "master",
+      "since": "2026-08-01T00:00:00.000Z",
+      "until": "2026-11-24T13:10:07.694Z",
+      "count": 18,
+      "complete": true,
+      "months": [{ "month": "2026-11", "count": 18 }],
+      "latestCommit": {
+        "date": "2026-11-23T00:46:43.000Z",
+        "url": "https://github.com/Planet-Kubb/pk-kubb-score/commit/7c8aaed2df03d572d73cfe1a525b703d540d37c1"
+      }
+    }
+  ]
+}

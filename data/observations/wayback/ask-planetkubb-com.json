@@ -1,0 +1,17 @@
+{
+  "kind": "wayback",
+  "url": "http://ask.planetkubb.com/",
+  "observedAt": "2026-11-24T13:10:07.694Z",
+  "firstCapture": "2012-07-02",
+  "latestCapture": "2022-01-17",
+  "years": [
+    { "year": "2012", "days": 1 },
+    { "year": "2013", "days": 8 },
+    { "year": "2014", "days": 3 },
+    { "year": "2015", "days": 4 },
+    { "year": "2016", "days": 10 },
+    { "year": "2017", "days": 4 },
+    { "year": "2018", "days": 5 },
+    { "year": "2022", "days": 1 }
+  ]
+}
