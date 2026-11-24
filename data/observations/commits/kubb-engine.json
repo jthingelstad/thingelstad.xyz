@@ -2,9 +2,12 @@
   "kind": "commits",
   "repository": "jthingelstad/kubb-engine",
   "url": "https://github.com/jthingelstad/kubb-engine",
-  "observedAt": "2026-11-24T13:10:07.694Z",
+  "observedAt": "2026-11-24T21:10:14.687Z",
   "branch": "main",
   "commits": [
+    {"sha":"c0881f157c74","date":"2026-11-24T20:09:13.000Z","subject":"Record mode: W is no baton; trailing nulls keep their places","by":"agent","agents":["claude"]},
+    {"sha":"6961748a438b","date":"2026-11-24T20:09:13.000Z","subject":"Record mode: read a Y-only inkast, keep a null event's place","by":"agent","agents":["claude"]},
+    {"sha":"b0a68c3ed6bb","date":"2026-11-24T20:09:13.000Z","subject":"Record mode: a real game scored throw by throw (1.1.0)","by":"agent","agents":["claude"]},
     {"sha":"706b26ec8e7e","date":"2026-11-23T00:54:49.000Z","subject":"Trim at 1.0: unused locals in tools and tests, stale paths in headers","by":"agent","agents":["claude"]},
     {"sha":"8c7fb1109f62","date":"2026-11-23T00:43:17.000Z","subject":"The supported engines rule of 2026-11-22, the iPhone app, and CI runs all of make test","by":"agent","agents":["claude"]},
     {"sha":"0a0390958ac6","date":"2026-11-23T00:43:17.000Z","subject":"Docs: the notes name this repo's paths and what 0.14 to 0.18 changed","by":"agent","agents":["claude"]},

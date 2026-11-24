@@ -2,9 +2,10 @@
   "kind": "commits",
   "repository": "jthingelstad/kubb.thingelstad.xyz",
   "url": "https://github.com/jthingelstad/kubb.thingelstad.xyz",
-  "observedAt": "2026-11-24T13:10:07.694Z",
+  "observedAt": "2026-11-24T21:10:14.687Z",
   "branch": "main",
   "commits": [
+    {"sha":"849d01ca32e7","date":"2026-11-24T19:14:46.000Z","subject":"The pitch server's lines are copied to CloudWatch: say so, and that they are a contract","by":"agent","agents":["claude"]},
     {"sha":"f95e117dca50","date":"2026-11-24T13:04:46.000Z","subject":"Record the applied api and reel bundles: JSON logs are on","by":"agent","agents":["claude"]},
     {"sha":"3f949f34a1a0","date":"2026-11-23T02:45:29.000Z","subject":"The support page's address is hello@throwingwood.com (web 1.1.1)","by":"agent","agents":["claude"]},
     {"sha":"def72ec04059","date":"2026-11-23T02:14:10.000Z","subject":"The support page at /support/ (web 1.1.0)","by":"agent","agents":["claude"]},
