@@ -2,9 +2,11 @@
   "kind": "commits",
   "repository": "jthingelstad/links.thingelstad.xyz",
   "url": "https://github.com/jthingelstad/links.thingelstad.xyz",
-  "observedAt": "2026-11-24T13:10:07.694Z",
+  "observedAt": "2026-11-25T20:28:34.168Z",
   "branch": "main",
   "commits": [
+    {"sha":"3485b6413689","date":"2026-11-25T13:12:27.000Z","subject":"Move Astro to 7.4.12, past its two open advisories (#57)","pr":57,"by":"agent","agents":["claude"]},
+    {"sha":"1d0008fe460e","date":"2026-11-25T08:07:41.000Z","subject":"Nightly: sync and enrichment, 2026-11-25","by":"agent"},
     {"sha":"156b1c496ed4","date":"2026-11-24T07:57:18.000Z","subject":"Nightly: sync and enrichment, 2026-11-24","by":"agent"},
     {"sha":"8351e5839426","date":"2026-11-23T07:32:37.000Z","subject":"Nightly: sync and enrichment, 2026-11-23","by":"agent"},
     {"sha":"1f9760e5f807","date":"2026-11-22T06:50:39.000Z","subject":"Nightly: sync and enrichment, 2026-11-22","by":"agent"},

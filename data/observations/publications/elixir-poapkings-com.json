@@ -2,8 +2,9 @@
   "kind": "publications",
   "url": "https://elixir.poapkings.com/",
   "feed": "https://elixir.poapkings.com/feed.xml",
-  "observedAt": "2026-11-24T13:10:07.694Z",
+  "observedAt": "2026-11-25T20:28:34.168Z",
   "items": [
+    {"url":"https://elixir.poapkings.com/updates/2026-11-25-ranked-wins-in-net-trophies","title":"Ranked wins in net trophies","date":"2026-11-25T12:00:00.000Z"},
     {"url":"https://elixir.poapkings.com/updates/2026-11-24-clanmates-see-who-is-away","title":"Clanmates see who is away","date":"2026-11-24T12:00:00.000Z"},
     {"url":"https://elixir.poapkings.com/updates/2026-11-24-exceptions-replace-holds-in-clan","title":"Exceptions replace holds in Clan","date":"2026-11-24T12:00:00.000Z"},
     {"url":"https://elixir.poapkings.com/updates/2026-11-24-run-has-tabs","title":"Run has tabs","date":"2026-11-24T12:00:00.000Z"},

@@ -1,11 +1,11 @@
 {
   "kind": "web",
   "url": "https://poapkings.com/",
-  "observedAt": "2026-11-24T13:10:07.694Z",
+  "observedAt": "2026-11-25T20:28:34.168Z",
   "sitemap": {
     "url": "https://poapkings.com/sitemap.xml",
     "pages": 9,
-    "newestModified": "2026-11-24T00:15:31.000Z",
+    "newestModified": "2026-11-25T00:15:43.000Z",
     "months": [
       { "month": "2026-09", "count": 1 },
       { "month": "2026-11", "count": 8 }

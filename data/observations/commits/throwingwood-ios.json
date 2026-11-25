@@ -2,9 +2,10 @@
   "kind": "commits",
   "repository": "jthingelstad/throwingwood-ios",
   "url": "https://github.com/jthingelstad/throwingwood-ios",
-  "observedAt": "2026-11-24T13:10:07.694Z",
+  "observedAt": "2026-11-25T20:28:34.168Z",
   "branch": "main",
   "commits": [
+    {"sha":"ce3e9802263e","date":"2026-11-24T23:02:48.000Z","subject":"Distribution: 1.0.0 is in the App Store","by":"agent","agents":["claude"]},
     {"sha":"76ff73ef1988","date":"2026-11-23T18:14:21.000Z","subject":"Keep card buttons in view and show more rows below on a phone on its side","by":"agent","agents":["claude"]},
     {"sha":"6c2356e66a99","date":"2026-11-23T03:26:16.000Z","subject":"Distribution: 1.0.0 is submitted for App Review","by":"agent","agents":["claude"]},
     {"sha":"f23b2725ae10","date":"2026-11-23T03:26:16.000Z","subject":"The uploader keeps a set's pictures when it adds to one","by":"agent","agents":["claude"]},

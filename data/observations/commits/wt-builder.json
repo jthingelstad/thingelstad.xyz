@@ -2,9 +2,11 @@
   "kind": "commits",
   "repository": "jthingelstad/wt-builder",
   "url": "https://github.com/jthingelstad/wt-builder",
-  "observedAt": "2026-11-06T17:57:07.187Z",
+  "observedAt": "2026-11-25T20:28:34.168Z",
   "branch": "main",
   "commits": [
+    {"sha":"0cf4b55067df","date":"2026-11-25T13:08:53.000Z","subject":"Move hono and @hono/node-server past their advisories","pr":18,"by":"me"},
+    {"sha":"6f0812dfed4d","date":"2026-11-25T13:01:57.000Z","subject":"Move hono and @hono/node-server past their advisories","by":"agent","agents":["claude"]},
     {"sha":"f5b131115bb0","date":"2026-11-05T22:44:12.000Z","subject":"Generate .env from a committed template in 1Password","pr":17,"by":"me"},
     {"sha":"36e8dfcaf39c","date":"2026-11-05T22:36:45.000Z","subject":"Generate .env from a committed template in 1Password","by":"agent","agents":["claude"]},
     {"sha":"94ff13fa8f1e","date":"2026-11-04T19:42:50.000Z","subject":"Gift email names the member benefits (#16)","pr":16,"by":"agent","agents":["claude"]},

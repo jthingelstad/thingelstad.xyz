@@ -2,14 +2,14 @@
   "kind": "github",
   "repository": "jthingelstad/kubb.thingelstad.xyz",
   "url": "https://github.com/jthingelstad/kubb.thingelstad.xyz",
-  "observedAt": "2026-11-24T21:10:14.687Z",
+  "observedAt": "2026-11-25T20:28:34.168Z",
   "repositoryCreatedAt": "2026-11-15T23:52:08.000Z",
   "archived": false,
   "description": "Play Kubb: Throwing Wood in a browser. Share a pitch link for online multiplayer, play the computer, or practice your throw.",
   "stars": 0,
   "forks": 0,
   "languages": [
-    { "name": "JavaScript", "bytes": 2816333 },
+    { "name": "JavaScript", "bytes": 2819705 },
     { "name": "CSS", "bytes": 90773 },
     { "name": "HTML", "bytes": 17539 },
     { "name": "TypeScript", "bytes": 3574 },
@@ -22,13 +22,13 @@
       "path": null,
       "branch": "main",
       "since": "2026-08-01T00:00:00.000Z",
-      "until": "2026-11-24T21:10:14.687Z",
+      "until": "2026-11-25T20:28:34.168Z",
       "count": 300,
       "complete": false,
       "months": [{ "month": "2026-11", "count": 300 }],
       "latestCommit": {
-        "date": "2026-11-24T19:14:46.000Z",
-        "url": "https://github.com/jthingelstad/kubb.thingelstad.xyz/commit/849d01ca32e753fc06f68d6c1f753828a7ce379f"
+        "date": "2026-11-24T22:52:15.000Z",
+        "url": "https://github.com/jthingelstad/kubb.thingelstad.xyz/commit/c4bcc3c2273b9271b3c35753ce9b116cbe9fdab3"
       }
     }
   ]
