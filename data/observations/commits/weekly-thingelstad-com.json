@@ -2,9 +2,11 @@
   "kind": "commits",
   "repository": "jthingelstad/weekly.thingelstad.com",
   "url": "https://github.com/jthingelstad/weekly.thingelstad.com",
-  "observedAt": "2026-11-24T21:10:14.687Z",
+  "observedAt": "2026-11-25T20:28:34.168Z",
   "branch": "main",
   "commits": [
+    {"sha":"3ebac527c365","date":"2026-11-25T13:16:15.000Z","subject":"Refresh librarian graph","by":"me"},
+    {"sha":"a8c4f9e7dde1","date":"2026-11-24T22:53:56.000Z","subject":"Refresh librarian graph","by":"me"},
     {"sha":"48e81bdde764","date":"2026-11-24T13:36:28.000Z","subject":"Refresh librarian graph","by":"me"},
     {"sha":"0aaca5ef77e1","date":"2026-11-24T02:34:59.000Z","subject":"Links feeds: tag: ids, and headings as text (#63)","pr":63,"by":"agent","agents":["claude"]},
     {"sha":"5d094055e6e5","date":"2026-11-24T00:16:20.000Z","subject":"Refresh librarian graph","by":"me"},

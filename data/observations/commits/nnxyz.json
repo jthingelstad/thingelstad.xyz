@@ -2,9 +2,11 @@
   "kind": "commits",
   "repository": "jthingelstad/nnxyz",
   "url": "https://github.com/jthingelstad/nnxyz",
-  "observedAt": "2026-11-24T13:10:07.694Z",
+  "observedAt": "2026-11-25T20:28:34.168Z",
   "branch": "main",
   "commits": [
+    {"sha":"3807d1df5425","date":"2026-11-25T13:10:03.000Z","subject":"Move Astro to 7.4.12, past its two open advisories","pr":45,"by":"me"},
+    {"sha":"b0836a8b3368","date":"2026-11-25T13:06:07.000Z","subject":"Move Astro to 7.4.12, past its two open advisories","by":"agent","agents":["claude"]},
     {"sha":"e7f9630f69e4","date":"2026-11-12T16:07:44.000Z","subject":"Let thingelstad.xyz read published drawings cross-origin","pr":43,"by":"me"},
     {"sha":"ff0a9ac5a8b1","date":"2026-11-12T16:04:04.000Z","subject":"Let thingelstad.xyz read published drawings cross-origin","by":"agent","agents":["claude"]},
     {"sha":"f7e763ca2c6a","date":"2026-11-05T19:30:43.000Z","subject":"Generate .env from 1Password references","pr":39,"by":"me"},

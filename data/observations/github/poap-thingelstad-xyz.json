@@ -2,7 +2,7 @@
   "kind": "github",
   "repository": "jthingelstad/poap.thingelstad.xyz",
   "url": "https://github.com/jthingelstad/poap.thingelstad.xyz",
-  "observedAt": "2026-11-05T18:43:59.926Z",
+  "observedAt": "2026-11-25T20:28:34.168Z",
   "repositoryCreatedAt": "2026-10-17T12:32:42.000Z",
   "archived": false,
   "description": "A time capsule and tribute to POAP through Jamie Thingelstad's collecting, issuing, and network",
@@ -21,16 +21,16 @@
       "path": null,
       "branch": "main",
       "since": "2026-08-01T00:00:00.000Z",
-      "until": "2026-11-05T18:43:59.926Z",
-      "count": 27,
+      "until": "2026-11-25T20:28:34.168Z",
+      "count": 29,
       "complete": true,
       "months": [
         { "month": "2026-10", "count": 21 },
-        { "month": "2026-11", "count": 6 }
+        { "month": "2026-11", "count": 8 }
       ],
       "latestCommit": {
-        "date": "2026-11-04T19:46:08.000Z",
-        "url": "https://github.com/jthingelstad/poap.thingelstad.xyz/commit/7c5c20c7c986592f0251239a6992b351c5a7df05"
+        "date": "2026-11-25T13:08:58.000Z",
+        "url": "https://github.com/jthingelstad/poap.thingelstad.xyz/commit/9a0033812d6ec314e0b13223e710283f9323df48"
       }
     }
   ]

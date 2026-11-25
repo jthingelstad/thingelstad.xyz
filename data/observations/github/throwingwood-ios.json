@@ -2,7 +2,7 @@
   "kind": "github",
   "repository": "jthingelstad/throwingwood-ios",
   "url": "https://github.com/jthingelstad/throwingwood-ios",
-  "observedAt": "2026-11-24T13:10:07.694Z",
+  "observedAt": "2026-11-25T20:28:34.168Z",
   "repositoryCreatedAt": "2026-11-17T18:58:50.000Z",
   "archived": false,
   "description": "Kubb: Throwing Wood for iPhone. Play solo or share an online pitch with a friend on iPhone or the web.",
@@ -22,13 +22,13 @@
       "path": null,
       "branch": "main",
       "since": "2026-08-01T00:00:00.000Z",
-      "until": "2026-11-24T13:10:07.694Z",
-      "count": 268,
+      "until": "2026-11-25T20:28:34.168Z",
+      "count": 269,
       "complete": true,
-      "months": [{ "month": "2026-11", "count": 268 }],
+      "months": [{ "month": "2026-11", "count": 269 }],
       "latestCommit": {
-        "date": "2026-11-23T18:14:21.000Z",
-        "url": "https://github.com/jthingelstad/throwingwood-ios/commit/76ff73ef1988b22a806235e03c703b07fa08203a"
+        "date": "2026-11-24T23:02:48.000Z",
+        "url": "https://github.com/jthingelstad/throwingwood-ios/commit/ce3e9802263e528cae00a4368ecd9563e8a09203"
       }
     }
   ]

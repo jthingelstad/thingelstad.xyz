@@ -2,9 +2,11 @@
   "kind": "commits",
   "repository": "jthingelstad/poap.thingelstad.xyz",
   "url": "https://github.com/jthingelstad/poap.thingelstad.xyz",
-  "observedAt": "2026-11-05T18:43:59.926Z",
+  "observedAt": "2026-11-25T20:28:34.168Z",
   "branch": "main",
   "commits": [
+    {"sha":"9a0033812d6e","date":"2026-11-25T13:08:58.000Z","subject":"Move Astro to 7.4.12, past its two open advisories","pr":12,"by":"me"},
+    {"sha":"e8384dd134c3","date":"2026-11-25T13:06:02.000Z","subject":"Move Astro to 7.4.12, past its two open advisories","by":"agent","agents":["claude"]},
     {"sha":"7c5c20c7c986","date":"2026-11-04T19:46:08.000Z","subject":"Docs name the AWS account as <account> (#11)","pr":11,"by":"agent","agents":["claude"]},
     {"sha":"b790b2d21f26","date":"2026-11-03T17:04:57.000Z","subject":"Retire the poap-site-distribution-5xx alarm","pr":10,"by":"me"},
     {"sha":"2a13f76b1eb8","date":"2026-11-03T16:58:03.000Z","subject":"Retire the poap-site-distribution-5xx alarm","by":"agent","agents":["claude"]},

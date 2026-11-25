@@ -2,9 +2,10 @@
   "kind": "commits",
   "repository": "jthingelstad/kubb.thingelstad.xyz",
   "url": "https://github.com/jthingelstad/kubb.thingelstad.xyz",
-  "observedAt": "2026-11-24T21:10:14.687Z",
+  "observedAt": "2026-11-25T20:28:34.168Z",
   "branch": "main",
   "commits": [
+    {"sha":"c4bcc3c2273b","date":"2026-11-24T22:52:15.000Z","subject":"The iPhone app is in the App Store: the badge leads, the TestFlight is for new versions (web 1.2.0)","by":"agent","agents":["claude"]},
     {"sha":"849d01ca32e7","date":"2026-11-24T19:14:46.000Z","subject":"The pitch server's lines are copied to CloudWatch: say so, and that they are a contract","by":"agent","agents":["claude"]},
     {"sha":"f95e117dca50","date":"2026-11-24T13:04:46.000Z","subject":"Record the applied api and reel bundles: JSON logs are on","by":"agent","agents":["claude"]},
     {"sha":"3f949f34a1a0","date":"2026-11-23T02:45:29.000Z","subject":"The support page's address is hello@throwingwood.com (web 1.1.1)","by":"agent","agents":["claude"]},
