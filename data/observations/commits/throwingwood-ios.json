@@ -2,9 +2,11 @@
   "kind": "commits",
   "repository": "jthingelstad/throwingwood-ios",
   "url": "https://github.com/jthingelstad/throwingwood-ios",
-  "observedAt": "2026-11-25T20:28:34.168Z",
+  "observedAt": "2026-11-26T20:10:01.800Z",
   "branch": "main",
   "commits": [
+    {"sha":"4fb770ca81c0","date":"2026-11-26T18:01:39.000Z","subject":"HOLLER replaces SHOUT, and feedback paints on the pitch","by":"agent","agents":["claude"]},
+    {"sha":"a4c10ac66e23","date":"2026-11-26T17:39:23.000Z","subject":"Feedback: the keyboard stays up and the field keeps its focus","by":"agent","agents":["claude"]},
     {"sha":"ce3e9802263e","date":"2026-11-24T23:02:48.000Z","subject":"Distribution: 1.0.0 is in the App Store","by":"agent","agents":["claude"]},
     {"sha":"76ff73ef1988","date":"2026-11-23T18:14:21.000Z","subject":"Keep card buttons in view and show more rows below on a phone on its side","by":"agent","agents":["claude"]},
     {"sha":"6c2356e66a99","date":"2026-11-23T03:26:16.000Z","subject":"Distribution: 1.0.0 is submitted for App Review","by":"agent","agents":["claude"]},

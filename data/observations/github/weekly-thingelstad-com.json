@@ -2,7 +2,7 @@
   "kind": "github",
   "repository": "jthingelstad/weekly.thingelstad.com",
   "url": "https://github.com/jthingelstad/weekly.thingelstad.com",
-  "observedAt": "2026-11-25T20:28:34.168Z",
+  "observedAt": "2026-11-26T20:10:01.800Z",
   "repositoryCreatedAt": "2026-04-07T23:18:30.000Z",
   "archived": false,
   "description": "Public website and archive for The Weekly Thing, Jamie Thingelstad's weekend newsletter since 2017 — a render surface of the Studio publishing brain.",
@@ -21,18 +21,18 @@
       "path": null,
       "branch": "main",
       "since": "2026-08-01T00:00:00.000Z",
-      "until": "2026-11-25T20:28:34.168Z",
-      "count": 284,
+      "until": "2026-11-26T20:10:01.800Z",
+      "count": 285,
       "complete": true,
       "months": [
         { "month": "2026-08", "count": 15 },
         { "month": "2026-09", "count": 57 },
         { "month": "2026-10", "count": 152 },
-        { "month": "2026-11", "count": 60 }
+        { "month": "2026-11", "count": 61 }
       ],
       "latestCommit": {
-        "date": "2026-11-25T13:16:15.000Z",
-        "url": "https://github.com/jthingelstad/weekly.thingelstad.com/commit/3ebac527c3659f04a89551bbc1b04c3d84275a89"
+        "date": "2026-11-26T13:24:13.000Z",
+        "url": "https://github.com/jthingelstad/weekly.thingelstad.com/commit/3d889053bf71f7acbadc7f10ef641cd2718ccc67"
       }
     }
   ]

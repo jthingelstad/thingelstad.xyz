@@ -2,20 +2,21 @@
   "kind": "github",
   "repository": "jthingelstad/nnxyz",
   "url": "https://github.com/jthingelstad/nnxyz",
-  "observedAt": "2026-11-25T20:28:34.168Z",
+  "observedAt": "2026-11-26T20:10:01.800Z",
   "repositoryCreatedAt": "2026-10-13T17:26:51.000Z",
   "archived": false,
   "description": "An art-first SVG gallery of nnxyz and scrimshaw, with archived brush-stroke replay and AI curation",
   "stars": 0,
   "forks": 0,
   "languages": [
-    { "name": "HTML", "bytes": 6368669 },
-    { "name": "Python", "bytes": 878675 },
-    { "name": "JavaScript", "bytes": 143287 },
-    { "name": "Astro", "bytes": 118296 },
-    { "name": "TypeScript", "bytes": 100283 },
-    { "name": "CSS", "bytes": 49476 },
-    { "name": "Smarty", "bytes": 350 }
+    { "name": "HTML", "bytes": 6373403 },
+    { "name": "Python", "bytes": 879006 },
+    { "name": "JavaScript", "bytes": 265753 },
+    { "name": "Astro", "bytes": 122667 },
+    { "name": "TypeScript", "bytes": 103254 },
+    { "name": "CSS", "bytes": 61035 },
+    { "name": "Smarty", "bytes": 350 },
+    { "name": "Shell", "bytes": 191 }
   ],
   "release": null,
   "activity": [
@@ -23,16 +24,16 @@
       "path": null,
       "branch": "main",
       "since": "2026-08-01T00:00:00.000Z",
-      "until": "2026-11-25T20:28:34.168Z",
-      "count": 124,
+      "until": "2026-11-26T20:10:01.800Z",
+      "count": 126,
       "complete": true,
       "months": [
         { "month": "2026-10", "count": 110 },
-        { "month": "2026-11", "count": 14 }
+        { "month": "2026-11", "count": 16 }
       ],
       "latestCommit": {
-        "date": "2026-11-25T13:10:03.000Z",
-        "url": "https://github.com/jthingelstad/nnxyz/commit/3807d1df5425f8829506c57758004bf727fad034"
+        "date": "2026-11-26T00:58:07.000Z",
+        "url": "https://github.com/jthingelstad/nnxyz/commit/c6118407dd3b41435d0f482c71a094c42440387c"
       }
     }
   ]

@@ -1,12 +1,15 @@
 {
   "kind": "web",
   "url": "https://nnxyz.thingelstad.xyz/",
-  "observedAt": "2026-10-30T17:00:48.696Z",
+  "observedAt": "2026-11-26T20:10:01.800Z",
   "sitemap": {
     "url": "https://nnxyz.thingelstad.xyz/sitemap-index.xml",
-    "pages": 723,
-    "newestModified": "2026-10-23T12:46:31.000Z",
-    "months": [{ "month": "2026-10", "count": 723 }],
+    "pages": 724,
+    "newestModified": "2026-11-25T23:32:21.000Z",
+    "months": [
+      { "month": "2026-10", "count": 723 },
+      { "month": "2026-11", "count": 1 }
+    ],
     "complete": true
   },
   "feed": null

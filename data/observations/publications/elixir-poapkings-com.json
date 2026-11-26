@@ -2,8 +2,12 @@
   "kind": "publications",
   "url": "https://elixir.poapkings.com/",
   "feed": "https://elixir.poapkings.com/feed.xml",
-  "observedAt": "2026-11-25T20:28:34.168Z",
+  "observedAt": "2026-11-26T20:10:01.800Z",
   "items": [
+    {"url":"https://elixir.poapkings.com/updates/2026-11-26-every-deck-shows-just-the-cards","title":"Every deck shows just the cards","date":"2026-11-26T12:00:00.000Z"},
+    {"url":"https://elixir.poapkings.com/updates/2026-11-26-mark-all-read","title":"Mark all read","date":"2026-11-26T12:00:00.000Z"},
+    {"url":"https://elixir.poapkings.com/updates/2026-11-26-pick-your-emails-daily-weekly-and-season","title":"Pick your emails: daily, weekly and season","date":"2026-11-26T12:00:00.000Z"},
+    {"url":"https://elixir.poapkings.com/updates/2026-11-26-put-the-clanmate-notice-away","title":"Put the clanmate notice away","date":"2026-11-26T12:00:00.000Z"},
     {"url":"https://elixir.poapkings.com/updates/2026-11-25-ranked-wins-in-net-trophies","title":"Ranked wins in net trophies","date":"2026-11-25T12:00:00.000Z"},
     {"url":"https://elixir.poapkings.com/updates/2026-11-24-clanmates-see-who-is-away","title":"Clanmates see who is away","date":"2026-11-24T12:00:00.000Z"},
     {"url":"https://elixir.poapkings.com/updates/2026-11-24-exceptions-replace-holds-in-clan","title":"Exceptions replace holds in Clan","date":"2026-11-24T12:00:00.000Z"},

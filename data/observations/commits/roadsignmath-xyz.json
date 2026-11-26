@@ -2,9 +2,10 @@
   "kind": "commits",
   "repository": "jthingelstad/roadsignmath.xyz",
   "url": "https://github.com/jthingelstad/roadsignmath.xyz",
-  "observedAt": "2026-11-24T13:10:07.694Z",
+  "observedAt": "2026-11-26T20:10:01.800Z",
   "branch": "main",
   "commits": [
+    {"sha":"13fe908563d9","date":"2026-11-26T00:09:03.000Z","subject":"Crawlers skip the signed-in pages: robots.txt and nofollow on the report links (#95)","pr":95,"by":"agent","agents":["claude"]},
     {"sha":"f30a711b19e1","date":"2026-11-23T02:36:21.000Z","subject":"Questions go to hello@roadsignmath.xyz (#94)","pr":94,"by":"agent","agents":["claude"]},
     {"sha":"590fc34c0d75","date":"2026-11-13T02:30:08.000Z","subject":"The same duplicate report twice emails once; the post nudge agrees with the app (#93)","pr":93,"by":"agent","agents":["claude"]},
     {"sha":"15d2e1178be7","date":"2026-11-13T00:40:42.000Z","subject":"Website text in a plainer, more casual voice (#92)","pr":92,"by":"agent","agents":["claude"]},
