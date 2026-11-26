@@ -2,9 +2,11 @@
   "kind": "commits",
   "repository": "jthingelstad/nnxyz",
   "url": "https://github.com/jthingelstad/nnxyz",
-  "observedAt": "2026-11-25T20:28:34.168Z",
+  "observedAt": "2026-11-26T20:10:01.800Z",
   "branch": "main",
   "commits": [
+    {"sha":"c6118407dd3b","date":"2026-11-26T00:58:07.000Z","subject":"Make the virtual visit easier to navigate on phones (#47)","pr":47,"by":"me"},
+    {"sha":"8215e3b81437","date":"2026-11-25T23:32:21.000Z","subject":"Publish the virtual visit to The nnxyz Rooms (#46)","pr":46,"by":"me"},
     {"sha":"3807d1df5425","date":"2026-11-25T13:10:03.000Z","subject":"Move Astro to 7.4.12, past its two open advisories","pr":45,"by":"me"},
     {"sha":"b0836a8b3368","date":"2026-11-25T13:06:07.000Z","subject":"Move Astro to 7.4.12, past its two open advisories","by":"agent","agents":["claude"]},
     {"sha":"e7f9630f69e4","date":"2026-11-12T16:07:44.000Z","subject":"Let thingelstad.xyz read published drawings cross-origin","pr":43,"by":"me"},

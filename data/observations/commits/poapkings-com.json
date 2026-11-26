@@ -2,9 +2,10 @@
   "kind": "commits",
   "repository": "jthingelstad/poapkings.com",
   "url": "https://github.com/jthingelstad/poapkings.com",
-  "observedAt": "2026-11-25T20:28:34.168Z",
+  "observedAt": "2026-11-26T20:10:01.800Z",
   "branch": "main",
   "commits": [
+    {"sha":"1f31833599a5","date":"2026-11-26T00:15:50.000Z","subject":"Refresh Clash Royale data","by":"agent"},
     {"sha":"daeba541b1a7","date":"2026-11-25T00:15:43.000Z","subject":"Refresh Clash Royale data","by":"agent"},
     {"sha":"cd9cb3df06cd","date":"2026-11-24T00:15:31.000Z","subject":"Refresh Clash Royale data","by":"agent"},
     {"sha":"91cddf4d94a2","date":"2026-11-23T00:15:34.000Z","subject":"Refresh Clash Royale data","by":"agent"},
