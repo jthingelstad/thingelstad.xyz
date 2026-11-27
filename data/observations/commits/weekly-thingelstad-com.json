@@ -2,9 +2,10 @@
   "kind": "commits",
   "repository": "jthingelstad/weekly.thingelstad.com",
   "url": "https://github.com/jthingelstad/weekly.thingelstad.com",
-  "observedAt": "2026-11-26T20:10:01.800Z",
+  "observedAt": "2026-11-27T19:56:13.765Z",
   "branch": "main",
   "commits": [
+    {"sha":"6d8e1fd89986","date":"2026-11-26T21:55:33.000Z","subject":"Refresh librarian graph","by":"me"},
     {"sha":"3d889053bf71","date":"2026-11-26T13:24:13.000Z","subject":"Refresh librarian graph","by":"me"},
     {"sha":"3ebac527c365","date":"2026-11-25T13:16:15.000Z","subject":"Refresh librarian graph","by":"me"},
     {"sha":"a8c4f9e7dde1","date":"2026-11-24T22:53:56.000Z","subject":"Refresh librarian graph","by":"me"},

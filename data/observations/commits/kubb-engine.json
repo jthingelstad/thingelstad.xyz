@@ -2,9 +2,10 @@
   "kind": "commits",
   "repository": "jthingelstad/kubb-engine",
   "url": "https://github.com/jthingelstad/kubb-engine",
-  "observedAt": "2026-11-26T20:10:01.800Z",
+  "observedAt": "2026-11-27T19:56:13.765Z",
   "branch": "main",
   "commits": [
+    {"sha":"b4e99ab57ffe","date":"2026-11-27T17:21:46.000Z","subject":"1.4.1: the end camera is a person on the baseline and follows the throw; the raise camera sees the kubbs","by":"agent","agents":["claude"]},
     {"sha":"d38ad3329571","date":"2026-11-26T17:55:55.000Z","subject":"Keep a local baton to go when the other arrives; cpuPlay under the wide view","by":"agent","agents":["claude"]},
     {"sha":"c5b7d0e7c3ed","date":"2026-11-26T17:55:55.000Z","subject":"The throw to go on a pitch: the host throws only its own baton","by":"agent","agents":["claude"]},
     {"sha":"69b2f286b1d8","date":"2026-11-26T17:55:55.000Z","subject":"The throw to go: strict names check, no togo without a person first, aiming in togo","by":"agent","agents":["claude"]},

@@ -1,11 +1,11 @@
 {
   "kind": "web",
   "url": "https://thingelstad.xyz/",
-  "observedAt": "2026-11-26T20:10:01.800Z",
+  "observedAt": "2026-11-27T19:56:13.765Z",
   "sitemap": {
     "url": "https://thingelstad.xyz/sitemap.xml",
     "pages": 124,
-    "newestModified": "2026-11-25T18:30:33.000Z",
+    "newestModified": "2026-11-26T20:08:19.000Z",
     "months": [{ "month": "2026-11", "count": 124 }],
     "complete": true
   },
