@@ -2,9 +2,12 @@
   "kind": "commits",
   "repository": "jthingelstad/playdate-kubb",
   "url": "https://github.com/jthingelstad/playdate-kubb",
-  "observedAt": "2026-11-24T13:10:07.694Z",
+  "observedAt": "2026-11-27T19:56:13.765Z",
   "branch": "main",
   "commits": [
+    {"sha":"211ba8133557","date":"2026-11-26T20:13:20.000Z","subject":"Throw to go: the circle keeps the set-up's 2 m nearest distance","by":"agent","agents":["claude"]},
+    {"sha":"b20d940ddb75","date":"2026-11-26T20:13:20.000Z","subject":"1.1.0 build 18 on core 1.4: throw levels, your end, speed and skip, raise in any order, throw to go","by":"agent","agents":["claude"]},
+    {"sha":"3d7d64ae9b7d","date":"2026-11-26T20:13:20.000Z","subject":"Kubb Engine core v1.4.0","by":"agent","agents":["claude"]},
     {"sha":"b8cd6bb7bbba","date":"2026-11-23T00:45:58.000Z","subject":"Trim at 1.0: two tune keys nothing reads, two exports, eight unused locals","by":"agent","agents":["claude"]},
     {"sha":"64564deeedb9","date":"2026-11-23T00:35:09.000Z","subject":"DESIGN: name the repo, not a checkout path","by":"agent","agents":["claude"]},
     {"sha":"f5af37d6b160","date":"2026-11-23T00:35:09.000Z","subject":"Notes: the drive floor measured on build 17, the crank choice, the core's tunables now","by":"agent","agents":["claude"]},

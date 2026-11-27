@@ -2,7 +2,7 @@
   "kind": "github",
   "repository": "jthingelstad/yvn-release-notes",
   "url": "https://github.com/jthingelstad/yvn-release-notes",
-  "observedAt": "2026-11-25T20:28:34.168Z",
+  "observedAt": "2026-11-27T19:56:13.765Z",
   "repositoryCreatedAt": "2026-10-07T10:00:44.000Z",
   "archived": false,
   "description": "Release Notes: a daily version-number email from Your Version Number; replies become the day's notes",
@@ -22,16 +22,16 @@
       "path": null,
       "branch": "main",
       "since": "2026-08-01T00:00:00.000Z",
-      "until": "2026-11-25T20:28:34.168Z",
+      "until": "2026-11-27T19:56:13.765Z",
       "count": 296,
       "complete": false,
       "months": [
-        { "month": "2026-10", "count": 194 },
-        { "month": "2026-11", "count": 102 }
+        { "month": "2026-10", "count": 193 },
+        { "month": "2026-11", "count": 103 }
       ],
       "latestCommit": {
-        "date": "2026-11-10T13:10:37.000Z",
-        "url": "https://github.com/jthingelstad/yvn-release-notes/commit/3b96d2c32256901cf7e2fa5ccb9fa990b9e522b7"
+        "date": "2026-11-27T13:59:58.000Z",
+        "url": "https://github.com/jthingelstad/yvn-release-notes/commit/bd6c844bab3a4a1e4b36dc22f13ca4684af64fa5"
       }
     }
   ]
