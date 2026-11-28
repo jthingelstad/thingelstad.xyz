@@ -104,7 +104,7 @@ jobs:
               -f description="Passed in the dispatched CI run on this commit" >/dev/null
           done
           for attempt in $(seq 12); do
-            gh pr merge "$branch" --squash --delete-branch && break
+            gh pr merge "$branch" --rebase --delete-branch && break
             test "$attempt" -lt 12
             sleep 10
           done
